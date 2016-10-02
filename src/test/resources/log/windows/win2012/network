@@ -1,0 +1,108 @@
+﻿
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : Rasl2tp
+Description      : WAN ミニポート (L2TP)
+Index            : 0
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : RasSstp
+Description      : WAN ミニポート (SSTP)
+Index            : 1
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : RasAgileVpn
+Description      : WAN ミニポート (IKEv2)
+Index            : 2
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : PptpMiniport
+Description      : WAN ミニポート (PPTP)
+Index            : 3
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : RasPppoe
+Description      : WAN ミニポート (PPPOE)
+Index            : 4
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : NdisWan
+Description      : WAN ミニポート (IP)
+Index            : 5
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : NdisWan
+Description      : WAN ミニポート (IPv6)
+Index            : 6
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : NdisWan
+Description      : WAN ミニポート (ネットワーク モニター)
+Index            : 7
+
+DHCPEnabled      : True
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : kdnic
+Description      : Microsoft カーネル デバッグ ネットワーク アダプター
+Index            : 8
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : AsyncMac
+Description      : RAS 非同期アダプター
+Index            : 9
+
+DHCPEnabled      : True
+IPAddress        : {192.168.0.12, fe80::2c3d:7f3e:ea41:7f70}
+DefaultIPGateway : {192.168.0.254}
+DNSDomain        : 
+ServiceName      : e1iexpress
+Description      : Intel(R) 82574L Gigabit Network Connection
+Index            : 10
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : tunnel
+Description      : Microsoft ISATAP Adapter
+Index            : 11
+
+DHCPEnabled      : False
+IPAddress        : 
+DefaultIPGateway : 
+DNSDomain        : 
+ServiceName      : tunnel
+Description      : Microsoft Teredo Tunneling Adapter
+Index            : 12
+
+
+
