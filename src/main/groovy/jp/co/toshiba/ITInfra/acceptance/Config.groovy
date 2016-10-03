@@ -1,13 +1,14 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-@Singleton(strict=false)
+@Singleton
 class Config {
-    def config_file = 'config/config.groovy'
-    Map config
+    def configs = [:]
 
-    public Config() {
-        this.config_file = config_file
-        this.config = new ConfigSlurper().parse(new File(config_file).toURL())
+    Map read(String config_file) throws IOException {
+
+        if (!configs[config_file]) {
+            configs[config_file] = new ConfigSlurper().parse(new File(config_file).toURL())
+        }
+        return configs[config_file]
     }
-
 }
