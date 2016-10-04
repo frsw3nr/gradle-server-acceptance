@@ -2,16 +2,23 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
 class EvidenceSheetTest extends Specification{
-    def "init EvidenceSheet"() {
+    def "既定の設定ファイル"() {
         when:
         def evidence = new EvidenceSheet()
 
         then:
-        1 == 1
-        // evidence.config_file == 'config/config.groovy'
+        evidence.evidence_source == './check_sheet.xlsx'
     }
 
-    def "init EvidenceSheet file"() {
+    def "設定ファイルパラメータ不足"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
+
+        then:
+        evidence.evidence_source == './check_sheet.xlsx'
+    }
+
+    def "設定ファイルなし"() {
         when:
         def evidence = new EvidenceSheet('config/hoge.groovy')
 
