@@ -10,12 +10,12 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './check_sheet.xlsx'
     }
 
-    def "設定ファイルパラメータ不足"() {
+    def "設定ファイルの日付パラメータ変換"() {
         when:
-        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
 
         then:
-        evidence.evidence_source == './check_sheet.xlsx'
+        evidence.evidence_target != './build/check_sheet.xlsx'
     }
 
     def "設定ファイルなし"() {
@@ -24,5 +24,40 @@ class EvidenceSheetTest extends Specification{
 
         then:
         thrown(FileNotFoundException)
+    }
+
+    def "既定のExcelファイル読み込み"() {
+        when:
+        def evidence = new EvidenceSheet()
+        evidence.readSheet()
+        println evidence.test_servers
+        println evidence.test_specs
+        println evidence.test_platforms
+        println evidence.test_domains
+
+        then:
+        evidence.evidence_source == './check_sheet.xlsx'
+    }
+
+    def "Excelシートなし"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config2.groovy')
+        evidence.readSheet()
+
+        then:
+        thrown(IllegalArgumentException)
+    }
+
+    def "ステージングディレクトリの初期化"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
+        File fileName = new File("build/check_sheet.xlsx")
+
+        then:
+        evidence.readSheet()
+        evidence.prepare_test_stage()
+
+        expect:
+        fileName.exists()==true
     }
 }

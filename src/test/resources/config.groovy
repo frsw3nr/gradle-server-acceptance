@@ -5,3 +5,4 @@ evidence.sheet_name_spec = [
     'Windows': 'Check(Windows)',
 ]
 evidence.target='./build/check_sheet_<date>.xlsx'
+evidence.staging_dir='./build/log.<date>'

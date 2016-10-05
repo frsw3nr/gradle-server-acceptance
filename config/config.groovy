@@ -4,4 +4,7 @@ evidence.sheet_name_spec = [
     'Linux':   'Check(Linux)',
     'Windows': 'Check(Windows)',
 ]
-evidence.target='./build/check_sheet_<date>.xlsx'
+// evidence.target='./build/check_sheet_<date>.xlsx'
+// evidence.staging_dir='./build/log.<date>'
+evidence.target='./build/check_sheet.xlsx'
+evidence.staging_dir='./build/log'

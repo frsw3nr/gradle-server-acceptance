@@ -14,13 +14,14 @@ class EvidenceSheet {
     String evidence_source
     String evidence_target
     String sheet_name_server
-    String sheet_name_specs
+    String staging_dir
+    def sheet_name_specs
 
-    def platforms
-    def domains
+    def test_platforms
+    def test_domains
 
-    TestServer test_servers
-    TestItem   test_specs
+    def test_servers
+    def test_specs
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
         def config = Config.instance.read(config_file)['evidence']
@@ -28,13 +29,20 @@ class EvidenceSheet {
         evidence_source   = config['source'] ?: './check_sheet.xlsx'
         evidence_target   = config['target'] ?: './build/check_sheet.xlsx'
         sheet_name_server = config['sheet_name_server'] ?: 'Target'
+        staging_dir       = config['staging_dir'] ?: './build/log'
         sheet_name_specs  = config['sheet_name_specs'] ?: [
-                                'Linux' : 'Check(Linux)',
-                                'Windows' : 'Check(Windows)'
+                                'Linux'   : 'CheckSheet(Linux)',
+                                'Windows' : 'CheckSheet(Windows)'
                             ]
-        log.debug("Open evidence source ${evidence_source}")
+        log.debug("initialize evidence ${evidence_source}")
 
-        println config
+        def date = new Date().format("yyyyMMdd_hhmmss")
+        evidence_target = evidence_target.replaceAll(/<date>/, date)
+        staging_dir     = staging_dir.replaceAll(/<date>/, date)
+        test_platforms = [:]
+        test_domains   = [:]
+        test_servers   = []
+        test_specs     = [:].withDefault{[:].withDefault{[:]}}
     }
 
     // エクセル検査結果列のセルフォーマット
@@ -54,36 +62,78 @@ class EvidenceSheet {
         return style;
     }
 
-    def readSheet() {
+    def readSheetServer(Sheet sheet_server) throws IOException, IllegalArgumentException {
+        sheet_server.with { sheet ->
+            (2 .. sheet.getLastRowNum()).each { rownum ->
+                Row row = sheet.getRow(rownum)
+                def test_server = [
+                    test_server : row.getCell(2).getStringCellValue(),
+                    ip          : row.getCell(3).getStringCellValue(),
+                    platform    : row.getCell(4).getStringCellValue(),
+                    vcenter_id  : row.getCell(5).getStringCellValue(),
+                    vm          : row.getCell(6).getStringCellValue(),
+                ]
+                def null_checks = [:]
+                ['test_server', 'ip', 'platform'].each {
+                    def value = test_server[it]
+                    if ( value == null || value.length() == 0 )
+                        null_checks[it] = value
+                }
+                switch (null_checks.size()) {
+                    case 0:
+                        test_platforms[test_server['platform']] = 1
+                        test_servers.push(test_server)
+                        break
+
+                    case 1..2:
+                        log.warn("malformed input '${sheet_name_server}:${rownum}'")
+                        log.warn(null_checks.toString())
+                        break
+                }
+            }
+        }
+    }
+
+    def readSheetSpec(String platform, Sheet sheet_spec) throws IOException, IllegalArgumentException {
+        sheet_spec.with { sheet ->
+            (4 .. sheet.getLastRowNum()).each { rownum ->
+                Row row = sheet.getRow(rownum)
+                def yes_no      = row.getCell(0).getStringCellValue()
+                def test_id     = row.getCell(1).getStringCellValue()
+                def test_domain = row.getCell(3).getStringCellValue()
+                if (test_id && test_domain && yes_no.toUpperCase() == "Y") {
+                    test_domains[test_domain] = 1
+                    test_specs[platform][test_domain][test_id] = 1
+                }
+            }
+        }
+    }
+
+    def readSheet() throws IOException, IllegalArgumentException {
         log.info("read test spec from ${evidence_source}")
 
-        def items = new FileInputStream(evidence_source).withStream { ins ->
+        new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
-                // 検査対象サーバリスト取得
-                workbook.getSheet(sheet_name_server).with { sheet ->
-                (2 .. sheet.getLastRowNum()).each { rownum ->
-                    Row row = sheet.getRow(rownum)
-                        VmConfigs.push([
-                            test_server : row.getCell(2).getStringCellValue(),
-                            ip          : row.getCell(3).getStringCellValue(),
-                            os          : row.getCell(4).getStringCellValue(),
-                            vcenter_id  : row.getCell(5).getStringCellValue(),
-                            vm          : row.getCell(6).getStringCellValue(),
-                        ])
-                    }
+                // Read Excel test server sheet.
+                log.debug("read excel sheet '${evidence_source}:${sheet_name_server}'")
+                def sheet_server = workbook.getSheet(sheet_name_server)
+                if (sheet_server) {
+                    readSheetServer(sheet_server)
+                } else {
+                    def msg = "Not found excel server list sheet '${sheet_name_server}'"
+                    log.error(msg)
+                    throw new IllegalArgumentException(msg)
                 }
-                // 検査仕様リスト取得
-                sheet_name_specs.each { os, test_spec_sheet ->
-                    workbook.getSheet(test_spec_sheet).with { sheet ->
-                        (4 .. sheet.getLastRowNum()).each { rownum ->
-                            Row row = sheet.getRow(rownum)
-                            def yes_no      = row.getCell(0).getStringCellValue()
-                            def test_id     = row.getCell(1).getStringCellValue()
-                            def test_domain = row.getCell(3).getStringCellValue()
-                            if (test_id && test_domain && yes_no.toUpperCase() == "Y") {
-                                TestSpecs[os][test_domain][test_id] = 1
-                            }
-                        }
+                // Read Excel test spec sheet.
+                sheet_name_specs.each { platform, sheet_name_spec ->
+                    log.debug("read excel sheet '${evidence_source}:${sheet_name_spec}'")
+                    def sheet_spec = workbook.getSheet(sheet_name_spec)
+                    if (sheet_spec) {
+                        readSheetSpec(platform, sheet_spec)
+                    } else {
+                        def msg = "Not found excel test spec sheet '${sheet_name_spec}'"
+                        log.error(msg)
+                        throw new IllegalArgumentException(msg)
                     }
                 }
             }
@@ -91,32 +141,30 @@ class EvidenceSheet {
 
     }
 
-    def readSpecSheet() {
-    }
+    def updateTestResult(String platform, String test_server, int sequence, Map results)
+        throws IOException, IllegalArgumentException {
+        log.info("update evidence : platform = ${platform}, server = ${test_server}")
 
-    def updateTestResult(String platform, String test_server, int sequence, TestItem[] test_specs) {
-        log.info("update test results to ${evidence_target} : platform = ${platform}, server = ${test_server}")
-
-        def inp = new FileInputStream("build/${TestSpecFile}")
+        def inp = new FileInputStream(evidence_target)
         def wb  = WorkbookFactory.create(inp)
-        def sheetHosts = wb.getSheet(SheetTestSpecs[os])
+        def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
 
-        // 検査結果列の列幅 30 文字に設定 (in units of 1/256th of a character width)
+        // 5列名以降の検査結果列の列幅 30 文字に設定 (in units of 1/256th of a character width)
         def column = 5 + sequence
-        sheetHosts.setColumnWidth(column, 7680)
+        sheet_result.setColumnWidth(column, 7680)
 
         // ヘッダーに検査対象サーバ名を登録
-        def title_cell = sheetHosts.getRow(3).createCell(column)
+        def title_cell = sheet_result.getRow(3).createCell(column)
         title_cell.setCellValue(test_server)
         title_cell.setCellStyle(cell_style)
 
         // 検査結果列を順に登録
-        sheetHosts.with { sheet ->
+        sheet_result.with { sheet ->
             (4 .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
-                def row_style  = wb.createCellStyle().setWrapText(true);
-                row.setRowStyle(row_style);
+                def row_style  = wb.createCellStyle().setWrapText(true)
+                row.setRowStyle(row_style)
 
                 // 検査ID列から検査IDを取得
                 Cell cell_test_id = row.getCell(1)
@@ -136,8 +184,26 @@ class EvidenceSheet {
                 cell_result.setCellStyle(cell_style)
             }
         }
-        def fos = new FileOutputStream("build/${TestSpecFile}")
+        def fos = new FileOutputStream(evidence_target)
         wb.write(fos)
         fos.close()
+    }
+
+    def prepare_test_stage() throws IOException {
+        def log_dir = new File(staging_dir)
+        log_dir.deleteDir()
+        log_dir.mkdir()
+        test_domains.each { platform, flag ->
+            def test_log_dir = new File("${staging_dir}/${platform}")
+            log.info("creating staging dir : ${test_log_dir}")
+            test_log_dir.mkdir()
+        }
+
+        log.info("copy evidence sheet : ${evidence_target}")
+        File dest = new File(evidence_target)
+        if (dest.exists()) {
+            dest.delete()
+        }
+        dest << new File(evidence_source).readBytes()
     }
 }
