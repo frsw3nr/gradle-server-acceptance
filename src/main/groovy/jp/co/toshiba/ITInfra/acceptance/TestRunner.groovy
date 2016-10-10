@@ -1,5 +1,8 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+import groovy.util.logging.Slf4j
+
+@Slf4j
 class TestRunner {
 
     final created

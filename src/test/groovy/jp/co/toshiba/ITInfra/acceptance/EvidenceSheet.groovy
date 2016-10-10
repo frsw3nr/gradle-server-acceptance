@@ -55,7 +55,7 @@ class EvidenceSheetTest extends Specification{
 
         then:
         evidence.readSheet()
-        evidence.prepare_test_stage()
+        evidence.prepareTestStage()
 
         expect:
         fileName.exists()==true

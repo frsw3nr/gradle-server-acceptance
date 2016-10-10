@@ -3,10 +3,10 @@ package jp.co.toshiba.ITInfra.acceptance
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils.*
 import groovy.transform.ToString
+import static groovy.json.JsonOutput.*
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import static groovy.json.JsonOutput.*
 
 @Slf4j
 class EvidenceSheet {
@@ -26,6 +26,7 @@ class EvidenceSheet {
     EvidenceSheet(String config_file = 'config/config.groovy') {
         def config = Config.instance.read(config_file)['evidence']
 
+        log.debug("initialize evidence")
         evidence_source   = config['source'] ?: './check_sheet.xlsx'
         evidence_target   = config['target'] ?: './build/check_sheet.xlsx'
         sheet_name_server = config['sheet_name_server'] ?: 'Target'
@@ -34,7 +35,6 @@ class EvidenceSheet {
                                 'Linux'   : 'CheckSheet(Linux)',
                                 'Windows' : 'CheckSheet(Windows)'
                             ]
-        log.debug("initialize evidence ${evidence_source}")
 
         def date = new Date().format("yyyyMMdd_hhmmss")
         evidence_target = evidence_target.replaceAll(/<date>/, date)
@@ -62,19 +62,20 @@ class EvidenceSheet {
         return style;
     }
 
-    def readSheetServer(Sheet sheet_server) throws IOException, IllegalArgumentException {
+    def readSheetServer(Sheet sheet_server) throws IOException {
         sheet_server.with { sheet ->
             (2 .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
-                def test_server = [
-                    test_server : row.getCell(2).getStringCellValue(),
-                    ip          : row.getCell(3).getStringCellValue(),
-                    platform    : row.getCell(4).getStringCellValue(),
-                    vcenter_id  : row.getCell(5).getStringCellValue(),
-                    vm          : row.getCell(6).getStringCellValue(),
-                ]
+                def test_server = new TargetServer(
+                    server_name   : row.getCell(2).getStringCellValue(),
+                    ip            : row.getCell(3).getStringCellValue(),
+                    platform      : row.getCell(4).getStringCellValue(),
+                    os_account_id : row.getCell(5).getStringCellValue(),
+                    vcenter_id    : row.getCell(6).getStringCellValue(),
+                    vm            : row.getCell(7).getStringCellValue(),
+                )
                 def null_checks = [:]
-                ['test_server', 'ip', 'platform'].each {
+                ['server_name', 'ip', 'platform', 'os_account_id'].each {
                     def value = test_server[it]
                     if ( value == null || value.length() == 0 )
                         null_checks[it] = value
@@ -85,8 +86,8 @@ class EvidenceSheet {
                         test_servers.push(test_server)
                         break
 
-                    case 1..2:
-                        log.warn("malformed input '${sheet_name_server}:${rownum}'")
+                    case 1..3:
+                        log.warn("Malformed input '${sheet_name_server}:${rownum}'")
                         log.warn(null_checks.toString())
                         break
                 }
@@ -94,7 +95,7 @@ class EvidenceSheet {
         }
     }
 
-    def readSheetSpec(String platform, Sheet sheet_spec) throws IOException, IllegalArgumentException {
+    def readSheetSpec(String platform, Sheet sheet_spec) throws IOException {
         sheet_spec.with { sheet ->
             (4 .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
@@ -103,19 +104,19 @@ class EvidenceSheet {
                 def test_domain = row.getCell(3).getStringCellValue()
                 if (test_id && test_domain && yes_no.toUpperCase() == "Y") {
                     test_domains[test_domain] = 1
-                    test_specs[platform][test_domain][test_id] = 1
+                    test_specs[platform][test_domain][test_id] = new TestItem(test_id)
                 }
             }
         }
     }
 
-    def readSheet() throws IOException, IllegalArgumentException {
-        log.info("read test spec from ${evidence_source}")
+    def readSheet() throws IOException {
+        log.info("Read test spec from ${evidence_source}")
 
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 // Read Excel test server sheet.
-                log.debug("read excel sheet '${evidence_source}:${sheet_name_server}'")
+                log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
                 def sheet_server = workbook.getSheet(sheet_name_server)
                 if (sheet_server) {
                     readSheetServer(sheet_server)
@@ -126,7 +127,7 @@ class EvidenceSheet {
                 }
                 // Read Excel test spec sheet.
                 sheet_name_specs.each { platform, sheet_name_spec ->
-                    log.debug("read excel sheet '${evidence_source}:${sheet_name_spec}'")
+                    log.debug("Read excel sheet '${evidence_source}:${sheet_name_spec}'")
                     def sheet_spec = workbook.getSheet(sheet_name_spec)
                     if (sheet_spec) {
                         readSheetSpec(platform, sheet_spec)
@@ -141,9 +142,9 @@ class EvidenceSheet {
 
     }
 
-    def updateTestResult(String platform, String test_server, int sequence, Map results)
-        throws IOException, IllegalArgumentException {
-        log.info("update evidence : platform = ${platform}, server = ${test_server}")
+    def updateTestResult(String platform, String server_name, int sequence, Map results)
+        throws IOException {
+        log.info("Update evidence : platform = ${platform}, server = ${server_name}")
 
         def inp = new FileInputStream(evidence_target)
         def wb  = WorkbookFactory.create(inp)
@@ -156,7 +157,7 @@ class EvidenceSheet {
 
         // ヘッダーに検査対象サーバ名を登録
         def title_cell = sheet_result.getRow(3).createCell(column)
-        title_cell.setCellValue(test_server)
+        title_cell.setCellValue(server_name)
         title_cell.setCellStyle(cell_style)
 
         // 検査結果列を順に登録
@@ -189,17 +190,17 @@ class EvidenceSheet {
         fos.close()
     }
 
-    def prepare_test_stage() throws IOException {
+    def prepareTestStage() throws IOException {
         def log_dir = new File(staging_dir)
         log_dir.deleteDir()
         log_dir.mkdir()
         test_domains.each { platform, flag ->
             def test_log_dir = new File("${staging_dir}/${platform}")
-            log.info("creating staging dir : ${test_log_dir}")
+            log.info("Creating staging dir : ${test_log_dir}")
             test_log_dir.mkdir()
         }
 
-        log.info("copy evidence sheet : ${evidence_target}")
+        log.info("Copy evidence sheet : ${evidence_target}")
         File dest = new File(evidence_target)
         if (dest.exists()) {
             dest.delete()

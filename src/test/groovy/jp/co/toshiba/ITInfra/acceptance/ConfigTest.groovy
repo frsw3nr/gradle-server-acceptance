@@ -1,7 +1,7 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
-class ConfigTest extends Specification{
+class ConfigTest extends Specification {
     def "Config execption"() {
         try {
             new Config()
@@ -12,7 +12,7 @@ class ConfigTest extends Specification{
 
     def "Config test read"() {
         when:
-        def config = Config.instance.read('config/config.groovy')
+        def config = Config.instance.read('src/test/resources/config.groovy')
         then:
         config['evidence']['source'] == './check_sheet.xlsx'
     }

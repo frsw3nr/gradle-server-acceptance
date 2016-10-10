@@ -1,5 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+import groovy.util.logging.Slf4j
+
 @Singleton
 class Config {
     def configs = [:]
