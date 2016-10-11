@@ -59,15 +59,57 @@ class LinuxSpecBase extends InfraTestSpec {
     }
 
     def hostname(session, test_item) {
-        session.execute "hostname -s > ${work_dir}/hostname"
-        test_item.result = session.get from: "${work_dir}/hostname"
-        println "parse hostname : ${test_item.result}"
+        def lines = exec {
+            session.execute "hostname -s > ${work_dir}/hostname"
+            session.get from: "${work_dir}/hostname"
+        }
+        test_item.results(lines)
+        println "parse hostname : ${lines}"
     }
 
     def hostname_fqdn(session, test_item) {
-        session.execute "hostname --fqdn > ${work_dir}/hostname_fqdn";
-        test_item.result = session.get from: "${work_dir}/hostname_fqdn"
-        println "parse hostname_fqdn : ${test_item.result}"
+        def lines = exec {
+            session.execute "hostname --fqdn > ${work_dir}/hostname_fqdn";
+            session.get from: "${work_dir}/hostname_fqdn"
+        }
+        test_item.results(lines)
+        println "parse hostname_fqdn : ${lines}"
+    }
+
+    def cpu(session, test_item) {
+        def lines = exec {
+            session.execute "cat /proc/cpuinfo > ${work_dir}/cpu"
+            session.get from: "${work_dir}/cpu"
+        }
+
+        def cpuinfo    = [:].withDefault{0}
+        def real_cpu   = [:].withDefault{0}
+        def cpu_number = 0
+        lines.eachLine {
+            (it =~ /processor\s+:\s(.+)/).each {m0,m1->
+                cpu_number += 1
+            }
+            (it =~ /physical id\s+:\s(.+)/).each {m0,m1->
+                real_cpu[m1] = true
+            }
+            (it =~ /cpu cores\s+:\s(.+)/).each {m0,m1->
+                cpuinfo["cores"] = m1
+            }
+            (it =~ /model name\s+:\s(.+)/).each {m0,m1->
+                cpuinfo["model_name"] = m1
+            }
+            (it =~ /cpu MHz\s+:\s(.+)/).each {m0,m1->
+                cpuinfo["mhz"] = m1
+            }
+            (it =~ /cache size\s+:\s(.+)/).each {m0,m1->
+                cpuinfo["cache_size"] = m1
+            }
+        }
+        cpuinfo["total"] = cpu_number
+        cpuinfo["real"] = real_cpu.size()
+        cpuinfo["cores"] = real_cpu.size() * cpuinfo["cores"].toInteger()
+
+        test_item.results(cpuinfo)
     }
 
 }

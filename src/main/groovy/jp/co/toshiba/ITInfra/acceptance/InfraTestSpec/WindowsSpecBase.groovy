@@ -59,29 +59,32 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def cpu(TestItem test_item) {
-        exec_windows_shell('lib/script/windows_cpu.ps1')
-        def res = new File("${this.local_dir}/cpu")
+        def lines = exec {
+            exec_windows_shell('lib/script/windows_cpu.ps1')
+            new File("${this.local_dir}/cpu")
+        }
+
         def cpuinfo    = [:].withDefault{0}
         def cpu_number = 0
-        res.eachLine {
-            (it =~ /DeviceID\s+:\s(.+)/).each {m0,m1->
+        lines.eachLine {
+            (it =~ /DeviceID\s+:\s(.+)/).each {m0, m1->
                 cpu_number += 1
             }
-            (it =~ /Name\s+:\s(.+)/).each {m0,m1->
+            (it =~ /Name\s+:\s(.+)/).each {m0, m1->
                 cpuinfo["model_name"] = m1
             }
-            (it =~ /MaxClockSpeed\s+:\s(.+)/).each {m0,m1->
+            (it =~ /MaxClockSpeed\s+:\s(.+)/).each {m0, m1->
                 cpuinfo["mhz"] = m1
             }
         }
         cpuinfo["total"] = cpu_number
-        test_item.result = cpuinfo.toString()
+        test_item.results(cpuinfo)
     }
 
     def memory(TestItem test_item) {
         exec_windows_shell('lib/script/windows_memory.ps1')
         def res = new File("${this.local_dir}/memory")
-        test_item.result = 'テスト中'
+        test_item.results('テスト中')
     }
 
 }

@@ -95,40 +95,32 @@ class vCenterSpecBase extends InfraTestSpec {
         }
     }
 
-    def parse = { Closure closure ->
-        if (this.mode == RunMode.run_script) {
-            closure.call()
-        }
-    }
-
     def vm(test_item) {
-        test_item.result = '[テスト中]'
-        println "test_id = ${test_item.test_id}"
 
         prepare {
-            test_item.rc = -1
-            script_buffer += '''\
+            append_test_script('''\
                 |$log_file = "./build/log/vcenter/" + $server + "/vm"
                 |get-vm $vm | select NumCpu, PowerState, MemoryGB, VMHost | Out-File $log_file -Encoding UTF8
             '''.stripMargin()
-            println "closure vm"
+            )
         }
 
-        parse {
-            def lines = new File("$local_dir/vm")
-            def res = [:]
-            lines.eachLine {
-                println "LINE:${it}"
-                // (it =~  /^\s+(\d+.+)$/).each { m0,m1->
-                //     def arr = m1.split(/\s+/)
-                //     res['NumCPU']     = arr[0]
-                //     res['PowerState'] = arr[1]
-                //     res['MemoryGB']   = arr[2]
-                //     res['VMHost']     = arr[3]
-                // }
-            }
-            test_item.result = res.toString()
+        def lines = exec {
+            new File("$local_dir/vm")
         }
+
+        def res = [:]
+        lines.eachLine {
+            println "LINE:${it}"
+            // (it =~  /^\s+(\d+.+)$/).each { m0,m1->
+            //     def arr = m1.split(/\s+/)
+            //     res['NumCPU']     = arr[0]
+            //     res['PowerState'] = arr[1]
+            //     res['MemoryGB']   = arr[2]
+            //     res['VMHost']     = arr[3]
+            // }
+        }
+        test_item.results(res)
     }
 
 }
