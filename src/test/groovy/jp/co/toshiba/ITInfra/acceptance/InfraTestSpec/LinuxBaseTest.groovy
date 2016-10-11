@@ -2,6 +2,8 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
+// gradle --daemon clean test --tests "LinuxBaseTest.Linux テスト仕様のロード"
+
 class LinuxBaseTest extends Specification {
 
     DomainTestRunner test
@@ -25,7 +27,7 @@ class LinuxBaseTest extends Specification {
         test.run(test_item)
 
         then:
-        test_item.result.size() > 0
+        test_item.results.size() > 0
     }
 
     def "Linux 複数テスト仕様のロード"() {
@@ -34,7 +36,7 @@ class LinuxBaseTest extends Specification {
         test.run(test_items)
 
         then:
-        test_items[0].result.size() > 0
-        test_items[1].result.size() > 0
+        test_items[0].results.size() > 0
+        test_items[1].results.size() > 0
     }
 }

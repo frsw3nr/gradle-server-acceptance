@@ -17,6 +17,7 @@ class LinuxSpecBase extends InfraTestSpec {
     String os_user
     String os_password
     String work_dir
+    Boolean dry_run
 
     def init() {
         super.init()
@@ -33,6 +34,7 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
+
         def ssh = Ssh.newService()
         ssh.remotes {
             ssh_host {
@@ -58,8 +60,17 @@ class LinuxSpecBase extends InfraTestSpec {
         }
     }
 
+    def exec = { String test_id, Closure closure ->
+        println "LOG : test/resources/log/${server_name}/${test_id}"
+        // if (this.mode == RunMode.prepare_script) {
+        //     return closure.call()
+        // }
+        // test/resources/log/{サーバ名}/{検査項目}
+        closure.call()
+    }
+
     def hostname(session, test_item) {
-        def lines = exec {
+        def lines = exec('hostname') {
             session.execute "hostname -s > ${work_dir}/hostname"
             session.get from: "${work_dir}/hostname"
         }
@@ -68,7 +79,7 @@ class LinuxSpecBase extends InfraTestSpec {
     }
 
     def hostname_fqdn(session, test_item) {
-        def lines = exec {
+        def lines = exec('hostname_fqdn') {
             session.execute "hostname --fqdn > ${work_dir}/hostname_fqdn";
             session.get from: "${work_dir}/hostname_fqdn"
         }
@@ -77,7 +88,7 @@ class LinuxSpecBase extends InfraTestSpec {
     }
 
     def cpu(session, test_item) {
-        def lines = exec {
+        def lines = exec('cpu') {
             session.execute "cat /proc/cpuinfo > ${work_dir}/cpu"
             session.get from: "${work_dir}/cpu"
         }

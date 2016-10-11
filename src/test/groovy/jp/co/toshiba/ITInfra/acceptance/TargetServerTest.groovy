@@ -1,6 +1,8 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
+// gradle --daemon clean test --tests "TargetServerTest"
+
 class TargetServerTest extends Specification {
 
     TargetServer test_server
@@ -23,6 +25,8 @@ class TargetServerTest extends Specification {
         then:
         test_server.os_account['password'] == 'P@ssword'
         test_server.vcenter_account['password'] == 'P@ssword'
+        test_server.dry_run == false
+        test_server.timeout == 30
     }
 
     def "設定ファイルにaccountパラメータなし"() {

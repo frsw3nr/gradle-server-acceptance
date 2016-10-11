@@ -6,19 +6,20 @@ class TestItem {
     String  description
     Boolean enabled
 
-    int    rc
-    String result
-    String results = [:]
+    int rc
+    def results
 
     TestItem(String test_id) {
         this.test_id = test_id
+        this.enabled = true
+        this.results = [:]
     }
 
     def results(String result) {
-
+        this.results[this.test_id] = result
     }
 
-    def put_results(Map results) {
-
+    def results(Map results) {
+        this.results = results
     }
 }

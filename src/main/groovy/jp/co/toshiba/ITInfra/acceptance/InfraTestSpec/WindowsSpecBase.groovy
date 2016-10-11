@@ -58,6 +58,12 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    def exec = { Closure closure ->
+        if (this.mode == RunMode.prepare_script) {
+            closure.call()
+        }
+    }
+
     def cpu(TestItem test_item) {
         def lines = exec {
             exec_windows_shell('lib/script/windows_cpu.ps1')
