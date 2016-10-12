@@ -1,0 +1,18 @@
+Param(
+    [string]$log_dir
+  , [string]$vm
+  , [string]$server
+  , [string]$vcenter
+  , [string]$user
+  , [string]$password
+)
+Add-PSSnapin VMware.VimAutomation.Core
+Connect-VIServer -User $user -Password $password -Server $vcenter
+
+<%
+commands.each { command ->
+%>\
+<%= command.line %> | Out-File "log_dir/<%= command.test_id %>" -Encoding UTF8
+<%
+}
+%>\

@@ -2,6 +2,8 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
+// gradle --daemon clean test --tests "vCenterBaseTest.Linux テスト仕様のロード"
+
 class vCenterBaseTest extends Specification {
 
     TargetServer test_server
@@ -28,7 +30,7 @@ class vCenterBaseTest extends Specification {
         test.run(test_item)
 
         then:
-        test_item.result.size() > 0
+        test_item.results.size() > 0
     }
 
     def "vCenter ドライランテスト"() {

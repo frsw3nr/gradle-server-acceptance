@@ -21,7 +21,7 @@ class TargetServerTest extends Specification {
     def "Linux テストサーバセット"() {
         when:
         test_server.setAccounts('src/test/resources/config.groovy')
-
+println test_server.evidence_log_dir
         then:
         test_server.os_account['password'] == 'P@ssword'
         test_server.vcenter_account['password'] == 'P@ssword'

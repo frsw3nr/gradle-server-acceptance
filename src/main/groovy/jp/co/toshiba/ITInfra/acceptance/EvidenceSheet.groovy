@@ -36,7 +36,7 @@ class EvidenceSheet {
                                 'Windows' : 'CheckSheet(Windows)'
                             ]
 
-        def date = new Date().format("yyyyMMdd_hhmmss")
+        def date = Config.instance.date
         evidence_target = evidence_target.replaceAll(/<date>/, date)
         staging_dir     = staging_dir.replaceAll(/<date>/, date)
         test_platforms = [:]

@@ -11,6 +11,7 @@ class TargetServer {
     String os_account_id
     String vcenter_id
     String vm
+    String evidence_log_dir
     Boolean dry_run
     String dry_run_staging_dir
     int timeout
@@ -47,6 +48,9 @@ class TargetServer {
         dry_run = config_test[platform]['dry_run'] ?: false
         timeout = config_test[platform]['timeout'] ?: 0
         dry_run_staging_dir = config_test['dry_run_staging_dir'] ?: './test/resources/log/'
+        evidence_log_dir = config['evidence']['staging_dir'] ?: './build/log/'
+        evidence_log_dir = evidence_log_dir.replaceAll(/<date>/, Config.instance.date)
+        evidence_log_dir += '/' + platform + '/' + server_name
     }
 
     def info() {
