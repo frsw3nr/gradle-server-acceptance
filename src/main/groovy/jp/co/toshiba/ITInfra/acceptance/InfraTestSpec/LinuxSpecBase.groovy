@@ -17,7 +17,6 @@ class LinuxSpecBase extends InfraTestSpec {
     String os_user
     String os_password
     String work_dir
-    Boolean dry_run
 
     def init() {
         super.init()
@@ -46,9 +45,10 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         ssh.settings {
-            // dryRun = true
+            dryRun = this.dry_run
         }
-
+        println "DryRun : " + this.dry_run
+        println "DryRunStagingDir : " + this.dry_run_staging_dir
         ssh.run {
             session(ssh.remotes.ssh_host) {
                 test_items.each {
@@ -61,12 +61,15 @@ class LinuxSpecBase extends InfraTestSpec {
     }
 
     def exec = { String test_id, Closure closure ->
-        println "LOG : test/resources/log/${server_name}/${test_id}"
-        // if (this.mode == RunMode.prepare_script) {
-        //     return closure.call()
-        // }
-        // test/resources/log/{サーバ名}/{検査項目}
-        closure.call()
+        def result = closure.call()
+        if (dry_run) {
+            // test/resources/log/{サーバ名}/{検査項目}
+            def log = "${dry_run_staging_dir}/${domain}/${server_name}/${test_id}"
+            println "LOG : ${log}"
+            return new File(log).text
+        } else {
+            return result
+        }
     }
 
     def hostname(session, test_item) {

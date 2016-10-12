@@ -6,22 +6,38 @@ import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
 class LinuxBaseTest extends Specification {
 
+    TargetServer test_server
     DomainTestRunner test
 
     def setup() {
-        def test_server = new TargetServer(
+        test_server = new TargetServer(
             server_name   : 'ostrich',
-            ip            : '192.168.10.1',
+            ip            : 'localhost',
             platform      : 'Linux',
             os_account_id : 'Test',
             vcenter_id    : 'Test',
             vm            : 'ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
-        test = new DomainTestRunner(test_server, 'Linux')
     }
 
     def "Linux テスト仕様のロード"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Linux')
+
+        when:
+        def test_item = new TestItem('hostname')
+        test.run(test_item)
+
+        then:
+        test_item.results.size() > 0
+    }
+
+    def "Linux ドライランテスト"() {
+        setup:
+        test_server.dry_run = true
+        test = new DomainTestRunner(test_server, 'Linux')
+
         when:
         def test_item = new TestItem('hostname')
         test.run(test_item)
@@ -31,6 +47,9 @@ class LinuxBaseTest extends Specification {
     }
 
     def "Linux 複数テスト仕様のロード"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Linux')
+
         when:
         TestItem[] test_items = [new TestItem('hostname'), new TestItem('hostname_fqdn') ]
         test.run(test_items)

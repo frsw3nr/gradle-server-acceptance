@@ -26,16 +26,18 @@ class InfraTestSpec {
     String title
     String domain
     Boolean dry_run
+    String dry_run_staging_dir
     int timeout
     Boolean skip_exec
     def mode = EnumTestMode.loop_exec_parse
 
     def InfraTestSpec(TargetServer test_server, String domain) {
-        this.test_server = test_server
-        this.domain      = domain
-        this.title       = domain + '(' + test_server.info() + ')'
-        this.dry_run     = test_server.dry_run
-        this.timeout     = test_server.timeout
+        this.test_server         = test_server
+        this.domain              = domain
+        this.title               = domain + '(' + test_server.info() + ')'
+        this.dry_run             = test_server.dry_run
+        this.dry_run_staging_dir = test_server.dry_run_staging_dir
+        this.timeout             = test_server.timeout
     }
 
     def init() {

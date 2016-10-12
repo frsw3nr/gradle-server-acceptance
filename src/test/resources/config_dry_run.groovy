@@ -20,11 +20,11 @@ evidence.staging_dir='./build/log.<date>'
 // 検査モード
 
 test.dry_run_staging_dir = './src/test/resources/log/'
-test.Linux.dry_run   = false
+test.Linux.dry_run   = true
 test.Linux.timeout   = 30
-test.Windows.dry_run = false
+test.Windows.dry_run = true
 test.Windows.timeout = 30
-test.vCenter.dry_run = false
+test.vCenter.dry_run = true
 test.vCenter.timeout = 30
 
 // vCenter接続情報

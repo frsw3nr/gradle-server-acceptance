@@ -4,10 +4,11 @@ import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
 class vCenterBaseTest extends Specification {
 
+    TargetServer test_server
     DomainTestRunner test
 
     def setup() {
-        def test_server = new TargetServer(
+        test_server = new TargetServer(
             server_name   : 'win2012',
             ip            : '192.168.0.12',
             platform      : 'vCenter',
@@ -16,10 +17,12 @@ class vCenterBaseTest extends Specification {
             vm            : 'win2012.ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
-        test = new DomainTestRunner(test_server, 'vCenter')
     }
 
     def "vCenter テスト仕様のロード"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'vCenter')
+
         when:
         def test_item = new TestItem('vm')
         test.run(test_item)
@@ -28,4 +31,17 @@ class vCenterBaseTest extends Specification {
         test_item.result.size() > 0
     }
 
+    def "vCenter ドライランテスト"() {
+        setup:
+        test_server.dry_run = true
+        test = new DomainTestRunner(test_server, 'vCenter')
+
+        when:
+        def test_item = new TestItem('vm')
+        test.run(test_item)
+        println test_item.results.toString()
+
+        then:
+        test_item.results.size() > 0
+    }
 }

@@ -12,6 +12,7 @@ class TargetServer {
     String vcenter_id
     String vm
     Boolean dry_run
+    String dry_run_staging_dir
     int timeout
 
     def os_account
@@ -42,9 +43,10 @@ class TargetServer {
         os_account      = getConfigAccount(config_account, platform,  os_account_id)
         vcenter_account = getConfigAccount(config_account, 'vCenter', vcenter_id)
 
-        def config_test = config['test'][platform]
-        dry_run = config_test['dry_run'] ?: false
-        timeout = config_test['timeout'] ?: 0
+        def config_test = config['test']
+        dry_run = config_test[platform]['dry_run'] ?: false
+        timeout = config_test[platform]['timeout'] ?: 0
+        dry_run_staging_dir = config_test['dry_run_staging_dir'] ?: './test/resources/log/'
     }
 
     def info() {

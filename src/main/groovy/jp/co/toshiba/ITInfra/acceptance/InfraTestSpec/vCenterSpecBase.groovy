@@ -61,22 +61,24 @@ class vCenterSpecBase extends InfraTestSpec {
         log.info("")
         def cmd = "powershell -NonInteractive ${script}"
         cmd    += " -vm ${this.vm} -server ${this.server_name} -user ${this.vcenter_user} -password ${this.vcenter_password} -vcenter ${this.vcenter_ip}"
-
-        def sout = new StringBuilder()
-        def serr = new StringBuilder()
-        def proc = cmd.execute()
-        proc.consumeProcessOutput(sout, serr)
-        proc.waitForOrKill(20000)
-        println "out> $sout err> $serr"
+        if (!dry_run) {
+            def sout = new StringBuilder()
+            def serr = new StringBuilder()
+            def proc = cmd.execute()
+            proc.consumeProcessOutput(sout, serr)
+            proc.waitForOrKill(20000)
+            println "out> $sout err> $serr"
+        }
     }
 
     def setup_exec(TestItem[] test_items) {
         mode = RunMode.prepare_script
         test_items.each {
-            def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
+            def method = this.metaClass.getMetaMethod("prepare_${it.test_id}")
             println "prepare : ${method.name}"
-            method.invoke(this, it)
+            method.invoke(this)
         }
+        println "script : " + script_buffer
         new File(script_path).write(script_buffer)
         exec_vcenter_shell(script_path)
 
@@ -86,39 +88,53 @@ class vCenterSpecBase extends InfraTestSpec {
             println "parse : ${method.name}"
             method.invoke(this, it)
         }
-
     }
 
-    def prepare = { Closure closure ->
-        if (this.mode == RunMode.prepare_script) {
-            closure.call()
+    def append_test_script(String buffer) {
+        script_buffer += buffer
+    }
+
+    def exec = { String test_id, Closure closure ->
+        if (dry_run) {
+            // test/resources/log/{サーバ名}/{検査項目}
+            def log = "${dry_run_staging_dir}/${domain}/${server_name}/${test_id}"
+            println "LOG : ${log}"
+            return new File(log).text
+        } else {
+            return closure.call()
         }
+    }
+
+    def prepare = { String test_id, Closure closure ->
+        if (!dry_run) {
+            return closure.call()
+        }
+    }
+
+    def prepare_vm() {
+        append_test_script('''\
+get-vm $vm | select NumCpu, PowerState, MemoryGB, VMHost, @{N="Cluster";E={Get-Cluster -VM $_}} | Format-List
+            |$log_file = "./build/log/vcenter/" + $server + "/vm"
+            |get-vm $vm | select NumCpu, PowerState, MemoryGB, VMHost | Out-File $log_file -Encoding UTF8
+        '''.stripMargin()
+        )
     }
 
     def vm(test_item) {
-
-        prepare {
-            append_test_script('''\
-                |$log_file = "./build/log/vcenter/" + $server + "/vm"
-                |get-vm $vm | select NumCpu, PowerState, MemoryGB, VMHost | Out-File $log_file -Encoding UTF8
-            '''.stripMargin()
+        prepare('vm') {
+            append_test_script(
+                'get-vm $vm | select NumCpu, PowerState, MemoryGB, VMHost'
             )
         }
-
-        def lines = exec {
+        def lines = exec('vm') {
             new File("$local_dir/vm")
         }
 
         def res = [:]
         lines.eachLine {
-            println "LINE:${it}"
-            // (it =~  /^\s+(\d+.+)$/).each { m0,m1->
-            //     def arr = m1.split(/\s+/)
-            //     res['NumCPU']     = arr[0]
-            //     res['PowerState'] = arr[1]
-            //     res['MemoryGB']   = arr[2]
-            //     res['VMHost']     = arr[3]
-            // }
+            (it =~  /^(NumCpu|PowerState|MemoryGB|VMHost|Cluster)\s+:\s(.+)$/).each { m0,m1,m2->
+                res[m1] = m2
+            }
         }
         test_item.results(res)
     }

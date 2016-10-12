@@ -51,6 +51,9 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
+        println "DryRun : " + this.dry_run
+        println "DryRunStagingDir : " + this.dry_run_staging_dir
+
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
             println "method : ${method.name}"
@@ -58,14 +61,19 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
-    def exec = { Closure closure ->
-        if (this.mode == RunMode.prepare_script) {
-            closure.call()
+    def exec = { String test_id, Closure closure ->
+        if (dry_run) {
+            // test/resources/log/{サーバ名}/{検査項目}
+            def log = "${dry_run_staging_dir}/${domain}/${server_name}/${test_id}"
+            println "LOG : ${log}"
+            return new File(log).text
+        } else {
+            return closure.call()
         }
     }
 
     def cpu(TestItem test_item) {
-        def lines = exec {
+        def lines = exec('cpu') {
             exec_windows_shell('lib/script/windows_cpu.ps1')
             new File("${this.local_dir}/cpu")
         }
@@ -88,8 +96,10 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def memory(TestItem test_item) {
-        exec_windows_shell('lib/script/windows_memory.ps1')
-        def res = new File("${this.local_dir}/memory")
+        def lines = exec('memory') {
+            exec_windows_shell('lib/script/windows_memory.ps1')
+            new File("${this.local_dir}/memory")
+        }
         test_item.results('テスト中')
     }
 

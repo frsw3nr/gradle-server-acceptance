@@ -38,56 +38,10 @@ class DomainTestRunner {
     def run(TestItem[] test_items) {
         spec.init()
         spec.setup_exec(test_items)
-        // test_items.each {
-        //     // println it.test_id
-        //     spec.setup_exec(it)
-        // }
     }
 
-    def run(TestItem test_item) {
-        spec.init()
-        spec.setup_exec(test_item)
-
-        // switch(spec.mode) {
-        //     case EnumTestMode.loop_exec_parse:
-        //         spec.setup_exec()
-        //         spec.metaClass.methods.each { method ->
-        //             if (method.name == test_id) {
-        //                 println "Method : " + method.name
-        //                 method.invoke(spec)
-        //             }
-        //         }
-        //         spec.cleanup_exec()
-        //     break
-
-        //     case EnumTestMode.loop_exec_loop_parse:
-        //         spec.setup_exec()
-        //         spec.metaClass.methods.each { method ->
-        //             if (method.name == test_id) {
-        //                 println "Method : " + method.name
-        //                 method.invoke(this, method.name)
-        //             }
-        //         }
-        //         spec.cleanup_exec()
-        //     break
-        // }
-        println spec.mode
-// setup_exec
-// cleanup_exec
-// setup_parse
-// cleanup_parse
-
-        // println 'hello from GreetingTask'
-        // spec.metaClass.methods.each { method ->
-        //     if (method.name == test_id) {
-        //         println "Method : " + method.name
-        //         // method.invoke(this, method.name)
-        //     }
-        //     // (method.name == test_id).each {m0,m1->
-        //     //     println "Method : " + method.name
-        //     //     // method.invoke(this, m1)
-        //     // }
-        // }
-
-    }
+    // def run(TestItem test_item) {
+    //     spec.init()
+    //     spec.setup_exec(test_item)
+    // }
 }
