@@ -5,7 +5,7 @@ mainClassName = 'jp.co.toshiba.ITInfra.acceptance.TestRunner'
 
 applicationDefaultJvmArgs = [
     "-Dlogback.configurationFile=./config/logback.xml",
-    "-Dtest.config=./config/config.groovy"
+    "-Dtest.config=./config/config.groovy",
 ]
 
 sourceCompatibility = '1.7'
@@ -18,14 +18,38 @@ repositories {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'ch.qos.logback:logback-core:1.1.2'
+    compile "commons-cli:commons-cli:1.2"
     compile 'org.codehaus.groovy:groovy-all:2.4.+'
     compile 'org.codehaus.gpars:gpars:1.2.0'
     compile 'org.hidetake:groovy-ssh:latest.release'
     compile "org.apache.poi:poi:3.+"
     compile "org.apache.poi:poi-ooxml:3.+"
     compile 'org.apache.poi:ooxml-schemas:1.1'
-    testRuntime 'ch.qos.logback:logback-classic:1.1.2'
-    testRuntime 'ch.qos.logback:logback-core:1.1.2'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.12'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+apply plugin: 'com.github.johnrengelman.shadow'
+
+shadowJar {
+  manifest {
+    // エントリポイントのクラスを指定する
+    attributes 'Main-Class': mainClassName
+  }
+}
+
+run {
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
 }
