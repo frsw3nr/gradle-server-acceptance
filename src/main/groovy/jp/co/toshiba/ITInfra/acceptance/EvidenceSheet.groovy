@@ -37,8 +37,6 @@ class EvidenceSheet {
                             ]
 
         def date = Config.instance.date
-        evidence_target = evidence_target.replaceAll(/<date>/, date)
-        staging_dir     = staging_dir.replaceAll(/<date>/, date)
         test_platforms = [:]
         test_domains   = [:]
         test_servers   = []

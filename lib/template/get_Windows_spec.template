@@ -1,18 +1,18 @@
 Param(
-    [string]$log_dir
-  , [string]$ip
-  , [string]$server
-  , [string]$user
-  , [string]$password
+    [string]\$log_dir
+  , [string]\$ip
+  , [string]\$server
+  , [string]\$user
+  , [string]\$password
 )
 
-$secure   = ConvertTo-SecureString $password -asplaintext -force
-$cred     = New-Object System.Management.Automation.PsCredential $user, $secure
+\$secure   = ConvertTo-SecureString \$password -asplaintext -force
+\$cred     = New-Object System.Management.Automation.PsCredential \$user, \$secure
 
 <%
 commands.each { command ->
 %>\
-<%= command.line %> | Out-File "$log_dir/<%= command.test_id %>" -Encoding UTF8
+<%= command.line %> | Out-File "\$log_dir/<%= command.test_id %>" -Encoding UTF8
 <%
 }
 %>\

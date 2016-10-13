@@ -2,7 +2,7 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon clean test --tests "vCenterBaseTest.Linux テスト仕様のロード"
+// gradlew --daemon clean test --tests "vCenterBaseTest.vCenter テスト仕様のロード"
 
 class vCenterBaseTest extends Specification {
 
@@ -19,6 +19,7 @@ class vCenterBaseTest extends Specification {
             vm            : 'win2012.ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
+
     }
 
     def "vCenter テスト仕様のロード"() {

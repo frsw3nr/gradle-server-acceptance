@@ -13,7 +13,7 @@ class WindowsSpec extends WindowsSpecBase {
 
     @Override
     def init() {
-        println "test:WindowsSpec2.14"
+        // println "test:WindowsSpec2.14"
         super.init()
     }
 

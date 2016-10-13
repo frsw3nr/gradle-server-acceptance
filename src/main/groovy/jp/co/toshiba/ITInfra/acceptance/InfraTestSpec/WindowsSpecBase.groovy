@@ -12,95 +12,94 @@ import jp.co.toshiba.ITInfra.acceptance.*
 @InheritConstructors
 class WindowsSpecBase extends InfraTestSpec {
 
-    String server_name
     String ip
     String os_user
     String os_password
     String local_dir
+    String script_path
 
     def init() {
         super.init()
-        this.server_name = test_server.server_name
-        this.ip          = test_server.ip
 
+        this.ip          = test_server.ip
         def os_account   = test_server.os_account
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
-
-        // 実行ログのローカル保存先ディレクトリを初期化
-        this.local_dir = "build/log/windows/${this.server_name}"
-        def local_dirs = new File(this.local_dir)
-        local_dirs.deleteDir()
-        local_dirs.mkdirs()
-
-        println "test1 ${server_name} ${ip} ${os_user}"
-    }
-
-
-    def exec_windows_shell(String script) {
-        log.info("")
-        def cmd = "powershell -NonInteractive ${script}"
-        cmd    += " -ip ${this.ip} -server ${this.server_name} -user ${this.os_user} -password ${this.os_password}"
-        def sout = new StringBuilder()
-        def serr = new StringBuilder()
-        def proc = cmd.execute()
-        proc.consumeProcessOutput(sout, serr)
-        proc.waitForOrKill(20000)
-        println "out> $sout err> $serr"
+        this.local_dir   = test_server.evidence_log_dir
+        this.script_path = local_dir + '/get_windows_spec.ps1'
     }
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
-        println "DryRun : " + this.dry_run
-        println "DryRunStagingDir : " + this.dry_run_staging_dir
 
-        test_items.each {
-            def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
-            println "method : ${method.name}"
-            method.invoke(this, it)
-        }
-    }
+        def cmd = """\
+            |powershell -NonInteractive ${script_path}
+            |-log_dir '${local_dir}'
+            |-ip '${ip}' -server '${server_name}'
+            |-user '${os_user}' -password '${os_password}'
+        """.stripMargin()
 
-    def exec = { String test_id, Closure closure ->
-        if (dry_run) {
-            // test/resources/log/{サーバ名}/{検査項目}
-            def log = "${dry_run_staging_dir}/${domain}/${server_name}/${test_id}"
-            println "LOG : ${log}"
-            return new File(log).text
-        } else {
-            return closure.call()
-        }
+        runPowerShellTest('lib/template', 'Windows', cmd, test_items)
     }
 
     def cpu(TestItem test_item) {
-        def lines = exec('cpu') {
-            exec_windows_shell('lib/script/windows_cpu.ps1')
-            new File("${this.local_dir}/cpu")
-        }
+        def command = '''
+            Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor
+        '''
 
-        def cpuinfo    = [:].withDefault{0}
-        def cpu_number = 0
-        lines.eachLine {
-            (it =~ /DeviceID\s+:\s(.+)/).each {m0, m1->
-                cpu_number += 1
+        run_script(command) {
+            def lines = exec('cpu') {
+                new File("${local_dir}/cpu")
             }
-            (it =~ /Name\s+:\s(.+)/).each {m0, m1->
-                cpuinfo["model_name"] = m1
+
+            def cpuinfo    = [:].withDefault{0}
+            def cpu_number = 0
+            lines.eachLine {
+                (it =~ /DeviceID\s+:\s(.+)/).each {m0, m1->
+                    cpu_number += 1
+                }
+                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+                    cpuinfo["model_name"] = m1
+                }
+                (it =~ /MaxClockSpeed\s+:\s(.+)/).each {m0, m1->
+                    cpuinfo["mhz"] = m1
+                }
             }
-            (it =~ /MaxClockSpeed\s+:\s(.+)/).each {m0, m1->
-                cpuinfo["mhz"] = m1
-            }
+            cpuinfo["total"] = cpu_number
+            test_item.results(cpuinfo)
         }
-        cpuinfo["total"] = cpu_number
-        test_item.results(cpuinfo)
     }
 
     def memory(TestItem test_item) {
-        def lines = exec('memory') {
-            exec_windows_shell('lib/script/windows_memory.ps1')
-            new File("${this.local_dir}/memory")
-        }
-        test_item.results('テスト中')
-    }
+        def command = '''\
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_OperatingSystem |
+            |    select TotalVirtualMemorySize,TotalVisibleMemorySize,
+            |        FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles
+            |'''.stripMargin()
 
+        run_script(command) {
+            def lines = exec('memory') {
+                new File("${local_dir}/memory")
+            }
+            def meminfo    = [:].withDefault{0}
+            lines.eachLine {
+                (it =~ /^TotalVirtualMemorySize\s*:\s+(\d+)$/).each {m0,m1->
+                    meminfo['total_virtual'] = m1
+                }
+                (it =~ /^TotalVisibleMemorySize\s*:\s+(\d+)$/).each {m0,m1->
+                    meminfo['total_visible'] = m1
+                }
+                (it =~ /^FreePhysicalMemory\s*:\s+(\d+)$/).each {m0,m1->
+                    meminfo['free_physical'] = m1
+                }
+                (it =~ /^FreeVirtualMemory\s*:\s+(\d+)$/).each {m0,m1->
+                    meminfo['free_virtual'] = m1
+                }
+                (it =~ /^FreeSpaceInPagingFiles\s*:\s+(\d+)$/).each {m0,m1->
+                    meminfo['free_space'] = m1
+                }
+            }
+            test_item.results(meminfo)
+        }
+    }
 }

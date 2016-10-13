@@ -10,6 +10,7 @@ class CodeGenerator {
     String domain
     String template_path
     def commands = []
+    def test_ids = []
 
     CodeGenerator(String template_dir, String domain) {
         this.domain       = domain
@@ -18,6 +19,7 @@ class CodeGenerator {
 
     def addCommand(String test_id, String line) {
         commands.add(['test_id' : test_id, 'line' : line])
+        test_ids.add(test_id)
     }
 
     def generate() {

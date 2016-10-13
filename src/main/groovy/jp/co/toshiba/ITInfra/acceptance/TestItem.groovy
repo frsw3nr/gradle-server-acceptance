@@ -6,7 +6,7 @@ class TestItem {
     String  description
     Boolean enabled
 
-    int rc
+    int succeed = 0
     def results
 
     TestItem(String test_id) {

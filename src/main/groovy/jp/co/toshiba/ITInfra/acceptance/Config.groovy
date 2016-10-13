@@ -10,8 +10,17 @@ class Config {
     Map read(String config_file) throws IOException {
 
         if (!configs[config_file]) {
-            configs[config_file] = new ConfigSlurper().parse(new File(config_file).toURL())
+            def text = new File(config_file).toURL()
+            def config = new ConfigSlurper().parse(text)
+            ['target', 'staging_dir'].each {
+                if (config['evidence'][it]) {
+                    config['evidence'][it] = config['evidence'][it].replaceAll(
+                                             /<date>/, this.date)
+                }
+            }
+            configs[config_file] = config
         }
         return configs[config_file]
     }
+
 }

@@ -13,7 +13,6 @@ class vCenterSpec extends vCenterSpecBase {
 
     @Override
     def init() {
-        println "test:vCenterSpec 2.14"
         super.init()
     }
 

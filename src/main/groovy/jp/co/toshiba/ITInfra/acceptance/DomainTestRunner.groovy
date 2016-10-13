@@ -35,9 +35,24 @@ class DomainTestRunner {
         spec = clazz.newInstance(test_server, domain)
     }
 
+    def summaryReport(TestItem[] test_items) {
+        def ok = 0
+        def test_count = 0
+        test_items.each {
+            if (it.succeed == 1)
+                ok ++
+            test_count += it.results.size()
+        }
+        def ng = test_items.size() - ok
+
+        return "OK : ${ok}, NG : ${ng}, Test: ${test_count}"
+    }
+
     def run(TestItem[] test_items) {
         spec.init()
         spec.setup_exec(test_items)
+        log.info "\tresults : " + summaryReport(test_items)
+        spec.cleanup_exec()
     }
 
     // def run(TestItem test_item) {

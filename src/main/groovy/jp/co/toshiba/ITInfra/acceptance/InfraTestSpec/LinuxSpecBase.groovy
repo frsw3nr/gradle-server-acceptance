@@ -12,7 +12,6 @@ import jp.co.toshiba.ITInfra.acceptance.*
 @InheritConstructors
 class LinuxSpecBase extends InfraTestSpec {
 
-    String server_name
     String ip
     String os_user
     String os_password
@@ -20,9 +19,7 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def init() {
         super.init()
-        this.server_name = test_server.server_name
         this.ip          = test_server.ip
-
         def os_account   = test_server.os_account
         this.os_user     = os_account['user']
         this.os_password = os_account['password']

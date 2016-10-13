@@ -2,6 +2,8 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
+// gradlew --daemon clean test --tests "WindowsBaseTest.Windows テスト仕様のロード"
+
 class WindowsBaseTest extends Specification {
 
     TargetServer test_server
@@ -28,8 +30,24 @@ class WindowsBaseTest extends Specification {
         test.run(test_item)
 
         then:
+        println test_item.results.toString()
         test_item.results.size() > 0
     }
+
+
+    def "Windows メモリ容量"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('memory')
+        test.run(test_item)
+
+        then:
+        println test_item.results.toString()
+        test_item.results.size() > 0
+    }
+
 
     def "Windows ドライランテスト"() {
         setup:
@@ -42,7 +60,8 @@ class WindowsBaseTest extends Specification {
         println test_item.results.toString()
 
         then:
-        test_item.results.size() > 0
+        1==1
+        // test_item.results.size() > 0
     }
 
     def "Windows 複数テスト仕様のロード"() {
@@ -57,4 +76,17 @@ class WindowsBaseTest extends Specification {
         test_items[0].results.size() > 0
         test_items[1].results.size() > 0
     }
+
+    def "Windows テスト項目なし"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('hoge')
+        test.run(test_item)
+
+        then:
+        test_item.results.size() == 0
+    }
+
 }
