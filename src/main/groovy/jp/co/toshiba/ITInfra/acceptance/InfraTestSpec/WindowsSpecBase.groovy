@@ -15,7 +15,6 @@ class WindowsSpecBase extends InfraTestSpec {
     String ip
     String os_user
     String os_password
-    String local_dir
     String script_path
 
     def init() {
@@ -25,7 +24,6 @@ class WindowsSpecBase extends InfraTestSpec {
         def os_account   = test_server.os_account
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
-        this.local_dir   = test_server.evidence_log_dir
         this.script_path = local_dir + '/get_windows_spec.ps1'
     }
 
@@ -65,7 +63,7 @@ class WindowsSpecBase extends InfraTestSpec {
                     cpuinfo["mhz"] = m1
                 }
             }
-            cpuinfo["total"] = cpu_number
+            cpuinfo["cpu_total"] = cpu_number
             test_item.results(cpuinfo)
         }
     }

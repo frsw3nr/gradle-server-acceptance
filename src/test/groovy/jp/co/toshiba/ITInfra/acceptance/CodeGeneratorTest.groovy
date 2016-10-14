@@ -14,7 +14,7 @@ class CodeGeneratorTest extends Specification {
         println code.generate()
 
         then:
-        1 == 1
+        code.generate().size() > 0
     }
 
 }

@@ -7,7 +7,7 @@ class DomainTestRunnerTest extends Specification {
         when:
         def test_server = new TargetServer(
             server_name   : 'ostrich',
-            ip            : '192.168.10.1',
+            ip            : 'localhost',
             platform      : 'Linux',
             os_account_id : 'Test',
             vcenter_id    : 'Test',

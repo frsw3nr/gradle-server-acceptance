@@ -19,7 +19,7 @@ class vCenterBaseTest extends Specification {
             vm            : 'win2012.ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
-
+        test_server.dry_run = true
     }
 
     def "vCenter テスト仕様のロード"() {
@@ -31,20 +31,8 @@ class vCenterBaseTest extends Specification {
         test.run(test_item)
 
         then:
-        test_item.results.size() > 0
-    }
-
-    def "vCenter ドライランテスト"() {
-        setup:
-        test_server.dry_run = true
-        test = new DomainTestRunner(test_server, 'vCenter')
-
-        when:
-        def test_item = new TestItem('vm')
-        test.run(test_item)
         println test_item.results.toString()
-
-        then:
         test_item.results.size() > 0
     }
+
 }

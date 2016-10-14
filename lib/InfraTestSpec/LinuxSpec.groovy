@@ -9,9 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 @InheritConstructors
 class LinuxSpec extends LinuxSpecBase {
 
-    @Override
     def init() {
-        println "test:LinuxSpec2.14"
         super.init()
     }
 

@@ -1,5 +1,11 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+public enum VerifyStatus {
+    ok,
+    ng,
+    unkown,
+}
+
 class TestItem {
 
     String  test_id
@@ -8,11 +14,13 @@ class TestItem {
 
     int succeed = 0
     def results
+    def verify_statuses
 
     TestItem(String test_id) {
         this.test_id = test_id
         this.enabled = true
         this.results = [:]
+        this.verify_statuses = [:]
     }
 
     def results(String result) {

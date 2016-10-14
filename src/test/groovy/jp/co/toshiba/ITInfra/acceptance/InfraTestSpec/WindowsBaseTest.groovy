@@ -19,6 +19,7 @@ class WindowsBaseTest extends Specification {
             vm            : 'win2012.ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
+        test_server.dry_run = true
     }
 
     def "Windows テスト仕様のロード"() {
@@ -49,21 +50,6 @@ class WindowsBaseTest extends Specification {
     }
 
 
-    def "Windows ドライランテスト"() {
-        setup:
-        test_server.dry_run = true
-        test = new DomainTestRunner(test_server, 'Windows')
-
-        when:
-        def test_item = new TestItem('cpu')
-        test.run(test_item)
-        println test_item.results.toString()
-
-        then:
-        1==1
-        // test_item.results.size() > 0
-    }
-
     def "Windows 複数テスト仕様のロード"() {
         setup:
         test = new DomainTestRunner(test_server, 'Windows')
@@ -73,6 +59,9 @@ class WindowsBaseTest extends Specification {
         test.run(test_items)
 
         then:
+        [0..1].each {
+            println test_items[it].results.toString()
+        }
         test_items[0].results.size() > 0
         test_items[1].results.size() > 0
     }

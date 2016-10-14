@@ -14,7 +14,6 @@ class vCenterSpecBase extends InfraTestSpec {
     String vcenter_user
     String vcenter_password
     String vm
-    String local_dir
     String script_path
 
     def init() {
@@ -25,7 +24,6 @@ class vCenterSpecBase extends InfraTestSpec {
         vcenter_user     = vcenter_account['user']
         vcenter_password = vcenter_account['password']
         vm               = test_server.vm
-        local_dir        = test_server.evidence_log_dir
         script_path      = local_dir + '/get_vCenter_spec.ps1'
     }
 

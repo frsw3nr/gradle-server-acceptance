@@ -14,6 +14,7 @@ class EvidenceSheet {
     String evidence_source
     String evidence_target
     String sheet_name_server
+    String sheet_name_rule
     String staging_dir
     def sheet_name_specs
 
@@ -22,6 +23,7 @@ class EvidenceSheet {
 
     def test_servers
     def test_specs
+    def verify_rules
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
         def config = Config.instance.read(config_file)['evidence']
@@ -30,6 +32,7 @@ class EvidenceSheet {
         evidence_source   = config['source'] ?: './check_sheet.xlsx'
         evidence_target   = config['target'] ?: './build/check_sheet.xlsx'
         sheet_name_server = config['sheet_name_server'] ?: 'Target'
+        sheet_name_rule   = config['sheet_name_rule'] ?: 'Rule'
         staging_dir       = config['staging_dir'] ?: './build/log'
         sheet_name_specs  = config['sheet_name_specs'] ?: [
                                 'Linux'   : 'CheckSheet(Linux)',
@@ -41,6 +44,7 @@ class EvidenceSheet {
         test_domains   = [:]
         test_servers   = []
         test_specs     = [:].withDefault{[:].withDefault{[:]}}
+        verify_rules   = [:].withDefault{[:].withDefault{[:]}}
     }
 
     // エクセル検査結果列のセルフォーマット
@@ -108,6 +112,38 @@ class EvidenceSheet {
         }
     }
 
+    def readSheetRule(Sheet sheet_spec) throws IOException {
+        sheet_spec.with { sheet ->
+            def verify_rule_ids = [:]
+            // check test_ids from header
+            Row header_row = sheet.getRow(3)
+            (4 .. header_row.getLastCellNum()).each { column ->
+                println "column : ${column}"
+                def rule_id_cell = header_row.getCell(column)
+                if (rule_id_cell) {
+                    def rule_id = rule_id_cell.getStringCellValue()
+                    println "rule_id : ${rule_id}"
+                    verify_rule_ids[rule_id] = column
+                }
+            }
+            // check rule from body
+            (4 .. sheet.getLastRowNum()).each { rownum ->
+                Row row = sheet.getRow(rownum)
+                def test_id     = row.getCell(1).getStringCellValue()
+                def test_domain = row.getCell(3).getStringCellValue()
+                verify_rule_ids.each { rule_id, column ->
+                    def rule_text_cell = row.getCell(column)
+                    if (rule_text_cell) {
+                        def rule_text = rule_text_cell.getStringCellValue()
+                        if (rule_text.size() > 0) {
+                            verify_rules[rule_id][test_domain][test_id] = rule_text
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     def readSheet() throws IOException {
         log.info("Read test spec from ${evidence_source}")
 
@@ -134,6 +170,16 @@ class EvidenceSheet {
                         log.error(msg)
                         throw new IllegalArgumentException(msg)
                     }
+                }
+                // Read Excel verify rule sheet.
+                log.debug("Read excel sheet '${evidence_source}:${sheet_name_rule}'")
+                def sheet_rule = workbook.getSheet(sheet_name_rule)
+                if (sheet_rule) {
+                    readSheetRule(sheet_rule)
+                } else {
+                    def msg = "Not found excel server list sheet '${sheet_name_rule}'"
+                    log.error(msg)
+                    throw new IllegalArgumentException(msg)
                 }
             }
         }

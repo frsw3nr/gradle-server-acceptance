@@ -1,7 +1,8 @@
 // 検査仕様シート定義
 
-evidence.source = './check_sheet.xlsx'
+evidence.source = './src/test/resources/check_sheet.xlsx'
 evidence.sheet_name_server = 'Target'
+evidence.sheet_name_rule = 'Rule'
 evidence.sheet_name_spec = [
     'Linux':   'Check(Linux)',
     'Windows': 'Check(Windows)',
@@ -37,7 +38,7 @@ account.vCenter.Test.password = 'P@ssword'
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
-account.Linux.Test.work_dir  = '/tmp'
+account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
 // Windows 接続情報
 

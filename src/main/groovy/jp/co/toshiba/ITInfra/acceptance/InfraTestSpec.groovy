@@ -4,8 +4,9 @@ import groovy.util.logging.Slf4j
 import groovy.transform.ToString
 
 public enum RunMode {
-    prepare_script,
-    run_script,
+    prepare,
+    run,
+    finish,
 }
 
 @Slf4j
@@ -16,21 +17,23 @@ class InfraTestSpec {
     String server_name
     String domain
     String title
-    Boolean dry_run
     String dry_run_staging_dir
+    String local_dir
     int timeout
+    Boolean dry_run
     Boolean skip_exec
-    def mode
+    RunMode mode
 
     def InfraTestSpec(TargetServer test_server, String domain) {
         this.test_server         = test_server
         this.server_name         = test_server.server_name
         this.domain              = domain
         this.title               = domain + '(' + test_server.info() + ')'
+        this.local_dir           = test_server.evidence_log_dir
         this.dry_run             = test_server.dry_run
         this.dry_run_staging_dir = test_server.dry_run_staging_dir
         this.timeout             = test_server.timeout
-        this.mode                = RunMode.prepare_script
+        this.mode                = RunMode.prepare
     }
 
     def prepare = { Closure closure ->
@@ -38,7 +41,7 @@ class InfraTestSpec {
     }
 
     def run_script = { String command, Closure closure ->
-        if (mode == RunMode.prepare_script) {
+        if (mode == RunMode.prepare) {
             // コマンドは1行で実行するため、改行は取り除く
             command = command.replaceAll(/(\r|\n)/, "")
             log.debug "Invoke WMI command : ${command}"
@@ -49,7 +52,7 @@ class InfraTestSpec {
     }
 
     def run = { Closure closure ->
-        if (mode == RunMode.run_script) {
+        if (mode == RunMode.run) {
             return closure.call()
         }
     }
@@ -95,7 +98,7 @@ class InfraTestSpec {
 
     def runPowerShellTest(String template_dir, String domain, String cmd, TestItem[] test_items) {
         def code = new CodeGenerator(template_dir, domain)
-        mode = RunMode.prepare_script
+        mode = RunMode.prepare
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
             if (method) {
@@ -119,7 +122,7 @@ class InfraTestSpec {
             long elapsed = System.currentTimeMillis() - start
             log.info "Finish powershell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
             log.info "\ttest : " + code.test_ids.toString()
-            mode = RunMode.run_script
+            mode = RunMode.run
             test_items.each {
                 def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
                 if (method) {

@@ -19,10 +19,4 @@ class ConfigTest extends Specification {
         config['evidence']['source'] == './check_sheet.xlsx'
     }
 
-    def "Config test read param"() {
-        // setup:
-        // def config = Config.instance.config
-        // assert Config.instance.config['evidence']['source'] == './check_sheet.xlsx'
-        // // assert config['evidence']['source'] == './check_sheet.xlsx'
-    }
 }

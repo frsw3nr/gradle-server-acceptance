@@ -23,18 +23,6 @@ class LinuxBaseTest extends Specification {
 
     def "Linux テスト仕様のロード"() {
         setup:
-        test = new DomainTestRunner(test_server, 'Linux')
-
-        when:
-        def test_item = new TestItem('hostname')
-        test.run(test_item)
-
-        then:
-        test_item.results.size() > 0
-    }
-
-    def "Linux ドライランテスト"() {
-        setup:
         test_server.dry_run = true
         test = new DomainTestRunner(test_server, 'Linux')
 
@@ -43,19 +31,26 @@ class LinuxBaseTest extends Specification {
         test.run(test_item)
 
         then:
+        println test_item.results.toString()
         test_item.results.size() > 0
     }
 
     def "Linux 複数テスト仕様のロード"() {
         setup:
+        test_server.dry_run = true
         test = new DomainTestRunner(test_server, 'Linux')
 
         when:
-        TestItem[] test_items = [new TestItem('hostname'), new TestItem('hostname_fqdn') ]
+        TestItem[] test_items = [new TestItem('hostname'), new TestItem('hostname_fqdn'), new TestItem('cpu')]
         test.run(test_items)
+        [0..2].each {
+            println test_items[it].results.toString()
+       }
 
         then:
+        // println test_item.results.toString()
         test_items[0].results.size() > 0
         test_items[1].results.size() > 0
+        test_items[2].results.size() > 0
     }
 }

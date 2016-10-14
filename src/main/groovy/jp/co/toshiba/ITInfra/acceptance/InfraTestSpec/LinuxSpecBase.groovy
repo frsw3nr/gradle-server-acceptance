@@ -19,13 +19,12 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def init() {
         super.init()
+
         this.ip          = test_server.ip
         def os_account   = test_server.os_account
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
         this.work_dir    = os_account['work_dir']
-
-        println "test1 ${server_name} ${ip} ${os_user}"
     }
 
     def setup_exec(TestItem[] test_items) {
@@ -44,53 +43,62 @@ class LinuxSpecBase extends InfraTestSpec {
         ssh.settings {
             dryRun = this.dry_run
         }
-        println "DryRun : " + this.dry_run
-        println "DryRunStagingDir : " + this.dry_run_staging_dir
         ssh.run {
             session(ssh.remotes.ssh_host) {
+                try {
+                    execute "mkdir -vp ${work_dir}"
+                } catch (Exception e) {
+                    log.error "[SSH Test] Working directory in ${this.server_name} faild, skip.\n" + e
+                    return
+                }
+
                 test_items.each {
                     def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
-                    println "method : ${method.name}"
-                    method.invoke(this, delegate, it)
+                    if (method) {
+                        log.debug "Invoke command '${method.name}()'"
+                        try {
+                            long start = System.currentTimeMillis();
+                            method.invoke(this, delegate, it)
+                            long elapsed = System.currentTimeMillis() - start
+                            log.info "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
+                            it.succeed = 1
+                        } catch (Exception e) {
+                            log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
+                        }
+                    } else {
+                        log.warn "Test method '${it.test_id}(TestItem)' not found, skip."
+                    }
                 }
+                remove work_dir
             }
         }
     }
 
-    def exec = { String test_id, Closure closure ->
-        def result = closure.call()
-        if (dry_run) {
-            // test/resources/log/{サーバ名}/{検査項目}
-            def log = "${dry_run_staging_dir}/${domain}/${server_name}/${test_id}"
-            println "LOG : ${log}"
-            return new File(log).text
-        } else {
-            return result
-        }
+    def run_ssh_command(session, command, test_id) {
+        session.execute "${command} > ${work_dir}/${test_id}"
+        session.get from: "${work_dir}/${test_id}", into: local_dir
+        new File("${local_dir}/${test_id}").text
     }
 
     def hostname(session, test_item) {
         def lines = exec('hostname') {
-            session.execute "hostname -s > ${work_dir}/hostname"
-            session.get from: "${work_dir}/hostname"
+            run_ssh_command(session, 'hostname -s', 'hostname')
         }
+        lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
-        println "parse hostname : ${lines}"
     }
 
     def hostname_fqdn(session, test_item) {
         def lines = exec('hostname_fqdn') {
-            session.execute "hostname --fqdn > ${work_dir}/hostname_fqdn";
-            session.get from: "${work_dir}/hostname_fqdn"
+            run_ssh_command(session, 'hostname --fqdn', 'hostname_fqdn')
         }
+        lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
-        println "parse hostname_fqdn : ${lines}"
     }
 
     def cpu(session, test_item) {
         def lines = exec('cpu') {
-            session.execute "cat /proc/cpuinfo > ${work_dir}/cpu"
-            session.get from: "${work_dir}/cpu"
+            run_ssh_command(session, 'cat /proc/cpuinfo', 'cpu')
         }
 
         def cpuinfo    = [:].withDefault{0}
@@ -116,9 +124,9 @@ class LinuxSpecBase extends InfraTestSpec {
                 cpuinfo["cache_size"] = m1
             }
         }
-        cpuinfo["total"] = cpu_number
-        cpuinfo["real"] = real_cpu.size()
-        cpuinfo["cores"] = real_cpu.size() * cpuinfo["cores"].toInteger()
+        cpuinfo["cpu_total"] = cpu_number
+        cpuinfo["cpu_real"] = real_cpu.size()
+        cpuinfo["cpu_cores"] = real_cpu.size() * cpuinfo["cpu_cores"].toInteger()
 
         test_item.results(cpuinfo)
     }
