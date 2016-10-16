@@ -55,8 +55,17 @@ class DomainTestRunner {
         spec.cleanup_exec()
     }
 
-    // def run(TestItem test_item) {
-    //     spec.init()
-    //     spec.setup_exec(test_item)
-    // }
+    def makeTest(List test_ids) {
+        def test_item_list = []
+        test_ids.each {
+            test_item_list.add(new TestItem(it))
+        }
+        def test_items = test_item_list as TestItem[]
+        run(test_items)
+        def results = [:]
+        test_items.each {
+            results << it.results
+        }
+        return results
+    }
 }

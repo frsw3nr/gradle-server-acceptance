@@ -13,7 +13,7 @@ class vCenterBaseTest extends Specification {
         test_server = new TargetServer(
             server_name   : 'win2012',
             ip            : '192.168.0.12',
-            platform      : 'vCenter',
+            platform      : 'Windows',
             os_account_id : 'Test',
             vcenter_id    : 'Test',
             vm            : 'win2012.ostrich',

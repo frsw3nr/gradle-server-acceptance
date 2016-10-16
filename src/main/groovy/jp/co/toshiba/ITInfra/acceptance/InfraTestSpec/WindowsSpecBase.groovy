@@ -70,8 +70,8 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def memory(TestItem test_item) {
         def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_OperatingSystem |
-            |    select TotalVirtualMemorySize,TotalVisibleMemorySize,
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_OperatingSystem | `
+            |    select TotalVirtualMemorySize,TotalVisibleMemorySize, `
             |        FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles
             |'''.stripMargin()
 
@@ -98,6 +98,73 @@ class WindowsSpecBase extends InfraTestSpec {
                 }
             }
             test_item.results(meminfo)
+        }
+    }
+
+    def driver(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_PnPSignedDriver
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('driver') {
+                new File("${local_dir}/driver")
+            }
+            def driverinfo = [:].withDefault{0}
+            lines.eachLine {
+            }
+            test_item.results(driverinfo)
+        }
+    }
+
+    def filesystem(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_LogicalDisk
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('filesystem') {
+                new File("${local_dir}/filesystem")
+            }
+            def filesystem_info = [:].withDefault{0}
+            lines.eachLine {
+            }
+            test_item.results(filesystem_info)
+        }
+    }
+
+    def fips(TestItem test_item) {
+        def command = '''\
+            |$reg = Get-WmiObject -List -Namespace root\\default -Credential $cred -ComputerName $ip | `
+            |Where-Object {$_.Name -eq "StdRegProv"}
+            |$HKLM = 2147483650
+            |$reg.GetStringValue($HKLM,"System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy","Enabled").sValue
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('fips') {
+                new File("${local_dir}/fips")
+            }
+            def fips_info = [:].withDefault{0}
+            lines.eachLine {
+            }
+            test_item.results(fips_info)
+        }
+    }
+
+    def network(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('network') {
+                new File("${local_dir}/network")
+            }
+            def network_info = [:].withDefault{0}
+            lines.eachLine {
+            }
+            test_item.results(network_info)
         }
     }
 }

@@ -5,14 +5,14 @@ import groovy.transform.ToString
 import groovy.text.GStringTemplateEngine
 
 @Slf4j
-class CodeGenerator {
+class TestScriptGenerator {
 
     String domain
     String template_path
     def commands = []
     def test_ids = []
 
-    CodeGenerator(String template_dir, String domain) {
+    TestScriptGenerator(String template_dir, String domain) {
         this.domain       = domain
         this.template_path = template_dir + "/get_${domain}_spec.template"
     }

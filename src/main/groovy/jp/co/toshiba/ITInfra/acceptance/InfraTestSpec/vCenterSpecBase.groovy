@@ -18,7 +18,7 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def init() {
         super.init()
- 
+
         def vcenter_account = test_server.vcenter_account
         vcenter_ip       = vcenter_account['server']
         vcenter_user     = vcenter_account['user']

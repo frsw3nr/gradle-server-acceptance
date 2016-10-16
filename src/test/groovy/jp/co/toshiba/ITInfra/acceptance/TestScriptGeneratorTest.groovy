@@ -1,13 +1,13 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
-// gradle --daemon clean test --tests "CodeGeneratorTest"
+// gradle --daemon clean test --tests "TestScriptGeneratorTest"
 
-class CodeGeneratorTest extends Specification {
+class TestScriptGeneratorTest extends Specification {
 
     def "vCenterテストスクリプトの初期化"() {
         setup:
-        def code = new CodeGenerator('./lib/template', 'vCenter')
+        def code = new TestScriptGenerator('./lib/template', 'vCenter')
 
         when:
         code.addCommand('vm', 'get-vm $vm | select NumCpu, PowerState, MemoryGB, VMHost')

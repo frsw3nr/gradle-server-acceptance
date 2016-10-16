@@ -29,12 +29,7 @@ class EvidenceSheetTest extends Specification{
     def "既定のExcelファイル読み込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config.groovy')
-        println evidence.evidence_source
         evidence.readSheet()
-        println evidence.test_servers
-        println evidence.test_specs
-        println evidence.test_platforms
-        println evidence.test_domains
 
         then:
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'

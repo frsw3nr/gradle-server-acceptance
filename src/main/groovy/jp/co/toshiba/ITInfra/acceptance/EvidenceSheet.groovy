@@ -11,6 +11,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 @Slf4j
 class EvidenceSheet {
 
+    final row_header        = 3
+    final row_body_begin    = 4
+    final column_header     = 3
+    final column_body_begin = 4
+
     String evidence_source
     String evidence_target
     String sheet_name_server
@@ -22,7 +27,7 @@ class EvidenceSheet {
     def test_domains
 
     def test_servers
-    def test_specs
+    def domain_test_ids
     def verify_rules
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
@@ -40,11 +45,11 @@ class EvidenceSheet {
                             ]
 
         def date = Config.instance.date
-        test_platforms = [:]
-        test_domains   = [:]
-        test_servers   = []
-        test_specs     = [:].withDefault{[:].withDefault{[:]}}
-        verify_rules   = [:].withDefault{[:].withDefault{[:]}}
+        test_platforms  = [:]
+        test_domains    = [:]
+        test_servers    = []
+        domain_test_ids = [:].withDefault{[:].withDefault{[]}}
+        verify_rules    = [:].withDefault{[:].withDefault{[:]}}
     }
 
     // エクセル検査結果列のセルフォーマット
@@ -65,8 +70,9 @@ class EvidenceSheet {
     }
 
     def readSheetServer(Sheet sheet_server) throws IOException {
+        log.info("Read sheet '${sheet_name_server}'")
         sheet_server.with { sheet ->
-            (2 .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
                 def test_server = new TargetServer(
                     server_name   : row.getCell(2).getStringCellValue(),
@@ -86,6 +92,7 @@ class EvidenceSheet {
                     case 0:
                         test_platforms[test_server['platform']] = 1
                         test_servers.push(test_server)
+                        log.debug("\t${rownum} : Add server '${test_server.server_name}'")
                         break
 
                     case 1..3:
@@ -98,44 +105,56 @@ class EvidenceSheet {
     }
 
     def readSheetSpec(String platform, Sheet sheet_spec) throws IOException {
+        log.info("Read sheet 'spec ${platform}'")
         sheet_spec.with { sheet ->
-            (4 .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
-                def yes_no      = row.getCell(0).getStringCellValue()
-                def test_id     = row.getCell(1).getStringCellValue()
-                def test_domain = row.getCell(3).getStringCellValue()
-                if (test_id && test_domain && yes_no.toUpperCase() == "Y") {
-                    test_domains[test_domain] = 1
-                    test_specs[platform][test_domain][test_id] = new TestItem(test_id)
+                def yes_no  = row.getCell(0).getStringCellValue()
+                def test_id = row.getCell(1).getStringCellValue()
+                def domain  = row.getCell(3).getStringCellValue()
+                if (test_id && domain && yes_no.toUpperCase() == "Y") {
+                    test_domains[domain] = 1
+                    domain_test_ids[platform][domain].add(test_id)
+                    def index = "${platform}, ${domain}, ${test_id}"
+                    log.debug "\t${rownum} : Add test_id '${index}'"
                 }
             }
         }
     }
 
-    def readSheetRule(Sheet sheet_spec) throws IOException {
-        sheet_spec.with { sheet ->
+    def readSheetRule(Sheet sheet_rule) throws IOException {
+        log.info("Read sheet '${sheet_name_rule}'")
+        sheet_rule.with { sheet ->
             def verify_rule_ids = [:]
-            // check test_ids from header
-            Row header_row = sheet.getRow(3)
-            (4 .. header_row.getLastCellNum()).each { column ->
-                println "column : ${column}"
+            // check domain_test_ids from header
+            Row header_row = sheet.getRow(row_header)
+            (row_body_begin .. header_row.getLastCellNum()).each { column ->
+                def position = "${row_header}:${column}"
                 def rule_id_cell = header_row.getCell(column)
                 if (rule_id_cell) {
                     def rule_id = rule_id_cell.getStringCellValue()
-                    println "rule_id : ${rule_id}"
-                    verify_rule_ids[rule_id] = column
+                    if (rule_id.size() > 0) {
+                        log.debug "\t${position} : Add rule_id '${rule_id}'"
+                        verify_rule_ids[rule_id] = column
+                    } else {
+                        def msg = "Not found 'rule_id' at ${position}"
+                        throw new IllegalArgumentException(msg)
+                    }
                 }
             }
             // check rule from body
-            (4 .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
                 def test_id     = row.getCell(1).getStringCellValue()
                 def test_domain = row.getCell(3).getStringCellValue()
                 verify_rule_ids.each { rule_id, column ->
+                    def position = "${rownum}:${column}"
                     def rule_text_cell = row.getCell(column)
                     if (rule_text_cell) {
                         def rule_text = rule_text_cell.getStringCellValue()
                         if (rule_text.size() > 0) {
+                            def index = "${rule_id},${test_domain},${test_id}"
+                            log.debug "\t${position} : Add rule ${index} = '${rule_text}'"
                             verify_rules[rule_id][test_domain][test_id] = rule_text
                         }
                     }
@@ -156,7 +175,6 @@ class EvidenceSheet {
                     readSheetServer(sheet_server)
                 } else {
                     def msg = "Not found excel server list sheet '${sheet_name_server}'"
-                    log.error(msg)
                     throw new IllegalArgumentException(msg)
                 }
                 // Read Excel test spec sheet.
@@ -167,7 +185,6 @@ class EvidenceSheet {
                         readSheetSpec(platform, sheet_spec)
                     } else {
                         def msg = "Not found excel test spec sheet '${sheet_name_spec}'"
-                        log.error(msg)
                         throw new IllegalArgumentException(msg)
                     }
                 }
@@ -178,7 +195,6 @@ class EvidenceSheet {
                     readSheetRule(sheet_rule)
                 } else {
                     def msg = "Not found excel server list sheet '${sheet_name_rule}'"
-                    log.error(msg)
                     throw new IllegalArgumentException(msg)
                 }
             }
@@ -206,7 +222,7 @@ class EvidenceSheet {
 
         // 検査結果列を順に登録
         sheet_result.with { sheet ->
-            (4 .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
                 def row_style  = wb.createCellStyle().setWrapText(true)
                 row.setRowStyle(row_style)

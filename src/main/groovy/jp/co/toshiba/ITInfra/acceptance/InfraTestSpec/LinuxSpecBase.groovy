@@ -65,8 +65,6 @@ class LinuxSpecBase extends InfraTestSpec {
                         } catch (Exception e) {
                             log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
                         }
-                    } else {
-                        log.warn "Test method '${it.test_id}(TestItem)' not found, skip."
                     }
                 }
                 remove work_dir

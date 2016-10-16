@@ -15,6 +15,7 @@ class InfraTestSpec {
     def config
     TargetServer test_server
     String server_name
+    String platform
     String domain
     String title
     String dry_run_staging_dir
@@ -27,9 +28,10 @@ class InfraTestSpec {
     def InfraTestSpec(TargetServer test_server, String domain) {
         this.test_server         = test_server
         this.server_name         = test_server.server_name
+        this.platform            = test_server.platform
         this.domain              = domain
-        this.title               = domain + '(' + test_server.info() + ')'
-        this.local_dir           = test_server.evidence_log_dir
+        this.title               = domain + '('     + test_server.info() + ')'
+        this.local_dir           = "${test_server.evidence_log_dir}/${domain}"
         this.dry_run             = test_server.dry_run
         this.dry_run_staging_dir = test_server.dry_run_staging_dir
         this.timeout             = test_server.timeout
@@ -42,8 +44,8 @@ class InfraTestSpec {
 
     def run_script = { String command, Closure closure ->
         if (mode == RunMode.prepare) {
-            // コマンドは1行で実行するため、改行は取り除く
-            command = command.replaceAll(/(\r|\n)/, "")
+            // 文末の改行コードは取り除く
+            command = command.replaceAll(/(\s|\r|\n)*$/, "")
             log.debug "Invoke WMI command : ${command}"
             return command
         } else {
@@ -59,8 +61,7 @@ class InfraTestSpec {
 
     def exec = { String test_id, Closure closure ->
         if (dry_run) {
-            // test/resources/log/{サーバ名}/{検査項目}
-            def log_path = "${dry_run_staging_dir}/${domain}/${server_name}/${test_id}"
+            def log_path = "${dry_run_staging_dir}/${platform}/${server_name}/${domain}/${test_id}"
             log.debug "[DryRun] Read dummy log '${log_path}'"
             try {
                 return new File(log_path).text
@@ -97,7 +98,7 @@ class InfraTestSpec {
     }
 
     def runPowerShellTest(String template_dir, String domain, String cmd, TestItem[] test_items) {
-        def code = new CodeGenerator(template_dir, domain)
+        def code = new TestScriptGenerator(template_dir, domain)
         mode = RunMode.prepare
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
@@ -105,8 +106,6 @@ class InfraTestSpec {
                 def command = method.invoke(this, it)
                 log.debug "fetch command ${method.name} : ${command}"
                 code.addCommand(it.test_id, command)
-            } else {
-                log.warn "Test spec method '${it.test_id}(TestItem)' not found, skip."
             }
         }
         def ncommand = code.commands.size()
@@ -142,9 +141,12 @@ class InfraTestSpec {
 
     def init() {
         log.info("Initialize infra test spec ${title}")
-        def local_dir = new File(test_server.evidence_log_dir)
-        local_dir.deleteDir()
-        local_dir.mkdirs()
+        if (dry_run) {
+            log.info("DryRun : 'Y'")
+        }
+        def target_log_dir = new File(local_dir)
+        target_log_dir.deleteDir()
+        target_log_dir.mkdirs()
     }
 
     def finish() {
