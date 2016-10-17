@@ -81,6 +81,7 @@ class EvidenceSheet {
                     os_account_id : row.getCell(5).getStringCellValue(),
                     vcenter_id    : row.getCell(6).getStringCellValue(),
                     vm            : row.getCell(7).getStringCellValue(),
+                    verify_id     : row.getCell(8).getStringCellValue(),
                 )
                 def null_checks = [:]
                 ['server_name', 'ip', 'platform', 'os_account_id'].each {

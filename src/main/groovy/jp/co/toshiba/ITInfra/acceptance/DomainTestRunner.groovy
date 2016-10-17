@@ -8,7 +8,7 @@ import groovy.transform.ToString
 // 定数の定義、user_lib, user_package
 // DomainTestRunner に変更
 // run(test_id) 実装
-// run(TestSpec[]) 実装
+// run(Testtest_Spec[]) 実装
 
 @Slf4j
 class DomainTestRunner {
@@ -18,12 +18,13 @@ class DomainTestRunner {
 
     TargetServer test_server
     String     domain
-    TestItem[] results
-
-    private spec
+    String     verify_id
+    def result_test_items = []
+    private test_spec
 
     DomainTestRunner(TargetServer test_server, String domain) {
         this.test_server = test_server
+        this.verify_id   = test_server.verify_id
         this.domain      = domain
 
         def loader = new GroovyClassLoader()
@@ -32,7 +33,8 @@ class DomainTestRunner {
 
         def user_script = "${user_lib}/${user_package}/${domain}Spec.groovy"
         def clazz = loader.parseClass(new File(user_script))
-        spec = clazz.newInstance(test_server, domain)
+        test_spec = clazz.newInstance(test_server, domain)
+
     }
 
     def summaryReport(TestItem[] test_items) {
@@ -49,23 +51,45 @@ class DomainTestRunner {
     }
 
     def run(TestItem[] test_items) {
-        spec.init()
-        spec.setup_exec(test_items)
+        test_spec.init()
+        test_spec.setup_exec(test_items)
         log.info "\tresults : " + summaryReport(test_items)
-        spec.cleanup_exec()
+        test_spec.cleanup_exec()
     }
 
     def makeTest(List test_ids) {
-        def test_item_list = []
         test_ids.each {
-            test_item_list.add(new TestItem(it))
+            result_test_items.add(new TestItem(it))
         }
-        def test_items = test_item_list as TestItem[]
+        def test_items = result_test_items as TestItem[]
         run(test_items)
-        def results = [:]
+        def test_results = [:]
         test_items.each {
-            results << it.results
+            test_results << it.results
         }
-        return results
+        return test_results
+    }
+
+    def verifyResults(VerifyRuleGenerator verify_rule) {
+        def rule = verify_rule.generate_instance()
+        def verify_results = [:]
+        result_test_items.each { test_item ->
+            test_item.results.each { test_id, test_value ->
+                def verify_func = "${verify_id}__${domain}__${test_id}"
+                log.debug "Evaluate '${verify_func}'"
+                def method = rule.metaClass.getMetaMethod(verify_func, Object)
+                if (method) {
+                    try {
+                        def verify_result = method.invoke(rule, test_value)
+                        log.debug "Verify_rule ${method.name}(${test_value}) = ${verify_result}"
+                        test_item.verify_statuses[test_id] = verify_result
+                    } catch (Exception e) {
+                        log.error "[Verify] Failed to evaluate rule '${test_id}' : " + e
+                    }
+                }
+            }
+            verify_results << test_item.verify_statuses
+        }
+        return verify_results
     }
 }

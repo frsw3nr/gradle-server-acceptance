@@ -5,12 +5,20 @@ import jp.co.toshiba.ITInfra.acceptance.*
 
 class TestSchedulerTest extends Specification {
 
-    def "並列実行のテスト"() {
+    def "メイン処理"() {
         setup:
-        def scheduler = new TestScheduler()
+        String[] args = [
+            '--dry-run',
+            '--verify',
+            '-r', './src/test/resources/',
+            '-p', '3',
+        ]
 
         when:
-        scheduler.runTest()
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        def test_scheduler = new TestScheduler(test_runner)
+        test_scheduler.runTest()
 
         then:
         1 == 1

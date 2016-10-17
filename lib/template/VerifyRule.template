@@ -1,5 +1,6 @@
 package InfraTestSpec
 
+import org.apache.commons.lang.math.*
 import groovy.util.logging.Slf4j
 
 @Slf4j
@@ -12,8 +13,14 @@ verify_rules.each { rule_id, domain_rules ->
             def method_name = "${rule_id}__${domain}__${test_id}"
 
 %>\
-    def <%= method_name %>(x) {
-        return (<%= rule %>) ? true : false
+    def <%= method_name %>(string_x) {
+        if (NumberUtils.isNumber(string_x)) {
+            def x = NumberUtils.toDouble(string_x)
+            return (<%= rule %>) ? true : false
+        } else {
+            def x = string_x
+            return (<%= rule %>) ? true : false
+        }
     }
 
 <%

@@ -11,6 +11,7 @@ class TargetServer {
     String os_account_id
     String vcenter_id
     String vm
+    String verify_id
     String evidence_log_dir
     Boolean dry_run
     String dry_run_staging_dir

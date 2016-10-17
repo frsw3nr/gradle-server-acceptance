@@ -2,6 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.util.CliBuilder
+import org.apache.commons.cli.Option
 
 // gradlew run -Pargs="ls -alt *.groovy"
 
@@ -11,52 +12,73 @@ import groovy.util.CliBuilder
 @Slf4j
 class TestRunner {
 
-    final created
     String test_resource
     String config_file
     String sheet_file
-    String target_servers
-    String test_id
+    int parallel_degree
+    def target_servers
+    def test_ids
     Boolean dry_run
+    Boolean verify_test
 
-    EvidenceSheet evidence
-
-    TestRunner() {
-        created = new Date().format("yyyyMMdd-HHmmss")
-    }
-
-    Boolean readEvidence() {
-        //
-    }
-
-    Boolean writeEvidence() {
-        //
-    }
-
-    Boolean runTest(String[] args) {
+    def parse(String[] args) {
         def cli = new CliBuilder(usage:'getspec')
-        cli.a('all')
-        cli.c( longOpt:'config',   args: 1, 'config.groovy');
-        cli.e( longOpt:'excel',    args: 1, 'excel spec file');
-        cli.s( longOpt:'server',   args: 1, 'keyword of server name');
-        cli.t( longOpt:'test',     args: 1, 'keyword of test id');
-        cli.t( longOpt:'resource', args: 1, 'test resource dir');
-        cli._( longOpt:'dry-run', 'dry run test')
+        cli.with {
+            c longOpt:'config',   args: 1, 'Config file'
+            e longOpt:'excel',    args: 1, 'Excel spec file'
+            s longOpt:'server',   args: Option.UNLIMITED_VALUES, valueSeparator: ',' as char, 'Server list filter'
+            t longOpt:'test',     args: Option.UNLIMITED_VALUES, valueSeparator: ',' as char, 'Test id list filter'
+            r longOpt:'resource', args: 1, 'Test resource dir'
+            p longOpt:'parallel', args: 1, 'Parallel test degree'
+            d longOpt:'dry-run', 'Dry run test'
+            v longOpt:'verify',  'Enable verify test'
+        }
         def options = cli.parse(args)
+        if (!options) {
+            cli.usage()
+            throw new IllegalArgumentException('Parse error')
+        }
 
-println args.toString()
+        def env_test_resource = System.getenv()['TEST_RESOURCE']
+        def default_test_resource = (env_test_resource) ?: './src/test/resources/'
 
-        log.info('===========')
-        log.info("opt a=" + options.a)
-        log.info("opt c=" + options.c)
-        cli.usage()
+        target_servers  = options.ss
+        test_ids        = options.ts
+        test_resource   = (options.r) ?: default_test_resource
+        parallel_degree = (options.p) ?: 1
+        dry_run         = options.d ?: false
+        verify_test     = options.v ?: false
+
+        config_file = './config/config.groovy'
+        if (options.c) {
+            config_file = options.c
+        } else if (options.r || env_test_resource) {
+            config_file = "${test_resource}/config.groovy"
+        }
+
+        def config = Config.instance.read(config_file)
+        sheet_file = config['evidence']['source'] ?: './check_sheet.xlsx'
+
+        log.info "Parse Arguments : " + args.toString()
+        log.info "\ttest_resource : " + test_resource
+        log.info "\tconfig_file   : " + config_file
+        log.info "\tsheet_file    : " + sheet_file
+        log.info "\tdry_run       : " + dry_run
+        log.info "\tverify_test   : " + verify_test
+        log.info "\tfilter option : "
+        log.info "\t\ttarget servers : " + target_servers.toString()
+        log.info "\t\ttest_ids       : " + test_ids.toString()
+
     }
 
     static void main(String[] args) {
         def test = new TestRunner()
-        test.runTest(args)
-        // def v=args[0]
-        // println System.getenv()[v]
-        // println test.created
+        try {
+            test.parse(args)
+            new TestScheduler(this).runTest()
+        } catch (Exception e) {
+            log.fatal e
+            System.exit(1)
+        }
     }
 }
