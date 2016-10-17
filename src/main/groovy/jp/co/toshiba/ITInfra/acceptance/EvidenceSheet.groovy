@@ -7,6 +7,7 @@ import static groovy.json.JsonOutput.*
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.IndexedColors
 
 @Slf4j
 class EvidenceSheet {
@@ -203,6 +204,19 @@ class EvidenceSheet {
 
     }
 
+    public static void setCellColorAndFontColor(XSSFCell cell, IndexedColors FGcolor, IndexedColors FontColor ){
+        XSSFWorkbook wb = cell.getRow().getSheet().getWorkbook();
+        CellStyle style = wb.createCellStyle();
+        XSSFFont font = wb.createFont();
+        font.setBold(true);
+        font.setColor(FontColor.getIndex());
+        style.setFont(font);
+        style.setFillForegroundColor(FGcolor.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setWrapText(true);
+        cell.setCellStyle(style);
+    }
+
     def updateTestResult(String platform, String server_name, int sequence, Map results)
         throws IOException {
         log.info("Update evidence : platform = ${platform}, server = ${server_name}")
@@ -212,14 +226,18 @@ class EvidenceSheet {
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
 
+
         // 5列名以降の検査結果列の列幅 30 文字に設定 (in units of 1/256th of a character width)
         def column = 5 + sequence
         sheet_result.setColumnWidth(column, 7680)
 
         // ヘッダーに検査対象サーバ名を登録
-        def title_cell = sheet_result.getRow(3).createCell(column)
+        def title_cell = sheet_result.getRow(row_header).createCell(column)
         title_cell.setCellValue(server_name)
         title_cell.setCellStyle(cell_style)
+        setCellColorAndFontColor(title_cell, IndexedColors.BLACK, IndexedColors.WHITE)
+        log.debug "Update data : " + results
+
 
         // 検査結果列を順に登録
         sheet_result.with { sheet ->
@@ -230,20 +248,42 @@ class EvidenceSheet {
 
                 // 検査ID列から検査IDを取得
                 Cell cell_test_id = row.getCell(1)
+                Cell cell_domain  = row.getCell(3)
                 Cell cell_result  = row.createCell(column)
-                if (cell_test_id) {
-                    def test_id = cell_test_id.getStringCellValue()
-
-                    // 検査IDをキーに検査結果を登録
-                    if (test_id) {
-                        if (results.containsKey(test_id)) {
-                            cell_result.setCellValue(results[test_id])
-                        } else {
-                            cell_result.setCellValue('[NoRun]')
-                        }
-                    }
-                }
                 cell_result.setCellStyle(cell_style)
+                if (cell_test_id && cell_domain) {
+                    def test_id = cell_test_id.getStringCellValue()
+                    def domain  = cell_domain.getStringCellValue()
+                    log.debug "Check row ${domain},${test_id} in ${platform}"
+
+                    try {
+// println results
+// [vCenter:[test:[NumCpu:2, PowerState:PoweredOn, MemoryGB:2], verify:[NumCpu:false, MemoryGB:false]]]
+                        if (results[domain]['test'].containsKey(test_id)) {
+                            def value = results[domain]['test'][test_id]
+                            log.info "Update cell(${platform}:${domain}:${test_id}) = ${value}"
+                            cell_result.setCellValue(value)
+                            // CellStyle style1 = wb.createCellStyle()
+                            // style1.setFillPattern(CellStyle.SOLID_FOREGROUND)
+                            // style1.setFillForegroundColor(IndexedColors.MAROON.getIndex())
+                            // cell_result.setCellStyle(style1)
+                        }
+                        if (results[domain]['verify'].containsKey(test_id)) {
+                            setCellColorAndFontColor(cell_result, IndexedColors.AQUA, IndexedColors.BLACK);
+                            println "VERIFY ${domain},${test_id} = " + results[domain]['verify'][test_id]
+                        }
+                    } catch (NullPointerException e) {
+                        log.info "Not found row ${domain},${test_id} in ${platform}"
+                    }
+                    // 検査IDをキーに検査結果を登録
+                    // if (test_id) {
+                    //     if (results.containsKey(test_id)) {
+                    //         cell_result.setCellValue(results[test_id])
+                    //     } else {
+                    //         cell_result.setCellValue('[NoRun]')
+                    //     }
+                    // }
+                }
             }
         }
         def fos = new FileOutputStream(evidence_target)

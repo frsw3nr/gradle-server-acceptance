@@ -22,7 +22,7 @@ class TestScheduler {
         evidence_sheet.readSheet()
         def test_servers = evidence_sheet.test_servers
         def verify_rule = new VerifyRuleGenerator(evidence_sheet.verify_rules)
-
+        def test_evidences = [:].withDefault{[:].withDefault{[:]}}
         GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
             test_servers.eachParallel { test_server ->
                 test_server.setAccounts(test_runner.config_file)
@@ -39,11 +39,14 @@ class TestScheduler {
                     if (test_runner.verify_test) {
                         verify_results = domain_test.verifyResults(verify_rule)
                     }
+                    test_evidences[platform][server_name][domain] =
+                        ['test' : test_results, 'verify' : verify_results]
                     log.info 'RESULT(Test) :' + test_results.toString()
                     log.info 'RESULT(Verify) :' + verify_results.toString()
                 }
             }
         }
+        log.info "Evidence : " + test_evidences
         // println "START"
         // GParsPool.withPool(3) { ForkJoinPool pool ->
         //     (1..5).eachParallel {

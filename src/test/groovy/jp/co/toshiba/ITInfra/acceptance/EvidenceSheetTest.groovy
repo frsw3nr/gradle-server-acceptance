@@ -56,4 +56,27 @@ class EvidenceSheetTest extends Specification{
         expect:
         fileName.exists()==true
     }
+
+    def "既定のExcelファイル書き込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
+        evidence.readSheet()
+        evidence.prepareTestStage()
+
+        def data = ['Linux': ['ostrich': ['vCenter': [
+            'test': ['NumCpu':2, 'PowerState':'PoweredOn', 'MemoryGB':2],
+            'verify':['NumCpu':false, 'MemoryGB':false]
+        ]]]]
+        data.each { platform, platform_data ->
+            platform_data.each { server, server_data ->
+                server_data.each { domain, domain_data ->
+                }
+            }
+        }
+        evidence.updateTestResult('Linux', 'ostrich', 0, data['Linux']['ostrich'])
+
+        then:
+        evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
+    }
+
 }
