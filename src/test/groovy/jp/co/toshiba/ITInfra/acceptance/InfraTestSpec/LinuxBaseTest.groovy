@@ -57,6 +57,22 @@ class LinuxBaseTest extends Specification {
        }
     }
 
+    def "Linux デバイス付テスト仕様のロード"() {
+        setup:
+        test_server.dry_run = true
+        test = new DomainTestRunner(test_server, 'Linux')
+
+        when:
+        def test_item = new TestItem('packages')
+        test.run(test_item)
+        println test_item.results.toString()
+
+        then:
+        test_item.results.size() > 0
+        test_item.devices.size() > 0
+        test_item.device_header.size() > 0
+    }
+
     def "Linux 全テスト仕様のロード"() {
         setup:
         test_server.dry_run = true

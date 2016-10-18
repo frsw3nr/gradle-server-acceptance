@@ -335,28 +335,26 @@ class LinuxSpecBase extends InfraTestSpec {
             run_ssh_command(session, "${command} ${argument}", 'packages')
         }
         def packages = [:].withDefault{0}
-        def requiements = [:]
-        ['compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'].each {
-            requiements[it] = 1
-        }
-        def n_requiements = 0
+        def csv = []
         lines.eachLine {
             def arr = it.split(/\t/)
             def packagename = arr[0]
             def release = arr[3]
-            def release_label = 'pkg_common'
+            def release_label = 'COMMON'
             if (release =~ /el5/) {
-                release_label = 'pkg_el5'
+                release_label = 'RHEL5'
             } else if (release =~ /el6/) {
-                release_label = 'pkg_el6'
+                release_label = 'RHEL6'
             }
+            def install_time = Long.decode(arr[4]) * 1000L
+            arr[4] = new Date(install_time).format("yyyy/MM/dd HH:mm:ss")
+            csv << arr
             def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
             packages[release_label] ++
-            if (requiements[packagename])
-                n_requiements ++
         }
-        packages['requiement_for_oracle'] = (requiements.size() == n_requiements) ? 'OK' : 'NG'
-        test_item.results(packages)
+        def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
+        test_item.devices(csv, headers)
+        test_item.results(packages.toString())
     }
 
     def mount_iso(session, test_item) {

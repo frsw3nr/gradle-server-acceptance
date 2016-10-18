@@ -1,6 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
+import org.apache.commons.io.FileUtils
 import groovy.transform.ToString
 
 public enum RunMode {
@@ -64,7 +65,10 @@ class InfraTestSpec {
             def log_path = "${dry_run_staging_dir}/${platform}/${server_name}/${domain}/${test_id}"
             log.debug "[DryRun] Read dummy log '${log_path}'"
             try {
-                return new File(log_path).text
+                def source_log = new File(log_path)
+                def target_log = new File("${local_dir}/${test_id}")
+                FileUtils.copyFile(source_log, target_log)
+                return source_log.text
             } catch (FileNotFoundException e) {
                 def message = "[DryRun] Not found dummy log : ${log_path}"
                 log.error(message)

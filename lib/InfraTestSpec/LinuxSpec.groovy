@@ -32,6 +32,28 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(vncserver)
     }
 
+    def packages(session, test_item) {
+        super.packages(session, test_item)
+
+        def lines = new File("${local_dir}/packages").text
+        def packages = [:].withDefault{0}
+        def requiements = [:]
+        ['compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'].each {
+            requiements[it] = 1
+        }
+        def n_requiements = 0
+        lines.eachLine {
+            def arr = it.split(/\t/)
+            def packagename = arr[0]
+            if (requiements[packagename])
+                n_requiements ++
+        }
+        packages['requiement_for_oracle'] = (requiements.size() == n_requiements) ? 'OK' : 'NG'
+println packages.toString()
+
+        test_item.results(packages)
+    }
+
     // def hostname(ses) {
     //     // def session = ssh.run.session(ssh.remotes.ssh_host)
     //     ses.execute "hostname -s > ${work_dir}/hostname2"

@@ -20,10 +20,13 @@ public enum ResultCellStyle {
 @Slf4j
 class EvidenceSheet {
 
-    final row_header        = 3
-    final row_body_begin    = 4
-    final column_header     = 3
-    final column_body_begin = 4
+    final row_header          = 3
+    final row_body_begin      = 4
+    final column_body_begin   = 6
+    final column_device_begin = 2
+
+    final device_cell_width   = 5760
+    final evidence_cell_width = 11520
 
     String evidence_source
     String evidence_target
@@ -38,6 +41,7 @@ class EvidenceSheet {
     def test_servers
     def domain_test_ids
     def verify_rules
+    def device_test_ids
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
         def config = Config.instance.read(config_file)['evidence']
@@ -59,6 +63,7 @@ class EvidenceSheet {
         test_servers    = []
         domain_test_ids = [:].withDefault{[:].withDefault{[]}}
         verify_rules    = [:].withDefault{[:].withDefault{[:]}}
+        device_test_ids = [:].withDefault{[:]}
     }
 
     // エクセル検査結果列のセルフォーマット
@@ -119,14 +124,18 @@ class EvidenceSheet {
             (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
                 try {
-                    def yes_no  = row.getCell(0).getStringCellValue()
-                    def test_id = row.getCell(1).getStringCellValue()
-                    def domain  = row.getCell(3).getStringCellValue()
+                    def yes_no    = row.getCell(0).getStringCellValue()
+                    def test_id   = row.getCell(1).getStringCellValue()
+                    def domain    = row.getCell(3).getStringCellValue()
+                    def is_device = row.getCell(4).getStringCellValue()
                     if (test_id && domain && yes_no.toUpperCase() == "Y") {
                         test_domains[domain] = 1
                         domain_test_ids[platform][domain].add(test_id)
                         def index = "${platform}, ${domain}, ${test_id}"
                         log.debug "\t${rownum} : Add test_id '${index}'"
+                        if (is_device.toUpperCase() == "Y") {
+                            device_test_ids[domain][test_id] = 1
+                        }
                     }
                 } catch (NullPointerException e) {
                     log.warn "Malformed input '${platform}:${rownum}'"
@@ -306,9 +315,9 @@ class EvidenceSheet {
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
 
-        // 5列名以降の検査結果列の列幅 30 文字に設定 (in units of 1/256th of a character width)
-        def column = 5 + sequence
-        sheet_result.setColumnWidth(column, 7680)
+        // ボディ列名以降の検査結果列の列幅 45 文字に設定 (in units of 1/256th of a character width)
+        def column = column_body_begin + sequence
+        sheet_result.setColumnWidth(column, evidence_cell_width)
 
         // ヘッダーに検査対象サーバ名を登録
         def title_cell = sheet_result.getRow(row_header).createCell(column)
@@ -366,6 +375,50 @@ class EvidenceSheet {
         wb.write(fos)
         fos.close()
     }
+
+    def insertDeviceSheet(String platform, String test_id, List headers, Map csvs)
+        throws IOException {
+        def device_sheet_name = "${platform}_${test_id}"
+        log.info("Insert device sheet : ${device_sheet_name}")
+
+        def inp = new FileInputStream(evidence_target)
+        def wb  = WorkbookFactory.create(inp)
+
+        Sheet device_sheet = wb.createSheet(device_sheet_name)
+
+        device_sheet.with { sheet ->
+            // ヘッダーの追加
+            Row header_row = sheet.createRow(row_header)
+            def header_column_index = column_device_begin
+            sheet.setColumnWidth(header_column_index, device_cell_width)
+            header_row.createCell(header_column_index).setCellValue('server_name')
+            header_column_index ++
+            headers.each { header_name ->
+                header_row.createCell(header_column_index).setCellValue(header_name)
+                sheet.setColumnWidth(header_column_index, device_cell_width)
+                header_column_index ++
+            }
+            // ボディの追加
+            def body_row_index = row_body_begin
+            csvs.each {server_name, server_csvs ->
+                server_csvs.each { server_csv ->
+                    Row body_row = sheet.createRow(body_row_index)
+                    def body_column_index = column_device_begin
+                    body_row.createCell(body_column_index).setCellValue(server_name)
+                    body_column_index ++
+                    server_csv.each { column_value ->
+                        body_row.createCell(body_column_index).setCellValue(column_value)
+                        body_column_index ++
+                    }
+                    body_row_index ++
+                }
+            }
+        }
+        def fos = new FileOutputStream(evidence_target)
+        wb.write(fos)
+        fos.close()
+    }
+
 
     def prepareTestStage() throws IOException {
         def log_dir = new File(staging_dir)

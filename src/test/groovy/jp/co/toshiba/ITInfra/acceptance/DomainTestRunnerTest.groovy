@@ -81,4 +81,15 @@ class DomainTestRunnerTest extends Specification {
         // verify_results.size() > 0
     }
 
+    def "デバイス付検査結果の検証"() {
+        when:
+        def test = new DomainTestRunner(test_server, 'Linux')
+        def test_results = test.makeTest(['packages'])
+        def device_results = [:].withDefault{[:]}
+        test.setDeviceResults(device_results)
+        println device_results
+        then:
+        device_results.size() > 0
+    }
+
 }

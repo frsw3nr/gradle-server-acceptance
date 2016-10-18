@@ -23,7 +23,8 @@ class TestScheduler {
         evidence_sheet.prepareTestStage()
         def test_servers = evidence_sheet.test_servers
         def verify_rule = new VerifyRuleGenerator(evidence_sheet.verify_rules)
-        def test_evidences = [:].withDefault{[:].withDefault{[:]}}
+        def test_evidences   = [:].withDefault{[:].withDefault{[:]}}
+        def device_evidences = [:].withDefault{[:].withDefault{[:]}}
         GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
             test_servers.eachParallel { test_server ->
                 long start = System.currentTimeMillis()
@@ -41,6 +42,8 @@ class TestScheduler {
                     if (test_runner.verify_test) {
                         verify_results = domain_test.verifyResults(verify_rule)
                     }
+                    domain_test.setDeviceResults(device_evidences[domain])
+
                     test_evidences[platform][server_name][domain] =
                         ['test' : test_results, 'verify' : verify_results]
                     log.info 'RESULT(Test) :' + test_results.toString()
@@ -56,6 +59,16 @@ class TestScheduler {
             platform_evidence.each { server_name, server_evidence ->
                 evidence_sheet.updateTestResult(platform, server_name, server_index, server_evidence)
                 server_index ++
+            }
+        }
+        println device_evidences
+        evidence_sheet.device_test_ids.each { domain,test_ids->
+            test_ids.each { test_id, flag->
+                def device_evidence = device_evidences[domain][test_id]
+                if (device_evidence.size() > 0) {
+                    log.info "Add Device Sheet : ${domain}, ${test_id}"
+                    // evidence_sheet.insertDeviceSheet(domain, test_id, [], device_evidence)
+                }
             }
         }
     }

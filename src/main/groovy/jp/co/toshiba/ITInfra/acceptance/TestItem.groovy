@@ -15,6 +15,8 @@ class TestItem {
     int succeed = 0
     def results
     def verify_statuses
+    def device_header = []
+    def devices = []
 
     TestItem(String test_id) {
         this.test_id = test_id
@@ -28,6 +30,11 @@ class TestItem {
     }
 
     def results(Map results) {
-        this.results = results
+        this.results << results
+    }
+
+    def devices(List csv, List header) {
+        this.devices << csv
+        this.device_header = header
     }
 }

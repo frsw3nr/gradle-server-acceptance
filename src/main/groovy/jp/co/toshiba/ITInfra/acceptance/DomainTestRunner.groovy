@@ -70,6 +70,15 @@ class DomainTestRunner {
         return test_results
     }
 
+    def setDeviceResults(Map device_results) {
+        def server_name = test_server.server_name
+        result_test_items.each { test_item ->
+            if (test_item.devices.size() > 0) {
+                device_results[test_item.test_id][server_name] = test_item.devices
+            }
+        }
+    }
+
     def verifyResults(VerifyRuleGenerator verify_rule) {
         def rule = verify_rule.generate_instance()
         def verify_results = [:]
