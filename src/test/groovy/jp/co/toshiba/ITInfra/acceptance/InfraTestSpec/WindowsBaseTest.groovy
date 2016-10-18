@@ -49,21 +49,56 @@ class WindowsBaseTest extends Specification {
         test_item.results.size() > 0
     }
 
-
     def "Windows 複数テスト仕様のロード"() {
         setup:
         test = new DomainTestRunner(test_server, 'Windows')
 
+        def test_ids = ['cpu', 'memory']
+        def test_items = []
+        test_ids.each {
+            test_items << new TestItem(it)
+        }
+
         when:
-        TestItem[] test_items = [new TestItem('cpu'), new TestItem('memory') ]
-        test.run(test_items)
+        test.run(test_items as TestItem[])
+        test_items.each { test_item ->
+            println test_item.results.toString()
+       }
 
         then:
-        [0..1].each {
-            println test_items[it].results.toString()
+        test_items.each { test_item ->
+            test_item.results.size() > 0
         }
-        test_items[0].results.size() > 0
-        test_items[1].results.size() > 0
+    }
+
+    def "Windows 全テスト仕様のロード"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        def test_ids = [
+            // 'cpu',
+            // 'driver',
+            // 'filesystem',
+            // 'fips',
+            // 'memory',
+            'network',
+            // 'virturalization',
+        ]
+        def test_items = []
+        test_ids.each {
+            test_items << new TestItem(it)
+        }
+
+        when:
+        test.run(test_items as TestItem[])
+        test_items.each { test_item ->
+            println test_item.results.toString()
+       }
+
+        then:
+        test_items.each { test_item ->
+            test_item.results.size() > 0
+        }
     }
 
     def "Windows テスト項目なし"() {

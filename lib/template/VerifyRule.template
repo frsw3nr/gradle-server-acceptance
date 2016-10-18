@@ -1,6 +1,6 @@
 package InfraTestSpec
 
-import org.apache.commons.lang.math.*
+import org.apache.commons.lang.math.NumberUtils
 import groovy.util.logging.Slf4j
 
 @Slf4j

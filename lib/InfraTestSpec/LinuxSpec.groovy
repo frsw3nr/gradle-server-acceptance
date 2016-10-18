@@ -14,16 +14,22 @@ class LinuxSpec extends LinuxSpecBase {
     }
 
     def finish() {
+        super.finish()
     }
 
-    def hostname(session) {
-        exec {
-            session.execute "hostname -s > ${work_dir}/hostname"
+    def vncserver(session, test_item) {
+        def lines = exec('vncserver') {
+            run_ssh_command(session, '/sbin/chkconfig --list|grep vncserver', 'vncserver')
         }
-        parse {
-            def result = session.get from: "${work_dir}/hostname"
-            println "parse hostname : ${result}"
+        def vncserver = 'off'
+        lines.eachLine {
+            ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+                if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+                    vncserver = 'on'
+                }
+            }
         }
+        test_item.results(vncserver)
     }
 
     // def hostname(ses) {

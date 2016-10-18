@@ -110,10 +110,13 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('driver') {
                 new File("${local_dir}/driver")
             }
-            def driverinfo = [:].withDefault{0}
+            def driverinfo = [:]
             lines.eachLine {
+                (it =~ /^DeviceName\s*:\s+(.*Network.*?)$/).each {m0,m1->
+                    driverinfo[m1] = 1
+                }
             }
-            test_item.results(driverinfo)
+            test_item.results(driverinfo.keySet().toString())
         }
     }
 
@@ -126,10 +129,17 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('filesystem') {
                 new File("${local_dir}/filesystem")
             }
-            def filesystem_info = [:].withDefault{0}
+            def filesystem_info = [:]
+            def device_id
             lines.eachLine {
+                (it =~ /^DeviceID\s*:\s+(.+)$/).each {m0,m1->
+                    device_id = m1
+                }
+                (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
+                    filesystem_info[device_id] = m1
+                }
             }
-            test_item.results(filesystem_info)
+            test_item.results(filesystem_info.toString())
         }
     }
 
@@ -152,6 +162,44 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+// $hklm  = 2147483650
+// $key   = "SYSTEM\CurrentControlSet\Services\disk"
+// $value = "TimeoutValue"
+
+// $sw = [Diagnostics.Stopwatch]::StartNew()
+
+// $reg = get-wmiobject -list "StdRegProv" -namespace root\default -computername $ip -credential $cred | where-object { $_.Name -eq "StdRegProv" }
+// $sw.Stop()
+// write-host $sw.Elapsed
+
+// $reg.GetStringValue($hklm, $key, $value) | Select-Object uValue
+
+
+//    uValue
+//    ------
+//        60
+
+    def storage_timeout(TestItem test_item) {
+        def command = '''\
+            |$hklm  = 2147483650
+            |$key   = "SYSTEM\\CurrentControlSet\\Services\\disk"
+            |$value = "TimeoutValue"
+            |$reg = get-wmiobject -list "StdRegProv" -namespace root\\default -computername $ip -credential $cred | where-object { $_.Name -eq "StdRegProv" }
+            |$reg.GetStringValue($hklm, $key, $value) | Select-Object uValue
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('storage_timeout') {
+                new File("${local_dir}/storage_timeout")
+            }
+            def timeout_info = [:].withDefault{0}
+            lines.eachLine {
+                println it
+            }
+            test_item.results(timeout_info)
+        }
+    }
+
     def network(TestItem test_item) {
         def command = '''\
             |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration
@@ -161,10 +209,25 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('network') {
                 new File("${local_dir}/network")
             }
-            def network_info = [:].withDefault{0}
+            def network_info = [:].withDefault{[:]}
+            def tmp = [:].withDefault{''}
             lines.eachLine {
+                (it =~ /^DHCPEnabled\s*:\s+(.+)$/).each {m0,m1->
+                    tmp['dhcp'] = m1
+                }
+                (it =~ /^IPAddress\s*:\s+(.+)$/).each {m0,m1->
+                    tmp['ip'] = m1
+                }
+                (it =~ /^DefaultIPGateway\s*:\s+(.+)$/).each {m0,m1->
+                    tmp['gw'] = m1
+                }
+                (it =~ /^Description\s*:\s+(.*Network.*?)$/).each {m0,m1->
+                    network_info[m1]['dhcp'] = tmp['dhcp']
+                    network_info[m1]['ip']   = tmp['ip']
+                    network_info[m1]['gw']   = tmp['gw']
+                }
             }
-            test_item.results(network_info)
+            test_item.results(network_info.toString())
         }
     }
 }

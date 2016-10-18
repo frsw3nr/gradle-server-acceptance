@@ -10,6 +10,7 @@ class VerifyRuleGeneratorTest extends Specification {
     def setup() {
         rules['AP01']['Windows']['cpu_total'] = '1 < x'
         rules['AP01']['Windows']['memory']    = '4096 <= x'
+        rules['AP01']['Windows']['hostname']  = 'x =~ /win/'
     }
 
     def "検証ルールコードの初期化"() {
@@ -30,6 +31,16 @@ class VerifyRuleGeneratorTest extends Specification {
         then:
         spec.AP01__Windows__memory(1024) == false
         spec.AP01__Windows__memory(4096) == true
+    }
+
+    def "検証ルール正規表現"() {
+        when:
+        def rule_code = new VerifyRuleGenerator(rules)
+        def spec = rule_code.generate_instance()
+
+        then:
+        spec.AP01__Windows__hostname('testwindows') == true
+        spec.AP01__Windows__hostname('testlinux')   == false
     }
 
     def "検証ルールエラー"() {

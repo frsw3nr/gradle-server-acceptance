@@ -39,18 +39,73 @@ class LinuxBaseTest extends Specification {
         setup:
         test_server.dry_run = true
         test = new DomainTestRunner(test_server, 'Linux')
+        def test_ids = ['hostname', 'hostname_fqdn', 'cpu']
+        def test_items = []
+        test_ids.each {
+            test_items << new TestItem(it)
+        }
 
         when:
-        TestItem[] test_items = [new TestItem('hostname'), new TestItem('hostname_fqdn'), new TestItem('cpu')]
-        test.run(test_items)
-        [0..2].each {
-            println test_items[it].results.toString()
+        test.run(test_items as TestItem[])
+        test_items.each { test_item ->
+            println test_item.results.toString()
        }
 
         then:
-        // println test_item.results.toString()
-        test_items[0].results.size() > 0
-        test_items[1].results.size() > 0
-        test_items[2].results.size() > 0
+        test_items.each { test_item ->
+            test_item.results.size() > 0
+       }
     }
+
+    def "Linux 全テスト仕様のロード"() {
+        setup:
+        test_server.dry_run = true
+        test = new DomainTestRunner(test_server, 'Linux')
+        def test_ids = [
+            'uname',
+            'block_device',
+            'cpu',
+            'crash_size',
+            'filesystem',
+            'filesystem_df_ip',
+            'filesystem_mount',
+            'fips',
+            'hostname',
+            'hostname_fqdn',
+            'hostname_short',
+            'iptables',
+            'kdump',
+            'lsb',
+            'machineid',
+            'mdadb',
+            'meminfo',
+            'mount_iso',
+            'net_onboot',
+            'network',
+            'oracle',
+            'packages',
+            'proxy_global',
+            'resolve_conf',
+            'runlevel',
+            'sestatus',
+            'virturization',
+            'vncserver',
+        ]
+        def test_items = []
+        test_ids.each {
+            test_items << new TestItem(it)
+        }
+
+        when:
+        test.run(test_items as TestItem[])
+        test_items.each { test_item ->
+            println test_item.results.toString()
+       }
+
+        then:
+        test_items.each { test_item ->
+            test_item.results.size() > 0
+       }
+    }
+
 }

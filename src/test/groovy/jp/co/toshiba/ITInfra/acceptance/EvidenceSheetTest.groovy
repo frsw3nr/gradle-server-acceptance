@@ -35,6 +35,15 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "日本語Excelファイル読み込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config_jp.groovy')
+        evidence.readSheet()
+
+        then:
+        evidence.evidence_source == './src/test/resources/チェックシート.xlsx'
+    }
+
     def "Excelシートなし"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config2.groovy')
@@ -65,14 +74,8 @@ class EvidenceSheetTest extends Specification{
 
         def data = ['Linux': ['ostrich': ['vCenter': [
             'test': ['NumCpu':2, 'PowerState':'PoweredOn', 'MemoryGB':2],
-            'verify':['NumCpu':false, 'MemoryGB':false]
+            'verify':['NumCpu':true, 'MemoryGB':false]
         ]]]]
-        data.each { platform, platform_data ->
-            platform_data.each { server, server_data ->
-                server_data.each { domain, domain_data ->
-                }
-            }
-        }
         evidence.updateTestResult('Linux', 'ostrich', 0, data['Linux']['ostrich'])
 
         then:

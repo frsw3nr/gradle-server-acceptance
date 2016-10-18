@@ -20,11 +20,13 @@ class TestScheduler {
         def evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet()
+        evidence_sheet.prepareTestStage()
         def test_servers = evidence_sheet.test_servers
         def verify_rule = new VerifyRuleGenerator(evidence_sheet.verify_rules)
         def test_evidences = [:].withDefault{[:].withDefault{[:]}}
         GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
             test_servers.eachParallel { test_server ->
+                long start = System.currentTimeMillis()
                 test_server.setAccounts(test_runner.config_file)
                 test_server.dry_run = test_runner.dry_run
 
@@ -44,15 +46,17 @@ class TestScheduler {
                     log.info 'RESULT(Test) :' + test_results.toString()
                     log.info 'RESULT(Verify) :' + verify_results.toString()
                 }
+                long elapsed = System.currentTimeMillis() - start
+                log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
             }
         }
         log.info "Evidence : " + test_evidences
-        // println "START"
-        // GParsPool.withPool(3) { ForkJoinPool pool ->
-        //     (1..5).eachParallel {
-        //         sleep(1000)
-        //         println it
-        //     }
-        // }
+        test_evidences.each { platform, platform_evidence ->
+            def server_index = 0
+            platform_evidence.each { server_name, server_evidence ->
+                evidence_sheet.updateTestResult(platform, server_name, server_index, server_evidence)
+                server_index ++
+            }
+        }
     }
 }

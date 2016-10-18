@@ -1,0 +1,6 @@
+SELinux status:                 enabled
+SELinuxfs mount:                /selinux
+Current mode:                   permissive
+Mode from config file:          disabled
+Policy version:                 24
+Policy from config file:        targeted

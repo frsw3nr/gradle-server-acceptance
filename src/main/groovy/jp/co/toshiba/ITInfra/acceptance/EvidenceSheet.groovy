@@ -1,6 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.io.FileUtils.*
 import groovy.transform.ToString
 import static groovy.json.JsonOutput.*
@@ -8,6 +9,13 @@ import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.IndexedColors
+
+public enum ResultCellStyle {
+    NORMAL,
+    TITLE,
+    OK,
+    NG,
+}
 
 @Slf4j
 class EvidenceSheet {
@@ -40,7 +48,7 @@ class EvidenceSheet {
         sheet_name_server = config['sheet_name_server'] ?: 'Target'
         sheet_name_rule   = config['sheet_name_rule'] ?: 'Rule'
         staging_dir       = config['staging_dir'] ?: './build/log'
-        sheet_name_specs  = config['sheet_name_specs'] ?: [
+        sheet_name_specs  = config['sheet_name_spec'] ?: [
                                 'Linux'   : 'CheckSheet(Linux)',
                                 'Windows' : 'CheckSheet(Windows)'
                             ]
@@ -107,18 +115,21 @@ class EvidenceSheet {
     }
 
     def readSheetSpec(String platform, Sheet sheet_spec) throws IOException {
-        log.info("Read sheet 'spec ${platform}'")
         sheet_spec.with { sheet ->
             (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
-                def yes_no  = row.getCell(0).getStringCellValue()
-                def test_id = row.getCell(1).getStringCellValue()
-                def domain  = row.getCell(3).getStringCellValue()
-                if (test_id && domain && yes_no.toUpperCase() == "Y") {
-                    test_domains[domain] = 1
-                    domain_test_ids[platform][domain].add(test_id)
-                    def index = "${platform}, ${domain}, ${test_id}"
-                    log.debug "\t${rownum} : Add test_id '${index}'"
+                try {
+                    def yes_no  = row.getCell(0).getStringCellValue()
+                    def test_id = row.getCell(1).getStringCellValue()
+                    def domain  = row.getCell(3).getStringCellValue()
+                    if (test_id && domain && yes_no.toUpperCase() == "Y") {
+                        test_domains[domain] = 1
+                        domain_test_ids[platform][domain].add(test_id)
+                        def index = "${platform}, ${domain}, ${test_id}"
+                        log.debug "\t${rownum} : Add test_id '${index}'"
+                    }
+                } catch (NullPointerException e) {
+                    log.warn "Malformed input '${platform}:${rownum}'"
                 }
             }
         }
@@ -181,7 +192,7 @@ class EvidenceSheet {
                 }
                 // Read Excel test spec sheet.
                 sheet_name_specs.each { platform, sheet_name_spec ->
-                    log.debug("Read excel sheet '${evidence_source}:${sheet_name_spec}'")
+                    log.info("Read sheet '${sheet_name_spec}'")
                     def sheet_spec = workbook.getSheet(sheet_name_spec)
                     if (sheet_spec) {
                         readSheetSpec(platform, sheet_spec)
@@ -205,15 +216,84 @@ class EvidenceSheet {
     }
 
     public static void setCellColorAndFontColor(XSSFCell cell, IndexedColors FGcolor, IndexedColors FontColor ){
+        BorderStyle thin = BorderStyle.THIN;
+        short black = IndexedColors.BLACK.getIndex();
         XSSFWorkbook wb = cell.getRow().getSheet().getWorkbook();
         CellStyle style = wb.createCellStyle();
+
+        // Set Text font
         XSSFFont font = wb.createFont();
         font.setBold(true);
         font.setColor(FontColor.getIndex());
         style.setFont(font);
+        style.setWrapText(true);
+
+        // Set Boder line
+        style.setBorderRight(thin);
+        style.setRightBorderColor(black);
+        style.setBorderBottom(thin);
+        style.setBottomBorderColor(black);
+        style.setBorderTop(thin);
+        style.setTopBorderColor(black);
+
+        // Set Cell color
         style.setFillForegroundColor(FGcolor.getIndex());
         style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+        cell.setCellStyle(style);
+    }
+
+    public static void setTestResultCellStyle(XSSFCell cell, ResultCellStyle type) {
+        BorderStyle thin = BorderStyle.THIN;
+        short black = IndexedColors.BLACK.getIndex();
+        XSSFWorkbook wb = cell.getRow().getSheet().getWorkbook();
+        CellStyle style = wb.createCellStyle();
+
+        // Set Boder line
+        style.setBorderRight(thin);
+        style.setRightBorderColor(black);
+        style.setBorderBottom(thin);
+        style.setBottomBorderColor(black);
+        style.setBorderTop(thin);
+        style.setTopBorderColor(black);
+
+        // Set Text font and Foreground color
+        switch (type) {
+            case ResultCellStyle.NORMAL :
+                style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                break
+
+            case ResultCellStyle.TITLE :
+                XSSFFont font = wb.createFont();
+                font.setBold(true);
+                font.setColor(IndexedColors.BLACK.getIndex());
+                style.setFont(font);
+                break
+
+            case ResultCellStyle.OK :
+                style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                XSSFFont font = wb.createFont();
+                font.setBold(true);
+                font.setColor(IndexedColors.BLACK.getIndex());
+                style.setFont(font);
+                break
+
+            case ResultCellStyle.NG :
+                style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                XSSFFont font = wb.createFont();
+                font.setBold(true);
+                font.setColor(IndexedColors.BLACK.getIndex());
+                style.setFont(font);
+                break
+
+            default :
+                break
+        }
         style.setWrapText(true);
+
         cell.setCellStyle(style);
     }
 
@@ -226,7 +306,6 @@ class EvidenceSheet {
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
 
-
         // 5列名以降の検査結果列の列幅 30 文字に設定 (in units of 1/256th of a character width)
         def column = 5 + sequence
         sheet_result.setColumnWidth(column, 7680)
@@ -235,7 +314,7 @@ class EvidenceSheet {
         def title_cell = sheet_result.getRow(row_header).createCell(column)
         title_cell.setCellValue(server_name)
         title_cell.setCellStyle(cell_style)
-        setCellColorAndFontColor(title_cell, IndexedColors.BLACK, IndexedColors.WHITE)
+        setTestResultCellStyle(title_cell, ResultCellStyle.TITLE)
         log.debug "Update data : " + results
 
 
@@ -257,32 +336,29 @@ class EvidenceSheet {
                     log.debug "Check row ${domain},${test_id} in ${platform}"
 
                     try {
-// println results
-// [vCenter:[test:[NumCpu:2, PowerState:PoweredOn, MemoryGB:2], verify:[NumCpu:false, MemoryGB:false]]]
                         if (results[domain]['test'].containsKey(test_id)) {
-                            def value = results[domain]['test'][test_id]
+                            def value = results[domain]['test'][test_id].toString()
+                            if (NumberUtils.isNumber(value)) {
+                                cell_result.setCellValue(NumberUtils.toDouble(value))
+                            } else {
+                                cell_result.setCellValue(value)
+                            }
                             log.info "Update cell(${platform}:${domain}:${test_id}) = ${value}"
-                            cell_result.setCellValue(value)
-                            // CellStyle style1 = wb.createCellStyle()
-                            // style1.setFillPattern(CellStyle.SOLID_FOREGROUND)
-                            // style1.setFillForegroundColor(IndexedColors.MAROON.getIndex())
-                            // cell_result.setCellStyle(style1)
                         }
                         if (results[domain]['verify'].containsKey(test_id)) {
-                            setCellColorAndFontColor(cell_result, IndexedColors.AQUA, IndexedColors.BLACK);
-                            println "VERIFY ${domain},${test_id} = " + results[domain]['verify'][test_id]
+                            def is_ok = results[domain]['verify'][test_id]
+                            if (is_ok == true) {
+                                setTestResultCellStyle(cell_result, ResultCellStyle.OK)
+                            } else if (is_ok == false) {
+                                setTestResultCellStyle(cell_result, ResultCellStyle.NG)
+                            }
+                            log.debug "Update Verify status : ${domain},${test_id} = ${is_ok}"
+                        } else {
+                            setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
                         }
                     } catch (NullPointerException e) {
                         log.info "Not found row ${domain},${test_id} in ${platform}"
                     }
-                    // 検査IDをキーに検査結果を登録
-                    // if (test_id) {
-                    //     if (results.containsKey(test_id)) {
-                    //         cell_result.setCellValue(results[test_id])
-                    //     } else {
-                    //         cell_result.setCellValue('[NoRun]')
-                    //     }
-                    // }
                 }
             }
         }
