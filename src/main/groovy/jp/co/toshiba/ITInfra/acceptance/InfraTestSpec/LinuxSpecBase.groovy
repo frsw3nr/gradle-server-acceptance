@@ -194,11 +194,13 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('network') {
             run_ssh_command(session, '/sbin/ip -d -s link', 'network')
         }
+        def csv = []
         def network = [:].withDefault{[:]}
         def hw_address = []
         lines.eachLine {
             // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
             (it =~  /^(\d+): (.+): <(.+)> (.+)$/).each { m0,m1,m2,m3,m4->
+                csv << [m2, m3, m4]
                 if (m2 == 'lo') {
                     return
                 }
@@ -218,6 +220,9 @@ class LinuxSpecBase extends InfraTestSpec {
                 hw_address.add(m1)
             }
         }
+        def headers = ['device', 'status1', 'status2']
+        test_item.devices(csv, headers)
+
         test_item.results([
             'network' : network.toString(),
             'hw_address' : hw_address.toString()
@@ -291,6 +296,30 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('filesystem') {
             run_ssh_command(session, '/bin/lsblk -i', 'filesystem')
         }
+
+        // NAME                          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+        // sr0                            11:0    1 1024M  0 rom
+        // sda                             8:0    0   30G  0 disk
+        // ├─sda1                          8:1    0  500M  0 part /boot
+        // └─sda2                          8:2    0 29.5G  0 part
+        //   ├─vg_ostrich-lv_root (dm-0) 253:0    0 26.5G  0 lvm  /
+        //   └─vg_ostrich-lv_swap (dm-1) 253:1    0    3G  0 lvm  [SWAP]
+        def csv = []
+        lines.eachLine {
+            (it =~  /^(.+?)\s+(\d+:\d+\s.+)$/).each { m0,m1,m2->
+                def device = m1
+                def arr = [device]
+                arr.addAll(m2.split(/\s+/))
+                csv << arr
+            }
+            // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
+            (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
+                hw_address.add(m1)
+            }
+        }
+        def headers = ['name', 'maj:min', 'rm', 'size', 'ro', 'type', 'mountpoint']
+        test_item.devices(csv, headers)
+
         test_item.results(lines)
     }
 

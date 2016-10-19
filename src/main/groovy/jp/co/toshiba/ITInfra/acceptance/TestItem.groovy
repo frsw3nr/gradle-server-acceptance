@@ -34,7 +34,7 @@ class TestItem {
     }
 
     def devices(List csv, List header) {
-        this.devices << csv
+        this.devices = csv
         this.device_header = header
     }
 }

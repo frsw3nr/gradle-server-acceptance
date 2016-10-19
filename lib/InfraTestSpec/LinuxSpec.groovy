@@ -49,13 +49,18 @@ class LinuxSpec extends LinuxSpecBase {
                 n_requiements ++
         }
         packages['requiement_for_oracle'] = (requiements.size() == n_requiements) ? 'OK' : 'NG'
-println packages.toString()
 
         test_item.results(packages)
     }
 
-    // def hostname(ses) {
-    //     // def session = ssh.run.session(ssh.remotes.ssh_host)
-    //     ses.execute "hostname -s > ${work_dir}/hostname2"
-    // }
+
+    def oracle_module(session, test_item) {
+        def lines = exec('oracle_module') {
+            def command = "ls /root/sfw/* >> ${work_dir}/oracle_module"
+            session.executeSudo command
+            session.get from: "${work_dir}/oracle_module", into: local_dir
+            new File("${local_dir}/oracle_module").text
+        }
+        test_item.results(lines)
+    }
 }

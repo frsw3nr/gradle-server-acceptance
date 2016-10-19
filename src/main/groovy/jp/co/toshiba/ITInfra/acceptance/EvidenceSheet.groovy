@@ -224,34 +224,6 @@ class EvidenceSheet {
 
     }
 
-    public static void setCellColorAndFontColor(XSSFCell cell, IndexedColors FGcolor, IndexedColors FontColor ){
-        BorderStyle thin = BorderStyle.THIN;
-        short black = IndexedColors.BLACK.getIndex();
-        XSSFWorkbook wb = cell.getRow().getSheet().getWorkbook();
-        CellStyle style = wb.createCellStyle();
-
-        // Set Text font
-        XSSFFont font = wb.createFont();
-        font.setBold(true);
-        font.setColor(FontColor.getIndex());
-        style.setFont(font);
-        style.setWrapText(true);
-
-        // Set Boder line
-        style.setBorderRight(thin);
-        style.setRightBorderColor(black);
-        style.setBorderBottom(thin);
-        style.setBottomBorderColor(black);
-        style.setBorderTop(thin);
-        style.setTopBorderColor(black);
-
-        // Set Cell color
-        style.setFillForegroundColor(FGcolor.getIndex());
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-
-        cell.setCellStyle(style);
-    }
-
     public static void setTestResultCellStyle(XSSFCell cell, ResultCellStyle type) {
         BorderStyle thin = BorderStyle.THIN;
         short black = IndexedColors.BLACK.getIndex();
@@ -407,7 +379,14 @@ class EvidenceSheet {
                     body_row.createCell(body_column_index).setCellValue(server_name)
                     body_column_index ++
                     server_csv.each { column_value ->
-                        body_row.createCell(body_column_index).setCellValue(column_value)
+                        def value = column_value.toString()
+                        def csv_cell = body_row.createCell(body_column_index)
+                        if (NumberUtils.isNumber(value)) {
+                            csv_cell.setCellValue(NumberUtils.toDouble(value))
+                        } else {
+                            csv_cell.setCellValue(value)
+                        }
+
                         body_column_index ++
                     }
                     body_row_index ++

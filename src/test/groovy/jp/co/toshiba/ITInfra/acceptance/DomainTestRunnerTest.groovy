@@ -85,11 +85,17 @@ class DomainTestRunnerTest extends Specification {
         when:
         def test = new DomainTestRunner(test_server, 'Linux')
         def test_results = test.makeTest(['packages'])
-        def device_results = [:].withDefault{[:]}
-        test.setDeviceResults(device_results)
-        println device_results
+        def device_sheet = new DeviceResultSheet()
+        test.result_test_items.each { test_item ->
+            println test_item.devices
+        }
+        device_sheet.setResults('Linux', test_server.server_name, test.result_test_items)
+        println device_sheet.getHeaders('Linux', 'packages')
+        println device_sheet.getCSVs('Linux', 'packages')
+
         then:
-        device_results.size() > 0
+        1 == 1
+        // device_sheet.csvs.size() > 0
     }
 
 }

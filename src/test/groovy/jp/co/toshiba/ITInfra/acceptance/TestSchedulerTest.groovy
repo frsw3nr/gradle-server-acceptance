@@ -11,7 +11,7 @@ class TestSchedulerTest extends Specification {
             '--dry-run',
             '--verify',
             '-r', './src/test/resources/',
-            '-p', '3',
+            '-p', '1',
         ]
 
         when:

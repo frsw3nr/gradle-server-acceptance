@@ -41,9 +41,9 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def cpu(TestItem test_item) {
-        def command = '''
-            Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor
-        '''
+        def command = '''\
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor
+            |'''.stripMargin()
 
         run_script(command) {
             def lines = exec('cpu') {
@@ -129,6 +129,7 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('filesystem') {
                 new File("${local_dir}/filesystem")
             }
+            def csv = []
             def filesystem_info = [:]
             def device_id
             lines.eachLine {
@@ -137,8 +138,11 @@ class WindowsSpecBase extends InfraTestSpec {
                 }
                 (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
                     filesystem_info[device_id] = m1
+                    csv << [device_id, m1]
                 }
             }
+            def headers = ['device_id', 'size']
+            test_item.devices(csv, headers)
             test_item.results(filesystem_info.toString())
         }
     }
@@ -211,6 +215,7 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             def network_info = [:].withDefault{[:]}
             def tmp = [:].withDefault{''}
+            def csv = []
             lines.eachLine {
                 (it =~ /^DHCPEnabled\s*:\s+(.+)$/).each {m0,m1->
                     tmp['dhcp'] = m1
@@ -225,8 +230,11 @@ class WindowsSpecBase extends InfraTestSpec {
                     network_info[m1]['dhcp'] = tmp['dhcp']
                     network_info[m1]['ip']   = tmp['ip']
                     network_info[m1]['gw']   = tmp['gw']
+                    csv << [m1, tmp['ip'], tmp['gw'], tmp['dhcp']]
                 }
             }
+            def headers = ['device', 'ip', 'gw', 'dhcp']
+            test_item.devices(csv, headers)
             test_item.results(network_info.toString())
         }
     }

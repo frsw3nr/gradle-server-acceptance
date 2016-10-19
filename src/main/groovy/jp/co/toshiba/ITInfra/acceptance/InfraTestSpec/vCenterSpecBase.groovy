@@ -64,7 +64,7 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def vmwaretool(test_item) {
         def command = '''\
-            Get-VM $vm `
+            |Get-VM $vm `
             | Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion `
             | Select Name, Value
         '''.stripMargin()

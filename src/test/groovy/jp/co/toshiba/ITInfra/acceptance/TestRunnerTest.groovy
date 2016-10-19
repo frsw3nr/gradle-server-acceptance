@@ -40,7 +40,6 @@ class TestRunnerTest extends Specification {
         test.parse(args)
 
         then:
-        test.test_resource == './hoge/'
-        test.config_file == './hoge//config.groovy'
+        thrown(FileNotFoundException)
     }
 }

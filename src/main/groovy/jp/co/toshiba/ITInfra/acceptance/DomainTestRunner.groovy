@@ -81,16 +81,19 @@ class DomainTestRunner {
 
     def verifyResults(VerifyRuleGenerator verify_rule) {
         def rule = verify_rule.generate_instance()
+println verify_rule.generate_code()
         def verify_results = [:]
         result_test_items.each { test_item ->
+println test_item.test_id
             test_item.results.each { test_id, test_value ->
+println test_id
                 def verify_func = "${verify_id}__${domain}__${test_id}"
-                log.debug "Evaluate '${verify_func}'"
+                log.info "Evaluate '${verify_func}'"
                 def method = rule.metaClass.getMetaMethod(verify_func, Object)
                 if (method) {
                     try {
                         def verify_result = method.invoke(rule, test_value)
-                        log.debug "Verify_rule ${method.name}(${test_value}) = ${verify_result}"
+                        log.info "Verify_rule ${method.name}(${test_value}) = ${verify_result}"
                         test_item.verify_statuses[test_id] = verify_result
                     } catch (Exception e) {
                         log.error "[Verify] Failed to evaluate rule '${test_id}' : " + e

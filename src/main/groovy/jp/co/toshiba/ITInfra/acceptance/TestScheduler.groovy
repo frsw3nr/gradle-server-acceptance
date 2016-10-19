@@ -10,9 +10,11 @@ class TestScheduler {
     TestRunner test_runner
     EvidenceSheet evidence_sheet
     TargetServer[] test_servers
+    DeviceResultSheet device_results
 
     TestScheduler(TestRunner test_runner) {
         this.test_runner = test_runner
+        this.device_results = new DeviceResultSheet()
     }
 
     Boolean runTest() {
@@ -23,10 +25,10 @@ class TestScheduler {
         evidence_sheet.prepareTestStage()
         def test_servers = evidence_sheet.test_servers
         def verify_rule = new VerifyRuleGenerator(evidence_sheet.verify_rules)
-        def test_evidences   = [:].withDefault{[:].withDefault{[:]}}
-        def device_evidences = [:].withDefault{[:].withDefault{[:]}}
-        GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
-            test_servers.eachParallel { test_server ->
+        def test_evidences = [:].withDefault{[:].withDefault{[:]}}
+        // GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
+            // test_servers.eachParallel { test_server ->
+            test_servers.each { test_server ->
                 long start = System.currentTimeMillis()
                 test_server.setAccounts(test_runner.config_file)
                 test_server.dry_run = test_runner.dry_run
@@ -42,7 +44,8 @@ class TestScheduler {
                     if (test_runner.verify_test) {
                         verify_results = domain_test.verifyResults(verify_rule)
                     }
-                    domain_test.setDeviceResults(device_evidences[domain])
+                    log.debug "Set Device results '${domain},${server_name}'"
+                    device_results.setResults(domain, server_name, domain_test.result_test_items)
 
                     test_evidences[platform][server_name][domain] =
                         ['test' : test_results, 'verify' : verify_results]
@@ -52,7 +55,7 @@ class TestScheduler {
                 long elapsed = System.currentTimeMillis() - start
                 log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
             }
-        }
+        // }
         log.info "Evidence : " + test_evidences
         test_evidences.each { platform, platform_evidence ->
             def server_index = 0
@@ -61,13 +64,13 @@ class TestScheduler {
                 server_index ++
             }
         }
-        println device_evidences
         evidence_sheet.device_test_ids.each { domain,test_ids->
             test_ids.each { test_id, flag->
-                def device_evidence = device_evidences[domain][test_id]
-                if (device_evidence.size() > 0) {
+                def header = device_results.getHeaders(domain, test_id)
+                def csv = device_results.getCSVs(domain, test_id)
+                if (header && csv) {
                     log.info "Add Device Sheet : ${domain}, ${test_id}"
-                    // evidence_sheet.insertDeviceSheet(domain, test_id, [], device_evidence)
+                    evidence_sheet.insertDeviceSheet(domain, test_id, header, csv)
                 }
             }
         }
