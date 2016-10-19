@@ -206,7 +206,9 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def network(TestItem test_item) {
         def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration
+            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration | `
+            | Where{$_.IpEnabled -Match "True"} | `
+            | Select MacAddress, IPAddress, DefaultIPGateway, Description `
             |'''.stripMargin()
 
         run_script(command) {
@@ -223,17 +225,21 @@ class WindowsSpecBase extends InfraTestSpec {
                 (it =~ /^IPAddress\s*:\s+(.+)$/).each {m0,m1->
                     tmp['ip'] = m1
                 }
+                (it =~ /^MacAddress\s*:\s+(.+)$/).each {m0,m1->
+                    tmp['mac'] = m1
+                }
                 (it =~ /^DefaultIPGateway\s*:\s+(.+)$/).each {m0,m1->
                     tmp['gw'] = m1
                 }
                 (it =~ /^Description\s*:\s+(.*Network.*?)$/).each {m0,m1->
                     network_info[m1]['dhcp'] = tmp['dhcp']
                     network_info[m1]['ip']   = tmp['ip']
+                    network_info[m1]['mac']  = tmp['mac']
                     network_info[m1]['gw']   = tmp['gw']
                     csv << [m1, tmp['ip'], tmp['gw'], tmp['dhcp']]
                 }
             }
-            def headers = ['device', 'ip', 'gw', 'dhcp']
+            def headers = ['device', 'ip', 'mac', 'gw', 'dhcp']
             test_item.devices(csv, headers)
             test_item.results(network_info.toString())
         }

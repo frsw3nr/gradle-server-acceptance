@@ -43,7 +43,7 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def vm(test_item) {
         def command = '''\
-            |get-vm $vm | `
+            |Get-VM $vm | `
             | select NumCpu, PowerState, MemoryGB, VMHost, @{N="Cluster";E={Get-Cluster -VM $_}} | `
             | Format-List
         '''.stripMargin()
@@ -64,8 +64,8 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def vmwaretool(test_item) {
         def command = '''\
-            |Get-VM $vm `
-            | Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion `
+            |Get-VM $vm | `
+            | Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion | `
             | Select Name, Value
         '''.stripMargin()
         run_script(command) {
@@ -102,7 +102,7 @@ class vCenterSpecBase extends InfraTestSpec {
     }
 
     def vm_storage(test_item) {
-        run_script('get-harddisk -VM $vm | select StorageFormat,CapacityGB') {
+        run_script('Get-Harddisk -VM $vm | select Parent, Filename,CapacityGB, StorageFormat, DiskType') {
             def lines = exec('vm_storage') {
                 new File("${local_dir}/vm_storage")
             }
