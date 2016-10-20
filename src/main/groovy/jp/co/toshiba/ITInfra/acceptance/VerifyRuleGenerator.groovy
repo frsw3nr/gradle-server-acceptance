@@ -5,19 +5,13 @@ import groovy.transform.ToString
 import groovy.text.GStringTemplateEngine
 
 @Slf4j
+@Singleton
 class VerifyRuleGenerator {
 
-    final String template_dir  = './lib/template'
-    final String template_file = 'VerifyRule.template'
-    String template_path
-    def verify_rules = []
+    final String template_path = './lib/template/VerifyRule.template'
+    def spec
 
-    VerifyRuleGenerator(def verify_rules) {
-        this.verify_rules  = verify_rules
-        this.template_path = "${template_dir}/${template_file}"
-    }
-
-    def generate_code() {
+    def getVerifyRuleScript(Map verify_rules) {
         def f = new File(template_path)
         def engine = new groovy.text.GStringTemplateEngine()
         def binding = ['verify_rules': verify_rules]
@@ -25,18 +19,22 @@ class VerifyRuleGenerator {
         return template.toString()
     }
 
-    def generate_instance() {
-        def rule_code_text = this.generate_code()
-        def loader = new GroovyClassLoader()
-        def spec
-        // try {
-            def clazz = loader.parseClass(rule_code_text)
-            spec = clazz.newInstance()
-        // } catch (Exception e) {
-        //     def msg = "[VerifyRule] compile error " + e
-        //     log.error(msg)
-        //     throw new IllegalArgumentException(msg)
-        // }
-        return spec
+    def setVerifyRule(Map verify_rules) {
+        def rule_code_text = getVerifyRuleScript(verify_rules)
+        spec = new GroovyClassLoader().parseClass(rule_code_text).newInstance()
+    }
+
+    def verify(String verify_id, String domain, String test_id, Object test_value) {
+        def verify_func = "${verify_id}__${domain}__${test_id}"
+        def method = spec.metaClass.getMetaMethod(verify_func, Object)
+        if (method) {
+            try {
+                def result = method.invoke(spec, test_value)
+                log.info "Verify_rule ${method.name}(${test_value}) = ${result}"
+                return result
+            } catch (Exception e) {
+                log.error "[Verify] Failed to evaluate rule '${test_id}' : " + e
+            }
+        }
     }
 }

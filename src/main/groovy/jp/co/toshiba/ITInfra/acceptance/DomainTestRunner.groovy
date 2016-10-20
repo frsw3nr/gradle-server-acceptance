@@ -70,38 +70,36 @@ class DomainTestRunner {
         return test_results
     }
 
-    def setDeviceResults(Map device_results) {
-        def server_name = test_server.server_name
+    def verify() {
+        def verifier = VerifyRuleGenerator.instance
+        def statuses = [:]
         result_test_items.each { test_item ->
-            if (test_item.devices.size() > 0) {
-                device_results[test_item.test_id][server_name] = test_item.devices
-            }
-        }
-    }
-
-    def verifyResults(VerifyRuleGenerator verify_rule) {
-        def rule = verify_rule.generate_instance()
-println verify_rule.generate_code()
-        def verify_results = [:]
-        result_test_items.each { test_item ->
-println test_item.test_id
-            test_item.results.each { test_id, test_value ->
-println test_id
-                def verify_func = "${verify_id}__${domain}__${test_id}"
-                log.info "Evaluate '${verify_func}'"
-                def method = rule.metaClass.getMetaMethod(verify_func, Object)
-                if (method) {
-                    try {
-                        def verify_result = method.invoke(rule, test_value)
-                        log.info "Verify_rule ${method.name}(${test_value}) = ${verify_result}"
-                        test_item.verify_statuses[test_id] = verify_result
-                    } catch (Exception e) {
-                        log.error "[Verify] Failed to evaluate rule '${test_id}' : " + e
+            test_item.with {
+                results.each { id, test_value ->
+                    def status = verifier.verify(verify_id, domain, id, test_value)
+                    if (status != null) {
+                        verify_status[id] = status
+                        statuses[id] = status
                     }
                 }
             }
-            verify_results << test_item.verify_statuses
         }
-        return verify_results
+        return statuses
+    }
+
+    def getVerifyStatuses() {
+        def statuses = [:]
+        result_test_items.each { test_item ->
+            statuses << test_item.verify_status
+        }
+        return statuses
+    }
+
+    def getResults() {
+        def results = [:]
+        result_test_items.each { test_item ->
+            results << test_item.results
+        }
+        return results
     }
 }

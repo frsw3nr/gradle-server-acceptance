@@ -54,31 +54,24 @@ class DomainTestRunnerTest extends Specification {
     }
 
     def "検査結果の検証"() {
+        setup:
+        def verifier = VerifyRuleGenerator.instance
+        verifier.setVerifyRule(rules)
+
         when:
         def test = new DomainTestRunner(test_server, 'vCenter')
         def test_results = test.makeTest(['vm'])
-        def verify_rule = new VerifyRuleGenerator(rules)
-        def verify_results = test.verifyResults(verify_rule)
-        println test_results
-        println verify_results
+        def statuses = test.verify()
+        println statuses
+        def statuses2 = test.getVerifyStatuses()
+        println statuses2
+        def results = test.getResults()
+        println results
 
         then:
-        verify_results.size() > 0
-    }
-
-    def "検査ルールエラー"() {
-        when:
-        def test = new DomainTestRunner(test_server, 'vCenter')
-        def test_results = test.makeTest(['vm'])
-        rules['RuleDB']['vCenter']['VMHost']   = 'Hoge'
-        def verify_rule = new VerifyRuleGenerator(rules)
-        def verify_results = test.verifyResults(verify_rule)
-        println test_results
-        println verify_results
-
-        then:
-        1 == 1
-        // verify_results.size() > 0
+        statuses.size()  == 3
+        statuses2.size() == 3
+        results.size()   == 5
     }
 
     def "デバイス付検査結果の検証"() {

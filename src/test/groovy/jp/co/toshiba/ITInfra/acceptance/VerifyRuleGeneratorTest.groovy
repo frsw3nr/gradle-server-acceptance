@@ -6,57 +6,57 @@ import jp.co.toshiba.ITInfra.acceptance.*
 class VerifyRuleGeneratorTest extends Specification {
 
     def rules = [:].withDefault{[:].withDefault{[:]}}
+    def verifier
 
     def setup() {
         rules['AP01']['Windows']['cpu_total'] = '1 < x'
         rules['AP01']['Windows']['memory']    = '4096 <= x'
         rules['AP01']['Windows']['hostname']  = 'x =~ /win/'
         rules['AP01']['Linux']['hostname']    = 'x =~ /Cent/'
+        verifier = VerifyRuleGenerator.instance
     }
 
     def "検証ルールコードの初期化"() {
         when:
-        def rule_code = new VerifyRuleGenerator(rules)
-        def rule_code_text = rule_code.generate_code()
-        println rule_code_text
+        def code = verifier.getVerifyRuleScript(rules)
+        println code
 
         then:
-        rule_code_text.size() > 0
+        code.size() > 0
     }
 
     def "検証ルールロード"() {
         when:
-        def rule_code = new VerifyRuleGenerator(rules)
-        def spec = rule_code.generate_instance()
+        verifier.setVerifyRule(rules)
 
         then:
-        spec.AP01__Windows__memory(1024) == false
-        spec.AP01__Windows__memory(4096) == true
+        verifier.verify('AP01', 'Windows', 'memory', "1024") == false
+        verifier.verify('AP01', 'Windows', 'memory', "4096") == true
     }
 
     def "検証ルール正規表現"() {
         when:
-        def rule_code = new VerifyRuleGenerator(rules)
-        def spec = rule_code.generate_instance()
+        verifier.setVerifyRule(rules)
 
         then:
-        spec.AP01__Windows__hostname('testwindows') == true
-        spec.AP01__Windows__hostname('testlinux')   == false
+        verifier.verify('AP01', 'Windows', 'hostname', "testwindows") == true
+        verifier.verify('AP01', 'Windows', 'hostname', "testlinux") == false
     }
 
     def "検証ルールエラー"() {
         when:
         rules['AP01']['Windows']['memory']    = 'hoge'
-        def rule_code = new VerifyRuleGenerator(rules)
-        def spec = rule_code.generate_instance()
-        spec.AP01__Windows__memory(1024) == false
+        verifier.setVerifyRule(rules)
+        def res = verifier.verify('AP01', 'Windows', 'memory', "1024")
 
         then:
-        thrown(MissingPropertyException)
+        res == null
     }
 
     def "正規表現ルール付テスト仕様のロード"() {
         setup:
+        rules['AP01']['Linux']['hostname']    = 'x =~ /rich/'
+        verifier.setVerifyRule(rules)
         def test_server = new TargetServer(
             server_name   : 'ostrich',
             ip            : 'localhost',
@@ -69,25 +69,14 @@ class VerifyRuleGeneratorTest extends Specification {
         test_server.setAccounts('src/test/resources/config.groovy')
         test_server.dry_run = true
         def test = new DomainTestRunner(test_server, 'Linux')
-        def rule_code = new VerifyRuleGenerator(rules)
-        def spec = rule_code.generate_instance()
 
         when:
         def test_item = new TestItem('hostname')
         test.run(test_item)
-        test_item.results.each {test_id, value ->
-            // def result = rule_code.verify('AP01', 'Linux', test_id, value)
-            println "${test_id}:${value}"
-        }
-        // def verify_results = test.verifyResults(rule_code)
-        // println verify_results.toString()
-        // println test_item.verify_statuses.toString()
+        def res = verifier.verify('AP01', 'Linux', 'hostname', test_item.results['hostname'])
 
         then:
-        1 == 1
-        // test_item.results.size() > 0
-        // test_item.devices.size() > 0
-        // test_item.device_header.size() > 0
+        res == true
     }
 
 

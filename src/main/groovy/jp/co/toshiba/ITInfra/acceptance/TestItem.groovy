@@ -14,7 +14,7 @@ class TestItem {
 
     int succeed = 0
     def results
-    def verify_statuses
+    def verify_status
     def device_header = []
     def devices = []
 
@@ -22,7 +22,7 @@ class TestItem {
         this.test_id = test_id
         this.enabled = true
         this.results = [:]
-        this.verify_statuses = [:]
+        this.verify_status = [:]
     }
 
     def results(String result) {
@@ -31,6 +31,14 @@ class TestItem {
 
     def results(Map results) {
         this.results << results
+    }
+
+    def verify_status(Boolean result) {
+        this.verify_status[this.test_id] = result
+    }
+
+    def verify_status(Map results) {
+        this.verify_status << results
     }
 
     def devices(List csv, List header) {

@@ -24,36 +24,38 @@ class TestScheduler {
         evidence_sheet.readSheet()
         evidence_sheet.prepareTestStage()
         def test_servers = evidence_sheet.test_servers
-        def verify_rule = new VerifyRuleGenerator(evidence_sheet.verify_rules)
+        def verifier = VerifyRuleGenerator.instance
+        verifier.setVerifyRule(evidence_sheet.verify_rules)
+
         def test_evidences = [:].withDefault{[:].withDefault{[:]}}
         // GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
             // test_servers.eachParallel { test_server ->
             test_servers.each { test_server ->
-                long start = System.currentTimeMillis()
-                test_server.setAccounts(test_runner.config_file)
-                test_server.dry_run = test_runner.dry_run
+                test_server.with {
+                    long start = System.currentTimeMillis()
+                    setAccounts(test_runner.config_file)
+                    it.dry_run = test_runner.dry_run
 
-                def platform    = test_server.platform
-                def server_name = test_server.server_name
-                def verify_id   = test_server.verify_id
-                def domain_specs = evidence_sheet.domain_test_ids[platform]
-                domain_specs.each { domain, test_ids ->
-                    def domain_test = new DomainTestRunner(test_server, domain)
-                    def test_results = domain_test.makeTest(test_ids)
-                    def verify_results = [:]
-                    if (test_runner.verify_test) {
-                        verify_results = domain_test.verifyResults(verify_rule)
+                    def domain_specs = evidence_sheet.domain_test_ids[platform]
+                    domain_specs.each { domain, test_ids ->
+                        def domain_test = new DomainTestRunner(it, domain)
+                        domain_test.with {
+                            makeTest(test_ids)
+                            if (test_runner.verify_test) {
+                                verify()
+                            }
+                            log.debug "Set Device results '${domain},${server_name}'"
+                            device_results.setResults(domain, server_name, result_test_items)
+
+                            test_evidences[platform][server_name][domain] = [
+                                'test' : getResults(),
+                                'verify' : getVerifyStatuses(),
+                            ]
+                        }
                     }
-                    log.debug "Set Device results '${domain},${server_name}'"
-                    device_results.setResults(domain, server_name, domain_test.result_test_items)
-
-                    test_evidences[platform][server_name][domain] =
-                        ['test' : test_results, 'verify' : verify_results]
-                    log.info 'RESULT(Test) :' + test_results.toString()
-                    log.info 'RESULT(Verify) :' + verify_results.toString()
+                    long elapsed = System.currentTimeMillis() - start
+                    log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
                 }
-                long elapsed = System.currentTimeMillis() - start
-                log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
             }
         // }
         log.info "Evidence : " + test_evidences
