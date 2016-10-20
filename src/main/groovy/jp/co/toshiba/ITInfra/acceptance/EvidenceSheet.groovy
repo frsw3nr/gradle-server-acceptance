@@ -73,13 +73,15 @@ class EvidenceSheet {
         short black = IndexedColors.BLACK.getIndex();
 
         CellStyle style = wb.createCellStyle();
-        style.setWrapText(true);
-        style.setBorderRight(thin);
-        style.setRightBorderColor(black);
-        style.setBorderBottom(thin);
-        style.setBottomBorderColor(black);
-        style.setBorderTop(thin);
-        style.setTopBorderColor(black);
+        style.with {
+            setWrapText(true);
+            setBorderRight(thin);
+            setRightBorderColor(black);
+            setBorderBottom(thin);
+            setBottomBorderColor(black);
+            setBorderTop(thin);
+            setTopBorderColor(black);
+        }
         return style;
     }
 

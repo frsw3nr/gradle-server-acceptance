@@ -39,9 +39,18 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        // classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
     }
 }
 apply plugin: 'com.github.johnrengelman.shadow'
+// apply plugin: 'eu.appsatori.fatjar'
+
+// fatJar {
+//     baseName = 'gradle-server-acceptance'
+//     manifest {
+//         attributes 'Main-Class': mainClassName
+//     }
+// }
 
 shadowJar {
   manifest {

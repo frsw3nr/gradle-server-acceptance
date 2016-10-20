@@ -72,13 +72,13 @@ class TestRunner {
     }
 
     static void main(String[] args) {
-        def test = new TestRunner()
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        def test_scheduler = new TestScheduler(test_runner)
         try {
-            test.parse(args)
-            new TestScheduler(this).runTest()
+            test_scheduler.runTest()
         } catch (Exception e) {
-            log.fatal e
-            System.exit(1)
+            log.error "some error " + e
         }
     }
 }

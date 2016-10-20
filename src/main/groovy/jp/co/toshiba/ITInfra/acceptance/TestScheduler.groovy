@@ -28,9 +28,8 @@ class TestScheduler {
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
         def test_evidences = [:].withDefault{[:].withDefault{[:]}}
-        // GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
-            // test_servers.eachParallel { test_server ->
-            test_servers.each { test_server ->
+        GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
+            test_servers.eachParallel { test_server ->
                 test_server.with {
                     long start = System.currentTimeMillis()
                     setAccounts(test_runner.config_file)
@@ -57,7 +56,7 @@ class TestScheduler {
                     log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
                 }
             }
-        // }
+        }
         log.info "Evidence : " + test_evidences
         test_evidences.each { platform, platform_evidence ->
             def server_index = 0
