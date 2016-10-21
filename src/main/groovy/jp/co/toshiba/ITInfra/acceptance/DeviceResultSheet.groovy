@@ -25,7 +25,7 @@ class DeviceResultSheet {
             if (test_item.device_header && test_item.devices) {
                 def test_id = test_item.test_id
                 def rownum = test_item.devices.size()
-                log.info "Add device result ${domain}, ${server_name}, ${test_id}: ${rownum}"
+                log.debug "Add device result ${domain}, ${server_name}, ${test_id}: ${rownum}"
                 if (csv_row + rownum >= max_csv_row) {
                     def msg = "Failed to add csv data, Max Excel row limit exceed : ${max_csv_row}, Sheet '${domain}_${test_id}'"
                     throw new IllegalArgumentException(msg)

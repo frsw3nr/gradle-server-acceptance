@@ -326,7 +326,7 @@ class EvidenceSheet {
                             } else {
                                 cell_result.setCellValue(value)
                             }
-                            log.info "Update cell(${platform}:${domain}:${test_id}) = ${value}"
+                            log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
                         }
                         if (results[domain]['verify'].containsKey(test_id)) {
                             def is_ok = results[domain]['verify'][test_id]
@@ -340,7 +340,7 @@ class EvidenceSheet {
                             setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
                         }
                     } catch (NullPointerException e) {
-                        log.info "Not found row ${domain},${test_id} in ${platform}"
+                        log.debug "Not found row ${domain},${test_id} in ${platform}"
                     }
                 }
             }

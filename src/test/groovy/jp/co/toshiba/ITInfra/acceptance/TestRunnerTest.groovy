@@ -42,4 +42,17 @@ class TestRunnerTest extends Specification {
         then:
         thrown(FileNotFoundException)
     }
+
+    def "サーバ指定"() {
+        setup:
+        def test = new TestRunner()
+
+        when:
+        String[] args = ['-s', 'server1,server2,server3']
+        test.parse(args)
+
+        then:
+        1 == 1
+        // test.test_resource == './src/test/resources/'
+    }
 }

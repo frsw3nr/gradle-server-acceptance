@@ -1,7 +1,7 @@
 @echo off
 
-set JAVA_OPT=-Xmx256m
+set JAVA_OPT="-Dlogback.configurationFile=%~dp0/config/logback.xml"
 
-java -jar %~dp0/build/libs/gradle-server-acceptance-0.1.0-all.jar %*
+java -jar %JAVA_OPT% %~dp0/build/libs/gradle-server-acceptance-0.1.0-all.jar %*
 
 exit /b %ERRORLEVEL%

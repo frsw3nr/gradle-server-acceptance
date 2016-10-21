@@ -17,13 +17,25 @@ class TestScheduler {
         this.device_results = new DeviceResultSheet()
     }
 
+    List filter_server(List servers) {
+        def filtered_servers = []
+        def target_servers = test_runner.target_servers
+        servers.each { server ->
+            if (!target_servers || target_servers.containsKey(server.server_name)) {
+                filtered_servers << server
+            }
+        }
+        return filtered_servers
+    }
+
     Boolean runTest() {
         log.info "Initialize test schedule"
+        long run_test_start = System.currentTimeMillis()
         def evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet()
         evidence_sheet.prepareTestStage()
-        def test_servers = evidence_sheet.test_servers
+        def test_servers = filter_server(evidence_sheet.test_servers)
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
@@ -57,7 +69,7 @@ class TestScheduler {
                 }
             }
         }
-        log.info "Evidence : " + test_evidences
+        log.debug "Evidence : " + test_evidences
         test_evidences.each { platform, platform_evidence ->
             def server_index = 0
             platform_evidence.each { server_name, server_evidence ->
@@ -70,10 +82,11 @@ class TestScheduler {
                 def header = device_results.getHeaders(domain, test_id)
                 def csv = device_results.getCSVs(domain, test_id)
                 if (header && csv) {
-                    log.info "Add Device Sheet : ${domain}, ${test_id}"
                     evidence_sheet.insertDeviceSheet(domain, test_id, header, csv)
                 }
             }
         }
+        long run_test_elapsed = System.currentTimeMillis() - run_test_start
+        log.info "Finish server acceptance test, Total Elapsed : ${run_test_elapsed} ms"
     }
 }

@@ -30,7 +30,7 @@ class VerifyRuleGenerator {
         if (method) {
             try {
                 def result = method.invoke(spec, test_value)
-                log.info "Verify_rule ${method.name}(${test_value}) = ${result}"
+                log.debug "Verify_rule ${method.name}(${test_value}) = ${result}"
                 return result
             } catch (Exception e) {
                 log.error "[Verify] Failed to evaluate rule '${test_id}' : " + e
