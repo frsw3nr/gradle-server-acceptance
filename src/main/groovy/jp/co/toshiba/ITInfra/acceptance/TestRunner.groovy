@@ -47,9 +47,6 @@ class TestRunner {
             throw new IllegalArgumentException('Parse error')
         }
 
-        def env_test_resource = System.getenv()['TEST_RESOURCE']
-        def default_test_resource = (env_test_resource) ?: './src/test/resources/'
-
         target_servers = [:]
         if (options.ss) {
             options.ss.each {
@@ -69,8 +66,6 @@ class TestRunner {
         config_file = './config/config.groovy'
         if (options.c) {
             config_file = options.c
-        } else if (options.r || env_test_resource) {
-            config_file = "${test_resource}/config.groovy"
         }
 
         def config = Config.instance.read(config_file)
@@ -90,7 +85,7 @@ class TestRunner {
             }
         }
 
-        test_resource = (options.r) ?: default_test_resource + '/log/'
+        test_resource = (options.r) ?: './src/test/resources/log'
         config['test']['dry_run_staging_dir'] = test_resource
 
         log.info "Parse Arguments : " + args.toString()

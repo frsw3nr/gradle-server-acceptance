@@ -9,9 +9,9 @@ class TestSchedulerTest extends Specification {
         setup:
         String[] args = [
             '--dry-run',
-            '--verify',
+            '-c', './src/test/resources/config.groovy',
             '-r', './src/test/resources/',
-            '-p', '1',
+            '-p', '3',
         ]
 
         when:

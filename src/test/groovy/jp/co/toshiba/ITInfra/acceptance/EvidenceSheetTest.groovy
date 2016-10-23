@@ -2,13 +2,6 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
 class EvidenceSheetTest extends Specification{
-    def "既定の設定ファイル"() {
-        when:
-        def evidence = new EvidenceSheet()
-
-        then:
-        evidence.evidence_source == './check_sheet.xlsx'
-    }
 
     def "設定ファイルの日付パラメータ変換"() {
         when:
