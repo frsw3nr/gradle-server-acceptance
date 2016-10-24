@@ -17,7 +17,7 @@ class TestScheduler {
         this.device_results = new DeviceResultSheet()
     }
 
-    List filter_server(List servers) {
+    List filterServer(List servers) {
         def filtered_servers = []
         def target_servers = test_runner.target_servers
         servers.each { server ->
@@ -28,6 +28,17 @@ class TestScheduler {
         return filtered_servers
     }
 
+    def filterSpecs(List test_ids) {
+        def filtered_test_ids = []
+        def target_test_ids = test_runner.test_ids
+        test_ids.each { test_id ->
+            if (!target_test_ids || target_test_ids.containsKey(test_id)) {
+                filtered_test_ids << test_id
+            }
+        }
+        return filtered_test_ids
+    }
+
     Boolean runTest() {
         log.info "Initialize test schedule"
         long run_test_start = System.currentTimeMillis()
@@ -35,7 +46,7 @@ class TestScheduler {
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet()
         evidence_sheet.prepareTestStage()
-        def test_servers = filter_server(evidence_sheet.test_servers)
+        def test_servers = filterServer(evidence_sheet.test_servers)
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
@@ -49,9 +60,10 @@ class TestScheduler {
 
                     def domain_specs = evidence_sheet.domain_test_ids[platform]
                     domain_specs.each { domain, test_ids ->
+                        def filtered_test_ids = filterSpecs(test_ids)
                         def domain_test = new DomainTestRunner(it, domain)
                         domain_test.with {
-                            makeTest(test_ids)
+                            makeTest(filtered_test_ids)
                             if (test_runner.verify_test) {
                                 verify()
                             }
