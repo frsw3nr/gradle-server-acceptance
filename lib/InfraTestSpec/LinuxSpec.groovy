@@ -64,7 +64,20 @@ class LinuxSpec extends LinuxSpecBase {
                 log.info "[sudo] Error ${command}" + e
             }
         }
-        test_item.results(lines)
+        def isok = false
+        if (lines) {
+        def n_requiements = 0
+            def requiements = [:]
+            ['compat-libcap1','compat-libstdc++-33','libstdc++-devel'].each {
+                requiements[it] = 1
+            }
+            lines.each {
+                if (requiements[packagename])
+                    n_requiements ++
+            }
+            isok = (requiements.size() == n_requiements)
+        }
+        test_item.results((isok) ? 'OK' : 'NG')
     }
 
     // def hostname(session, test_item) {

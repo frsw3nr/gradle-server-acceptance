@@ -4,6 +4,11 @@ import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool
 import jsr166y.ForkJoinPool
 
+public enum SpecTestMode {
+    serial,
+    parallel,
+}
+
 @Slf4j
 class TestScheduler {
 
@@ -11,10 +16,24 @@ class TestScheduler {
     EvidenceSheet evidence_sheet
     TargetServer[] test_servers
     DeviceResultSheet device_results
+    def serialization_domains = [:]
+    def test_evidences = [:].withDefault{[:].withDefault{[:]}}
 
     TestScheduler(TestRunner test_runner) {
         this.test_runner = test_runner
         this.device_results = new DeviceResultSheet()
+        setSerializationDomainTasks()
+    }
+
+    def setSerializationDomainTasks() {
+        def config = Config.instance.read(test_runner.config_file)
+        def domains = config['test']['serialization']['tasks']
+        if (domains) {
+            assert domains in List
+            domains.each { domain ->
+                this.serialization_domains[domain] = 1
+            }
+        }
     }
 
     List filterServer(List servers) {
@@ -39,49 +58,127 @@ class TestScheduler {
         return filtered_test_ids
     }
 
-    Boolean runTest() {
+    def runServerTest(TargetServer test_server, SpecTestMode mode) {
+        test_server.with {
+            long start = System.currentTimeMillis()
+            setAccounts(test_runner.config_file)
+            it.dry_run = test_runner.dry_run
+
+            def domain_specs = evidence_sheet.domain_test_ids[platform]
+            domain_specs.each { domain, test_ids ->
+                def is_serial = serialization_domains.containsKey(domain)
+                if ((mode == SpecTestMode.serial   && is_serial) ||
+                    (mode == SpecTestMode.parallel && !is_serial)) {
+println "${mode} ON  : ${domain} ${server_name}"
+                    def filtered_test_ids = filterSpecs(test_ids)
+                    def domain_test = new DomainTestRunner(it, domain)
+                    domain_test.with {
+                        makeTest(filtered_test_ids)
+                        if (test_runner.verify_test) {
+                            verify()
+                        }
+                        log.debug "Set Device results '${domain},${server_name}'"
+                        device_results.setResults(domain, server_name, result_test_items)
+
+                        test_evidences[platform][server_name][domain] = [
+                            'test' : getResults(),
+                            'verify' : getVerifyStatuses(),
+                        ]
+                    }
+println "${mode} OFF : ${domain} ${server_name}"
+                }
+            }
+            long elapsed = System.currentTimeMillis() - start
+            log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
+        }
+    }
+
+    def runTest() {
         log.info "Initialize test schedule"
         long run_test_start = System.currentTimeMillis()
-        def evidence_sheet = new EvidenceSheet(test_runner.config_file)
+        evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet()
         evidence_sheet.prepareTestStage()
-        def test_servers = filterServer(evidence_sheet.test_servers)
+        test_servers = filterServer(evidence_sheet.test_servers)
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
-        def test_evidences = [:].withDefault{[:].withDefault{[:]}}
-        // GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
-        //     test_servers.eachParallel { test_server ->
+        if (serialization_domains) {
+println "SERIAL ON"
             test_servers.each { test_server ->
-                test_server.with {
-                    long start = System.currentTimeMillis()
-                    setAccounts(test_runner.config_file)
-                    it.dry_run = test_runner.dry_run
+                runServerTest(test_server, SpecTestMode.serial)
+//                 test_server.with {
+//                     long start = System.currentTimeMillis()
+//                     setAccounts(test_runner.config_file)
+//                     it.dry_run = test_runner.dry_run
 
-                    def domain_specs = evidence_sheet.domain_test_ids[platform]
-                    domain_specs.each { domain, test_ids ->
-                        def filtered_test_ids = filterSpecs(test_ids)
-                        def domain_test = new DomainTestRunner(it, domain)
-                        domain_test.with {
-                            makeTest(filtered_test_ids)
-                            if (test_runner.verify_test) {
-                                verify()
-                            }
-                            log.debug "Set Device results '${domain},${server_name}'"
-                            device_results.setResults(domain, server_name, result_test_items)
+//                     def domain_specs = evidence_sheet.domain_test_ids[platform]
+//                     domain_specs.each { domain, test_ids ->
+//                         if (serialization_domains.containsKey(domain)) {
+// println "SERIAL ON  : ${domain} ${server_name}"
+//                             def filtered_test_ids = filterSpecs(test_ids)
+//                             def domain_test = new DomainTestRunner(it, domain)
+//                             domain_test.with {
+//                                 makeTest(filtered_test_ids)
+//                                 if (test_runner.verify_test) {
+//                                     verify()
+//                                 }
+//                                 log.debug "Set Device results '${domain},${server_name}'"
+//                                 device_results.setResults(domain, server_name, result_test_items)
 
-                            test_evidences[platform][server_name][domain] = [
-                                'test' : getResults(),
-                                'verify' : getVerifyStatuses(),
-                            ]
-                        }
-                    }
-                    long elapsed = System.currentTimeMillis() - start
-                    log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
-                }
+//                                 test_evidences[platform][server_name][domain] = [
+//                                     'test' : getResults(),
+//                                     'verify' : getVerifyStatuses(),
+//                                 ]
+//                             }
+// println "SERIAL OFF : ${domain} ${server_name}"
+//                         }
+//                     }
+//                     long elapsed = System.currentTimeMillis() - start
+//                     log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
+//                 }
             }
-        // }
+println "SERIAL OFF"
+        }
+
+        GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
+println "PARALLEL ON"
+            test_servers.eachParallel { test_server ->
+                runServerTest(test_server, SpecTestMode.parallel)
+//                 test_server.with {
+//                     long start = System.currentTimeMillis()
+//                     setAccounts(test_runner.config_file)
+//                     it.dry_run = test_runner.dry_run
+
+//                     def domain_specs = evidence_sheet.domain_test_ids[platform]
+//                     domain_specs.each { domain, test_ids ->
+//                         if (! serialization_domains.containsKey(domain)) {
+// println "PARALLEL ON  : ${domain} ${server_name}"
+//                             def filtered_test_ids = filterSpecs(test_ids)
+//                             def domain_test = new DomainTestRunner(it, domain)
+//                             domain_test.with {
+//                                 makeTest(filtered_test_ids)
+//                                 if (test_runner.verify_test) {
+//                                     verify()
+//                                 }
+//                                 log.debug "Set Device results '${domain},${server_name}'"
+//                                 device_results.setResults(domain, server_name, result_test_items)
+
+//                                 test_evidences[platform][server_name][domain] = [
+//                                     'test' : getResults(),
+//                                     'verify' : getVerifyStatuses(),
+//                                 ]
+//                             }
+// println "PARALLEL OFF : ${domain} ${server_name}"
+//                         }
+//                     }
+//                     long elapsed = System.currentTimeMillis() - start
+//                     log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
+//                 }
+            }
+println "PARALLEL OFF"
+        }
         log.debug "Evidence : " + test_evidences
         test_evidences.each { platform, platform_evidence ->
             def server_index = 0

@@ -75,16 +75,17 @@ class vCenterSpecBase extends InfraTestSpec {
 
             def res = [:]
             lines.eachLine {
-                (it =~  /^vmware\.tools\.(.+?)\s+(\d+.)\s*$/).each { m0,m1,m2->
+                (it =~ /^vmware\.tools\.(.+?)\s+(\d+.)\s*$/).each { m0,m1,m2->
                     res[m1] = m2
                 }
             }
-            test_item.results(res)
+            test_item.results(res.toString())
         }
     }
 
     def vm_iops_limit(test_item) {
-        run_script('Get-VMResourceConfiguration -VM $vm | select DiskResourceConfiguration') {
+
+        run_script('Get-VMResourceConfiguration -VM $vm | format-custom -property DiskResourceConfiguration') {
             def lines = exec('vm_iops_limit') {
                 new File("${local_dir}/vm_iops_limit")
             }
@@ -92,7 +93,7 @@ class vCenterSpecBase extends InfraTestSpec {
             def res = [:]
             def vm_iops_limt_number = 0
             lines.eachLine {
-                (it =~  /DiskLimitIOPerSecond = (\d+)/).each { m0,m1->
+                (it =~  /DiskLimitIOPerSecond = (.+?)\s*$/).each { m0,m1->
                     res["IOLimit${vm_iops_limt_number}"] = m1
                     vm_iops_limt_number++
                 }
@@ -106,17 +107,30 @@ class vCenterSpecBase extends InfraTestSpec {
             def lines = exec('vm_storage') {
                 new File("${local_dir}/vm_storage")
             }
-
+            def csv = []
             def res = [:].withDefault{[:]}
+            def utils = []
             def vm_storage_number = 0
+
             lines.eachLine {
-                (it =~  /^(StorageFormat|CapacityGB)\s+:\s(.+)$/).each { m0,m1,m2->
-                    res["Disk${vm_storage_number}"][m1] = m2
-                    if (m1 == 'CapacityGB')
+                (it =~  /^(StorageFormat|Filename|CapacityGB)\s+:\s(.+)$/).each { m0,m1,m2->
+                    res[vm_storage_number][m1] = m2
+                    if (m1 == 'StorageFormat') {
+                        csv << [
+                            res[vm_storage_number]['Filename'],
+                            res[vm_storage_number]['StorageFormat'],
+                            res[vm_storage_number]['CapacityGB'],
+                        ]
+                        utils <<
+                            res[vm_storage_number]['StorageFormat'] + ':' +
+                            res[vm_storage_number]['CapacityGB']
                         vm_storage_number ++
+                    }
                 }
             }
-            test_item.results(res.toString())
+            def headers = ['Filename', 'StorageFormat', 'CapacityGB']
+            test_item.devices(csv, headers)
+            test_item.results(utils.toString())
         }
     }
 

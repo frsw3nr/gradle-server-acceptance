@@ -16,9 +16,21 @@ evidence.target='./build/チェックシート_<date>.xlsx'
 
 evidence.staging_dir='./build/log.<date>'
 
-// 検査モード
+// 並列化しないタスク
+// 並列度を指定をしても、指定したドメインタスクはシリアルに実行する
+
+test.serialization.tasks = ['vCenter']
+
+// DryRunモードログ保存先
 
 test.dry_run_staging_dir = './src/test/resources/log/'
+
+// コマンド採取のタイムアウト
+// Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
+
+test.Linux.timeout   = 30
+test.Windows.timeout = 300
+test.vCenter.timeout = 300
 
 // vCenter接続情報
 

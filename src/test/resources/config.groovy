@@ -19,17 +19,19 @@ evidence.staging_dir='./build/log.<date>'
 //evidence.staging_dir='./build/log'
 
 // 並列化しないタスク
+
 test.serialization.tasks = ['vCenter']
 
-// 検査モード
+// DryRunモードログ保存先
 
 test.dry_run_staging_dir = './src/test/resources/log/'
-test.Linux.dry_run   = false
+
+// コマンド採取のタイムアウト
+// Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
+
 test.Linux.timeout   = 30
-test.Windows.dry_run = false
-test.Windows.timeout = 30
-test.vCenter.dry_run = false
-test.vCenter.timeout = 30
+test.Windows.timeout = 300
+test.vCenter.timeout = 300
 
 // vCenter接続情報
 
