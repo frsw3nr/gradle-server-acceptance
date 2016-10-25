@@ -104,11 +104,12 @@ class TestRunner {
         def test_runner = new TestRunner()
         test_runner.parse(args)
         def test_scheduler = new TestScheduler(test_runner)
-        try {
-            test_scheduler.runTest()
-        } catch (Exception e) {
-            log.error "Fatal error : " + e
-            System.exit(1)
-        }
+        test_scheduler.runTest()
+        // try {
+        //     test_scheduler.runTest()
+        // } catch (Exception e) {
+        //     log.error "Fatal error : " + e
+        //     System.exit(1)
+        // }
     }
 }

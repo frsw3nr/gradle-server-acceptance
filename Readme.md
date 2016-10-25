@@ -35,18 +35,18 @@ Install
 
 主なファイル構成は以下の通り。
 
-    X:.
-    ├check_sheet.xlsx    # チェックシート
-    ├─config            # 設定ファイル
-    ├─src
-    │  └─test
-    │      └─resources # DryRunテスト用データ
-    │          └─log
-    ├─build
-    │  └─libs          # Jarファイル本体
-    └─lib
-        ├─template      # PowerShell テンプレート
-        └─InfraTestSpec # 検査コード
+X:.
+├check_sheet.xlsx    # チェックシート
+├─config            # 設定ファイル
+├─src
+│  └─test
+│      └─resources # DryRunテスト用データ
+│          └─log
+├─build
+│  └─libs          # Jarファイル本体
+└─lib
+    ├─template      # PowerShell テンプレート
+    └─InfraTestSpec # 検査コード
 
 
 Refference

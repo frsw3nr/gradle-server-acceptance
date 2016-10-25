@@ -1,64 +1,64 @@
-—˜—pè‡
+åˆ©ç”¨æ‰‹é †
 ========
 
-–‘O€”õ
+äº‹å‰æº–å‚™
 --------
 
-**İ’èî•ñŠm”F**
+**è¨­å®šæƒ…å ±ç¢ºèª**
 
-Linux Ú‘±î•ñ
+Linux æ¥ç¶šæƒ…å ±
 
 	Hostname: ostrich, IP: 192.168.10.1, User: someuser, Password: XXX
 
-vCenter Ú‘±î•ñ
+vCenter æ¥ç¶šæƒ…å ±
 
 	IP : 192.168.10.100, User: root, Password: XXXX
 
-VM–¼
+VMå
 
 	ostrich
 
-**ŒŸ¸ƒtƒ@ƒCƒ‹İ’è**
+**æ¤œæŸ»ãƒ•ã‚¡ã‚¤ãƒ«è¨­å®š**
 
-1.ƒ`ƒFƒbƒNƒV[ƒg.xlsx 
+1.ãƒã‚§ãƒƒã‚¯ã‚·ãƒ¼ãƒˆ.xlsx
 
-ƒV[ƒguƒ`ƒFƒbƒN‘ÎÛVMv‚ÉŒŸ¸‘ÎÛƒT[ƒo‚ÌÚ‘±î•ñ‹L“üB
+ã‚·ãƒ¼ãƒˆã€Œãƒã‚§ãƒƒã‚¯å¯¾è±¡VMã€ã«æ¤œæŸ»å¯¾è±¡ã‚µãƒ¼ãƒã®æ¥ç¶šæƒ…å ±è¨˜å…¥ã€‚
 
-2. config/config.groovy 
+2. è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«
 
-Ú‘±î•ñ•ÒWB
+config/config.groovy å†…ã®ã‚µãƒ¼ãƒæ¥ç¶šæƒ…å ±ã®ç®‡æ‰€ã‚’ç·¨é›†ã€‚
 
-	// vCenterÚ‘±î•ñ
+	// vCenteræ¥ç¶šæƒ…å ±
 	
 	account.vCenter.Test.server   = '192.168.10.100'
 	account.vCenter.Test.user     = 'root'
 	account.vCenter.Test.password = 'XXXX'
 	
-	// Linux Ú‘±î•ñ
+	// Linux æ¥ç¶šæƒ…å ±
 	
 	account.Linux.Test.user      = 'someuser'
 	account.Linux.Test.password  = 'XXXX'
 	account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
-ŒŸ¸Às
+æ¤œæŸ»å®Ÿè¡Œ
 --------
 
-**getconfigÀs**
+**getconfigå®Ÿè¡Œ**
 
-server-acceptanceƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®‚µ‚ÄƒeƒXƒgÀs
+server-acceptanceãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ç§»å‹•ã—ã¦ãƒ†ã‚¹ãƒˆå®Ÿè¡Œ
 
-	cd (‰ğ“€ƒfƒBƒŒƒNƒgƒŠ)\server-acceptance
+	cd (è§£å‡ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª)\server-acceptance
 	getconfig
 
-ŒŸ¸‘ÎÛƒT[ƒo‚ği‚è‚İ‚½‚¢ê‡
+æ¤œæŸ»å¯¾è±¡ã‚µãƒ¼ãƒã‚’çµã‚Šè¾¼ã¿ãŸã„å ´åˆ
 
 	getconfig -s ostrich
 
-‚³‚ç‚ÉŒŸ¸ID‚ği‚è‚İ‚½‚¢ê‡
+ã•ã‚‰ã«æ¤œæŸ»IDã‚’çµã‚Šè¾¼ã¿ãŸã„å ´åˆ
 
 	getconfig -s ostrich -t hostname,lsb
 
-**ŒŸ¸Œ‹‰ÊŠm”F**
+**æ¤œæŸ»çµæœç¢ºèª**
 
-build‚Ì‰º‚ÉŒŸ¸Œ‹‰Ê‚ªo—Í‚³‚ê‚éB
+buildã®ä¸‹ã«æ¤œæŸ»çµæœãŒå‡ºåŠ›ã•ã‚Œã‚‹ã€‚
 

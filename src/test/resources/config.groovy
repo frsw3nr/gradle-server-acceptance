@@ -18,6 +18,9 @@ evidence.target='./build/check_sheet_<date>.xlsx'
 evidence.staging_dir='./build/log.<date>'
 //evidence.staging_dir='./build/log'
 
+// 並列化しないタスク
+test.serialization.tasks = ['vCenter']
+
 // 検査モード
 
 test.dry_run_staging_dir = './src/test/resources/log/'

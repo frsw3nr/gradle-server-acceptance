@@ -8,6 +8,7 @@
 /build/
 /libdeps/
 /resource/
+/config/config.groovy
 /config/.secret/
 gradle-app.setting
 gradle.properties

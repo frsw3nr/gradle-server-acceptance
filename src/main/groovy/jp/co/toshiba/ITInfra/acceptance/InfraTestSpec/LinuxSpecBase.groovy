@@ -48,7 +48,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 try {
                     execute "mkdir -vp ${work_dir}"
                 } catch (Exception e) {
-                    log.error "[SSH Test] Working directory in ${this.server_name} faild, skip.\n" + e
+                    log.error "[SSH Test] Failed to create '$work_dir' in ${this.server_name}, skip.\n" + e
                     return
                 }
 
@@ -67,7 +67,12 @@ class LinuxSpecBase extends InfraTestSpec {
                         }
                     }
                 }
-                remove work_dir
+                try {
+                    remove work_dir
+                } catch (Exception e) {
+                    log.error "[SSH Test] Failed to remove '$work_dir' in ${this.server_name} faild, skip.\n" + e
+                    return
+                }
             }
         }
     }

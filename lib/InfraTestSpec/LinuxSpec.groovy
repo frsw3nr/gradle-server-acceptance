@@ -55,10 +55,14 @@ class LinuxSpec extends LinuxSpecBase {
 
     def oracle_module(session, test_item) {
         def lines = exec('oracle_module') {
-            def command = "ls /root/sfw/* >> ${work_dir}/oracle_module"
-            session.executeSudo command
-            session.get from: "${work_dir}/oracle_module", into: local_dir
-            new File("${local_dir}/oracle_module").text
+            def command = "ls /root/package/* >> ${work_dir}/oracle_module"
+            try {
+                session.executeSudo command
+                session.get from: "${work_dir}/oracle_module", into: local_dir
+                new File("${local_dir}/oracle_module").text
+            } catch (Exception e) {
+                log.info "[sudo] Error ${command}" + e
+            }
         }
         test_item.results(lines)
     }
