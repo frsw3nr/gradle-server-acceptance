@@ -69,7 +69,7 @@ class TestScheduler {
                 def is_serial = serialization_domains.containsKey(domain)
                 if ((mode == SpecTestMode.serial   && is_serial) ||
                     (mode == SpecTestMode.parallel && !is_serial)) {
-println "${mode} ON  : ${domain} ${server_name}"
+                    log.info "${mode} ON  : ${domain} ${server_name}"
                     def filtered_test_ids = filterSpecs(test_ids)
                     def domain_test = new DomainTestRunner(it, domain)
                     domain_test.with {
@@ -85,7 +85,7 @@ println "${mode} ON  : ${domain} ${server_name}"
                             'verify' : getVerifyStatuses(),
                         ]
                     }
-println "${mode} OFF : ${domain} ${server_name}"
+                    log.info "${mode} OFF : ${domain} ${server_name}"
                 }
             }
             long elapsed = System.currentTimeMillis() - start
@@ -105,79 +105,15 @@ println "${mode} OFF : ${domain} ${server_name}"
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
         if (serialization_domains) {
-println "SERIAL ON"
             test_servers.each { test_server ->
                 runServerTest(test_server, SpecTestMode.serial)
-//                 test_server.with {
-//                     long start = System.currentTimeMillis()
-//                     setAccounts(test_runner.config_file)
-//                     it.dry_run = test_runner.dry_run
-
-//                     def domain_specs = evidence_sheet.domain_test_ids[platform]
-//                     domain_specs.each { domain, test_ids ->
-//                         if (serialization_domains.containsKey(domain)) {
-// println "SERIAL ON  : ${domain} ${server_name}"
-//                             def filtered_test_ids = filterSpecs(test_ids)
-//                             def domain_test = new DomainTestRunner(it, domain)
-//                             domain_test.with {
-//                                 makeTest(filtered_test_ids)
-//                                 if (test_runner.verify_test) {
-//                                     verify()
-//                                 }
-//                                 log.debug "Set Device results '${domain},${server_name}'"
-//                                 device_results.setResults(domain, server_name, result_test_items)
-
-//                                 test_evidences[platform][server_name][domain] = [
-//                                     'test' : getResults(),
-//                                     'verify' : getVerifyStatuses(),
-//                                 ]
-//                             }
-// println "SERIAL OFF : ${domain} ${server_name}"
-//                         }
-//                     }
-//                     long elapsed = System.currentTimeMillis() - start
-//                     log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
-//                 }
             }
-println "SERIAL OFF"
         }
 
         GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
-println "PARALLEL ON"
             test_servers.eachParallel { test_server ->
                 runServerTest(test_server, SpecTestMode.parallel)
-//                 test_server.with {
-//                     long start = System.currentTimeMillis()
-//                     setAccounts(test_runner.config_file)
-//                     it.dry_run = test_runner.dry_run
-
-//                     def domain_specs = evidence_sheet.domain_test_ids[platform]
-//                     domain_specs.each { domain, test_ids ->
-//                         if (! serialization_domains.containsKey(domain)) {
-// println "PARALLEL ON  : ${domain} ${server_name}"
-//                             def filtered_test_ids = filterSpecs(test_ids)
-//                             def domain_test = new DomainTestRunner(it, domain)
-//                             domain_test.with {
-//                                 makeTest(filtered_test_ids)
-//                                 if (test_runner.verify_test) {
-//                                     verify()
-//                                 }
-//                                 log.debug "Set Device results '${domain},${server_name}'"
-//                                 device_results.setResults(domain, server_name, result_test_items)
-
-//                                 test_evidences[platform][server_name][domain] = [
-//                                     'test' : getResults(),
-//                                     'verify' : getVerifyStatuses(),
-//                                 ]
-//                             }
-// println "PARALLEL OFF : ${domain} ${server_name}"
-//                         }
-//                     }
-//                     long elapsed = System.currentTimeMillis() - start
-//                     log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
-//                 }
             }
-println "PARALLEL OFF"
         }
         log.debug "Evidence : " + test_evidences
         test_evidences.each { platform, platform_evidence ->
