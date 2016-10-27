@@ -19,11 +19,11 @@ class vCenterSpecBase extends InfraTestSpec {
     def init() {
         super.init()
 
-        def vcenter_account = test_server.vcenter_account
-        vcenter_ip       = vcenter_account['server']
-        vcenter_user     = vcenter_account['user']
-        vcenter_password = vcenter_account['password']
-        vm               = test_server.vm
+        def remote_account = test_server.remote_account
+        vcenter_ip       = remote_account['server']
+        vcenter_user     = remote_account['user']
+        vcenter_password = remote_account['password']
+        vm               = test_server.remote_alias
         script_path      = local_dir + '/get_vCenter_spec.ps1'
     }
 

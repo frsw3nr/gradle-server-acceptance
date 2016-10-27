@@ -11,12 +11,12 @@ class WindowsBaseTest extends Specification {
 
     def setup() {
         test_server = new TargetServer(
-            server_name   : 'win2012',
-            ip            : '192.168.0.12',
-            platform      : 'Windows',
-            os_account_id : 'Test',
-            vcenter_id    : 'Test',
-            vm            : 'win2012.ostrich',
+            server_name       : 'win2012',
+            ip                : '192.168.0.12',
+            platform          : 'Windows',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'win2012.ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
         test_server.dry_run = true

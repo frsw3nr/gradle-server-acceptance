@@ -22,6 +22,7 @@ class EvidenceSheet {
 
     final row_header          = 3
     final row_body_begin      = 4
+    final column_server_begin = 3
     final column_body_begin   = 6
     final column_device_begin = 2
 
@@ -87,37 +88,47 @@ class EvidenceSheet {
 
     def readSheetServer(Sheet sheet_server) throws IOException {
         log.info("Read sheet '${sheet_name_server}'")
+        def server_ids = [:]
+        def server_info = [:].withDefault{[:]}
+        def max_server_columns = 0
         sheet_server.with { sheet ->
-            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
-                Row row = sheet.getRow(rownum)
-                def test_server = new TargetServer(
-                    server_name   : row.getCell(2).getStringCellValue(),
-                    ip            : row.getCell(3).getStringCellValue(),
-                    platform      : row.getCell(4).getStringCellValue(),
-                    os_account_id : row.getCell(5).getStringCellValue(),
-                    vcenter_id    : row.getCell(6).getStringCellValue(),
-                    vm            : row.getCell(7).getStringCellValue(),
-                    verify_id     : row.getCell(8).getStringCellValue(),
-                )
-                def null_checks = [:]
-                ['server_name', 'ip', 'platform', 'os_account_id'].each {
-                    def value = test_server[it]
-                    if ( value == null || value.length() == 0 )
-                        null_checks[it] = value
-                }
-                switch (null_checks.size()) {
-                    case 0:
-                        test_platforms[test_server['platform']] = 1
-                        test_servers.push(test_server)
-                        log.debug("\t${rownum} : Add server '${test_server.server_name}'")
-                        break
-
-                    case 1..3:
-                        log.warn("Malformed input '${sheet_name_server}:${rownum}'")
-                        log.warn(null_checks.toString())
-                        break
+            // check server_ids from header
+            Row header_row = sheet.getRow(4)
+            (column_server_begin .. header_row.getLastCellNum()).each { column ->
+                def position = "4:${column}"
+                def server_id_cell = header_row.getCell(column)
+                if (server_id_cell) {
+                    def server_id = server_id_cell.getStringCellValue()
+                    if (server_id.size() > 0) {
+                        log.debug "\t${position} : Add server_id '${server_id}'"
+                        server_ids[column] = server_id
+                        max_server_columns = column
+                    }
                 }
             }
+            // check server from body
+            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
+                Row row = sheet.getRow(rownum)
+                def item_id     = row.getCell(1).getStringCellValue()
+                server_ids.each { column, server_id ->
+                    def position = "${rownum}:${column}"
+                    def server_text_cell = row.getCell(column)
+                    if (server_text_cell) {
+                        def server_text = server_text_cell.getStringCellValue()
+                        if (server_text.size() > 0) {
+                            def index = "${server_id},${item_id}"
+                            log.debug "\t${position} : Add server ${index} = '${server_text}'"
+                            server_info[server_id][item_id] = server_text
+                        }
+                    }
+                }
+            }
+        }
+        (column_server_begin..max_server_columns).each {
+            def server_id = server_ids[it]
+            def test_server = new TargetServer(server_info[server_id])
+            test_platforms[test_server.platform] = 1
+            test_servers.add(test_server)
         }
     }
 

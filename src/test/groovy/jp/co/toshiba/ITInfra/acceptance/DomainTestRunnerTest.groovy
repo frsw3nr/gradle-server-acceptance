@@ -14,13 +14,13 @@ class DomainTestRunnerTest extends Specification {
         rules['RuleDB']['vCenter']['VMHost']   = 'x =~ /esxi/'
 
         test_server = new TargetServer(
-            server_name   : 'ostrich',
-            ip            : 'localhost',
-            platform      : 'Linux',
-            os_account_id : 'Test',
-            vcenter_id    : 'Test',
-            vm            : 'ostrich',
-            verify_id     : 'RuleDB',
+            server_name       : 'ostrich',
+            ip                : 'localhost',
+            platform          : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'ostrich',
+            verify_id         : 'RuleDB',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
         test_server.dry_run = true

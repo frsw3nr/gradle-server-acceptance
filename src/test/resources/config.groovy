@@ -35,9 +35,9 @@ test.vCenter.timeout = 300
 
 // vCenter接続情報
 
-account.vCenter.Test.server   = '192.168.10.100'
-account.vCenter.Test.user     = 'test_user'
-account.vCenter.Test.password = 'P@ssword'
+account.Remote.Test.server   = '192.168.10.100'
+account.Remote.Test.user     = 'test_user'
+account.Remote.Test.password = 'P@ssword'
 
 // Linux 接続情報
 

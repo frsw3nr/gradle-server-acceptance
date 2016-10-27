@@ -9,16 +9,28 @@ class TargetServer {
     String ip
     String platform
     String os_account_id
-    String vcenter_id
-    String vm
+    String remote_account_id
+    String remote_alias
     String verify_id
     String evidence_log_dir
     Boolean dry_run
     String dry_run_staging_dir
     int timeout
 
+    Map infos = [:]
     def os_account
-    def vcenter_account
+    def remote_account
+
+    TargetServer(Map properties) {
+        final def defalut_props = ['server_name' : 1, 'ip' : 1, 'platform' : 1,
+            'os_account_id' : 1, 'remote_account_id' : 1, 'remote_alias' : 1, 'verify_id' : 1]
+        properties.each { name, value ->
+            if (defalut_props.containsKey(name)) {
+                this."${name}" = value
+            }
+            this.infos[name] = value
+        }
+    }
 
     private getConfigAccount(Map config_account, String platform, String id) {
         def account = [:]
@@ -43,7 +55,7 @@ class TargetServer {
             throw new IllegalArgumentException(msg)
         }
         os_account      = getConfigAccount(config_account, platform,  os_account_id)
-        vcenter_account = getConfigAccount(config_account, 'vCenter', vcenter_id)
+        remote_account = getConfigAccount(config_account, 'Remote', remote_account_id)
 
         def config_test = config['test']
         dry_run = config_test[platform]['dry_run'] ?: false

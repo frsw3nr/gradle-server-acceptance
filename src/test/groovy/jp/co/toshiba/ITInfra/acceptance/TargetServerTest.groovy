@@ -9,12 +9,12 @@ class TargetServerTest extends Specification {
 
     def setup() {
         test_server = new TargetServer(
-            server_name   : 'ostrich',
-            ip            : '192.168.10.1',
-            platform      : 'Linux',
-            os_account_id : 'Test',
-            vcenter_id    : 'Test',
-            vm            : 'ostrich',
+            server_name       : 'ostrich',
+            ip                : '192.168.10.1',
+            platform          : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'ostrich',
         )
     }
 
@@ -24,7 +24,7 @@ class TargetServerTest extends Specification {
 
         then:
         test_server.os_account['password'] == 'P@ssword'
-        test_server.vcenter_account['password'] == 'P@ssword'
+        test_server.remote_account['password'] == 'P@ssword'
         test_server.dry_run == false
         test_server.timeout == 30
     }
@@ -39,13 +39,13 @@ class TargetServerTest extends Specification {
 
     def "Linux vCenter アカウント情報なし"() {
         setup:
-        test_server.vcenter_id = null
+        test_server.remote_account_id = null
 
         when:
         test_server.setAccounts('src/test/resources/config.groovy')
 
         then:
-        test_server.vcenter_account == [:]
+        test_server.remote_account == [:]
     }
 
     def "Linux OSアカウント情報なし"() {

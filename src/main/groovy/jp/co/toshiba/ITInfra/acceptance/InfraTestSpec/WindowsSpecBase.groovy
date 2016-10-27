@@ -120,6 +120,7 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+
     def filesystem(TestItem test_item) {
         def command = '''\
             |Get-WmiObject -Credential $cred -ComputerName $ip Win32_LogicalDisk
@@ -137,11 +138,12 @@ class WindowsSpecBase extends InfraTestSpec {
                     device_id = m1
                 }
                 (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
-                    filesystem_info[device_id] = m1
-                    csv << [device_id, m1]
+                    def size_gb = m1.toDouble()/(1000*1000*1000)
+                    filesystem_info[device_id] = size_gb
+                    csv << [device_id, size_gb]
                 }
             }
-            def headers = ['device_id', 'size']
+            def headers = ['device_id', 'size_gb']
             test_item.devices(csv, headers)
             test_item.results(filesystem_info.toString())
         }
@@ -149,58 +151,43 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def fips(TestItem test_item) {
         def command = '''\
-            |$reg = Get-WmiObject -List -Namespace root\\default -Credential $cred -ComputerName $ip | `
-            |Where-Object {$_.Name -eq "StdRegProv"}
-            |$HKLM = 2147483650
-            |$reg.GetStringValue($HKLM,"System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy","Enabled").sValue
+            |Invoke-Command -Scriptblock `
+            |{Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"} `
+            |-credential $cred -Computername $ip
             |'''.stripMargin()
 
         run_script(command) {
             def lines = exec('fips') {
                 new File("${local_dir}/fips")
             }
-            def fips_info = [:].withDefault{0}
+            def fips_info = 'NotFound'
             lines.eachLine {
+                (it =~ /^FIPSAlgorithmPolicy\s+Enabled : (.+?)\s+/).each {m0,m1->
+                    fips_info = (m1 == '0') ? 'Disabled' : 'Enabled'
+                }
             }
             test_item.results(fips_info)
         }
     }
 
-// $hklm  = 2147483650
-// $key   = "SYSTEM\CurrentControlSet\Services\disk"
-// $value = "TimeoutValue"
-
-// $sw = [Diagnostics.Stopwatch]::StartNew()
-
-// $reg = get-wmiobject -list "StdRegProv" -namespace root\default -computername $ip -credential $cred | where-object { $_.Name -eq "StdRegProv" }
-// $sw.Stop()
-// write-host $sw.Elapsed
-
-// $reg.GetStringValue($hklm, $key, $value) | Select-Object uValue
-
-
-//    uValue
-//    ------
-//        60
-
     def storage_timeout(TestItem test_item) {
         def command = '''\
-            |$hklm  = 2147483650
-            |$key   = "SYSTEM\\CurrentControlSet\\Services\\disk"
-            |$value = "TimeoutValue"
-            |$reg = get-wmiobject -list "StdRegProv" -namespace root\\default -computername $ip -credential $cred | where-object { $_.Name -eq "StdRegProv" }
-            |$reg.GetStringValue($hklm, $key, $value) | Select-Object uValue
+            |Invoke-Command -Scriptblock `
+            |{Get-ItemProperty "HKLM:SYSTEM\\CurrentControlSet\\Services\\disk" "TimeOutValue" | Select-Object -ExpandProperty TimeOutValue} `
+            |-credential $cred -Computername $ip
             |'''.stripMargin()
 
         run_script(command) {
             def lines = exec('storage_timeout') {
                 new File("${local_dir}/storage_timeout")
             }
-            def timeout_info = [:].withDefault{0}
+            def value = 'NotFound'
             lines.eachLine {
-                println it
+                (it =~ /^(\d+)/).each {m0,m1->
+                    value = m1
+                }
             }
-            test_item.results(timeout_info)
+            test_item.results(value)
         }
     }
 
@@ -208,7 +195,8 @@ class WindowsSpecBase extends InfraTestSpec {
         def command = '''\
             |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration | `
             | Where{$_.IpEnabled -Match "True"} | `
-            | Select MacAddress, IPAddress, DefaultIPGateway, Description `
+            | Select MacAddress, IPAddress, DefaultIPGateway, Description | `
+            | Format-List `
             |'''.stripMargin()
 
         run_script(command) {
@@ -231,12 +219,12 @@ class WindowsSpecBase extends InfraTestSpec {
                 (it =~ /^DefaultIPGateway\s*:\s+(.+)$/).each {m0,m1->
                     tmp['gw'] = m1
                 }
-                (it =~ /^Description\s*:\s+(.*Network.*?)$/).each {m0,m1->
+                (it =~ /^Description\s*:\s+(.+?)$/).each {m0,m1->
                     network_info[m1]['dhcp'] = tmp['dhcp']
                     network_info[m1]['ip']   = tmp['ip']
                     network_info[m1]['mac']  = tmp['mac']
                     network_info[m1]['gw']   = tmp['gw']
-                    csv << [m1, tmp['ip'], tmp['gw'], tmp['dhcp']]
+                    csv << [m1, tmp['ip'], tmp['mac'], tmp['gw'], tmp['dhcp']]
                 }
             }
             def headers = ['device', 'ip', 'mac', 'gw', 'dhcp']

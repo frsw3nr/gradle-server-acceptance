@@ -58,13 +58,13 @@ class VerifyRuleGeneratorTest extends Specification {
         rules['AP01']['Linux']['hostname']    = 'x =~ /rich/'
         verifier.setVerifyRule(rules)
         def test_server = new TargetServer(
-            server_name   : 'ostrich',
-            ip            : 'localhost',
-            platform      : 'Linux',
-            os_account_id : 'Test',
-            vcenter_id    : 'Test',
-            verify_id     : 'AP01',
-            vm            : 'ostrich',
+            server_name       : 'ostrich',
+            ip                : 'localhost',
+            platform          : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            verify_id         : 'AP01',
+            remote_alias      : 'ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
         test_server.dry_run = true

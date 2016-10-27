@@ -11,12 +11,12 @@ class vCenterBaseTest extends Specification {
 
     def setup() {
         test_server = new TargetServer(
-            server_name   : 'testtestdb',
-            ip            : '192.168.0.1',
-            platform      : 'Linux',
-            os_account_id : 'Test',
-            vcenter_id    : 'Test',
-            vm            : 'testtestdb',
+            server_name       : 'testtestdb',
+            ip                : '192.168.0.1',
+            platform          : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'testtestdb',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
         test_server.dry_run = true

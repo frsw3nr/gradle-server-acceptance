@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.hidetake.groovy.ssh.Ssh
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
+import jp.co.toshiba.ITInfra.acceptance.*
 
 @Slf4j
 @InheritConstructors

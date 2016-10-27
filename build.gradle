@@ -10,7 +10,7 @@ applicationDefaultJvmArgs = [
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     jcenter()

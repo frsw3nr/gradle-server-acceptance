@@ -11,12 +11,12 @@ class LinuxBaseTest extends Specification {
 
     def setup() {
         test_server = new TargetServer(
-            server_name   : 'ostrich',
-            ip            : 'localhost',
-            platform      : 'Linux',
-            os_account_id : 'Test',
-            vcenter_id    : 'Test',
-            vm            : 'ostrich',
+            server_name       : 'ostrich',
+            ip                : 'localhost',
+            platform          : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'ostrich',
         )
         test_server.setAccounts('src/test/resources/config.groovy')
     }

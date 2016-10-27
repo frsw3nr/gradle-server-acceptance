@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils.*
 import static groovy.json.JsonOutput.*
 import org.hidetake.groovy.ssh.Ssh
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
+import jp.co.toshiba.ITInfra.acceptance.*
 
 @Slf4j
 @InheritConstructors

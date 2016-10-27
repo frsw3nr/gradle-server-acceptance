@@ -119,7 +119,7 @@ class InfraTestSpec {
             try {
                 execPowerShell(script_path, cmd)
             } catch (IOException e) {
-                log.error "[vCenterTest] Powershell script '${script_path}' faild, skip parse.\n" + e
+                log.error "[PowershellTest] Powershell script '${script_path}' faild, skip parse.\n" + e
                 return
             }
             long elapsed = System.currentTimeMillis() - start
