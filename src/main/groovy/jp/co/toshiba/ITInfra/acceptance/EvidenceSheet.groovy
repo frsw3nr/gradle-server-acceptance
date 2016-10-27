@@ -114,6 +114,7 @@ class EvidenceSheet {
                     def position = "${rownum}:${column}"
                     def server_text_cell = row.getCell(column)
                     if (server_text_cell) {
+                        server_text_cell.setCellType(Cell.CELL_TYPE_STRING)
                         def server_text = server_text_cell.getStringCellValue()
                         if (server_text.size() > 0) {
                             def index = "${server_id},${item_id}"
@@ -416,7 +417,7 @@ class EvidenceSheet {
         def log_dir = new File(staging_dir)
         log_dir.deleteDir()
         log_dir.mkdir()
-        test_domains.each { platform, flag ->
+        test_platforms.each { platform, flag ->
             def test_log_dir = new File("${staging_dir}/${platform}")
             log.info("Creating staging dir : ${test_log_dir}")
             test_log_dir.mkdir()

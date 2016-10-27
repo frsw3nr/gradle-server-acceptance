@@ -25,6 +25,7 @@ class InfraTestSpec {
     Boolean dry_run
     Boolean skip_exec
     RunMode mode
+    def server_info = [:]
 
     def InfraTestSpec(TargetServer test_server, String domain) {
         this.test_server         = test_server
@@ -37,6 +38,7 @@ class InfraTestSpec {
         this.dry_run_staging_dir = test_server.dry_run_staging_dir
         this.timeout             = test_server.timeout
         this.mode                = RunMode.prepare
+        this.server_info         = test_server.infos
     }
 
     def prepare = { Closure closure ->

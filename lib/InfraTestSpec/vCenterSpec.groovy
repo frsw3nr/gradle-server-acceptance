@@ -30,13 +30,19 @@ class vCenterSpec extends vCenterSpecBase {
     //         def lines = exec('vm') {
     //             new File("${local_dir}/vm")
     //         }
-
     //         def res = [:]
+    //         def verify = [:]
     //         lines.eachLine {
     //             (it =~  /^(NumCpu|PowerState|MemoryGB|VMHost|Cluster)\s+:\s(.+)$/).each { m0,m1,m2->
     //                 res[m1] = m2
     //             }
     //         }
+    //         ['NumCpu', 'MemoryGB'].each {
+    //             if (server_info.containsKey(it)) {
+    //                 verify[it] = (res[it] == server_info[it]) ? true : false
+    //             }
+    //         }
+    //         test_item.verify_status(verify)
     //         test_item.results(res)
     //     }
     // }

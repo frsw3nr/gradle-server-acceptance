@@ -71,7 +71,7 @@ class TestSchedulerTest extends Specification {
             '-c', './src/test/resources/config.groovy',
             '-r', './src/test/resources/log',
             '-s', 'testtestdb',
-            '-t', 'hostname',
+            '-t', 'vm',
             '-p', '3',
         ]
 
