@@ -4,7 +4,7 @@ evidence.source = './src/test/resources/check_ttsp.xlsx'
 evidence.sheet_name_server = 'Target'
 evidence.sheet_name_rule = 'Rule'
 evidence.sheet_name_spec = [
-    'StorageACS':   'Check(TTSP)',
+    'TTSP':   'Check(TTSP)',
 ]
 
 // 検査結果ファイル出力先
@@ -19,7 +19,7 @@ evidence.staging_dir='./build/log.<date>'
 
 // 並列化しないタスク
 
-// test.serialization.tasks = []
+test.serialization.tasks = ['StorageACS']
 
 // DryRunモードログ保存先
 

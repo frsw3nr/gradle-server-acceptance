@@ -159,7 +159,7 @@ class EvidenceSheet {
     }
 
     def readSheetRule(Sheet sheet_rule) throws IOException {
-        log.info("Read sheet '${sheet_name_rule}'")
+        log.debug("Read sheet '${sheet_name_rule}'")
         sheet_rule.with { sheet ->
             def verify_rule_ids = [:]
             // check domain_test_ids from header
@@ -205,7 +205,7 @@ class EvidenceSheet {
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 // Read Excel test server sheet.
-                log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
+                log.info("Read excel sheet '${evidence_source}:${sheet_name_server}'")
                 def sheet_server = workbook.getSheet(sheet_name_server)
                 if (sheet_server) {
                     readSheetServer(sheet_server)
@@ -225,7 +225,7 @@ class EvidenceSheet {
                     }
                 }
                 // Read Excel verify rule sheet.
-                log.debug("Read excel sheet '${evidence_source}:${sheet_name_rule}'")
+                log.info("Read sheet '${sheet_name_rule}'")
                 def sheet_rule = workbook.getSheet(sheet_name_rule)
                 if (sheet_rule) {
                     readSheetRule(sheet_rule)

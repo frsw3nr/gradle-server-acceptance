@@ -104,6 +104,13 @@ class TestScheduler {
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
+println "[test_platforms]"
+println evidence_sheet.test_platforms
+println "[test_domains]"
+println evidence_sheet.test_domains
+println "[domain_test_ids]"
+println evidence_sheet.domain_test_ids
+
         if (serialization_domains) {
             test_servers.each { test_server ->
                 runServerTest(test_server, SpecTestMode.serial)

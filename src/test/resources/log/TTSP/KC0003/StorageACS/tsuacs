@@ -1,4 +1,4 @@
-=== model: SC3000 system ID: 0xffffffff3 system code: KC0003 ===
+=== model: SC3000 system ID: 0x123412341 system code: KC0003 ===
 host interface	: FC 8Gbps Optical 2-Port
 cache size	: 5379MB
 FW revision	: 1135

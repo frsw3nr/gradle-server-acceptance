@@ -32,6 +32,7 @@ class DomainTestRunner {
         loader.clearCache()
 
         def user_script = "${user_lib}/${user_package}/${domain}Spec.groovy"
+        log.info "Load ${user_script}"
         def clazz = loader.parseClass(new File(user_script))
         test_spec = clazz.newInstance(test_server, domain)
 

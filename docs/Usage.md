@@ -1,6 +1,9 @@
 利用手順
 ========
 
+事前準備
+========
+
 検査対象サーバの環境設定
 ------------------------
 
@@ -12,12 +15,18 @@
 	PowerShellコンソールでリモート接続許可設定をします。
 
 	    Enable-PSRemoting -Force
-	    Set-Item wsman:\localhost\Client\TrustedHosts -Value * -Force
 
 	**ファイヤーウォール許可**
 
 	サーバーマネージャーを開き、「Windows ファイアウォール」の設定をクリックして許可設定をします。
 	許可設定をしないと、エラー "Get-WmiObject : RPC サーバーを利用できません" が発生します。
+
+	**検査PC側の許可設定**
+
+	検査PC側でも接続許可設定が必要です。PowerShellコンソールでリモート接続許可設定をします。
+
+	    Enable-PSRemoting -Force
+	    Set-Item wsman:\localhost\Client\TrustedHosts -Value * -Force
 
 検査PCの事前準備
 ----------------
@@ -35,7 +44,7 @@
 	config.groovy 設定ファイル内に記入した接続アカウントIDを記入します。
 	os_account_id は、Linux,Windowsなど直接サーバに接続して検査をする場合に使用します。
 	remote_account_id は、vCenter などサーバ経由でリモートで検査をする場合に使用します。
-	remote_alias は、リモート検査では必須です。 vCenter などリモート側のサーバ名定義を記入します。
+	remote_alias は、リモート検査の場合は必須となり、 vCenter などリモート側のサーバ名定義を記入します。
 
 * verify_id
 
@@ -44,6 +53,7 @@
 * verify_id 以降の行
 
 	カスタマイズ用の設定項目となります。検査スクリプト内で追加した設定項目を使用します。
+	詳細は開発者ガイドを参照してください。
 
 2.シート「検査ルール」を記入します。
 
@@ -52,7 +62,7 @@ Groovy言語での記入となり、変数 x が入力パラメータとして�
 
 * 検査値が数値の場合
 
-	"値 == x"、"x < 値"、"値 <= x && x < 値" などの条件式を記入しします
+	"値 == x"、"x < 値"、"値 <= x && x < 値" などの不等号を条件式に記入しします
 
 * 検査値が文字列の場合
 
@@ -80,25 +90,123 @@ config/config.groovy 内のサーバ接続情報の箇所を編集します。
 	account.Linux.Test.work_dir  = '/tmp/gradle_test'
 ```
 
+* その他の設定
+
+以下のタイムアウト値は環境に合わせて調整してください。
+
+```
+// コマンド採取のタイムアウト
+// Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
+test.Linux.timeout   = 30
+test.Windows.timeout = 300
+test.vCenter.timeout = 300
+```
+
 検査実行
+========
+
+使用方法
 --------
 
-**getconfig実行**
+**getconfig検査コマンド実行**
 
 server-acceptanceディレクトリに移動してgetconfigコマンドを実行します
 
-	cd (解凍ディレクトリ)\server-acceptance
-	getconfig
+```
+cd (解凍ディレクトリ)\server-acceptance
+getconfig
+```
+
+実行オプションは以下の通りです。
+
+```
+./getconfig -h
+usage: getspec
+ -c,--config <arg>     Config file path : ./config/config.groovy
+ -d,--dry-run          Enable Dry run test
+ -e,--excel <arg>      Excel test spec file path : check_sheet.xlsx
+ -h,--help             Print usage
+ -p,--parallel <arg>   Degree of test runner processes
+ -r,--resource <arg>   Dry run test resource : ./src/test/resources/log/
+ -s,--server <arg>     Filtering list of servers : svr1,svr2,...
+ -t,--test <arg>       Filtering list of test_ids : vm,cpu,...
+ -v,--verify           Disable verify test
+```
+
+* -c,--config <arg>
+
+	設定ファイル config.groovy のパスを指定します。デフォルトは./config/config.groovy です。
+
+* -d,--dry-run
+
+	予行演習モード(DryRun)にします。
+	検査対象への情報採取はせずに、予め用意したログファイルを参照して検査をします。
+
+* -e,--excel <arg>
+
+	検査シートパスを指定します。デフォルトは、./チェックシート.xlsx です。
+
+* -h,--help
+
+	ヘルプを出力します。
+
+* -p,--parallel <arg>
+
+	各サーバの検査の並列度を指定します。
+	多重化したくないシナリオは設定ファイル内のtest.serialization.tasksパラメータで指定します。
+
+* -r,--resource <arg>
+
+	予行演習モード(DryRun)で使用するログファイルディレクトリパスを指定します。
+	デフォルトは、./src/test/resources/log/ です。
+
+* -s,--server <arg>
+
+	検査対象のサーバを絞り込む場合に使用します。'-s svr1,svr2,...' の様に指定します。
+
+* -t,--test <arg>
+
+	検査項目を絞り込む場合に使用します。'-t vm,cpu,...' の様に指定します。
+
+* -v,--verify
+
+	検査ルールによる評価を無効にする場合に指定します。
+
+使用例
+------
 
 検査対象サーバを絞り込みたい場合
 
-	getconfig -s ostrich
+```
+getconfig -s ostrich							# 検査対象サーバ名を指定
+```
 
 さらに検査IDを絞り込みたい場合
 
-	getconfig -s ostrich -t hostname,lsb
+```
+getconfig -s ostrich -t hostname,lsb			# 検査IDを指定
+```
 
-**検査結果確認**
+検査を実行したログで予行演習(DryRun)テストをする場合
 
-buildの下に検査結果が出力される。
+```
+getconfig -d -r ./build/log.20161028_090553/	# 日付付きログディレクトリを指定
+```
 
+検査結果確認
+------------
+
+getconfigを実行するとbuildの下に検査結果が出力されます。
+
+* チェックシート_{日時}.xlsx
+
+	検査成績シート。各プラットフォームの検査シートに検査対象サーバの検査結果を記録します。
+	検査ルールシートより右側に、各種デバイスの情報を記録します。
+
+* log.{日時} ディレクトリ
+
+	'log.{日時}' ディレクトリの下に、
+	'{プラットフォーム}/{検査対象サーバ}/{検査シナリオ}/{検査ID}'のファイルパス形式で、
+	検査結果をログ出力します。
+
+以上、
