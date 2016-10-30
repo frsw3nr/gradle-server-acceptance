@@ -46,19 +46,6 @@ class EvidenceSheetTest extends Specification{
         thrown(IllegalArgumentException)
     }
 
-    def "ステージングディレクトリの初期化"() {
-        when:
-        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
-        File fileName = new File("build/check_sheet.xlsx")
-
-        then:
-        evidence.readSheet()
-        evidence.prepareTestStage()
-
-        expect:
-        fileName.exists()==true
-    }
-
     def "既定のExcelファイル書き込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config1.groovy')

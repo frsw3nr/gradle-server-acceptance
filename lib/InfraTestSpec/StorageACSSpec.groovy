@@ -62,11 +62,12 @@ class StorageACSSpec extends InfraTestSpec {
                 try {
                     execute "mkdir -vp ${work_dir}"
                 } catch (Exception e) {
-                    log.error "[SSH Test] Failed to create '$work_dir' in ${this.server_name}, skip.\n" + e
+                    log.warn "[SSH Test] Failed to create '$work_dir' in ${this.server_name}, skip."
                     return
                 }
 
                 test_items.each {
+                    it.verify_status(false)
                     def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
                     if (method) {
                         log.debug "Invoke command '${method.name}()'"
@@ -76,15 +77,16 @@ class StorageACSSpec extends InfraTestSpec {
                             long elapsed = System.currentTimeMillis() - start
                             log.info "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
                             it.succeed = 1
+                            it.verify_status(true)
                         } catch (Exception e) {
-                            log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
+                            log.warn "[SSH Test] Test method '${method.name}()' faild, skip."
                         }
                     }
                 }
                 try {
                     remove work_dir
                 } catch (Exception e) {
-                    log.error "[SSH Test] Failed to remove '$work_dir' in ${this.server_name} faild, skip.\n" + e
+                    log.warn "[SSH Test] Failed to remove '$work_dir' in ${this.server_name} faild, skip."
                     return
                 }
             }
@@ -95,6 +97,7 @@ class StorageACSSpec extends InfraTestSpec {
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
             if (method) {
+                it.verify_status(false)
                 log.debug "Invoke command '${method.name}()'"
                 try {
                     long start = System.currentTimeMillis();
@@ -102,8 +105,9 @@ class StorageACSSpec extends InfraTestSpec {
                     long elapsed = System.currentTimeMillis() - start
                     log.info "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
                     it.succeed = 1
+                    it.verify_status(true)
                 } catch (Exception e) {
-                    log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
+                    log.warn "Test method '${method.name}()' faild, skip"
                 }
             }
         }
@@ -163,17 +167,11 @@ class StorageACSSpec extends InfraTestSpec {
                 is_csv = true
             }
             if (is_csv && is_target) {
-                if (is_csv && !(it =~/^device/) && it.size() > 0) {
-                    FixedLengthStringParser parser = new FixedLengthStringParser(it)
-                    csv << [
-                        parser.next(22),
-                        parser.next(8),
-                        parser.next(8),
-                        parser.next(8),
-                        parser.next(8),
-                        parser.next(8),
-                        parser.next(64),
-                    ]
+                if (!(it =~/^device/) && it.size() > 0) {
+                    (it=~/^(.{22})(.{8})(.{8})(.{8})(.{8})(.{8})(.+)$/).each {
+                        m0, m1, m2, m3, m4, m5, m6, m7 ->
+                        csv << [m1, m2, m3, m4, m5, m6, m7]
+                    }
                 }
                 if (it.size() == 0) {
                     is_csv = false
@@ -229,18 +227,12 @@ class StorageACSSpec extends InfraTestSpec {
             (it =~ /^device\s+/).each {m0 ->
                 is_csv = true
             }
-            if (is_csv) {
-                if (is_target && !(it =~/^device/) && it.size() > 0) {
-                    FixedLengthStringParser parser = new FixedLengthStringParser(it)
-                    csv << [
-                        parser.next(53),
-                        parser.next(8),
-                        parser.next(12),
-                        parser.next(12),
-                        parser.next(8),
-                        parser.next(8),
-                        parser.next(64),
-                    ]
+            if (is_csv && is_target) {
+                if (!(it =~/^device/) && it.size() > 0) {
+                    (it=~/^(.{53})(.{8})(.{12})(.{12})(.{8})(.{8})(.+)$/).each {
+                        m0, m1, m2, m3, m4, m5, m6, m7 ->
+                        csv << [m1, m2, m3, m4, m5, m6, m7]
+                    }
                 }
                 if (it.size() == 0) {
                     is_csv = false

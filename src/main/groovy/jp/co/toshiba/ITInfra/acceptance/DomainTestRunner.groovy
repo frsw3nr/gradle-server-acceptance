@@ -32,7 +32,7 @@ class DomainTestRunner {
         loader.clearCache()
 
         def user_script = "${user_lib}/${user_package}/${domain}Spec.groovy"
-        log.info "Load ${user_script}"
+        log.debug "Load ${user_script}"
         def clazz = loader.parseClass(new File(user_script))
         test_spec = clazz.newInstance(test_server, domain)
 
@@ -54,7 +54,7 @@ class DomainTestRunner {
     def run(TestItem[] test_items) {
         test_spec.init()
         test_spec.setup_exec(test_items)
-        log.info "\tresults : " + summaryReport(test_items)
+        log.debug "\tresults : " + summaryReport(test_items)
         test_spec.cleanup_exec()
     }
 

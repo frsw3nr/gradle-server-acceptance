@@ -58,7 +58,7 @@ class LinuxSpec extends LinuxSpecBase {
         def lines = exec('oracle_module') {
             def command = "ls /root/package/* >> ${work_dir}/oracle_module"
             try {
-                session.executeSudo command
+                session.executeSudo command, pty: true, timeoutSec: timeout
                 session.get from: "${work_dir}/oracle_module", into: local_dir
                 new File("${local_dir}/oracle_module").text
             } catch (Exception e) {
@@ -81,13 +81,15 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results((isok) ? 'OK' : 'NG')
     }
 
-    // def hostname(session, test_item) {
-    //     def lines = exec('hostname') {
-    //         run_ssh_command(session, 'hostname -s', 'hostname')
-    //     }
-    //     lines = lines.replaceAll(/(\r|\n)/, "")
-    //     test_item.results(lines)
-    // }
+    def hostname(session, test_item) {
+        def lines = exec('hostname') {
+            run_ssh_command(session, 'hostname -s', 'hostname')
+        }
+        lines = lines.replaceAll(/(\r|\n)/, "")
+        def rc = (server_info['server_name'] == lines)
+        test_item.verify_status(rc)
+        test_item.results(lines)
+    }
 
     // def hostname_fqdn(session, test_item) {
     //     def lines = exec('hostname_fqdn') {

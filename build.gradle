@@ -2,6 +2,7 @@ apply plugin: 'groovy'
 apply plugin: "application"
 
 mainClassName = 'jp.co.toshiba.ITInfra.acceptance.TestRunner'
+def language = 'jp'
 
 applicationDefaultJvmArgs = [
     "-Dlogback.configurationFile=./config/logback.xml",
@@ -57,11 +58,10 @@ run {
 
 task zipApp(type: Zip, dependsOn: shadowJar) {
     def target  = 'server-acceptance'
-    def lang    = 'jp'
     archiveName = "${baseName}-${version}.${extension}"
 
     into("./${target}/") {
-        from fileTree(dir: "src/main/resources/root/${lang}")
+        from fileTree(dir: "src/main/resources/root/${language}")
         from fileTree(dir : '.').include('getconfig*')
     }
     [

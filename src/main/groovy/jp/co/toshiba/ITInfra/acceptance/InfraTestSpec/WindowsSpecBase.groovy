@@ -16,6 +16,7 @@ class WindowsSpecBase extends InfraTestSpec {
     String os_user
     String os_password
     String script_path
+    int    timeout
 
     def init() {
         super.init()
@@ -25,6 +26,7 @@ class WindowsSpecBase extends InfraTestSpec {
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
         this.script_path = local_dir + '/get_windows_spec.ps1'
+        this.timeout     = test_server.timeout
     }
 
     def setup_exec(TestItem[] test_items) {

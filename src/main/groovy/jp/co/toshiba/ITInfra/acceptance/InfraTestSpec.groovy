@@ -32,7 +32,7 @@ class InfraTestSpec {
         this.server_name         = test_server.server_name
         this.platform            = test_server.platform
         this.domain              = domain
-        this.title               = domain + '('     + test_server.info() + ')'
+        this.title               = domain + '(' + test_server.info() + ')'
         this.local_dir           = "${test_server.evidence_log_dir}/${domain}"
         this.dry_run             = test_server.dry_run
         this.dry_run_staging_dir = test_server.dry_run_staging_dir
@@ -73,7 +73,7 @@ class InfraTestSpec {
                 return source_log.text
             } catch (FileNotFoundException e) {
                 def message = "[DryRun] Not found dummy log : ${log_path}"
-                log.error(message)
+                log.warn(message)
                 throw new FileNotFoundException(message)
             }
         } else {
@@ -121,12 +121,12 @@ class InfraTestSpec {
             try {
                 execPowerShell(script_path, cmd)
             } catch (IOException e) {
-                log.error "[PowershellTest] Powershell script '${script_path}' faild, skip parse.\n" + e
+                log.error "[PowershellTest] Powershell script '${script_path}' faild, skip parse"
                 return
             }
             long elapsed = System.currentTimeMillis() - start
-            log.info "Finish powershell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
-            log.info "\ttest : " + code.test_ids.toString()
+            log.debug "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
+            log.debug "\ttest : " + code.test_ids.toString()
             mode = RunMode.run
             test_items.each {
                 def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
@@ -136,7 +136,8 @@ class InfraTestSpec {
                         method.invoke(this, it)
                         it.succeed = 1
                     } catch (Exception e) {
-                        log.error "[${domain}Test] Parser of '${method.name}()' faild, skip.\n" + e
+                        it.verify_status(false)
+                        log.warn "[${domain}Test] Parser of '${method.name}()' faild, skip.\n" + e
                     }
                 }
             }
@@ -146,9 +147,9 @@ class InfraTestSpec {
     }
 
     def init() {
-        log.info("Initialize infra test spec ${title}")
+        log.debug("Initialize infra test spec ${title}")
         if (dry_run) {
-            log.info("DryRun : 'Y'")
+            log.debug("DryRun : 'Y'")
         }
         def target_log_dir = new File(local_dir)
         target_log_dir.deleteDir()
@@ -156,14 +157,14 @@ class InfraTestSpec {
     }
 
     def finish() {
-        log.info("Finish infra test spec ${title}")
+        log.debug("Finish infra test spec ${title}")
     }
 
     def setup_exec() {
-        log.info("Start infra test spec '${server_name}'")
+        log.debug("Start infra test spec '${server_name}'")
     }
 
     def cleanup_exec() {
-        log.info("Cleanup infra test spec '${server_name}'")
+        log.debug("Cleanup infra test spec '${server_name}'")
     }
 }

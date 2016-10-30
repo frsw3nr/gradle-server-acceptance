@@ -58,9 +58,8 @@ class TestScheduler {
         return filtered_test_ids
     }
 
-    def runServerTest(TargetServer test_server, SpecTestMode mode) {
+    def runServerTest(TargetServer test_server, SpecTestMode mode, String label = '') {
         test_server.with {
-            long start = System.currentTimeMillis()
             setAccounts(test_runner.config_file)
             it.dry_run = test_runner.dry_run
 
@@ -69,7 +68,8 @@ class TestScheduler {
                 def is_serial = serialization_domains.containsKey(domain)
                 if ((mode == SpecTestMode.serial   && is_serial) ||
                     (mode == SpecTestMode.parallel && !is_serial)) {
-                    log.info "${mode} ON  : ${domain} ${server_name}"
+                    long start = System.currentTimeMillis()
+                    log.info "Tesing ${label} '${server_name}:${domain}'"
                     def filtered_test_ids = filterSpecs(test_ids)
                     def domain_test = new DomainTestRunner(it, domain)
                     domain_test.with {
@@ -85,17 +85,17 @@ class TestScheduler {
                             'verify' : getVerifyStatuses(),
                         ]
                     }
-                    log.info "${mode} OFF : ${domain} ${server_name}"
+                    long elapsed = System.currentTimeMillis() - start
+                    log.info "Finish ${label} '${server_name}:${domain}', Elapsed : ${elapsed} ms"
                 }
             }
-            long elapsed = System.currentTimeMillis() - start
-            log.info "Finish infra test '${server_name}', Elapsed : ${elapsed} ms"
         }
     }
 
     def runTest() {
-        log.info "Initialize test schedule"
+        log.debug "Initialize test schedule"
         long run_test_start = System.currentTimeMillis()
+
         evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet()
@@ -104,22 +104,20 @@ class TestScheduler {
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
 
-println "[test_platforms]"
-println evidence_sheet.test_platforms
-println "[test_domains]"
-println evidence_sheet.test_domains
-println "[domain_test_ids]"
-println evidence_sheet.domain_test_ids
-
+        def n_test_servers = test_servers.size()
         if (serialization_domains) {
+            def count = 1
             test_servers.each { test_server ->
-                runServerTest(test_server, SpecTestMode.serial)
+                def label = "S ${count}/${n_test_servers}"
+                runServerTest(test_server, SpecTestMode.serial, label)
+                count ++
             }
         }
-
         GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
-            test_servers.eachParallel { test_server ->
-                runServerTest(test_server, SpecTestMode.parallel)
+            // def count = 1
+            test_servers.eachWithIndexParallel { test_server, count ->
+                def label = "P ${count+1}/${n_test_servers}"
+                runServerTest(test_server, SpecTestMode.parallel, label)
             }
         }
         log.debug "Evidence : " + test_evidences

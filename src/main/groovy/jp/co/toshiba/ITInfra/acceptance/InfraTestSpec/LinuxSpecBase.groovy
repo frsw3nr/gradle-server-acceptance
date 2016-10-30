@@ -16,6 +16,7 @@ class LinuxSpecBase extends InfraTestSpec {
     String os_user
     String os_password
     String work_dir
+    int    timeout = 30
 
     def init() {
         super.init()
@@ -25,6 +26,7 @@ class LinuxSpecBase extends InfraTestSpec {
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
         this.work_dir    = os_account['work_dir']
+        this.timeout     = test_server.timeout
     }
 
     def setup_exec(TestItem[] test_items) {
@@ -33,15 +35,16 @@ class LinuxSpecBase extends InfraTestSpec {
         def ssh = Ssh.newService()
         ssh.remotes {
             ssh_host {
-                host = this.ip
-                port = 22
-                user = this.os_user
-                password = this.os_password
+                host       = this.ip
+                port       = 22
+                user       = this.os_user
+                password   = this.os_password
                 knownHosts = allowAnyHosts
             }
         }
         ssh.settings {
-            dryRun = this.dry_run
+            dryRun     = this.dry_run
+            timeoutSec = this.timeout
         }
         ssh.run {
             session(ssh.remotes.ssh_host) {
@@ -60,9 +63,10 @@ class LinuxSpecBase extends InfraTestSpec {
                             long start = System.currentTimeMillis();
                             method.invoke(this, delegate, it)
                             long elapsed = System.currentTimeMillis() - start
-                            log.info "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
+                            log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
                             it.succeed = 1
                         } catch (Exception e) {
+                            it.verify_status(false)
                             log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
                         }
                     }
@@ -242,7 +246,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('net_onboot') {
             def command = """\
             |cd /etc/sysconfig/network-scripts/
-            |grep ONBOOT ifcfg-*
+            |grep ONBOOT ifcfg-* >> ${work_dir}/net_onboot
             """.stripMargin()
             session.execute command
             session.get from: "${work_dir}/net_onboot", into: local_dir

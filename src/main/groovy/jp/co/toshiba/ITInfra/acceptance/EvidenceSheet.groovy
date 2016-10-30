@@ -87,7 +87,7 @@ class EvidenceSheet {
     }
 
     def readSheetServer(Sheet sheet_server) throws IOException {
-        log.info("Read sheet '${sheet_name_server}'")
+        log.debug("Read sheet '${sheet_name_server}'")
         def server_ids = [:]
         def server_info = [:].withDefault{[:]}
         def max_server_columns = 0
@@ -200,12 +200,12 @@ class EvidenceSheet {
     }
 
     def readSheet() throws IOException {
-        log.info("Read test spec from ${evidence_source}")
-
+        log.debug("Read test spec from ${evidence_source}")
+        long start = System.currentTimeMillis()
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 // Read Excel test server sheet.
-                log.info("Read excel sheet '${evidence_source}:${sheet_name_server}'")
+                log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
                 def sheet_server = workbook.getSheet(sheet_name_server)
                 if (sheet_server) {
                     readSheetServer(sheet_server)
@@ -215,7 +215,7 @@ class EvidenceSheet {
                 }
                 // Read Excel test spec sheet.
                 sheet_name_specs.each { platform, sheet_name_spec ->
-                    log.info("Read sheet '${sheet_name_spec}'")
+                    log.debug("Read sheet '${sheet_name_spec}'")
                     def sheet_spec = workbook.getSheet(sheet_name_spec)
                     if (sheet_spec) {
                         readSheetSpec(platform, sheet_spec)
@@ -225,7 +225,7 @@ class EvidenceSheet {
                     }
                 }
                 // Read Excel verify rule sheet.
-                log.info("Read sheet '${sheet_name_rule}'")
+                log.debug("Read sheet '${sheet_name_rule}'")
                 def sheet_rule = workbook.getSheet(sheet_name_rule)
                 if (sheet_rule) {
                     readSheetRule(sheet_rule)
@@ -235,7 +235,8 @@ class EvidenceSheet {
                 }
             }
         }
-
+        long elapsed = System.currentTimeMillis() - start
+        log.info "Load Sheet, Elapsed : ${elapsed} ms"
     }
 
     public static void setTestResultCellStyle(XSSFCell cell, ResultCellStyle type) {
@@ -333,7 +334,7 @@ class EvidenceSheet {
                     try {
                         if (results[domain]['test'].containsKey(test_id)) {
                             def value = results[domain]['test'][test_id].toString()
-                            if (NumberUtils.isNumber(value)) {
+                            if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
                             } else {
                                 cell_result.setCellValue(value)
@@ -366,7 +367,6 @@ class EvidenceSheet {
         throws IOException {
         def device_sheet_name = "${platform}_${test_id}"
         log.info("Insert device sheet : ${device_sheet_name}")
-
         def inp = new FileInputStream(evidence_target)
         def wb  = WorkbookFactory.create(inp)
 
@@ -393,9 +393,9 @@ class EvidenceSheet {
                     body_row.createCell(body_column_index).setCellValue(server_name)
                     body_column_index ++
                     server_csv.each { column_value ->
-                        def value = column_value.toString()
+                        def value = column_value.toString().trim()
                         def csv_cell = body_row.createCell(body_column_index)
-                        if (NumberUtils.isNumber(value)) {
+                        if (NumberUtils.isDigits(value)) {
                             csv_cell.setCellValue(NumberUtils.toDouble(value))
                         } else {
                             csv_cell.setCellValue(value)
@@ -419,11 +419,11 @@ class EvidenceSheet {
         log_dir.mkdir()
         test_platforms.each { platform, flag ->
             def test_log_dir = new File("${staging_dir}/${platform}")
-            log.info("Creating staging dir : ${test_log_dir}")
+            log.debug("Creating staging dir : ${test_log_dir}")
             test_log_dir.mkdir()
         }
 
-        log.info("Copy evidence sheet : ${evidence_target}")
+        log.debug("Copy evidence sheet : ${evidence_target}")
         File dest = new File(evidence_target)
         if (dest.exists()) {
             dest.delete()

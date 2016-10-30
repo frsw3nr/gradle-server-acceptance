@@ -15,6 +15,7 @@ class vCenterSpecBase extends InfraTestSpec {
     String vcenter_password
     String vm
     String script_path
+    int    timeout = 300
 
     def init() {
         super.init()
@@ -25,6 +26,7 @@ class vCenterSpecBase extends InfraTestSpec {
         vcenter_password = remote_account['password']
         vm               = test_server.remote_alias
         script_path      = local_dir + '/get_vCenter_spec.ps1'
+        timeout          = test_server.timeout
     }
 
     def setup_exec(TestItem[] test_items) {
@@ -135,7 +137,7 @@ class vCenterSpecBase extends InfraTestSpec {
     }
 
     def vm_timesync(test_item) {
-        run_script('Get-VM $vm | Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}}') {
+        run_script('Get-VM $vm | Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} | Format-List') {
             def lines = exec('vm_timesync') {
                 new File("${local_dir}/vm_timesync")
             }
