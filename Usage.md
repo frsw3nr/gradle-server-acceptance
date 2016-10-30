@@ -1,1 +1,0 @@
-src/main/resources/root/jp/Usage.md

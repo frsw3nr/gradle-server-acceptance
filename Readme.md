@@ -1,1 +1,1 @@
-src/main/resources/root/jp/Readme.md
+docs/jp/Readme.md

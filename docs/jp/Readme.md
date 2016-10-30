@@ -9,7 +9,7 @@ VMWare仮想化インフラで構築したサーバに対して、システム�
 
 システム構成は以下の通りです。
 
-![System configuration](docs/system.png)
+![System configuration](docs/jp/system.png)
 
 システム要件
 ------------
@@ -20,7 +20,7 @@ VMWare仮想化インフラで構築したサーバに対して、システム�
 * Windows は WMF4.0(PowerShell用)が必要です。Windows 2012 Server R2は標準インストールされています。Windows 2012 Server, Windows 2008 ServerはWMF 4.0のインストールが必要です。
 * PowerShell のリモートアクセス許可設定が必要です。
 
-WFM4.0、PowerShell環境についての詳細は、[使用方法](usage.md)の事前準備を参照してください。
+WFM4.0、PowerShell環境についての詳細は、[使用方法](Usage.md)の事前準備を参照してください。
 
 **検査用PC**
 
@@ -70,7 +70,7 @@ usage: getspec
  -v,--verify           Disable verify test
 ```
 
-詳細は、[使用方法](usage.md)を参照してください。
+詳細は、[使用方法](Usage.md)を参照してください。
 
 検査項目のカスタマイズ
 ----------------------
@@ -86,7 +86,7 @@ WindowsSpec.groovy
 
 検査IDと同一名のメソッドで検査コードを記述します。
 既存の検査項目を変更する場合はコメントアウトを外してください。
-詳細は、[開発ガイド](developper_guide.md)を参照してください。
+詳細は、[開発ガイド](DevelopperGuide.md)を参照してください。
 
 Refference
 ----------

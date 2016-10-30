@@ -62,7 +62,8 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
 
     into("./${target}/") {
         from fileTree(dir: "src/main/resources/root/${language}")
-        from fileTree(dir : '.').include('getconfig*')
+        from fileTree(dir: "docs/${language}").include('Readme.md', 'Usage.md')
+        from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt')
     }
     [
         'config',
