@@ -88,8 +88,8 @@ WindowsSpec.groovy
 既存の検査項目を変更する場合はコメントアウトを外してください。
 詳細は、[開発ガイド](DevelopperGuide.md)を参照してください。
 
-Refference
-----------
+Reference
+---------
 
 * [Groovy SSH](https://github.com/int128/groovy-ssh)
 * [Apache POI](https://poi.apache.org/)

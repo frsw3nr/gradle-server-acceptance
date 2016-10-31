@@ -40,7 +40,9 @@ class vCenterSpecBase extends InfraTestSpec {
             |-vcenter '${vcenter_ip}'
         """.stripMargin()
 
-        runPowerShellTest('lib/template', 'vCenter', cmd, test_items)
+        if (vcenter_ip && vcenter_user && vcenter_password && vm) {
+            runPowerShellTest('lib/template', 'vCenter', cmd, test_items)
+        }
     }
 
     def vm(test_item) {
