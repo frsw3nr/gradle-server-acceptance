@@ -175,9 +175,9 @@ SSH検査コードの記述方法
   **ログファイルを読み込み、コードブロック内処理は実行しません**。
 * dry_run が false の場合、コードブロック内の処理を実行します。
 * exec コードブロック内の **run_ssh_command(session, 'コマンド', '検査ID')** は
-  ヘルパーメソッドで以下を実行します。
+  SSH処理用のヘルパーメソッドで以下を実行します。
     * 第2引数で指定したコマンドを実行
-    * 実行結果を'検査ID'というファイル名でワークディレクトリに保存
+    * 実行ログを'検査ID'というファイル名でワークディレクトリに保存
     * 保存したログファイルをダウンロード
     * ダウンロードしたログファイルをバッファに読み込み戻り値として返す
 * **test_item.results(lines)** で lines 引数を検査結果としてセットします。
@@ -273,8 +273,151 @@ PowerShell検査コードの記述方法
 * run_script(command) コードブロック内処理がPowerShell が実行後のログ解析処理となり、
   処理構造は Linux の検査スクリプトと同じです
 * 注意点として、 **exec('cpu')** のコードブロックは **new File("${local_dir}/{検査ID}")**
-  として、ローカルディスクのログの読み込み処理のみを記述します。
+  のみとして、ローカルディスクのログの読み込みます。
 
+検査シナリオコーディング例
+--------------------------
+
+ここでは実例を用いて、検査シナリオをカスタマイズしたコーディング例を記します。
+
+**シート '検査ルール' を使用して採取結果を評価する**
+
+シート '検査ルール' に検査ルールを追加して採取結果の評価をします。
+テスト用のログで動作を確認します。
+試しに、vCenter の CPU数が 2 であることをチェックする検査ルールを設定します。
+
+1. サーバチェックシート.xlsx を開きます
+2. シート'チェック対象VM' を選択して、各サーバの verify_id を 'RuleA' にします
+3. シート'検査ルール' を選択して、新たに列を追加して、ID に'RuleA'をセットします
+4. 追加した列の 'NumCpu' 行に式 'x==2' をセットします
+5. Excel ファイルを保存します
+
+以下のDryRun モードでテスト用ログを指定して実行します。
+
+```
+getconfig -d -r .\src\test\resources\log
+```
+
+検査結果の Excel シートを開いて各検査結果シートの NumCpu の行の結果セルがライトグリーンになっていることを確認します。
+
+**検査対象サーバの構成情報を検査コードで使用する**
+
+シート 'チェック対象VM' に項目を追加して、検査コード内で値を参照します。
+試しに、Linux で ホスト名の確認結果がシートの設定項目と合っているかをチェックします。
+Linux 検査コードの hostname() を以下の通り編集します。
+
+*lib\InfraTestSpec\LinuxSpec.groovy*
+
+```
+    def hostname(session, test_item) {
+        def lines = exec('hostname') {
+            run_ssh_command(session, 'hostname -s', 'hostname')
+        }
+        lines = lines.replaceAll(/(\r|\n)/, "")
+        def rc = (server_info['server_name'] == lines)  // #1
+        test_item.verify_status(rc)                     // #1
+        test_item.results(lines)
+    }
+```
+
+変更箇所は #1 の行の追加で、server\_info['server\_name'] は、シート 'チェック対象VM' の 'server\_name' 行の各セルの値となります。
+値がコマンド実行結果と一致しているかを取得して、次の行の test\_item.verify\_status() で合否結果をセットしています。
+前述の例と同様に DryRun モードでテストを実行します。
+
+```
+getconfig -d -r .\src\test\resources\log
+```
+
+検査結果の Excel シートを開いて Linux 検査結果シートの hostname の行の結果セルの配色が変更されていることを確認します。
+
+**PowerShellコマンドで Windows サーバの情報を採取する**
+
+PowerShellによる検査はGroovyテンプレートを用いて、認証などの事前処理をラッピングしてコマンドを実行します。
+例として Windows のCPU構成情報を採取コマンドは以下となります。
+
+*lib\InfraTestSpec\WindowsSpec.groovy*
+
+```
+    def cpu(TestItem test_item) {
+        run_script("Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor") {
+        }
+    }
+```
+
+実行すると、ログディレクトリ '.\build\log.{日時}\Windows\{サーバ名}\Windows' の下に 'cpu' という
+ファイルに以下例の様に検査対象サーバのコマンド実行ログが保存されます。
+
+```
+Caption           : Intel64 Family 6 Model 60 Stepping 3
+DeviceID          : CPU0
+Manufacturer      : GenuineIntel
+MaxClockSpeed     : 3193
+Name              : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+SocketDesignation : CPU socket #0
+<中略>
+```
+
+$cred と $ip は予約語でリモートで Get-WmiObject コマンドを実行する時に '-Credential $cred -ComputerName $ip' のオプションを追加します。
+
+**PowerShellコマンドで Windows サーバのレジストリ情報を採取する**
+
+Windows のレジストリ情報を採取する例を記します。Invoke-Command -Scriptblock {} コマンドを用いてコードブロック内で、
+"Get-Item {レジストリキー}" としてレジストリを採取します。
+
+*lib\InfraTestSpec\WindowsSpec.groovy*
+
+```
+    def fips(TestItem test_item) {
+        def command = '''\
+            |Invoke-Command -Scriptblock `
+            |{Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"} `
+            |-credential $cred -Computername $ip
+            |'''.stripMargin()
+        run_script(command) {
+        }
+    }
+```
+
+**PowerShellコマンドで vCenter の情報を採取する**
+
+vCenter の情報採取もWindows と同じで run_script() 引数に PowerShell コマンドを指定します。
+
+*lib\InfraTestSpec\vCenterSpec.groovy*
+
+```
+    def vm_storage(test_item) {
+        run_script('Get-Harddisk -VM $vm | select Parent, Filename,CapacityGB, StorageFormat, DiskType') {
+        }
+    }
+```
+
+$vm が予約語となり、'-VM $vm' のオプションを追加します。
+
+**複数のデバイス検査結果をシートに登録する**
+
+test_item.devices(csv, headers)メソッドを用いて複数行のデータをシートに追加します。
+Linux のパッケージ構成情報を採取する例を記します。
+
+*lib\InfraTestSpec\LinuxSpec.groovy*
+
+```
+    def packages(session, test_item) {
+        def lines = exec('packages') {
+            def command = "rpm -qa --qf "
+            def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
+            run_ssh_command(session, "${command} ${argument}", 'packages')
+        }
+        def csv = []
+        lines.eachLine {
+            csv << it.split(/\t/)
+        }
+        def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
+        test_item.devices(csv, headers)
+    }
+```
+
+最後の行の test_item.devices(csv, headers) が登録するメソッドとなります。
+実行すると検査結果シートに "Linux_packages" という新たなシートが追加され、複数行の結果を登録します。
 
 APIリファレンス
 ===============
@@ -300,12 +443,12 @@ APIリファレンス
     検査シナリオのスクリプトIDで、"${domain}Spec.groovy" が検査スクリプトとなる。
     標準の検査スクリプトは、LinuxSpec.groovy , WindowsSpec.groovy, vCenterSpec.groovy
     の3種類。
-    Excelの各検査シートの"分類" から検索。
+    domain はExcelの各検査シートの"分類" 列から検索。
 
 * title : String 型
 
     検査対象のタイトル名。
-    "${ドメイン名} (${サーバ名} - ${IP})"の形式で検査シナリオのタイトルをセット。
+    "${ドメイン名} (${サーバ名} - ${IP})"の形式で検査シナリオタイトルをセット。
 
 * timeout : int 型
 
