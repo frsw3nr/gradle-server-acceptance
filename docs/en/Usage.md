@@ -1,3 +1,5 @@
+**ToDo : Translate this document in English**
+
 利用手順
 ========
 

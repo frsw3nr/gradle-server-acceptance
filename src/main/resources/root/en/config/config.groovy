@@ -1,4 +1,4 @@
-// 検査仕様シート定義
+// Test specification sheet definition
 
 evidence.source = './check_sheet.xlsx'
 evidence.sheet_name_server = 'Target'
@@ -8,43 +8,43 @@ evidence.sheet_name_spec = [
     'Windows': 'Check(Windows)',
 ]
 
-// 検査結果ファイル出力先
+// Test result file output destination
 
 evidence.target='./build/check_sheet_<date>.xlsx'
 
-// 検査結果ログディレクトリ
+// Test results log directory
 
 evidence.staging_dir='./build/log.<date>'
 
-// 並列化しないタスク
-// 並列度を指定をしても、指定したドメインタスクはシリアルに実行する
+// Tasks that do not parallel
+// Even if the specified the degree of parallelism, the specified domain task is to run to the serial
 
 test.serialization.tasks = ['vCenter']
 
-// DryRunモードログ保存先
+// DryRun mode log destination
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
-// コマンド採取のタイムアウト
-// Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
+// Time out of command collection
+// If the configuration is Windows or vCenter, to set a time-out value of PowerShell batch script
 
 test.Linux.timeout   = 30
 test.Windows.timeout = 300
 test.vCenter.timeout = 300
 
-// vCenter接続情報
+// vCenter session accout
 
 account.Remote.Test.server   = '192.168.10.100'
 account.Remote.Test.user     = 'test_user'
 account.Remote.Test.password = 'P@ssword'
 
-// Linux 接続情報
+// Linux session account
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
-// Windows 接続情報
+// Windows session account
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'

@@ -8,6 +8,7 @@ New features:
 * test.serialization.tasksで並列化させないタスクを指定。
   vCenter情報採取などのケースで多重化した場合に検査対象側サーバに負荷が集中する場合に指定する
 * Linux,Windows,vCenterの不具合検査項目を修正
+* ドキュメント 使用方法、開発者ガイドを作成
 
 Bug fixes:
 * SSH ワークディレクトリ削除エラーの例外対処
