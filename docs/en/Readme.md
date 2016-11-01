@@ -1,3 +1,5 @@
+**ToDo : Translate this document in English**
+
 サーバ構築エビデンス収集ツール
 ==============================
 

@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: "application"
 
 mainClassName = 'jp.co.toshiba.ITInfra.acceptance.TestRunner'
-def language = 'jp'
+def language  = 'jp' // 'en'
 
 applicationDefaultJvmArgs = [
     "-Dlogback.configurationFile=./config/logback.xml",

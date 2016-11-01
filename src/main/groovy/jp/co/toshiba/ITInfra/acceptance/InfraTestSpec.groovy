@@ -47,7 +47,7 @@ class InfraTestSpec {
 
     def run_script = { String command, Closure closure ->
         if (mode == RunMode.prepare) {
-            // 文末の改行コードは取り除く
+            // Trim line endings
             command = command.replaceAll(/(\s|\r|\n)*$/, "")
             log.debug "Invoke WMI command : ${command}"
             return command

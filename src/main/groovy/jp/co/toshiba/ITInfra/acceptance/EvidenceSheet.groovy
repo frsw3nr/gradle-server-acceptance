@@ -67,8 +67,7 @@ class EvidenceSheet {
         device_test_ids = [:].withDefault{[:]}
     }
 
-    // エクセル検査結果列のセルフォーマット
-    // 検査結果列に対して罫線を追加して、行幅をオートスケールに設定
+    // To add a border to the test results column, set the line width to the auto scale
     private static CellStyle createBorderedStyle(Workbook wb) {
         BorderStyle thin = BorderStyle.THIN;
         short black = IndexedColors.BLACK.getIndex();
@@ -302,11 +301,13 @@ class EvidenceSheet {
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
 
-        // ボディ列名以降の検査結果列の列幅 45 文字に設定 (in units of 1/256th of a character width)
+        // Set the column width to 45 characters of the inspection result column 
+        // after the body column name
+        // (in units of 1/256th of a character width)
         def column = column_body_begin + sequence
         sheet_result.setColumnWidth(column, evidence_cell_width)
 
-        // ヘッダーに検査対象サーバ名を登録
+        // Register the target server name in the header
         def title_cell = sheet_result.getRow(row_header).createCell(column)
         title_cell.setCellValue(server_name)
         title_cell.setCellStyle(cell_style)
@@ -314,14 +315,13 @@ class EvidenceSheet {
         log.debug "Update data : " + results
 
 
-        // 検査結果列を順に登録
+        // Registering the test result column in the order
         sheet_result.with { sheet ->
             (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
                 def row_style  = wb.createCellStyle().setWrapText(true)
                 row.setRowStyle(row_style)
 
-                // 検査ID列から検査IDを取得
                 Cell cell_test_id = row.getCell(1)
                 Cell cell_domain  = row.getCell(3)
                 Cell cell_result  = row.createCell(column)
@@ -373,7 +373,7 @@ class EvidenceSheet {
         Sheet device_sheet = wb.createSheet(device_sheet_name)
 
         device_sheet.with { sheet ->
-            // ヘッダーの追加
+            // Header registration
             Row header_row = sheet.createRow(row_header)
             def header_column_index = column_device_begin
             sheet.setColumnWidth(header_column_index, device_cell_width)
@@ -384,7 +384,7 @@ class EvidenceSheet {
                 sheet.setColumnWidth(header_column_index, device_cell_width)
                 header_column_index ++
             }
-            // ボディの追加
+            // Body registration
             def body_row_index = row_body_begin
             csvs.each {server_name, server_csvs ->
                 server_csvs.each { server_csv ->

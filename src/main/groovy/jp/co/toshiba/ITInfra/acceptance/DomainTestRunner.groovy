@@ -3,13 +3,6 @@ package jp.co.toshiba.ITInfra.acceptance
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
 
-// ToDo
-
-// 定数の定義、user_lib, user_package
-// DomainTestRunner に変更
-// run(test_id) 実装
-// run(Testtest_Spec[]) 実装
-
 @Slf4j
 class DomainTestRunner {
 

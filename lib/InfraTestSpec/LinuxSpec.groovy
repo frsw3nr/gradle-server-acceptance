@@ -81,15 +81,15 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results((isok) ? 'OK' : 'NG')
     }
 
-    def hostname(session, test_item) {
-        def lines = exec('hostname') {
-            run_ssh_command(session, 'hostname -s', 'hostname')
-        }
-        lines = lines.replaceAll(/(\r|\n)/, "")
-        def rc = (server_info['server_name'] == lines)
-        test_item.verify_status(rc)
-        test_item.results(lines)
-    }
+    // def hostname(session, test_item) {
+    //     def lines = exec('hostname') {
+    //         run_ssh_command(session, 'hostname -s', 'hostname')
+    //     }
+    //     lines = lines.replaceAll(/(\r|\n)/, "")
+    //     def rc = (server_info['server_name'] == lines)
+    //     test_item.verify_status(rc)
+    //     test_item.results(lines)
+    // }
 
     // def hostname_fqdn(session, test_item) {
     //     def lines = exec('hostname_fqdn') {
