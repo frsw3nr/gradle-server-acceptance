@@ -121,8 +121,7 @@ class InfraTestSpec {
             try {
                 execPowerShell(script_path, cmd)
             } catch (IOException e) {
-                log.error "[PowershellTest] Powershell script '${script_path}' faild, skip parse"
-                return
+                log.error "[PowershellTest] Powershell script faild.\n" + e
             }
             long elapsed = System.currentTimeMillis() - start
             log.debug "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"

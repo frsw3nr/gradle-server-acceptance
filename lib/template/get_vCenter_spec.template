@@ -6,9 +6,15 @@ Param(
   , [string]\$user
   , [string]\$password
 )
-Add-PSSnapin VMware.VimAutomation.Core
-Connect-VIServer -User \$user -Password \$password -Server \$vcenter
-
+\$ErrorActionPreference = "Stop"
+try {
+    Add-PSSnapin VMware.VimAutomation.Core
+    Connect-VIServer -User \$user -Password \$password -Server \$vcenter
+} catch [Exception] {
+    Write-Error "\$error"
+    exit 1
+}
+\$ErrorActionPreference = "Continue"
 <%
 commands.each { command ->
 %>\
