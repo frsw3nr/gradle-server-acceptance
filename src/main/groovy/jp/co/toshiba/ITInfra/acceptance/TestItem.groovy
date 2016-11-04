@@ -25,12 +25,26 @@ class TestItem {
         this.verify_status = [:]
     }
 
+    def preset_null_status = { Closure closure ->
+        if (!results.containsKey(this.test_id)) {
+            if (closure.call() == true) {
+                this.verify_status[this.test_id] = false
+            }
+        }
+    }
+
     def results(String result) {
+        preset_null_status() {
+            (result == '[:]' || result.size() == 0)
+        }
         this.results[this.test_id] = result
     }
 
-    def results(Map results) {
-        this.results << results
+    def results(Map results_in) {
+        preset_null_status() {
+            (results_in.size() == 0)
+        }
+        this.results << results_in
     }
 
     def verify_status(Boolean result) {
