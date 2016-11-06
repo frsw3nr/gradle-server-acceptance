@@ -46,8 +46,12 @@ class DomainTestRunner {
 
     def run(TestItem[] test_items) {
         test_spec.init()
-        test_spec.setup_exec(test_items)
-        log.debug "\tresults : " + summaryReport(test_items)
+        try {
+            test_spec.setup_exec(test_items)
+            log.debug "\tresults : " + summaryReport(test_items)
+        } catch (Exception e) {
+            log.error "[Test] Failed to run ${test_spec.title}, skip.\n" + e
+        }
         test_spec.cleanup_exec()
     }
 
