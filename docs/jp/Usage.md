@@ -23,6 +23,10 @@
 
 	*検査PC側の許可設定*
 
+	ローカルで作成したスクリプトは署名なしで実行できるよう実行ポリシーを変更します。
+
+		Set-ExecutionPolicy RemoteSigned
+
 	検査PC側でも接続許可設定が必要です。PowerShellコンソールでリモート接続許可設定をします。
 
 	    Enable-PSRemoting -Force

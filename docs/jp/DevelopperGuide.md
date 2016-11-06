@@ -12,7 +12,7 @@ Groovy 言語で検査コードの記述することで検査項目のカスタ�
 
 2. PowerShell を使用した検査シナリオ
 
-    Get-WmiObject、Get-VM コマンド等のPowerShell コマンドを用いて検査対象サーバの情報をリモート採取します。
+    Get-WmiObject、Get-VM コマンド等のPowerShell コマンドレットを用いて検査対象サーバの情報をリモート採取します。
     採取したログを検証します。
     Windows, vCenter の検査で使用します。
 
@@ -234,11 +234,7 @@ PowerShell検査コードの記述方法
 
 ```
     def cpu(TestItem test_item) {
-        def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor
-            |'''.stripMargin()
-
-        run_script(command) {
+        run_script('Get-WmiObject Win32_Processor') {
             def lines = exec('cpu') {
                 new File("${local_dir}/cpu")
             }
@@ -264,13 +260,11 @@ PowerShell検査コードの記述方法
 
 * 1行目の **def cpu(test_item)** は、検査ID が **cpu** の検査メソッドの定義となります。
 * 2行目の command 変数のセットが PowerShell スクリプトに追加するコマンド定義となります。
-* セット値内テキストの **$cred, $ip** は予約語で、親クラスから継承した、検査対象サーバの
-  プロパティ変数となります。
 * **run_script(command)** が、PowerShell スクリプトを実行するコードとなり、引数に指定した
-  command 値を PowerShell スクリプトに登録します。
-* PowerShell スクリプトは command を実行し、実行結果をローカルディスクの
-   **"${local_dir}/{検査ID}"** のパスを指定してログに保存します。
-* run_script(command) コードブロック内処理がPowerShell が実行後のログ解析処理となり、
+  command 値を PowerShell スクリプトに埋め込みます。
+* PowerShell スクリプトに command の文末に、実行結果をローカルディスクの
+   **"${local_dir}/{検査ID}"** のログを指定したコードを埋め込みます。
+* run_script(command) コードブロック内処理は PowerShell スクリプト実行後のログ解析処理となり、
   処理構造は Linux の検査スクリプトと同じです
 * 注意点として、 **exec('cpu')** のコードブロックは **new File("${local_dir}/{検査ID}")**
   のみとして、ローカルディスクのログの読み込みます。
@@ -280,7 +274,7 @@ PowerShell検査コードの記述方法
 
 ここでは実例を用いて、検査メソッドのコーディング例を記します。
 
-**シート '検査ルール' を使用して採取結果を評価する**
+**シート '検査ルール' を使用して検査ルールを追加する**
 
 シート '検査ルール' に検査ルールを追加して採取結果の評価をします。
 テスト用のログで動作を確認します。
@@ -332,14 +326,14 @@ getconfig -d -r .\src\test\resources\log
 
 **PowerShellコマンドで Windows サーバの情報を採取する**
 
-PowerShellによる検査はGroovyテンプレートを用いて、認証などの事前処理をラッピングしてコマンドを実行します。
+PowerShellによる検査はGroovyテンプレートを用いて、検査対象サーバのセッション接続処理など前処理をラッピングしてコマンドを実行します。
 例として Windows のCPU構成情報を採取コマンドは以下となります。
 
 *lib\InfraTestSpec\WindowsSpec.groovy*
 
 ```
     def cpu(TestItem test_item) {
-        run_script("Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor") {
+        run_script("Get-WmiObject Win32_Processor") {
         }
     }
 ```
@@ -357,30 +351,23 @@ SocketDesignation : CPU socket #0
 <中略>
 ```
 
-$cred と $ip は予約語でリモートで Get-WmiObject コマンドを実行する時に '-Credential $cred -ComputerName $ip' のオプションを追加します。
-
 **PowerShellコマンドで Windows サーバのレジストリ情報を採取する**
 
-Windows のレジストリ情報を採取する例を記します。Invoke-Command -Scriptblock {} コマンドを用いてコードブロック内で、
+Windows のレジストリ情報を採取する例を記します。
 "Get-Item {レジストリキー}" としてレジストリを採取します。
 
 *lib\InfraTestSpec\WindowsSpec.groovy*
 
 ```
     def fips(TestItem test_item) {
-        def command = '''\
-            |Invoke-Command -Scriptblock `
-            |{Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"} `
-            |-credential $cred -Computername $ip
-            |'''.stripMargin()
-        run_script(command) {
+        run_script('Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"') {
         }
     }
 ```
 
 **PowerShellコマンドで vCenter の情報を採取する**
 
-vCenter の情報採取もWindows と同じで run_script() 引数に PowerShell コマンドを指定します。
+vCenter の情報採取もWindows と同じで run_script() 引数に PowerShell コマンドレットを指定します。
 
 *lib\InfraTestSpec\vCenterSpec.groovy*
 
@@ -588,7 +575,7 @@ APIリファレンス
 
 * run_script(String command) { コードブロック }
 
-    PowerShell コマンド実行で使用します。
+    PowerShell コマンドレット実行で使用します。
     前処理で検査用の PowerShell バッチスクリプトを作成します。
     検査メソッドを順に実行し、 引数に指定した command をスクリプトに埋め込みます。
     埋め込みは command の最後のリダイレクションでログファイルを指定したコードを追加します。

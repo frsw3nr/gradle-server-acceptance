@@ -43,11 +43,7 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def cpu(TestItem test_item) {
-        def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor
-            |'''.stripMargin()
-
-        run_script(command) {
+        run_script('Get-WmiObject Win32_Processor') {
             def lines = exec('cpu') {
                 new File("${local_dir}/cpu")
             }
@@ -72,7 +68,7 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def memory(TestItem test_item) {
         def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_OperatingSystem | `
+            |Get-WmiObject Win32_OperatingSystem | `
             |    select TotalVirtualMemorySize,TotalVisibleMemorySize, `
             |        FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles
             |'''.stripMargin()
@@ -104,11 +100,7 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def driver(TestItem test_item) {
-        def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_PnPSignedDriver
-            |'''.stripMargin()
-
-        run_script(command) {
+        run_script('Get-WmiObject Win32_PnPSignedDriver') {
             def lines = exec('driver') {
                 new File("${local_dir}/driver")
             }
@@ -124,11 +116,7 @@ class WindowsSpecBase extends InfraTestSpec {
 
 
     def filesystem(TestItem test_item) {
-        def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_LogicalDisk
-            |'''.stripMargin()
-
-        run_script(command) {
+        run_script('Get-WmiObject Win32_LogicalDisk') {
             def lines = exec('filesystem') {
                 new File("${local_dir}/filesystem")
             }
@@ -152,19 +140,13 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def fips(TestItem test_item) {
-        def command = '''\
-            |Invoke-Command -Scriptblock `
-            |{Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"} `
-            |-credential $cred -Computername $ip
-            |'''.stripMargin()
-
-        run_script(command) {
+        run_script('Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"') {
             def lines = exec('fips') {
                 new File("${local_dir}/fips")
             }
-            def fips_info = 'NotFound'
+            def fips_info = ''
             lines.eachLine {
-                (it =~ /^FIPSAlgorithmPolicy\s+Enabled : (.+?)\s+/).each {m0,m1->
+                (it =~ /^FIPSAlgorithmPolicy\s+Enabled\s+: (.+?)\s+/).each {m0,m1->
                     fips_info = (m1 == '0') ? 'Disabled' : 'Enabled'
                 }
             }
@@ -173,19 +155,13 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def storage_timeout(TestItem test_item) {
-        def command = '''\
-            |Invoke-Command -Scriptblock `
-            |{Get-ItemProperty "HKLM:SYSTEM\\CurrentControlSet\\Services\\disk" "TimeOutValue" | Select-Object -ExpandProperty TimeOutValue} `
-            |-credential $cred -Computername $ip
-            |'''.stripMargin()
-
-        run_script(command) {
+        run_script('Get-ItemProperty "HKLM:SYSTEM\\CurrentControlSet\\Services\\disk"') {
             def lines = exec('storage_timeout') {
                 new File("${local_dir}/storage_timeout")
             }
-            def value = 'NotFound'
+            def value = ''
             lines.eachLine {
-                (it =~ /^(\d+)/).each {m0,m1->
+                (it =~ /TimeOutValue\s+: (\d+)/).each {m0,m1->
                     value = m1
                 }
             }
@@ -195,7 +171,7 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def network(TestItem test_item) {
         def command = '''\
-            |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration | `
+            |Get-WmiObject Win32_NetworkAdapterConfiguration | `
             | Where{$_.IpEnabled -Match "True"} | `
             | Select MacAddress, IPAddress, DefaultIPGateway, Description | `
             | Format-List `

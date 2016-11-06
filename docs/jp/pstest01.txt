@@ -1,0 +1,117 @@
+ lmi -h localhost hwinfo
+ 342901
+
+実行ポリシーの設定
+
+ローカルで作成したスクリプトは署名なしで実行できるよう実行ポリシーを変更します
+
+Set-Exe
+
+ dir | format-table Name,Length
+ dir | format-list Name,Length
+ dir | format-wide Name -column 6
+ dir | out-gridview
+
+$log_dir = "."
+$ip = "192.168.0.14"
+$server = "win2012"
+$user = "administrator"
+$password = "P@ssword"
+
+$secure   = ConvertTo-SecureString $password -asplaintext -force
+$cred     = New-Object System.Management.Automation.PsCredential $user, $secure
+
+Enter-PSSession -Credential $cred -ComputerName $ip
+
+Get-WmiObject Win32_Processor
+| Out-File "$log_dir/cpu" -Encoding UTF8
+Get-WmiObject Win32_OperatingSystem | `
+    select TotalVirtualMemorySize,TotalVisibleMemorySize, `
+        FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles | Out-File "$log_dir/memory" -Encoding UTF8
+Get-WmiObject Win32_PnPSignedDriver | Out-File "$log_dir/driver" -Encoding UTF8
+Get-WmiObject Win32_LogicalDisk | Out-File "$log_dir/filesystem" -Encoding UTF8
+Invoke-Command -Scriptblock `
+{Get-Item "HKLM:System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy"} `
+-credential $cred -Computername $ip | Out-File "$log_dir/fips" -Encoding UTF8
+Get-WmiObject Win32_NetworkAdapterConfiguration | `
+ Where{$_.IpEnabled -Match "True"} | `
+ Select MacAddress, IPAddress, DefaultIPGateway, Description | `
+ Format-List ` | Out-File "$log_dir/network" -Encoding UTF8
+Invoke-Command -Scriptblock `
+{Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\disk" "TimeOutValue" | Select-Object -ExpandProperty TimeOutValue} `
+-credential $cred -Computername $ip | Out-File "$log_dir/storage_timeout" -Encoding UTF8
+
+Exit-PSSession
+
+OS名の検索
+
+Get-WmiObject Win32_OperatingSystem
+
+ SystemDirectory : C:\Windows\system32
+Organization    :
+BuildNumber     : 9600
+RegisteredUser  : Windows ユーザー
+SerialNumber    : 00252-10000-00000-AA228
+Version         : 6.3.9600
+
+PowerShellバージョンの検索
+
+$PSVersionTable.PSVersion
+
+ローカルコンピューター名の検索
+
+$env:COMPUTERNAME
+
+インストールされている役割と機能の一覧
+
+Windows Firewall の受信規制の中から特定の定義を確認する
+
+Get-NetFirewallRule -Direction Inbound -Description *http*
+
+ネットワークアダプターの検索
+
+Get-NetAdapter|FL
+
+IPアドレスの検索
+
+Get-NetIPAddress | where AddressFamily -eq "IPv4"
+
+DNSサーバの検索
+
+Get-DnsClientServerAddress|FL
+
+特定サービスのファイヤーウォール設定を検索する
+
+Get-NetFirewallRule -Direction inbound -Description *http*
+
+システム情報を検索する
+
+Get-WmiObject -Class Win32_ComputerSystem
+
+Domain              : WORKGROUP
+Manufacturer        : VMware, Inc.
+Model               : VMware Virtual Platform
+Name                : WIN2012
+PrimaryOwnerName    : Windows ユーザー
+TotalPhysicalMemory : 2147012608
+
+Select-Object で必要な要素のみを取り出し
+
+Dir | select-Object -Property Name
+
+NICのプロファイルが「識別されていない」場合
+
+クライアントPCで以下を実行
+
+Enable-PSRemoting -Force SkipNetowrkProfileCheck
+
+使用言語の取得
+
+Get-Culture
+
+LCID             Name             DisplayName
+1041             ja-JP            日本語 (日本)
+
+稼働中のサービス
+
+Get-Service | where Status -eq "Running"

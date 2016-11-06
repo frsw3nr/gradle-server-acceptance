@@ -20,12 +20,21 @@ class WindowsSpec extends WindowsSpecBase {
         super.finish()
     }
 
-    // def cpu(TestItem test_item) {
-    //     def command = '''\
-    //         |Get-WmiObject -Credential $cred -ComputerName $ip Win32_Processor
-    //         |'''.stripMargin()
+    // def setup_exec(TestItem[] test_items) {
+    //     super.setup_exec()
 
-    //     run_script(command) {
+    //     def cmd = """\
+    //         |powershell -NonInteractive ${script_path}
+    //         |-log_dir '${local_dir}'
+    //         |-ip '${ip}' -server '${server_name}'
+    //         |-user '${os_user}' -password '${os_password}'
+    //     """.stripMargin()
+
+    //     runPowerShellTest('lib/template', 'Windows', cmd, test_items)
+    // }
+
+    // def cpu(TestItem test_item) {
+    //     run_script('Get-WmiObject Win32_Processor') {
     //         def lines = exec('cpu') {
     //             new File("${local_dir}/cpu")
     //         }
@@ -50,7 +59,7 @@ class WindowsSpec extends WindowsSpecBase {
 
     // def memory(TestItem test_item) {
     //     def command = '''\
-    //         |Get-WmiObject -Credential $cred -ComputerName $ip Win32_OperatingSystem | `
+    //         |Get-WmiObject Win32_OperatingSystem | `
     //         |    select TotalVirtualMemorySize,TotalVisibleMemorySize, `
     //         |        FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles
     //         |'''.stripMargin()
@@ -82,11 +91,7 @@ class WindowsSpec extends WindowsSpecBase {
     // }
 
     // def driver(TestItem test_item) {
-    //     def command = '''\
-    //         |Get-WmiObject -Credential $cred -ComputerName $ip Win32_PnPSignedDriver
-    //         |'''.stripMargin()
-
-    //     run_script(command) {
+    //     run_script('Get-WmiObject Win32_PnPSignedDriver') {
     //         def lines = exec('driver') {
     //             new File("${local_dir}/driver")
     //         }
@@ -100,12 +105,9 @@ class WindowsSpec extends WindowsSpecBase {
     //     }
     // }
 
-    // def filesystem(TestItem test_item) {
-    //     def command = '''\
-    //         |Get-WmiObject -Credential $cred -ComputerName $ip Win32_LogicalDisk
-    //         |'''.stripMargin()
 
-    //     run_script(command) {
+    // def filesystem(TestItem test_item) {
+    //     run_script('Get-WmiObject Win32_LogicalDisk') {
     //         def lines = exec('filesystem') {
     //             new File("${local_dir}/filesystem")
     //         }
@@ -117,61 +119,53 @@ class WindowsSpec extends WindowsSpecBase {
     //                 device_id = m1
     //             }
     //             (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
-    //                 filesystem_info[device_id] = m1
-    //                 csv << [device_id, m1]
+    //                 def size_gb = m1.toDouble()/(1000*1000*1000)
+    //                 filesystem_info[device_id] = size_gb
+    //                 csv << [device_id, size_gb]
     //             }
     //         }
-    //         def headers = ['device_id', 'size']
+    //         def headers = ['device_id', 'size_gb']
     //         test_item.devices(csv, headers)
     //         test_item.results(filesystem_info.toString())
     //     }
     // }
 
     // def fips(TestItem test_item) {
-    //     def command = '''\
-    //         |$reg = Get-WmiObject -List -Namespace root\\default -Credential $cred -ComputerName $ip | `
-    //         |Where-Object {$_.Name -eq "StdRegProv"}
-    //         |$HKLM = 2147483650
-    //         |$reg.GetStringValue($HKLM,"System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy","Enabled").sValue
-    //         |'''.stripMargin()
-
-    //     run_script(command) {
+    //     run_script('Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"') {
     //         def lines = exec('fips') {
     //             new File("${local_dir}/fips")
     //         }
-    //         def fips_info = [:].withDefault{0}
+    //         def fips_info = ''
     //         lines.eachLine {
+    //             (it =~ /^FIPSAlgorithmPolicy\s+Enabled\s+: (.+?)\s+/).each {m0,m1->
+    //                 fips_info = (m1 == '0') ? 'Disabled' : 'Enabled'
+    //             }
     //         }
     //         test_item.results(fips_info)
     //     }
     // }
 
     // def storage_timeout(TestItem test_item) {
-    //     def command = '''\
-    //         |$hklm  = 2147483650
-    //         |$key   = "SYSTEM\\CurrentControlSet\\Services\\disk"
-    //         |$value = "TimeoutValue"
-    //         |$reg = get-wmiobject -list "StdRegProv" -namespace root\\default -computername $ip -credential $cred | where-object { $_.Name -eq "StdRegProv" }
-    //         |$reg.GetStringValue($hklm, $key, $value) | Select-Object uValue
-    //         |'''.stripMargin()
-
-    //     run_script(command) {
+    //     run_script('Get-ItemProperty "HKLM:SYSTEM\\CurrentControlSet\\Services\\disk"') {
     //         def lines = exec('storage_timeout') {
     //             new File("${local_dir}/storage_timeout")
     //         }
-    //         def timeout_info = [:].withDefault{0}
+    //         def value = ''
     //         lines.eachLine {
-    //             println it
+    //             (it =~ /TimeOutValue\s+: (\d+)/).each {m0,m1->
+    //                 value = m1
+    //             }
     //         }
-    //         test_item.results(timeout_info)
+    //         test_item.results(value)
     //     }
     // }
 
     // def network(TestItem test_item) {
     //     def command = '''\
-    //         |Get-WmiObject -Credential $cred -ComputerName $ip Win32_NetworkAdapterConfiguration | `
+    //         |Get-WmiObject Win32_NetworkAdapterConfiguration | `
     //         | Where{$_.IpEnabled -Match "True"} | `
-    //         | Select MacAddress, IPAddress, DefaultIPGateway, Description `
+    //         | Select MacAddress, IPAddress, DefaultIPGateway, Description | `
+    //         | Format-List `
     //         |'''.stripMargin()
 
     //     run_script(command) {
@@ -194,12 +188,12 @@ class WindowsSpec extends WindowsSpecBase {
     //             (it =~ /^DefaultIPGateway\s*:\s+(.+)$/).each {m0,m1->
     //                 tmp['gw'] = m1
     //             }
-    //             (it =~ /^Description\s*:\s+(.*Network.*?)$/).each {m0,m1->
+    //             (it =~ /^Description\s*:\s+(.+?)$/).each {m0,m1->
     //                 network_info[m1]['dhcp'] = tmp['dhcp']
     //                 network_info[m1]['ip']   = tmp['ip']
     //                 network_info[m1]['mac']  = tmp['mac']
     //                 network_info[m1]['gw']   = tmp['gw']
-    //                 csv << [m1, tmp['ip'], tmp['gw'], tmp['dhcp']]
+    //                 csv << [m1, tmp['ip'], tmp['mac'], tmp['gw'], tmp['dhcp']]
     //             }
     //         }
     //         def headers = ['device', 'ip', 'mac', 'gw', 'dhcp']

@@ -5,9 +5,17 @@ Param(
   , [string]\$user
   , [string]\$password
 )
-
 \$secure   = ConvertTo-SecureString \$password -asplaintext -force
 \$cred     = New-Object System.Management.Automation.PsCredential \$user, \$secure
+
+\$ErrorActionPreference = "Stop"
+try {
+    Enter-PSSession -Credential \$cred -ComputerName \$ip
+} catch [Exception] {
+    Write-Error "\$error"
+    exit 1
+}
+\$ErrorActionPreference = "Continue"
 
 <%
 commands.each { command ->
@@ -16,3 +24,5 @@ commands.each { command ->
 <%
 }
 %>\
+
+Exit-PSSession
