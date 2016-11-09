@@ -85,7 +85,7 @@ class TestRunner {
             }
         }
 
-        test_resource = (options.r) ?: './src/test/resources/log'
+        test_resource = (options.r) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
         config['test']['dry_run_staging_dir'] = test_resource
 
         log.info "Parse Arguments : " + args.toString()
@@ -97,7 +97,6 @@ class TestRunner {
         log.info "\tfilter option : "
         log.info "\t\ttarget servers : " + target_servers.toString()
         log.info "\t\ttest_ids       : " + test_ids.toString()
-
     }
 
     static void main(String[] args) {

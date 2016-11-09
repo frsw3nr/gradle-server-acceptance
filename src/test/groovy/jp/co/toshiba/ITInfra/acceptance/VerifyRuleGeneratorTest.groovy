@@ -7,12 +7,14 @@ class VerifyRuleGeneratorTest extends Specification {
 
     def rules = [:].withDefault{[:].withDefault{[:]}}
     def verifier
+    def server_info = [:]
 
     def setup() {
         rules['AP01']['Windows']['cpu_total'] = '1 < x'
         rules['AP01']['Windows']['memory']    = '4096 <= x'
         rules['AP01']['Windows']['hostname']  = 'x =~ /win/'
         rules['AP01']['Linux']['hostname']    = 'x =~ /Cent/'
+        server_info['hostname'] = 'Cent01'
         verifier = VerifyRuleGenerator.instance
     }
 
@@ -41,6 +43,16 @@ class VerifyRuleGeneratorTest extends Specification {
         then:
         verifier.verify('AP01', 'Windows', 'hostname', "testwindows") == true
         verifier.verify('AP01', 'Windows', 'hostname', "testlinux") == false
+    }
+
+    def "検証ルール付帯情報"() {
+        when:
+        rules['AP01']['Linux']['hostname']    = 'x == server_info[\'hostname\']'
+        server_info['hostname'] = 'Cent01'
+        verifier.setVerifyRule(rules)
+        then:
+        verifier.verify('AP01', 'Linux', 'hostname', "Cent01", server_info) == true
+        verifier.verify('AP01', 'Linux', 'hostname', "Cent02", server_info) == false
     }
 
     def "検証ルールエラー"() {

@@ -14,11 +14,13 @@ class DomainTestRunner {
     String     verify_id
     def result_test_items = []
     private test_spec
+    def server_info = [:]
 
     DomainTestRunner(TargetServer test_server, String domain) {
         this.test_server = test_server
         this.verify_id   = test_server.verify_id
         this.domain      = domain
+        this.server_info = test_server.infos
 
         def loader = new GroovyClassLoader()
         loader.addClasspath(user_lib)
@@ -74,7 +76,7 @@ class DomainTestRunner {
         result_test_items.each { test_item ->
             test_item.with {
                 results.each { id, test_value ->
-                    def status = verifier.verify(verify_id, domain, id, test_value)
+                    def status = verifier.verify(verify_id, domain, id, test_value, server_info)
                     if (status != null) {
                         verify_status[id] = status
                         statuses[id] = status

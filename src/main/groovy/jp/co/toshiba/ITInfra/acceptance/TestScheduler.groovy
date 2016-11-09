@@ -103,7 +103,6 @@ class TestScheduler {
         test_servers = filterServer(evidence_sheet.test_servers)
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
-
         def n_test_servers = test_servers.size()
         if (serialization_domains) {
             def count = 1

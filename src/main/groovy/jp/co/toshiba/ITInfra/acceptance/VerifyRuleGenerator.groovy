@@ -24,12 +24,12 @@ class VerifyRuleGenerator {
         spec = new GroovyClassLoader().parseClass(rule_code_text).newInstance()
     }
 
-    def verify(String verify_id, String domain, String test_id, Object test_value) {
+    def verify(String verify_id, String domain, String test_id, Object test_value, Map server_info = null) {
         def verify_func = "${verify_id}__${domain}__${test_id}"
-        def method = spec.metaClass.getMetaMethod(verify_func, Object)
+        def method = spec.metaClass.getMetaMethod(verify_func, Object, Map)
         if (method) {
             try {
-                def result = method.invoke(spec, test_value)
+                def result = method.invoke(spec, test_value, server_info)
                 log.debug "Verify_rule ${method.name}(${test_value}) = ${result}"
                 return result
             } catch (Exception e) {

@@ -13,7 +13,8 @@ verify_rules.each { rule_id, domain_rules ->
             def method_name = "${rule_id}__${domain}__${test_id}"
 
 %>\
-    def <%= method_name %>(string_x) {
+    def <%= method_name %>(Object string_x, Map server_info = [:]) {
+        string_x = string_x.toString()
         if (NumberUtils.isNumber(string_x)) {
             def x = NumberUtils.toDouble(string_x)
             return (<%= rule %>) ? true : false
