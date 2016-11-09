@@ -84,19 +84,19 @@ config/config.groovy 内のサーバ接続情報の箇所を編集します。
 * リモート検査の接続情報
 
 ```
-	// vCenter接続情報
-	account.Remote.Test.server   = '192.168.10.100'
-	account.Remote.Test.user     = 'root'
-	account.Remote.Test.password = 'XXXX'
+// vCenter接続情報
+account.Remote.Test.server   = '192.168.10.100'
+account.Remote.Test.user     = 'root'
+account.Remote.Test.password = 'XXXX'
 ```
 
 * ローカル検査の接続情報
 
 ```
-	// Linux 接続情報
-	account.Linux.Test.user      = 'someuser'
-	account.Linux.Test.password  = 'XXXX'
-	account.Linux.Test.work_dir  = '/tmp/gradle_test'
+// Linux 接続情報
+account.Linux.Test.user      = 'someuser'
+account.Linux.Test.password  = 'XXXX'
+account.Linux.Test.work_dir  = '/tmp/gradle_test'
 ```
 
 * その他の設定
@@ -142,7 +142,7 @@ usage: getspec
  -v,--verify           Disable verify test
 ```
 
-* -c,--config <arg>
+* -c,--config {arg}
 
 	設定ファイル config.groovy のパスを指定します。デフォルトは./config/config.groovy です。
 
@@ -151,7 +151,7 @@ usage: getspec
 	予行演習モード(DryRun)にします。
 	検査対象への情報採取はせずに、予め用意したログファイルを参照して検査をします。
 
-* -e,--excel <arg>
+* -e,--excel {arg}
 
 	検査シートパスを指定します。デフォルトは、./チェックシート.xlsx です。
 
@@ -159,27 +159,43 @@ usage: getspec
 
 	ヘルプを出力します。
 
-* -p,--parallel <arg>
+* -p,--parallel {arg}
 
 	各サーバの検査の並列度を指定します。
 	多重化したくないシナリオは設定ファイル内のtest.serialization.tasksパラメータで指定します。
 
-* -r,--resource <arg>
+* -r,--resource {arg}
 
 	予行演習モード(DryRun)で使用するログファイルディレクトリパスを指定します。
 	デフォルトは、./src/test/resources/log/ です。
 
-* -s,--server <arg>
+* -s,--server {arg}
 
 	検査対象のサーバを絞り込む場合に使用します。'-s svr1,svr2,...' の様に指定します。
 
-* -t,--test <arg>
+* -t,--test {arg}
 
 	検査項目を絞り込む場合に使用します。'-t vm,cpu,...' の様に指定します。
 
 * -v,--verify
 
 	検査ルールによる評価を無効にする場合に指定します。
+
+実行結果の確認
+--------------
+
+getconfigを実行すると **build** の下に検査結果が出力されます。
+
+* チェックシート_{日時}.xlsx
+
+	各プラットフォームの検査シートに検査対象サーバの検査結果を記録します。
+	各種デバイス情報を新規シートに記録します。
+
+* log.{日時} ディレクトリ
+
+	'log.{日時}' ディレクトリの下に、
+	**'{プラットフォーム}/{検査対象サーバ}/{検査シナリオ}/{検査ID}'**のファイルパス形式で、
+	検査結果をログ出力します。
 
 コマンドの使用例
 ----------------
@@ -201,21 +217,3 @@ getconfig -s ostrich -t hostname,lsb			# 検査IDを指定
 ```
 getconfig -d -r ./build/log.20161028_090553/	# 日付付きログディレクトリを指定
 ```
-
-実行結果の確認
---------------
-
-getconfigを実行するとbuildの下に検査結果が出力されます。
-
-* チェックシート_{日時}.xlsx
-
-	各プラットフォームの検査シートに検査対象サーバの検査結果を記録します。
-	各種デバイス情報を新規シートに記録します。
-
-* log.{日時} ディレクトリ
-
-	'log.{日時}' ディレクトリの下に、
-	**'{プラットフォーム}/{検査対象サーバ}/{検査シナリオ}/{検査ID}'**のファイルパス形式で、
-	検査結果をログ出力します。
-
-以上、

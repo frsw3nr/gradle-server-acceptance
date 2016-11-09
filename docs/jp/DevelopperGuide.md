@@ -91,11 +91,13 @@ C:.
 
     *ドメインベースクラス*
 
-    main/src/main/groovy/jp/cp/toshiba/ITInfra/acceptance/InfraTestSpec/**{Domain}SpecBase.groovy**
+    main/src/main/groovy/jp/cp/toshiba/ITInfra/acceptance/InfraTestSpec/ の下の、
+
+    **LinuxSpecBase.groovy**、**WindowsSpecBase.groovy**、**vCenterSpecBase.groovy**
 
     Linux,Windows,vCenter の**各検査項目のメソッド** を記述しています。
 
-    **注意事項 : **
+    **注意事項 :**
 
     上記コードはアーカイブファイル内のJarファイルに埋め込んでいます。
     ソースコードを参照する場合は GitHub リポジトリから参照してください。
@@ -109,7 +111,7 @@ Linux検査シナリオで使用するスクリプトとなり、**lib/InfraTest
 検査IDとメソッドが1対1で紐づいており、メソッドは
 **検査ID(session, test_item)** の形式で記述します。
 実際のメソッド定義を以下に記します。
-コメントアウトされているメソッドは既定の検査項目で、前述のドメインベースクラスで
+コメントアウトされているメソッドは既定の検査項目で、継承元のドメインベースクラスで
 コーディングされた検査メソッドとなります。
 
 ```
@@ -147,9 +149,9 @@ SSH検査スクリプト LinuxSpec.groovy の処理フローは以下となり�
 
 4. Excelシートに結果を更新します。
 
-**注意事項:** これら処理は全て、親クラスの
+**注意事項:** 既定の検査メソッドは全て、親クラスの
 main/src/main/groovy/jp/cp/toshiba/ITInfra/acceptance/LinuxInfraTestSpec.groovy
-スクリプトから継承されているため、実際のコードは親クラスのスクリプトに記述されています。
+に記述されています。
 
 SSH検査コードの記述方法
 -----------------------
@@ -171,9 +173,9 @@ SSH検査コードの記述方法
   第1引数の session オブジェクトを用いて、
   [Groovy SSH API]((https://gradle-ssh-plugin.github.io/docs/)) をコールします。
 * **exec()** コードはDryRun のモードにより動作が変わり、
-  **メンバー変数の dry_run が true の場合**、-r オプションで指定したテストログディレクトリから
+  **メンバー変数の dry_run が true の場合**、予め用意したテストログディレクトリから
   **ログファイルを読み込み、検査結果として返します。コードブロック内処理は実行しません**。
-* dry_run が false の場合、コードブロック内の処理を実行します。
+* dry_run が false の場合、コードブロック内の処理を実行し、検査対象サーバにアクセスします。
 * exec コードブロック内の **run_ssh_command(session, 'コマンド', '検査ID')** は
   SSH処理用のヘルパーメソッドで以下を実行します。
     * 第2引数で指定したコマンドを実行
@@ -204,7 +206,7 @@ LinuxのSSH処理と比較して変更点をコメントします。
 1. チェックシートを読込みます。
 2. 初期化処理( **init()** メソッド)
 
-    Linux と同様に config.groovy から検査対象サーバの接続情報(ip, user, passwordなど)を取得します。
+    Linux と同様に **config.groovy** から検査対象サーバの接続情報(ip, user, passwordなど)を取得します。
     **Windows の場合、os\_account** パラメータから、 **vCenter の場合、
     remote\_account** パラメータから接続情報を取得します。
 
@@ -300,7 +302,7 @@ getconfig -d -r .\src\test\resources\log
 試しに、Linux で ホスト名の確認結果がシートの設定項目と合っているかをチェックします。
 Linux 検査コードの hostname() を以下の通り編集します。
 
-*lib\InfraTestSpec\LinuxSpec.groovy*
+*lib/InfraTestSpec/LinuxSpec.groovy*
 
 ```
     def hostname(session, test_item) {
@@ -329,7 +331,7 @@ getconfig -d -r .\src\test\resources\log
 PowerShellによる検査はGroovyテンプレートを用いて、検査対象サーバのセッション接続処理など前処理をラッピングしてコマンドを実行します。
 例として Windows のCPU構成情報を採取コマンドは以下となります。
 
-*lib\InfraTestSpec\WindowsSpec.groovy*
+*lib/InfraTestSpec/WindowsSpec.groovy*
 
 ```
     def cpu(TestItem test_item) {
@@ -340,6 +342,8 @@ PowerShellによる検査はGroovyテンプレートを用いて、検査対象�
 
 実行すると、ログディレクトリ '.\build\log.{日時}\Windows\{サーバ名}\Windows' の下に 'cpu' という
 ファイルが作成され、以下例の様に検査対象サーバのコマンド実行ログとなります。
+
+*build/log.{日時}/Windows/{検査対象サーバ}/Windows/cpu*
 
 ```
 Caption           : Intel64 Family 6 Model 60 Stepping 3
@@ -356,7 +360,7 @@ SocketDesignation : CPU socket #0
 Windows のレジストリ情報を採取する例を記します。
 "Get-Item {レジストリキー}" としてレジストリを採取します。
 
-*lib\InfraTestSpec\WindowsSpec.groovy*
+*lib/InfraTestSpec/WindowsSpec.groovy*
 
 ```
     def fips(TestItem test_item) {
@@ -369,7 +373,7 @@ Windows のレジストリ情報を採取する例を記します。
 
 vCenter の情報採取もWindows と同じで run_script() 引数に PowerShell コマンドレットを指定します。
 
-*lib\InfraTestSpec\vCenterSpec.groovy*
+*lib/InfraTestSpec/vCenterSpec.groovy*
 
 ```
     def vm_storage(test_item) {
@@ -378,14 +382,14 @@ vCenter の情報採取もWindows と同じで run_script() 引数に PowerShell
     }
 ```
 
-$vm が予約語となり、'-VM $vm' のオプションを追加します。
+**$vm** が検査対象サーバ名の予約語となり、**'-VM $vm'** のオプションで指定します。
 
 **複数デバイスの検査結果をシートに登録する**
 
 test_item.devices(csv, headers)メソッドを用いて複数行の採取結果を新規シートに追加します。
 Linux のRPMパッケージリストを採取する例を記します。
 
-*lib\InfraTestSpec\LinuxSpec.groovy*
+*lib/InfraTestSpec/LinuxSpec.groovy*
 
 ```
     def packages(session, test_item) {
@@ -588,13 +592,13 @@ APIリファレンス
 TestItem クラスのメソッドとなり、検査メソッド引数の test_item オブジェクトのメソッド
 として呼び出します。
 
-* test\_item.results(String value)
+* test\_item.results(Object value)
 
     引数に検査結果を指定して、Excelの検査シートのセルを更新します。
     セルは検査IDを行、検査対象サーバを列にして指定します。
-    文字列が数値の場合は数値型に変換してセルを更新します。
+    value 引数が文字列で数値の場合は数値型に変換してセルを更新します。
 
-* test\_item.results(Map String values[])
+* test\_item.results(Map Object values[])
 
     検査IDをキーにした複数の検査結果をセルに更新します。
 
