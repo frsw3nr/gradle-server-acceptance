@@ -172,7 +172,16 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def machineid(session, test_item) {
         def lines = exec('machineid') {
-            run_ssh_command(session, 'cat /var/lib/dbus/machine-id', 'machineid')
+            def command = """\
+            |if [ -f /etc/machine-id ]; then
+            |    cat /etc/machine-id > ${work_dir}/machineid
+            |elif [ -f /var/lib/dbus/machine-id ]; then
+            |    cat /var/lib/dbus/machine-id > ${work_dir}/machineid
+            |fi
+            """.stripMargin()
+            session.execute command
+            session.get from: "${work_dir}/machineid", into: local_dir
+            new File("${local_dir}/machineid").text
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
@@ -205,10 +214,11 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def network(session, test_item) {
         def lines = exec('network') {
-            run_ssh_command(session, '/sbin/ip -d -s link', 'network')
+            run_ssh_command(session, '/sbin/ip addr', 'network')
         }
         def csv = []
         def network = [:].withDefault{[:]}
+        def device = ''
         def hw_address = []
         lines.eachLine {
             // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
@@ -259,6 +269,14 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(net_onboot.toString())
+    }
+
+    def net_route(session, test_item) {
+        def lines = exec('net_route') {
+            run_ssh_command(session, '/sbin/ip route', 'net_route')
+        }
+        lines = lines.replaceAll(/(\r|\n)/, "")
+        test_item.results(lines)
     }
 
     def block_device(session, test_item) {
