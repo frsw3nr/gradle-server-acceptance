@@ -19,18 +19,32 @@ class LinuxSpec extends LinuxSpecBase {
     }
 
     def vncserver(session, test_item) {
-        def lines = exec('vncserver') {
-            run_ssh_command(session, '/sbin/chkconfig --list|grep vncserver', 'vncserver')
-        }
-        def vncserver = 'off'
-        lines.eachLine {
-            ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
-                if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
-                    vncserver = 'on'
+        def isRHEL7 = session.execute('test -f /usr/bin/systemctl ; echo $?')
+        if (isRHEL7 == '0') {
+            def lines = exec('vncserver') {
+                run_ssh_command(session, '/usr/bin/systemctl status vncserver', 'vncserver')
+            }
+            def vncserver = 'inactive'
+            lines.eachLine {
+                ( it =~ /Active: (.+?)\s/).each {m0,m1->
+                     vncserver = m1
                 }
             }
+            test_item.results(vncserver)
+        } else {
+            def lines = exec('vncserver') {
+                run_ssh_command(session, '/sbin/chkconfig --list|grep vncserver', 'vncserver')
+            }
+            def vncserver = 'off'
+            lines.eachLine {
+                ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+                    if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+                        vncserver = 'on'
+                    }
+                }
+            }
+            test_item.results(vncserver)
         }
-        test_item.results(vncserver)
     }
 
     def packages(session, test_item) {

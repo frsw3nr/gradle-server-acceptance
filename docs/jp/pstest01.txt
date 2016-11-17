@@ -115,3 +115,38 @@ LCID             Name             DisplayName
 稼働中のサービス
 
 Get-Service | where Status -eq "Running"
+
+Get-Service | where Status -eq "Running" | Select-Object -Property Name
+
+if [ -x "/usr/bin/systemctl" ] ; then
+    /usr/bin/systemctl status iptables > ${work_dir}/iptables.systemctl
+elif [ -x "/sbin/chkconfig" ] ; then
+    /sbin/chkconfig --list|grep iptables > ${work_dir}/iptables
+fi
+
+    def machineid(session, test_item) {
+        def lines = exec('machineid') {
+            def command = """\
+            |if [ -f /etc/machine-id ]; then
+            |    cat /etc/machine-id > ${work_dir}/machineid
+            |elif [ -f /var/lib/dbus/machine-id ]; then
+            |    cat /var/lib/dbus/machine-id > ${work_dir}/machineid
+            |fi
+            """.stripMargin()
+            session.execute command
+            session.get from: "${work_dir}/machineid", into: local_dir
+            new File("${local_dir}/machineid").text
+        }
+        lines = lines.replaceAll(/(\r|\n)/, "")
+        test_item.results(lines)
+    }
+
+$log_dir = "."
+$ip = "192.168.0.14"
+$vcenter = "192.168.10.100"
+$user = "test_user"
+$password = "P@ssword"
+
+Add-PSSnapin VMware.VimAutomation.Core
+Connect-VIServer -User $user -Password $password -Server $vcenter
+

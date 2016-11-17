@@ -275,8 +275,14 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('net_route') {
             run_ssh_command(session, '/sbin/ip route', 'net_route')
         }
-        lines = lines.replaceAll(/(\r|\n)/, "")
-        test_item.results(lines)
+        def net_route = [:]
+        lines.eachLine {
+            // default via 192.168.10.254 dev eth0
+            (it =~ /default via (.+?) dev (.+?)\s/).each {m0,m1,m2->
+                net_route[m2] = m1
+            }
+        }
+        test_item.results(net_route.toString())
     }
 
     def block_device(session, test_item) {
@@ -459,18 +465,32 @@ class LinuxSpecBase extends InfraTestSpec {
     }
 
     def kdump(session, test_item) {
-        def lines = exec('kdump') {
-            run_ssh_command(session, '/sbin/chkconfig --list|grep kdump', 'kdump')
-        }
-        def kdump = 'off'
-        lines.eachLine {
-            ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
-                if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
-                    kdump = 'on'
+        def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
+        if (isRHEL7 == '0') {
+            def lines = exec('kdump') {
+                run_ssh_command(session, '/usr/bin/systemctl status kdump', 'kdump')
+            }
+            def kdump = 'inactive'
+            lines.eachLine {
+                ( it =~ /Active: (.+?)\s/).each {m0,m1->
+                     kdump = m1
                 }
             }
+            test_item.results(kdump)
+        } else {
+            def lines = exec('kdump') {
+                run_ssh_command(session, '/sbin/chkconfig --list|grep kdump', 'kdump')
+            }
+            def kdump = 'off'
+            lines.eachLine {
+                ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+                    if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+                        kdump = 'on'
+                    }
+                }
+            }
+            test_item.results(kdump)
         }
-        test_item.results(kdump)
     }
 
     def crash_size(session, test_item) {
@@ -482,31 +502,61 @@ class LinuxSpecBase extends InfraTestSpec {
     }
 
     def iptables(session, test_item) {
-        def lines = exec('iptables') {
-            run_ssh_command(session, '/sbin/chkconfig --list|grep iptables', 'iptables')
-        }
-        def iptables = 'off'
-        lines.eachLine {
-            ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
-                if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
-                    iptables = 'on'
+        def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
+        if (isRHEL7 == '0') {
+            def lines = exec('iptables') {
+                def command = "/usr/bin/systemctl status iptables firewalld >> ${work_dir}/iptables"
+                session.execute command, ignoreError : true
+                session.get from: "${work_dir}/iptables", into: local_dir
+                new File("${local_dir}/iptables").text
+            }
+            def services = [:]
+            def service = 'iptables'
+            lines.eachLine {
+                ( it =~ /\s(.+?)\.service\s/).each {m0,m1->
+                     service = m1
+                }
+                ( it =~ /^\s+Active: (.+?)\s/).each {m0,m1->
+                     services[service] = m1
                 }
             }
+            test_item.results(services.toString())
+        } else {
+            def lines = exec('iptables') {
+            // REHL7 verify command : /usr/bin/systemctl status iptables
+                run_ssh_command(session, '/sbin/chkconfig --list|grep iptables', 'iptables')
+            }
+            def iptables = 'off'
+            lines.eachLine {
+                ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+                    if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+                        iptables = 'on'
+                    }
+                }
+            }
+            test_item.results(iptables)
         }
-        test_item.results(iptables)
     }
 
     def runlevel(session, test_item) {
-        def lines = exec('runlevel') {
-            run_ssh_command(session, 'grep :initdefault /etc/inittab', 'runlevel')
-        }
-        def runlevel = 'unkown'
-        lines.eachLine {
-            ( it =~ /^id:(\d+):/).each {m0,m1->
-                runlevel = m1
+        def isRHEL7 = session.execute('test -f /usr/bin/systemctl ; echo $?')
+        if (isRHEL7 == '0') {
+            def lines = exec('runlevel') {
+                run_ssh_command(session, '/usr/bin/systemctl get-default', 'runlevel')
             }
+            test_item.results(lines)
+        } else {
+            def lines = exec('runlevel') {
+                run_ssh_command(session, 'grep :initdefault /etc/inittab', 'runlevel')
+            }
+            def runlevel = 'unkown'
+            lines.eachLine {
+                ( it =~ /^id:(\d+):/).each {m0,m1->
+                    runlevel = m1
+                }
+            }
+            test_item.results(runlevel)
         }
-        test_item.results(runlevel)
     }
 
     def resolve_conf(session, test_item) {
