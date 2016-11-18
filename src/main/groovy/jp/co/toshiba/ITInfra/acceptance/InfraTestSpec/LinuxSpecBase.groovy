@@ -223,7 +223,7 @@ class LinuxSpecBase extends InfraTestSpec {
         lines.eachLine {
             // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
             (it =~  /^(\d+): (.+): <(.+)> (.+)$/).each { m0,m1,m2,m3,m4->
-                csv << [m2, m3, m4]
+                device = m2
                 if (m2 == 'lo') {
                     return
                 }
@@ -233,17 +233,31 @@ class LinuxSpecBase extends InfraTestSpec {
                     if (index % 2 == 0) {
                         name = n1
                     } else {
-                        network[m2][name] = n1
+                        network[device][name] = n1
                     }
                     index ++
                 }
             }
+            // inet 127.0.0.1/8 scope host lo
+            (it =~ /inet\s+(.*?)\s/).each {m0, m1->
+                network[device]['ip'] = m1
+            }
+
             // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
             (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
+                network[device]['mac'] = m1
                 hw_address.add(m1)
             }
         }
-        def headers = ['device', 'status1', 'status2']
+        // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
+        network.each { device_id, items ->
+            def columns = [device_id]
+            ['ip', 'mtu', 'state', 'mac'].each {
+                columns.add(items[it] ?: 'NaN')
+            }
+            csv << columns
+        }
+        def headers = ['device', 'ip', 'mtu', 'state', 'mac']
         test_item.devices(csv, headers)
 
         test_item.results([
@@ -275,8 +289,14 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('net_route') {
             run_ssh_command(session, '/sbin/ip route', 'net_route')
         }
-        lines = lines.replaceAll(/(\r|\n)/, "")
-        test_item.results(lines)
+        // default via 10.46.16.1 dev eth0
+        def net_route = [:]
+        lines.eachLine {
+            (it =~ /default\s+via\s+(.+?)\s+dev\s+(.+?)$/).each {m0,m1,m2->
+                net_route[m2] = m1
+            }
+        }
+        test_item.results(net_route.toString())
     }
 
     def block_device(session, test_item) {

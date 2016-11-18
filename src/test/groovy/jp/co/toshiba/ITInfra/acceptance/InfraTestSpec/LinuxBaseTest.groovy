@@ -124,4 +124,38 @@ class LinuxBaseTest extends Specification {
        }
     }
 
+    def "Linux ネットワーク"() {
+        setup:
+        test_server.dry_run = true
+        test_server.server_name = 'cent7'
+
+        test = new DomainTestRunner(test_server, 'Linux')
+
+        when:
+        def test_item = new TestItem('network')
+        test.run(test_item)
+        println test_item.results.toString()
+
+        then:
+        test_item.results.size() > 0
+        test_item.devices.size() > 0
+        println test_item.devices.toString()
+        test_item.device_header.size() > 0
+    }
+
+    def "Linux デフォルトゲートウェイ"() {
+        setup:
+        test_server.dry_run = true
+        test_server.server_name = 'cent7'
+
+        test = new DomainTestRunner(test_server, 'Linux')
+
+        when:
+        def test_item = new TestItem('net_route')
+        test.run(test_item)
+        println test_item.results.toString()
+
+        then:
+        test_item.results.size() > 0
+    }
 }
