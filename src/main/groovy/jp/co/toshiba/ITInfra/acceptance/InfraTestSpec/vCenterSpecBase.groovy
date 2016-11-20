@@ -39,7 +39,6 @@ class vCenterSpecBase extends InfraTestSpec {
             |-user '${vcenter_user}' -password '${vcenter_password}'
             |-vcenter '${vcenter_ip}'
         """.stripMargin()
-
         if (vcenter_ip && vcenter_user && vcenter_password && vm) {
             runPowerShellTest('lib/template', 'vCenter', cmd, test_items)
         }
