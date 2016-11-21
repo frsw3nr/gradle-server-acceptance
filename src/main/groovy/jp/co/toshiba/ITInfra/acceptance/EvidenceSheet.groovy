@@ -137,10 +137,10 @@ class EvidenceSheet {
             (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
                 Row row = sheet.getRow(rownum)
                 try {
-                    def yes_no    = row.getCell(0).getStringCellValue()
-                    def test_id   = row.getCell(1).getStringCellValue()
-                    def domain    = row.getCell(3).getStringCellValue()
-                    def is_device = row.getCell(4).getStringCellValue()
+                    def yes_no    = row.getCell(0).getStringCellValue().trim()
+                    def test_id   = row.getCell(1).getStringCellValue().trim()
+                    def domain    = row.getCell(3).getStringCellValue().trim()
+                    def is_device = row.getCell(4).getStringCellValue().trim()
                     if (test_id && domain && yes_no.toUpperCase() == "Y") {
                         test_domains[domain] = 1
                         domain_test_ids[platform][domain].add(test_id)
