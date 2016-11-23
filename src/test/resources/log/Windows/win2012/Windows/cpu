@@ -6,6 +6,7 @@ Manufacturer      : GenuineIntel
 MaxClockSpeed     : 3193
 Name              : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
 SocketDesignation : CPU socket #0
+PSComputerName    : win2012
 
 Caption           : Intel64 Family 6 Model 60 Stepping 3
 DeviceID          : CPU1
@@ -13,6 +14,7 @@ Manufacturer      : GenuineIntel
 MaxClockSpeed     : 3193
 Name              : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
 SocketDesignation : CPU socket #1
+PSComputerName    : win2012
 
 
 

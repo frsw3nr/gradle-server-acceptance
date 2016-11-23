@@ -47,17 +47,16 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('cpu') {
                 new File("${local_dir}/cpu")
             }
-
             def cpuinfo    = [:].withDefault{0}
             def cpu_number = 0
             lines.eachLine {
-                (it =~ /DeviceID\s+:\s(.+)/).each {m0, m1->
+                (it =~ /^DeviceID\s+:\s(.+)$/).each {m0, m1->
                     cpu_number += 1
                 }
-                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+                (it =~ /^Name\s+:\s(.+)$/).each {m0, m1->
                     cpuinfo["model_name"] = m1
                 }
-                (it =~ /MaxClockSpeed\s+:\s(.+)/).each {m0, m1->
+                (it =~ /^MaxClockSpeed\s+:\s(.+)$/).each {m0, m1->
                     cpuinfo["mhz"] = m1
                 }
             }
@@ -99,21 +98,50 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    def system(TestItem test_item) {
+        run_script('Get-WmiObject -Class Win32_ComputerSystem') {
+            def lines = exec('system') {
+                new File("${local_dir}/system")
+            }
+            def systeminfo = [:]
+            lines.eachLine {
+                (it =~ /^(Domain|Manufacturer|Model|Name)\s*:\s+(.+?)$/).each {m0,m1,m2->
+                    systeminfo[m1] = m2
+                }
+            }
+            test_item.results(systeminfo)
+        }
+    }
+
     def driver(TestItem test_item) {
         run_script('Get-WmiObject Win32_PnPSignedDriver') {
             def lines = exec('driver') {
                 new File("${local_dir}/driver")
             }
-            def driverinfo = [:]
+            def device_number = 0
+            def driverinfo = [:].withDefault{[:]}
             lines.eachLine {
-                (it =~ /^DeviceName\s*:\s+(.*Network.*?)$/).each {m0,m1->
-                    driverinfo[m1] = 1
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    driverinfo[device_number][m1] = m2
                 }
+                if (it.size() == 0 && driverinfo[device_number].size() > 0)
+                    device_number ++
             }
-            test_item.results(driverinfo.keySet().toString())
+            device_number --
+            def headers = ['DeviceClass', 'DeviceID', 'DeviceName', 'DriverDate',
+                           'DriverProviderName', 'DriverVersion']
+            def csv = []
+            (0..device_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( driverinfo[row][header] ?: '')
+                }
+                csv << columns
+            }
+            test_item.devices(csv, headers)
+            test_item.results(device_number.toString())
         }
     }
-
 
     def filesystem(TestItem test_item) {
         run_script('Get-WmiObject Win32_LogicalDisk') {
@@ -161,8 +189,8 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             def value = ''
             lines.eachLine {
-                (it =~ /TimeOutValue\s+: (\d+)/).each {m0,m1->
-                    value = m1
+                (it =~ /(TimeOutValue|TimeoutValue)\s+: (\d+)/).each {m0,m1,m2->
+                    value = m2
                 }
             }
             test_item.results(value)
@@ -210,4 +238,53 @@ class WindowsSpecBase extends InfraTestSpec {
             test_item.results(network_info.toString())
         }
     }
+
+    def firewall(TestItem test_item) {
+        run_script('Get-NetFirewallRule -Direction Inbound -Enabled True') {
+            def lines = exec('firewall') {
+                new File("${local_dir}/firewall")
+            }
+            def instance_number = 0
+            def firewall_info = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    firewall_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && firewall_info[instance_number].size() > 0)
+                    instance_number ++
+            }
+            instance_number --
+            def headers = ['Name', 'DisplayGroup', 'DisplayName', 'Status']
+
+            def csv = []
+            (0..instance_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( firewall_info[row][header] ?: '')
+                }
+                csv << columns
+            }
+            test_item.devices(csv, headers)
+            test_item.results(instance_number.toString())
+
+        }
+    }
+
+    def dns(TestItem test_item) {
+        run_script('Get-DnsClientServerAddress|FL') {
+            def lines = exec('dns') {
+                new File("${local_dir}/dns")
+            }
+            def adresses = [:]
+            lines.eachLine {
+                // ServerAddresses : {192.168.0.254}
+                (it =~ /ServerAddresses\s+:\s+\{(.+)\}$/).each {m0,m1->
+                    adresses[m1] = 1
+                }
+            }
+            def value = adresses.keySet().toString()
+            test_item.results(value)
+        }
+    }
+
 }

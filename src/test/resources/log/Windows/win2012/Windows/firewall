@@ -1,0 +1,1719 @@
+﻿
+
+Name                    : WINRM-HTTP-In-TCP
+ID                      : WINRM-HTTP-In-TCP
+Group                   : @FirewallAPI.dll,-30267
+Platform                : {}
+LSM                     : False
+Profile                 : Domain, Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : WS-Management による Windows リモート管理のための受信規則です。[TCP 5985]
+ElementName             : @FirewallAPI.dll,-30253
+InstanceID              : WINRM-HTTP-In-TCP
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|WINRM-HTTP-In-TCP
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : Windows リモート管理
+DisplayName             : Windows リモート管理 (HTTP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 3
+RuleGroup               : @FirewallAPI.dll,-30267
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : WINRM-HTTP-In-TCP-PUBLIC
+ID                      : WINRM-HTTP-In-TCP-PUBLIC
+Group                   : @FirewallAPI.dll,-30267
+Platform                : {}
+LSM                     : False
+Profile                 : Public
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : WS-Management による Windows リモート管理のための受信規則です。[TCP 5985]
+ElementName             : @FirewallAPI.dll,-30253
+InstanceID              : WINRM-HTTP-In-TCP-PUBLIC
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|WINRM-HTTP-In-TCP-PUBLIC
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : Windows リモート管理
+DisplayName             : Windows リモート管理 (HTTP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 4
+RuleGroup               : @FirewallAPI.dll,-30267
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-DU-In
+ID                      : CoreNet-ICMP6-DU-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 到達不可能な宛先のエラー メッセージは、パケットが通過するノードで、輻輳以外の理由でパケットを転送できないときに送信されます。
+ElementName             : @FirewallAPI.dll,-25110
+InstanceID              : CoreNet-ICMP6-DU-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-DU-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - 到達不可能な宛先 (ICMPv6 受信)
+EdgeTraversalPolicy     : 1
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-PTB-In
+ID                      : CoreNet-ICMP6-PTB-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 「パケットが大きすぎます」というエラー メッセージは、パケットがノードを通過するとき、次のリンクに対してパケットが大きすぎるために転送できない場合に任意のノードから送信されます。
+ElementName             : @FirewallAPI.dll,-25001
+InstanceID              : CoreNet-ICMP6-PTB-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-PTB-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - パケットが大きすぎます (ICMPv6 受信)
+EdgeTraversalPolicy     : 1
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-TE-In
+ID                      : CoreNet-ICMP6-TE-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 時間超過のエラー メッセージは、パケットが通過するノードで、ホップ制限値がパスのいずれかの時点で 0 になるまで減少すると、生成されます。
+ElementName             : @FirewallAPI.dll,-25113
+InstanceID              : CoreNet-ICMP6-TE-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-TE-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - 時間超過 (ICMPv6 受信)
+EdgeTraversalPolicy     : 1
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-PP-In
+ID                      : CoreNet-ICMP6-PP-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : パラメーターの問題のエラー メッセージは、パケットが適切に生成されなかったとき、ノードから送信されます。
+ElementName             : @FirewallAPI.dll,-25116
+InstanceID              : CoreNet-ICMP6-PP-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-PP-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - パラメーターの問題 (ICMPv6 受信)
+EdgeTraversalPolicy     : 1
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-NDS-In
+ID                      : CoreNet-ICMP6-NDS-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 近隣探索要請は、別のオンリンク IPv6 ノードのリンクレイヤー アドレスを探索するためにノードから送信されます。
+ElementName             : @FirewallAPI.dll,-25019
+InstanceID              : CoreNet-ICMP6-NDS-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-NDS-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - 近隣探索要請 (ICMPv6 受信)
+EdgeTraversalPolicy     : 1
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-NDA-In
+ID                      : CoreNet-ICMP6-NDA-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 近隣探索アドバタイズのメッセージは、他のノードにリンクレイヤー アドレスの変更を通知するために、または近隣探索要請の応答としてノードから送信されます。
+ElementName             : @FirewallAPI.dll,-25026
+InstanceID              : CoreNet-ICMP6-NDA-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-NDA-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - 近隣探索アドバタイズ (ICMPv6 受信)
+EdgeTraversalPolicy     : 1
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-RA-In
+ID                      : CoreNet-ICMP6-RA-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : ルーター アドバタイズ メッセージは、ステートレス自動構成を提供するためにルーターから他のノードに送信されます。
+ElementName             : @FirewallAPI.dll,-25012
+InstanceID              : CoreNet-ICMP6-RA-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-RA-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - ルーター アドバタイズ (ICMPv6 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-RS-In
+ID                      : CoreNet-ICMP6-RS-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : ルーター要請メッセージは、ステートレス自動構成を提供するルーターを検索するノードから送信されます。
+ElementName             : @FirewallAPI.dll,-25009
+InstanceID              : CoreNet-ICMP6-RS-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-RS-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - ルーター要請 (ICMPv6-受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-LQ-In
+ID                      : CoreNet-ICMP6-LQ-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : IPv6 マルチキャスト対応ルーターでは、マルチキャスト リスナー クエリのメッセージを使用して、リンクでマルチキャスト グループ メンバーシップを検索します。
+ElementName             : @FirewallAPI.dll,-25061
+InstanceID              : CoreNet-ICMP6-LQ-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-LQ-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - マルチキャスト リスナー クエリ (ICMPv6 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-LR-In
+ID                      : CoreNet-ICMP6-LR-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : マルチキャスト リスナー レポートのメッセージは、特定のマルチキャスト アドレスでのマルチキャスト トラフィックの受信、またはマルチキャスト リスナー クエリに対する応答のいずれか求める
+                          情報をすぐに報告するため、リスニング ノードで使用されます。
+ElementName             : @FirewallAPI.dll,-25068
+InstanceID              : CoreNet-ICMP6-LR-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-LR-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - マルチキャスト リスナー レポート (ICMPv6 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-LR2-In
+ID                      : CoreNet-ICMP6-LR2-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : マルチキャスト リスナー レポート v2 のメッセージは、特定のマルチキャスト アドレスでのマルチキャスト トラフィックの受信、またはマルチキャスト リスナー クエリに対する応答のいずれ
+                          か求める情報をすぐに報告するため、リスニング ノードで使用されます。
+ElementName             : @FirewallAPI.dll,-25075
+InstanceID              : CoreNet-ICMP6-LR2-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-LR2-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - マルチキャスト リスナー レポート v2 (ICMPv6 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP6-LD-In
+ID                      : CoreNet-ICMP6-LD-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : マルチキャスト リスナー完了のメッセージは、サブネット上の特定のマルチキャスト アドレスにメンバーがいないことをローカル ルーターに通知します。
+ElementName             : @FirewallAPI.dll,-25082
+InstanceID              : CoreNet-ICMP6-LD-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP6-LD-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - マルチキャスト リスナー完了 (ICMPv6 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-ICMP4-DUFRAG-In
+ID                      : CoreNet-ICMP4-DUFRAG-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 到達不可能な宛先 - 断片化が必要というエラー メッセージは、パケットが通過するノードで、断片化が必要であるのに "don't fragment bit" が設定されているために転送でき
+                          ない場合に送信されます。
+ElementName             : @FirewallAPI.dll,-25251
+InstanceID              : CoreNet-ICMP4-DUFRAG-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-ICMP4-DUFRAG-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - 到達不可能な宛先 - 断片化が必要 (ICMPv4 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-IGMP-In
+ID                      : CoreNet-IGMP-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : ノードで IGMP メッセージが送受信され、マルチキャストキャスト グループの作成、参加、離脱が行われます。
+ElementName             : @FirewallAPI.dll,-25376
+InstanceID              : CoreNet-IGMP-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-IGMP-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - インターネット グループ管理プロトコル (IGMP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-DHCP-In
+ID                      : CoreNet-DHCP-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : ステートフルな自動構成のための DHCP (動的ホスト構成プロトコル) メッセージを許可します。
+ElementName             : @FirewallAPI.dll,-25301
+InstanceID              : CoreNet-DHCP-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-DHCP-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - 動的ホスト構成プロトコル (DHCP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-DHCPV6-In
+ID                      : CoreNet-DHCPV6-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : DHCPV6 (IPv6 用動的ホスト構成プロトコル) メッセージをステートフルおよびステートレス構成に対して許可します。
+ElementName             : @FirewallAPI.dll,-25304
+InstanceID              : CoreNet-DHCPV6-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-DHCPV6-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - IPv6 用動的ホスト構成プロトコル (DHCPV6-受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-Teredo-In
+ID                      : CoreNet-Teredo-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : Teredo エッジ トラバーサルを許可する受信 UDP 規則です。Teredo エッジ トラバーサルは、IPv6/IPv4 ホストが IPv4 ネットワーク アドレス変換器の後ろにある
+                          場合に、ユニキャスト IPv6 トラフィックにアドレスの割り当てと自動トンネルを提供するテクノロジです。
+ElementName             : @FirewallAPI.dll,-25326
+InstanceID              : CoreNet-Teredo-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-Teredo-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - Teredo (UDP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-IPHTTPS-In
+ID                      : CoreNet-IPHTTPS-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : IPHTTPS トンネリング テクノロジを許可することによって、HTTP プロキシやファイアウォールを越える接続を提供する受信 TCP 規則です。
+ElementName             : @FirewallAPI.dll,-25426
+InstanceID              : CoreNet-IPHTTPS-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-IPHTTPS-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - IPHTTPS (TCP-受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : CoreNet-IPv6-In
+ID                      : CoreNet-IPv6-In
+Group                   : @FirewallAPI.dll,-25000
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : ISATAP (Intra-Site Automatic Tunnel Addressing Protocol) および 6to4 トンネリング サービスに対して IPv6 トラフィック
+                          を許可するために必要な受信規則です。
+ElementName             : @FirewallAPI.dll,-25351
+InstanceID              : CoreNet-IPv6-In
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|CoreNet-IPv6-In
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : コア ネットワーク
+DisplayName             : コア ネットワーク - IPv6 (IPv6 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @FirewallAPI.dll,-25000
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {30A83A88-32E5-4956-BC28-6FE4A25EB0D4}
+ID                      : {30A83A88-32E5-4956-BC28-6FE4A25EB0D4}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 機能探索を介してデバイスを検出するためのネットワーク探索の受信規則です。[UDP 3702]
+ElementName             : @FirewallAPI.dll,-32809
+InstanceID              : {30A83A88-32E5-4956-BC28-6FE4A25EB0D4}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{30A83A88-32E5-4956-BC28-6FE4A25EB0D4}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (Pub WSD 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {6AB3AC76-1349-4F4B-9850-0F3D394E2608}
+ID                      : {6AB3AC76-1349-4F4B-9850-0F3D394E2608}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : リンク ローカル マルチキャスト名前解決を許可するためのネットワーク探索の受信規則です。[UDP 5355]
+ElementName             : @FirewallAPI.dll,-32801
+InstanceID              : {6AB3AC76-1349-4F4B-9850-0F3D394E2608}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{6AB3AC76-1349-4F4B-9850-0F3D394E2608}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (LLMNR UDP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {F7C40B6F-9556-41FA-96E7-390BF3C70D9D}
+ID                      : {F7C40B6F-9556-41FA-96E7-390BF3C70D9D}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 機能探索を介してデバイスを検出するためのネットワーク探索の受信規則です。[UDP 3702]
+ElementName             : @FirewallAPI.dll,-32785
+InstanceID              : {F7C40B6F-9556-41FA-96E7-390BF3C70D9D}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{F7C40B6F-9556-41FA-96E7-390BF3C70D9D}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (WSD 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {EA07AF55-12B1-466C-9F6F-E5293E3B6448}
+ID                      : {EA07AF55-12B1-466C-9F6F-E5293E3B6448}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : Simple Service Discovery Protocol の使用を許可するためのネットワーク探索の受信規則です。[UDP 1900]
+ElementName             : @FirewallAPI.dll,-32753
+InstanceID              : {EA07AF55-12B1-466C-9F6F-E5293E3B6448}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{EA07AF55-12B1-466C-9F6F-E5293E3B6448}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (SSDP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {3A5FCA93-BED7-4BD4-AD92-67374EEB8E2A}
+ID                      : {3A5FCA93-BED7-4BD4-AD92-67374EEB8E2A}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 機能探索による WSDAPI イベントを許可するためのネットワーク探索の受信規則です。 [TCP 5357]
+ElementName             : @FirewallAPI.dll,-32817
+InstanceID              : {3A5FCA93-BED7-4BD4-AD92-67374EEB8E2A}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{3A5FCA93-BED7-4BD4-AD92-67374EEB8E2A}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (WSD イベント受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {326BA7F5-91AB-42D1-A0B6-348DB46DFBC7}
+ID                      : {326BA7F5-91AB-42D1-A0B6-348DB46DFBC7}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 機能探索を介してセキュリティで保護された WSDAPI イベントを許可するためのネットワーク探索の受信規則です。 [TCP 5358]
+ElementName             : @FirewallAPI.dll,-32813
+InstanceID              : {326BA7F5-91AB-42D1-A0B6-348DB46DFBC7}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{326BA7F5-91AB-42D1-A0B6-348DB46DFBC7}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (WSD EventsSecure 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {D2756BCB-0571-4187-AB8C-B24F7E3EA276}
+ID                      : {D2756BCB-0571-4187-AB8C-B24F7E3EA276}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : NetBios データグラムの送受信を許可するためのネットワーク探索の受信規則です。[UDP 138]
+ElementName             : @FirewallAPI.dll,-32777
+InstanceID              : {D2756BCB-0571-4187-AB8C-B24F7E3EA276}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{D2756BCB-0571-4187-AB8C-B24F7E3EA276}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (NB データグラム受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {80F5277F-A51D-4E09-BEC1-A2D2DEF729C7}
+ID                      : {80F5277F-A51D-4E09-BEC1-A2D2DEF729C7}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : NetBIOS 名前解決を許可するためのネットワーク探索の受信規則です。[UDP 137]
+ElementName             : @FirewallAPI.dll,-32769
+InstanceID              : {80F5277F-A51D-4E09-BEC1-A2D2DEF729C7}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{80F5277F-A51D-4E09-BEC1-A2D2DEF729C7}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (NB 名受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {A73FA9E7-DB36-41BE-830A-E271E2BF844C}
+ID                      : {A73FA9E7-DB36-41BE-830A-E271E2BF844C}
+Group                   : @FirewallAPI.dll,-32752
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : ユニバーサル プラグ アンド プレイの使用を許可するためのネットワーク探索の受信規則です。[TCP 2869]
+ElementName             : @FirewallAPI.dll,-32761
+InstanceID              : {A73FA9E7-DB36-41BE-830A-E271E2BF844C}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{A73FA9E7-DB36-41BE-830A-E271E2BF844C}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : ネットワーク探索
+DisplayName             : ネットワーク探索 (UPnP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : @FirewallAPI.dll,-32752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {95906080-605C-45A0-8D2D-6DCEEBC56647}
+ID                      : {95906080-605C-45A0-8D2D-6DCEEBC56647}
+Group                   : @FirewallAPI.dll,-28752
+Platform                : {}
+LSM                     : False
+Profile                 : Domain, Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 既存のリモート デスクトップ セッションのシャドウ処理を許可するリモート デスクトップ サービスの受信規則です。(TCP 受信)
+ElementName             : @FirewallAPI.dll,-28778
+InstanceID              : {95906080-605C-45A0-8D2D-6DCEEBC56647}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{95906080-605C-45A0-8D2D-6DCEEBC56647}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : リモート デスクトップ
+DisplayName             : リモート デスクトップ - シャドウ (TCP 受信)
+EdgeTraversalPolicy     : 3
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 3
+RuleGroup               : @FirewallAPI.dll,-28752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {5E882839-7508-40C1-9F2C-000D230715ED}
+ID                      : {5E882839-7508-40C1-9F2C-000D230715ED}
+Group                   : @FirewallAPI.dll,-28752
+Platform                : {}
+LSM                     : False
+Profile                 : Domain, Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : RDP トラフィックを許可するためのリモート デスクトップ サービスの受信規則です。[UDP 3389]
+ElementName             : @FirewallAPI.dll,-28776
+InstanceID              : {5E882839-7508-40C1-9F2C-000D230715ED}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{5E882839-7508-40C1-9F2C-000D230715ED}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : リモート デスクトップ
+DisplayName             : リモート デスクトップ - ユーザー モード (UDP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 3
+RuleGroup               : @FirewallAPI.dll,-28752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {75CE67A9-5CCC-4565-8302-1E5C7218C971}
+ID                      : {75CE67A9-5CCC-4565-8302-1E5C7218C971}
+Group                   : @FirewallAPI.dll,-28752
+Platform                : {}
+LSM                     : False
+Profile                 : Domain, Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : RDP トラフィックを許可するためのリモート デスクトップ サービスの受信規則です。[TCP 3389]
+ElementName             : @FirewallAPI.dll,-28775
+InstanceID              : {75CE67A9-5CCC-4565-8302-1E5C7218C971}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{75CE67A9-5CCC-4565-8302-1E5C7218C971}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : リモート デスクトップ
+DisplayName             : リモート デスクトップ - ユーザー モード (TCP 受信)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 3
+RuleGroup               : @FirewallAPI.dll,-28752
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {73989135-1D32-4F8E-AC3F-C0ECC5FA9133}
+ID                      : {73989135-1D32-4F8E-AC3F-C0ECC5FA9133}
+Group                   : 
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 
+ElementName             : Firefox (C:\Program Files (x86)\Mozilla Firefox)
+InstanceID              : {73989135-1D32-4F8E-AC3F-C0ECC5FA9133}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{73989135-1D32-4F8E-AC3F-C0ECC5FA9133}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : 
+DisplayName             : Firefox (C:\Program Files (x86)\Mozilla Firefox)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : 
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {086BC20E-1F7B-4EB6-94FF-8A96B4A7301B}
+ID                      : {086BC20E-1F7B-4EB6-94FF-8A96B4A7301B}
+Group                   : 
+Platform                : {}
+LSM                     : False
+Profile                 : Private
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 
+ElementName             : Firefox (C:\Program Files (x86)\Mozilla Firefox)
+InstanceID              : {086BC20E-1F7B-4EB6-94FF-8A96B4A7301B}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{086BC20E-1F7B-4EB6-94FF-8A96B4A7301B}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : 
+DisplayName             : Firefox (C:\Program Files (x86)\Mozilla Firefox)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 2
+RuleGroup               : 
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : IIS-WebServerRole-HTTP-In-TCP
+ID                      : IIS-WebServerRole-HTTP-In-TCP
+Group                   : @%windir%\system32\inetsrv\iisres.dll,-30501
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : インターネット インフォメーション サービス (IIS) の HTTP トラフィックを許可するための受信規則 [TCP 80]
+ElementName             : @%windir%\system32\inetsrv\iisres.dll,-30500
+InstanceID              : IIS-WebServerRole-HTTP-In-TCP
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|IIS-WebServerRole-HTTP-In-TCP
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : World Wide Web サービス (HTTP)
+DisplayName             : World Wide Web サービス (HTTP トラフィック)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @%windir%\system32\inetsrv\iisres.dll,-30501
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : IIS-WebServerRole-HTTPS-In-TCP
+ID                      : IIS-WebServerRole-HTTPS-In-TCP
+Group                   : @%windir%\system32\inetsrv\iisres.dll,-30503
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : インターネット インフォメーション サービス (IIS) の HTTP トラフィックを許可するための受信規則 [TCP 443]
+ElementName             : @%windir%\system32\inetsrv\iisres.dll,-30502
+InstanceID              : IIS-WebServerRole-HTTPS-In-TCP
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|IIS-WebServerRole-HTTPS-In-TCP
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : セキュア World Wide Web サービス (HTTPS)
+DisplayName             : World Wide Web サービス (HTTPS トラフィック)
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : @%windir%\system32\inetsrv\iisres.dll,-30503
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+Name                    : {936EA542-922D-4E84-89B8-4829138CCF0E}
+ID                      : {936EA542-922D-4E84-89B8-4829138CCF0E}
+Group                   : 
+Platform                : {}
+LSM                     : False
+Profile                 : Any
+PSComputerName          : win2012
+RunspaceId              : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+Caption                 : 
+Description             : 
+ElementName             : Allow WinRM HTTPS
+InstanceID              : {936EA542-922D-4E84-89B8-4829138CCF0E}
+CommonName              : 
+PolicyKeywords          : 
+Enabled                 : 1
+PolicyDecisionStrategy  : 2
+PolicyRoles             : 
+ConditionListType       : 3
+CreationClassName       : MSFT|FW|FirewallRule|{936EA542-922D-4E84-89B8-4829138CCF0E}
+ExecutionStrategy       : 2
+Mandatory               : 
+PolicyRuleName          : 
+Priority                : 
+RuleUsage               : 
+SequencedActions        : 3
+SystemCreationClassName : 
+SystemName              : 
+Action                  : 2
+Direction               : 1
+DisplayGroup            : 
+DisplayName             : Allow WinRM HTTPS
+EdgeTraversalPolicy     : 0
+EnforcementStatus       : {0}
+LocalOnlyMapping        : False
+LooseSourceMapping      : False
+Owner                   : 
+Platforms               : {}
+PolicyStoreSource       : PersistentStore
+PolicyStoreSourceType   : 1
+PrimaryStatus           : 1
+Profiles                : 0
+RuleGroup               : 
+Status                  : 規則は、ストアから正常に解析されました。
+StatusCode              : 65536
+
+
+
