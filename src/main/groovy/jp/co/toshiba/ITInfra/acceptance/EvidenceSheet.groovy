@@ -406,6 +406,9 @@ class EvidenceSheet {
                     body_row_index ++
                 }
             }
+            (0..header_column_index).each {
+                sheet.autoSizeColumn(it, true)
+            }
         }
         def fos = new FileOutputStream(evidence_target)
         wb.write(fos)

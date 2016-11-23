@@ -1,1 +1,11 @@
 ﻿
+
+    Hive: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
+
+
+Name                           Property                                     PSComputerName                             
+----                           --------                                     --------------                             
+FIPSAlgorithmPolicy            Enabled    : 0                               win2012                                    
+                               MDMEnabled : 0                                                                          
+
+

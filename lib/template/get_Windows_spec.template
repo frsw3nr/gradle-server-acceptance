@@ -9,8 +9,9 @@ Param(
 \$cred     = New-Object System.Management.Automation.PsCredential \$user, \$secure
 
 \$ErrorActionPreference = "Stop"
+\$session = \$null
 try {
-    Enter-PSSession -Credential \$cred -ComputerName \$ip
+    \$script:session  = New-PSSession \$server -Credential \$cred
 } catch [Exception] {
     Write-Error "\$error"
     exit 1
@@ -20,9 +21,11 @@ try {
 <%
 commands.each { command ->
 %>\
-<%= command.line %> | Out-File "\$log_dir/<%= command.test_id %>" -Encoding UTF8
+Invoke-Command -Session \$session -ScriptBlock { `
+    <%= command.line %> `
+} | Out-File "\$log_dir/<%= command.test_id %>" -Encoding UTF8
 <%
 }
 %>\
 
-Exit-PSSession
+Remove-PSSession \$session

@@ -22,7 +22,7 @@ class WindowsBaseTest extends Specification {
         test_server.dry_run = true
     }
 
-    def "Windows テスト仕様のロード"() {
+    def "Windows テスト仕様 cpu"() {
         setup:
         test = new DomainTestRunner(test_server, 'Windows')
 
@@ -31,17 +31,80 @@ class WindowsBaseTest extends Specification {
         test.run(test_item)
 
         then:
-        println test_item.results.toString()
         test_item.results.size() > 0
     }
 
 
-    def "Windows メモリ容量"() {
+    def "Windows テスト仕様 memory"() {
         setup:
         test = new DomainTestRunner(test_server, 'Windows')
 
         when:
         def test_item = new TestItem('memory')
+        test.run(test_item)
+
+        then:
+        test_item.results.size() > 0
+    }
+
+    def "Windows テスト仕様 system"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('system')
+        test.run(test_item)
+
+        then:
+        println test_item.results.toString()
+        test_item.results.size() > 0
+    }
+
+    def "Windows テスト仕様 driver"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('driver')
+        test.run(test_item)
+
+        then:
+        println test_item.results.toString()
+        test_item.results.size() > 0
+    }
+
+    def "Windows テスト仕様 firewall"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('firewall')
+        test.run(test_item)
+
+        then:
+        println test_item.results.toString()
+        test_item.results.size() > 0
+    }
+
+    def "Windows テスト仕様 dns"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('dns')
+        test.run(test_item)
+
+        then:
+        println test_item.results.toString()
+        test_item.results.size() > 0
+    }
+
+    def "Windows テスト仕様 storage_timeout"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('storage_timeout')
         test.run(test_item)
 
         then:
@@ -76,13 +139,13 @@ class WindowsBaseTest extends Specification {
         test = new DomainTestRunner(test_server, 'Windows')
 
         def test_ids = [
-            // 'cpu',
-            // 'driver',
-            // 'filesystem',
-            // 'fips',
-            // 'memory',
+            'cpu',
+            'driver',
+            'filesystem',
+            'fips',
+            'memory',
             'network',
-            // 'virturalization',
+            'virturalization',
         ]
         def test_items = []
         test_ids.each {
@@ -112,5 +175,6 @@ class WindowsBaseTest extends Specification {
         then:
         test_item.results.size() == 0
     }
+
 
 }

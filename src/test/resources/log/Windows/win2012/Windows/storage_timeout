@@ -1,0 +1,20 @@
+﻿
+
+ImagePath            : System32\drivers\disk.sys
+Type                 : 1
+Start                : 0
+ErrorControl         : 1
+DisplayName          : @disk.inf,%disk_ServiceDesc%;Disk Driver
+Owners               : {disk.inf}
+AutoRunAlwaysDisable : {Brother RemovableDisk(U)}
+TimeoutValue         : 60
+PSPath               : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\disk
+PSParentPath         : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+PSChildName          : disk
+PSDrive              : HKLM
+PSProvider           : Microsoft.PowerShell.Core\Registry
+PSComputerName       : win2012
+RunspaceId           : b5e3a42a-3b19-40d1-8860-57b5b90c0b7b
+
+
+
