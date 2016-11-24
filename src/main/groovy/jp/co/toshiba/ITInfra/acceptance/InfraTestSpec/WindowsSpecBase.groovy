@@ -299,7 +299,68 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             test_item.devices(csv, headers)
             test_item.results(instance_number.toString())
+        }
+    }
 
+    def service(TestItem test_item) {
+        run_script('Get-Service | FL') {
+            def lines = exec('service') {
+                new File("${local_dir}/service")
+            }
+            def instance_number = 0
+            def service_info = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    service_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && service_info[instance_number].size() > 0)
+                    instance_number ++
+            }
+            instance_number --
+            def headers = ['Name', 'DisplayName', 'Status']
+
+            def csv = []
+            (0..instance_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( service_info[row][header] ?: '')
+                }
+                csv << columns
+            }
+            test_item.devices(csv, headers)
+            test_item.results(instance_number.toString())
+        }
+    }
+
+    def user(TestItem test_item) {
+        run_script('Get-WmiObject Win32_UserAccount | FL') {
+            def lines = exec('user') {
+                new File("${local_dir}/user")
+            }
+            def account_number = 0
+            def account_info   = [:].withDefault{[:]}
+            def user_names     = []
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    account_info[account_number][m1] = m2
+                }
+                if (it.size() == 0 && account_info[account_number].size() > 0)
+                    account_number ++
+            }
+            account_number --
+            def headers = ['Name', 'FullName', 'Caption', 'Domain']
+
+            def csv = []
+            (0..account_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( account_info[row][header] ?: '')
+                }
+                user_names.add(account_info[row]['Name'])
+                csv << columns
+            }
+            test_item.devices(csv, headers)
+            test_item.results(user_names.toString())
         }
     }
 
@@ -320,4 +381,18 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    def ntp(TestItem test_item) {
+        run_script('w32tm /query /status') {
+            def lines = exec('ntp') {
+                new File("${local_dir}/ntp")
+            }
+            def adress = '<ng>'
+            lines.eachLine {
+                (it =~ /^(NtpServer|ソース)\s*:\s*(.+?)$/).each {m0, m1, m2->
+                    adress = m2
+                }
+            }
+            test_item.results(adress)
+        }
+    }
 }
