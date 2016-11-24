@@ -65,6 +65,35 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    def os(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject Win32_OperatingSystem | `
+            |    Format-List Caption,CSDVersion,ProductType,OSArchitecture
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('os') {
+                new File("${local_dir}/os")
+            }
+            def osinfo    = [:].withDefault{0}
+            lines.eachLine {
+                (it =~ /^Caption\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_caption'] = m1
+                }
+                (it =~ /^CSDVersion\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_csd_version'] = m1
+                }
+                (it =~ /^ProductType\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_product_type'] = m1
+                }
+                (it =~ /^OSArchitecture\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_architecture'] = m1
+                }
+            }
+            test_item.results(osinfo)
+        }
+    }
+
     def memory(TestItem test_item) {
         def command = '''\
             |Get-WmiObject Win32_OperatingSystem | `
@@ -201,7 +230,7 @@ class WindowsSpecBase extends InfraTestSpec {
         def command = '''\
             |Get-WmiObject Win32_NetworkAdapterConfiguration | `
             | Where{$_.IpEnabled -Match "True"} | `
-            | Select MacAddress, IPAddress, DefaultIPGateway, Description | `
+            | Select MacAddress, IPAddress, DefaultIPGateway, Description, IPSubnet | `
             | Format-List `
             |'''.stripMargin()
 
@@ -225,15 +254,19 @@ class WindowsSpecBase extends InfraTestSpec {
                 (it =~ /^DefaultIPGateway\s*:\s+(.+)$/).each {m0,m1->
                     tmp['gw'] = m1
                 }
-                (it =~ /^Description\s*:\s+(.+?)$/).each {m0,m1->
+                (it =~ /^Description\s*:\s+(.+)$/).each {m0,m1->
+                    tmp['desc'] = m1
+                }
+                (it =~ /^IPSubnet\s*:\s+(.+?)$/).each {m0,m1->
                     network_info[m1]['dhcp'] = tmp['dhcp']
                     network_info[m1]['ip']   = tmp['ip']
                     network_info[m1]['mac']  = tmp['mac']
                     network_info[m1]['gw']   = tmp['gw']
-                    csv << [m1, tmp['ip'], tmp['mac'], tmp['gw'], tmp['dhcp']]
+                    network_info[m1]['desc']   = tmp['desc']
+                    csv << [tmp['desc'], tmp['ip'], tmp['mac'], tmp['gw'], tmp['dhcp'], m1]
                 }
             }
-            def headers = ['device', 'ip', 'mac', 'gw', 'dhcp']
+            def headers = ['device', 'ip', 'mac', 'gw', 'dhcp', 'subnet']
             test_item.devices(csv, headers)
             test_item.results(network_info.toString())
         }
