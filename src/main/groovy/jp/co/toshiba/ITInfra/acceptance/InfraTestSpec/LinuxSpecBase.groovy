@@ -7,6 +7,8 @@ import static groovy.json.JsonOutput.*
 import org.hidetake.groovy.ssh.Ssh
 import org.hidetake.groovy.ssh.session.execution.*
 import jp.co.toshiba.ITInfra.acceptance.*
+import org.apache.commons.net.util.SubnetUtils
+import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 @Slf4j
 @InheritConstructors
@@ -241,6 +243,12 @@ class LinuxSpecBase extends InfraTestSpec {
             // inet 127.0.0.1/8 scope host lo
             (it =~ /inet\s+(.*?)\s/).each {m0, m1->
                 network[device]['ip'] = m1
+                try {
+                    SubnetInfo subnet = new SubnetUtils(m1).getInfo()
+                    network[device]['subnet'] = subnet.getNetmask()
+                } catch (IllegalArgumentException e) {
+                    log.error "[LinuxTest] subnet convert : m1\n" + e
+                }
             }
 
             // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
@@ -252,16 +260,16 @@ class LinuxSpecBase extends InfraTestSpec {
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
         network.each { device_id, items ->
             def columns = [device_id]
-            ['ip', 'mtu', 'state', 'mac'].each {
+            ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
                 columns.add(items[it] ?: 'NaN')
             }
             csv << columns
         }
-        def headers = ['device', 'ip', 'mtu', 'state', 'mac']
+        def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
 
         test_item.results([
-            'network' : network.toString(),
+            'network' : network.keySet().toString(),
             'hw_address' : hw_address.toString()
             ])
     }
@@ -356,22 +364,24 @@ class LinuxSpecBase extends InfraTestSpec {
         //   ├─vg_ostrich-lv_root (dm-0) 253:0    0 26.5G  0 lvm  /
         //   └─vg_ostrich-lv_swap (dm-1) 253:1    0    3G  0 lvm  [SWAP]
         def csv = []
+        def filesystems = [:]
         lines.eachLine {
             (it =~  /^(.+?)\s+(\d+:\d+\s.+)$/).each { m0,m1,m2->
                 def device = m1
                 def arr = [device]
-                arr.addAll(m2.split(/\s+/))
+                def columns = m2.split(/\s+/)
+                if (columns.size() == 6) {
+                    def mount = columns[5]
+                    filesystems['filesystem.' + mount] = columns[2]
+                }
+                arr.addAll(columns)
                 csv << arr
-            }
-            // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
-            (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
-                hw_address.add(m1)
             }
         }
         def headers = ['name', 'maj:min', 'rm', 'size', 'ro', 'type', 'mountpoint']
         test_item.devices(csv, headers)
-
-        test_item.results(lines)
+        filesystems['filesystem'] = csv.size()
+        test_item.results(filesystems)
     }
 
     def filesystem_df_ip(session, test_item) {
@@ -414,7 +424,8 @@ class LinuxSpecBase extends InfraTestSpec {
             def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
             run_ssh_command(session, "${command} ${argument}", 'packages')
         }
-        def packages = [:].withDefault{0}
+        def package_info = [:].withDefault{0}
+        def distributions = [:].withDefault{0}
         def csv = []
         lines.eachLine {
             def arr = it.split(/\t/)
@@ -425,17 +436,94 @@ class LinuxSpecBase extends InfraTestSpec {
                 release_label = 'RHEL5'
             } else if (release =~ /el6/) {
                 release_label = 'RHEL6'
+            } else if (release =~ /el7/) {
+                release_label = 'RHEL7'
             }
             def install_time = Long.decode(arr[4]) * 1000L
             arr[4] = new Date(install_time).format("yyyy/MM/dd HH:mm:ss")
             csv << arr
             def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
-            packages[release_label] ++
+            distributions[release_label] ++
+            package_info['packages.' + packagename] = arr[2]
         }
         def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
+        package_info['packages'] = distributions.toString()
         test_item.devices(csv, headers)
-        test_item.results(packages.toString())
+        test_item.results(package_info)
     }
+
+    def user(session, test_item) {
+        def lines = exec('user') {
+            run_ssh_command(session, "cat /etc/passwd", 'user')
+        }
+        def group_lines = exec('group') {
+            run_ssh_command(session, "cat /etc/group", 'group')
+        }
+        def groups = [:].withDefault{0}
+        // root:x:0:
+        group_lines.eachLine {
+            ( it =~ /^(.+?):(.+?):(\d+)/).each {m0,m1,m2,m3->
+                groups[m3] = m1
+            }
+        }
+        def csv = []
+        def user_count = 0
+        def users = [:].withDefault{'unkown'}
+        lines.eachLine {
+            def arr = it.split(/:/)
+            if (arr.size() > 4) {
+                def username = arr[0]
+                def user_id  = arr[2]
+                def group_id = arr[3]
+                def group    = groups[group_id] ?: 'Unkown'
+
+                csv << [username, user_id, group_id, group]
+                user_count ++
+                users['user.' + username] = 'OK'
+            }
+        }
+        def headers = ['UserName', 'UserID', 'GroupID', 'Group']
+        test_item.devices(csv, headers)
+        users['user'] = user_count
+        test_item.results(users)
+    }
+
+    def service(session, test_item) {
+        def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
+        if (isRHEL7 == '0') {
+            def lines = exec('service') {
+                run_ssh_command(session, '/usr/bin/systemctl status service', 'service')
+            }
+            def service = 'inactive'
+            lines.eachLine {
+                ( it =~ /Active: (.+?)\s/).each {m0,m1->
+                     service = m1
+                }
+            }
+            test_item.results(service)
+        } else {
+            def lines = exec('service') {
+                run_ssh_command(session, '/sbin/chkconfig --list', 'service')
+            }
+            def services = [:].withDefault{'unkown'}
+            def csv = []
+            def service_count = 0
+            lines.eachLine {
+                ( it =~ /^(.+?)\s.*\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3,m4->
+                    def service_name = 'service.' + m1
+                    def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
+                    services[service_name] = status
+                    def columns = [m1, status]
+                    csv << columns
+                    service_count ++
+                }
+            }
+            services['service'] = service_count.toString()
+            test_item.devices(csv, ['Name', 'Status'])
+            test_item.results(services)
+        }
+    }
+
 
     def mount_iso(session, test_item) {
         def lines = exec('mount_iso') {

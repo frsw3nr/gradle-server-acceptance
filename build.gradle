@@ -24,6 +24,7 @@ dependencies {
     compile "commons-cli:commons-cli:1.2"
     compile "commons-lang:commons-lang:2.6"
     compile "commons-io:commons-io:2.4"
+    compile "commons-net:commons-net:3.3"
     compile 'org.codehaus.groovy:groovy-all:2.4.+'
     compile 'org.codehaus.gpars:gpars:1.2.0'
     compile 'org.hidetake:groovy-ssh:latest.release'

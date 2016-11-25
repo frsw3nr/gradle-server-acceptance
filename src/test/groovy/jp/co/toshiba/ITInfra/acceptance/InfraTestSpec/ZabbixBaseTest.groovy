@@ -4,6 +4,8 @@ import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import org.json.JSONObject;
 import org.json.JSONException;
 import com.goebl.david.Webb;
+import org.apache.commons.net.util.SubnetUtils
+import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 // gradlew --daemon clean test --tests "ZabbixBaseTest.Zabbix 認証"
 
@@ -59,4 +61,29 @@ class ZabbixBaseTest extends Specification {
         1 == 1
     }
 
+    def "subnet"() {
+        setup:
+        when:
+        String subnet = "192.168.0.0/16";
+        SubnetUtils subnetUtils = new SubnetUtils(subnet);
+        SubnetInfo subnetInfo = subnetUtils.getInfo();
+
+        System.out.println("サブネット : " + subnet);
+        System.out.println("下限 : " + subnetInfo.getLowAddress());
+        System.out.println("上限 : " + subnetInfo.getHighAddress());
+
+        then:
+        subnetInfo.getNetmask() == '255.255.0.0'
+    }
+
+    def "subnet_ng"() {
+        setup:
+        when:
+        String subnet = "hoge";
+        SubnetUtils subnetUtils = new SubnetUtils(subnet);
+        SubnetInfo subnetInfo = subnetUtils.getInfo();
+
+        then:
+        thrown(IllegalArgumentException)
+    }
 }

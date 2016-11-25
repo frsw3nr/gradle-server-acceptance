@@ -178,7 +178,7 @@ class WindowsSpecBase extends InfraTestSpec {
                 new File("${local_dir}/filesystem")
             }
             def csv = []
-            def filesystem_info = [:]
+            def filesystems = [:]
             def device_id
             lines.eachLine {
                 (it =~ /^DeviceID\s*:\s+(.+)$/).each {m0,m1->
@@ -186,13 +186,14 @@ class WindowsSpecBase extends InfraTestSpec {
                 }
                 (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
                     def size_gb = m1.toDouble()/(1000*1000*1000)
-                    filesystem_info[device_id] = size_gb
+                    filesystems['filesystem.' + device_id] = size_gb
                     csv << [device_id, size_gb]
                 }
             }
             def headers = ['device_id', 'size_gb']
             test_item.devices(csv, headers)
-            test_item.results(filesystem_info.toString())
+            filesystems['filesystem'] = csv.size()
+            test_item.results(filesystems)
         }
     }
 

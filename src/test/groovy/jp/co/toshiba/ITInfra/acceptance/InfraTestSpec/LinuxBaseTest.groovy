@@ -158,4 +158,38 @@ class LinuxBaseTest extends Specification {
         then:
         test_item.results.size() > 0
     }
+
+    def "Linux アカウント"() {
+        setup:
+        test_server.dry_run = true
+        test_server.server_name = 'cent7'
+
+        test = new DomainTestRunner(test_server, 'Linux')
+
+        when:
+        def test_item = new TestItem('user')
+        test.run(test_item)
+        println test_item.results.toString()
+
+        then:
+        1 == 1
+        // test_item.results.size() > 0
+    }
+
+    def "Linux ファイルシステム"() {
+        setup:
+        test_server.dry_run = true
+        test_server.server_name = 'cent7'
+
+        test = new DomainTestRunner(test_server, 'Linux')
+
+        when:
+        def test_item = new TestItem('filesystem')
+        test.run(test_item)
+        println test_item.results.toString()
+
+        then:
+        1 == 1
+        // test_item.results.size() > 0
+    }
 }

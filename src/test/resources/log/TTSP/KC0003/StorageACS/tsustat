@@ -1,0 +1,25 @@
+
+access path:               192.168.10.1
+model:                     SC3000
+system ID:                 0x42cccaaa
+system code:               KC0003
+
+controller unit status:    GOOD
+controller No.:            0
+ status:                   GOOD
+ device name:              ---
+ WWPN:                     ---
+ hardware ID:              0x07
+ FW revision:              1150
+ cache status:             GOOD
+controller No.:            1
+ status:                   GOOD
+ device name:              ---
+ WWPN:                     ---
+ hardware ID:              0x07
+ FW revision:              1150
+ cache status:             GOOD
+battery 0 status:          GOOD
+battery 1 status:          GOOD
+power supply status:       GOOD
+fan status:                GOOD
