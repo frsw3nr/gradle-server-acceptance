@@ -1,11 +1,12 @@
 // 検査仕様シート定義
 
 evidence.source = './サーバーチェックシート.xlsx'
-evidence.sheet_name_server = 'チェック対象VM'
+evidence.sheet_name_server = 'チェック対象'
 evidence.sheet_name_rule = '検査ルール'
 evidence.sheet_name_spec = [
-    'Linux':   'ゲストOS払出しチェックシート(Linux)',
-    'Windows': 'ゲストOS払出しチェックシート(Windows)',
+    'Linux':   'ゲストOSチェックシート(Linux)',
+    'Windows': 'ゲストOSチェックシート(Windows)',
+    'VMHost':  'ESXiホストチェックシート(VMHost)',
 ]
 
 // 検査結果ファイル出力先
@@ -19,7 +20,7 @@ evidence.staging_dir='./build/log.<date>'
 // 並列化しないタスク
 // 並列度を指定をしても、指定したドメインタスクはシリアルに実行する
 
-test.serialization.tasks = ['vCenter']
+test.serialization.tasks = ['vCenter', 'VMHost']
 
 // DryRunモードログ保存先
 
@@ -31,6 +32,7 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 test.Linux.timeout   = 30
 test.Windows.timeout = 300
 test.vCenter.timeout = 300
+test.VMHost.timeout  = 300
 
 // vCenter接続情報
 

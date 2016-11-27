@@ -39,7 +39,7 @@ C:.
     各項目の設定方法は**ドキュメント:使用方法** を参照してください。
     ここではカスタマイズで使用する項目を説明します。
 
-    *シート : "チェック対象VM"*
+    *シート : "チェック対象"*
 
     12行目以降の空欄の行はサーバ構成情報を追加するフィールドとなり、検査スクリプト内で**server_info**　変数を用いて値を参照します。
 
@@ -47,6 +47,13 @@ C:.
     検査コード内に **server_info['java\_version']** の記述で値を参照します。
     * 既存の項目参照も可能です。**server_info['ip']** とすることで、 
     項目ID **'ip'** のIPアドレスの値を参照できます。
+
+    *シート : "チェックシート(プラットフォーム)"*
+
+    ID が "filesystem.*", "user.*", "service.*", "packages.*" の行はカスタム項目となります。
+    システム構成／要件に合わせて行の削除、追加、変更をしてください。
+    デバイスが 'Y' の検査項目となり、ID に "{項目名}.{デバイス名}" を指定して、
+    指定デバイスの検査を定義します。
 
     *シート : "検査ルール"*
 
@@ -91,16 +98,18 @@ C:.
 
     *ドメインベースクラス*
 
-    main/src/main/groovy/jp/cp/toshiba/ITInfra/acceptance/InfraTestSpec/ の下の、
+    main/src/main/groovy/jp/cp/toshiba/ITInfra/acceptance/InfraTestSpec/ の下のスクリプト。
+    **各検査項目のメソッド** を記述しています。
 
-    **LinuxSpecBase.groovy**、**WindowsSpecBase.groovy**、**vCenterSpecBase.groovy**
-
-    Linux,Windows,vCenter の**各検査項目のメソッド** を記述しています。
+    * **LinuxSpecBase.groovy** Linux 検査シナリオ
+    * **WindowsSpecBase.groovy** Windows 検査シナリオ
+    * **vCenterSpecBase.groovy** vCenter 検査シナリオ
+    * **VMHostSpecBase.groovy** ESXiホスト 検査シナリオ
 
     **注意事項 :**
 
     上記コードはアーカイブファイル内のJarファイルに埋め込んでいます。
-    ソースコードを参照する場合は GitHub リポジトリから参照してください。
+    ソースコードを参照する場合は ソースコードリポジトリから参照してください。
 
 
 SSH検査シナリオのカスタマイズ

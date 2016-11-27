@@ -13,6 +13,7 @@ import org.apache.commons.cli.Option
 @Slf4j
 class TestRunner {
 
+    String getconfig_home
     String test_resource
     String config_file
     String sheet_file
@@ -23,6 +24,7 @@ class TestRunner {
     Boolean verify_test
 
     def parse(String[] args) {
+        getconfig_home = System.getProperty("user.dir")
         def cli = new CliBuilder(usage:'getspec')
         cli.with {
             c longOpt: 'config',   args: 1, 'Config file path : ./config/config.groovy'
@@ -87,8 +89,8 @@ class TestRunner {
 
         test_resource = (options.r) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
         config['test']['dry_run_staging_dir'] = test_resource
-
         log.info "Parse Arguments : " + args.toString()
+        log.info "\thome          : " + getconfig_home
         log.info "\ttest_resource : " + test_resource
         log.info "\tconfig_file   : " + config_file
         log.info "\tsheet_file    : " + sheet_file

@@ -231,7 +231,7 @@ class WindowsSpecBase extends InfraTestSpec {
         def command = '''\
             |Get-WmiObject Win32_NetworkAdapterConfiguration | `
             | Where{$_.IpEnabled -Match "True"} | `
-            | Select MacAddress, IPAddress, DefaultIPGateway, Description, IPSubnet | `
+            | Select ServiceName, MacAddress, IPAddress, DefaultIPGateway, Description, IPSubnet | `
             | Format-List `
             |'''.stripMargin()
 
@@ -239,37 +239,36 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('network') {
                 new File("${local_dir}/network")
             }
-            def network_info = [:].withDefault{[:]}
-            def tmp = [:].withDefault{''}
-            def csv = []
+            def device_number = 0
+            def network_info  = [:].withDefault{[:]}
             lines.eachLine {
-                (it =~ /^DHCPEnabled\s*:\s+(.+)$/).each {m0,m1->
-                    tmp['dhcp'] = m1
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    network_info[device_number][m1] = m2
                 }
-                (it =~ /^IPAddress\s*:\s+(.+)$/).each {m0,m1->
-                    tmp['ip'] = m1
-                }
-                (it =~ /^MacAddress\s*:\s+(.+)$/).each {m0,m1->
-                    tmp['mac'] = m1
-                }
-                (it =~ /^DefaultIPGateway\s*:\s+(.+)$/).each {m0,m1->
-                    tmp['gw'] = m1
-                }
-                (it =~ /^Description\s*:\s+(.+)$/).each {m0,m1->
-                    tmp['desc'] = m1
-                }
-                (it =~ /^IPSubnet\s*:\s+(.+?)$/).each {m0,m1->
-                    network_info[m1]['dhcp'] = tmp['dhcp']
-                    network_info[m1]['ip']   = tmp['ip']
-                    network_info[m1]['mac']  = tmp['mac']
-                    network_info[m1]['gw']   = tmp['gw']
-                    network_info[m1]['desc']   = tmp['desc']
-                    csv << [tmp['desc'], tmp['ip'], tmp['mac'], tmp['gw'], tmp['dhcp'], m1]
-                }
+                if (it.size() == 0 && network_info[device_number].size() > 0)
+                    device_number ++
             }
-            def headers = ['device', 'ip', 'mac', 'gw', 'dhcp', 'subnet']
+            device_number --
+            def headers = ['ServiceName', 'MacAddress', 'IPAddress',
+                           'DefaultIPGateway', 'Description', 'IPSubnet']
+
+            def csv      = []
+            def networks = [:]
+            def devices  = []
+            (0..device_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( network_info[row][header] ?: '')
+                }
+                csv << columns
+                def service_name = network_info[row]['ServiceName']
+                def ip_address   = network_info[row]['IPAddress']
+                networks['network.' + service_name] = ip_address
+                devices.add(service_name)
+            }
+            networks['network'] = devices.toString()
             test_item.devices(csv, headers)
-            test_item.results(network_info.toString())
+            test_item.results(networks)
         }
     }
 
@@ -320,16 +319,20 @@ class WindowsSpecBase extends InfraTestSpec {
             instance_number --
             def headers = ['Name', 'DisplayName', 'Status']
 
-            def csv = []
+            def csv      = []
+            def services = [:]
             (0..instance_number).each { row ->
                 def columns = []
                 headers.each { header ->
                     columns.add( service_info[row][header] ?: '')
                 }
+                def service_id = 'service.' + service_info[row]['Name']
+                services[service_id] = service_info[row]['Status']
                 csv << columns
             }
+            services['service'] = instance_number.toString()
             test_item.devices(csv, headers)
-            test_item.results(instance_number.toString())
+            test_item.results(services)
         }
     }
 
@@ -387,7 +390,7 @@ class WindowsSpecBase extends InfraTestSpec {
             def lines = exec('ntp') {
                 new File("${local_dir}/ntp")
             }
-            def adress = '<ng>'
+            def adress = 'NG'
             lines.eachLine {
                 (it =~ /^(NtpServer|ソース)\s*:\s*(.+?)$/).each {m0, m1, m2->
                     adress = m2

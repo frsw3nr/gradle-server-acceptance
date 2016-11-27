@@ -30,18 +30,28 @@ Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject -Class Win32_ComputerSystem `
 } | Out-File "$log_dir/system" -Encoding UTF8
 Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject Win32_OperatingSystem | `
+    Format-List Caption,CSDVersion,ProductType,OSArchitecture `
+} | Out-File "$log_dir/os" -Encoding UTF8
+Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject Win32_PnPSignedDriver `
 } | Out-File "$log_dir/driver" -Encoding UTF8
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject Win32_LogicalDisk `
 } | Out-File "$log_dir/filesystem" -Encoding UTF8
 Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject Win32_UserAccount | FL `
+} | Out-File "$log_dir/user" -Encoding UTF8
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-Service | FL `
+} | Out-File "$log_dir/service" -Encoding UTF8
+Invoke-Command -Session $session -ScriptBlock { `
     Get-Item "HKLM:System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy" `
 } | Out-File "$log_dir/fips" -Encoding UTF8
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject Win32_NetworkAdapterConfiguration | `
  Where{$_.IpEnabled -Match "True"} | `
- Select MacAddress, IPAddress, DefaultIPGateway, Description | `
+ Select MacAddress, IPAddress, DefaultIPGateway, Description, IPSubnet | `
  Format-List ` `
 } | Out-File "$log_dir/network" -Encoding UTF8
 Invoke-Command -Session $session -ScriptBlock { `
@@ -53,5 +63,8 @@ Invoke-Command -Session $session -ScriptBlock { `
 Invoke-Command -Session $session -ScriptBlock { `
     Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\disk" `
 } | Out-File "$log_dir/storage_timeout" -Encoding UTF8
+Invoke-Command -Session $session -ScriptBlock { `
+    w32tm /query /status `
+} | Out-File "$log_dir/ntp" -Encoding UTF8
 
 Remove-PSSession $session

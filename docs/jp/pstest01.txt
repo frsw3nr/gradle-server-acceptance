@@ -150,3 +150,21 @@ $password = "P@ssword"
 Add-PSSnapin VMware.VimAutomation.Core
 Connect-VIServer -User $user -Password $password -Server $vcenter
 
+administrator@vsphere.ostrich
+
+
+$vcenter = "192.168.10.101"
+$user = "spcops@vsphere.ostrich"
+$password = "P@ssw0rd"
+
+Add-PSSnapin VMware.VimAutomation.Core
+Connect-VIServer -User $user -Password $password -Server $vcenter
+
+$alarmMgr = Get-View AlarmManager
+$alarms = $alarmMgr.GetAlarm($entity.Extensiondata.MoRef) | %{Get-View $_}
+$alarminfos = $alarms.info
+foreach ($alarminfo in $alarminfos) {
+Write-output $alarminfo.Name
+}
+
+

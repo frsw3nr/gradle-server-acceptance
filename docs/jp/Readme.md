@@ -54,7 +54,7 @@ gradle-server-acceptance-0.1.1.zip
 利用方法
 --------
 
-1. gradle-server-acceptance-0.1.1.zipを解凍します。
+1. 7-zip を用いて、 gradle-server-acceptance-0.1.1.zip を解凍します。
 2. 「チェックシート.xlsx」を開き、シート「チェック対象VM」に検査対象サーバの接続情報を記入します。
 3. config/config.groovy 内のサーバアカウント情報を編集します。
 4. server-acceptance ディレクトリに移動し、getconfig コマンドを実行します。使用方法は以下の通りです。

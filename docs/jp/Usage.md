@@ -7,8 +7,10 @@
 検査対象サーバの環境設定
 ------------------------
 
-* vCenter, ESXi の情報採取は、検査PCから ssh 接続できる設定が必要です
-* Windows の情報採取は、検査対象サーバ PowerShell のリモートアクセス許可設定が必要です
+* vCenter, ESXi の情報採取は、検査PCから ssh 接続できる設定が必要です。
+* Windows の情報採取は、検査対象サーバ PowerShell のリモートアクセス許可設定が必要です。
+
+	管理者として PowerShell を起動して、以下コマンドを実行してください。
 
 	*リモートシェル許可設定*
 
@@ -32,26 +34,32 @@
 	    Enable-PSRemoting -Force
 	    Set-Item wsman:\localhost\Client\TrustedHosts -Value * -Force
 
-検査PCの事前準備
-----------------
+チェックシート.xlsx 編集
+------------------------
 
-*チェックシート.xlsx 編集*
+1.シート「チェック対象」に検査対象サーバの接続情報を記入します。
 
-1.シート「チェック対象VM」に検査対象サーバの接続情報を記入します。
+**[注意事項]** シート内セルが空欄の箇所は検査を実行せずにスキップします。
 
-* server_name, ip, platfom
+* server_name, platform
 
 	上記は必須項目です。
+	server_name は、シート内で一意となる検査対象の名称を記入します。
+	platform は、検査対象がESXiホストの場合は'VMHost'を、ゲストOSの場合は、'Windows'または'Linux'を記入します。
 
-* os_account_id
+* ip, os_account_id
 
-	config.groovy 設定ファイル内に記入した接続アカウントIDを記入します。
-	Linux,Windowsなどダイレクトにサーバに接続して検査をする場合に使用します。
+	Linux, Windows サーバなど直接サーバに接続して検査をする場合に使用します。
+
+	ip は検査対象サーバのアドレスを指定してください。
+	os_account_id は、config.groovy 設定ファイル内に記入した接続アカウントIDを記入します。
+	account.Linux、 account.Windows から始まるパラメータ名のアカウント情報を指定します。
 
 * remote_account_id, remote_alias
 
-	remote_account_id は、vCenter などサーバ経由でリモートで検査をする場合に使用します。
-	remote_alias は、リモート検査の場合は必須となり、 vCenter などリモート側のサーバ名定義を記入します。
+	vCenter などサーバ経由でリモートで検査をする場合に使用します。
+
+	remote_account_id は、 remote_alias は、vCenter などリモート側のサーバ名定義(エイリアス)を記入します。
 
 * verify_id
 
@@ -66,20 +74,15 @@
 2.シート「検査ルール」を記入します。
 
 採取値のチェックが必要な場合、検査ルールを記入します。
-不要な場合は省略して構いません。
-Groovy言語での記入となり、変数 x が入力パラメータとして、以下形式でルールを記入します。
+不要な場合は設定を省略します。
+詳細は、**ドキュメント:開発ガイド** を参照してください
 
-* 不等式の評価
-
-	**"値 == x"**、**"x < 値"**、**"値 <= x && x < 値"** などの不等号を条件式に記入します
-
-* 正規表現の評価
-
-	**"x =~ /正規表現/"** で条件式を記入します
-
-*設定ファイル config/config.groovy 編集*
+設定ファイル config/config.groovy 編集
+--------------------------------------
 
 config/config.groovy 内のサーバ接続情報の箇所を編集します。
+
+**[注意事項]** メモ帳で開くと文字化けが発生します。Sakura Editor など UTF-8 対応のテキストエディタを使用してください。
 
 * リモート検査の接続情報
 

@@ -112,6 +112,19 @@ class WindowsBaseTest extends Specification {
         test_item.results.size() > 0
     }
 
+    def "Windows テスト仕様 service"() {
+        setup:
+        test = new DomainTestRunner(test_server, 'Windows')
+
+        when:
+        def test_item = new TestItem('service')
+        test.run(test_item)
+
+        then:
+        println test_item.results.toString()
+        test_item.results.size() > 0
+    }
+
     def "Windows 複数テスト仕様のロード"() {
         setup:
         test = new DomainTestRunner(test_server, 'Windows')

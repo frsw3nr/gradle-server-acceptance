@@ -1,0 +1,10 @@
+﻿
+
+Parent        : win2012.ostrich
+Filename      : [living-data1] win2012.ostrich/win2012.ostrich.vmdk
+CapacityGB    : 40
+StorageFormat : Thick
+DiskType      : Flat
+
+
+

@@ -106,8 +106,10 @@ class EvidenceSheet {
                 }
             }
             // check server from body
-            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
                 Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
                 def item_id     = row.getCell(1).getStringCellValue()
                 server_ids.each { column, server_id ->
                     def position = "${rownum}:${column}"
@@ -122,6 +124,7 @@ class EvidenceSheet {
                         }
                     }
                 }
+                return
             }
         }
         (column_server_begin..max_server_columns).each {
@@ -134,8 +137,10 @@ class EvidenceSheet {
 
     def readSheetSpec(String platform, Sheet sheet_spec) throws IOException {
         sheet_spec.with { sheet ->
-            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
                 Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
                 try {
                     def yes_no    = row.getCell(0).getStringCellValue().trim()
                     def test_id   = row.getCell(1).getStringCellValue().trim()
@@ -151,8 +156,9 @@ class EvidenceSheet {
                         }
                     }
                 } catch (NullPointerException e) {
-                    log.warn "Malformed input '${platform}:${rownum}'"
+                    log.warn "Malformed input '${platform}:${rownum}'" + e
                 }
+                return
             }
         }
     }
@@ -178,8 +184,10 @@ class EvidenceSheet {
                 }
             }
             // check rule from body
-            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
                 Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
                 def test_id     = row.getCell(1).getStringCellValue()
                 def test_domain = row.getCell(3).getStringCellValue()
                 verify_rule_ids.each { rule_id, column ->
@@ -194,6 +202,7 @@ class EvidenceSheet {
                         }
                     }
                 }
+                return
             }
         }
     }
@@ -317,8 +326,10 @@ class EvidenceSheet {
 
         // Registering the test result column in the order
         sheet_result.with { sheet ->
-            (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
                 Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
                 def row_style  = wb.createCellStyle().setWrapText(true)
                 row.setRowStyle(row_style)
 
@@ -356,6 +367,7 @@ class EvidenceSheet {
                         log.debug "Not found row ${domain},${test_id} in ${platform}"
                     }
                 }
+                return
             }
         }
         def fos = new FileOutputStream(evidence_target)
@@ -369,23 +381,40 @@ class EvidenceSheet {
         log.info("Insert device sheet : ${device_sheet_name}")
         def inp = new FileInputStream(evidence_target)
         def wb  = WorkbookFactory.create(inp)
-
-        Sheet device_sheet = wb.createSheet(device_sheet_name)
+        def is_exists = false
+        Sheet device_sheet = wb.getSheet(device_sheet_name)
+        if (device_sheet) {
+            is_exists = true
+        } else {
+            device_sheet = wb.createSheet(device_sheet_name)
+        }
 
         device_sheet.with { sheet ->
             // Header registration
-            Row header_row = sheet.createRow(row_header)
-            def header_column_index = column_device_begin
-            sheet.setColumnWidth(header_column_index, device_cell_width)
-            header_row.createCell(header_column_index).setCellValue('server_name')
-            header_column_index ++
-            headers.each { header_name ->
-                header_row.createCell(header_column_index).setCellValue(header_name)
+            def header_column_index = column_device_begin + headers.size()
+            if (!is_exists) {
+                Row header_row = sheet.createRow(row_header)
+                header_column_index = column_device_begin
                 sheet.setColumnWidth(header_column_index, device_cell_width)
+                header_row.createCell(header_column_index).setCellValue('server_name')
                 header_column_index ++
+                headers.each { header_name ->
+                    header_row.createCell(header_column_index).setCellValue(header_name)
+                    sheet.setColumnWidth(header_column_index, device_cell_width)
+                    header_column_index ++
+                }
+            }
+            // Find last row
+            def body_row_index = row_body_begin
+            if (is_exists) {
+                (row_body_begin .. device_sheet.getLastRowNum()).find { rownum ->
+                    body_row_index = rownum
+                    if (sheet.getRow(rownum) == null)
+                        return true
+                    return
+                }
             }
             // Body registration
-            def body_row_index = row_body_begin
             csvs.each {server_name, server_csvs ->
                 server_csvs.each { server_csv ->
                     Row body_row = sheet.createRow(body_row_index)

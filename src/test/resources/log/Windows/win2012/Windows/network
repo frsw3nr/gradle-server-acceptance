@@ -4,6 +4,7 @@ MacAddress       : 00:0C:29:CB:46:86
 IPAddress        : {192.168.0.14, fe80::2c3d:7f3e:ea41:7f70}
 DefaultIPGateway : {192.168.0.254}
 Description      : Intel(R) 82574L Gigabit Network Connection
+IPSubnet         : {255.255.255.0, 64}
 
 
 

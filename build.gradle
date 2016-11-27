@@ -68,7 +68,7 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
         from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt')
     }
     [
-        'config',
+        'config/logback.xml',
         'lib',
         'build/libs',
         'src/test/resources'

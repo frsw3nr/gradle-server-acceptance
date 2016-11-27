@@ -1,0 +1,1454 @@
+﻿
+
+Name                : AeLookupSvc
+DisplayName         : Application Experience
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : ALG
+DisplayName         : Application Layer Gateway Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : Apache2.2
+DisplayName         : Apache2.2
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {Afd, Tcpip}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : AppHostSvc
+DisplayName         : Application Host Helper Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : True
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : AppIDSvc
+DisplayName         : Application Identity
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, CryptSvc, AppID}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Appinfo
+DisplayName         : Application Information
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, ProfSvc}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : AppMgmt
+DisplayName         : Application Management
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : AppReadiness
+DisplayName         : App Readiness
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : AppXSvc
+DisplayName         : AppX Deployment Service (AppXSVC)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : AudioEndpointBuilder
+DisplayName         : Windows Audio Endpoint Builder
+Status              : Stopped
+DependentServices   : {Audiosrv}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Audiosrv
+DisplayName         : Windows Audio
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {MMCSS, RpcSs, AudioEndpointBuilder}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : BFE
+DisplayName         : Base Filtering Engine
+Status              : Running
+DependentServices   : {SharedAccess, RemoteAccess, PolicyAgent, NcaSvc...}
+ServicesDependedOn  : {RpcSs, WfpLwfs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : BITS
+DisplayName         : Background Intelligent Transfer Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, EventSystem}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : BrokerInfrastructure
+DisplayName         : Background Tasks Infrastructure Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {DcomLaunch, RpcSs, RpcEptMapper}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Browser
+DisplayName         : Computer Browser
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {LanmanServer, LanmanWorkstation}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : CertPropSvc
+DisplayName         : Certificate Propagation
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : COMSysApp
+DisplayName         : COM+ System Application
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {EventSystem, SENS, RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : CryptSvc
+DisplayName         : Cryptographic Services
+Status              : Running
+DependentServices   : {AppIDSvc}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : DcomLaunch
+DisplayName         : DCOM Server Process Launcher
+Status              : Running
+DependentServices   : {wuauserv, WSService, WPDBusEnum, WinRM...}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : defragsvc
+DisplayName         : Optimize drives
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : DeviceAssociationService
+DisplayName         : Device Association Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : DeviceInstall
+DisplayName         : Device Install Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Dhcp
+DisplayName         : DHCP Client
+Status              : Running
+DependentServices   : {NcaSvc, iphlpsvc, WinHttpAutoProxySvc, netprofm...}
+ServicesDependedOn  : {Afd, NSI, Tdx}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : DiagTrack
+DisplayName         : Diagnostics Tracking Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : Dnscache
+DisplayName         : DNS Client
+Status              : Running
+DependentServices   : {NcaSvc}
+ServicesDependedOn  : {nsi, Tdx}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : dot3svc
+DisplayName         : Wired AutoConfig
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, Eaphost, Ndisuio}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : DPS
+DisplayName         : Diagnostic Policy Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : DsmSvc
+DisplayName         : Device Setup Manager
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, HTTP}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Eaphost
+DisplayName         : Extensible Authentication Protocol
+Status              : Stopped
+DependentServices   : {dot3svc}
+ServicesDependedOn  : {RPCSS, KeyIso}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : EFS
+DisplayName         : Encrypting File System (EFS)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : EventLog
+DisplayName         : Windows Event Log
+Status              : Running
+DependentServices   : {Wecsvc, netprofm, NlaSvc}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : EventSystem
+DisplayName         : COM+ Event System
+Status              : Running
+DependentServices   : {COMSysApp, SENS, BITS}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : fdPHost
+DisplayName         : Function Discovery Provider Host
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, http}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : FDResPub
+DisplayName         : Function Discovery Resource Publication
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, http}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : FontCache
+DisplayName         : Windows Font Cache Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : GETPERF Agent
+DisplayName         : GETPERF Agent
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : gpsvc
+DisplayName         : Group Policy Client
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, Mup}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : hidserv
+DisplayName         : Human Interface Device Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : hkmsvc
+DisplayName         : Health Key and Certificate Management
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : IEEtwCollectorService
+DisplayName         : Internet Explorer ETW Collector Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : IKEEXT
+DisplayName         : IKE and AuthIP IPsec Keying Modules
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {BFE}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : iphlpsvc
+DisplayName         : IP Helper
+Status              : Running
+DependentServices   : {NcaSvc}
+ServicesDependedOn  : {nsi, RpcSS, winmgmt, Tdx...}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : KeyIso
+DisplayName         : CNG Key Isolation
+Status              : Stopped
+DependentServices   : {dot3svc, Eaphost}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : KPSSVC
+DisplayName         : KDC Proxy Server service (KPS)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss, http}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : KtmRm
+DisplayName         : KtmRm for Distributed Transaction Coordinator
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, SamSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : LanmanServer
+DisplayName         : Server
+Status              : Running
+DependentServices   : {Browser}
+ServicesDependedOn  : {SamSS, Srv2}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : LanmanWorkstation
+DisplayName         : Workstation
+Status              : Running
+DependentServices   : {SessionEnv, Netlogon, Browser}
+ServicesDependedOn  : {NSI, MRxSmb20, Bowser}
+CanPauseAndContinue : True
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : lltdsvc
+DisplayName         : Link-Layer Topology Discovery Mapper
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss, lltdio}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : lmhosts
+DisplayName         : TCP/IP NetBIOS Helper
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {Afd, NetBT}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : LSM
+DisplayName         : Local Session Manager
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {DcomLaunch, RpcSs, RpcEptMapper}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : MMCSS
+DisplayName         : Multimedia Class Scheduler
+Status              : Stopped
+DependentServices   : {Audiosrv}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : MozillaMaintenance
+DisplayName         : Mozilla Maintenance Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : MpsSvc
+DisplayName         : Windows Firewall
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {mpsdrv, bfe}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : MSDTC
+DisplayName         : Distributed Transaction Coordinator
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, SamSS}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : MSiSCSI
+DisplayName         : Microsoft iSCSI Initiator Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : msiserver
+DisplayName         : Windows Installer
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : napagent
+DisplayName         : Network Access Protection Agent
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : NcaSvc
+DisplayName         : Network Connectivity Assistant
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {NSI, dnscache, iphlpsvc, BFE}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Netlogon
+DisplayName         : Netlogon
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {LanmanWorkstation}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Netman
+DisplayName         : Network Connections
+Status              : Stopped
+DependentServices   : {SharedAccess}
+ServicesDependedOn  : {RpcSs, nsi}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : netprofm
+DisplayName         : Network List Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, nlasvc}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : NetTcpPortSharing
+DisplayName         : Net.Tcp Port Sharing Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : NlaSvc
+DisplayName         : Network Location Awareness
+Status              : Running
+DependentServices   : {netprofm}
+ServicesDependedOn  : {NSI, RpcSs, Eventlog, Dhcp...}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : nsi
+DisplayName         : Network Store Interface Service
+Status              : Running
+DependentServices   : {netprofm, NlaSvc, SharedAccess, Netman...}
+ServicesDependedOn  : {rpcss, nsiproxy}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : PerfHost
+DisplayName         : Performance Counter DLL Host
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : pla
+DisplayName         : Performance Logs & Alerts
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : PlugPlay
+DisplayName         : Plug and Play
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : PolicyAgent
+DisplayName         : IPsec Policy Agent
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {Tcpip, bfe}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : Power
+DisplayName         : Power
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : PrintNotify
+DisplayName         : Printer Extensions and Notifications
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess, InteractiveProcess
+
+Name                : ProfSvc
+DisplayName         : User Profile Service
+Status              : Running
+DependentServices   : {Appinfo}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : RasAuto
+DisplayName         : Remote Access Auto Connection Manager
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RasAcd}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : RasMan
+DisplayName         : Remote Access Connection Manager
+Status              : Stopped
+DependentServices   : {RemoteAccess}
+ServicesDependedOn  : {SstpSvc}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : RemoteAccess
+DisplayName         : Routing and Remote Access
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {Http, RasMan, RpcSS, Bfe}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : RemoteRegistry
+DisplayName         : Remote Registry
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : RpcEptMapper
+DisplayName         : RPC Endpoint Mapper
+Status              : Running
+DependentServices   : {Schedule, SystemEventsBroker, wuauserv, WSService...}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : RpcLocator
+DisplayName         : Remote Procedure Call (RPC) Locator
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : RpcSs
+DisplayName         : Remote Procedure Call (RPC)
+Status              : Running
+DependentServices   : {wuauserv, WSService, WPDBusEnum, WinRM...}
+ServicesDependedOn  : {DcomLaunch, RpcEptMapper}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : RSoPProv
+DisplayName         : Resultant Set of Policy Provider
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : sacsvr
+DisplayName         : Special Administration Console Helper
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : SamSs
+DisplayName         : Security Accounts Manager
+Status              : Running
+DependentServices   : {MSDTC, Browser, LanmanServer, KtmRm}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : SCardSvr
+DisplayName         : Smart Card
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {wudfsvc}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : ScDeviceEnum
+DisplayName         : Smart Card Device Enumeration Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Schedule
+DisplayName         : Task Scheduler
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, SystemEventsBroker}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : SCPolicySvc
+DisplayName         : Smart Card Removal Policy
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : seclogon
+DisplayName         : Secondary Logon
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : SENS
+DisplayName         : System Event Notification Service
+Status              : Running
+DependentServices   : {COMSysApp}
+ServicesDependedOn  : {EventSystem}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : SessionEnv
+DisplayName         : Remote Desktop Configuration
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, LanmanWorkstation}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : SharedAccess
+DisplayName         : Internet Connection Sharing (ICS)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {Netman, WinMgmt, BFE}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : ShellHWDetection
+DisplayName         : Shell Hardware Detection
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : smphost
+DisplayName         : Microsoft Storage Spaces SMP
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : SNMPTRAP
+DisplayName         : SNMP Trap
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : Spooler
+DisplayName         : Print Spooler
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, http}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32OwnProcess, InteractiveProcess
+
+Name                : sppsvc
+DisplayName         : Software Protection
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : SSDPSRV
+DisplayName         : SSDP Discovery
+Status              : Stopped
+DependentServices   : {upnphost}
+ServicesDependedOn  : {HTTP}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : SstpSvc
+DisplayName         : Secure Socket Tunneling Protocol Service
+Status              : Stopped
+DependentServices   : {RemoteAccess, RasMan}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : svsvc
+DisplayName         : Spot Verifier
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : swprv
+DisplayName         : Microsoft Software Shadow Copy Provider
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : SysMain
+DisplayName         : Superfetch
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : SystemEventsBroker
+DisplayName         : System Events Broker
+Status              : Running
+DependentServices   : {Schedule}
+ServicesDependedOn  : {RpcSs, RpcEptMapper}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : TapiSrv
+DisplayName         : Telephony
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : TermService
+DisplayName         : Remote Desktop Services
+Status              : Running
+DependentServices   : {UmRdpService}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : Themes
+DisplayName         : Themes
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : THREADORDER
+DisplayName         : Thread Ordering Server
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : TieringEngineService
+DisplayName         : Storage Tiers Management
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : Tomcat8
+DisplayName         : Apache Tomcat 8.0 Tomcat8
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {Afd, Tcpip}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess, InteractiveProcess
+
+Name                : TrkWks
+DisplayName         : Distributed Link Tracking Client
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : TrustedInstaller
+DisplayName         : Windows Modules Installer
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : UALSVC
+DisplayName         : User Access Logging Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {WinMgmt}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : UI0Detect
+DisplayName         : Interactive Services Detection
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess, InteractiveProcess
+
+Name                : UmRdpService
+DisplayName         : Remote Desktop Services UserMode Port Redirector
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RDPDR, TermService}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : upnphost
+DisplayName         : UPnP Device Host
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {HTTP, SSDPSRV}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : VaultSvc
+DisplayName         : Credential Manager
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vds
+DisplayName         : Virtual Disk
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : vmicguestinterface
+DisplayName         : Hyper-V ゲスト サービス インターフェイス
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vmicheartbeat
+DisplayName         : Hyper-V Heartbeat Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vmickvpexchange
+DisplayName         : Hyper-V Data Exchange Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vmicrdv
+DisplayName         : Hyper-V Remote Desktop Virtualization Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vmicshutdown
+DisplayName         : Hyper-V Guest Shutdown Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vmictimesync
+DisplayName         : Hyper-V Time Synchronization Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : vmicvss
+DisplayName         : Hyper-V Volume Shadow Copy Requestor
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : VMTools
+DisplayName         : VMware Tools
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : True
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : vmvss
+DisplayName         : VMware スナップショット プロバイダ
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : VSS
+DisplayName         : Volume Shadow Copy
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : W32Time
+DisplayName         : Windows Time
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : w3logsvc
+DisplayName         : W3C Logging Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {HTTP, W3SVC}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : W3SVC
+DisplayName         : World Wide Web Publishing Service
+Status              : Stopped
+DependentServices   : {w3logsvc}
+ServicesDependedOn  : {WAS, HTTP}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : WAS
+DisplayName         : Windows Process Activation Service
+Status              : Stopped
+DependentServices   : {w3logsvc, W3SVC}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Wcmsvc
+DisplayName         : Windows Connection Manager
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : WcsPlugInService
+DisplayName         : Windows Color System
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : WdiServiceHost
+DisplayName         : Diagnostic Service Host
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : WdiSystemHost
+DisplayName         : Diagnostic System Host
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : Wecsvc
+DisplayName         : Windows Event Collector
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {Eventlog, HTTP}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : WEPHOSTSVC
+DisplayName         : Windows Encryption Provider Host Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : wercplsupport
+DisplayName         : Problem Reports and Solutions Control Panel Support
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : WerSvc
+DisplayName         : Windows Error Reporting Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : WinHttpAutoProxySvc
+DisplayName         : WinHTTP Web Proxy Auto-Discovery Service
+Status              : Running
+DependentServices   : {NcaSvc, iphlpsvc}
+ServicesDependedOn  : {Dhcp}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : Winmgmt
+DisplayName         : Windows Management Instrumentation
+Status              : Running
+DependentServices   : {UALSVC, SharedAccess, NcaSvc, iphlpsvc}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : True
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : WinRM
+DisplayName         : Windows Remote Management (WS-Management)
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS, HTTP}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32ShareProcess
+
+Name                : WLMS
+DisplayName         : Windows Licensing Monitoring Service
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : wmiApSrv
+DisplayName         : WMI Performance Adapter
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : WPDBusEnum
+DisplayName         : Portable Device Enumerator Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : WSService
+DisplayName         : Windows Store Service (WSService)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : wuauserv
+DisplayName         : Windows Update
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {rpcss}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+Name                : wudfsvc
+DisplayName         : Windows Driver Foundation - User-mode Driver Framework
+Status              : Stopped
+DependentServices   : {SCardSvr}
+ServicesDependedOn  : {WudfPf}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
+
+
