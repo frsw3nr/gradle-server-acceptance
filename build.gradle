@@ -67,8 +67,10 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
         from fileTree(dir: "docs/${language}").include('Readme.md', 'Usage.md')
         from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt')
     }
+    into ("./${target}/config") {
+        from fileTree(dir : 'config').include("*.xml")
+    }
     [
-        'config/logback.xml',
         'lib',
         'build/libs',
         'src/test/resources'
