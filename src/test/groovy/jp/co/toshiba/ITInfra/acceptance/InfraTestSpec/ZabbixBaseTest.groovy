@@ -7,7 +7,7 @@ import com.goebl.david.Webb;
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
-// gradlew --daemon clean test --tests "ZabbixBaseTest.Zabbix 認証"
+// gradle --daemon test --tests "ZabbixBaseTest.Zabbix 認証"
 
 class ZabbixBaseTest extends Specification {
 
@@ -24,6 +24,35 @@ class ZabbixBaseTest extends Specification {
         )
         test_server.setAccounts('src/test/resources/config_zabbix.groovy')
         test_server.dry_run = true
+    }
+
+    def auth() {
+        JSONObject mainJObj = new JSONObject();
+        JSONObject paramJObj = new JSONObject();
+
+        mainJObj.put("jsonrpc", "2.0");
+        mainJObj.put("method", "user.login");
+
+        paramJObj.put("user", "Admin");
+        paramJObj.put("password", "getperf");
+
+        mainJObj.put("params", paramJObj);
+        mainJObj.put("id", "1");
+
+        Webb webb = Webb.create();
+
+        System.out.println("Data to send: " + mainJObj.toString());
+
+        JSONObject result = webb.post("http://localhost/zabbix/api_jsonrpc.php")
+                                    .header("Content-Type", "application/json")
+                                    .useCaches(false)
+                                    .body(mainJObj)
+                                    .ensureSuccess()
+                                    .asJsonObject()
+                                    .getBody();
+
+        System.out.println("Authentication token: " + result.getString("result"));
+        return result.getString("result")
     }
 
     def "Zabbix 認証"() {
@@ -56,6 +85,48 @@ class ZabbixBaseTest extends Specification {
                                     .getBody();
 
         System.out.println("Authentication token: " + result.getString("result"));
+        def token = result.getString("result")
+// Data to send: {"method":"user.login","id":"1","jsonrpc":"2.0","params":{"password":"getperf","user":"Admin"}}
+// Authentication token: 19b7e26f30214d35ca4b7bc369f05172
+
+// my $hostgroups = $zabbix->fetch('HostGroup', params => { output => "extend" });
+
+        then:
+        1 == 1
+    }
+
+    def "ホストグループ"() {
+        setup:
+        def token = auth()
+
+        when:
+println "Token : ${token}"
+        JSONObject mainJObj = new JSONObject();
+        JSONObject paramJObj = new JSONObject();
+
+        mainJObj.put("jsonrpc", "2.0");
+        mainJObj.put("method", "HostGroup.get");
+
+        paramJObj.put("output", "extend");
+
+        mainJObj.put("params", paramJObj);
+        mainJObj.put("id", "1");
+        mainJObj.put("auth", token);
+println mainJObj
+        Webb webb = Webb.create();
+
+        System.out.println("Data to send: " + mainJObj.toString());
+
+        JSONObject result = webb.post("http://localhost/zabbix/api_jsonrpc.php")
+                                    .header("Content-Type", "application/json")
+                                    .useCaches(false)
+                                    .body(mainJObj)
+                                    .ensureSuccess()
+                                    .asJsonObject()
+                                    .getBody();
+println result;
+
+        System.out.println("HostGroup: " + result.getString("result"));
 
         then:
         1 == 1
