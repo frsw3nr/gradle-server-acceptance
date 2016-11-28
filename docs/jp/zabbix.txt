@@ -1,0 +1,7 @@
+curl -X GET -H "Content-Type:application/json-rpc" -d 
+'{"auth":"f7v1e46b24ee2aadcsf47v7bb66cf1d1", 
+"method":"host.get", 
+"id":1, 
+"params":{"output":"extend", "selectInterfaces":"extend"}, "jsonrpc":"2.0"}' 
+http://example.com/zabbix/api_jsonrpc.php | jq '.'
+

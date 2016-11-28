@@ -38,14 +38,17 @@ class VMHostSpec extends VMHostSpecBase {
     //         def lines = exec('Account') {
     //             new File("${local_dir}/Account")
     //         }
-    //         def csv = []
-    //         def row = -1
+    //         def csv   = []
+    //         def csize = []
+    //         def row   = -1
     //         lines.eachLine {
-    //             (it =~ /^----/).each {
+    //             (it =~ /^(-+ *?) (-+ *?) (-+ *?) (-.+?)$/).each {
+    //                 m0, m1, m2, m3, m4 ->
     //                 row = 0
+    //                 csize = [m1.size(), m2.size(), m3.size(), m4.size()]
     //             }
     //             if (row > 0 && it.size() > 0) {
-    //                 (it =~ /^(.{10})(.{7})(.{44})(.+)$/).each {
+    //                 (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}}) (.+)$/).each {
     //                     m0, m1, m2, m3, m4 ->
     //                     csv << [m1, m2, m3, m4]*.trim()
     //                 }
@@ -64,14 +67,18 @@ class VMHostSpec extends VMHostSpecBase {
     //         def lines = exec('NetworkAdapter') {
     //             new File("${local_dir}/NetworkAdapter")
     //         }
-    //         def csv = []
-    //         def row = -1
+    //         def csv   = []
+    //         def csize = []
+    //         def row   = -1
     //         lines.eachLine {
-    //             (it =~ /^----/).each {
+    //             (it =~ /^(-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-.+?)$/).each {
+    //                 m0, m1, m2, m3, m4, m5, m6 ->
     //                 row = 0
+    //                 csize = [m1.size(), m2.size(), m3.size(),
+    //                          m4.size(), m5.size(), m6.size()]
     //             }
     //             if (row > 0 && it.size() > 0) {
-    //                 (it =~ /^(.{7})(.{18})(.{12})(.{15})(.{14})(.+)$/).each {
+    //                 (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}}) (.{${csize[4]}}) (.+)$/).each {
     //                     m0, m1, m2, m3, m4, m5, m6 ->
     //                     csv << [m1, m2, m3, m4, m5, m6]*.trim()
     //                 }
@@ -147,14 +154,17 @@ class VMHostSpec extends VMHostSpecBase {
     //             new File("${local_dir}/Datastore")
     //         }
 
-    //         def csv = []
-    //         def row = -1
+    //         def csv   = []
+    //         def csize = []
+    //         def row   = -1
     //         lines.eachLine {
-    //             (it =~ /^----/).each {
+    //             (it =~ /^(-+ *?) (-+ *?) (-.+?)$/).each {
+    //                 m0, m1, m2, m3 ->
     //                 row = 0
+    //                 csize = [m1.size() + 1, m2.size() + 1, m3.size() + 1]
     //             }
     //             if (row > 0 && it.size() > 0) {
-    //                 (it =~ /^(.{13})(.{12})(.+)$/).each {
+    //                 (it =~ /^(.{${csize[0]}})(.{${csize[1]}})(.+)$/).each {
     //                     m0, m1, m2, m3 ->
     //                     csv << [m1, m2, m3]*.trim()
     //                 }
@@ -167,4 +177,5 @@ class VMHostSpec extends VMHostSpecBase {
     //         test_item.results(row.toString())
     //     }
     // }
+
 }

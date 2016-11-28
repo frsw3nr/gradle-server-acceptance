@@ -679,6 +679,19 @@ class LinuxSpecBase extends InfraTestSpec {
         ])
     }
 
+    def ntp(session, test_item) {
+        def lines = exec('ntp') {
+            run_ssh_command(session, "egrep -e '^server' /etc/ntp.conf", 'ntp')
+        }
+        def ntpservers = []
+        lines.eachLine {
+            ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
+                ntpservers.add(m1)
+            }
+        }
+        test_item.results(ntpservers.toString())
+    }
+
     def sestatus(session, test_item) {
         def lines = exec('sestatus') {
             run_ssh_command(session, '/usr/sbin/sestatus', 'sestatus')

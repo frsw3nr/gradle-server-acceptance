@@ -100,8 +100,6 @@ class LinuxSpec extends LinuxSpecBase {
     //         run_ssh_command(session, 'hostname -s', 'hostname')
     //     }
     //     lines = lines.replaceAll(/(\r|\n)/, "")
-    //     def rc = (server_info['server_name'] == lines)
-    //     test_item.verify_status(rc)
     //     test_item.results(lines)
     // }
 
@@ -178,7 +176,16 @@ class LinuxSpec extends LinuxSpecBase {
 
     // def machineid(session, test_item) {
     //     def lines = exec('machineid') {
-    //         run_ssh_command(session, 'cat /var/lib/dbus/machine-id', 'machineid')
+    //         def command = """\
+    //         |if [ -f /etc/machine-id ]; then
+    //         |    cat /etc/machine-id > ${work_dir}/machineid
+    //         |elif [ -f /var/lib/dbus/machine-id ]; then
+    //         |    cat /var/lib/dbus/machine-id > ${work_dir}/machineid
+    //         |fi
+    //         """.stripMargin()
+    //         session.execute command
+    //         session.get from: "${work_dir}/machineid", into: local_dir
+    //         new File("${local_dir}/machineid").text
     //     }
     //     lines = lines.replaceAll(/(\r|\n)/, "")
     //     test_item.results(lines)
@@ -211,15 +218,16 @@ class LinuxSpec extends LinuxSpecBase {
 
     // def network(session, test_item) {
     //     def lines = exec('network') {
-    //         run_ssh_command(session, '/sbin/ip -d -s link', 'network')
+    //         run_ssh_command(session, '/sbin/ip addr', 'network')
     //     }
     //     def csv = []
     //     def network = [:].withDefault{[:]}
+    //     def device = ''
     //     def hw_address = []
     //     lines.eachLine {
     //         // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
     //         (it =~  /^(\d+): (.+): <(.+)> (.+)$/).each { m0,m1,m2,m3,m4->
-    //             csv << [m2, m3, m4]
+    //             device = m2
     //             if (m2 == 'lo') {
     //                 return
     //             }
@@ -229,21 +237,41 @@ class LinuxSpec extends LinuxSpecBase {
     //                 if (index % 2 == 0) {
     //                     name = n1
     //                 } else {
-    //                     network[m2][name] = n1
+    //                     network[device][name] = n1
     //                 }
     //                 index ++
     //             }
     //         }
+    //         // inet 127.0.0.1/8 scope host lo
+    //         (it =~ /inet\s+(.*?)\s/).each {m0, m1->
+    //             network[device]['ip'] = m1
+    //             try {
+    //                 SubnetInfo subnet = new SubnetUtils(m1).getInfo()
+    //                 network[device]['subnet'] = subnet.getNetmask()
+    //             } catch (IllegalArgumentException e) {
+    //                 log.error "[LinuxTest] subnet convert : m1\n" + e
+    //             }
+    //         }
+
     //         // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
     //         (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
+    //             network[device]['mac'] = m1
     //             hw_address.add(m1)
     //         }
     //     }
-    //     def headers = ['device', 'status1', 'status2']
+    //     // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
+    //     network.each { device_id, items ->
+    //         def columns = [device_id]
+    //         ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
+    //             columns.add(items[it] ?: 'NaN')
+    //         }
+    //         csv << columns
+    //     }
+    //     def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
     //     test_item.devices(csv, headers)
 
     //     test_item.results([
-    //         'network' : network.toString(),
+    //         'network' : network.keySet().toString(),
     //         'hw_address' : hw_address.toString()
     //         ])
     // }
@@ -252,7 +280,7 @@ class LinuxSpec extends LinuxSpecBase {
     //     def lines = exec('net_onboot') {
     //         def command = """\
     //         |cd /etc/sysconfig/network-scripts/
-    //         |grep ONBOOT ifcfg-*
+    //         |grep ONBOOT ifcfg-* >> ${work_dir}/net_onboot
     //         """.stripMargin()
     //         session.execute command
     //         session.get from: "${work_dir}/net_onboot", into: local_dir
@@ -265,6 +293,20 @@ class LinuxSpec extends LinuxSpecBase {
     //         }
     //     }
     //     test_item.results(net_onboot.toString())
+    // }
+
+    // def net_route(session, test_item) {
+    //     def lines = exec('net_route') {
+    //         run_ssh_command(session, '/sbin/ip route', 'net_route')
+    //     }
+    //     def net_route = [:]
+    //     lines.eachLine {
+    //         // default via 192.168.10.254 dev eth0
+    //         (it =~ /default via (.+?) dev (.+?)\s/).each {m0,m1,m2->
+    //             net_route[m2] = m1
+    //         }
+    //     }
+    //     test_item.results(net_route.toString())
     // }
 
     // def block_device(session, test_item) {
@@ -324,22 +366,24 @@ class LinuxSpec extends LinuxSpecBase {
     //     //   ├─vg_ostrich-lv_root (dm-0) 253:0    0 26.5G  0 lvm  /
     //     //   └─vg_ostrich-lv_swap (dm-1) 253:1    0    3G  0 lvm  [SWAP]
     //     def csv = []
+    //     def filesystems = [:]
     //     lines.eachLine {
     //         (it =~  /^(.+?)\s+(\d+:\d+\s.+)$/).each { m0,m1,m2->
     //             def device = m1
     //             def arr = [device]
-    //             arr.addAll(m2.split(/\s+/))
+    //             def columns = m2.split(/\s+/)
+    //             if (columns.size() == 6) {
+    //                 def mount = columns[5]
+    //                 filesystems['filesystem.' + mount] = columns[2]
+    //             }
+    //             arr.addAll(columns)
     //             csv << arr
-    //         }
-    //         // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
-    //         (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
-    //             hw_address.add(m1)
     //         }
     //     }
     //     def headers = ['name', 'maj:min', 'rm', 'size', 'ro', 'type', 'mountpoint']
     //     test_item.devices(csv, headers)
-
-    //     test_item.results(lines)
+    //     filesystems['filesystem'] = csv.size()
+    //     test_item.results(filesystems)
     // }
 
     // def filesystem_df_ip(session, test_item) {
@@ -382,7 +426,8 @@ class LinuxSpec extends LinuxSpecBase {
     //         def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
     //         run_ssh_command(session, "${command} ${argument}", 'packages')
     //     }
-    //     def packages = [:].withDefault{0}
+    //     def package_info = [:].withDefault{0}
+    //     def distributions = [:].withDefault{0}
     //     def csv = []
     //     lines.eachLine {
     //         def arr = it.split(/\t/)
@@ -393,17 +438,94 @@ class LinuxSpec extends LinuxSpecBase {
     //             release_label = 'RHEL5'
     //         } else if (release =~ /el6/) {
     //             release_label = 'RHEL6'
+    //         } else if (release =~ /el7/) {
+    //             release_label = 'RHEL7'
     //         }
     //         def install_time = Long.decode(arr[4]) * 1000L
     //         arr[4] = new Date(install_time).format("yyyy/MM/dd HH:mm:ss")
     //         csv << arr
     //         def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
-    //         packages[release_label] ++
+    //         distributions[release_label] ++
+    //         package_info['packages.' + packagename] = arr[2]
     //     }
     //     def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
+    //     package_info['packages'] = distributions.toString()
     //     test_item.devices(csv, headers)
-    //     test_item.results(packages.toString())
+    //     test_item.results(package_info)
     // }
+
+    // def user(session, test_item) {
+    //     def lines = exec('user') {
+    //         run_ssh_command(session, "cat /etc/passwd", 'user')
+    //     }
+    //     def group_lines = exec('group') {
+    //         run_ssh_command(session, "cat /etc/group", 'group')
+    //     }
+    //     def groups = [:].withDefault{0}
+    //     // root:x:0:
+    //     group_lines.eachLine {
+    //         ( it =~ /^(.+?):(.+?):(\d+)/).each {m0,m1,m2,m3->
+    //             groups[m3] = m1
+    //         }
+    //     }
+    //     def csv = []
+    //     def user_count = 0
+    //     def users = [:].withDefault{'unkown'}
+    //     lines.eachLine {
+    //         def arr = it.split(/:/)
+    //         if (arr.size() > 4) {
+    //             def username = arr[0]
+    //             def user_id  = arr[2]
+    //             def group_id = arr[3]
+    //             def group    = groups[group_id] ?: 'Unkown'
+
+    //             csv << [username, user_id, group_id, group]
+    //             user_count ++
+    //             users['user.' + username] = 'OK'
+    //         }
+    //     }
+    //     def headers = ['UserName', 'UserID', 'GroupID', 'Group']
+    //     test_item.devices(csv, headers)
+    //     users['user'] = user_count
+    //     test_item.results(users)
+    // }
+
+    // def service(session, test_item) {
+    //     def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
+    //     if (isRHEL7 == '0') {
+    //         def lines = exec('service') {
+    //             run_ssh_command(session, '/usr/bin/systemctl status service', 'service')
+    //         }
+    //         def service = 'inactive'
+    //         lines.eachLine {
+    //             ( it =~ /Active: (.+?)\s/).each {m0,m1->
+    //                  service = m1
+    //             }
+    //         }
+    //         test_item.results(service)
+    //     } else {
+    //         def lines = exec('service') {
+    //             run_ssh_command(session, '/sbin/chkconfig --list', 'service')
+    //         }
+    //         def services = [:].withDefault{'unkown'}
+    //         def csv = []
+    //         def service_count = 0
+    //         lines.eachLine {
+    //             ( it =~ /^(.+?)\s.*\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3,m4->
+    //                 def service_name = 'service.' + m1
+    //                 def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
+    //                 services[service_name] = status
+    //                 def columns = [m1, status]
+    //                 csv << columns
+    //                 service_count ++
+    //             }
+    //         }
+    //         services['service'] = service_count.toString()
+    //         test_item.devices(csv, ['Name', 'Status'])
+    //         test_item.results(services)
+    //     }
+    // }
+
 
     // def mount_iso(session, test_item) {
     //     def lines = exec('mount_iso') {
@@ -447,18 +569,32 @@ class LinuxSpec extends LinuxSpecBase {
     // }
 
     // def kdump(session, test_item) {
-    //     def lines = exec('kdump') {
-    //         run_ssh_command(session, '/sbin/chkconfig --list|grep kdump', 'kdump')
-    //     }
-    //     def kdump = 'off'
-    //     lines.eachLine {
-    //         ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
-    //             if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
-    //                 kdump = 'on'
+    //     def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
+    //     if (isRHEL7 == '0') {
+    //         def lines = exec('kdump') {
+    //             run_ssh_command(session, '/usr/bin/systemctl status kdump', 'kdump')
+    //         }
+    //         def kdump = 'inactive'
+    //         lines.eachLine {
+    //             ( it =~ /Active: (.+?)\s/).each {m0,m1->
+    //                  kdump = m1
     //             }
     //         }
+    //         test_item.results(kdump)
+    //     } else {
+    //         def lines = exec('kdump') {
+    //             run_ssh_command(session, '/sbin/chkconfig --list|grep kdump', 'kdump')
+    //         }
+    //         def kdump = 'off'
+    //         lines.eachLine {
+    //             ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+    //                 if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+    //                     kdump = 'on'
+    //                 }
+    //             }
+    //         }
+    //         test_item.results(kdump)
     //     }
-    //     test_item.results(kdump)
     // }
 
     // def crash_size(session, test_item) {
@@ -470,31 +606,61 @@ class LinuxSpec extends LinuxSpecBase {
     // }
 
     // def iptables(session, test_item) {
-    //     def lines = exec('iptables') {
-    //         run_ssh_command(session, '/sbin/chkconfig --list|grep iptables', 'iptables')
-    //     }
-    //     def iptables = 'off'
-    //     lines.eachLine {
-    //         ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
-    //             if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
-    //                 iptables = 'on'
+    //     def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
+    //     if (isRHEL7 == '0') {
+    //         def lines = exec('iptables') {
+    //             def command = "/usr/bin/systemctl status iptables firewalld >> ${work_dir}/iptables"
+    //             session.execute command, ignoreError : true
+    //             session.get from: "${work_dir}/iptables", into: local_dir
+    //             new File("${local_dir}/iptables").text
+    //         }
+    //         def services = [:]
+    //         def service = 'iptables'
+    //         lines.eachLine {
+    //             ( it =~ /\s(.+?)\.service\s/).each {m0,m1->
+    //                  service = m1
+    //             }
+    //             ( it =~ /^\s+Active: (.+?)\s/).each {m0,m1->
+    //                  services[service] = m1
     //             }
     //         }
+    //         test_item.results(services.toString())
+    //     } else {
+    //         def lines = exec('iptables') {
+    //         // REHL7 verify command : /usr/bin/systemctl status iptables
+    //             run_ssh_command(session, '/sbin/chkconfig --list|grep iptables', 'iptables')
+    //         }
+    //         def iptables = 'off'
+    //         lines.eachLine {
+    //             ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+    //                 if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+    //                     iptables = 'on'
+    //                 }
+    //             }
+    //         }
+    //         test_item.results(iptables)
     //     }
-    //     test_item.results(iptables)
     // }
 
     // def runlevel(session, test_item) {
-    //     def lines = exec('runlevel') {
-    //         run_ssh_command(session, 'grep :initdefault /etc/inittab', 'runlevel')
-    //     }
-    //     def runlevel = 'unkown'
-    //     lines.eachLine {
-    //         ( it =~ /^id:(\d+):/).each {m0,m1->
-    //             runlevel = m1
+    //     def isRHEL7 = session.execute('test -f /usr/bin/systemctl ; echo $?')
+    //     if (isRHEL7 == '0') {
+    //         def lines = exec('runlevel') {
+    //             run_ssh_command(session, '/usr/bin/systemctl get-default', 'runlevel')
     //         }
+    //         test_item.results(lines)
+    //     } else {
+    //         def lines = exec('runlevel') {
+    //             run_ssh_command(session, 'grep :initdefault /etc/inittab', 'runlevel')
+    //         }
+    //         def runlevel = 'unkown'
+    //         lines.eachLine {
+    //             ( it =~ /^id:(\d+):/).each {m0,m1->
+    //                 runlevel = m1
+    //             }
+    //         }
+    //         test_item.results(runlevel)
     //     }
-    //     test_item.results(runlevel)
     // }
 
     // def resolve_conf(session, test_item) {
@@ -515,6 +681,19 @@ class LinuxSpec extends LinuxSpecBase {
     //     ])
     // }
 
+    // def ntp(session, test_item) {
+    //     def lines = exec('ntp') {
+    //         run_ssh_command(session, "egrep -e '^server' /etc/ntp.conf", 'ntp')
+    //     }
+    //     def ntpservers = []
+    //     lines.eachLine {
+    //         ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
+    //             ntpservers.add(m1)
+    //         }
+    //     }
+    //     test_item.results(ntpservers.toString())
+    // }
+
     // def sestatus(session, test_item) {
     //     def lines = exec('sestatus') {
     //         run_ssh_command(session, '/usr/sbin/sestatus', 'sestatus')
@@ -530,4 +709,5 @@ class LinuxSpec extends LinuxSpecBase {
     //     }
     //     test_item.results(se_status)
     // }
+
 }

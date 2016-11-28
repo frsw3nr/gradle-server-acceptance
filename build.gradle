@@ -84,3 +84,14 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
 artifacts {
     archives zipApp
 }
+
+// gradle --no-daemon generateDomain
+// task generateTemplate {
+//     String site_home = (project.hasProperty('site_home')) ?
+//         project.site_home :
+//         System.console().readLine("\nEnter site_home directory: ")
+
+//     def domain = new File(site_home).getName()
+
+    
+// }
