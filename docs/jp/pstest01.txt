@@ -168,3 +168,89 @@ Write-output $alarminfo.Name
 }
 
 
+変更点
+------
+
+- [ ] Linux検査シナリオ
+    - [ ] 言語の選択
+    - [ ] カーネルパラメータ
+        - [ ] kernel.core_pattern
+        - [ ] net.ipv6.conf.all.disable_ipv6
+        - [ ] net.ipv6.conf.default.disable_ipv6
+    - [ ] サービスの有効化
+        - [ ] telnet
+        - [ ] rsh
+        - [ ] rlogin
+
+        ps -ax|grep inetd|grep -v grep
+        と入力し、inetdとでたら、/etc/inetd.conf
+        のloginで始まる行のコメントを解除しましょう。
+        ファイルを、
+
+        xinetdと表示されたら/etc/xinetd.d/rlogin
+        を修正しましょう。
+        disable = yes
+        となっているはずです。これをnoに変えましょう。
+
+
+    - [ ] hosts リスト
+
+
+    - [ ] リソース制限
+        - [ ] /etc/security/limits.conf
+        - [ ] /etc/security/limits.d/90-nproc.conf
+
+ulimit
+unlimited
+
+    - [ ] その他
+        - [ ] prelink の無効化 /etc/sysconfig/prelink
+        - [ ] yumリポジトリ /etc/yum.repos.d/media.repo
+
+grep -H PRELINKING /etc/sysconfig/prelink
+
+
+- [ ] Windows検査シナリオ
+    - [ ] 導入済み機能 「サーバーマネージャー」→「ダッシュボード」→「役割と機能の追加」
+
+Windows Server 2008 R2以前 †
+使用するコマンドはServerManagerCmd.exe
+現在の状態は-queryオプションを使う
+
+C:\Users\Adminstrator> ServerManager -query
+
+Windows Server 2012以降 †
+コマンドプロンプトではなく、PowerShellを使う。
+使用するコマンドレットは***-WindowsFeature
+現在の状態はGet-WindowsFeatureコマンドレットを使う
+
+C:\Users\Administrator> Get-WindowsFeature
+
+    - [ ] タスクスケジューラ 「コンピュータの管理」→「システムツール」→「タスクスケジューラ」
+    - [ ] hosts リスト C:\Windows\System32\drivers\etc
+    - [ ] セキュリティポリシー 「ファイル名を指定して実行」→「secpol.msc」
+        - [ ] パスワードの有効期限
+        - [ ] 複雑さの要件を満たすパスワード
+        - [ ] メモリ内のページのロック
+    - [ ] システムエラー時の挙動／ダンプファイル「システム」→「システムの詳細設定」→「詳細設定」→「”起動と回復”の設定」
+        - [ ] 自動的に再起動する
+        - [ ] デバッグ情報の書き込み
+        - [ ] ダンプファイル
+        - [ ] 既存のファイルに上書きする
+    - [ ] リモートデスクトップ 「サーバーマネージャー」→「ローカルサーバー」→「リモートデスクトップ」
+        - [ ] このコンピュータへのリモート接続を許可する
+        - [ ] ネットワークレベル認証でリモートデスクトップを実行しているコンピュータからのみ接続を許可する
+    - [ ] リモートデスクトップセッション「ファイル名を指定して実行」→「gpedit.msc」→「コンピューターの構成」→「管理用テンプレート」→「Windowsコンポーネント」
+            →「リモートデスクトップサービス」→「リモートデスクトップセッションホスト」）
+        - [ ] 切断されたセッションの制限時間を設定する
+        - [ ] 接続数を制限する
+        - [ ] リモートデスクトップサービスユーザに対してリモートデスクトップサービスセッションを1つに制限する
+    - [ ] 個別適用パッチ（「コマンドプロンプト」→「wmic qfe」）
+    - [ ] PowerShellスクリプトの実行ポリシー設定 ExecutionPolicy → RemoteSigned
+        - [ ] 64bit版
+        - [ ] 32bit版
+
+
+
+関連課題
+--------
