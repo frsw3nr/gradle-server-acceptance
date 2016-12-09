@@ -13,6 +13,7 @@ class TargetServer {
     String remote_alias
     String verify_id
     String evidence_log_dir
+    String evidence_log_share_dir
     Boolean dry_run
     String dry_run_staging_dir
     int timeout
@@ -61,8 +62,9 @@ class TargetServer {
         dry_run = config_test[platform]['dry_run'] ?: false
         timeout = config_test[platform]['timeout'] ?: 0
         dry_run_staging_dir = config_test['dry_run_staging_dir'] ?: './test/resources/log/'
-        evidence_log_dir = config['evidence']['staging_dir'] ?: './build/log/'
-        evidence_log_dir += '/' + platform + '/' + server_name
+        evidence_log_share_dir  = config['evidence']['staging_dir'] ?: './build/log/'
+        evidence_log_share_dir += '/' + platform
+        evidence_log_dir        = evidence_log_share_dir + '/' + server_name
     }
 
     def info() {

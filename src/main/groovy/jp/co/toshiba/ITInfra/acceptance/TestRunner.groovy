@@ -28,6 +28,7 @@ class TestRunner {
         def cli = new CliBuilder(usage:'getspec')
         cli.with {
             c longOpt: 'config',   args: 1, 'Config file path : ./config/config.groovy'
+            g longOpt: 'generate', args: 1, 'Generate project by specifying a directory'
             e longOpt: 'excel',    args: 1, 'Excel test spec file path : check_sheet.xlsx'
             s longOpt: 'server',   args: Option.UNLIMITED_VALUES,
                 valueSeparator: ',' as char, 'Filtering list of servers : svr1,svr2,...'
@@ -47,6 +48,12 @@ class TestRunner {
         if (!options) {
             cli.usage()
             throw new IllegalArgumentException('Parse error')
+        }
+        if (options.g) {
+            def base_home = System.getProperty("getconfig_home")
+            def site_home = options.g
+            new ProjectBuilder(base_home, site_home).generate()
+            System.exit(0)
         }
 
         target_servers = [:]

@@ -20,6 +20,8 @@ class InfraTestSpec {
     String domain
     String title
     String dry_run_staging_dir
+    String evidence_log_dir
+    String evidence_log_share_dir
     String local_dir
     int timeout
     Boolean dry_run
@@ -28,17 +30,19 @@ class InfraTestSpec {
     def server_info = [:]
 
     def InfraTestSpec(TargetServer test_server, String domain) {
-        this.test_server         = test_server
-        this.server_name         = test_server.server_name
-        this.platform            = test_server.platform
-        this.domain              = domain
-        this.title               = domain + '(' + test_server.info() + ')'
-        this.local_dir           = "${test_server.evidence_log_dir}/${domain}"
-        this.dry_run             = test_server.dry_run
-        this.dry_run_staging_dir = test_server.dry_run_staging_dir
-        this.timeout             = test_server.timeout
-        this.mode                = RunMode.prepare
-        this.server_info         = test_server.infos
+        this.test_server            = test_server
+        this.server_name            = test_server.server_name
+        this.platform               = test_server.platform
+        this.domain                 = domain
+        this.title                  = domain + '(' + test_server.info() + ')'
+        this.evidence_log_dir       = test_server.evidence_log_dir
+        this.evidence_log_share_dir = test_server.evidence_log_share_dir
+        this.local_dir              = "${evidence_log_dir}/${domain}"
+        this.dry_run                = test_server.dry_run
+        this.dry_run_staging_dir    = test_server.dry_run_staging_dir
+        this.timeout                = test_server.timeout
+        this.mode                   = RunMode.prepare
+        this.server_info            = test_server.infos
     }
 
     def prepare = { Closure closure ->
@@ -62,22 +66,35 @@ class InfraTestSpec {
         }
     }
 
-    def exec = { String test_id, Closure closure ->
+    def exec = { String test_id, Boolean share = false,
+                 String encode = null, Closure closure ->
+        def log_path = "${dry_run_staging_dir}/${platform}"
+        if (share == false) {
+            log_path += "/${server_name}/${domain}"
+        }
+        log_path += '/' + test_id
+        def target_path = (share) ? evidence_log_share_dir : local_dir
+        target_path += '/' + test_id
         if (dry_run) {
-            def log_path = "${dry_run_staging_dir}/${platform}/${server_name}/${domain}/${test_id}"
             log.debug "[DryRun] Read dummy log '${log_path}'"
             try {
                 def source_log = new File(log_path)
-                def target_log = new File("${local_dir}/${test_id}")
-                FileUtils.copyFile(source_log, target_log)
-                return source_log.text
+                def target_log = new File(target_path)
+                if (!target_log.exists())
+                    FileUtils.copyFile(source_log, target_log)
+                return (encode) ? source_log.getText(encode) : source_log.text
             } catch (FileNotFoundException e) {
-                def message = "[DryRun] Not found dummy log : ${log_path}"
+                def message = "[DryRun] Not found : ${log_path}"
                 log.warn(message)
                 throw new FileNotFoundException(message)
             }
         } else {
-            return closure.call()
+            def target_log = new File(target_path)
+            if (share == true && target_log.exists()) {
+                return (encode) ? target_log.getText(encode) : target_log.text
+            } else {
+                return closure.call()
+            }
         }
     }
 

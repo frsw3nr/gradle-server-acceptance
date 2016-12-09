@@ -83,11 +83,12 @@ class LinuxSpecBase extends InfraTestSpec {
         }
     }
 
-    def run_ssh_command(session, command, test_id) {
+    def run_ssh_command(session, command, test_id, share = false) {
         try {
             session.execute "${command} > ${work_dir}/${test_id}"
-            session.get from: "${work_dir}/${test_id}", into: local_dir
-            new File("${local_dir}/${test_id}").text
+            def log_path = (share) ? evidence_log_share_dir : local_dir
+            session.get from: "${work_dir}/${test_id}", into: log_path
+            new File("${log_path}/${test_id}").text
         } catch (Exception e) {
             log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
         }
