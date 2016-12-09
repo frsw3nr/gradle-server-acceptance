@@ -43,7 +43,7 @@ class EvidenceSheetTest extends Specification{
         evidence.readSheet()
 
         then:
-        thrown(IllegalArgumentException)
+        thrown(FileNotFoundException)
     }
 
     def "既定のExcelファイル書き込み"() {

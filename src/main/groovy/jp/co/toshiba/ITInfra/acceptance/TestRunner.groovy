@@ -55,7 +55,6 @@ class TestRunner {
             new ProjectBuilder(base_home, site_home).generate()
             System.exit(0)
         }
-
         target_servers = [:]
         if (options.ss) {
             options.ss.each {
