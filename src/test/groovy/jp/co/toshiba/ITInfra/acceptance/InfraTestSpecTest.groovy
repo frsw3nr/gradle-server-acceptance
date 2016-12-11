@@ -47,7 +47,7 @@ class InfraTestSpecTest extends Specification {
         spec = new InfraTestSpec(test_server, 'Windows')
 
         when:
-        def lines = spec.exec('ipconfig_sjis', false, "MS932") {
+        def lines = spec.exec('ipconfig_sjis', encode: "MS932") {
             new File("${local_dir}/ipconfig_sjis").getText("MS932")
         }
         def tmp = [:].withDefault{''}
@@ -67,7 +67,7 @@ class InfraTestSpecTest extends Specification {
         spec = new InfraTestSpec(test_server, 'Windows')
 
         when:
-        def lines = spec.exec('ipconfig_eucjp', false, "EUC_JP") {
+        def lines = spec.exec('ipconfig_eucjp', encode: "EUC_JP") {
             new File("${local_dir}/ipconfig_eucjp").getText("EUC_JP")
         }
         def tmp = [:].withDefault{''}
@@ -87,7 +87,7 @@ class InfraTestSpecTest extends Specification {
         spec = new InfraTestSpec(test_server, 'Windows')
 
         when:
-        def lines = spec.exec('wmic_net.txt', false, "UTF-16LE") {
+        def lines = spec.exec('wmic_net.txt', encode: "UTF-16LE") {
             new File("${local_dir}/wmic_net.txt", "UTF-16LE")
         }
         def tmp = [:].withDefault{0}
@@ -107,7 +107,7 @@ class InfraTestSpecTest extends Specification {
         spec = new InfraTestSpec(test_server, 'Windows')
 
         when:
-        def lines = spec.exec('date.txt', true) {
+        def lines = spec.exec('date.txt', shared: true) {
             new File("${evidence_log_share_dir}/date.txt")
         }
         println lines

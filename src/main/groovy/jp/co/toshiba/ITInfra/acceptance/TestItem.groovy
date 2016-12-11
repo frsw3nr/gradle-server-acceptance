@@ -55,7 +55,7 @@ class TestItem {
         this.verify_status << results
     }
 
-    def devices(List csv, List header) {
+    def devices(HashMap settings = [:], List csv, List header) {
         this.devices = csv
         this.device_header = header
     }

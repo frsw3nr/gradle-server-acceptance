@@ -8,6 +8,8 @@ class ProjectBuilderTest extends Specification {
     def "プロジェクトの初期化"() {
         setup:
         def getconfig_home = System.getProperty("user.dir")
+        def target_log_dir = new File(getconfig_home + '/build/project-a')
+        target_log_dir.deleteDir()
 
         when:
         def builder = new ProjectBuilder(getconfig_home, './build/project-a')

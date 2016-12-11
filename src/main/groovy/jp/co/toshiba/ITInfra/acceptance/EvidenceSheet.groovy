@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.io.FileUtils.*
 import groovy.transform.ToString
+import groovy.json.*
 import static groovy.json.JsonOutput.*
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
@@ -28,6 +29,7 @@ class EvidenceSheet {
 
     final device_cell_width   = 5760
     final evidence_cell_width = 11520
+    final node_dir_prefix     = "_node"
 
     String evidence_source
     String evidence_target
@@ -301,10 +303,25 @@ class EvidenceSheet {
         cell.setCellStyle(style);
     }
 
+    def writeNodeFile(String platform, String server_name, def node_config)
+        throws IOException {
+        def base_dir = "${staging_dir}/${node_dir_prefix}"
+        def node_dir = "${base_dir}/${server_name}"
+        new File(node_dir).mkdirs()
+        new File("${node_dir}/${platform}.json").with {
+            def json = JsonOutput.toJson(node_config)
+            it.text = JsonOutput.prettyPrint(json)
+        }
+        new File("./build/.last_run").with {
+            it.text = JsonOutput.toJson(['node_dir' : node_dir ])
+        }
+    }
+
     def updateTestResult(String platform, String server_name, int sequence, Map results)
         throws IOException {
         log.info("Update evidence : platform = ${platform}, server = ${server_name}")
 
+        def node_config = []
         def inp = new FileInputStream(evidence_target)
         def wb  = WorkbookFactory.create(inp)
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
@@ -338,13 +355,16 @@ class EvidenceSheet {
                 Cell cell_result  = row.createCell(column)
                 cell_result.setCellStyle(cell_style)
                 if (cell_test_id && cell_domain) {
+                    def rows = [:]
                     def test_id = cell_test_id.getStringCellValue()
+                    rows['test_id'] = test_id
                     def domain  = cell_domain.getStringCellValue()
+                    rows['domain']  = domain
                     log.debug "Check row ${domain},${test_id} in ${platform}"
-
                     try {
                         if (results[domain]['test'].containsKey(test_id)) {
                             def value = results[domain]['test'][test_id].toString()
+                            rows['value']  = value
                             if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
                             } else {
@@ -354,6 +374,7 @@ class EvidenceSheet {
                         }
                         if (results[domain]['verify'].containsKey(test_id)) {
                             def is_ok = results[domain]['verify'][test_id]
+                            rows['verify']  = is_ok
                             if (is_ok == true) {
                                 setTestResultCellStyle(cell_result, ResultCellStyle.OK)
                             } else if (is_ok == false) {
@@ -366,6 +387,9 @@ class EvidenceSheet {
                     } catch (NullPointerException e) {
                         log.debug "Not found row ${domain},${test_id} in ${platform}"
                     }
+                    if (rows.containsKey('value')) {
+                        node_config << rows
+                    }
                 }
                 return
             }
@@ -373,6 +397,7 @@ class EvidenceSheet {
         def fos = new FileOutputStream(evidence_target)
         wb.write(fos)
         fos.close()
+        writeNodeFile(platform, server_name, node_config)
     }
 
     def insertDeviceSheet(String platform, String test_id, List headers, Map csvs)

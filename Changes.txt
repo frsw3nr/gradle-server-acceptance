@@ -9,6 +9,7 @@ New features:
         - [x] Zabbixホスト情報
     * SC3000 ストレージ構成情報収集シナリオ(server-acceptance-sc3000)
         - [x] ストレージ構成情報。 tsustat コマンドで検索
+* 構成管理ファイルを、build/log/node/{ノード}下に保存
 
 Bug fixes:
 

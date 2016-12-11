@@ -34,6 +34,7 @@ class TestRunner {
                 valueSeparator: ',' as char, 'Filtering list of servers : svr1,svr2,...'
             t longOpt: 'test',     args: Option.UNLIMITED_VALUES,
                 valueSeparator: ',' as char, 'Filtering list of test_ids : vm,cpu,...'
+            u longOpt: 'update',   'Update node config direc from the log : ./build/log,...'
             r longOpt: 'resource', args: 1, 'Dry run test resource : ./src/test/resources/log/'
             p longOpt: 'parallel', args: 1, 'Degree of test runner processes'
             d longOpt: 'dry-run', 'Enable Dry run test'
@@ -55,6 +56,11 @@ class TestRunner {
             new ProjectBuilder(base_home, site_home).generate()
             System.exit(0)
         }
+        if (options.u) {
+            new EvidenceFile(getconfig_home).generate()
+            System.exit(0)
+        }
+
         target_servers = [:]
         if (options.ss) {
             options.ss.each {
@@ -108,10 +114,10 @@ class TestRunner {
     }
 
     static void main(String[] args) {
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
         try {
+            def test_runner = new TestRunner()
+            test_runner.parse(args)
+            def test_scheduler = new TestScheduler(test_runner)
             test_scheduler.runTest()
         } catch (Exception e) {
             log.error "Fatal error : " + e

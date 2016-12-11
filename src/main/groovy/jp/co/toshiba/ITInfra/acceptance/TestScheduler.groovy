@@ -1,5 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+import groovy.json.*
+import static groovy.json.JsonOutput.*
 import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool
 import jsr166y.ForkJoinPool
@@ -120,6 +122,7 @@ class TestScheduler {
             }
         }
         log.debug "Evidence : " + test_evidences
+
         test_evidences.each { platform, platform_evidence ->
             def server_index = 0
             platform_evidence.each { server_name, server_evidence ->

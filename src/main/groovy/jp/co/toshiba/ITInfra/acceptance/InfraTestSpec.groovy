@@ -66,14 +66,15 @@ class InfraTestSpec {
         }
     }
 
-    def exec = { String test_id, Boolean share = false,
-                 String encode = null, Closure closure ->
+    def exec = { HashMap settings = [:], String test_id, Closure closure ->
         def log_path = "${dry_run_staging_dir}/${platform}"
-        if (share == false) {
+        Boolean shared = settings['shared'] ?: false
+        String  encode = settings['encode'] ?: null
+        if (shared == false) {
             log_path += "/${server_name}/${domain}"
         }
         log_path += '/' + test_id
-        def target_path = (share) ? evidence_log_share_dir : local_dir
+        def target_path = (shared) ? evidence_log_share_dir : local_dir
         target_path += '/' + test_id
         if (dry_run) {
             log.debug "[DryRun] Read dummy log '${log_path}'"
@@ -90,7 +91,7 @@ class InfraTestSpec {
             }
         } else {
             def target_log = new File(target_path)
-            if (share == true && target_log.exists()) {
+            if (shared == true && target_log.exists()) {
                 return (encode) ? target_log.getText(encode) : target_log.text
             } else {
                 return closure.call()
