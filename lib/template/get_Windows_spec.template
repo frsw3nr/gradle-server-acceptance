@@ -11,7 +11,7 @@ Param(
 \$ErrorActionPreference = "Stop"
 \$session = \$null
 try {
-    \$script:session  = New-PSSession \$server -Credential \$cred
+    \$script:session  = New-PSSession \$ip -Credential \$cred
 } catch [Exception] {
     Write-Error "\$error"
     exit 1
