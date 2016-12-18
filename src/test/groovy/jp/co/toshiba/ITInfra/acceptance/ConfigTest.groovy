@@ -19,4 +19,10 @@ class ConfigTest extends Specification {
         config['evidence']['source'] == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "Config test read shift-jis"() {
+        when:
+        def config = Config.instance.read('src/test/resources/config_jp.groovy')
+        then:
+        config['evidence']['source'] == './サーバーチェックシート.xlsx'
+    }
 }

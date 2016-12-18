@@ -1,46 +1,52 @@
-// æ¤œæŸ»ä»•æ§˜ã‚·ãƒ¼ãƒˆå®šç¾©
+// ŒŸ¸d—lƒV[ƒg’è‹`
 
-evidence.source = './src/test/resources/ãƒã‚§ãƒƒã‚¯ã‚·ãƒ¼ãƒˆ.xlsx'
-evidence.sheet_name_server = 'ãƒã‚§ãƒƒã‚¯å¯¾è±¡VM'
-evidence.sheet_name_rule = 'æ¤œæŸ»ãƒ«ãƒ¼ãƒ«'
+evidence.source = './ƒT[ƒo[ƒ`ƒFƒbƒNƒV[ƒg.xlsx'
+evidence.sheet_name_server = 'ƒ`ƒFƒbƒN‘ÎÛ'
+evidence.sheet_name_rule = 'ŒŸ¸ƒ‹[ƒ‹'
 evidence.sheet_name_spec = [
-    'Linux':   'ã‚²ã‚¹ãƒˆOSæ‰•å‡ºã—ãƒã‚§ãƒƒã‚¯ã‚·ãƒ¼ãƒˆ(Linux)',
-    'Windows': 'ã‚²ã‚¹ãƒˆOSæ‰•å‡ºã—ãƒã‚§ãƒƒã‚¯ã‚·ãƒ¼ãƒˆ(Windows)',
+    'Linux':   'ƒQƒXƒgOSƒ`ƒFƒbƒNƒV[ƒg(Linux)',
+    'Windows': 'ƒQƒXƒgOSƒ`ƒFƒbƒNƒV[ƒg(Windows)',
+    'VMHost':  'ESXiƒzƒXƒgƒ`ƒFƒbƒNƒV[ƒg(VMHost)',
 ]
 
-// æ¤œæŸ»çµæœãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›å…ˆ
+// ŒŸ¸Œ‹‰Êƒtƒ@ƒCƒ‹o—Íæ
 
-evidence.target='./build/ãƒã‚§ãƒƒã‚¯ã‚·ãƒ¼ãƒˆ_<date>.xlsx'
-//evidence.target='./build/check_sheet.xlsx'
+evidence.target='./build/ƒ`ƒFƒbƒNƒV[ƒg_<date>.xlsx'
 
-// æ¤œæŸ»çµæœãƒ­ã‚°ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+// ŒŸ¸Œ‹‰ÊƒƒOƒfƒBƒŒƒNƒgƒŠ
 
 evidence.staging_dir='./build/log.<date>'
-//evidence.staging_dir='./build/log'
 
-// æ¤œæŸ»ãƒ¢ãƒ¼ãƒ‰
+// •À—ñ‰»‚µ‚È‚¢ƒ^ƒXƒN
+// •À—ñ“x‚ğw’è‚ğ‚µ‚Ä‚àAw’è‚µ‚½ƒhƒƒCƒ“ƒ^ƒXƒN‚ÍƒVƒŠƒAƒ‹‚ÉÀs‚·‚é
+
+test.serialization.tasks = ['vCenter', 'VMHost']
+
+// DryRunƒ‚[ƒhƒƒO•Û‘¶æ
 
 test.dry_run_staging_dir = './src/test/resources/log/'
-test.Linux.dry_run   = false
-test.Linux.timeout   = 30
-test.Windows.dry_run = false
-test.Windows.timeout = 30
-test.vCenter.dry_run = false
-test.vCenter.timeout = 30
 
-// vCenteræ¥ç¶šæƒ…å ±
+// ƒRƒ}ƒ“ƒhÌæ‚Ìƒ^ƒCƒ€ƒAƒEƒg
+// Windows,vCenter‚Ìê‡A‘SƒRƒ}ƒ“ƒh‚ğ‚Ü‚Æ‚ß‚½ƒoƒbƒ`ƒXƒNƒŠƒvƒg‚Ìƒ^ƒCƒ€ƒAƒEƒg’l
+
+test.Linux.timeout   = 30
+test.Windows.timeout = 300
+test.vCenter.timeout = 300
+test.VMHost.timeout  = 300
+
+// vCenterÚ‘±î•ñ
 
 account.Remote.Test.server   = '192.168.10.100'
 account.Remote.Test.user     = 'test_user'
 account.Remote.Test.password = 'P@ssword'
 
-// Linux æ¥ç¶šæƒ…å ±
+// Linux Ú‘±î•ñ
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
-// Windows æ¥ç¶šæƒ…å ±
+// Windows Ú‘±î•ñ
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'

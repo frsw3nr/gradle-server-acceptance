@@ -1,6 +1,8 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
+import org.apache.commons.io.FileUtils
+import groovy.transform.ToString
 
 @Singleton
 class Config {
@@ -10,8 +12,7 @@ class Config {
     Map read(String config_file) throws IOException {
 
         if (!configs[config_file]) {
-            def text = new File(config_file).toURL()
-            def config = new ConfigSlurper().parse(text)
+            def config = new ConfigSlurper().parse(new File(config_file).getText("Shift_JIS"))
             ['target', 'staging_dir'].each {
                 if (config['evidence'][it]) {
                     config['evidence'][it] = config['evidence'][it].replaceAll(
