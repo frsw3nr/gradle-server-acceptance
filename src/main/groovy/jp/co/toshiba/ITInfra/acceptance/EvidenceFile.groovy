@@ -19,7 +19,7 @@ class EvidenceFile {
     def generate() throws IOException {
         def last_run_json = new File("$home/build/.last_run").text
         def last_run = new JsonSlurper().parseText(last_run_json)
-
-        FileUtils.copyDirectory(new File(last_run.node_dir), new File("./node"))
+        def node_path = new File("./node").getAbsolutePath()
+        FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
     }
 }

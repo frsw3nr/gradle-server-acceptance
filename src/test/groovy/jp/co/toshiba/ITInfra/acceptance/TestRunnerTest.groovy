@@ -37,20 +37,6 @@ class TestRunnerTest extends Specification {
         1==1
     }
 
-    def "テストリソース指定"() {
-        setup:
-        def test = new TestRunner()
-
-        when:
-        String[] args = [
-            '-r', './hoge/',
-        ]
-        test.parse(args)
-
-        then:
-        1 == 1
-    }
-
     def "サーバ指定"() {
         setup:
         def test = new TestRunner()

@@ -34,7 +34,7 @@ class EvidenceSheetTest extends Specification{
         evidence.readSheet()
 
         then:
-        evidence.evidence_source == './src/test/resources/チェックシート.xlsx'
+        evidence.evidence_source == './サーバーチェックシート.xlsx'
     }
 
     def "Excelシートなし"() {

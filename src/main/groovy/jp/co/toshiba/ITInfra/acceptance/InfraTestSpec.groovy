@@ -24,6 +24,7 @@ class InfraTestSpec {
     String evidence_log_share_dir
     String local_dir
     int timeout
+    Boolean debug
     Boolean dry_run
     Boolean skip_exec
     RunMode mode
@@ -41,6 +42,7 @@ class InfraTestSpec {
         this.dry_run                = test_server.dry_run
         this.dry_run_staging_dir    = test_server.dry_run_staging_dir
         this.timeout                = test_server.timeout
+        this.debug                  = test_server.debug
         this.mode                   = RunMode.prepare
         this.server_info            = test_server.infos
     }
@@ -112,6 +114,10 @@ class InfraTestSpec {
                 process.waitForOrKill(1000 * this.timeout)
             }
             def rc = process.exitValue()
+            if (this.debug) {
+                println "[command]\n" + cmd
+                println "[output]\n" + sout
+            }
             if (rc != 0) {
                 throw new IOException("Powershell return '${rc}' exit code : " + serr)
             }

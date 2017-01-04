@@ -5,11 +5,12 @@
 *.war
 *.ear
 .mtj.tmp/
-/build/
 /libdeps/
 /resource/
 /config/config.groovy
 /config/.secret/
+build/*
+!.gitkeep
 gradle-app.setting
 gradle.properties
 

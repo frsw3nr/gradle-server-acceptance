@@ -11,7 +11,7 @@ applicationDefaultJvmArgs = [
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
-version = '0.1.5'
+version = '0.1.6'
 
 repositories {
     jcenter()
@@ -61,11 +61,15 @@ run {
 task zipApp(type: Zip, dependsOn: shadowJar) {
     def target  = 'server-acceptance'
     archiveName = "${baseName}-${version}.${extension}"
+    // Issue: Copy hidden file
+    // http://stackoverflow.com/questions/29504250/how-to-copy-hidden-resource-files-in-gradle
+    org.apache.tools.ant.DirectoryScanner.removeDefaultExclude("**/.gitignore")
 
     into("./${target}/") {
+        from file("src/main/resources/root/.gitignore")
         from fileTree(dir: "src/main/resources/root/${language}")
         from fileTree(dir: "docs/${language}").include('Readme.md', 'Usage.md')
-        from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt')
+        from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt', 'Changes.txt')
     }
     into ("./${target}/config") {
         from fileTree(dir : 'config').include("*.xml")

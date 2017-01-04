@@ -33,6 +33,12 @@ test.Linux.timeout   = 30
 test.Windows.timeout = 300
 test.vCenter.timeout = 300
 
+// コマンド採取のデバッグモード
+
+test.Linux.debug   = false
+test.Windows.debug = false
+test.vCenter.debug = false
+
 // vCenter接続情報
 
 account.Remote.Test.server   = '192.168.10.100'

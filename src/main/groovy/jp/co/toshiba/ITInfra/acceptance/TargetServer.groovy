@@ -17,6 +17,7 @@ class TargetServer {
     Boolean dry_run
     String dry_run_staging_dir
     int timeout
+    boolean debug
 
     Map infos = [:]
     def os_account
@@ -61,6 +62,7 @@ class TargetServer {
         def config_test = config['test']
         dry_run = config_test[platform]['dry_run'] ?: false
         timeout = config_test[platform]['timeout'] ?: 0
+        debug   = config_test[platform]['debug'] ?: false
         dry_run_staging_dir = config_test['dry_run_staging_dir'] ?: './test/resources/log/'
         evidence_log_share_dir  = config['evidence']['staging_dir'] ?: './build/log/'
         evidence_log_share_dir += '/' + platform

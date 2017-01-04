@@ -12,7 +12,7 @@ class Config {
     Map read(String config_file) throws IOException {
 
         if (!configs[config_file]) {
-            def config = new ConfigSlurper().parse(new File(config_file).getText("Shift_JIS"))
+            def config = new ConfigSlurper().parse(new File(config_file).getText("MS932"))
             ['target', 'staging_dir'].each {
                 if (config['evidence'][it]) {
                     config['evidence'][it] = config['evidence'][it].replaceAll(

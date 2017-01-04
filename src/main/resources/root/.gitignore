@@ -1,0 +1,9 @@
+.gradle
+.gradletasknamecache
+.mtj.tmp/
+/libdeps/
+/resource/
+build/log*
+!.gitkeep
+gradle-app.setting
+gradle.properties

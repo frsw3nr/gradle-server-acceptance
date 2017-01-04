@@ -31,8 +31,13 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 
 test.Linux.timeout   = 30
 test.Windows.timeout = 300
-test.vCenter.timeout = 300
 test.VMHost.timeout  = 300
+
+// コマンド採取のデバッグモード
+
+// test.Linux.debug   = false
+// test.Windows.debug = false
+// test.VMHost.debug  = false
 
 // vCenter接続情報
 

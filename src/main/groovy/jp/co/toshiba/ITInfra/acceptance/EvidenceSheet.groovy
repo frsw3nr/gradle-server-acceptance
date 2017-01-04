@@ -306,14 +306,14 @@ class EvidenceSheet {
     def writeNodeFile(String platform, String server_name, def node_config)
         throws IOException {
         def base_dir = "${staging_dir}/${node_dir_prefix}"
-        def node_dir = "${base_dir}/${server_name}"
+        def node_dir = "${base_dir}/${platform}"
         new File(node_dir).mkdirs()
-        new File("${node_dir}/${platform}.json").with {
+        new File("${node_dir}/${server_name}.json").with {
             def json = JsonOutput.toJson(node_config)
             it.text = JsonOutput.prettyPrint(json)
         }
         new File("./build/.last_run").with {
-            it.text = JsonOutput.toJson(['node_dir' : node_dir ])
+            it.text = JsonOutput.toJson(['node_dir' : base_dir ])
         }
     }
 
@@ -400,6 +400,32 @@ class EvidenceSheet {
         writeNodeFile(platform, server_name, node_config)
     }
 
+    def writeDeviceFile(String platform, String test_id, List headers, Map csvs)
+        throws IOException {
+        def base_dir = "${staging_dir}/${node_dir_prefix}"
+        // Body registration
+        csvs.each {server_name, server_csvs ->
+            def device_config = []
+            server_csvs.each { server_csv ->
+                def columns = [:]
+                def column_index = 0
+                server_csv.each { column_value ->
+                    def value = column_value.toString().trim()
+                    columns[headers[column_index]] = value
+                    column_index ++
+                }
+                device_config << columns
+
+                def node_dir = "${base_dir}/${platform}/${server_name}"
+                new File(node_dir).mkdirs()
+                new File("${node_dir}/${test_id}.json").with {
+                    def json = JsonOutput.toJson(device_config)
+                    it.text = JsonOutput.prettyPrint(json)
+                }
+            }
+        }
+    }
+
     def insertDeviceSheet(String platform, String test_id, List headers, Map csvs)
         throws IOException {
         def device_sheet_name = "${platform}_${test_id}"
@@ -467,6 +493,7 @@ class EvidenceSheet {
         def fos = new FileOutputStream(evidence_target)
         wb.write(fos)
         fos.close()
+        writeDeviceFile(platform, test_id, headers, csvs)
     }
 
 
