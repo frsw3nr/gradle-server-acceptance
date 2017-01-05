@@ -3,6 +3,7 @@ node {
 	stage 'Gitクローン'
 
 	git 'http://192.168.10.1:8090/git/root/test1.git'
+  bat 'git pull'
 
   echo "検査シナリオを設定します..."
   def branches = getBranches()
@@ -57,7 +58,8 @@ node {
   println current_env
   bat 'git add .'
   bat "git commit -a -m \"${comment}\""
-  bat 'git push --set-upstream origin master'
+  // bat 'git push --set-upstream origin master'
+  bat 'git push'
 }
 
 def getBranches() {

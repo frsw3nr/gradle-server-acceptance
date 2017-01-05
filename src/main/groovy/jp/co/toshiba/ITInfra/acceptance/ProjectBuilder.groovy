@@ -42,6 +42,7 @@ class ProjectBuilder {
 
     def xport(String xport_file) {
         assert(home)
+        assert(xport_file)
 
         // Drop and create working directory
         def target_path = new File("${home}/build/xport_tmp").getAbsolutePath()
@@ -87,23 +88,6 @@ class ProjectBuilder {
         }
 
         // Archive working directory.
-        def dir = /C:\work\test/
         new AntBuilder().zip(destfile: xport_file, basedir: target_path)
-        // // Create an empty directory
-        // ['build', 'src/test/resource/log'].each { base ->
-        //     def target_path =  new File("${target_dir}/${base}")
-        //     target_path.mkdirs()
-        //     new File("${target_path}/.gitkeep").createNewFile()
-        // }
-        // // Copy all files under the directory
-        // ['config', 'lib'].each { base ->
-        //     FileUtils.copyDirectory(new File("${home}/${base}"),
-        //                             new File("${target_dir}/${base}"))
-        // }
-        // // Copy by specifying file name
-        // ['サーバーチェックシート.xlsx', '.gitignore', 'Changes.txt', 'Readme.md', 'LICENSE.txt'].each { base ->
-        //     FileUtils.copyFile(new File("${home}/${base}"),
-        //                        new File("${target_dir}/${base}"))
-        // }
     }
 }
