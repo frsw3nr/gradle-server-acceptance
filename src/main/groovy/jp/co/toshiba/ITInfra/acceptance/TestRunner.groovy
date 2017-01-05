@@ -17,6 +17,7 @@ class TestRunner {
     String test_resource
     String config_file
     String sheet_file
+    String export_file
     int parallel_degree
     def target_servers
     def test_ids
@@ -29,6 +30,7 @@ class TestRunner {
         cli.with {
             c longOpt: 'config',   args: 1, 'Config file path : ./config/config.groovy'
             g longOpt: 'generate', args: 1, 'Generate project by specifying a directory'
+            x longOpt: 'xport',    args: 1, 'Export project to specifying a file'
             e longOpt: 'excel',    args: 1, 'Excel test spec file path : check_sheet.xlsx'
             s longOpt: 'server',   args: Option.UNLIMITED_VALUES,
                 valueSeparator: ',' as char, 'Filtering list of servers : svr1,svr2,...'
@@ -54,6 +56,11 @@ class TestRunner {
             def base_home = System.getProperty("getconfig_home")
             def site_home = options.g
             new ProjectBuilder(base_home, site_home).generate()
+            System.exit(0)
+        }
+        if (options.x) {
+            def xport_file = options.x
+            new ProjectBuilder(getconfig_home).xport(xport_file)
             System.exit(0)
         }
         if (options.u) {
