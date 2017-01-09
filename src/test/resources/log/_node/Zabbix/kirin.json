@@ -1,0 +1,50 @@
+[
+    {
+        "test_id": "Host",
+        "domain": "Zabbix",
+        "value": "kirin"
+    },
+    {
+        "test_id": "hostid",
+        "domain": "Zabbix",
+        "value": "10111"
+    },
+    {
+        "test_id": "groups",
+        "domain": "Zabbix",
+        "value": "[Linux servers, Linux Servers - CLM]"
+    },
+    {
+        "test_id": "parentTemplates",
+        "domain": "Zabbix",
+        "value": "[Template OS Linux, Template App Zabbix Server, Template App MySQL, Template OS Linux - CLM]"
+    },
+    {
+        "test_id": "name",
+        "domain": "Zabbix",
+        "value": "kirin"
+    },
+    {
+        "test_id": "interfaces",
+        "domain": "Zabbix",
+        "value": "[192.168.10.4]"
+    },
+    {
+        "test_id": "status",
+        "domain": "Zabbix",
+        "value": "Monitored",
+        "verify": true
+    },
+    {
+        "test_id": "available",
+        "domain": "Zabbix",
+        "value": "Unavailable",
+        "verify": false
+    },
+    {
+        "test_id": "syslog",
+        "domain": "Zabbix",
+        "value": "Log is empty",
+        "verify": false
+    }
+]

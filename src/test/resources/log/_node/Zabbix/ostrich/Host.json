@@ -1,0 +1,13 @@
+[
+    {
+        "hostid": "10117",
+        "groups": "[Linux servers]",
+        "parentTemplates": "[Template OS Linux]",
+        "host": "ostrich",
+        "name": "ostrich",
+        "interfaces": "[192.168.10.1]",
+        "status": "Monitored",
+        "available": "Available",
+        "error": ""
+    }
+]

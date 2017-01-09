@@ -1,5 +1,6 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import groovy.sql.Sql
 
 // gradle --daemon clean test --tests "EvidenceFileTest.メイン処理"
 
@@ -83,4 +84,48 @@ class EvidenceFileTest extends Specification {
         then:
         1 == 1
     }
+
+    def "MySQL接続設定ファイルなし"() {
+        setup:
+        def home = System.getProperty("user.dir")
+
+        when:
+        def config = 'src/test/resources/config_db_hoge.groovy'
+        def evidence = new EvidenceFile(home: home, config_db_file: config)
+        evidence.initializeCMDB()
+
+        then:
+        thrown(FileNotFoundException)
+    }
+
+    def "MySQL初期化"() {
+        setup:
+        def home = System.getProperty("user.dir")
+
+        when:
+        def config   = 'src/test/resources/config_db.groovy'
+        def last_run = 'src/test/resources/log/.last_run'
+        def evidence = new EvidenceFile(home: home, config_db_file: config,
+                                        last_run_config: last_run)
+        evidence.initializeCMDB()
+
+        then:
+        1 == 1
+    }
+
+    def "MySQL登録"() {
+        setup:
+        def home = System.getProperty("user.dir")
+
+        when:
+        def config   = 'src/test/resources/config_db.groovy'
+        def last_run = 'src/test/resources/log/.last_run'
+        def evidence = new EvidenceFile(home: home, config_db_file: config,
+                                        last_run_config: last_run)
+        evidence.exportCMDB()
+
+        then:
+        1 == 1
+    }
+
 }

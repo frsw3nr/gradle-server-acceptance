@@ -13,10 +13,12 @@ class Config {
 
         if (!configs[config_file]) {
             def config = new ConfigSlurper().parse(new File(config_file).getText("MS932"))
-            ['target', 'staging_dir'].each {
-                if (config['evidence'][it]) {
-                    config['evidence'][it] = config['evidence'][it].replaceAll(
-                                             /<date>/, this.date)
+            (config['evidence']).with { evidence ->
+                ['target', 'staging_dir'].each {
+                    if (evidence[it]) {
+                        evidence[it] = evidence[it].replaceAll(
+                                                 /<date>/, this.date)
+                    }
                 }
             }
             configs[config_file] = config

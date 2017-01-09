@@ -36,7 +36,8 @@ class TestRunner {
                 valueSeparator: ',' as char, 'Filtering list of servers : svr1,svr2,...'
             t longOpt: 'test',     args: Option.UNLIMITED_VALUES,
                 valueSeparator: ',' as char, 'Filtering list of test_ids : vm,cpu,...'
-            u longOpt: 'update',   'Update node config direc from the log : ./build/log,...'
+            u longOpt: 'update',   args: 1, 'Update node config',
+                argName:'local|db|db-all'
             r longOpt: 'resource', args: 1, 'Dry run test resource : ./src/test/resources/log/'
             p longOpt: 'parallel', args: 1, 'Degree of test runner processes'
             d longOpt: 'dry-run', 'Enable Dry run test'
@@ -64,7 +65,16 @@ class TestRunner {
             System.exit(0)
         }
         if (options.u) {
-            new EvidenceFile(getconfig_home).generate()
+            if (options.u == 'local') {
+                new EvidenceFile(home: getconfig_home).generate()
+            } else if (options.u == 'db') {
+                new EvidenceFile(home: getconfig_home).exportCMDB()
+            } else if (options.u == 'db-all') {
+                new EvidenceFile(home: getconfig_home).exportCMDBAll()
+            } else {
+                cli.usage()
+                throw new IllegalArgumentException('--update option must be local or db or db-all')
+            }
             System.exit(0)
         }
 

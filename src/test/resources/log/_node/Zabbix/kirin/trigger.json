@@ -1,0 +1,402 @@
+[
+    {
+        "priority": "Information",
+        "description": "Host name of zabbix_agentd was changed on {HOST.NAME}",
+        "expression": "{13223}>0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix agent on {HOST.NAME} is unreachable for 5 minutes",
+        "expression": "{13224}=1",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Version of zabbix_agent(d) was changed on {HOST.NAME}",
+        "expression": "{13225}>0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Configured max number of opened files is too low on {HOST.NAME}",
+        "expression": "{13226}<1024",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Configured max number of processes is too low on {HOST.NAME}",
+        "expression": "{13227}<256",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "SystemLog Error",
+        "expression": "{13322}=1",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "MySQL is down",
+        "expression": "{13244}=0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Disaster",
+        "description": "MySQL Server is down",
+        "expression": "{13277}=0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Too many processes running on {HOST.NAME}",
+        "expression": "{13228}>30",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Too many processes on {HOST.NAME}",
+        "expression": "{13229}>300",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Processor load is too high on {HOST.NAME}",
+        "expression": "{13230}>5",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Disk I/O is overloaded on {HOST.NAME}",
+        "expression": "{13231}>20",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Hostname was changed on {HOST.NAME}",
+        "expression": "{13232}>0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Lack of free swap space on {HOST.NAME}",
+        "expression": "{13233}<50",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Host information was changed on {HOST.NAME}",
+        "expression": "{13234}>0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "{HOST.NAME} has just been restarted",
+        "expression": "{13235}<0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "/etc/passwd has been changed on {HOST.NAME}",
+        "expression": "{13236}>0",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free inodes is less than 20% on volume /",
+        "expression": "{13240}<20",
+        "flags": "4",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free inodes is less than 20% on volume /boot",
+        "expression": "{13241}<20",
+        "flags": "4",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free disk space is less than 20% on volume /",
+        "expression": "{13242}<20",
+        "flags": "4",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free disk space is less than 20% on volume /boot",
+        "expression": "{13243}<20",
+        "flags": "4",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Lack of available memory on server {HOST.NAME}",
+        "expression": "{13237}<20M",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Getperf Web Service not respond",
+        "expression": "{13301}#0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix alerter processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13245}>75)|({TRIGGER.VALUE}=1&{13245}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix configuration syncer processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13246}>75)|({TRIGGER.VALUE}=1&{13246}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix db watchdog processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13247}>75)|({TRIGGER.VALUE}=1&{13247}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix discoverer processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13248}>75)|({TRIGGER.VALUE}=1&{13248}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix escalator processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13249}>75)|({TRIGGER.VALUE}=1&{13249}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix history syncer processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13250}>75)|({TRIGGER.VALUE}=1&{13250}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix housekeeper processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13251}>75)|({TRIGGER.VALUE}=1&{13251}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix http poller processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13252}>75)|({TRIGGER.VALUE}=1&{13252}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix icmp pinger processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13253}>75)|({TRIGGER.VALUE}=1&{13253}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix ipmi poller processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13254}>75)|({TRIGGER.VALUE}=1&{13254}>65)",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix java poller processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13255}>75)|({TRIGGER.VALUE}=1&{13255}>65)",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix node watcher processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13256}>75)|({TRIGGER.VALUE}=1&{13256}>65)",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix poller processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13257}>75)|({TRIGGER.VALUE}=1&{13257}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix proxy poller processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13258}>75)|({TRIGGER.VALUE}=1&{13258}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix self-monitoring processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13259}>75)|({TRIGGER.VALUE}=1&{13259}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix snmp trapper processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13260}>75)|({TRIGGER.VALUE}=1&{13260}>65)",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix timer processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13261}>75)|({TRIGGER.VALUE}=1&{13261}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix trapper processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13262}>75)|({TRIGGER.VALUE}=1&{13262}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix unreachable poller processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13263}>75)|({TRIGGER.VALUE}=1&{13263}>65)",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix vmware collector processes more than 75% busy",
+        "expression": "({TRIGGER.VALUE}=0&{13264}>75)|({TRIGGER.VALUE}=1&{13264}>65)",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "More than 100 items having missing data for more than 10 minutes",
+        "expression": "{13265}>100",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Less than 25% free in the configuration cache",
+        "expression": "{13266}<25",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Less than 5% free in the value cache",
+        "expression": "{13267}<5",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Less than 25% free in the vmware cache",
+        "expression": "{13268}<25",
+        "flags": "0",
+        "state": "1",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Less than 25% free in the history cache",
+        "expression": "{13269}<25",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Less than 25% free in the text history cache",
+        "expression": "{13270}<25",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Less than 25% free in the trends cache",
+        "expression": "{13271}<25",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    }
+]

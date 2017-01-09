@@ -16,6 +16,7 @@ class ConfigTest extends Specification {
         when:
         def config = Config.instance.read('src/test/resources/config.groovy')
         then:
+        config['evidence']['target'] != './build/check_sheet_<date>.xlsx'
         config['evidence']['source'] == './src/test/resources/check_sheet.xlsx'
     }
 
