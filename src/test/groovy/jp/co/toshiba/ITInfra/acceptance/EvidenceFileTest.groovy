@@ -85,42 +85,14 @@ class EvidenceFileTest extends Specification {
         1 == 1
     }
 
-    def "MySQL接続設定ファイルなし"() {
-        setup:
-        def home = System.getProperty("user.dir")
-
-        when:
-        def config = 'src/test/resources/config_db_hoge.groovy'
-        def evidence = new EvidenceFile(home: home, config_db_file: config)
-        evidence.initializeCMDB()
-
-        then:
-        thrown(FileNotFoundException)
-    }
-
-    def "MySQL初期化"() {
+    def "DB登録"() {
         setup:
         def home = System.getProperty("user.dir")
 
         when:
         def config   = 'src/test/resources/config_db.groovy'
         def last_run = 'src/test/resources/log/.last_run'
-        def evidence = new EvidenceFile(home: home, config_db_file: config,
-                                        last_run_config: last_run)
-        evidence.initializeCMDB()
-
-        then:
-        1 == 1
-    }
-
-    def "MySQL登録"() {
-        setup:
-        def home = System.getProperty("user.dir")
-
-        when:
-        def config   = 'src/test/resources/config_db.groovy'
-        def last_run = 'src/test/resources/log/.last_run'
-        def evidence = new EvidenceFile(home: home, config_db_file: config,
+        def evidence = new EvidenceFile(home: home, db_config: config,
                                         last_run_config: last_run)
         evidence.exportCMDB()
 
@@ -128,4 +100,18 @@ class EvidenceFileTest extends Specification {
         1 == 1
     }
 
+    def "DB全体登録"() {
+        setup:
+        def home = System.getProperty("user.dir")
+
+        when:
+        def config   = 'src/test/resources/config_db.groovy'
+        def last_run = 'src/test/resources/log/.last_run'
+        def evidence = new EvidenceFile(home: home, db_config: config,
+                                        last_run_config: last_run)
+        evidence.exportCMDBAll()
+
+        then:
+        thrown(IOException)
+    }
 }

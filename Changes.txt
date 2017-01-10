@@ -1,11 +1,12 @@
-Changes for 0.1.6 (2017-1-5)
+Changes for 0.1.6 (2017-1-10)
 --------------------------------------------------------------------------------
 
 New features:
 * プロジェクトテンプレートに.gitignore ファイルを追加
-* ドキュメントを Sphinx に変更(作成中)
+* ドキュメント管理ツールを Sphinx に変更(作成中)
 * Jenkins 連携。検査ジョブスクリプトを追加
 * config.groovy にデバッグモードパラメータ追加
+* 構成管理DBへの検査結果登録機能追加
 
 Bug fixes:
 * PowerCLI6環境で「Add-PSSnapin VMware.VimAutomation.Core」実行エラーが発生する問題対処
