@@ -26,40 +26,40 @@ class ZabbixBaseTest extends Specification {
         test_server.dry_run = true
     }
 
-    def "Zabbix 認証"() {
-        setup:
+    // def "Zabbix 認証"() {
+    //     setup:
 
-        when:
+    //     when:
 
-        JSONObject mainJObj = new JSONObject();
-        JSONObject paramJObj = new JSONObject();
+    //     JSONObject mainJObj = new JSONObject();
+    //     JSONObject paramJObj = new JSONObject();
 
-        mainJObj.put("jsonrpc", "2.0");
-        mainJObj.put("method", "user.login");
+    //     mainJObj.put("jsonrpc", "2.0");
+    //     mainJObj.put("method", "user.login");
 
-        paramJObj.put("user", "Admin");
-        paramJObj.put("password", "getperf");
+    //     paramJObj.put("user", "Admin");
+    //     paramJObj.put("password", "getperf");
 
-        mainJObj.put("params", paramJObj);
-        mainJObj.put("id", "1");
+    //     mainJObj.put("params", paramJObj);
+    //     mainJObj.put("id", "1");
 
-        Webb webb = Webb.create();
+    //     Webb webb = Webb.create();
 
-        System.out.println("Data to send: " + mainJObj.toString());
+    //     System.out.println("Data to send: " + mainJObj.toString());
 
-        JSONObject result = webb.post("http://localhost/zabbix/api_jsonrpc.php")
-                                    .header("Content-Type", "application/json")
-                                    .useCaches(false)
-                                    .body(mainJObj)
-                                    .ensureSuccess()
-                                    .asJsonObject()
-                                    .getBody();
+    //     JSONObject result = webb.post("http://localhost/zabbix/api_jsonrpc.php")
+    //                                 .header("Content-Type", "application/json")
+    //                                 .useCaches(false)
+    //                                 .body(mainJObj)
+    //                                 .ensureSuccess()
+    //                                 .asJsonObject()
+    //                                 .getBody();
 
-        System.out.println("Authentication token: " + result.getString("result"));
+    //     System.out.println("Authentication token: " + result.getString("result"));
 
-        then:
-        1 == 1
-    }
+    //     then:
+    //     1 == 1
+    // }
 
     def "subnet"() {
         setup:
