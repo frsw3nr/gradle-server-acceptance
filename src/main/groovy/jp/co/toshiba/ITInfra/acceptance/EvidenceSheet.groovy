@@ -31,6 +31,7 @@ class EvidenceSheet {
     final evidence_cell_width = 11520
     final node_dir_prefix     = "_node"
 
+    String config_file
     String evidence_source
     String evidence_target
     String sheet_name_server
@@ -47,6 +48,7 @@ class EvidenceSheet {
     def device_test_ids
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
+        this.config_file = config_file
         def config = Config.instance.read(config_file)['evidence']
 
         log.debug("initialize evidence")
@@ -313,7 +315,9 @@ class EvidenceSheet {
             it.text = JsonOutput.prettyPrint(json)
         }
         new File("./build/.last_run").with {
-            it.text = JsonOutput.toJson(['node_dir' : base_dir ])
+            def run_config = ['node_dir' : base_dir, 'evidence' : evidence_target,
+                              'config_file' : config_file ]
+            it.write( JsonOutput.toJson(run_config))
         }
     }
 

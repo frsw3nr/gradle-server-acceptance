@@ -44,6 +44,14 @@ class EvidenceFile {
         def last_run = new JsonSlurper().parseText(last_run_json)
         def node_path = new File("./node").getAbsolutePath()
         FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
+
+        def evidence = last_run?.evidence
+        def config_file = last_run?.config_file
+        if (evidence && config_file) {
+            def config = new ConfigSlurper().parse(new File(config_file).getText("MS932"))
+            def target = config?.evidence?.target
+            println target
+        }
     }
 
     def exportCMDB() throws IOException, SQLException {
