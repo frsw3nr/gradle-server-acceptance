@@ -12,6 +12,8 @@ import java.sql.*
 class EvidenceFile {
 
     final static def current_build = 1
+    final String archive_dir  = './build/archive'
+    final String all_node_dir = './node'
     String home
     String project_name
     String tenant_name
@@ -39,18 +41,35 @@ class EvidenceFile {
         return node_dir_source
     }
 
+    def archive_old_evidence(String last_evidence, String backup_source)
+        throws IOException {
+        def archive = new File(archive_dir)
+        archive.mkdirs()
+        def last_evidence_name = new File(last_evidence).name
+        (backup_source =~ /<date>/).with {
+            def backup = new File(backup_source)
+            def regexp = backup.name.replaceAll(/<date>/, '(.+)')
+            new File(backup.parent).eachFile {
+                if (it.name =~ /${regexp}/ && it.name != last_evidence_name) {
+                    it.renameTo(new File(archive, it.name))
+                    log.info "Archive to ${archive_dir} : ${it.name}"
+                }
+            }
+        }
+    }
+
     def generate() throws IOException {
-        def last_run_json = new File("$home/build/.last_run").text
+        def last_run_json = new File(last_run_config).text
         def last_run = new JsonSlurper().parseText(last_run_json)
         def node_path = new File("./node").getAbsolutePath()
         FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
 
-        def evidence = last_run?.evidence
-        def config_file = last_run?.config_file
-        if (evidence && config_file) {
-            def config = new ConfigSlurper().parse(new File(config_file).getText("MS932"))
-            def target = config?.evidence?.target
-            println target
+        def config = new ConfigSlurper().parse(new File(last_run?.config_file).getText("MS932"))
+        def backup_source = config?.evidence?.target
+        try {
+            archive_old_evidence(last_run?.evidence, backup_source)
+        } catch (IOException e) {
+            log.info "Skip evidence archive : " + e
         }
     }
 
@@ -62,6 +81,6 @@ class EvidenceFile {
 
     def exportCMDBAll() throws IOException, SQLException {
         def db = new ConfigManageDB(home: home, db_config: db_config)
-        db.export("./node")
+        db.export(all_node_dir)
     }
 }

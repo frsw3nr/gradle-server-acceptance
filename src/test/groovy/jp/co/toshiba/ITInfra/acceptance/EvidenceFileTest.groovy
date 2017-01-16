@@ -114,4 +114,24 @@ class EvidenceFileTest extends Specification {
         then:
         thrown(IOException)
     }
+
+    def "検査シートバックアップ"() {
+        setup:
+        def home = System.getProperty("user.dir")
+        new File("./build/check_sheet_20170116_080000.xlsx").text = 'dummy'
+        new File("./build/check_sheet_20170116_080001.xlsx").text = 'dummy'
+        new File("./build/check_sheet_20170116_080002.xlsx").text = 'dummy'
+        new File("./build/check_sheet_20170116_090544.xlsx").text = 'dummy'
+
+        when:
+        def config   = 'src/test/resources/config_zabbix.groovy'
+        def last_run = 'src/test/resources/log2/.last_run'
+        def evidence = new EvidenceFile(home: home, db_config: config,
+                                        last_run_config: last_run)
+        evidence.generate()
+
+        then:
+        1 == 1
+    }
+
 }

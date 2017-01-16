@@ -6,7 +6,8 @@ New features:
 * ドキュメント管理ツールを Sphinx に変更(作成中)
 * Jenkins 連携。検査ジョブスクリプトを追加
 * config.groovy にデバッグモードパラメータ追加
-* 構成管理DBへの検査結果登録機能追加
+* 構成管理DB(Mysql,H2 Database)への検査結果登録機能追加
+* 古いエビデンスファイルをarchiveに移動する処理追加
 
 Bug fixes:
 * PowerCLI6環境で「Add-PSSnapin VMware.VimAutomation.Core」実行エラーが発生する問題対処

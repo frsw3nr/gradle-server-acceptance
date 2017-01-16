@@ -10,6 +10,7 @@
 /config/config.groovy
 /config/.secret/
 build/*
+node/*
 !.gitkeep
 gradle-app.setting
 gradle.properties
