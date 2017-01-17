@@ -105,6 +105,14 @@ class Config {
     def encrypt(String config_file, String keyword = null)
         throws IOException, IllegalArgumentException {
 
+        SecretKeySpec key = new SecretKeySpec(keyword.getBytes(Charset.forName("MS932")), "AES")
+
+        new File(config_file).with {
+            def data = encryptData(it.getBytes(), key)
+            def config_file_encrypted = new File(it.parent, it.name + '-encrypted')
+            log.info "Write ${config_file_encrypted}"
+            config_file_encrypted.setBytes(data)
+        }
     }
 
 //     復元オプション
@@ -131,6 +139,22 @@ class Config {
     Map read_config_file_encrypted(String config_file_encrypted, String keyword = null)
         throws IOException, IllegalArgumentException {
 
+    }
+
+    // 暗号化
+    def encryptData(byte[] bytes, SecretKeySpec key) {
+      def cph = Cipher.getInstance("AES")
+      cph.init(Cipher.ENCRYPT_MODE, key)
+
+      return cph.doFinal(bytes)
+    }
+
+    // 復号化
+    def decryptData(byte[] bytes, SecretKeySpec key) {
+      def cph = Cipher.getInstance("AES")
+      cph.init(Cipher.DECRYPT_MODE, key)
+
+      return cph.doFinal(bytes)
     }
 
 }
