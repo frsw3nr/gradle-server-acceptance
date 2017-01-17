@@ -50,7 +50,7 @@ class EvidenceFile {
             def backup = new File(backup_source)
             def regexp = backup.name.replaceAll(/<date>/, '(.+)')
             new File(backup.parent).eachFile {
-                if (it.name =~ /${regexp}/ && it.name != last_evidence_name) {
+                if (it.name =~ /^${regexp}/ && it.name != last_evidence_name) {
                     it.renameTo(new File(archive, it.name))
                     log.info "Archive to ${archive_dir} : ${it.name}"
                 }
