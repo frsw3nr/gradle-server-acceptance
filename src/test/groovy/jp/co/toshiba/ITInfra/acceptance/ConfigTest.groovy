@@ -3,10 +3,12 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import java.nio.charset.Charset
+import org.apache.commons.io.FileUtils
 
-// gradlew --daemon clean test --tests "ConfigTest.Config test read"
+// gradle --daemon clean test --tests "ConfigTest.Config test read"
 
 class ConfigTest extends Specification {
+
     def "Config execption"() {
         try {
             new Config()
@@ -44,10 +46,18 @@ class ConfigTest extends Specification {
 
     // }
     def "設定ファイルの暗号化"() {
+        setup:
+        def original = new File('src/test/resources/config.groovy')
+        def source   = new File('src/test/resources/encode-test.groovy')
+        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
+        FileUtils.copyFile(original, source)
+
         when:
-        Config.instance.encrypt('src/test/resources/config.groovy', 'encodekey1234567')
+        Config.instance.encrypt('src/test/resources/encode-test.groovy', 'encodekey1234567')
+
         then:
-        1 == 1
+        target.exists()
+        !source.exists()
     }
 
     def "短いパスワード"() {
@@ -71,13 +81,40 @@ class ConfigTest extends Specification {
     //     throws IOException, IllegalArgumentException {
 
     // }
-    def "設定ファイルの復元"() {
+    def "暗号化した設定ファイルの復元"() {
+        setup:
+        def original = new File('src/test/resources/config.groovy')
+        def source   = new File('src/test/resources/encode-test.groovy')
+        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
+        FileUtils.copyFile(original, source)
+        Config.instance.encrypt('src/test/resources/encode-test.groovy',
+                                'encodekey1234567')
+
         when:
-        Config.instance.decrypt('src/test/resources/config2.groovy-encrypted', 'encodekey1234567')
+        Config.instance.decrypt('src/test/resources/encode-test.groovy-encrypted',
+                                'encodekey1234567')
+
         then:
-        1 == 1
+        source.exists()
+        !target.exists()
     }
 
+    def "パスワードなしの復元"() {
+        setup:
+        def original = new File('src/test/resources/config.groovy')
+        def source   = new File('src/test/resources/encode-test.groovy')
+        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
+        FileUtils.copyFile(original, source)
+        Config.instance.encrypt('src/test/resources/encode-test.groovy',
+                                'encodekey1234567')
+
+        when:
+        Config.instance.decrypt('src/test/resources/encode-test.groovy-encrypted')
+
+        then:
+        source.exists()
+        !target.exists()
+    }
 
 //     実行時に復元
 //         config_fileがない場合は、{config_file}-encryptedを探す

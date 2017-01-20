@@ -6,6 +6,7 @@ import groovy.transform.ToString
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import java.nio.charset.Charset
+import java.io.Console
 
 // v0.1.7機能
 //     設定ファイルを暗号化する
@@ -70,7 +71,7 @@ import java.nio.charset.Charset
 //   return cph.doFinal(bytes)
 // }
 
-
+@Slf4j
 @Singleton
 class Config {
     def configs = [:]
@@ -110,8 +111,9 @@ class Config {
         new File(config_file).with {
             def data = encryptData(it.getBytes(), key)
             def config_file_encrypted = new File(it.parent, it.name + '-encrypted')
-            log.info "Write ${config_file_encrypted}"
             config_file_encrypted.setBytes(data)
+            it.delete()
+            log.info "Encrypted ${config_file_encrypted}"
         }
     }
 
@@ -127,7 +129,29 @@ class Config {
 //         暗号化ファイル削除
     def decrypt(String config_file_encrypted, String keyword = null)
         throws IOException, IllegalArgumentException {
+        if (!keyword) {
+            Console console = System.console()
+            keyword = console.readPassword("Password: ")
+            println keyword
+        }
 
+        SecretKeySpec key = new SecretKeySpec(keyword.getBytes(Charset.forName("MS932")), "AES")
+        new File(config_file_encrypted).with {
+            def decrypte_file_name = it.name.replaceAll(/-encrypted/, "")
+            if (decrypte_file_name == it.name) {
+                throw new IllegalArgumentException("File name must be include '-encrypted' : ${it.name}")
+            }
+            def data = decryptData(it.getBytes(), key)
+            def config_file_decrypted = new File(it.parent, decrypte_file_name)
+            config_file_decrypted.setBytes(data)
+            try {
+                new ConfigSlurper().parse(config_file_decrypted.getText("MS932"))
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Parse error '${decrypte_file_name}' : " + e)
+            }
+            it.delete()
+            log.info "Decrypted ${config_file_decrypted}"
+        }
     }
 
 //     実行時に復元
