@@ -10,7 +10,7 @@ node {
       parameters: [
         [$class: 'ChoiceParameterDefinition',
             choices: branches.join("\n"),
-            description: 'Gitブランチのしてい',
+            description: 'Gitブランチの指定',
             name: 'targetBranch'],
         [$class: 'BooleanParameterDefinition',
             defaultValue: false,
@@ -39,7 +39,7 @@ node {
   bat 'gradle shadowJar'
   bat 'gradle zipApp'
 
-  bat 'C:\\Program Files\\7-Zip\\7z.exe -y x -o c:\\ $WORKSPACE\\build\\distriputions\\gradle-server-acceptance-0.1.6.zip'
+  bat "'C:\\Program Files\\7-Zip\\7z.exe' x '$WORKSPACE\\build\\distributions\\gradle-server-acceptance-*.zip' -y -o'c:\\'"
 }
 
 def getBranches() {
