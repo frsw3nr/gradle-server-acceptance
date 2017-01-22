@@ -78,12 +78,6 @@ class Config {
     def date = new Date().format("yyyyMMdd_HHmmss")
     final encryption_mode = 'Blowfish'
 
-//     実行時に復元
-//         config_fileがない場合は、{config_file}-encryptedを探す
-//         キーコード入力
-//             -k,--keyword {password} 指定で省略可
-//         妥当性チェック
-//             平文に復元してJSONエンコード
     def read_config_file(String config_file, String keyword = null)
         throws IOException, IllegalArgumentException {
         new File(config_file).with {
@@ -117,6 +111,9 @@ class Config {
     String inputPassword(Map options = [:]) {
         def keyword = null
         Console console = System.console()
+        if (!console) {
+            throw new IllegalArgumentException("Can not enter console")
+        }
         while (!keyword) {
             def password = console.readPassword("Password: ")
             if (password.size() == 0)
@@ -133,15 +130,6 @@ class Config {
         return "$keyword"
     }
 
-//     暗号化機能
-//         オプションで設定ファイルを指定
-//             -y,--crypt {config.groovy}
-//         キーコード入力
-//             入力
-//                 確認
-//         暗号化ファイル作成
-//             {config.groovy}-encrypted
-//         平文ファイル削除
     def encrypt(String config_file, String keyword = null)
         throws IOException, IllegalArgumentException {
         try {
@@ -162,16 +150,6 @@ class Config {
         }
     }
 
-//     復元オプション
-//         オプションで設定ファイルを指定
-//             -y,--crypt {config.groovy}-encrypted
-//         キーコード入力
-//             入力
-//                 確認
-//         妥当性チェック
-//             JSONエンコードでエラーがないかチェック
-//         平文ファイル復元
-//         暗号化ファイル削除
     def decrypt(String config_file_encrypted, String keyword = null)
         throws IOException, IllegalArgumentException {
         def password = keyword ?: inputPassword()
@@ -194,7 +172,6 @@ class Config {
         }
     }
 
-    // 暗号化
     def encryptData(byte[] bytes, SecretKeySpec key) {
       def cph = Cipher.getInstance(encryption_mode)
       cph.init(Cipher.ENCRYPT_MODE, key)
@@ -202,7 +179,6 @@ class Config {
       return cph.doFinal(bytes)
     }
 
-    // 復号化
     def decryptData(byte[] bytes, SecretKeySpec key) {
       def cph = Cipher.getInstance(encryption_mode)
       cph.init(Cipher.DECRYPT_MODE, key)
