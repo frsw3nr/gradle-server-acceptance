@@ -76,11 +76,11 @@ class EvidenceFile {
     def exportCMDB() throws IOException, SQLException {
         def node_dir_source = getNodeDirSource()
         def db = new ConfigManageDB(home: home, db_config: db_config)
-        db.export(node_dir_source)
+        db.export(new File(node_dir_source).getAbsolutePath())
     }
 
     def exportCMDBAll() throws IOException, SQLException {
         def db = new ConfigManageDB(home: home, db_config: db_config)
-        db.export(all_node_dir)
+        db.export(new File(all_node_dir).getAbsolutePath())
     }
 }
