@@ -11,7 +11,7 @@ import org.apache.commons.cli.Option
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
 @Slf4j
-class TestRunner {
+class Password {
 
     String getconfig_home
     String test_resource
@@ -26,35 +26,22 @@ class TestRunner {
 
     def parse(String[] args) {
         getconfig_home = System.getProperty("user.dir")
-        def cli = new CliBuilder(usage:'getconfig -c ./config/config.groovy')
+        def cli = new CliBuilder(usage:'getspec')
         cli.with {
-            c longOpt: 'config',   args: 1, 'Config file path',
-                argName: 'config.groovy'
-            g longOpt: 'generate', args: 1, 'Generate project directory',
-                argName: '/work/project'
-            x longOpt: 'xport',    args: 1, 'Export project zip file',
-                argName: '/work/project.zip'
-            _ longOpt: 'excel',    args: 1, 'Excel sheet path',
-                argName: 'check_sheet.xlsx'
+            c longOpt: 'config',   args: 1, 'Config file path : ./config/config.groovy'
+            g longOpt: 'generate', args: 1, 'Generate project by specifying a directory'
+            x longOpt: 'xport',    args: 1, 'Export project to specifying a file'
+            e longOpt: 'excel',    args: 1, 'Excel test spec file path : check_sheet.xlsx'
             s longOpt: 'server',   args: Option.UNLIMITED_VALUES,
-                valueSeparator: ',' as char, 'Filtering list of servers',
-                argName: 'svr1,svr2,...'
+                valueSeparator: ',' as char, 'Filtering list of servers : svr1,svr2,...'
             t longOpt: 'test',     args: Option.UNLIMITED_VALUES,
-                valueSeparator: ',' as char, 'Filtering list of test_ids',
-                argName: 'vm,cpu,...'
+                valueSeparator: ',' as char, 'Filtering list of test_ids : vm,cpu,...'
             u longOpt: 'update',   args: 1, 'Update node config',
                 argName:'local|db|db-all'
-            r longOpt: 'resource', args: 1, 'Dry run test resource directory'
-                argName : './src/test/resources/log/'
-            _ longOpt: 'parallel', args: 1, 'Degree of test runner processes'
-            _ longOpt: 'encode',   args: 1, 'Encode config file',
-                argName : 'config.groovy'
-            _ longOpt: 'decode',   args: 1, 'Decode config file',
-                argName : 'config.groovy-encrypted'
-            k longOpt: 'keyword',  args: 1, 'Config file password',
-                argName : 'password'
+            r longOpt: 'resource', args: 1, 'Dry run test resource : ./src/test/resources/log/'
+            p longOpt: 'parallel', args: 1, 'Degree of test runner processes'
             d longOpt: 'dry-run', 'Enable Dry run test'
-            _ longOpt: 'verify',  'Disable verify test'
+            v longOpt: 'verify',  'Disable verify test'
             h longOpt: 'help',    'Print usage'
         }
         def options = cli.parse(args)
@@ -90,15 +77,7 @@ class TestRunner {
             }
             System.exit(0)
         }
-        def keyword = options.k?:null
-        if (options.encode) {
-            Config.instance.encrypt(options.encode, keyword)
-            System.exit(0)
-        }
-        if (options.decode) {
-            Config.instance.decrypt(options.decode, keyword)
-            System.exit(0)
-        }
+
         target_servers = [:]
         if (options.ss) {
             options.ss.each {
@@ -120,7 +99,7 @@ class TestRunner {
             config_file = options.c
         }
 
-        def config = Config.instance.read(config_file, keyword)
+        def config = Config.instance.read(config_file)
         sheet_file = config['evidence']['source'] ?: './check_sheet.xlsx'
         if (options.e) {
             sheet_file = options.e
@@ -153,10 +132,11 @@ class TestRunner {
 
     static void main(String[] args) {
         try {
-            def test_runner = new TestRunner()
-            test_runner.parse(args)
-            def test_scheduler = new TestScheduler(test_runner)
-            test_scheduler.runTest()
+            println "Usage: mkpassword -s {config/config.groovy} -k {keycode}"
+            // def test_runner = new TestRunner()
+            // test_runner.parse(args)
+            // def test_scheduler = new TestScheduler(test_runner)
+            // test_scheduler.runTest()
         } catch (Exception e) {
             log.error "Fatal error : " + e
             System.exit(1)

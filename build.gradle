@@ -92,13 +92,9 @@ artifacts {
     archives zipApp
 }
 
-// gradle --no-daemon generateDomain
-// task generateTemplate {
-//     String site_home = (project.hasProperty('site_home')) ?
-//         project.site_home :
-//         System.console().readLine("\nEnter site_home directory: ")
-
-//     def domain = new File(site_home).getName()
-
-    
-// }
+task createStartScripts(type: CreateStartScripts) {
+  outputDir = file('build/sample')
+  mainClassName = 'jp.co.toshiba.ITInfra.acceptance.Password'
+  applicationName = 'mkpassword'
+  classpath = files('path/to/some.jar')
+}
