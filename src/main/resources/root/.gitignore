@@ -4,6 +4,8 @@
 /libdeps/
 /resource/
 build/log*
+build/.last_run
 !.gitkeep
 gradle-app.setting
 gradle.properties
+.~lock*

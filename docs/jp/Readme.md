@@ -4,9 +4,7 @@
 システム概要
 ------------
 
-VMWare仮想化インフラで構築したサーバに対して、システム構成情報を収集して、
-収集した結果から各設定内容の検査を行います。
-
+VMWare仮想化インフラで構築したサーバのシステム構成情報を収集します。
 システム構成は以下の通りです。
 
 ![System configuration](image/system.png)
@@ -16,11 +14,9 @@ VMWare仮想化インフラで構築したサーバに対して、システム�
 
 **検査対象サーバ**
 
-* vCenter, Linux は 検査用PCから検査用アカウントでssh接続できる環境が必要。
+* vCenter, Linux は 検査用PCから検査用アカウントでssh接続できる環境が必要です。
 * Windows は WMF4.0以上(PowerShell用)が必要です。Windows 2012 Server R2は標準インストールされています。Windows 2012 Server, Windows 2008 ServerはWMF 4.0のインストールが必要です。
-* PowerShell のリモートアクセス許可設定が必要です。
-
-WFM、PowerShell環境設定についての詳細は、**ドキュメント:使用方法** の事前準備を参照してください。
+* PowerShell のリモートアクセス許可設定が必要です。詳細は、**ドキュメント:使用方法** の事前準備を参照してください。
 
 **検査用PC**
 
@@ -33,7 +29,7 @@ WFM、PowerShell環境設定についての詳細は、**ドキュメント:使�
 ビルド方法
 ----------
 
-GitHub サイトからリポジトリの zip ファイルをダウンロード・解凍して、以下のGradleタスクを実行します。
+GitHub サイトからリポジトリをクローンして、以下のGradleタスクを実行します。
 
 **Note** 英語版が必要な場合は、build.grade ファイル内の行を、
  def language  = 'en' に変更してください。
@@ -48,16 +44,16 @@ gradlew zipApp
 
 ```
 dir /b build\distributions
-gradle-server-acceptance-0.1.1.zip
+gradle-server-acceptance-0.1.7.zip
 ```
 
 利用方法
 --------
 
-1. 7-zip を用いて、 gradle-server-acceptance-0.1.1.zip を解凍します。
-2. 「チェックシート.xlsx」を開き、シート「チェック対象VM」に検査対象サーバの接続情報を記入します。
+1. 7-zip を用いて、 gradle-server-acceptance-0.1.7.zip を解凍します。
+2. 「check_sheet.xlsx」を開き、シート「チェック対象」に検査対象サーバの接続情報を記入します。
 3. config/config.groovy 内のサーバアカウント情報を編集します。
-4. server-acceptance ディレクトリに移動し、getconfig コマンドを実行します。使用方法は以下の通りです。
+4. server-acceptance ディレクトリに移動し、getconfig マンドを実行します。
 
 ```
 ./getconfig -h
@@ -72,22 +68,6 @@ usage: getspec
  -t,--test <arg>       Filtering list of test_ids : vm,cpu,...
  -v,--verify           Disable verify test
 ```
-
-検査項目のカスタマイズ
-----------------------
-
-以下の検査スクリプトを編集します。
-
-```
-dir /b lib\InfraTestSpec
-LinuxSpec.groovy
-vCenterSpec.groovy
-WindowsSpec.groovy
-```
-
-検査IDと同一名のメソッドで検査コードを記述します。
-既存の検査項目を変更する場合はコメントアウトを外してください。
-詳細は、**ドキュメント:開発ガイド** を参照してください。
 
 Reference
 ---------
@@ -105,4 +85,4 @@ Minoru Furusawa <minoru.furusawa@toshiba.co.jp>
 COPYRIGHT
 -----------
 
-Copyright 2014-2016, Minoru Furusawa, Toshiba corporation.
+Copyright 2014-2017, Minoru Furusawa, Toshiba corporation.

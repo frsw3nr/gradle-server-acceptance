@@ -47,6 +47,7 @@ class TestRunner {
             r longOpt: 'resource', args: 1, 'Dry run test resource directory'
                 argName : './src/test/resources/log/'
             _ longOpt: 'parallel', args: 1, 'Degree of test runner processes'
+                argName:'n'
             _ longOpt: 'encode',   args: 1, 'Encode config file',
                 argName : 'config.groovy'
             _ longOpt: 'decode',   args: 1, 'Decode config file',
@@ -113,7 +114,7 @@ class TestRunner {
         }
         parallel_degree = 1
         dry_run         =  options.d ?: false
-        verify_test     = !options.v ?: true
+        verify_test     = !options.verify ?: true
 
         config_file = './config/config.groovy'
         if (options.c) {
@@ -122,8 +123,8 @@ class TestRunner {
 
         def config = Config.instance.read(config_file, keyword)
         sheet_file = config['evidence']['source'] ?: './check_sheet.xlsx'
-        if (options.e) {
-            sheet_file = options.e
+        if (options.excel) {
+            sheet_file = options.excel
         }
 
         if (options.p) {

@@ -93,6 +93,16 @@ class LinuxSpecBase extends InfraTestSpec {
         }
     }
 
+    def run_ssh_sudo(session, command, test_id, share = false) {
+        try {
+            def log_path = (share) ? evidence_log_share_dir : local_dir
+            def result = session.executeSudo command, pty: true, timeoutSec: timeout
+            new File("${log_path}/${test_id}").text = result
+        } catch (Exception e) {
+            log.error "[SSH Test] Sudo error '$command' in ${this.server_name} faild, skip.\n" + e
+        }
+    }
+
     def hostname(session, test_item) {
         def lines = exec('hostname') {
             run_ssh_command(session, 'hostname -s', 'hostname')
@@ -542,12 +552,12 @@ class LinuxSpecBase extends InfraTestSpec {
     def oracle(session, test_item) {
         def lines = exec('oracle') {
             def command = """\
-            |ls -d /opt/oracle/app/product/*/*  >> ${work_dir}/oracle
-            |ls -d /*/app/oracle/product/*/*    >> ${work_dir}/oracle
-            """
-            session.execute command.stripMargin()
-            session.get from: "${work_dir}/oracle", into: local_dir
-            new File("${local_dir}/oracle").text
+            |ls -d /opt/oracle/app/product/*/* /*/app/oracle/product/*/* 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'oracle')
         }
         def oracleinfo = 'NotFound'
         lines.eachLine {
@@ -560,7 +570,13 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def proxy_global(session, test_item) {
         def lines = exec('proxy_global') {
-            run_ssh_command(session, 'grep proxy /etc/yum.conf', 'proxy_global')
+            def command = """\
+            |grep proxy /etc/yum.conf
+            |if [ \$? != 0 ]; then
+            |    echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'proxy_global')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
