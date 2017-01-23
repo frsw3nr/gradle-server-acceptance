@@ -1,0 +1,76 @@
+Proxy設定
+
+chocolatey
+
+
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$True}
+
+$wc = new-object System.Net.WebClient
+$wc.Proxy = [System.Net.WebRequest]::GetSystemWebProxy()
+$wc.Proxy.Credentials = new-object System.Net.NetworkCredential("","")
+$wc.DownloadString('https://chocolatey.org/install.ps1') > install.ps1
+
+
+"1" 個の引数を指定して "DownloadString" を呼び出し中に例外が発生しました: "基礎になる接続が閉じられました: SSL/TLS のセ
+キュリティで保護されているチャネルに対する信頼関係を確立できませんでした"
+
+set HTTP_PROXY=http://proxy.somecompany.co.jp:8080
+
+なお Chocolatey 0.9.9 以降では、下記の環境変数を読み取るそうです。
+
+$env:chocolateyProxyLocation = "proxy.somecompany.co.jp:8080"
+
+.\install.ps1
+
+Chocolatey 0.9.9.9 以降では、明示的に設定するそうです。
+
+ choco config set proxy proxy.somecompany.co.jp:8080
+ 
+java
+
+
+$ keytool -import -alias [エイリアス] -keystore [キーストアへのパス] -file [追加する証明書へのパス]ですね。
+
+
+ keytool -import -alias IntraRootCA -file C:\Users\Administrator\Downloads\somecompany.cer \
+ -keystore "${JAVA_HOME}/jre/lib/security/cacerts"
+
+ keytool -v -list -keystore "C:\Program Files\Java\jdk1.8.0_112/jre/lib/security/cacerts"
+
+ 
+gradle
+
+
+http://qiita.com/hishida/items/9479fb64a016032c0938
+
+[ユーザーディレクトリ]/.gradle/gradle.properties（なければ作成する）に以下のように設定します。
+
+cd C:\ProgramData\chocolatey\lib\gradle\tools\gradle-3.1
+mkdir .gradle
+notepad .gradle\gradle.properties
+
+systemProp.http.proxyHost=proxy.somecompany.co.jp
+systemProp.http.proxyPort=8080
+systemProp.https.proxyHost=proxy.somecompany.co.jp
+systemProp.https.proxyPort=8080
+
+notepad++ で、%GRADLE_HOME%/bin/gradle.bat を開く
+
+
+Gradle も Java で動いているので、Java のファイル入出力の文字コードを変更すればいいようです。色々と試しました。そして、その文字コードはシステムプロパティの file.encoding で指定します。
+（-Dfile.encoding=UTF-8 という感じです）
+
+
+C:\ProgramData\chocolatey\lib\gradle\tools\gradle-3.1\bin\gradle.bat
+
+set JAVA_OPTS=-DproxyHost=proxy.somecompany.co.jp -DproxyPort=8080 -Dfile.encoding=UTF-8
+
+
+maven
+
+Groovy
+
+http://qiita.com/it__ssei/items/8c2b03acea1961142711
+
+
+
