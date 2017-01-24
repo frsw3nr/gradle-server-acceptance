@@ -12,7 +12,7 @@ class ConfigManageDBTest extends Specification {
 
     def setup() {
         home = System.getProperty("user.dir")
-        config = 'src/test/resources/config_db.groovy'
+        config = 'src/test/resources/cmdb.groovy'
     }
 
     def "DB接続設定ファイルなし"() {

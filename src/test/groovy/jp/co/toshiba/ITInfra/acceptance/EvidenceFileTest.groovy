@@ -90,7 +90,7 @@ class EvidenceFileTest extends Specification {
         def home = System.getProperty("user.dir")
 
         when:
-        def config   = 'src/test/resources/config_db.groovy'
+        def config   = 'src/test/resources/cmdb.groovy'
         def last_run = 'src/test/resources/log/.last_run'
         def evidence = new EvidenceFile(home: home, db_config: config,
                                         last_run_config: last_run)
@@ -105,7 +105,7 @@ class EvidenceFileTest extends Specification {
         def home = System.getProperty("user.dir")
 
         when:
-        def config   = 'src/test/resources/config_db.groovy'
+        def config   = 'src/test/resources/cmdb.groovy'
         def last_run = 'src/test/resources/log/.last_run'
         def evidence = new EvidenceFile(home: home, db_config: config,
                                         last_run_config: last_run)
