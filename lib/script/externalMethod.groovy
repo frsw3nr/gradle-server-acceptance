@@ -23,7 +23,7 @@ def getConfigFiles() {
   def workspace = pwd()
   def config_files = []
   new File("${workspace}/config").eachFile { config_file ->
-    def matcher = config_file.name =~ '(config.*\\.groovy)'
+    def matcher = config_file.name =~ '(config.*\\.groovy|config.*\\.groovy-encrypted)'
     if (matcher) {
       config_files.add(matcher[0][0])
     }

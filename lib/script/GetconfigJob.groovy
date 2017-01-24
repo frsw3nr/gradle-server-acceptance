@@ -26,6 +26,9 @@ node {
             description: 'コンフィグファイル',
             name: '-c'],
         [$class: 'StringParameterDefinition',
+            description: 'パスワード(-k) ※暗号化されたコンフィグファイル(-encrypted)の場合は必須',
+            name: '-k'],
+        [$class: 'StringParameterDefinition',
             description: '検査対象の絞り込み(-s) ※オプション',
             name: '-s'],
         [$class: 'StringParameterDefinition',
@@ -49,6 +52,9 @@ node {
   }
   if (v['-t']) {
     getconfig_opt += ' -t ' + v['-t']
+  }
+  if (v['-k']) {
+    getconfig_opt += ' -k ' + v['-k']
   }
   bat "getconfig ${getconfig_opt}"
 
