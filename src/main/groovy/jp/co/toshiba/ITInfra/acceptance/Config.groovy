@@ -145,7 +145,7 @@ class Config {
             def data = encryptData(it.getBytes(), key)
             def config_file_encrypted = new File(it.parent, it.name + '-encrypted')
             config_file_encrypted.setBytes(data)
-            it.delete()
+            // it.delete()
             log.info "OK\nEncrypted ${config_file_encrypted}"
         }
     }
