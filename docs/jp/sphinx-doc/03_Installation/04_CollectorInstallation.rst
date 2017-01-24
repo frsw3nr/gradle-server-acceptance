@@ -142,16 +142,16 @@ In-process Script Approval
 
 ::
 
-   method hudson.model.Job getBuildByNumber int
-   method java.io.File getName
-   method java.lang.String join java.lang.CharSequence java.lang.CharSequence[]
-   method java.util.regex.Matcher matches
-   method jenkins.model.Jenkins getItemByFullName java.lang.String
-   method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment
-   new java.io.File java.lang.String
-   staticMethod jenkins.model.Jenkins getInstance
-   staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure
-   staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
+method hudson.model.Job getBuildByNumber int
+method java.io.File getName
+method java.lang.String join java.lang.CharSequence java.lang.CharSequence[]
+method java.util.regex.Matcher matches
+method jenkins.model.Jenkins getItemByFullName java.lang.String
+method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment
+new java.io.File java.lang.String
+staticMethod jenkins.model.Jenkins getInstance
+staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure
+staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
 
 新規ジョブ作成
 

@@ -87,6 +87,23 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "検査サーバスクリプト読み込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.readServerConfigScript('src/test/resources/test_servers.groovy')
 
+        then:
+        evidence.test_servers.size() > 0
+    }
+
+    def "Excelファイルと検査サーバスクリプト読み込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.readSheet('src/test/resources/test_servers.groovy')
+
+        then:
+        evidence.test_servers.size() > 0
+        evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
+    }
 
 }

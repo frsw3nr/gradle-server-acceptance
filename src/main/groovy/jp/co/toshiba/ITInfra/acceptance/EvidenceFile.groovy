@@ -27,7 +27,7 @@ class EvidenceFile {
         this.project_name = new File(this.home).getName()
         this.tenant_name = '_Default'
         this.last_run_config = params.last_run_config ?: "${params.home}/build/.last_run"
-        this.db_config  = params.db_config ?: 'config/config_db.groovy'
+        this.db_config  = params.db_config ?: 'config/cmdb.groovy'
     }
 
     def getNodeDirSource() throws IOException {

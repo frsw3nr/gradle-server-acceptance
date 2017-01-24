@@ -18,6 +18,7 @@ class TestScheduler {
     EvidenceSheet evidence_sheet
     TargetServer[] test_servers
     DeviceResultSheet device_results
+    String server_config_script
     def serialization_domains = [:]
     def test_evidences = [:].withDefault{[:].withDefault{[:]}}
 
@@ -100,7 +101,7 @@ class TestScheduler {
 
         evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
-        evidence_sheet.readSheet()
+        evidence_sheet.readSheet(test_runner.server_config_script)
         evidence_sheet.prepareTestStage()
         test_servers = filterServer(evidence_sheet.test_servers)
         def verifier = VerifyRuleGenerator.instance

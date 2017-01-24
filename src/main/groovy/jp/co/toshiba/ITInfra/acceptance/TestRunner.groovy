@@ -18,6 +18,7 @@ class TestRunner {
     String config_file
     String sheet_file
     String export_file
+    String server_config_script
     int parallel_degree
     def target_servers
     def test_ids
@@ -36,6 +37,8 @@ class TestRunner {
                 argName: '/work/project.zip'
             _ longOpt: 'excel',    args: 1, 'Excel sheet path',
                 argName: 'check_sheet.xlsx'
+            i longOpt: 'input',    args: 1, 'Target server config script',
+                argName: 'test_servers.groovy'
             s longOpt: 'server',   args: Option.UNLIMITED_VALUES,
                 valueSeparator: ',' as char, 'Filtering list of servers',
                 argName: 'svr1,svr2,...'
@@ -119,6 +122,11 @@ class TestRunner {
         config_file = './config/config.groovy'
         if (options.c) {
             config_file = options.c
+        }
+
+        server_config_script = null
+        if (options.i) {
+            server_config_script = options.i
         }
 
         def config = Config.instance.read(config_file, keyword)

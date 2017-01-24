@@ -5,6 +5,7 @@
 /resource/
 build/log*
 build/.last_run
+config/config*.groovy
 !.gitkeep
 gradle-app.setting
 gradle.properties

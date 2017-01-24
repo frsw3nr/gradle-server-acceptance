@@ -69,6 +69,7 @@ usage: getconfig -c ./config/config.groovy
     --excel <check_sheet.xlsx>           Excel sheet path
  -g,--generate </work/project>           Generate project directory
  -h,--help                               Print usage
+ -i,--input <test_servers.groovy>        Target server config script
  -k,--keyword <password>                 Config file password
     --parallel <arg>                     Degree of test runner processes
  -r,--resource <arg>                     Dry run test resource directory

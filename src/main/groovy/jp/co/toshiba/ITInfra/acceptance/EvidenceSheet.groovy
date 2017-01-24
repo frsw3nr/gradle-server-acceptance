@@ -141,6 +141,17 @@ class EvidenceSheet {
         }
     }
 
+    def readServerConfigScript(String server_config_script) throws IOException {
+        log.debug("Read script '${server_config_script}'")
+
+        def config = new ConfigSlurper().parse(new File(server_config_script).getText())
+        (config['server_infos']).each { server_info ->
+            def test_server = new TargetServer(server_info)
+            test_platforms[test_server.platform] = 1
+            test_servers.add(test_server)
+        }
+    }
+
     def readSheetSpec(String platform, Sheet sheet_spec) throws IOException {
         sheet_spec.with { sheet ->
             (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
@@ -213,19 +224,23 @@ class EvidenceSheet {
         }
     }
 
-    def readSheet() throws IOException {
+    def readSheet(String server_config_script = null) throws IOException {
         log.debug("Read test spec from ${evidence_source}")
         long start = System.currentTimeMillis()
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 // Read Excel test server sheet.
-                log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
-                def sheet_server = workbook.getSheet(sheet_name_server)
-                if (sheet_server) {
-                    readSheetServer(sheet_server)
+                if (server_config_script) {
+                    readServerConfigScript(server_config_script)
                 } else {
-                    def msg = "Not found excel server list sheet '${sheet_name_server}'"
-                    throw new IllegalArgumentException(msg)
+                    log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
+                    def sheet_server = workbook.getSheet(sheet_name_server)
+                    if (sheet_server) {
+                        readSheetServer(sheet_server)
+                    } else {
+                        def msg = "Not found excel server list sheet '${sheet_name_server}'"
+                        throw new IllegalArgumentException(msg)
+                    }
                 }
                 // Read Excel test spec sheet.
                 sheet_name_specs.each { platform, sheet_name_spec ->

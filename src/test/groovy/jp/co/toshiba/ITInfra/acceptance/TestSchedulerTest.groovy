@@ -84,4 +84,24 @@ class TestSchedulerTest extends Specification {
         then:
         1 == 1
     }
+
+    def "検査対象サーバスクリプト指定"() {
+        setup:
+        String[] args = [
+            '--dry-run',
+            '-c', './src/test/resources/config.groovy',
+            '-r', './src/test/resources/log',
+            '-i', './src/test/resources/test_servers.groovy',
+        ]
+
+        when:
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        def test_scheduler = new TestScheduler(test_runner)
+        test_scheduler.runTest()
+
+        then:
+        1 == 1
+    }
+
 }
