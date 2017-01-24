@@ -1,1 +1,1 @@
-{"node_dir":"./build/log/_node","evidence":"./build/check_sheet_20170116_090544.xlsx","config_file":"src/test/resources/config_zabbix.groovy"}
+{"node_dir":"./build/log/_node","evidence":"./build/check_sheet_20170116_090544.xlsx","target":"./build/check_sheet_<date>.xlsx","config_file":"src/test/resources/config_zabbix.groovy"}

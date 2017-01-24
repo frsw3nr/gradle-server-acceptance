@@ -60,16 +60,13 @@ class EvidenceFile {
 
     def generate() throws IOException {
         def last_run_json = new File(last_run_config).text
-println last_run_json
         def last_run = new JsonSlurper().parseText(last_run_json)
         def node_path = new File("./node").getAbsolutePath()
+        assert(last_run.node_dir)
         FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
-
-        def config = new ConfigSlurper().parse(new File(last_run?.config_file).getText("MS932"))
-        def backup_source = config?.evidence?.target
         try {
-            archive_old_evidence(last_run?.evidence, backup_source)
-        } catch (IOException e) {
+            archive_old_evidence(last_run.evidence, last_run.target)
+        } catch (IOException | NullPointerException e) {
             log.info "Skip evidence archive : " + e
         }
     }
