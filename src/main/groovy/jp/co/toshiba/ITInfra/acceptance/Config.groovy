@@ -167,7 +167,7 @@ class Config {
             } catch (Exception e) {
                 throw new IllegalArgumentException("Parse error '${decrypte_file_name}' : " + e)
             }
-            it.delete()
+            // it.delete()
             log.info "OK\nDecrypted ${config_file_decrypted}"
         }
     }
