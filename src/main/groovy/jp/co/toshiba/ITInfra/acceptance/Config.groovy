@@ -98,6 +98,7 @@ class Config {
             (config['evidence']).with { evidence ->
                 ['target', 'staging_dir'].each {
                     if (evidence[it]) {
+                        evidence[it + '_original'] = evidence[it]
                         evidence[it] = evidence[it].replaceAll(
                                                  /<date>/, this.date)
                     }

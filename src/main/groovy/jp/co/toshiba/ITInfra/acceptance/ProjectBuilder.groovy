@@ -2,6 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
+import groovy.io.FileType
 
 @Slf4j
 class ProjectBuilder {
@@ -33,8 +34,12 @@ class ProjectBuilder {
             FileUtils.copyDirectory(new File("${home}/${base}"),
                                     new File("${target_dir}/${base}"))
         }
+        // Copy Excel file under home
+        new File(home).eachFileMatch(FileType.FILES, ~/.+.xlsx/) {
+            FileUtils.copyFile(it, new File("${target_dir}/${it.name}"))
+        }
         // Copy by specifying file name
-        ['サーバーチェックシート.xlsx', '.gitignore', 'Changes.txt', 'Readme.md', 'LICENSE.txt'].each { base ->
+        ['.gitignore', 'Changes.txt', 'Readme.md', 'LICENSE.txt'].each { base ->
             FileUtils.copyFile(new File("${home}/${base}"),
                                new File("${target_dir}/${base}"))
         }

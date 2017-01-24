@@ -34,6 +34,7 @@ class EvidenceSheet {
     String config_file
     String evidence_source
     String evidence_target
+    String target_original
     String sheet_name_server
     String sheet_name_rule
     String staging_dir
@@ -54,6 +55,7 @@ class EvidenceSheet {
         log.debug("initialize evidence")
         evidence_source   = config['source'] ?: './check_sheet.xlsx'
         evidence_target   = config['target'] ?: './build/check_sheet.xlsx'
+        target_original   = config['target_original'] ?: './build/check_sheet.xlsx'
         sheet_name_server = config['sheet_name_server'] ?: 'Target'
         sheet_name_rule   = config['sheet_name_rule'] ?: 'Rule'
         staging_dir       = config['staging_dir'] ?: './build/log'
@@ -316,7 +318,7 @@ class EvidenceSheet {
         }
         new File("./build/.last_run").with {
             def run_config = ['node_dir' : base_dir, 'evidence' : evidence_target,
-                              'config_file' : config_file ]
+                              'target' : target_original, 'config_file' : config_file ]
             it.write( JsonOutput.toJson(run_config))
         }
     }

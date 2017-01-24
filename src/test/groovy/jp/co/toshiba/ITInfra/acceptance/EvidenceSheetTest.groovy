@@ -34,7 +34,7 @@ class EvidenceSheetTest extends Specification{
         evidence.readSheet()
 
         then:
-        evidence.evidence_source == './サーバーチェックシート.xlsx'
+        evidence.evidence_source == './src/main/resources/root/jp/サーバーチェックシート.xlsx'
     }
 
     def "Excelシートなし"() {
@@ -43,7 +43,7 @@ class EvidenceSheetTest extends Specification{
         evidence.readSheet()
 
         then:
-        thrown(FileNotFoundException)
+        thrown(IllegalArgumentException)
     }
 
     def "既定のExcelファイル書き込み"() {

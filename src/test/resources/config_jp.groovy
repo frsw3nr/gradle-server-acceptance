@@ -1,6 +1,6 @@
 // 検査仕様シート定義
 
-evidence.source = './サーバーチェックシート.xlsx'
+evidence.source = './src/main/resources/root/jp/サーバーチェックシート.xlsx'
 evidence.sheet_name_server = 'チェック対象'
 evidence.sheet_name_rule = '検査ルール'
 evidence.sheet_name_spec = [

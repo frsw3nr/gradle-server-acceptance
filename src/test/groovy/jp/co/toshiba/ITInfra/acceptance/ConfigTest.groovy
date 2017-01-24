@@ -44,7 +44,6 @@ class ConfigTest extends Specification {
 
         then:
         target.exists()
-        !source.exists()
     }
 
     def "暗号化した設定ファイルの復元"() {
@@ -62,7 +61,6 @@ class ConfigTest extends Specification {
 
         then:
         source.exists()
-        !target.exists()
     }
 
     def "パスワードなしの復元"() {
