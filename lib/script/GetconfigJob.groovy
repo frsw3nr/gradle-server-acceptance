@@ -1,13 +1,19 @@
 node {
 
-	stage 'Gitクローン'
+  stage 'Gitクローン'
 
-	git 'http://192.168.10.1:8090/git/root/test1.git'
+
+    // We can just run it with "externalCall(...)" since it has a call method.
+
+  git "${GetConfigSCM}"
+  bat 'git branch --set-upstream-to=origin/master master'
   bat 'git pull'
 
+
   echo "検査シナリオを設定します..."
-  def branches = getBranches()
-  def config_files = getConfigFiles()
+  def externalMethod = load("lib/script/externalMethod.groovy")
+  def branches = externalMethod.getBranches()
+  def config_files = externalMethod.getConfigFiles()
   def v = input message: 'どの環境の検査シナリオを実行しますか?',
       ok: '検査する',
       parameters: [
@@ -49,7 +55,7 @@ node {
   stage 'Json登録'
 
   echo "getconfig 実行結果を登録します..."
-  bat "getconfig -u ${getconfig_opt}"
+  bat "getconfig -u local"
 
   stage 'Gitコミット'
 
