@@ -70,9 +70,16 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
 
     into("./${target}/") {
         from file("src/main/resources/root/.gitignore")
+        from fileTree(dir: "image")
         from fileTree(dir: "src/main/resources/root/${language}")
         from fileTree(dir: "docs/${language}").include('Readme.md', 'Usage.md')
         from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt', 'Changes.txt')
+    }
+    into("./${target}/image") {
+        from fileTree(dir: "image/")
+    }
+    into("./${target}/docs/html") {
+        from fileTree(dir: "docs/${language}/sphinx-doc/_build/html/")
     }
     into ("./${target}/config") {
         from fileTree(dir : 'config').include("*.xml")
