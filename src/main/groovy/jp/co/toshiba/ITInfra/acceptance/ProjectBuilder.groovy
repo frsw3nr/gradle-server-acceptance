@@ -29,7 +29,7 @@ class ProjectBuilder {
             new File("${target_path}/.gitkeep").createNewFile()
         }
         // Copy all files under the directory
-        ['config', 'lib'].each { base ->
+        ['config', 'lib', 'image'].each { base ->
             FileUtils.copyDirectory(new File("${home}/${base}"),
                                     new File("${target_dir}/${base}"))
         }

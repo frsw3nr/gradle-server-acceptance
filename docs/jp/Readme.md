@@ -22,8 +22,8 @@ VMWare仮想化インフラで構築したサーバのシステム構成情報�
 
 * JDK1.8以上
 * WFM4.0以上(Windows検査用)
-* PowerCLI 5.5以上(vCenter検査用)
-* 7-zip(zip utility)、UTF-8が扱えるエディタ(Sakura Editor等)
+* VMWare vSphere Client, PowerCLI 5.5以上(vCenter検査用)
+* 7-zip(zip utility)、UTF-8が扱えるエディタ(Notepad ++等)
 * Excel 2007以上
 
 ビルド方法
@@ -53,20 +53,25 @@ gradle-server-acceptance-0.1.7.zip
 1. 7-zip を用いて、 gradle-server-acceptance-0.1.7.zip を解凍します。
 2. 「check_sheet.xlsx」を開き、シート「チェック対象」に検査対象サーバの接続情報を記入します。
 3. config/config.groovy 内のサーバアカウント情報を編集します。
-4. server-acceptance ディレクトリに移動し、getconfig マンドを実行します。
+4. server-acceptance ディレクトリに移動し、以下の getconfig コマンドを実行します。
 
 ```
-./getconfig -h
-usage: getspec
- -c,--config <arg>     Config file path : ./config/config.groovy
- -d,--dry-run          Enable Dry run test
- -e,--excel <arg>      Excel test spec file path : check_sheet.xlsx
- -h,--help             Print usage
- -p,--parallel <arg>   Degree of test runner processes
- -r,--resource <arg>   Dry run test resource : ./src/test/resources/log/
- -s,--server <arg>     Filtering list of servers : svr1,svr2,...
- -t,--test <arg>       Filtering list of test_ids : vm,cpu,...
- -v,--verify           Disable verify test
+usage: getconfig -c ./config/config.groovy
+ -c,--config <config.groovy>             Config file path
+ -d,--dry-run                            Enable Dry run test
+    --decode <config.groovy-encrypted>   Decode config file
+    --encode <config.groovy>             Encode config file
+    --excel <check_sheet.xlsx>           Excel sheet path
+ -g,--generate </work/project>           Generate project directory
+ -h,--help                               Print usage
+ -k,--keyword <password>                 Config file password
+    --parallel <arg>                     Degree of test runner processes
+ -r,--resource <arg>                     Dry run test resource directory
+ -s,--server <svr1,svr2,...>             Filtering list of servers
+ -t,--test <vm,cpu,...>                  Filtering list of test_ids
+ -u,--update <local|db|db-all>           Update node config
+    --verify                             Disable verify test
+ -x,--xport </work/project.zip>          Export project zip file
 ```
 
 Reference
