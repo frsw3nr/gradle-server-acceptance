@@ -24,13 +24,18 @@ class ProjectBuilder {
             throw new IllegalArgumentException("'${target_dir}' exists.")
         }
         // Create an empty directory
-        ['build', 'src/test/resource/log'].each { base ->
+        ['config', 'build', 'src/test/resource/log'].each { base ->
             def target_path =  new File("${target_dir}/${base}")
             target_path.mkdirs()
             new File("${target_path}/.gitkeep").createNewFile()
         }
+        // Copy Config file under home
+        ['config.groovy', 'test_servers.groovy'].each {base ->
+            FileUtils.copyFile(new File("${home}/config/${base}"), 
+                               new File("${target_dir}/config/${base}"))
+        }
         // Copy all files under the directory
-        ['config', 'lib', 'image'].each { base ->
+        ['lib', 'image'].each { base ->
             FileUtils.copyDirectory(new File("${home}/${base}"),
                                     new File("${target_dir}/${base}"))
         }

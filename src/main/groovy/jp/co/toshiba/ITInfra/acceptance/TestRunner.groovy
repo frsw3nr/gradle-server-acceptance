@@ -82,12 +82,14 @@ class TestRunner {
             System.exit(0)
         }
         if (options.u) {
+            def base_home = System.getProperty("getconfig_home")
+            def db_config = new File(base_home, "/config/cmdb.groovy").getAbsolutePath()
             if (options.u == 'local') {
                 new EvidenceFile(home: getconfig_home).generate()
             } else if (options.u == 'db') {
-                new EvidenceFile(home: getconfig_home).exportCMDB()
+                new EvidenceFile(home: getconfig_home, db_config: db_config).exportCMDB()
             } else if (options.u == 'db-all') {
-                new EvidenceFile(home: getconfig_home).exportCMDBAll()
+                new EvidenceFile(home: getconfig_home, db_config: db_config).exportCMDBAll()
             } else {
                 cli.usage()
                 throw new IllegalArgumentException('--update option must be local or db or db-all')
@@ -168,6 +170,7 @@ class TestRunner {
             test_scheduler.runTest()
         } catch (Exception e) {
             log.error "Fatal error : " + e
+            e.printStackTrace()
             System.exit(1)
         }
     }

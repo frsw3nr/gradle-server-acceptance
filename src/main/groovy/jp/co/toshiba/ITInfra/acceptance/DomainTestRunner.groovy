@@ -16,7 +16,7 @@ class DomainTestRunner {
     private test_spec
     def server_info = [:]
 
-    DomainTestRunner(TargetServer test_server, String domain) {
+    DomainTestRunner(TargetServer test_server, String domain) throws IOException {
         this.test_server = test_server
         this.verify_id   = test_server.verify_id
         this.domain      = domain
@@ -30,7 +30,6 @@ class DomainTestRunner {
         log.debug "Load ${user_script}"
         def clazz = loader.parseClass(new File(user_script))
         test_spec = clazz.newInstance(test_server, domain)
-
     }
 
     def summaryReport(TestItem[] test_items) {
