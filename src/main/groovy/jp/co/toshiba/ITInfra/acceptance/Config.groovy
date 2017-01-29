@@ -7,78 +7,19 @@ import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import java.nio.charset.Charset
 import java.io.Console
-
-// v0.1.7機能
-//     設定ファイルを暗号化する
-//     暗号化機能
-//         オプションで設定ファイルを指定
-//             -p,--password {config}
-//         キーコード入力
-//             入力
-//                 確認
-//         暗号化ファイル作成
-//             {config}-encrypted
-//         平文ファイル削除
-//     復元オプション
-//         オプションで設定ファイルを指定
-//             -p,--password {config}
-//         キーコード入力
-//             入力
-//                 確認
-//         妥当性チェック
-//             JSONエンコードでエラーがないかチェック
-//         平文ファイル復元
-//         暗号化ファイル削除
-//     実行時に復元
-//         config_fileがない場合は、{config_file}-encryptedを探す
-//         キーコード入力
-//             -k,--keyword {password} 指定で省略可
-//         妥当性チェック
-//             平文に復元してJSONエンコード
-
-// テストコード
-
-// final String keyword = "encodekey1234567"
-// SecretKeySpec key = new SecretKeySpec(keyword.getBytes(Charset.forName("UTF-8")), "Blowfish")
-
-// // 文字列を暗号化 → 復号化
-// def target = "testtest_test"
-// def encodeKey = crypt(target.getBytes(), key)
-// println new String(decrypt(encodeKey, key))
-
-// // ファイルを暗号化 → 復号化
-// def fileByte = new File("config.groovy").getBytes()
-// def encFile = crypt(fileByte, key)
-
-// new File("config_encrypt.groovy").setBytes(encFile)
-
-// def decFile = decrypt(encFile, key)
-// new File("config_decrypt.groovy").setBytes(decFile)
-
-// // 暗号化
-// def crypt(byte[] bytes, SecretKeySpec key) {
-//   def cph = Cipher.getInstance("Blowfish")
-//   cph.init(Cipher.ENCRYPT_MODE, key)
-
-//   return cph.doFinal(bytes)
-// }
-
-// // 復号化
-// def decrypt(byte[] bytes, SecretKeySpec key) {
-//   def cph = Cipher.getInstance("Blowfish")
-//   cph.init(Cipher.DECRYPT_MODE, key)
-
-//   return cph.doFinal(bytes)
-// }
+import static groovy.json.JsonOutput.*
+import groovy.json.*
 
 @Slf4j
 @Singleton
 class Config {
     def configs = [:]
+    def servers = [:].withDefault{[:]}
+    def devices = [:].withDefault{[:].withDefault{[:]}}
     def date = new Date().format("yyyyMMdd_HHmmss")
     final encryption_mode = 'Blowfish'
 
-    def read_config_file(String config_file, String keyword = null)
+    def readConfigFile(String config_file, String keyword = null)
         throws IOException, IllegalArgumentException {
         new File(config_file).with {
             def decrypte_file_name = it.name.replaceAll(/-encrypted$/, "")
@@ -93,7 +34,7 @@ class Config {
 
     Map read(String config_file, String keyword = null) throws IOException {
         if (!configs[config_file]) {
-            def config_data = read_config_file(config_file, keyword)
+            def config_data = readConfigFile(config_file, keyword)
             def config = new ConfigSlurper().parse(config_data)
             (config['evidence']).with { evidence ->
                 ['target', 'staging_dir'].each {
@@ -107,6 +48,56 @@ class Config {
             configs[config_file] = config
         }
         return configs[config_file]
+    }
+
+    def readNodeConfig(String node_config_dir, String domain, String server_name) {
+        if (!servers[domain][server_name]) {
+            def node_path = "${node_config_dir}/${domain}/${server_name}"
+            def server_config_json = new File("${node_path}.json")
+            if (server_config_json.exists()) {
+                def results = new JsonSlurper().parseText(server_config_json.text)
+                def server_items = [:]
+                results.each {
+                    server_items[it.test_id] = it.value
+                }
+                servers[domain][server_name] = server_items
+            }
+            def device_config_dir = new File(node_path)
+            if (device_config_dir.exists()) {
+                device_config_dir.eachFile { device_config ->
+                    ( device_config.name =~ /(.+).json/ ).each { json_file, test_id ->
+                        def results = new JsonSlurper().parseText(device_config.text)
+                        devices[domain][server_name][test_id] = results
+                    }
+                }
+            }
+        }
+        return servers[domain][server_name]
+    }
+
+    def setHostConfig(String server_name, String domain, Map domain_results) {
+        servers[server_name][domain] = domain_results['test']
+    }
+
+    def setDeviceConfig(String server_name, String domain, DeviceResultSheet device_results) {
+        def test_headers = device_results['headers'][domain]
+        device_results['csvs'][domain].each {test_id, server_domain_csvs ->
+            if (server_domain_csvs[server_name]) {
+                def header =  test_headers[test_id]
+                def csvs = server_domain_csvs[server_name]
+                def results = []
+                csvs.each { csv ->
+                    def i = 0
+                    def values = [:]
+                    header.each { header_name ->
+                        values[header_name] = csv[i]
+                        i++
+                    }
+                    results << values
+                }
+                devices[server_name][domain][test_id] = results
+            }
+        }
     }
 
     String inputPassword(Map options = [:]) {

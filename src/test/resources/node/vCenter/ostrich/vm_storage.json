@@ -1,0 +1,7 @@
+[
+    {
+        "Filename": "[datastore1] ostrich/ostrich.vmdk",
+        "StorageFormat": "Thin",
+        "CapacityGB": "30"
+    }
+]

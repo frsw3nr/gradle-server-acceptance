@@ -1,5 +1,6 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import static groovy.json.JsonOutput.*
 
 // gradle --daemon clean test --tests "TestSchedulerTest"
 
@@ -20,8 +21,12 @@ class TestSchedulerTest extends Specification {
         def test_scheduler = new TestScheduler(test_runner)
         test_scheduler.runTest()
 
+        // println prettyPrint(toJson(Config.instance.servers))
+        // println prettyPrint(toJson(Config.instance.devices))
+
         then:
-        1 == 1
+        Config.instance.servers.size() > 0
+        Config.instance.devices.size() > 0
     }
 
     def "サーバー絞り込み"() {

@@ -1,0 +1,102 @@
+[
+    {
+        "test_id": "NumCpu",
+        "domain": "VMHost",
+        "value": "4"
+    },
+    {
+        "test_id": "CpuTotalMhz",
+        "domain": "VMHost",
+        "value": "12768"
+    },
+    {
+        "test_id": "MemoryTotalGB",
+        "domain": "VMHost",
+        "value": "23.87859344482421875"
+    },
+    {
+        "test_id": "LicenseKey",
+        "domain": "VMHost",
+        "value": "0J68N-XXXXX-XXXXX-XXXXX-1T6L5"
+    },
+    {
+        "test_id": "ProcessorType",
+        "domain": "VMHost",
+        "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz"
+    },
+    {
+        "test_id": "Version",
+        "domain": "VMHost",
+        "value": "5.5.0"
+    },
+    {
+        "test_id": "Build",
+        "domain": "VMHost",
+        "value": "1331820"
+    },
+    {
+        "test_id": "FirewallDefaultPolicy",
+        "domain": "VMHost",
+        "value": "VMHostFirewallDefaultPolicy:HostSystem-ha-host"
+    },
+    {
+        "test_id": "HyperthreadingActive",
+        "domain": "VMHost",
+        "value": "False"
+    },
+    {
+        "test_id": "TimeZone",
+        "domain": "VMHost",
+        "value": "UTC"
+    },
+    {
+        "test_id": "PowerState",
+        "domain": "VMHost",
+        "value": "PoweredOn"
+    },
+    {
+        "test_id": "VMSwapfilePolicy",
+        "domain": "VMHost",
+        "value": "WithVM"
+    },
+    {
+        "test_id": "Manufacturer",
+        "domain": "VMHost",
+        "value": "ASUS"
+    },
+    {
+        "test_id": "StorageInfo",
+        "domain": "VMHost",
+        "value": "HostStorageSystem-storageSystem"
+    },
+    {
+        "test_id": "NetworkInfo",
+        "domain": "VMHost",
+        "value": "esxi:ostrich"
+    },
+    {
+        "test_id": "Account",
+        "domain": "VMHost",
+        "value": "7"
+    },
+    {
+        "test_id": "NetworkAdapter",
+        "domain": "VMHost",
+        "value": "6"
+    },
+    {
+        "test_id": "Disk",
+        "domain": "VMHost",
+        "value": "2"
+    },
+    {
+        "test_id": "DiskPartition",
+        "domain": "VMHost",
+        "value": "9"
+    },
+    {
+        "test_id": "Datastore",
+        "domain": "VMHost",
+        "value": "5"
+    }
+]

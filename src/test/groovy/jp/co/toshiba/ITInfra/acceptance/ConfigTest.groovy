@@ -4,6 +4,7 @@ import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import java.nio.charset.Charset
 import org.apache.commons.io.FileUtils
+import static groovy.json.JsonOutput.*
 
 // gradle --daemon clean test --tests "ConfigTest.Config test read"
 
@@ -88,10 +89,20 @@ class ConfigTest extends Specification {
         Config.instance.encrypt('src/test/resources/encode-test.groovy',
                                 'encodekey1234567')
         when:
-        def config = Config.instance.read_config_file('src/test/resources/encode-test.groovy-encrypted', 'encodekey1234567')
+        def config = Config.instance.readConfigFile('src/test/resources/encode-test.groovy-encrypted', 'encodekey1234567')
 
         then:
         1 == 1
     }
 
+    def "ノード定義ファイルの読み込み"() {
+        setup:
+        def server = Config.instance.readNodeConfig('src/test/resources/node', 'Linux', 'ostrich')
+
+        when:
+        println prettyPrint(toJson(Config.instance.devices))
+
+        then:
+        1 == 1
+    }
 }

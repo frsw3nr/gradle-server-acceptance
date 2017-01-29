@@ -1,7 +1,7 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
-// gradle --daemon clean test --tests "DomainTestRunnerTest"
+// q"
 
 class DomainTestRunnerTest extends Specification {
 

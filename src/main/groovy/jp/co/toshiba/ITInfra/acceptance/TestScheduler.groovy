@@ -65,6 +65,7 @@ class TestScheduler {
         test_server.with {
             setAccounts(test_runner.config_file)
             it.dry_run = test_runner.dry_run
+            def compare_server = evidence_sheet.compare_servers[server_name]
 
             def domain_specs = evidence_sheet.domain_test_ids[platform]
             domain_specs.each { domain, test_ids ->
@@ -82,11 +83,15 @@ class TestScheduler {
                         }
                         log.debug "Set Device results '${domain},${server_name}'"
                         device_results.setResults(domain, server_name, result_test_items)
-
-                        test_evidences[platform][server_name][domain] = [
+                        def domain_results = [
                             'test' : getResults(),
                             'verify' : getVerifyStatuses(),
                         ]
+                        test_evidences[platform][server_name][domain] = domain_results
+                        if (compare_server == server_name) {
+                            Config.instance.setHostConfig(server_name, domain, domain_results)
+                            Config.instance.setDeviceConfig(server_name, domain, device_results)
+                        }
                     }
                     long elapsed = System.currentTimeMillis() - start
                     log.info "Finish ${label} '${server_name}:${domain}', Elapsed : ${elapsed} ms"

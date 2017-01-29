@@ -1,0 +1,10 @@
+[
+    {
+        "ServiceName": "e1iexpress",
+        "MacAddress": "00:0C:29:80:18:06",
+        "IPAddress": "{192.168.0.22, fe80::399b:8fa8:d4df:f588}",
+        "DefaultIPGateway": "{192.168.0.254}",
+        "Description": "Intel(R) 82574L Gigabit Network Connection",
+        "IPSubnet": "{255.255.255.0, 64}"
+    }
+]

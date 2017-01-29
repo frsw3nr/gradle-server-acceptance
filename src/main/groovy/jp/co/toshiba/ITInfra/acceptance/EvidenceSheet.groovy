@@ -47,6 +47,7 @@ class EvidenceSheet {
     def domain_test_ids
     def verify_rules
     def device_test_ids
+    def compare_servers
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
         this.config_file = config_file
@@ -71,6 +72,7 @@ class EvidenceSheet {
         domain_test_ids = [:].withDefault{[:].withDefault{[]}}
         verify_rules    = [:].withDefault{[:].withDefault{[:]}}
         device_test_ids = [:].withDefault{[:]}
+        compare_servers = [:]
     }
 
     // To add a border to the test results column, set the line width to the auto scale
@@ -127,6 +129,21 @@ class EvidenceSheet {
                             def index = "${server_id},${item_id}"
                             log.debug "\t${position} : Add server ${index} = '${server_text}'"
                             server_info[server_id][item_id] = server_text
+
+                            if (item_id == 'compare_with') {
+                                def source = 'actual'
+                                def server = server_text
+                                (server_text =~ /^(local|db):(.+)/).each { m0, m1, m2 ->
+                                    source = m1
+                                    server = m2
+                                }
+                                log.debug "\tcompare:${server},${server_text},${source}"
+                                compare_servers[server] = [
+                                    source : source,
+                                    platform : server_info[server_id]['platform'],
+                                    server : server_text,
+                                ]
+                            }
                         }
                     }
                 }
@@ -262,6 +279,17 @@ class EvidenceSheet {
                     def msg = "Not found excel server list sheet '${sheet_name_rule}'"
                     throw new IllegalArgumentException(msg)
                 }
+                // Read compare server results from node config file
+                compare_servers.each { server_name, compare_server->
+                    log.info "Compare : ${server_name}, " + compare_server
+                    if (compare_server.source == 'local') {
+                        log.info compare_server.platform
+                        domain_test_ids[compare_server.platform].each { domain, domain_test_id ->
+                            log.info "Read node, ${domain}, ${server_name}"
+                            Config.instance.readNodeConfig('node', domain, server_name)
+                        }
+                    }
+                }
             }
         }
         long elapsed = System.currentTimeMillis() - start
@@ -348,7 +376,7 @@ class EvidenceSheet {
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
 
-        // Set the column width to 45 characters of the inspection result column 
+        // Set the column width to 45 characters of the inspection result column
         // after the body column name
         // (in units of 1/256th of a character width)
         def column = column_body_begin + sequence

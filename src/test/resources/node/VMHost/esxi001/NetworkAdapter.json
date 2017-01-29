@@ -1,0 +1,26 @@
+[
+    {
+        "Name": "vmnic0",
+        "Mac": "00:1b:21:7d:20:1d",
+        "DhcpEnabled": "False",
+        "IP": "",
+        "SubnetMask": "",
+        "DeviceName": "vmnic0"
+    },
+    {
+        "Name": "vmnic1",
+        "Mac": "00:0e:04:13:10:80",
+        "DhcpEnabled": "False",
+        "IP": "",
+        "SubnetMask": "",
+        "DeviceName": "vmnic1"
+    },
+    {
+        "Name": "vmk0",
+        "Mac": "00:1b:21:7d:20:1d",
+        "DhcpEnabled": "False",
+        "IP": "192.168.10.100",
+        "SubnetMask": "255.255.255.0",
+        "DeviceName": "vmk0"
+    }
+]

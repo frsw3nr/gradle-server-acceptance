@@ -25,7 +25,7 @@ node {
             choices: config_files.join("\n"),
             description: 'コンフィグファイル',
             name: '-c'],
-        [$class: 'StringParameterDefinition',
+        [$class: 'PasswordParameterDefinition',
             description: 'パスワード(-k) ※暗号化されたコンフィグファイル(-encrypted)の場合は必須',
             name: '-k'],
         [$class: 'StringParameterDefinition',

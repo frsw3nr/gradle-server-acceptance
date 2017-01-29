@@ -1,0 +1,172 @@
+[
+    {
+        "test_id": "NumCpu",
+        "domain": "vCenter",
+        "value": "1"
+    },
+    {
+        "test_id": "PowerState",
+        "domain": "vCenter",
+        "value": "PoweredOn"
+    },
+    {
+        "test_id": "MemoryGB",
+        "domain": "vCenter",
+        "value": "4"
+    },
+    {
+        "test_id": "VMHost",
+        "domain": "vCenter",
+        "value": "192.168.10.100"
+    },
+    {
+        "test_id": "vmwaretool",
+        "domain": "vCenter",
+        "value": "[internalversion:9344 , requiredversion:9344 ]"
+    },
+    {
+        "test_id": "vm_timesync",
+        "domain": "vCenter",
+        "value": "[TimeSync:False]"
+    },
+    {
+        "test_id": "vm_iops_limit",
+        "domain": "vCenter",
+        "value": "[IOLimit0:-1]"
+    },
+    {
+        "test_id": "vm_storage",
+        "domain": "vCenter",
+        "value": "[Thin:22]"
+    },
+    {
+        "test_id": "model_name",
+        "domain": "Windows",
+        "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz"
+    },
+    {
+        "test_id": "mhz",
+        "domain": "Windows",
+        "value": "3193"
+    },
+    {
+        "test_id": "cpu_total",
+        "domain": "Windows",
+        "value": "1"
+    },
+    {
+        "test_id": "total_visible",
+        "domain": "Windows",
+        "value": "4193848"
+    },
+    {
+        "test_id": "total_virtual",
+        "domain": "Windows",
+        "value": "5635640"
+    },
+    {
+        "test_id": "free_physical",
+        "domain": "Windows",
+        "value": "2613100"
+    },
+    {
+        "test_id": "Domain",
+        "domain": "Windows",
+        "value": "WORKGROUP"
+    },
+    {
+        "test_id": "Manufacturer",
+        "domain": "Windows",
+        "value": "VMware, Inc."
+    },
+    {
+        "test_id": "Model",
+        "domain": "Windows",
+        "value": "VMware Virtual Platform"
+    },
+    {
+        "test_id": "Name",
+        "domain": "Windows",
+        "value": "WIN-3BCR0MC52OF"
+    },
+    {
+        "test_id": "os_caption",
+        "domain": "Windows",
+        "value": "Microsoft Windows Server 2012 R2 Standard \u8a55\u4fa1\u7248"
+    },
+    {
+        "test_id": "os_architecture",
+        "domain": "Windows",
+        "value": "64 \u30d3\u30c3\u30c8"
+    },
+    {
+        "test_id": "os_product_type",
+        "domain": "Windows",
+        "value": "3"
+    },
+    {
+        "test_id": "driver",
+        "domain": "Windows",
+        "value": "105"
+    },
+    {
+        "test_id": "filesystem",
+        "domain": "Windows",
+        "value": "1"
+    },
+    {
+        "test_id": "filesystem.C:",
+        "domain": "Windows",
+        "value": "23.25321728"
+    },
+    {
+        "test_id": "user",
+        "domain": "Windows",
+        "value": "[Administrator, Guest]"
+    },
+    {
+        "test_id": "service",
+        "domain": "Windows",
+        "value": "140"
+    },
+    {
+        "test_id": "service.VMTools",
+        "domain": "Windows",
+        "value": "Running"
+    },
+    {
+        "test_id": "service.wuauserv",
+        "domain": "Windows",
+        "value": "Stopped"
+    },
+    {
+        "test_id": "fips",
+        "domain": "Windows",
+        "value": "Disabled"
+    },
+    {
+        "test_id": "network",
+        "domain": "Windows",
+        "value": "[e1iexpress]"
+    },
+    {
+        "test_id": "firewall",
+        "domain": "Windows",
+        "value": "34"
+    },
+    {
+        "test_id": "dns",
+        "domain": "Windows",
+        "value": "[192.168.0.254, fec0:0:0:ffff::1, fec0:0:0:ffff::2, fec0:0:0:ffff::3]"
+    },
+    {
+        "test_id": "storage_timeout",
+        "domain": "Windows",
+        "value": "60"
+    },
+    {
+        "test_id": "ntp",
+        "domain": "Windows",
+        "value": "NG"
+    }
+]

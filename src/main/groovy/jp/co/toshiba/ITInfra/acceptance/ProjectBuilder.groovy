@@ -31,7 +31,7 @@ class ProjectBuilder {
         }
         // Copy Config file under home
         ['config.groovy', 'test_servers.groovy'].each {base ->
-            FileUtils.copyFile(new File("${home}/config/${base}"), 
+            FileUtils.copyFile(new File("${home}/config/${base}"),
                                new File("${target_dir}/config/${base}"))
         }
         // Copy all files under the directory

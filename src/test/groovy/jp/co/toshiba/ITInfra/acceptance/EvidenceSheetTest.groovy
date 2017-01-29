@@ -1,5 +1,8 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import org.apache.commons.io.FileUtils
+import groovy.io.FileType
+import static groovy.json.JsonOutput.*
 
 class EvidenceSheetTest extends Specification{
 
@@ -106,4 +109,27 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "比較対象サーバの抽出"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.readSheet()
+        println evidence.compare_servers
+        println prettyPrint(toJson(Config.instance.servers))
+        println prettyPrint(toJson(Config.instance.devices))
+
+        then:
+        evidence.compare_servers.size() > 0
+    }
+
+    def "ノード定義読み込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.readSheet()
+        FileUtils.copyDirectory(new File("src/test/resources/node/"),
+                                new File("node/"))
+        // println evidence.compare_servers
+
+        then:
+        evidence.compare_servers.size() > 0
+    }
 }
