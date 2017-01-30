@@ -114,8 +114,8 @@ class EvidenceSheetTest extends Specification{
         def evidence = new EvidenceSheet('src/test/resources/config.groovy')
         evidence.readSheet()
         println evidence.compare_servers
-        println prettyPrint(toJson(Config.instance.servers))
-        println prettyPrint(toJson(Config.instance.devices))
+        // println prettyPrint(toJson(Config.instance.servers))
+        // println prettyPrint(toJson(Config.instance.devices))
 
         then:
         evidence.compare_servers.size() > 0

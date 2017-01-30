@@ -86,6 +86,7 @@ class TestScheduler {
                         def domain_results = [
                             'test' : getResults(),
                             'verify' : getVerifyStatuses(),
+                            'compare_server' : compare_server,
                         ]
                         test_evidences[platform][server_name][domain] = domain_results
                         if (compare_server == server_name) {

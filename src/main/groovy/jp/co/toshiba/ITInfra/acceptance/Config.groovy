@@ -100,6 +100,11 @@ class Config {
         }
     }
 
+    def compareMetric(String domain, String server_name, String test_id, String value) {
+        def compare_value = servers?.server_name?.domain?.test_id
+        return (compare_value == value) ? "Same as '$server_name'" : value
+    }
+
     String inputPassword(Map options = [:]) {
         def keyword = null
         Console console = System.console()

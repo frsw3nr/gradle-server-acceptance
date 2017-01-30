@@ -143,6 +143,8 @@ class EvidenceSheet {
                                     platform : server_info[server_id]['platform'],
                                     server : server_text,
                                 ]
+                                server_info[server_id]['compare_source'] = source
+                                server_info[server_id]['compare_server'] = server
                             }
                         }
                     }
@@ -279,11 +281,10 @@ class EvidenceSheet {
                     def msg = "Not found excel server list sheet '${sheet_name_rule}'"
                     throw new IllegalArgumentException(msg)
                 }
-                // Read compare server results from node config file
+                // Read compare target server results from node config file
                 compare_servers.each { server_name, compare_server->
                     log.info "Compare : ${server_name}, " + compare_server
                     if (compare_server.source == 'local') {
-                        log.info compare_server.platform
                         domain_test_ids[compare_server.platform].each { domain, domain_test_id ->
                             log.info "Read node, ${domain}, ${server_name}"
                             Config.instance.readNodeConfig('node', domain, server_name)
@@ -409,12 +410,17 @@ class EvidenceSheet {
                     rows['test_id'] = test_id
                     def domain  = cell_domain.getStringCellValue()
                     rows['domain']  = domain
-                    log.debug "Check row ${domain},${test_id} in ${platform}"
+println results[domain]
+                    def compare_server = results[domain][compare_server]
+                    log.info "Check row ${domain},${test_id} in ${platform}, compare: ${compare_server}"
                     try {
                         if (results[domain]['test'].containsKey(test_id)) {
                             def value = results[domain]['test'][test_id].toString()
                             rows['value']  = value
-                            if (NumberUtils.isDigits(value)) {
+                            if (compare_server) {
+                                def compare_value = Config.instance.compareMetric(domain, server_name, test_id, value)
+println "Compare: $domain, $server_name, $test_id, $value = $compare_value"                                cell_result.setCellValue(compare_value)
+                            } else if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
                             } else {
                                 cell_result.setCellValue(value)

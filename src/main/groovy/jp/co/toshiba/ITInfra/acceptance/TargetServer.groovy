@@ -12,6 +12,8 @@ class TargetServer {
     String remote_account_id
     String remote_alias
     String verify_id
+    String compare_source
+    String compare_server
     String evidence_log_dir
     String evidence_log_share_dir
     Boolean dry_run
@@ -25,7 +27,9 @@ class TargetServer {
 
     TargetServer(Map properties) {
         final def defalut_props = ['server_name' : 1, 'ip' : 1, 'platform' : 1,
-            'os_account_id' : 1, 'remote_account_id' : 1, 'remote_alias' : 1, 'verify_id' : 1]
+                                   'compare_source' : 1, 'compare_server' : 1,
+                                   'os_account_id' : 1, 'remote_account_id' : 1,
+                                   'remote_alias' : 1, 'verify_id' : 1]
         properties.each { name, value ->
             if (defalut_props.containsKey(name)) {
                 this."${name}" = value
