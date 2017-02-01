@@ -14,7 +14,8 @@ class EvidenceFile {
     final static def current_build = 1
     final String archive_dir  = './build/archive'
     final String all_node_dir = './node'
-    String home
+    String base_home
+    String project_home
     String project_name
     String tenant_name
     String last_run_config
@@ -22,11 +23,12 @@ class EvidenceFile {
     def cmdb
 
     EvidenceFile(Map params) {
-        assert params.home
-        this.home = params.home
-        this.project_name = new File(this.home).getName()
+        assert params.project_home
+        this.base_home    = params.base_home
+        this.project_home = params.project_home
+        this.project_name = new File(this.project_home).getName()
         this.tenant_name = '_Default'
-        this.last_run_config = params.last_run_config ?: "${params.home}/build/.last_run"
+        this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
         this.db_config  = params.db_config ?: 'config/cmdb.groovy'
     }
 
@@ -73,12 +75,12 @@ class EvidenceFile {
 
     def exportCMDB() throws IOException, SQLException {
         def node_dir_source = getNodeDirSource()
-        def db = new ConfigManageDB(home: home, db_config: db_config)
+        def db = new ConfigManageDB(base_home: base_home, project_home: project_home, db_config: db_config)
         db.export(new File(node_dir_source).getAbsolutePath())
     }
 
     def exportCMDBAll() throws IOException, SQLException {
-        def db = new ConfigManageDB(home: home, db_config: db_config)
+        def db = new ConfigManageDB(base_home: base_home, project_home: project_home, db_config: db_config)
         db.export(new File(all_node_dir).getAbsolutePath())
     }
 }

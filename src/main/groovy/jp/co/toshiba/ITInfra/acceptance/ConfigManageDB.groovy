@@ -12,7 +12,8 @@ import java.sql.*
 class ConfigManageDB {
 
     final static def current_build = 1
-    String home
+    String base_home
+    String project_home
     String project_name
     String tenant_name
     String last_run_config
@@ -22,12 +23,14 @@ class ConfigManageDB {
     def cmdb_cache = [:]
 
     ConfigManageDB(Map params) {
-        assert params.home
-        this.home = params.home
-        this.project_name = new File(this.home).getName()
+        assert params.base_home
+        assert params.project_home
+        this.base_home    = params.base_home
+        this.project_home = params.project_home ?: '.'
+        this.project_name = new File(this.project_home).getName()
         this.tenant_name = '_Default'
-        this.last_run_config = params.last_run_config ?: "${params.home}/build/.last_run"
-        this.db_config  = params.db_config ?: 'config/cmdb.groovy'
+        this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
+        this.db_config  = params.db_config ?: '${base_home}/config/cmdb.groovy'
     }
 
     def registMaster(table_name, columns) throws SQLException {
@@ -91,7 +94,7 @@ class ConfigManageDB {
 
     def export(String node_config_source) throws IOException, SQLException,
         IllegalArgumentException {
-        assert home
+        assert project_home
         initialize()
         // Regist SITE, TENANT table
         def site_id   = registMaster("SITE", [SITE_NAME: project_name])
@@ -111,8 +114,8 @@ class ConfigManageDB {
 
                     log.info "Regist NODE ${node_name}"
                     def node_id = registMaster("NODE", [NODE_NAME: node_name,
-                                               SITE_ID: site_id,
                                                TENANT_ID: tenant_id])
+                    registMaster("SITE_NODE", [SITE_ID: site_id, NODE_ID: node_id])
                     metrics.each { metric ->
                         log.debug "Regist METRIC ${metric}"
                         def metric_id = registMaster("METRIC",
@@ -127,8 +130,8 @@ class ConfigManageDB {
             new File(domain_dir).eachDir {
                 def node_name = it.name
                 def node_id = registMaster("NODE", [NODE_NAME: node_name,
-                                           SITE_ID: site_id,
                                            TENANT_ID: tenant_id])
+                registMaster("SITE_NODE", [SITE_ID: site_id, NODE_ID: node_id])
                 def device_dir = "${domain_dir}/${node_name}"
                 new File(device_dir).eachFile {
                     ( it.name =~/(.+).json/).each { json_file, metric_name->
@@ -166,7 +169,7 @@ class ConfigManageDB {
             log.warn "VERSION table not found in CMDB, Create tables"
         }
         if (cmdb_version == null) {
-            def create_db_script = "lib/script/cmdb/create_db.sql"
+            def create_db_script = "${base_home}/lib/script/cmdb/create_db.sql"
             def create_sqls = new File(create_db_script).text.split(/;\s*\n/).each {
                 cmdb.execute it
             }

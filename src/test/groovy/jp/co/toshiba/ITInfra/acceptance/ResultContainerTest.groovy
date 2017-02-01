@@ -28,12 +28,12 @@ class ResultContainerTest extends Specification {
         ResultContainer.instance.device_results.size() > 0
     }
 
-    def "MySQL読み込み"() {
-        when:
+    // def "MySQL読み込み"() {
+    //     when:
 
-        then:
-        1 == 1
-    }
+    //     then:
+    //     1 == 1
+    // }
 
     // def "検査結果の比較"() {
     //     when:

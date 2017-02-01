@@ -6,94 +6,16 @@ import groovy.sql.Sql
 
 class EvidenceFileTest extends Specification {
 
-    def "メイン処理"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
-        ]
-
-        when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
-
-        then:
-        1 == 1
-    }
-
-    def "サーバー絞り込み"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
-            '-s', 'testtestdb',
-            '-p', '3',
-        ]
-
-        when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
-
-        then:
-        1 == 1
-    }
-
-    def "テスト絞り込み"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
-            '-t', 'hostname',
-            '-p', '3',
-        ]
-
-        when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
-
-        then:
-        1 == 1
-    }
-
-    def "サーバ、テスト絞り込み"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
-            '-s', 'testtestdb',
-            '-t', 'vm',
-            '-p', '3',
-        ]
-
-        when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
-
-        then:
-        1 == 1
-    }
+    def params = [
+        base_home:       '.',
+        project_home:    'src/test/resources',
+        db_config:       'src/test/resources/cmdb.groovy',
+        last_run_config: 'src/test/resources/log/.last_run',
+    ]
 
     def "DB登録"() {
-        setup:
-        def home = System.getProperty("user.dir")
-
         when:
-        def config   = 'src/test/resources/cmdb.groovy'
-        def last_run = 'src/test/resources/log/.last_run'
-        def evidence = new EvidenceFile(home: home, db_config: config,
-                                        last_run_config: last_run)
+        def evidence = new EvidenceFile(params)
         evidence.exportCMDB()
 
         then:
@@ -101,14 +23,8 @@ class EvidenceFileTest extends Specification {
     }
 
     def "DB全体登録"() {
-        setup:
-        def home = System.getProperty("user.dir")
-
         when:
-        def config   = 'src/test/resources/cmdb.groovy'
-        def last_run = 'src/test/resources/log/.last_run'
-        def evidence = new EvidenceFile(home: home, db_config: config,
-                                        last_run_config: last_run)
+        def evidence = new EvidenceFile(params)
         evidence.exportCMDBAll()
 
         then:
@@ -138,12 +54,12 @@ class EvidenceFileTest extends Specification {
         new File("./build/check_sheet_20170116_080002.xlsx").text = 'dummy'
         new File("./build/check_sheet_20170116_090544.xlsx").text = 'dummy'
         new File("./build/log/_node").mkdirs()
-        
+
+        params['db_config']       = 'src/test/resources/config_zabbix.groovy'
+        params['last_run_config'] = 'src/test/resources/log2/.last_run'
+
         when:
-        def config   = 'src/test/resources/config_zabbix.groovy'
-        def last_run = 'src/test/resources/log2/.last_run'
-        def evidence = new EvidenceFile(home: home, db_config: config,
-                                        last_run_config: last_run)
+        def evidence = new EvidenceFile(params)
         evidence.generate()
 
         then:

@@ -40,14 +40,13 @@ create unique index UK_METRIC on METRIC(DOMAIN_ID, METRIC_NAME);
 
 create table NODE (
   ID INTEGER not null auto_increment
-  , SITE_ID INTEGER not null
   , TENANT_ID INTEGER not null
   , NODE_NAME VARCHAR(128) not null
   , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   , constraint NODE_PKC primary key (ID)
 );
 
-create unique index UK_NODE on NODE(SITE_ID, NODE_NAME);
+create unique index UK_NODE on NODE(NODE_NAME);
 
 create table TENANT (
   ID INTEGER not null auto_increment
@@ -77,3 +76,13 @@ create table SITE (
 );
 
 create unique index UK_SITE on SITE(SITE_NAME);
+
+create table SITE_NODE (
+  ID INTEGER not null auto_increment
+  , SITE_ID INTEGER not null
+  , NODE_ID INTEGER not null
+  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  , constraint SITE_NODE_PKC primary key (ID)
+);
+
+create unique index UK_SITE_NODE on SITE_NODE(SITE_ID, NODE_ID);

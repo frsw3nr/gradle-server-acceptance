@@ -44,10 +44,11 @@ class EvidenceSheet {
     def test_domains
 
     def test_servers
+    def test_servers_hash
+    def compare_servers
     def domain_test_ids
     def verify_rules
     def device_test_ids
-    def compare_servers
 
     EvidenceSheet(String config_file = 'config/config.groovy') {
         this.config_file = config_file
@@ -66,13 +67,14 @@ class EvidenceSheet {
                             ]
 
         def date = Config.instance.date
-        test_platforms  = [:]
-        test_domains    = [:]
-        test_servers    = []
-        domain_test_ids = [:].withDefault{[:].withDefault{[]}}
-        verify_rules    = [:].withDefault{[:].withDefault{[:]}}
-        device_test_ids = [:].withDefault{[:]}
-        compare_servers = [:]
+        test_platforms    = [:]
+        test_domains      = [:]
+        test_servers      = []
+        test_servers_hash = [:]
+        compare_servers   = [:]
+        domain_test_ids   = [:].withDefault{[:].withDefault{[]}}
+        verify_rules      = [:].withDefault{[:].withDefault{[:]}}
+        device_test_ids   = [:].withDefault{[:]}
     }
 
     // To add a border to the test results column, set the line width to the auto scale
@@ -129,23 +131,6 @@ class EvidenceSheet {
                             def index = "${server_id},${item_id}"
                             log.debug "\t${position} : Add server ${index} = '${server_text}'"
                             server_info[server_id][item_id] = server_text
-
-                            if (item_id == 'compare_with') {
-                                def source = 'actual'
-                                def server = server_text
-                                (server_text =~ /^(local|db):(.+)/).each { m0, m1, m2 ->
-                                    source = m1
-                                    server = m2
-                                }
-                                log.debug "\tcompare:${server},${server_text},${source}"
-                                compare_servers[server] = [
-                                    source : source,
-                                    platform : server_info[server_id]['platform'],
-                                    server : server_text,
-                                ]
-                                server_info[server_id]['compare_source'] = source
-                                server_info[server_id]['compare_server'] = server
-                            }
                         }
                     }
                 }
@@ -157,6 +142,10 @@ class EvidenceSheet {
             def test_server = new TargetServer(server_info[server_id])
             test_platforms[test_server.platform] = 1
             test_servers.add(test_server)
+            test_servers_hash[server_id] = test_server
+            if (test_server.compare_server) {
+                compare_servers[test_server.compare_server] = 1
+            }
         }
     }
 
@@ -282,13 +271,12 @@ class EvidenceSheet {
                     throw new IllegalArgumentException(msg)
                 }
                 // Read compare target server results from node config file
-                compare_servers.each { server_name, compare_server->
-                    log.info "Compare : ${server_name}, " + compare_server
-                    if (compare_server.source == 'local') {
-                        domain_test_ids[compare_server.platform].each { domain, domain_test_id ->
-                            log.info "Read node, ${domain}, ${server_name}"
-                            Config.instance.readNodeConfig('node', domain, server_name)
+                compare_servers.each { server_name, flag->
+                    test_servers_hash[server_name].with {
+                        if (compare_source == 'local' || compare_source == 'db') {
+                            TestResultContainer.instance.readResultByServer(server_name, compare_source)
                         }
+                        compare_target = true
                     }
                 }
             }

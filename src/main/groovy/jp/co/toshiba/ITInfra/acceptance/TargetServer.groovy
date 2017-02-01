@@ -12,7 +12,8 @@ class TargetServer {
     String remote_account_id
     String remote_alias
     String verify_id
-    String compare_source
+    Boolean compare_target = false
+    String compare_source = 'actual'
     String compare_server
     String evidence_log_dir
     String evidence_log_share_dir

@@ -7,18 +7,21 @@ import java.sql.*
 
 class ConfigManageDBTest extends Specification {
 
-    def home
+    def params = [:]
     def config
 
     def setup() {
-        home = System.getProperty("user.dir")
-        config = 'src/test/resources/cmdb.groovy'
+        params = [
+            base_home: System.getProperty("user.dir"),
+            project_home: 'src/test/resources',
+            db_config: 'src/test/resources/cmdb.groovy'
+        ]
     }
 
     def "DB接続設定ファイルなし"() {
         setup:
-        config = 'src/test/resources/config_db_hoge.groovy'
-        def db = new ConfigManageDB(home: home, db_config: config)
+        this.params['db_config'] ='src/test/resources/config_db_hoge.groovy'
+        def db = new ConfigManageDB(this.params)
 
         when:
         db.initialize()
@@ -29,7 +32,7 @@ class ConfigManageDBTest extends Specification {
 
     def "DB初期化"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
 
         when:
         db.initialize()
@@ -40,7 +43,7 @@ class ConfigManageDBTest extends Specification {
 
     def "DB登録"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
 
         when:
         db.export('src/test/resources/log/_node')
@@ -51,7 +54,7 @@ class ConfigManageDBTest extends Specification {
 
     def "マスター登録"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
@@ -63,7 +66,7 @@ class ConfigManageDBTest extends Specification {
 
     def "マスター重複登録"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
@@ -75,11 +78,11 @@ class ConfigManageDBTest extends Specification {
 
     def "マスター登録複数列"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
-        def id = db.registMaster("NODE", [NODE_NAME: 'node01', SITE_ID: 1, TENANT_ID: 1])
+        def id = db.registMaster("NODE", [NODE_NAME: 'node01', TENANT_ID: 1])
 
         then:
         id == 1
@@ -87,11 +90,11 @@ class ConfigManageDBTest extends Specification {
 
     def "マスター登録列名なし"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
-        def id = db.registMaster("NODE", [HOGE: 'node01', SITE_ID: 1, TENANT_ID: 1])
+        def id = db.registMaster("NODE", [HOGE: 'node01', TENANT_ID: 1])
 
         then:
         thrown(SQLException)
@@ -99,7 +102,7 @@ class ConfigManageDBTest extends Specification {
 
     def "マスター登録キャッシュ"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
@@ -112,7 +115,7 @@ class ConfigManageDBTest extends Specification {
 
     def "メトリック登録"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
@@ -139,7 +142,7 @@ class ConfigManageDBTest extends Specification {
 
     def "デバイス登録"() {
         setup:
-        def db = new ConfigManageDB(home: home, db_config: config)
+        def db = new ConfigManageDB(this.params)
         db.initialize()
 
         when:
