@@ -115,6 +115,21 @@ class EvidenceFileTest extends Specification {
         1 == 1
     }
 
+    // def "MySQL登録"() {
+    //     setup:
+    //     def home = 'src/test/resources'
+
+    //     when:
+    //     def config   = 'src/test/resources/mysql.groovy'
+    //     def last_run = 'src/test/resources/log/.last_run'
+    //     def evidence = new EvidenceFile(home: home, db_config: config,
+    //                                     last_run_config: last_run)
+    //     evidence.exportCMDBAll()
+
+    //     then:
+    //     1 == 1
+    // }
+
     def "検査シートバックアップ"() {
         setup:
         def home = System.getProperty("user.dir")

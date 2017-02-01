@@ -502,15 +502,25 @@ class LinuxSpecBase extends InfraTestSpec {
         def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
         if (isRHEL7 == '0') {
             def lines = exec('service') {
-                run_ssh_command(session, '/usr/bin/systemctl status service', 'service')
+                run_ssh_command(session, '/usr/bin/systemctl list-units --type service --all', 'service')
             }
-            def service = 'inactive'
+            def services = [:].withDefault{'unkown'}
+            def csv = []
+            def service_count = 0
             lines.eachLine {
-                ( it =~ /Active: (.+?)\s/).each {m0,m1->
-                     service = m1
+                ( it =~ /^\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
+                    def service_name = 'service.' + m1
+                    def status = m2 + '.' + m3
+                    services[service_name] = status
+                    def columns = [m1, status]
+                    csv << columns
+                    service_count ++
                 }
             }
-            test_item.results(service)
+            services['service'] = service_count.toString()
+            test_item.devices(csv, ['Name', 'Status'])
+            test_item.results(services)
+
         } else {
             def lines = exec('service') {
                 run_ssh_command(session, '/sbin/chkconfig --list', 'service')
