@@ -158,11 +158,7 @@ class EvidenceSheet {
             test_platforms[test_server.platform] = 1
             test_servers.add(test_server)
             test_servers_hash[server_id] = test_server
-            if (test_server.compare_server) {
-                compare_servers[test_server.compare_server] = 1
-            }
         }
-        println test_servers_hash
     }
 
     def readServerConfigScript(String server_config_script) throws IOException {
@@ -238,7 +234,7 @@ class EvidenceSheet {
                         def rule_text = rule_text_cell.getStringCellValue()
                         if (rule_text.size() > 0) {
                             def index = "${rule_id},${test_domain},${test_id}"
-                            log.debug "\t${position} : Add rule ${index} = '${rule_text}'"
+                            log.info "\t${position} : Add rule ${index} = '${rule_text}'"
                             verify_rules[rule_id][test_domain][test_id] = rule_text
                         }
                     }
@@ -285,15 +281,6 @@ class EvidenceSheet {
                 } else {
                     def msg = "Not found excel server list sheet '${sheet_name_rule}'"
                     throw new IllegalArgumentException(msg)
-                }
-                // Read compare target server results from node config file
-                compare_servers.each { server_name, flag->
-                    test_servers_hash[server_name].with {
-                        if (compare_source == 'local' || compare_source == 'db') {
-                            TestResultContainer.instance.readResultByServer(server_name, compare_source)
-                        }
-                        compare_target = true
-                    }
                 }
             }
         }

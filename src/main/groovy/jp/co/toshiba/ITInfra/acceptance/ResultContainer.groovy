@@ -15,6 +15,7 @@ import java.sql.*
 class ResultContainer {
     ConfigObject test_results   = new ConfigObject()
     ConfigObject device_results = new ConfigObject()
+    final def pad_digit = 6
 
     def loadNodeConfigJSON(String node_dir, String server_name)
         throws IOException, IllegalArgumentException {
@@ -36,13 +37,18 @@ class ResultContainer {
                         device_config_dir.eachFileMatch(FILES, ~/.*\.json/) { device_config_json ->
                             ( device_config_json.name =~ /(.+).json/ ).each { m0, test_id ->
                                 def results = new JsonSlurper().parseText(device_config_json.text)
-                                this.device_results[server_name][platform][test_id] = results
+                                def row = 1
+                                results.each { result ->
+                                    this.device_results[server_name][platform][test_id]["row${row}"] = result
+                                    row ++
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        test_results[server_name]
     }
 
     def getCMDBNodeConfig(EvidenceManager evidence_manager, String server_name)
@@ -50,32 +56,20 @@ class ResultContainer {
         def cmdb_model = CMDBModel.instance
         cmdb_model.initialize(evidence_manager)
         def result_rows = cmdb_model.getMetricByHost(server_name)
-// println result_rows
+
         result_rows.each { result_row ->
             result_row.with {
                 this.test_results[node_name][domain_name][metric_name] = value
             }
         }
-// println this.test_results
+
         def device_result_rows = cmdb_model.getDeviceResultByHost(server_name)
         def device_sets = [:]
         device_result_rows.each { device_result_row ->
             device_result_row.with {
-
                 this.device_results[node_name][domain_name][metric_name]["row${seq}"][item_name] = value
-                // println "$NODE_NAME,$DOMAIN_NAME,$METRIC_NAME,$SEQ,$ITEM_NAME"
             }
-// println r
-            // this.test_results[r['NODE_NAME']][r['DOMAIN_NAME']][r['METRIC_NAME']][r['SEQ']-1][] = r['VALUE']
         }
-
-        // device_result[0]['DOMAIN_NAME'].size() > 0
-        // device_result[0]['NODE_NAME'].size() > 0
-        // device_result[0]['METRIC_NAME'].size() > 0
-        // device_result[0]['SEQ'] != null
-        // device_result[0]['ITEM_NAME'].size() > 0
-        // device_result[0]['VALUE'] != null
-
     }
 
     def readNodeConfig(String node_config_dir, String domain, String server_name) {

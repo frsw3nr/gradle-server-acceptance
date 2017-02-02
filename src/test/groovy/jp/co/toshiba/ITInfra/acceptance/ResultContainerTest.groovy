@@ -26,12 +26,12 @@ class ResultContainerTest extends Specification {
 
         then:
         def test_results = ResultContainer.instance.test_results
-        test_results['Linux'][server]['NumCpu'] == '1'
-        test_results['Zabbix'][server]['Host']  == 'ostrich'
+        test_results[server]['Linux']['NumCpu'] == '1'
+        test_results[server]['Zabbix']['Host']  == 'ostrich'
 
         def device_results = ResultContainer.instance.device_results
-        device_results['vCenter'][server]['vm_storage'][0]['CapacityGB'] == '30'
-        device_results['Linux'][server]['packages'][0].with {
+        device_results[server]['vCenter']['vm_storage']['row1']['CapacityGB'] == '30'
+        device_results[server]['Linux']['packages']['row1'].with {
             name == 'perl-Log-Message-Simple'
             arch == 'x86_64'
         }
@@ -55,17 +55,15 @@ class ResultContainerTest extends Specification {
 
         then:
         def test_results = ResultContainer.instance.test_results
-// println test_results
         test_results[server]['Linux']['NumCpu'] == '1'
         test_results[server]['Zabbix']['Host']  == 'ostrich'
 
         def device_results = ResultContainer.instance.device_results
- println device_results[server]['Linux']['filesystem']
-        // device_results['vCenter'][server]['vm_storage'][0]['CapacityGB'] == '30'
-        // device_results['Linux'][server]['packages'][0].with {
-        //     name == 'perl-Log-Message-Simple'
-        //     arch == 'x86_64'
-        // }
+        device_results[server]['vCenter']['vm_storage']['row1']['CapacityGB'] == '30'
+        device_results[server]['Linux']['packages']['row1'].with {
+            name == 'perl-Log-Message-Simple'
+            arch == 'x86_64'
+        }
     }
 
     // def "検査結果の比較"() {
