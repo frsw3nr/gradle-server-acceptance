@@ -1,88 +1,88 @@
--- Project Name : Getconfig
--- Author       : minoru.furusawa@toshiba.co.jp
--- RDBMS Type   : MySQL, H2
+-- project name : getconfig
+-- author       : minoru.furusawa@toshiba.co.jp
+-- rdbms type   : mysql, h2
 
-create table VERSION (
-  BUILD INTEGER not null
-  , constraint BUILD_PKC primary key (BUILD)
+create table version (
+  build integer not null
+  , constraint build_pkc primary key (build)
 ) ;
 
-INSERT INTO VERSION(BUILD) VALUES (1);
+insert into version(build) values (1);
 
-create table DEVICE_RESULT (
-  NODE_ID INTEGER not null
-  , METRIC_ID INTEGER not null
-  , SEQ INTEGER not null
-  , ITEM_NAME VARCHAR(128) not null
-  , VALUE VARCHAR(4000)
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint DEVICE_RESULT_PKC primary key (NODE_ID, METRIC_ID, SEQ, ITEM_NAME)
+create table device_result (
+  node_id integer not null
+  , metric_id integer not null
+  , seq integer not null
+  , item_name varchar(128) not null
+  , value varchar(4000)
+  , created timestamp not null default current_timestamp
+  , constraint device_result_pkc primary key (node_id, metric_id, seq, item_name)
 );
 
-create table TEST_RESULT (
-  NODE_ID INTEGER not null
-  , METRIC_ID INTEGER not null
-  , VALUE VARCHAR(4000)
-  , VERIFY INTEGER
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint TEST_RESULT_PKC primary key (NODE_ID, METRIC_ID)
+create table test_result (
+  node_id integer not null
+  , metric_id integer not null
+  , value varchar(4000)
+  , verify integer
+  , created timestamp not null default current_timestamp
+  , constraint test_result_pkc primary key (node_id, metric_id)
 );
 
-create table METRIC (
-  ID INTEGER not null auto_increment
-  , DOMAIN_ID INTEGER not null
-  , METRIC_NAME VARCHAR(128) not null
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint METRIC_PKC primary key (ID)
+create table metric (
+  id integer not null auto_increment
+  , domain_id integer not null
+  , metric_name varchar(128) not null
+  , created timestamp not null default current_timestamp
+  , constraint metric_pkc primary key (id)
 );
 
-create unique index UK_METRIC on METRIC(DOMAIN_ID, METRIC_NAME);
+create unique index uk_metric on metric(domain_id, metric_name);
 
-create table NODE (
-  ID INTEGER not null auto_increment
-  , TENANT_ID INTEGER not null
-  , NODE_NAME VARCHAR(128) not null
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint NODE_PKC primary key (ID)
+create table node (
+  id integer not null auto_increment
+  , tenant_id integer not null
+  , node_name varchar(128) not null
+  , created timestamp not null default current_timestamp
+  , constraint node_pkc primary key (id)
 );
 
-create unique index UK_NODE on NODE(NODE_NAME);
+create unique index uk_node on node(node_name);
 
-create table TENANT (
-  ID INTEGER not null auto_increment
-  , TENANT_NAME VARCHAR(128) not null
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint TENANT_PKC primary key (ID)
+create table tenant (
+  id integer not null auto_increment
+  , tenant_name varchar(128) not null
+  , created timestamp not null default current_timestamp
+  , constraint tenant_pkc primary key (id)
 );
 
-create unique index UK_TENANT on TENANT(TENANT_NAME);
+create unique index uk_tenant on tenant(tenant_name);
 
-INSERT INTO TENANT(TENANT_NAME) VALUES ('_Default');
+insert into tenant(tenant_name) values ('_Default');
 
-create table DOMAIN (
-  ID INTEGER not null auto_increment
-  , DOMAIN_NAME VARCHAR(128) not null
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint DOMAIN_PKC primary key (ID)
+create table domain (
+  id integer not null auto_increment
+  , domain_name varchar(128) not null
+  , created timestamp not null default current_timestamp
+  , constraint domain_pkc primary key (id)
 );
 
-create unique index UK_DOMAIN on DOMAIN(DOMAIN_NAME);
+create unique index uk_domain on domain(domain_name);
 
-create table SITE (
-  ID INTEGER not null auto_increment
-  , SITE_NAME VARCHAR(128) not null
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint SITE_PKC primary key (ID)
+create table site (
+  id integer not null auto_increment
+  , site_name varchar(128) not null
+  , created timestamp not null default current_timestamp
+  , constraint site_pkc primary key (id)
 );
 
-create unique index UK_SITE on SITE(SITE_NAME);
+create unique index uk_site on site(site_name);
 
-create table SITE_NODE (
-  ID INTEGER not null auto_increment
-  , SITE_ID INTEGER not null
-  , NODE_ID INTEGER not null
-  , CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-  , constraint SITE_NODE_PKC primary key (ID)
+create table site_node (
+  id integer not null auto_increment
+  , site_id integer not null
+  , node_id integer not null
+  , created timestamp not null default current_timestamp
+  , constraint site_node_pkc primary key (id)
 );
 
-create unique index UK_SITE_NODE on SITE_NODE(SITE_ID, NODE_ID);
+create unique index uk_site_node on site_node(site_id, node_id);

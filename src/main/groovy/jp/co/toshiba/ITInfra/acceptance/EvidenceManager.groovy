@@ -9,25 +9,24 @@ import groovy.sql.Sql
 import java.sql.*
 
 @Slf4j
-class EvidenceFile {
+class EvidenceManager {
 
     final static def current_build = 1
     final String archive_dir  = './build/archive'
     final String all_node_dir = './node'
-    String base_home
+    String getconfig_home
     String project_home
     String project_name
     String tenant_name
     String last_run_config
     String db_config
-    def cmdb
 
-    EvidenceFile(Map params) {
+    EvidenceManager(Map params) {
         assert params.project_home
-        this.base_home    = params.base_home
-        this.project_home = params.project_home
-        this.project_name = new File(this.project_home).getName()
-        this.tenant_name = '_Default'
+        this.getconfig_home  = params.getconfig_home
+        this.project_home    = params.project_home
+        this.project_name    = new File(this.project_home).getName()
+        this.tenant_name     = '_Default'
         this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
         this.db_config  = params.db_config ?: 'config/cmdb.groovy'
     }
@@ -43,7 +42,7 @@ class EvidenceFile {
         return node_dir_source
     }
 
-    def archive_old_evidence(String last_evidence, String backup_source)
+    def archiveEvidence(String last_evidence, String backup_source)
         throws IOException {
         def archive = new File(archive_dir)
         archive.mkdirs()
@@ -60,14 +59,14 @@ class EvidenceFile {
         }
     }
 
-    def generate() throws IOException {
+    def exportNodeDirectory() throws IOException {
         def last_run_json = new File(last_run_config).text
         def last_run = new JsonSlurper().parseText(last_run_json)
         def node_path = new File("./node").getAbsolutePath()
         assert(last_run.node_dir)
         FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
         try {
-            archive_old_evidence(last_run.evidence, last_run.target)
+            archiveEvidence(last_run.evidence, last_run.target)
         } catch (IOException | NullPointerException e) {
             log.info "Skip evidence archive : " + e
         }
@@ -75,12 +74,12 @@ class EvidenceFile {
 
     def exportCMDB() throws IOException, SQLException {
         def node_dir_source = getNodeDirSource()
-        def db = new ConfigManageDB(base_home: base_home, project_home: project_home, db_config: db_config)
-        db.export(new File(node_dir_source).getAbsolutePath())
+        CMDBModel.instance.initialize(this)
+        CMDBModel.instance.export(new File(node_dir_source).getAbsolutePath())
     }
 
     def exportCMDBAll() throws IOException, SQLException {
-        def db = new ConfigManageDB(base_home: base_home, project_home: project_home, db_config: db_config)
-        db.export(new File(all_node_dir).getAbsolutePath())
+        CMDBModel.instance.initialize(this)
+        CMDBModel.instance.export(new File(all_node_dir).getAbsolutePath())
     }
 }

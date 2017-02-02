@@ -99,6 +99,7 @@ class EvidenceSheet {
         log.debug("Read sheet '${sheet_name_server}'")
         def server_ids = [:]
         def server_info = [:].withDefault{[:]}
+        def errors = []
         def max_server_columns = 0
         sheet_server.with { sheet ->
             // check server_ids from header
@@ -107,11 +108,15 @@ class EvidenceSheet {
                 def position = "4:${column}"
                 def server_id_cell = header_row.getCell(column)
                 if (server_id_cell) {
-                    def server_id = server_id_cell.getStringCellValue()
-                    if (server_id.size() > 0) {
-                        log.debug "\t${position} : Add server_id '${server_id}'"
-                        server_ids[column] = server_id
-                        max_server_columns = column
+                    try {
+                        def server_id = server_id_cell.getStringCellValue()
+                        if (server_id.size() > 0) {
+                            log.debug "\t${position} : Add server_id '${server_id}'"
+                            server_ids[column] = server_id
+                            max_server_columns = column
+                        }
+                    } catch (IllegalStateException e) {
+                        errors << "Malformed input @ ${sheet_name_server}{${position}} : " + e
                     }
                 }
             }
@@ -126,16 +131,26 @@ class EvidenceSheet {
                     def server_text_cell = row.getCell(column)
                     if (server_text_cell) {
                         server_text_cell.setCellType(Cell.CELL_TYPE_STRING)
-                        def server_text = server_text_cell.getStringCellValue()
-                        if (server_text.size() > 0) {
-                            def index = "${server_id},${item_id}"
-                            log.debug "\t${position} : Add server ${index} = '${server_text}'"
-                            server_info[server_id][item_id] = server_text
+                        try {
+                            def server_text = server_text_cell.getStringCellValue()
+                            if (server_text.size() > 0) {
+                                def index = "${server_id},${item_id}"
+                                log.debug "\t${position} : Add server ${index} = '${server_text}'"
+                                server_info[server_id][item_id] = server_text
+                            }
+                        } catch (IllegalStateException e) {
+                            errors << "Malformed input @ ${sheet_name_server}{${position}} : " + e
                         }
                     }
                 }
                 return
             }
+        }
+        if (errors) {
+            errors.each { error_message ->
+                log.error error_message
+            }
+            throw new IllegalArgumentException('Excel error')
         }
         (column_server_begin..max_server_columns).each {
             def server_id = server_ids[it]
@@ -147,6 +162,7 @@ class EvidenceSheet {
                 compare_servers[test_server.compare_server] = 1
             }
         }
+        println test_servers_hash
     }
 
     def readServerConfigScript(String server_config_script) throws IOException {
@@ -398,17 +414,18 @@ class EvidenceSheet {
                     rows['test_id'] = test_id
                     def domain  = cell_domain.getStringCellValue()
                     rows['domain']  = domain
-println results[domain]
-                    def compare_server = results[domain][compare_server]
-                    log.info "Check row ${domain},${test_id} in ${platform}, compare: ${compare_server}"
+// println results[domain]
+                    // def compare_server = results[domain][compare_server]
+                    // log.info "Check row ${domain},${test_id} in ${platform}, compare: ${compare_server}"
                     try {
                         if (results[domain]['test'].containsKey(test_id)) {
                             def value = results[domain]['test'][test_id].toString()
                             rows['value']  = value
-                            if (compare_server) {
-                                def compare_value = Config.instance.compareMetric(domain, server_name, test_id, value)
-println "Compare: $domain, $server_name, $test_id, $value = $compare_value"                                cell_result.setCellValue(compare_value)
-                            } else if (NumberUtils.isDigits(value)) {
+//                             if (compare_server) {
+//                                 def compare_value = Config.instance.compareMetric(domain, server_name, test_id, value)
+// println "Compare: $domain, $server_name, $test_id, $value = $compare_value"                                cell_result.setCellValue(compare_value)
+//                             }
+                            if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
                             } else {
                                 cell_result.setCellValue(value)

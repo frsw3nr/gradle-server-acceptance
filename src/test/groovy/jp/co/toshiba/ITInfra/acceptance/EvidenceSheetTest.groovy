@@ -31,6 +31,16 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "計算式を埋め込んだExcelファイル読み込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.evidence_source = './src/test/resources/check_sheet_formula.xlsx'
+        evidence.readSheet()
+
+        then:
+        thrown(IllegalArgumentException)
+    }
+
     def "日本語Excelファイル読み込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config_jp.groovy')

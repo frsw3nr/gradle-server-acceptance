@@ -2,12 +2,12 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import groovy.sql.Sql
 
-// gradle --daemon clean test --tests "EvidenceFileTest.メイン処理"
+// gradle --daemon clean test --tests "EvidenceManagerTest.メイン処理"
 
-class EvidenceFileTest extends Specification {
+class EvidenceManagerTest extends Specification {
 
     def params = [
-        base_home:       '.',
+        getconfig_home:  '.',
         project_home:    'src/test/resources',
         db_config:       'src/test/resources/cmdb.groovy',
         last_run_config: 'src/test/resources/log/.last_run',
@@ -15,7 +15,7 @@ class EvidenceFileTest extends Specification {
 
     def "DB登録"() {
         when:
-        def evidence = new EvidenceFile(params)
+        def evidence = new EvidenceManager(params)
         evidence.exportCMDB()
 
         then:
@@ -24,7 +24,7 @@ class EvidenceFileTest extends Specification {
 
     def "DB全体登録"() {
         when:
-        def evidence = new EvidenceFile(params)
+        def evidence = new EvidenceManager(params)
         evidence.exportCMDBAll()
 
         then:
@@ -38,7 +38,7 @@ class EvidenceFileTest extends Specification {
     //     when:
     //     def config   = 'src/test/resources/mysql.groovy'
     //     def last_run = 'src/test/resources/log/.last_run'
-    //     def evidence = new EvidenceFile(home: home, db_config: config,
+    //     def evidence = new EvidenceManager(home: home, db_config: config,
     //                                     last_run_config: last_run)
     //     evidence.exportCMDBAll()
 
@@ -59,8 +59,8 @@ class EvidenceFileTest extends Specification {
         params['last_run_config'] = 'src/test/resources/log2/.last_run'
 
         when:
-        def evidence = new EvidenceFile(params)
-        evidence.generate()
+        def evidence = new EvidenceManager(params)
+        evidence.exportNodeDirectory()
 
         then:
         1 == 1

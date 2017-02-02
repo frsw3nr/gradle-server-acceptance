@@ -14,6 +14,8 @@ import org.apache.commons.cli.Option
 class TestRunner {
 
     String getconfig_home
+    String project_home
+    String db_config_file
     String test_resource
     String config_file
     String sheet_file
@@ -26,7 +28,10 @@ class TestRunner {
     Boolean verify_test
 
     def parse(String[] args) {
-        getconfig_home = System.getProperty("user.dir")
+        getconfig_home = System.getProperty("getconfig_home")
+        project_home   = System.getProperty("user.dir")
+        db_config_file = new File(getconfig_home, "/config/cmdb.groovy").getAbsolutePath()
+
         def cli = new CliBuilder(usage:'getconfig -c ./config/config.groovy')
         cli.with {
             c longOpt: 'config',   args: 1, 'Config file path',
@@ -71,28 +76,27 @@ class TestRunner {
             throw new IllegalArgumentException('Parse error')
         }
         if (options.g) {
-            def base_home = System.getProperty("getconfig_home")
             def site_home = options.g
-            new ProjectBuilder(base_home, site_home).generate()
+            new ProjectBuilder(getconfig_home, site_home).generate()
             System.exit(0)
         }
         if (options.x) {
             def xport_file = options.x
-            new ProjectBuilder(getconfig_home).xport(xport_file)
+            new ProjectBuilder(project_home).xport(xport_file)
             System.exit(0)
         }
         if (options.u) {
             def params = [
-                base_home : System.getProperty("getconfig_home"),
-                project_home : getconfig_home,
-                db_config : new File(base_home, "/config/cmdb.groovy").getAbsolutePath(),
+                getconfig_home : getconfig_home,
+                project_home   : project_home,
+                db_config_file : db_config_file,
             ]
             if (options.u == 'local') {
-                new EvidenceFile(params).generate()
+                new EvidenceManager(params).exportNodeDirectory()
             } else if (options.u == 'db') {
-                new EvidenceFile(params).exportCMDB()
+                new EvidenceManager(params).exportCMDB()
             } else if (options.u == 'db-all') {
-                new EvidenceFile(params).exportCMDBAll()
+                new EvidenceManager(params).exportCMDBAll()
             } else {
                 cli.usage()
                 throw new IllegalArgumentException('--update option must be local or db or db-all')
@@ -154,7 +158,7 @@ class TestRunner {
         test_resource = (options.r) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
         config['test']['dry_run_staging_dir'] = test_resource
         log.info "Parse Arguments : " + args.toString()
-        log.info "\thome          : " + getconfig_home
+        log.info "\thome          : " + project_home
         log.info "\ttest_resource : " + test_resource
         log.info "\tconfig_file   : " + config_file
         log.info "\tsheet_file    : " + sheet_file

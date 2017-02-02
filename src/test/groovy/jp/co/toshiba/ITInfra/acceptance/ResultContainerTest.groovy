@@ -1,7 +1,5 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
-import javax.crypto.Cipher
-import javax.crypto.spec.SecretKeySpec
 import java.nio.charset.Charset
 import org.apache.commons.io.FileUtils
 
@@ -20,20 +18,55 @@ class ResultContainerTest extends Specification {
     }
 
     def "JSON読み込み"() {
+        setup:
+        def server = 'ostrich'
+
         when:
-        ResultContainer.instance.loadNodeConfigJSON(node_dir, 'ostrich')
+        ResultContainer.instance.loadNodeConfigJSON(node_dir, server)
 
         then:
-        ResultContainer.instance.test_results.size() > 0
-        ResultContainer.instance.device_results.size() > 0
+        def test_results = ResultContainer.instance.test_results
+        test_results['Linux'][server]['NumCpu'] == '1'
+        test_results['Zabbix'][server]['Host']  == 'ostrich'
+
+        def device_results = ResultContainer.instance.device_results
+        device_results['vCenter'][server]['vm_storage'][0]['CapacityGB'] == '30'
+        device_results['Linux'][server]['packages'][0].with {
+            name == 'perl-Log-Message-Simple'
+            arch == 'x86_64'
+        }
     }
 
-    // def "MySQL読み込み"() {
-    //     when:
+    def "CMDB読み込み"() {
+        setup:
+        def server = 'ostrich'
+        def params = [
+            getconfig_home: '.',
+            project_home: 'src/test/resources',
+            db_config: 'src/test/resources/cmdb.groovy'
+        ]
+        def evidence_manager = new EvidenceManager(params)
+        def cmdb_model = CMDBModel.instance
+        cmdb_model.initialize(evidence_manager)
 
-    //     then:
-    //     1 == 1
-    // }
+        when:
+        cmdb_model.export(new File('src/test/resources/node/').getAbsolutePath())
+        ResultContainer.instance.getCMDBNodeConfig(evidence_manager, server)
+
+        then:
+        def test_results = ResultContainer.instance.test_results
+// println test_results
+        test_results[server]['Linux']['NumCpu'] == '1'
+        test_results[server]['Zabbix']['Host']  == 'ostrich'
+
+        def device_results = ResultContainer.instance.device_results
+ println device_results[server]['Linux']['filesystem']
+        // device_results['vCenter'][server]['vm_storage'][0]['CapacityGB'] == '30'
+        // device_results['Linux'][server]['packages'][0].with {
+        //     name == 'perl-Log-Message-Simple'
+        //     arch == 'x86_64'
+        // }
+    }
 
     // def "検査結果の比較"() {
     //     when:
