@@ -7,7 +7,6 @@
 .mtj.tmp/
 /libdeps/
 /resource/
-/config/config.groovy
 /config/.secret/
 build/*
 node/*
