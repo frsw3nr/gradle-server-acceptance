@@ -13,13 +13,13 @@ class EvidenceManager {
 
     final static def current_build = 1
     final String archive_dir  = './build/archive'
-    final String all_node_dir = './node'
     String getconfig_home
     String project_home
     String project_name
     String tenant_name
     String last_run_config
     String db_config
+    String node_dir
 
     EvidenceManager(Map params) {
         assert params.project_home
@@ -29,6 +29,7 @@ class EvidenceManager {
         this.tenant_name     = '_Default'
         this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
         this.db_config  = params.db_config ?: 'config/cmdb.groovy'
+        this.node_dir   = params.node_dir ?: this.project_home + '/node'
     }
 
     def getNodeDirSource() throws IOException {
@@ -80,6 +81,6 @@ class EvidenceManager {
 
     def exportCMDBAll() throws IOException, SQLException {
         CMDBModel.instance.initialize(this)
-        CMDBModel.instance.export(new File(all_node_dir).getAbsolutePath())
+        CMDBModel.instance.export(new File(this.node_dir).getAbsolutePath())
     }
 }

@@ -26,6 +26,10 @@ class EvidenceSheetTest extends Specification{
         when:
         def evidence = new EvidenceSheet('src/test/resources/config.groovy')
         evidence.readSheet()
+        println evidence.compare_servers
+        evidence.test_servers.each {
+            println "Sever: ${it.server_name}, Compare: ${it.compare_server}"
+        }
 
         then:
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'

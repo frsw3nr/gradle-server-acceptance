@@ -17,10 +17,10 @@ class ResultContainer {
     ConfigObject device_results = new ConfigObject()
     final def pad_digit = 6
 
-    def loadNodeConfigJSON(String node_dir, String server_name)
+    def loadNodeConfigJSON(EvidenceManager evidence_manager, String server_name)
         throws IOException, IllegalArgumentException {
         if (!test_results[server_name]) {
-            new File(node_dir).eachDir { platform_dir ->
+            new File(evidence_manager.node_dir).eachDir { platform_dir ->
                 def platform = platform_dir.name
                 platform_dir.eachFileMatch(FILES, ~/.*\.json/){ server_config_json ->
                     if (server_config_json.name == "${server_name}.json") {
@@ -72,59 +72,28 @@ class ResultContainer {
         }
     }
 
-    def readNodeConfig(String node_config_dir, String domain, String server_name) {
-        if (!servers[domain][server_name]) {
-            def node_path = "${node_config_dir}/${domain}/${server_name}"
-            def server_config_json = new File("${node_path}.json")
-            if (server_config_json.exists()) {
-                def results = new JsonSlurper().parseText(server_config_json.text)
-                def server_items = [:]
-                results.each {
-                    server_items[it.test_id] = it.value
-                }
-                servers[domain][server_name] = server_items
-            }
-            def device_config_dir = new File(node_path)
-            if (device_config_dir.exists()) {
-                device_config_dir.eachFile { device_config ->
-                    ( device_config.name =~ /(.+).json/ ).each { json_file, test_id ->
-                        def results = new JsonSlurper().parseText(device_config.text)
-                        devices[domain][server_name][test_id] = results
+    def setNodeConfig(String server_name, String platform, List domain_results) {
+        log.info "setNodeConfig ${server_name}, ${platform}"
+        domain_results.each { domain_result->
+            domain_result.with {
+                this.test_results[server_name][platform] << results
+                def row = 1
+                devices.each { device_columns ->
+                    def column = 0
+                    device_columns.each { device_column ->
+                        def item_name = device_header[column]
+                        this.device_results[server_name][platform][test_id]["row${row}"][item_name] = device_column
+                        column ++
                     }
+                    row ++
                 }
-            }
-        }
-        return servers[domain][server_name]
-    }
-
-    def setHostConfig(String server_name, String domain, Map domain_results) {
-        servers[server_name][domain] = domain_results['test']
-    }
-
-    def setDeviceConfig(String server_name, String domain, DeviceResultSheet device_results) {
-        def test_headers = device_results['headers'][domain]
-        device_results['csvs'][domain].each {test_id, server_domain_csvs ->
-            if (server_domain_csvs[server_name]) {
-                def header =  test_headers[test_id]
-                def csvs = server_domain_csvs[server_name]
-                def results = []
-                csvs.each { csv ->
-                    def i = 0
-                    def values = [:]
-                    header.each { header_name ->
-                        values[header_name] = csv[i]
-                        i++
-                    }
-                    results << values
-                }
-                devices[server_name][domain][test_id] = results
             }
         }
     }
 
-    def compareMetric(String domain, String server_name, String test_id, String value) {
-        def compare_value = servers?.server_name?.domain?.test_id
-        return (compare_value == value) ? "Same as '$server_name'" : value
+    def compareMetric(String server_name, String platform, String test_id, String value) {
+        def compare_value = this.test_results[server_name][platform][test_id]
+        log.info "Compare[${server_name}:${test_id}] ${value} == ${compare_value}"
+        return (compare_value == value)
     }
-
 }

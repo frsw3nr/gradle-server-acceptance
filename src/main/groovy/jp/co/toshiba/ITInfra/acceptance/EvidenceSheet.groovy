@@ -16,6 +16,7 @@ public enum ResultCellStyle {
     TITLE,
     OK,
     NG,
+    SAME,
 }
 
 @Slf4j
@@ -225,21 +226,35 @@ class EvidenceSheet {
                 Row row = sheet.getRow(rownum)
                 if (row == null)
                     return true
-                def test_id     = row.getCell(1).getStringCellValue()
-                def test_domain = row.getCell(3).getStringCellValue()
-                verify_rule_ids.each { rule_id, column ->
-                    def position = "${rownum}:${column}"
-                    def rule_text_cell = row.getCell(column)
-                    if (rule_text_cell) {
-                        def rule_text = rule_text_cell.getStringCellValue()
-                        if (rule_text.size() > 0) {
-                            def index = "${rule_id},${test_domain},${test_id}"
-                            log.info "\t${position} : Add rule ${index} = '${rule_text}'"
-                            verify_rules[rule_id][test_domain][test_id] = rule_text
+                def test_id_cell = row.getCell(1)
+                if (!test_id_cell)
+                    return true
+                def test_id     = test_id_cell.getStringCellValue()
+                def test_domain = row.getCell(3).getStringCellValue() ?: '_common'
+                if (test_domain) {
+                    verify_rule_ids.each { rule_id, column ->
+                        def position = "${rownum}:${column}"
+                        def rule_text_cell = row.getCell(column)
+                        if (rule_text_cell) {
+                            def rule_text = rule_text_cell.getStringCellValue()
+                            if (rule_text.size() > 0) {
+                                def index = "${rule_id},${test_domain},${test_id}"
+                                log.debug "\t${position} : Add rule ${index} = '${rule_text}'"
+                                verify_rules[rule_id][test_domain][test_id] = rule_text
+                            }
                         }
                     }
                 }
                 return
+            }
+            verify_rules.each { verify_id, domain_rules ->
+                domain_rules['_common'].with {
+                    if (compare_server && compare_source) {
+                        this.compare_servers[compare_server] = compare_source
+                    } else if (compare_server || compare_source) {
+                        log.error "'compare_server'(${compare_server}) and 'compare_source'(${compare_source}) are mandatory in pairs. Skip."
+                    }
+                }
             }
         }
     }
@@ -284,6 +299,16 @@ class EvidenceSheet {
                 }
             }
         }
+        // Set compare target server info. in test servers.
+        this.test_servers.each { test_server ->
+            def verify_id = test_server.infos['verify_id']
+            if (verify_id) {
+                def compare_server = this.verify_rules[verify_id]['_common']['compare_server']
+                def compare_source = compare_servers[compare_server]
+                test_server.compare_server = compare_server
+                test_server.compare_source = compare_source
+            }
+        }
         long elapsed = System.currentTimeMillis() - start
         log.info "Load Sheet, Elapsed : ${elapsed} ms"
     }
@@ -322,6 +347,14 @@ class EvidenceSheet {
                 XSSFFont font = wb.createFont();
                 font.setBold(true);
                 font.setColor(IndexedColors.BLACK.getIndex());
+                style.setFont(font);
+                break
+
+            case ResultCellStyle.SAME :
+                style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                XSSFFont font = wb.createFont();
+                font.setColor(IndexedColors.RED.getIndex());
                 style.setFont(font);
                 break
 
@@ -380,7 +413,7 @@ class EvidenceSheet {
         title_cell.setCellStyle(cell_style)
         setTestResultCellStyle(title_cell, ResultCellStyle.TITLE)
         log.debug "Update data : " + results
-
+        def compare_server = test_servers_hash[server_name].compare_server
 
         // Registering the test result column in the order
         sheet_result.with { sheet ->
@@ -401,25 +434,25 @@ class EvidenceSheet {
                     rows['test_id'] = test_id
                     def domain  = cell_domain.getStringCellValue()
                     rows['domain']  = domain
-// println results[domain]
-                    // def compare_server = results[domain][compare_server]
-                    // log.info "Check row ${domain},${test_id} in ${platform}, compare: ${compare_server}"
+
                     try {
+                        def is_same = false
                         if (results[domain]['test'].containsKey(test_id)) {
                             def value = results[domain]['test'][test_id].toString()
                             rows['value']  = value
-//                             if (compare_server) {
-//                                 def compare_value = Config.instance.compareMetric(domain, server_name, test_id, value)
-// println "Compare: $domain, $server_name, $test_id, $value = $compare_value"                                cell_result.setCellValue(compare_value)
-//                             }
-                            if (NumberUtils.isDigits(value)) {
+                            if (compare_server && ResultContainer.instance.compareMetric(
+                                compare_server, platform, test_id, value)) {
+                                cell_result.setCellValue("Same as ${compare_server}")
+                                setTestResultCellStyle(cell_result, ResultCellStyle.SAME)
+                                is_same = true
+                            } else if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
                             } else {
                                 cell_result.setCellValue(value)
                             }
                             log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
                         }
-                        if (results[domain]['verify'].containsKey(test_id)) {
+                        if (!is_same && results[domain]['verify'].containsKey(test_id)) {
                             def is_ok = results[domain]['verify'][test_id]
                             rows['verify']  = is_ok
                             if (is_ok == true) {

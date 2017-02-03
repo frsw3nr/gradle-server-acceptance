@@ -15,6 +15,7 @@ public enum SpecTestMode {
 class TestScheduler {
 
     TestRunner test_runner
+    EvidenceManager evidence_manager
     EvidenceSheet evidence_sheet
     TargetServer[] test_servers
     DeviceResultSheet device_results
@@ -24,7 +25,9 @@ class TestScheduler {
 
     TestScheduler(TestRunner test_runner) {
         this.test_runner = test_runner
+        this.evidence_manager = test_runner.evidence_manager
         this.device_results = new DeviceResultSheet()
+
         setSerializationDomainTasks()
     }
 
@@ -65,7 +68,7 @@ class TestScheduler {
         test_server.with {
             setAccounts(test_runner.config_file)
             it.dry_run = test_runner.dry_run
-            def compare_server = evidence_sheet.compare_servers[server_name]
+            def compare_source = evidence_sheet.compare_servers[server_name]
 
             def domain_specs = evidence_sheet.domain_test_ids[platform]
             domain_specs.each { domain, test_ids ->
@@ -83,16 +86,15 @@ class TestScheduler {
                         }
                         log.debug "Set Device results '${domain},${server_name}'"
                         device_results.setResults(domain, server_name, result_test_items)
+                        if (compare_source == 'actual') {
+                            ResultContainer.instance.setNodeConfig(server_name, platform,
+                                                                   result_test_items)
+                        }
                         def domain_results = [
                             'test' : getResults(),
                             'verify' : getVerifyStatuses(),
-                            'compare_server' : compare_server,
                         ]
                         test_evidences[platform][server_name][domain] = domain_results
-                        if (compare_server == server_name) {
-                            Config.instance.setHostConfig(server_name, domain, domain_results)
-                            Config.instance.setDeviceConfig(server_name, domain, device_results)
-                        }
                     }
                     long elapsed = System.currentTimeMillis() - start
                     log.info "Finish ${label} '${server_name}:${domain}', Elapsed : ${elapsed} ms"
@@ -110,6 +112,17 @@ class TestScheduler {
         evidence_sheet.readSheet(test_runner.server_config_script)
         evidence_sheet.prepareTestStage()
         test_servers = filterServer(evidence_sheet.test_servers)
+
+        evidence_sheet.compare_servers.each { server_name, server_source ->
+            log.info "Read Config : [$server_name, $server_source]"
+            if (server_source == 'local') {
+                ResultContainer.instance.loadNodeConfigJSON(this.evidence_manager,
+                                                            server_name)
+            } else if (server_source == 'db') {
+                ResultContainer.instance.getCMDBNodeConfig(this.evidence_manager,
+                                                           server_name)
+            }
+        }
         def verifier = VerifyRuleGenerator.instance
         verifier.setVerifyRule(evidence_sheet.verify_rules)
         def n_test_servers = test_servers.size()

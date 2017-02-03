@@ -8,6 +8,16 @@ import org.apache.commons.io.FileUtils
 class ResultContainerTest extends Specification {
 
     def node_dir = 'src/test/resources/node'
+    EvidenceManager evidence_manager
+
+    def setup() {
+        def params = [
+            getconfig_home: '.',
+            project_home: 'src/test/resources',
+            db_config: 'src/test/resources/cmdb.groovy'
+        ]
+        this.evidence_manager = new EvidenceManager(params)
+    }
 
     def "ResultContainer execption"() {
         when:
@@ -22,7 +32,7 @@ class ResultContainerTest extends Specification {
         def server = 'ostrich'
 
         when:
-        ResultContainer.instance.loadNodeConfigJSON(node_dir, server)
+        ResultContainer.instance.loadNodeConfigJSON(this.evidence_manager, server)
 
         then:
         def test_results = ResultContainer.instance.test_results
@@ -40,14 +50,8 @@ class ResultContainerTest extends Specification {
     def "CMDB読み込み"() {
         setup:
         def server = 'ostrich'
-        def params = [
-            getconfig_home: '.',
-            project_home: 'src/test/resources',
-            db_config: 'src/test/resources/cmdb.groovy'
-        ]
-        def evidence_manager = new EvidenceManager(params)
         def cmdb_model = CMDBModel.instance
-        cmdb_model.initialize(evidence_manager)
+        cmdb_model.initialize(this.evidence_manager)
 
         when:
         cmdb_model.export(new File('src/test/resources/node/').getAbsolutePath())
@@ -64,6 +68,36 @@ class ResultContainerTest extends Specification {
             name == 'perl-Log-Message-Simple'
             arch == 'x86_64'
         }
+    }
+
+    def "実績登録"() {
+        setup:
+        TargetServer test_server = new TargetServer(
+            server_name       : 'ostrich',
+            ip                : 'localhost',
+            platform          : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'ostrich',
+            verify_id         : 'RuleDB',
+        )
+        test_server.setAccounts('src/test/resources/config.groovy')
+        test_server.dry_run = true
+        def test = new DomainTestRunner(test_server, 'Linux')
+        test.makeTest(['hostname', 'filesystem'])
+
+        when:
+        ResultContainer.instance.setNodeConfig('ostrich', 'Linux',
+                                               test.result_test_items)
+
+        then:
+        def test_results = ResultContainer.instance.test_results
+        test_results['ostrich']['Linux']['hostname'] == 'ostrich'
+        test_results['ostrich']['Linux']['filesystem']  == 6
+
+        def device_results = ResultContainer.instance.device_results
+        device_results['ostrich']['Linux']['filesystem']['row1']['name'] == 'sr0'
+        device_results['ostrich']['Linux']['filesystem']['row2']['name'] == 'sda'
     }
 
     // def "検査結果の比較"() {

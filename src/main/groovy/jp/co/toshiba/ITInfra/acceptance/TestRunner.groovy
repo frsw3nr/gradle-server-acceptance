@@ -26,9 +26,10 @@ class TestRunner {
     def test_ids
     Boolean dry_run
     Boolean verify_test
+    EvidenceManager evidence_manager
 
     def parse(String[] args) {
-        getconfig_home = System.getProperty("getconfig_home")
+        getconfig_home = System.getProperty("getconfig_home") ?: '.'
         project_home   = System.getProperty("user.dir")
         db_config_file = new File(getconfig_home, "/config/cmdb.groovy").getAbsolutePath()
 
@@ -85,18 +86,17 @@ class TestRunner {
             new ProjectBuilder(project_home).xport(xport_file)
             System.exit(0)
         }
+        evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
+                                               project_home : project_home,
+                                               db_config_file : db_config_file)
+
         if (options.u) {
-            def params = [
-                getconfig_home : getconfig_home,
-                project_home   : project_home,
-                db_config_file : db_config_file,
-            ]
             if (options.u == 'local') {
-                new EvidenceManager(params).exportNodeDirectory()
+                evidence_manager.exportNodeDirectory()
             } else if (options.u == 'db') {
-                new EvidenceManager(params).exportCMDB()
+                evidence_manager.exportCMDB()
             } else if (options.u == 'db-all') {
-                new EvidenceManager(params).exportCMDBAll()
+                evidence_manager.exportCMDBAll()
             } else {
                 cli.usage()
                 throw new IllegalArgumentException('--update option must be local or db or db-all')
@@ -144,8 +144,8 @@ class TestRunner {
             sheet_file = options.excel
         }
 
-        if (options.p) {
-            String degree = options.p
+        if (options.parallel) {
+            String degree = options.parallel
             if (NumberUtils.isDigits(degree)) {
                 parallel_degree = NumberUtils.toInt(degree)
             } else {
