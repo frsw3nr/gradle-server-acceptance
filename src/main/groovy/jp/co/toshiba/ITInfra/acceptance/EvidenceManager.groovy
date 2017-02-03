@@ -28,7 +28,7 @@ class EvidenceManager {
         this.project_name    = new File(this.project_home).getName()
         this.tenant_name     = '_Default'
         this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
-        this.db_config  = params.db_config ?: 'config/cmdb.groovy'
+        this.db_config  = params.db_config ?: "${params.getconfig_home}/config/cmdb.groovy"
         this.node_dir   = params.node_dir ?: this.project_home + '/node'
     }
 

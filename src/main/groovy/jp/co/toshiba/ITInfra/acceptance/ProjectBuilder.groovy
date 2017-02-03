@@ -24,7 +24,7 @@ class ProjectBuilder {
             throw new IllegalArgumentException("'${target_dir}' exists.")
         }
         // Create an empty directory
-        ['config', 'build', 'src/test/resource/log'].each { base ->
+        ['config', 'build', 'node', 'src/test/resource/log'].each { base ->
             def target_path =  new File("${target_dir}/${base}")
             target_path.mkdirs()
             new File("${target_path}/.gitkeep").createNewFile()
