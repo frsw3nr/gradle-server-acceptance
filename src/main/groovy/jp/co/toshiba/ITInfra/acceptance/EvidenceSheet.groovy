@@ -413,7 +413,7 @@ class EvidenceSheet {
         title_cell.setCellStyle(cell_style)
         setTestResultCellStyle(title_cell, ResultCellStyle.TITLE)
         log.debug "Update data : " + results
-        def compare_server = test_servers_hash[server_name].compare_server
+        def compare_server = test_servers_hash[server_name]?.compare_server
 
         // Registering the test result column in the order
         sheet_result.with { sheet ->

@@ -1,52 +1,57 @@
-// 検査仕様シート定義
+// Check sheet definition.
 
-evidence.source = './サーバーチェックシート.xlsx'
-evidence.sheet_name_server = 'チェック対象'
-evidence.sheet_name_rule = '検査ルール'
+evidence.source = './check_sheet.xlsx'
+evidence.sheet_name_server = 'Target'
+evidence.sheet_name_rule = 'Rule'
 evidence.sheet_name_spec = [
-    'Linux':   'ゲストOSチェックシート(Linux)',
-    'Windows': 'ゲストOSチェックシート(Windows)',
-    'VMHost':  'ESXiホストチェックシート(VMHost)',
+    'Linux':   'CheckSheet(Linux)',
+    'Windows': 'CheckSheet(Windows)',
+    'VMHost':  'CheckSheet(VMHost)',
 ]
 
-// 検査結果ファイル出力先
+// Check sheet output path.
 
-evidence.target='./build/チェックシート_<date>.xlsx'
+evidence.target='./build/check_sheet_<date>.xlsx'
 
-// 検査結果ログディレクトリ
+// Test result log directory.
 
 evidence.staging_dir='./build/log.<date>'
 
-// 並列化しないタスク
-// 並列度を指定をしても、指定したドメインタスクはシリアルに実行する
+// Tasks not parallelized
+// Even if the degree of parallelism is specified, the specified domain task is executed serially
 
 test.serialization.tasks = ['vCenter', 'VMHost']
 
-// DryRunモードログ保存先
+// DryRun mode log direcory.
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
-// コマンド採取のタイムアウト
-// Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
+// Command timeout
+// In case of Windows,vCenter, it is a whole timeout value of PowerShell script.
 
 test.Linux.timeout   = 30
 test.Windows.timeout = 300
-test.vCenter.timeout = 300
 test.VMHost.timeout  = 300
 
-// vCenter接続情報
+// Debug mode
+
+// test.Linux.debug   = false
+// test.Windows.debug = false
+// test.VMHost.debug  = false
+
+// vCenter session
 
 account.Remote.Test.server   = '192.168.10.100'
 account.Remote.Test.user     = 'test_user'
 account.Remote.Test.password = 'P@ssword'
 
-// Linux 接続情報
+// Linux session
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
-// Windows 接続情報
+// Windows session
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'

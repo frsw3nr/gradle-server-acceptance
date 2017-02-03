@@ -1,4 +1,4 @@
-// 構成管理データベース（CMDB）の接続設定
+// Configuration management database session
 
 cmdb.dataSource.username = "root"
 cmdb.dataSource.password = "getperf"
