@@ -32,6 +32,8 @@ class ResultContainerTest extends Specification {
         def server = 'ostrich'
 
         when:
+        ResultContainer.instance.test_results   = new ConfigObject()
+        ResultContainer.instance.device_results = new ConfigObject()
         ResultContainer.instance.loadNodeConfigJSON(this.evidence_manager, server)
 
         then:
