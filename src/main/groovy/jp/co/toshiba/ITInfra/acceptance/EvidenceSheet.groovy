@@ -17,6 +17,7 @@ public enum ResultCellStyle {
     OK,
     NG,
     SAME,
+    NOTFOUND,
 }
 
 @Slf4j
@@ -358,6 +359,14 @@ class EvidenceSheet {
                 style.setFont(font);
                 break
 
+            case ResultCellStyle.NOTFOUND :
+                style.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                XSSFFont font = wb.createFont();
+                font.setColor(IndexedColors.CORAL.getIndex());
+                style.setFont(font);
+                break
+
             case ResultCellStyle.NG :
                 style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
                 style.setFillPattern(CellStyle.SOLID_FOREGROUND);
@@ -436,35 +445,31 @@ class EvidenceSheet {
                     rows['domain']  = domain
 
                     try {
-                        def is_same = false
+                        def cell_style = ResultCellStyle.NORMAL
                         if (results[domain]['test'].containsKey(test_id)) {
                             def value = results[domain]['test'][test_id].toString()
                             rows['value']  = value
                             if (compare_server && ResultContainer.instance.compareMetric(
                                 compare_server, platform, test_id, value)) {
                                 cell_result.setCellValue("Same as '${compare_server}'")
-                                is_same = true
+                                cell_style = ResultCellStyle.SAME
                             } else if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
                             } else {
                                 cell_result.setCellValue(value)
                             }
                             log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
+                        } else (test_id ==~ /.+\..+/) {
+                            cell_result.setCellValue('Not found')
+                            cell_style = ResultCellStyle.NOTFOUND
                         }
-                        if (is_same) {
-                            setTestResultCellStyle(cell_result, ResultCellStyle.SAME)
-                        } else if (results[domain]['verify'].containsKey(test_id)) {
+                        if (results[domain]['verify'].containsKey(test_id)) {
                             def is_ok = results[domain]['verify'][test_id]
                             rows['verify']  = is_ok
-                            if (is_ok == true) {
-                                setTestResultCellStyle(cell_result, ResultCellStyle.OK)
-                            } else if (is_ok == false) {
-                                setTestResultCellStyle(cell_result, ResultCellStyle.NG)
-                            }
+                            cell_style = (is_ok == true) ? ResultCellStyle.OK : ResultCellStyle.NG
                             log.debug "Update Verify status : ${domain},${test_id} = ${is_ok}"
-                        } else {
-                            setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
                         }
+                        setTestResultCellStyle(cell_result, cell_style)
                     } catch (NullPointerException e) {
                         log.debug "Not found row ${domain},${test_id} in ${platform}"
                     }
