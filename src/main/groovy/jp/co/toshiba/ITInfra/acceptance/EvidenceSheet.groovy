@@ -332,7 +332,7 @@ class EvidenceSheet {
         // Set Text font and Foreground color
         switch (type) {
             case ResultCellStyle.NORMAL :
-                style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+                style.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
                 style.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 break
 
