@@ -18,6 +18,7 @@ public enum ResultCellStyle {
     NG,
     SAME,
     NOTFOUND,
+    NOTEST,
 }
 
 @Slf4j
@@ -376,6 +377,11 @@ class EvidenceSheet {
                 style.setFont(font);
                 break
 
+            case ResultCellStyle.NOTEST :
+                style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                break
+
             default :
                 break
         }
@@ -450,7 +456,11 @@ class EvidenceSheet {
                         if (results[domain]['test'].containsKey(test_id)) {
                             value = results[domain]['test'][test_id].toString()
                             rows['value']  = value
-                            if (compare_server && ResultContainer.instance.compareMetric(
+                            if (results[domain]['verify'].containsKey(test_id)) {
+                                def is_ok = results[domain]['verify'][test_id]
+                                rows['verify']  = is_ok
+                                style = (is_ok == true) ? ResultCellStyle.OK : ResultCellStyle.NG
+                            } else if (compare_server && ResultContainer.instance.compareMetric(
                                 compare_server, platform, test_id, value)) {
                                 style = ResultCellStyle.SAME
                                 value = "Same as '${compare_server}'"
@@ -458,13 +468,8 @@ class EvidenceSheet {
                         } else if (test_id ==~ /.+\..+/) {
                             style = ResultCellStyle.NOTFOUND
                             value = 'Not found'
-                        }
-                        if (results[domain]['verify'].containsKey(test_id)) {
-                            def is_ok = results[domain]['verify'][test_id]
-                            rows['verify']  = is_ok
-                            style = (is_ok == true) ? ResultCellStyle.OK : ResultCellStyle.NG
-                            value = results[domain]['test'][test_id].toString()
-                            log.debug "Update Verify status : ${domain},${test_id} = ${is_ok}"
+                        } else {
+                            style = ResultCellStyle.NOTEST
                         }
                         log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
                         setTestResultCellStyle(cell_result, style)
