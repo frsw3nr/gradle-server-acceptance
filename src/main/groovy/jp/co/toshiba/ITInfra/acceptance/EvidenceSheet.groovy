@@ -442,8 +442,7 @@ class EvidenceSheet {
                             rows['value']  = value
                             if (compare_server && ResultContainer.instance.compareMetric(
                                 compare_server, platform, test_id, value)) {
-                                cell_result.setCellValue("Same as ${compare_server}")
-                                setTestResultCellStyle(cell_result, ResultCellStyle.SAME)
+                                cell_result.setCellValue("Same as '${compare_server}'")
                                 is_same = true
                             } else if (NumberUtils.isDigits(value)) {
                                 cell_result.setCellValue(NumberUtils.toDouble(value))
@@ -452,7 +451,9 @@ class EvidenceSheet {
                             }
                             log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
                         }
-                        if (!is_same && results[domain]['verify'].containsKey(test_id)) {
+                        if (is_same) {
+                            setTestResultCellStyle(cell_result, ResultCellStyle.SAME)
+                        } else if (results[domain]['verify'].containsKey(test_id)) {
                             def is_ok = results[domain]['verify'][test_id]
                             rows['verify']  = is_ok
                             if (is_ok == true) {
