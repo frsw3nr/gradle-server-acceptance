@@ -455,7 +455,7 @@ class EvidenceSheet {
                                 style = ResultCellStyle.SAME
                                 value = "Same as '${compare_server}'"
                             }
-                        } else (test_id ==~ /.+\..+/) {
+                        } else if (test_id ==~ /.+\..+/) {
                             style = ResultCellStyle.NOTFOUND
                             value = 'Not found'
                         }
