@@ -445,7 +445,7 @@ class EvidenceSheet {
                     def domain  = cell_domain.getStringCellValue()
 
                     try {
-                        def value = results[test_id]
+                        def value = results[test_id]?.toString()
                         if (!value) {
                             value = (test_id ==~ /.+\..+/) ? 'Not found' : ''
                         }
