@@ -73,7 +73,7 @@ class ResultContainer {
     }
 
     def setNodeConfig(String server_name, String platform, List domain_results) {
-        log.info "setNodeConfig ${server_name}, ${platform}"
+        log.debug "setNodeConfig ${server_name}, ${platform}"
         domain_results.each { domain_result->
             domain_result.with {
                 this.test_results[server_name][platform] << results
@@ -93,7 +93,7 @@ class ResultContainer {
 
     def compareMetric(String server_name, String platform, String test_id, String value) {
         def compare_value = this.test_results[server_name][platform][test_id]
-        log.info "Compare[${server_name}:${test_id}] ${value} == ${compare_value}"
+        log.debug "Compare[${server_name}:${test_id}] ${value} == ${compare_value}"
         return (compare_value == value)
     }
 }

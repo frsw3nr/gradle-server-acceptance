@@ -351,10 +351,10 @@ class EvidenceSheet {
                 break
 
             case ResultCellStyle.SAME :
-                style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+                style.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
                 style.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 XSSFFont font = wb.createFont();
-                font.setColor(IndexedColors.RED.getIndex());
+                font.setColor(IndexedColors.ROYAL_BLUE.getIndex());
                 style.setFont(font);
                 break
 
