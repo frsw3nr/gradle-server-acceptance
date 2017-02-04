@@ -446,28 +446,31 @@ class EvidenceSheet {
 
                     try {
                         def cell_style = ResultCellStyle.NORMAL
+                        def value = ''
                         if (results[domain]['test'].containsKey(test_id)) {
-                            def value = results[domain]['test'][test_id].toString()
+                            value = results[domain]['test'][test_id].toString()
                             rows['value']  = value
                             if (compare_server && ResultContainer.instance.compareMetric(
                                 compare_server, platform, test_id, value)) {
-                                cell_result.setCellValue("Same as '${compare_server}'")
+                                value = "Same as '${compare_server}'"
                                 cell_style = ResultCellStyle.SAME
-                            } else if (NumberUtils.isDigits(value)) {
-                                cell_result.setCellValue(NumberUtils.toDouble(value))
-                            } else {
-                                cell_result.setCellValue(value)
                             }
-                            log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
                         } else (test_id ==~ /.+\..+/) {
-                            cell_result.setCellValue('Not found')
+                            value = 'Not found'
                             cell_style = ResultCellStyle.NOTFOUND
                         }
                         if (results[domain]['verify'].containsKey(test_id)) {
+                            value = results[domain]['test'][test_id].toString()
                             def is_ok = results[domain]['verify'][test_id]
                             rows['verify']  = is_ok
                             cell_style = (is_ok == true) ? ResultCellStyle.OK : ResultCellStyle.NG
                             log.debug "Update Verify status : ${domain},${test_id} = ${is_ok}"
+                        }
+                        log.debug "Update cell(${platform}:${domain}:${test_id}) = ${value}"
+                        if (NumberUtils.isDigits(value)) {
+                            cell_result.setCellValue(NumberUtils.toDouble(value))
+                        } else {
+                            cell_result.setCellValue(value)
                         }
                         setTestResultCellStyle(cell_result, cell_style)
                     } catch (NullPointerException e) {
