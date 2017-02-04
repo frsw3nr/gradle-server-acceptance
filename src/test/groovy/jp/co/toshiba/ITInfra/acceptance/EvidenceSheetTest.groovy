@@ -79,6 +79,31 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "テンプレート書き込み"() {
+        setup:
+        def evidence_manager = new EvidenceManager(
+            getconfig_home: '.',
+            project_home: 'src/test/resources',
+            db_config: 'src/test/resources/cmdb.groovy'
+        )
+        ResultContainer.instance.test_results   = new ConfigObject()
+        ResultContainer.instance.device_results = new ConfigObject()
+        ResultContainer.instance.loadNodeConfigJSON(evidence_manager, 'ostrich')
+        ResultContainer.instance.loadNodeConfigJSON(evidence_manager, 'win2012')
+
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.readSheet()
+
+        when:
+        evidence.prepareTestStage()
+        println evidence.compare_servers
+        evidence.updateTemplateResult('Linux',   'ostrich', 0)
+        evidence.updateTemplateResult('Windows', 'win2012', 0)
+
+        then:
+        evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
+    }
+
     def "デバイスシートの書き込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config.groovy')

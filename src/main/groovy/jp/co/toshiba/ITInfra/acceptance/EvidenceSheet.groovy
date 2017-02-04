@@ -332,7 +332,7 @@ class EvidenceSheet {
         // Set Text font and Foreground color
         switch (type) {
             case ResultCellStyle.NORMAL :
-                style.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
+                style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
                 style.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 break
 
@@ -404,6 +404,68 @@ class EvidenceSheet {
                               'target' : target_original, 'config_file' : config_file ]
             it.write( JsonOutput.toJson(run_config))
         }
+    }
+
+    def updateTemplateResult(String platform, String server_name, int sequence)
+        throws IOException {
+        log.info("Update template : platform = ${platform}, server = ${server_name}")
+        def results = ResultContainer.instance.test_results[server_name][platform]
+        def inp = new FileInputStream(evidence_target)
+        def wb  = WorkbookFactory.create(inp)
+        def sheet_result = wb.getSheet(sheet_name_specs[platform])
+        def cell_style = createBorderedStyle(wb)
+
+        // Set the column width to 45 characters of the inspection result column
+        // after the body column name
+        // (in units of 1/256th of a character width)
+        def column = column_body_begin + sequence
+        sheet_result.setColumnWidth(column, evidence_cell_width)
+
+        // Register the target server name in the header
+        def title_cell = sheet_result.getRow(row_header).createCell(column)
+        title_cell.setCellValue(server_name)
+        title_cell.setCellStyle(cell_style)
+        setTestResultCellStyle(title_cell, ResultCellStyle.TITLE)
+
+        // Registering the test result column in the order
+        sheet_result.with { sheet ->
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
+                Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
+                def row_style  = wb.createCellStyle().setWrapText(true)
+                row.setRowStyle(row_style)
+
+                Cell cell_test_id = row.getCell(1)
+                Cell cell_domain  = row.getCell(3)
+                Cell cell_result  = row.createCell(column)
+                cell_result.setCellStyle(cell_style)
+                if (cell_test_id && cell_domain) {
+                    def test_id = cell_test_id.getStringCellValue()
+                    def domain  = cell_domain.getStringCellValue()
+
+                    try {
+                        def value = results[test_id]
+                        if (!value) {
+                            value = (test_id ==~ /.+\..+/) ? 'Not found' : ''
+                        }
+                        if (NumberUtils.isDigits(value)) {
+                            cell_result.setCellValue(NumberUtils.toDouble(value))
+                        } else {
+                            cell_result.setCellValue(value)
+                        }
+                        log.debug "Update $server_name:$test_id = $value"
+                        setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
+                    } catch (NullPointerException e) {
+                        log.debug "Not found row ${domain},${test_id} in ${platform}"
+                    }
+                }
+                return
+            }
+        }
+        def fos = new FileOutputStream(evidence_target)
+        wb.write(fos)
+        fos.close()
     }
 
     def updateTestResult(String platform, String server_name, int sequence, Map results)

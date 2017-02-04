@@ -142,9 +142,15 @@ class TestScheduler {
             }
         }
         log.debug "Evidence : " + test_evidences
-
         test_evidences.each { platform, platform_evidence ->
             def server_index = 0
+            evidence_sheet.compare_servers.each { compare_server, compare_source ->
+                if (compare_source != 'actual' &&
+                    ResultContainer.instance.test_results[compare_server][platform]) {
+                    evidence_sheet.updateTemplateResult(platform, compare_server, server_index)
+                    server_index ++
+                }
+            }
             platform_evidence.each { server_name, server_evidence ->
                 evidence_sheet.updateTestResult(platform, server_name, server_index, server_evidence)
                 server_index ++
