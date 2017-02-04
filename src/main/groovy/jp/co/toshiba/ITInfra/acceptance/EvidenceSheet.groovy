@@ -423,7 +423,7 @@ class EvidenceSheet {
 
         // Register the target server name in the header
         def title_cell = sheet_result.getRow(row_header).createCell(column)
-        title_cell.setCellValue(server_name)
+        title_cell.setCellValue("template:${server_name}")
         title_cell.setCellStyle(cell_style)
         setTestResultCellStyle(title_cell, ResultCellStyle.TITLE)
 

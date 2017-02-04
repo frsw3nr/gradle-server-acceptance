@@ -79,6 +79,8 @@ class CMDBModel {
 
     def export(String node_config_source) throws IOException, SQLException,
         IllegalArgumentException {
+
+        long start = System.currentTimeMillis()
         // Regist SITE, TENANT table
         def site_id   = registMaster("site", [site_name: evidence_manager.project_name])
         def tenant_id = registMaster("tenant", [tenant_name: '_Default'])
@@ -129,6 +131,8 @@ class CMDBModel {
                 }
             }
         }
+        long elapsed = System.currentTimeMillis() - start
+        log.info "Export, Elapsed : ${elapsed} ms"
     }
 
     def getMetricByHost(String server_name) throws SQLException {

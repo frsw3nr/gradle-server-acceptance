@@ -9,6 +9,16 @@ import static groovy.json.JsonOutput.*
 // gradle --daemon clean test --tests "ConfigTest.Config test read"
 
 class ConfigTest extends Specification {
+    def original_config = 'src/test/resources/config.groovy'
+    def source_config   = 'src/test/resources/encode-test.groovy'
+    def target_config   = 'src/test/resources/encode-test.groovy-encrypted'
+    def original        = new File(original_config)
+    def source          = new File(source_config)
+    def target          = new File(target_config)
+
+    def setup() {
+        FileUtils.copyFile(original, source)
+    }
 
     def "Config execption"() {
         try {
@@ -20,7 +30,7 @@ class ConfigTest extends Specification {
 
     def "Config test read"() {
         when:
-        def config = Config.instance.read('src/test/resources/config.groovy')
+        def config = Config.instance.read(original_config)
         then:
         config['evidence']['target'] != './build/check_sheet_<date>.xlsx'
         config['evidence']['source'] == './src/test/resources/check_sheet.xlsx'
@@ -34,75 +44,38 @@ class ConfigTest extends Specification {
     }
 
     def "設定ファイルの暗号化"() {
-        setup:
-        def original = new File('src/test/resources/config.groovy')
-        def source   = new File('src/test/resources/encode-test.groovy')
-        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
-        FileUtils.copyFile(original, source)
-
         when:
-        Config.instance.encrypt('src/test/resources/encode-test.groovy', 'encodekey1234567')
-
+        Config.instance.encrypt(source_config, 'encodekey1234567')
         then:
         target.exists()
     }
 
     def "暗号化した設定ファイルの復元"() {
         setup:
-        def original = new File('src/test/resources/config.groovy')
-        def source   = new File('src/test/resources/encode-test.groovy')
-        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
-        FileUtils.copyFile(original, source)
-        Config.instance.encrypt('src/test/resources/encode-test.groovy',
-                                'encodekey1234567')
-
+        Config.instance.encrypt(source_config, 'encodekey1234567')
         when:
-        Config.instance.decrypt('src/test/resources/encode-test.groovy-encrypted',
-                                'encodekey1234567')
-
+        Config.instance.decrypt(target_config, 'encodekey1234567')
         then:
         source.exists()
     }
 
     def "パスワードなしの復元"() {
         setup:
-        def original = new File('src/test/resources/config.groovy')
-        def source   = new File('src/test/resources/encode-test.groovy')
-        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
-        FileUtils.copyFile(original, source)
-        Config.instance.encrypt('src/test/resources/encode-test.groovy',
-                                'encodekey1234567')
-
+        Config.instance.encrypt(source_config, 'encodekey1234567')
         when:
-        Config.instance.decrypt('src/test/resources/encode-test.groovy-encrypted')
-
+        Config.instance.decrypt(target_config)
         then:
         thrown(IllegalArgumentException)
     }
 
     def "暗号化された設定ファイルの読み込み"() {
         setup:
-        def original = new File('src/test/resources/config.groovy')
-        def source   = new File('src/test/resources/encode-test.groovy')
-        def target   = new File('src/test/resources/encode-test.groovy-encrypted')
-        FileUtils.copyFile(original, source)
-        Config.instance.encrypt('src/test/resources/encode-test.groovy',
-                                'encodekey1234567')
+        Config.instance.encrypt(source_config, 'encodekey1234567')
         when:
-        def config = Config.instance.readConfigFile('src/test/resources/encode-test.groovy-encrypted', 'encodekey1234567')
-
+        def config = Config.instance.readConfigFile(
+            'src/test/resources/encode-test.groovy-encrypted',
+            'encodekey1234567')
         then:
-        1 == 1
-    }
-
-    def "ノード定義ファイルの読み込み"() {
-        setup:
-        def server = Config.instance.readNodeConfig('src/test/resources/node', 'Linux', 'ostrich')
-
-        when:
-        println prettyPrint(toJson(Config.instance.devices))
-
-        then:
-        1 == 1
+        config != null
     }
 }
