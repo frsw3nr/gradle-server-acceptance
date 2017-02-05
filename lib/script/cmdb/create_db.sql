@@ -14,7 +14,7 @@ create table device_result (
   , metric_id integer not null
   , seq integer not null
   , item_name varchar(128) not null
-  , value varchar(4000) character set utf8mb4
+  , value varchar(4000)
   , created timestamp not null default current_timestamp
   , constraint device_result_pkc primary key (node_id, metric_id, seq, item_name)
 );
@@ -22,7 +22,7 @@ create table device_result (
 create table test_result (
   node_id integer not null
   , metric_id integer not null
-  , value varchar(4000) character set utf8mb4
+  , value varchar(4000)
   , verify integer
   , created timestamp not null default current_timestamp
   , constraint test_result_pkc primary key (node_id, metric_id)

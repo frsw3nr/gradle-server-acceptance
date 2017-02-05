@@ -74,6 +74,13 @@ usage: getconfig -c ./config/config.groovy
  -x,--xport </work/project.zip>          Export project zip file
 ```
 
+CMDBの利用
+----------
+
+```
+CREATE DATABASE cmdb DEFAULT CHARSET utf8mb4;
+```
+
 Reference
 ---------
 

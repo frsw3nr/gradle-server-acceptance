@@ -176,8 +176,7 @@ class CMDBModelTest extends Specification {
     def "ユニコード登録"() {
         setup:
         def db = Sql.newInstance(
-            // 'jdbc:mysql://localhost:3306/cmdb?useUnicode=true&characterEncoding=utf8',
-            'jdbc:mysql://localhost:3306/cmdb',
+            'jdbc:mysql://localhost:3306/cmdb?useUnicode=true&characterEncoding=utf8',
             'root',
             'getperf',
             'com.mysql.jdbc.Driver'
