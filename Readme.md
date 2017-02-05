@@ -80,6 +80,25 @@ usage: getconfig -c ./config/config.groovy
  -x,--xport </work/project.zip>          Export project zip file
 ```
 
+CMDB registration
+-----------------
+
+Register test results in MySQL.
+Prepare the MySQL instance with the following command.
+(the character set to 'utfmb4')
+
+```
+CREATE DATABASE cmdb DEFAULT CHARSET utf8mb4;
+```
+
+Edit the JDBC connection settings in config/cmdb.groovy.
+
+Register the test result with the following procedure after test.
+
+```
+getconfig -u db
+```
+
 Reference
 ---------
 

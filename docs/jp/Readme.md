@@ -87,7 +87,7 @@ CREATE DATABASE cmdb DEFAULT CHARSET utf8mb4;
 
 config/cmdb.groovy 内のJDBC接続設定を編集します。
 
-プロジェクトディレクトリ検査実行後、以下の手順で検査結果を登録します。
+検査実行後、以下の手順で検査結果を登録します。
 
 ```
 getconfig -u db
