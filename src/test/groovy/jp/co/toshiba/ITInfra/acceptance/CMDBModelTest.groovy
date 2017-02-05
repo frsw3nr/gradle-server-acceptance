@@ -1,5 +1,7 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import static groovy.json.JsonOutput.*
+import groovy.json.*
 import groovy.sql.Sql
 import java.sql.*
 
@@ -169,5 +171,45 @@ class CMDBModelTest extends Specification {
         device_result[0]['seq'] != null
         device_result[0]['item_name'].size() > 0
         device_result[0]['value'] != null
+    }
+
+    def "ユニコード登録"() {
+        setup:
+        def db = Sql.newInstance(
+            // 'jdbc:mysql://localhost:3306/cmdb?useUnicode=true&characterEncoding=utf8',
+            'jdbc:mysql://localhost:3306/cmdb',
+            'root',
+            'getperf',
+            'com.mysql.jdbc.Driver'
+        )
+
+        when:
+        // def metric_text = '''
+        // |    {
+        // |        "test_id": "os_architecture",
+        // |        "domain": "Windows",
+        // |        "value": "64 \u30d3\u30c3\u30c8"
+        // |    }
+        // '''.stripMargin()
+        def metric_text = new File('src/test/resources/metrics1.json').getText("UTF-8")
+        def metrics = new JsonSlurper().parseText(metric_text)
+        println metrics
+
+        // def metric = ["value": metrics['value']]
+        // cmdb_model.registMetric(999, 999, metric)
+        // mysql> select * from test_result where value like '64%';
+        // +---------+-----------+--------+--------+---------------------+
+        // | node_id | metric_id | value  | verify | created             |
+        // +---------+-----------+--------+--------+---------------------+
+        // |       2 |        94 | 64 ??? |   NULL | 2017-02-05 08:30:15 |
+        // +---------+-----------+--------+--------+---------------------+
+        db.execute('DROP TABLE IF EXISTS unicode_test')
+        db.execute('create table unicode_test(name VARCHAR(15)  CHARACTER SET utf8mb4 NOT NULL)')
+        db.execute('insert into unicode_test values(?)', metrics['value'])
+        def rows = db.rows("select * from unicode_test")
+        println rows
+
+        then:
+        1 == 1
     }
 }

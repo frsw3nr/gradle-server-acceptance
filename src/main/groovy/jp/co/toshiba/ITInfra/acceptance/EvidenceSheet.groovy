@@ -446,7 +446,7 @@ class EvidenceSheet {
 
                     try {
                         def value = results[test_id]?.toString()
-                        if (!value) {
+                        if (!value || value.size() == 0) {
                             value = (test_id ==~ /.+\..+/) ? 'Not found' : ''
                         }
                         if (NumberUtils.isDigits(value)) {

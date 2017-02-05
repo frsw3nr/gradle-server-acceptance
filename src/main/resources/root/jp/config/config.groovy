@@ -15,7 +15,7 @@ evidence.target='./build/チェックシート_<date>.xlsx'
 
 // 検査結果ログディレクトリ
 
-evidence.staging_dir='./build/log.<date>'
+evidence.staging_dir='./build/log'
 
 // 並列化しないタスク
 // 並列度を指定をしても、指定したドメインタスクはシリアルに実行する

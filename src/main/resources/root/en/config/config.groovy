@@ -15,7 +15,7 @@ evidence.target='./build/check_sheet_<date>.xlsx'
 
 // Test result log directory.
 
-evidence.staging_dir='./build/log.<date>'
+evidence.staging_dir='./build/log'
 
 // Tasks not parallelized
 // Even if the degree of parallelism is specified, the specified domain task is executed serially
