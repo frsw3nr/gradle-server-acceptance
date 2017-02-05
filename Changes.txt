@@ -3,6 +3,7 @@ Changes for 0.1.7 (2017-1-30)
 New features:
 * 設定ファイルの暗号化オプション(--encode, --decode)追加
 * 検査対象サーバスクリプトによる指定オプション(--input)追加
+* 検査結果の比較機能追加
 * ドキュメント整理
 
 Bug fixes:

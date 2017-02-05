@@ -77,8 +77,20 @@ usage: getconfig -c ./config/config.groovy
 CMDBの利用
 ----------
 
+検査結果をMySQLに登録します。
+事前に以下コマンドでMySQLインスタンスを作成します。
+(キャラクタセットは'utfmb4'にしてください。)
+
 ```
 CREATE DATABASE cmdb DEFAULT CHARSET utf8mb4;
+```
+
+config/cmdb.groovy 内のJDBC接続設定を編集します。
+
+プロジェクトディレクトリ検査実行後、以下の手順で検査結果を登録します。
+
+```
+getconfig -u db
 ```
 
 Reference
