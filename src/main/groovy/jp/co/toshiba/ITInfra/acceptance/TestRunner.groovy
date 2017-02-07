@@ -68,7 +68,7 @@ class TestRunner {
             h longOpt: 'help',    'Print usage'
         }
         def options = cli.parse(args)
-        if (options.h) {
+        if (options.h || ! options.arguments().isEmpty()) {
             cli.usage()
             System.exit(0)
         }
