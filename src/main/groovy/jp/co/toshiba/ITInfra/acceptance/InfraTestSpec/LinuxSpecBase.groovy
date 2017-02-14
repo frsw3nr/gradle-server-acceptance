@@ -81,6 +81,43 @@ class LinuxSpecBase extends InfraTestSpec {
                 }
             }
         }
+        test_items.each { test_item ->
+            if (test_item.test_id == 'logon_test') {
+                _logon_test(test_item)
+            }
+        }
+    }
+
+    def _logon_test(TestItem test_item) {
+        def results = [:]
+        test_server.os_account.logon_test.each { test_user->
+            def ssh = Ssh.newService()
+            ssh.remotes {
+                ssh_host {
+                    host       = this.ip
+                    port       = 22
+                    user       = test_user.user
+                    password   = test_user.password
+                    knownHosts = allowAnyHosts
+                }
+            }
+            ssh.settings {
+                dryRun     = this.dry_run
+                timeoutSec = this.timeout
+            }
+            try {
+                ssh.run {
+                    session(ssh.remotes.ssh_host) {
+                            execute "who"
+                            results[test_user.user] = true
+                    }
+                }
+            } catch (Exception e) {
+                log.error "[SSH Test] faild logon '${test_user.user}', skip.\n" + e
+                results[test_user.user] = false
+            }
+        }
+        test_item.results(results.toString())
     }
 
     def run_ssh_command(session, command, test_id, share = false) {

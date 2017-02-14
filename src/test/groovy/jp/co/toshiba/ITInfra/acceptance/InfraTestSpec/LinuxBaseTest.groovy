@@ -28,7 +28,7 @@ class LinuxBaseTest extends Specification {
 
         when:
         def test_item = new TestItem('hostname')
-println test_item.toString()
+        println test_item.toString()
         test.run(test_item)
 
         then:

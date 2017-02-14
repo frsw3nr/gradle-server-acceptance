@@ -40,6 +40,32 @@ class WindowsSpecBase extends InfraTestSpec {
         """.stripMargin()
 
         runPowerShellTest('lib/template', 'Windows', cmd, test_items)
+
+        test_items.each { test_item ->
+            if (test_item.test_id == 'logon_test') {
+                _logon_test(test_item)
+            }
+        }
+    }
+
+    def _logon_test(TestItem test_item) {
+        def results = [:]
+        def script_path = new File("lib/template/test_logon_Windows.ps1").getAbsolutePath()
+        test_server.os_account.logon_test.each { test_user->
+            def cmd = """\
+                |powershell -NonInteractive ${script_path}
+                |-ip '${this.ip}'
+                |-user '${test_user.user}' -password '${test_user.password}'
+            """.stripMargin()
+            try {
+                execPowerShell(script_path, cmd)
+                results[test_user.user] = true
+            } catch (IOException e) {
+                log.error "[PowershellTest] Powershell script faild.\n" + e
+                results[test_user.user] = false
+            }
+        }
+        test_item.results(results.toString())
     }
 
     def cpu(TestItem test_item) {
