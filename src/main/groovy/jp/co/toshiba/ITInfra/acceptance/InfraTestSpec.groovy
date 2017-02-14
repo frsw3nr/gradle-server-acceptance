@@ -70,7 +70,6 @@ class InfraTestSpec {
 
     def exec = { HashMap settings = [:], String test_id, Closure closure ->
         def log_path = "${dry_run_staging_dir}/${platform}"
-println log_path
         Boolean shared = settings['shared'] ?: false
         String  encode = settings['encode'] ?: null
         if (shared == false) {
