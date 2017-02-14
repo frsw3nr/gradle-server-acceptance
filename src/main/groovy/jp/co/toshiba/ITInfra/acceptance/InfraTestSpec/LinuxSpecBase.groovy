@@ -317,6 +317,31 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(net_route.toString())
     }
 
+    def net_bond(session, test_item) {
+        def lines = exec('net_bond') {
+            def command = """\
+            |cd /etc/sysconfig/network-scripts/
+            |cat *-bond* 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'net_bond')
+        }
+        def results = [:].withDefault{[]}
+        lines.eachLine {
+            // DEVICE=bond0
+            (it =~ /^DEVICE=(.+)$/).each {m0,m1->
+                results['net_bond'] << m1
+            }
+            // BONDING_OPTS="mode=1 miimon=100 updelay=100"
+            (it =~ /^BONDING_OPTS="(.+)"$/).each {m0,m1->
+                results['net_bond_opts'] << m1
+            }
+        }
+        test_item.results(results)
+    }
+
     def block_device(session, test_item) {
         def lines = exec('block_device') {
             def command = """\
@@ -399,6 +424,21 @@ class LinuxSpecBase extends InfraTestSpec {
             run_ssh_command(session, 'df -iP', 'filesystem_df_ip')
         }
         test_item.results(lines)
+    }
+
+    def fstab(session, test_item) {
+        def lines = exec('fstab') {
+            run_ssh_command(session, 'cat /etc/fstab', 'fstab')
+        }
+        def results = [:]
+        lines.eachLine {
+            println it
+            // /dev/mapper/vg_paas-lv_root /  ext4  defaults        1 1
+            (it =~ /^(\/.+?)\s+(.+?)\s+(.+?)\s+defaults\s/).each {m0,m1,m2,m3->
+                results[m2] = m1
+            }
+        }
+        test_item.results(results.toString())
     }
 
     def fips(session, test_item) {
@@ -716,6 +756,28 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(ntpservers.toString())
+    }
+
+    def ntp_slew(session, test_item) {
+        def lines = exec('ntp_slew') {
+            def command = """\
+            |grep -i options /etc/sysconfig/ntpd 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'ntp_slew')
+        }
+        def result = 'NotFound'
+        lines.eachLine {
+            (it =~ /-u/).each {m0->
+                result = 'Disabled'
+            }
+            (it =~ /-x/).each {m0->
+                result = 'Enabled'
+            }
+        }
+        test_item.results(result)
     }
 
     def sestatus(session, test_item) {

@@ -20,18 +20,34 @@ class WindowsSpec extends WindowsSpecBase {
         super.finish()
     }
 
-    // def setup_exec(TestItem[] test_items) {
-    //     super.setup_exec()
+    def setup_exec(TestItem[] test_items) {
+        super.setup_exec()
+        test_items.each { test_item ->
+            if (test_item.test_id == 'logon_test') {
+                logon_test(test_item)
+            }
+        }
+    }
 
-    //     def cmd = """\
-    //         |powershell -NonInteractive ${script_path}
-    //         |-log_dir '${local_dir}'
-    //         |-ip '${ip}' -server '${server_name}'
-    //         |-user '${os_user}' -password '${os_password}'
-    //     """.stripMargin()
-
-    //     runPowerShellTest('lib/template', 'Windows', cmd, test_items)
-    // }
+    def logon_test(TestItem test_item) {
+        def results = [:]
+        def script_path = new File("lib/template/test_logon_Windows.ps1").getAbsolutePath()
+        test_server.os_account.logon_test.each { test_user->
+            def cmd = """\
+                |powershell -NonInteractive ${script_path}
+                |-ip '${this.ip}'
+                |-user '${test_user.user}' -password '${test_user.password}'
+            """.stripMargin()
+            try {
+                execPowerShell(script_path, cmd)
+                results[test_user.user] = true
+            } catch (IOException e) {
+                log.error "[PowershellTest] Powershell script faild.\n" + e
+                results[test_user.user] = false
+            }
+        }
+        test_item.results(results.toString())
+    }
 
     // def cpu(TestItem test_item) {
     //     run_script('Get-WmiObject Win32_Processor') {

@@ -272,6 +272,22 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    def nic_teaming(TestItem test_item) {
+        run_script('Get-NetLbfoTeamNic') {
+            def lines = exec('nic_teaming') {
+                new File("${local_dir}/nic_teaming")
+            }
+
+            def results = [:].withDefault{[]}
+            lines.eachLine {
+                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+                    results["nic_teaming"] << m1
+                }
+            }
+            test_item.results(results)
+        }
+    }
+
     def firewall(TestItem test_item) {
         run_script('Get-NetFirewallRule -Direction Inbound -Enabled True') {
             def lines = exec('firewall') {
@@ -365,6 +381,15 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             test_item.devices(csv, headers)
             test_item.results(user_names.toString())
+        }
+    }
+
+    def remote_desktop(TestItem test_item) {
+        run_script('(Get-Item "HKLM:System\\CurrentControlSet\\Control\\Terminal Server").GetValue("fDenyTSConnections")') {
+            def result = exec('remote_desktop') {
+                new File("${local_dir}/remote_desktop").text
+            }
+            test_item.results(result.toString())
         }
     }
 
