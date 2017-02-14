@@ -21,7 +21,7 @@ class WindowsSpec extends WindowsSpecBase {
     }
 
     def setup_exec(TestItem[] test_items) {
-        super.setup_exec()
+        super.setup_exec(test_items)
         test_items.each { test_item ->
             if (test_item.test_id == 'logon_test') {
                 logon_test(test_item)

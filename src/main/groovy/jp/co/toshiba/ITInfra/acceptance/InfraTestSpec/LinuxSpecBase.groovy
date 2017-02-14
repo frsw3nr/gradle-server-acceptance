@@ -432,7 +432,6 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def results = [:]
         lines.eachLine {
-            println it
             // /dev/mapper/vg_paas-lv_root /  ext4  defaults        1 1
             (it =~ /^(\/.+?)\s+(.+?)\s+(.+?)\s+defaults\s/).each {m0,m1,m2,m3->
                 results[m2] = m1
