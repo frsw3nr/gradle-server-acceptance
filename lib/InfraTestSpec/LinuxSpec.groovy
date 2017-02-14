@@ -23,12 +23,12 @@ class LinuxSpec extends LinuxSpecBase {
 
         test_items.each { test_item ->
             if (test_item.test_id == 'logon_test') {
-                logon_test(test_item)
+                _logon_test(test_item)
             }
         }
     }
 
-    def logon_test(TestItem test_item) {
+    def _logon_test(TestItem test_item) {
         def results = [:]
         test_server.os_account.logon_test.each { test_user->
             def ssh = Ssh.newService()

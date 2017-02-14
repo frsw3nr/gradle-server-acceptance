@@ -24,12 +24,12 @@ class WindowsSpec extends WindowsSpecBase {
         super.setup_exec(test_items)
         test_items.each { test_item ->
             if (test_item.test_id == 'logon_test') {
-                logon_test(test_item)
+                _logon_test(test_item)
             }
         }
     }
 
-    def logon_test(TestItem test_item) {
+    def _logon_test(TestItem test_item) {
         def results = [:]
         def script_path = new File("lib/template/test_logon_Windows.ps1").getAbsolutePath()
         test_server.os_account.logon_test.each { test_user->

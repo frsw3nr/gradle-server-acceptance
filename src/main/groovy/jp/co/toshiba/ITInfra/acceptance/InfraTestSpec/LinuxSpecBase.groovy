@@ -437,7 +437,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 results[m2] = m1
             }
         }
-        test_item.results(results.toString())
+        test_item.results((results.size() == 0) ? 'NotFound' : results.toString())
     }
 
     def fips(session, test_item) {
