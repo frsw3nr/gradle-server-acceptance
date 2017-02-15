@@ -21,6 +21,19 @@ class ProjectBuilder {
 
         def target_dir = new File(target).getAbsolutePath()
         if(new File(target_dir).exists()){
+            // プロジェクト機能検討
+            // ====================
+
+            // Changes.txt の 1行目を読んで、バージョン確認
+            // バージョンが古い場合はアップデートする
+
+            // アップデート対象
+            //     サーバチェックシート.xslx
+            //     libの下
+            // 更新対象のファイルは、ファイル名.{日付}にリネームする
+
+            // getconfig -g {ディレクトリ}オプションと同じにする
+
             throw new IllegalArgumentException("'${target_dir}' exists.")
         }
         // Create an empty directory

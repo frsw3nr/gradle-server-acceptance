@@ -528,8 +528,14 @@ class EvidenceSheet {
                                 value = "Same as '${compare_server}'"
                             }
                         } else if (test_id ==~ /.+\..+/) {
-                            style = ResultCellStyle.NOTFOUND
-                            value = 'Not found'
+                            if (compare_server && ResultContainer.instance.compareMetric(
+                                compare_server, platform, test_id, value)) {
+                                style = ResultCellStyle.SAME
+                                value = "Same as '${compare_server}'"
+                            } else {
+                                style = ResultCellStyle.NOTFOUND
+                                value = 'Not found'
+                            }
                         } else {
                             style = ResultCellStyle.NOTEST
                         }
