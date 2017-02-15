@@ -528,8 +528,9 @@ class EvidenceSheet {
                                 value = "Same as '${compare_server}'"
                             }
                         } else if (test_id ==~ /.+\..+/) {
-                            if (compare_server && ResultContainer.instance.compareMetric(
-                                compare_server, platform, test_id, value)) {
+                            .test_results[compare_server][platform][test_id]
+                            if (compare_server &&
+                                !ResultContainer.instance.test_results[compare_server][platform][test_id]) {
                                 style = ResultCellStyle.SAME
                                 value = "Same as '${compare_server}'"
                             } else {
