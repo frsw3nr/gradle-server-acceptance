@@ -23,11 +23,17 @@ GitHubサイトからソースコードをダウンロードします。
 
     git clone https://github.com/frsw3nr/gradle-server-acceptance.git
 
-プロジェクトホームに移動し、gradle を用いてビルドします。
+プロジェクトホームに移動し、JAVAの実行オプションにUTF-8エンコードを指定します。
 
 ::
 
     cd .\gradle-server-acceptance\
+    set-item env:JAVA_OPTS -value '-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
+
+gradle を用いてビルドします。
+
+::
+
     gradle zipApp
 
 .\\build\\distributions の下に gradle-server-acceptance-0.1.7.zip ファイルが作成されます。
