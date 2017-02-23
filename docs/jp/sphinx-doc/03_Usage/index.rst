@@ -1,8 +1,8 @@
-=======================
-各作業フェーズのタスク
-=======================
+========
+利用手順
+========
 
 .. toctree::
 
-   01_StandaloneTest
+   01_StandaloneTest/index
    02_TeamCollaboration/index
