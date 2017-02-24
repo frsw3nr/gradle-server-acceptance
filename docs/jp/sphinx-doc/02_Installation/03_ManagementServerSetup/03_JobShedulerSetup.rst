@@ -1,106 +1,46 @@
 Jenkins サーバのインストール
 ============================
 
-Windows Server 2012 R2 セットアップ
-===================================
-
 事前準備
 --------
 
-Windows Server 2012 R2 環境を構築
-リモートデスクトップ接続を許可設定する
-http://symfoware.blog68.fc2.com/blog-entry-1010.html
-プロキシー設定をしてプロキシー接続できるようにする
+* Windows Server 2012 R2 環境を構築します
+* リモートデスクトップ接続を許可設定をします
 
-Chocolateyインストール
-======================
+   ::
 
-Windows 版パッケージ管理ツール [Chorolatey](https://chocolatey.org)
-を用いて、各種ソフトウェアのインストールをする。
-Powershell を起動して、Chocolatey をインストール。
+      http://symfoware.blog68.fc2.com/blog-entry-1010.html
 
-PowerShellからスクリプトを実行許可設定。
-RemoteSignedは、 署名付きのスクリプト、及びローカルに保存されているスクリプトを
-実行可能にする。
+* プロキシー設定をしてプロキシー接続できるようにします
 
-::
-
-   Set-ExecutionPolicy RemoteSigned
-
-Chocolatey インストール
-
-::
-
-   iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-
-パッケージインストール
-----------------------
-
-Chocolateyコマンドを用いて、各種ソフトウェアをインストールする。
-インストール対象は以下の通り。
-
-* Java関連
-    * JDK1.8
-    * Gradle(ビルドツール)
-* Git 関連
-    * git.install(Git)
-    * TortoiseGit(Git GUIクライアント)
-    * WinSCP(SCPクライアント)
-* UTF-8対応したユーティリティ
-    * notepad++(テキストエディタ)
-    * 7-zip(zipアーカイバ)
-* Unix 関連
-    * UnxUtils(Unix コマンドユーティリティ、Jenkins UNIX用APIとの相性をよくするため)
-* VMware 関連
-    * VMware vSphere Client
-* その他
-    * Google Chrome(Webブラウザ、Jenkins 確認用)
-
-VMware PowerCLI は Chorolatey がサポートしていないため手動インストールする。
-
-::
-
-   choco install -y unxutils winscp 7zip notepadplusplus.install jdk8 gradle TortoiseGit git.install GoogleChrome vmwarevsphereclient
-
-Office 製品がない場合は、Libre Office を入れる。
-
-::
-
-   choco install -y libreoffice-oldstable
-
-PowerCLIインストール
----------------------
-
-VMWareサイトからダウンロードしてインストール
-
-https://www.vmware.com/support/developer/PowerCLI/
-
-VMWare アカウントが必要なので、サインインしてダウンロード
-ダウンロードした VMWare-PowerCLI-\*.exe を起動して、既定の設定でインストール
+* 以下の手順で 検査用 PC のセットアップを事前に行います
+   * :doc:`../01_TestPCSetup`
+   * :doc:`../02_DevelopmentOption`
 
 Jenkinsインストール、セットアップ
 ---------------------------------
 
-Chocolatey でインストール
+Chocolatey で Jenkins をインストールします。
 
 ::
 
    choco install -y jenkins
 
-Chrome から Jenkis サイトに接続
+Chrome から Jenkins サイトに接続します。
 
-http://localhost:8080/
+::
 
-初期パスワードを聞かれるので、notepad++ で表示されたパスのファイルを開いて、パスワードを入力
+   http://サーバ:8080/
 
-Insutall suggested plugins を選択
+初期パスワードを聞かれるので、notepad++ で表示されたパスのファイルを開いて、パスワードを入力します。
 
-管理者ユーザの登録。
+Insutall suggested plugins を選択します。
+
+管理者ユーザを登録します。
 
 ユーザ名・パスワード・名前・メールアドレスを入力して、 Save and Finish を選択。
 
-一旦、ここでOS再起動。
+一旦、ここでOS再起動します。
 
 gradle-servier-acceptanceインストール
 -------------------------------------
@@ -142,16 +82,16 @@ In-process Script Approval
 
 ::
 
-method hudson.model.Job getBuildByNumber int
-method java.io.File getName
-method java.lang.String join java.lang.CharSequence java.lang.CharSequence[]
-method java.util.regex.Matcher matches
-method jenkins.model.Jenkins getItemByFullName java.lang.String
-method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment
-new java.io.File java.lang.String
-staticMethod jenkins.model.Jenkins getInstance
-staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure
-staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
+   method hudson.model.Job getBuildByNumber int
+   method java.io.File getName
+   method java.lang.String join java.lang.CharSequence java.lang.CharSequence[]
+   method java.util.regex.Matcher matches
+   method jenkins.model.Jenkins getItemByFullName java.lang.String
+   method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment
+   new java.io.File java.lang.String
+   staticMethod jenkins.model.Jenkins getInstance
+   staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure
+   staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
 
 新規ジョブ作成
 

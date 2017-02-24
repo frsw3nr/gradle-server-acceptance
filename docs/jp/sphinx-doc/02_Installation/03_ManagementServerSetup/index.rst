@@ -5,5 +5,5 @@
 .. toctree::
 
    01_Redmine
-   02_CMDBSetup
-   02_JobShedulerSetup
+   02_RedmineCMDBSetup
+   03_JobShedulerSetup

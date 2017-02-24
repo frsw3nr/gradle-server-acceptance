@@ -1,0 +1,109 @@
+
+
+
+プロジェクト作成
+--------------
+
+cd c:\getconfig
+getconfig -g test-proj1
+
+Linux 検査
+-----------------
+
+検査シート編集。Excelでプロジェクトディレクトリ下の「サーバチェックシート.xlsx」 を開く
+
+cd test-proj1
+.\サーバーチェックシート.xlsx
+
+* server_name : 検査対象の Linux サーバのホスト名を入力
+* ip : Linux サーバの IP アドレス確認
+* platform : "Linux" を入力
+* os_account_id : "Test" のまま
+
+設定ファイル編集
+
+config\config.groovy を編集
+
+以下の行を自ホストのログイン情報を入力
+
+// Linux 接続情報
+
+account.Linux.Test.user      = 'psadmin'
+account.Linux.Test.password  = 'psadmin'
+
+getconfig コマンド実行
+
+getconfig
+
+ssh 接続エラーの場合の以下のメッセージが出力される
+
+ERROR j.c.t.I.a.DomainTestRunner - [Test] Failed to run Linux(host=testgit001,ip=133.116.134.213), skip.
+com.jcraft.jsch.JSchException: Auth fail
+
+config.groovy 内の account.Linux.{os_account_id}.user と、 account.Linux.{os_account_id}.password　パラメータを再度確認する
+
+_build の下に検査結果が出力される
+
+Windows 検査
+---------------------
+
+検査シート編集。Excelでプロジェクトディレクトリ下の「サーバチェックシート.xlsx」 を開く
+
+cd test-proj1
+.\サーバーチェックシート.xlsx
+
+* server_name : hostname コマンドからホスト名を確認
+* ip : ipconfig コマンドで自ホストのIPアドレス確認
+* platform : "Windows" を入力
+* os_account_id : "Test" のまま
+
+
+設定ファイル編集
+
+config\config.groovy を編集
+
+以下の行を自ホストのログイン情報を入力
+
+// Windows 接続情報
+
+account.Windows.Test.user     = 'administrator'
+account.Windows.Test.password = 'P@ssw0rd'
+
+getconfig コマンド実行
+
+getconfig
+
+認証に失敗する場合
+
+15:27:32 ERROR j.c.t.I.a.InfraTestSpec - [PowershellTest] Powershell script faild.
+java.io.IOException: Powershell return '1' exit code : C:\getconfig\test-proj1\build\log\Windows\Jenkins\Windows\get_win
+dows_spec.ps1 : [133.116.134.217] リモート サーバー 133.116.134.217 への接続に失敗し、次のエラー メッセージが返されました: アクセスが拒否されました。詳細については、about_Remote
+_Troubleshooting のヘルプ トピックを参照してください。
+発生場所 行:1 文字:1
+
+Enable-PSRemoting をしていない場合
+
+上記と同様
+
+Set-ExecutionPolicy Restricted の場合
+
+仮想化環境の場合、 vCenter 追加
+--------------------------------
+
+検査シート編集。Excelでプロジェクトディレクトリ下の「サーバチェックシート
+
+以下の行のセルを編集
+
+* remote_account_id : config.groovy 内に記述する vCenter の接続ID情報
+* remote_alias : vCenter のリモート接続ホスト情報
+
+config\config.groovy を編集
+
+以下の行を自ホストのログイン情報を入力
+
+// Windows 接続情報
+
+account.Remote.Test.server   = '192.168.10.100'
+account.Remote.Test.user     = 'admin@test.local'
+account.Remote.Test.password = 'P@ssw0rd'
+

@@ -1,7 +1,8 @@
 Redmine インストール
 ====================
 
-CentOS に課題管理システム(ITS)のOSS Redmine をインストールし、Redmine を構成管理DBとしてカスタマイズします。
+CentOS にオープンソースの課題管理システム(ITS)の Redmine をインストールし、
+Redmine を構成管理データベースとしてカスタマイズします。
 
 構成概要
 --------
@@ -234,9 +235,12 @@ httpdモジュールインストールします。
 
 .. note::
 
-   ~/anaconda2/bin のパスが通っていると、anaconda2 の lib を参照してしまい、
-   Curlのライブラリが見つからないなどの相性問題が発生する場合がある。
-   .bashrc から anaconda2 のパスを外す。
+   `Anaconda`_ がインストールされている環境で、~/anaconda2/bin
+   のパスが通っていると、anaconda2 の lib を参照してしまい、
+   Curlのライブラリが見つからないなどの相性問題が発生する場合があります。
+   その場合、 .bashrc から anaconda2 のパスを外してください。
+
+   .. _Anaconda: http://https://www.continuum.io/downloads
 
 出力メッセージで以下の箇所をコピーします。
 
