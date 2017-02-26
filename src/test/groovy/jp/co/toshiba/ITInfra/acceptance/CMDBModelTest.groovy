@@ -35,8 +35,8 @@ class CMDBModelTest extends Specification {
 
     def "マスター登録"() {
         when:
-        def id = cmdb_model.registMaster("site", [site_name: 'site01'])
-        def site = cmdb_model.cmdb.rows("select * from site")
+        def id = cmdb_model.registMaster("sites", [site_name: 'site01'])
+        def site = cmdb_model.cmdb.rows("select * from sites")
 
         then:
         site[0]['id'] == 1
@@ -45,9 +45,9 @@ class CMDBModelTest extends Specification {
 
     def "マスター重複登録"() {
         when:
-        def id1 = cmdb_model.registMaster("tenant", [tenant_name: '_Default'])
-        def id2 = cmdb_model.registMaster("tenant", [tenant_name: '_Default'])
-        def tenant = cmdb_model.cmdb.rows("select * from tenant")
+        def id1 = cmdb_model.registMaster("tenants", [tenant_name: '_Default'])
+        def id2 = cmdb_model.registMaster("tenants", [tenant_name: '_Default'])
+        def tenant = cmdb_model.cmdb.rows("select * from tenants")
 
         then:
         id1 == id2
@@ -56,8 +56,8 @@ class CMDBModelTest extends Specification {
 
     def "マスター登録複数列"() {
         when:
-        def id = cmdb_model.registMaster("node", [node_name: 'node01', tenant_id: 1])
-        def node = cmdb_model.cmdb.rows("select * from node where node_name = 'node01'")
+        def id = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
+        def node = cmdb_model.cmdb.rows("select * from nodes where node_name = 'node01'")
 
         then:
         id > 0
@@ -67,17 +67,17 @@ class CMDBModelTest extends Specification {
 
     def "複数サイトノード登録"() {
         when:
-        def site_id1      = cmdb_model.registMaster("site", [site_name: 'site01'])
-        def site_id2      = cmdb_model.registMaster("site", [site_name: 'site02'])
-        def node_id1      = cmdb_model.registMaster("node", [node_name: 'node01', tenant_id: 1])
-        def site_node_id1 = cmdb_model.registMaster("site_node", [node_id: node_id1, site_id: site_id1])
+        def site_id1      = cmdb_model.registMaster("sites", [site_name: 'site01'])
+        def site_id2      = cmdb_model.registMaster("sites", [site_name: 'site02'])
+        def node_id1      = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
+        def site_node_id1 = cmdb_model.registMaster("site_nodes", [node_id: node_id1, site_id: site_id1])
 
-        def node_id2      = cmdb_model.registMaster("node", [node_name: 'node01', tenant_id: 1])
-        def site_node_id2 = cmdb_model.registMaster("site_node", [node_id: node_id2, site_id: site_id2])
+        def node_id2      = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
+        def site_node_id2 = cmdb_model.registMaster("site_nodes", [node_id: node_id2, site_id: site_id2])
 
         then:
         site_node_id1 != site_node_id2
-        def sql = "select * from site_node where node_id = ? order by site_id"
+        def sql = "select * from site_nodes where node_id = ? order by site_id"
         def site_node = cmdb_model.cmdb.rows(sql, node_id1)
         site_node[0]['site_id'] == site_id1
         site_node[0]['node_id'] == node_id1
@@ -87,7 +87,7 @@ class CMDBModelTest extends Specification {
 
     def "マスター登録列名なし"() {
         when:
-        def id = cmdb_model.registMaster("node", [HOGE: 'node01', tenant_id: 1])
+        def id = cmdb_model.registMaster("nodes", [HOGE: 'node01', tenant_id: 1])
 
         then:
         thrown(SQLException)
@@ -95,8 +95,8 @@ class CMDBModelTest extends Specification {
 
     def "マスター登録キャッシュ"() {
         when:
-        def id1 = cmdb_model.registMaster("site", [site_name: 'site01'])
-        def id2 = cmdb_model.registMaster("site", [site_name: 'site01'])
+        def id1 = cmdb_model.registMaster("sites", [site_name: 'site01'])
+        def id2 = cmdb_model.registMaster("sites", [site_name: 'site01'])
 
         then:
         id1 == id2
@@ -111,7 +111,7 @@ class CMDBModelTest extends Specification {
         def metric3 = ["value": "value03"]
         cmdb_model.registMetric(1, 3, metric3)
 
-        def sql = "select * from test_result where node_id = ? and metric_id = ?"
+        def sql = "select * from test_results where node_id = ? and metric_id = ?"
         def rows = cmdb_model.cmdb.rows(sql, [1, 1])
         def rows2 = cmdb_model.cmdb.rows(sql, [1, 2])
         def rows3 = cmdb_model.cmdb.rows(sql, [1, 3])
@@ -124,16 +124,23 @@ class CMDBModelTest extends Specification {
 
     def "デバイス登録"() {
         when:
+        def metric_id = cmdb_model.registMaster("metrics",
+                                    [metric_name: 'metric1',
+                                     domain_id: 1])
         def devices = [
             ["value": "value01", "verify": true],
             ["value": "value02", "verify": false],
             ["value": "value03"],
         ]
-        cmdb_model.registDevice(1, 1, devices)
+        cmdb_model.registDevice(1, metric_id, devices)
 
-        def sql = "select * from device_result where node_id = ? and metric_id = ?"
-        def rows = cmdb_model.cmdb.rows(sql, [1, 1])
+        def sql = "select * from device_results where node_id = ? and metric_id = ?"
+        def rows = cmdb_model.cmdb.rows(sql, [1, metric_id])
         println rows
+
+        def sql2 = "select * from metrics where id = ?"
+        def rows2 = cmdb_model.cmdb.rows(sql2, metric_id)
+        println rows2
 
         then:
         rows.size() == 5
@@ -142,8 +149,8 @@ class CMDBModelTest extends Specification {
     def "ノード定義のエクスポート"() {
         when:
         cmdb_model.export(new File('src/test/resources/node/').getAbsolutePath())
-        def node = cmdb_model.cmdb.rows("select * from node")
-        def result = cmdb_model.cmdb.rows("select * from test_result where node_id = 1")
+        def node = cmdb_model.cmdb.rows("select * from nodes")
+        def result = cmdb_model.cmdb.rows("select * from test_results where node_id = 1")
 
         then:
         node[0]['node_name'].size() > 0

@@ -25,7 +25,8 @@ InternetExploler を開いて、「インターネットオプション設定」
 プロキシーサーバの欄にプロキシーのアドレス、ポート番号を入力します。
 
 「詳細設定」を選択し、「プロキシーの設定除外」の欄に、検査対象の vCenter のアドレスを追加します。
-また、本ツールのダウンロードサイトなどイントラネット内サーバでアクセスが必要なサーバのアドレスを追加します。
+また、本ツールのダウンロードサイトなどイントラネット内サーバでアクセスが必要な
+サーバのアドレスを追加します。
 
 SSL証明書のインストール(社外 SSL Webアクセスの制限がある場合)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,11 +66,41 @@ WMF5.0を以下のURLからダウンロードして、インストールしま�
 
    https://www.microsoft.com/en-us/download/details.aspx?id=50395
 
+PowerShell のスクリプト実行権限の設定
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PowerShell スクリプトの実行許可設定をします。
+管理者ユーザでPowerShellを起動し、以下コマンドを実行して、現在の設定を確認します。
+
+::
+
+   Get-ExecutionPolicy
+
+上記確認結果が、Restricted、AllSignedの場合は、以下コマンドで RemoteSigned に
+設定変更してください。
+
+::
+
+   Set-ExecutionPolicy RemoteSigned
+
+.. note::
+
+   RemoteSignedは、 署名付きのスクリプト、及びローカルに保存されているスクリプトを実行可能にします。
+
+   詳細は、 `PowerShellスクリプトの実行ポリシー`_ を参照してください。
+
+   .. _PowerShellスクリプトの実行ポリシー: http://www.atmarkit.co.jp/ait/articles/0805/16/news139.html
+
+.. note::
+
+   Windows Server 2012 R2 以上の場合の既定値は RemoteSigned です。
+
 PowerShell のリモートアクセス設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PowerShell でリモートアクセスをできるようにします。
-管理者ユーザでPowerShellを起動し、以下コマンドを実行して、「信頼されたホストの一覧」に追加します。
+管理者ユーザで PowerShell を起動し、以下コマンドを実行して、「信頼されたホストの一覧」
+に追加します。
 
 ::
 
@@ -97,26 +128,13 @@ PowerShell でリモートアクセスをできるようにします。
 * その他
     * Google Chrome(Webブラウザ確認用)
 
-
 本手順書では、Windows 版パッケージ管理ツール `Chocolatey`_ を用いて、各種ソフトウェアをインストールします。
 
 
 .. _Chocolatey: https://chocolatey.org/
 
 
-PowerShell コンソールから、 Chocolatey をインストールします。
-事前に以下コマンドでChocolatey インストールスクリプトの実行許可設定をします。
-
-::
-
-   Set-ExecutionPolicy RemoteSigned
-
-.. note::
-
-   RemoteSignedは、 署名付きのスクリプト、及びローカルに保存されているスクリプトを実行可能にします。
-
-
-以下コマンドを実行して、 Chocolatey をインストールします。
+管理者ユーザで PowerShell を起動して、以下のコマンドで Chocolatey をインストールします。
 
 ::
 
@@ -212,6 +230,46 @@ PowerShell コンソールから、 getconfig -h コマンドを実行して、
 
 試しにLinuxまたはWindowsサーバを検査対象として、検査シナリオの動作確認をします。
 
+.. _windows-prepare-label:
+
+Windows サーバの事前準備
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+検査対象の Windows 環境で以下の設定が必要です。
+
+* ファイヤーウォールの許可
+
+   サーバーマネージャーを開き、「Windows ファイアウォール」
+   の設定をクリックして許可設定をします。
+   許可設定をしないと、"Get-WmiObject : RPC サーバーを利用できません"
+   というエラーがが発生します。
+
+* PowerShell リモートアクセス許可の有効化
+
+   .. note::
+
+      Windows Server 2012 R2 以上の場合、リモートアクセス許可の既定値は有効化です。
+
+   Windows 環境により、PowerShell のリモートアクセス許可が有効化されていない
+   場合があります。その場合、PowerShellを管理者権限で実行して、PowerShell
+   コンソールから以下のコマンドで有効化します。
+
+   ::
+
+      Enable-PSRemoting
+
+   .. note::
+
+      「認識されないネットワーク」があり、Publicとして設定されている場合、
+      「Public に設定されているため、WinRM ファイアウォール例外は機能しません。
+      ネットワーク接続の種類を Domain または Private に変更して、やり直してください。 」
+      というメッセージが出力され、失敗する場合があります。その場合は以下のオプションを
+      追加して有効化を試してください
+
+      ::
+
+         Enable-PSRemoting -SkipNetworkProfileCheck
+
 検査プロジェクトの作成
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -239,12 +297,12 @@ PowerShell コンソールから、 getconfig -h コマンドを実行して、
 プロジェクトディレクトリ下の"チェックシート.xlsx"を開き、
 シート「チェック対象」を開いて検査対象サーバの接続情報を記入します。
 
-   入力列の1列目に自PCの接続情報を記入します。
+   入力列の1列目に検査対象サーバの接続情報を記入します。
 
    * **server_name** : サーバ名
    * **ip** : IPアドレス
    * **platform** : Windowsサーバの場合は'Windows'、Linuxの場合は'Linux'
-   * **os_account_id** : デフォルト値のまま'Test'を指定
+   * **os_account_id** : 既定値のまま'Test'を指定
 
 設定ファイル config/config.groovy 編集
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -280,15 +338,4 @@ PowerShell コンソールからプロジェクトディレクトリに移動し
 シート「ゲストOSチェックシート(Windows)」または、「ゲストOSチェックシート(Linux)」を選択し、
 検査対象サーバー名の列に値が登録されていれば、検査は成功です。
 また、シート「検査ルール」よりも右側のシートにデバイス付き検査項目の結果が登録されれいることを確認します。
-
-.. note::
-
-   Windows 環境により、PowerShell のリモートアクセス許可が有効化されていない場合があります。
-   その場合、PowerShellを管理者権限で実行して、PowerShell コンソールから以下の有効化設定をします。
-
-   ::
-
-      Enable-PSRemoting
-
-   .. note:: Windows Server 2012 以上の規定値は有効化です。
 

@@ -77,8 +77,7 @@ getconfig
 
 15:27:32 ERROR j.c.t.I.a.InfraTestSpec - [PowershellTest] Powershell script faild.
 java.io.IOException: Powershell return '1' exit code : C:\getconfig\test-proj1\build\log\Windows\Jenkins\Windows\get_win
-dows_spec.ps1 : [133.116.134.217] リモート サーバー 133.116.134.217 への接続に失敗し、次のエラー メッセージが返されました: アクセスが拒否されました。詳細については、about_Remote
-_Troubleshooting のヘルプ トピックを参照してください。
+dows_spec.ps1 : [133.116.134.217] リモート サーバー 133.116.134.217 への接続に失敗し、次のエラー メッセージが返されました: アクセスが拒否されました。詳細については、about_Remote_Troubleshooting のヘルプ トピックを参照してください。
 発生場所 行:1 文字:1
 
 Enable-PSRemoting をしていない場合

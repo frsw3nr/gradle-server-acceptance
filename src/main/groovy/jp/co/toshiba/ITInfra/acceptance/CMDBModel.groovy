@@ -52,7 +52,7 @@ class CMDBModel {
     }
 
     def registMetric(node_id, metric_id, Map metric) throws SQLException {
-        cmdb.execute("delete from test_result where node_id = ? and metric_id = ?",
+        cmdb.execute("delete from test_results where node_id = ? and metric_id = ?",
                      [node_id, metric_id])
         def columns = [node_id: node_id, metric_id: metric_id]
         ['value', 'verify'].each { item_name ->
@@ -60,18 +60,20 @@ class CMDBModel {
                 columns[item_name.toUpperCase()] = metric[item_name]
             }
         }
-        cmdb.dataSet('test_result').add(columns)
+        cmdb.dataSet('test_results').add(columns)
     }
 
     def registDevice(node_id, metric_id, List devices) throws SQLException {
-        cmdb.execute("delete from device_result where node_id = ? and metric_id = ?",
+        cmdb.execute("delete from device_results where node_id = ? and metric_id = ?",
                      [node_id, metric_id])
+println "node_id=$node_id, metric_id=$metric_id"
         def seq = 1
         devices.each { device ->
             def keys = [node_id: node_id, metric_id: metric_id, seq: seq]
+println keys
             device.each { item_name, value ->
                 def columns = keys + [item_name: item_name, value: value]
-                cmdb.dataSet('device_result').add(columns)
+                cmdb.dataSet('device_results').add(columns)
             }
             seq ++
         }
@@ -82,13 +84,13 @@ class CMDBModel {
 
         long start = System.currentTimeMillis()
         // Regist SITE, TENANT table
-        def site_id   = registMaster("site", [site_name: evidence_manager.project_name])
-        def tenant_id = registMaster("tenant", [tenant_name: '_Default'])
+        def site_id   = registMaster("sites", [site_name: evidence_manager.project_name])
+        def tenant_id = registMaster("tenants", [tenant_name: '_Default'])
 
         new File(node_config_source).eachDir {
             def domain_name = it.name
             log.info "Regist domain ${domain_name}"
-            def domain_id = registMaster("domain", [domain_name: domain_name])
+            def domain_id = registMaster("domains", [domain_name: domain_name])
             def domain_dir = "${node_config_source}/${domain_name}"
 
             // Regist Metrics
@@ -98,12 +100,12 @@ class CMDBModel {
                     def metrics = new JsonSlurper().parseText(metric_text)
 
                     log.info "Regist node ${node_name}"
-                    def node_id = registMaster("node", [node_name: node_name,
+                    def node_id = registMaster("nodes", [node_name: node_name,
                                                tenant_id: tenant_id])
-                    registMaster("site_node", [site_id: site_id, node_id: node_id])
+                    registMaster("site_nodes", [site_id: site_id, node_id: node_id])
                     metrics.each { metric ->
                         log.debug "Regist metric ${metric}"
-                        def metric_id = registMaster("metric",
+                        def metric_id = registMaster("metrics",
                                                     [metric_name: metric?.test_id,
                                                      domain_id: domain_id])
                         registMetric(node_id, metric_id, metric)
@@ -114,19 +116,22 @@ class CMDBModel {
             // Regist Devices
             new File(domain_dir).eachDir {
                 def node_name = it.name
-                def node_id = registMaster("node", [node_name: node_name,
+                def node_id = registMaster("nodes", [node_name: node_name,
                                            tenant_id: tenant_id])
-                registMaster("site_node", [site_id: site_id, node_id: node_id])
+                registMaster("site_nodes", [site_id: site_id, node_id: node_id])
                 def device_dir = "${domain_dir}/${node_name}"
+                def set_flag_sql = 'update metrics set device_flag = true where id = ?'
                 new File(device_dir).eachFile {
                     ( it.name =~/(.+).json/).each { json_file, metric_name->
                         def device_text = new File("${device_dir}/${json_file}").text
                         def devices = new JsonSlurper().parseText(device_text)
                         log.info "Regist device ${node_name} ${metric_name}"
-                        def metric_id = registMaster("metric",
+                        def metric_id = registMaster("metrics",
                                                     [metric_name: metric_name,
                                                      domain_id: domain_id])
                         registDevice(node_id, metric_id, devices)
+                        cmdb.execute(set_flag_sql, metric_id)
+
                     }
                 }
             }
@@ -138,10 +143,10 @@ class CMDBModel {
     def getMetricByHost(String server_name) throws SQLException {
         def sql = '''\
             |select domain_name, node_name, metric_name, value
-            |from domain, node, metric, test_result
-            |where node.id = test_result.node_id
-            |and test_result.metric_id = metric.id
-            |and metric.domain_id = domain.id
+            |from domains, nodes, metrics, test_results
+            |where nodes.id = test_results.node_id
+            |and test_results.metric_id = metrics.id
+            |and metrics.domain_id = domains.id
             |and node_name = ?
         '''.stripMargin()
 
@@ -151,10 +156,10 @@ class CMDBModel {
     def getDeviceResultByHost(String server_name) throws SQLException {
         def sql = '''\
             |select domain_name, node_name, metric_name, seq, item_name, value
-            |from domain, node, metric, device_result
-            |where node.id = device_result.node_id
-            |and device_result.metric_id = metric.id
-            |and metric.domain_id = domain.id
+            |from domains, nodes, metrics, device_results
+            |where nodes.id = device_results.node_id
+            |and device_results.metric_id = metrics.id
+            |and metrics.domain_id = domains.id
             |and node_name = ?
         '''.stripMargin()
 
@@ -176,24 +181,21 @@ class CMDBModel {
         }
 
         // Confirm existence of Version table. If not, execute db create script
-        def cmdb_version = null
+        def cmdb_exists = false
         try {
-            List rows = this.cmdb.rows('select build from version')
+            List rows = this.cmdb.rows('select * from tenants')
             if (rows.size()) {
-                cmdb_version = rows[0]['build'] ?: null
+                cmdb_exists = true
             }
         } catch (SQLException e) {
             log.warn "VERSION table not found in CMDB, Create tables"
         }
-        if (cmdb_version == null) {
+        if (!cmdb_exists) {
             def getconfig_home = evidence_manager.getconfig_home
             def create_db_script = "${getconfig_home}/lib/script/cmdb/create_db.sql"
             def create_sqls = new File(create_db_script).text.split(/;\s*\n/).each {
                 this.cmdb.execute it
             }
-        // If the version is old, execute update scrit (TBD)
-        } else if (cmdb_version < current_build) {
-            log.warn "Rebuild table (TBD)"
         }
     }
 
