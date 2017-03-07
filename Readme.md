@@ -25,7 +25,7 @@ For details, please refer to **Usage**.
 
 **Examination PC**
 
-* JDK 1.8
+* JDK 1.8(64bit)
 * WFM 4.0 or later (for Windows inspection)
 * VMWare vSphere client and PowerCLI 5.5 or later (for vCenter inspection)
 * 7-zip(zip utility)、UTF-8 editor(Notepad ++, etc.)
