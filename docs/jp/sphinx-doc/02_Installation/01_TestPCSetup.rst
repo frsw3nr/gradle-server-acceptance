@@ -112,7 +112,7 @@ PowerShell でリモートアクセスをできるようにします。
 以下のソフトウェアをインストールします。
 
 * Java関連
-    * JDK1.8
+    * JDK1.8 (64bit)
     * Gradle(ビルドツール)
 * Git 関連
     * git.install(Git)
@@ -127,6 +127,12 @@ PowerShell でリモートアクセスをできるようにします。
     * VMware vSphere Client
 * その他
     * Google Chrome(Webブラウザ確認用)
+
+.. note::
+
+   JDKは64bit版をインストールしてください。
+   32bit版の場合、Javaアプリの PowerShell スクリプト実行時に、「UnauthorizedAccess」というエラーが発生します。
+
 
 本手順書では、Windows 版パッケージ管理ツール `Chocolatey`_ を用いて、各種ソフトウェアをインストールします。
 
@@ -242,7 +248,20 @@ Windows サーバの事前準備
    サーバーマネージャーを開き、「Windows ファイアウォール」
    の設定をクリックして許可設定をします。
    許可設定をしないと、"Get-WmiObject : RPC サーバーを利用できません"
-   というエラーがが発生します。
+   というエラーが発生します。
+   Windows ファイアウォール無効化／有効化は、以下 PowerShell コマンドで設定します。
+
+   * ファイアウォール無効化
+
+   ::
+
+      Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled false
+
+   * ファイアウォール有効化
+
+   ::
+
+      Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled true
 
 * PowerShell リモートアクセス許可の有効化
 

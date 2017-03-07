@@ -138,6 +138,16 @@ class EvidenceSheetTest extends Specification{
         evidence.test_servers.size() > 0
     }
 
+    def "検査サーバCSV読み込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config_jp.groovy')
+        evidence.readServerCSV('src/test/resources/issues.csv')
+
+        then:
+        println evidence.test_servers[0].infos
+        evidence.test_servers.size() > 0
+    }
+
     def "Excelファイルと検査サーバスクリプト読み込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config.groovy')

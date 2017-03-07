@@ -66,11 +66,9 @@ class CMDBModel {
     def registDevice(node_id, metric_id, List devices) throws SQLException {
         cmdb.execute("delete from device_results where node_id = ? and metric_id = ?",
                      [node_id, metric_id])
-println "node_id=$node_id, metric_id=$metric_id"
         def seq = 1
         devices.each { device ->
             def keys = [node_id: node_id, metric_id: metric_id, seq: seq]
-println keys
             device.each { item_name, value ->
                 def columns = keys + [item_name: item_name, value: value]
                 cmdb.dataSet('device_results').add(columns)
