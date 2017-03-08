@@ -17,6 +17,22 @@ evidence.target='./build/チェックシート_<date>.xlsx'
 
 evidence.staging_dir='./build/log'
 
+// CSV変換マップ
+
+evidence.csv_item_map = [
+    'サーバ名' :            'server_name',
+    'IPアドレス' :          'ip',
+    'Platform' :            'platform',
+    'OSアカウントID' :      'os_account_id',
+    'vCenterアカウントID' : 'remote_account_id',
+    'VMエイリアス名' :      'remote_alias',
+    '検査ID' :              'verify_id',
+    'CPU数' :               'NumCpu',
+    'メモリ量' :            'MemoryGB',
+    'ESXi名' :              'ESXiHost',
+    'HDD' :                 'HDDtype',
+]
+
 // 並列化しないタスク
 // 並列度を指定をしても、指定したドメインタスクはシリアルに実行する
 

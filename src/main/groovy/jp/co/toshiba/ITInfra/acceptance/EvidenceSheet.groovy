@@ -176,27 +176,36 @@ class EvidenceSheet {
         }
     }
 
-    def readServerCSV(String server_config_csv) throws IOException {
+    def readServerConfigCSV(String server_config_csv) throws IOException {
         log.debug("Read CSV '${server_config_csv}'")
 
         def config = Config.instance.read(config_file)
         def csv_item_map = config['evidence']['csv_item_map']
+        if (!csv_item_map) {
+            def msg = "Not found parameter 'evidence.csv_item_map' in config.groovy"
+            throw new IllegalArgumentException(msg)
+        }
 
         def csv = new File(server_config_csv).getText("MS932")
         def data = new CsvParser().parse(csv, separator: ',', quoteChar: '"')
-        def row_num = 0
+        def row_num = 1
         data.each { row ->
             def server_info = [:]
+            def set_count = 0
             csv_item_map.each { column_name, property ->
                 def column_pos = row.columns.get(column_name)
-                if (column_pos) {
+                if (column_pos != null) {
+                    set_count ++
                     def value = row.values[column_pos]
-                    println "$row_num : $property : $column_name : $value"
                     server_info[property] = value
                 }
             }
+            if (set_count != csv_item_map.size()) {
+                def msg = "CSV header is not appropriate"
+                throw new IllegalArgumentException(msg)
+            }
             if (!server_info) {
-                def msg = "Can't parse '${server_config_csv}:${row_num}' : ${row}"
+                def msg = "Parse error at '${server_config_csv}:${row_num}'"
                 throw new IllegalArgumentException(msg)
             }
             def test_server = new TargetServer(server_info)
@@ -300,12 +309,12 @@ class EvidenceSheet {
                 // Read Excel test server sheet.
                 if (server_config_script) {
                     def ext = server_config_script[server_config_script.lastIndexOf('.')..-1]
-                    if (ext == 'groovy') {
+                    if (ext == '.groovy') {
                         readServerConfigScript(server_config_script)
-                    } else if (ext == 'csv') {
+                    } else if (ext == '.csv') {
                         readServerConfigCSV(server_config_script)
                     } else {
-                        def msg = "-i option need input.groovy or input.csv"
+                        def msg = "Usage :getconfig -i (input.groovy|input.csv)"
                         throw new IllegalArgumentException(msg)
                     }
                 } else {

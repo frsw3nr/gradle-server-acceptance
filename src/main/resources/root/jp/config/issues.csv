@@ -1,0 +1,2 @@
+サーバ名,IPアドレス,Platform,OSアカウントID,vCenterアカウントID,VMエイリアス名,検査ID,CPU数,メモリ量,ESXi名,HDD
+ostrich,192.168.10.1,Linux,Test,Test,ostrich,RuleDB,1,2,192.168.10.100,[Thin:30]
