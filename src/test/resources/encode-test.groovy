@@ -15,8 +15,23 @@ evidence.target='./build/check_sheet_<date>.xlsx'
 
 // 検査結果ログディレクトリ
 
-evidence.staging_dir='./build/log.<date>'
-//evidence.staging_dir='./build/log'
+evidence.staging_dir='./build/log'
+
+// CSV変換マップ
+
+evidence.csv_item_map = [
+    'サーバ名' :            'server_name',
+    'IPアドレス' :          'ip',
+    'Platform' :            'platform',
+    'OSアカウントID' :      'os_account_id',
+    'vCenterアカウントID' : 'remote_account_id',
+    'VMエイリアス名' :      'remote_alias',
+    '検査ID' :              'verify_id',
+    'CPU数' :               'NumCpu',
+    'メモリ量' :            'MemoryGB',
+    'ESXi名' :              'ESXiHost',
+    'HDD' :                 'HDDtype',
+]
 
 // 並列化しないタスク
 
@@ -55,3 +70,4 @@ account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
+

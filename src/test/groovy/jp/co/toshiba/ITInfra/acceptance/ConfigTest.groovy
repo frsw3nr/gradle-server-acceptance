@@ -5,6 +5,7 @@ import javax.crypto.spec.SecretKeySpec
 import java.nio.charset.Charset
 import org.apache.commons.io.FileUtils
 import static groovy.json.JsonOutput.*
+import com.xlson.groovycsv.CsvParser
 
 // gradle --daemon clean test --tests "ConfigTest.Config test read"
 
@@ -77,5 +78,27 @@ class ConfigTest extends Specification {
             'encodekey1234567')
         then:
         config != null
+    }
+
+    def "CSV読み込み"() {
+        when:
+        def config = Config.instance.read('src/test/resources/config_jp.groovy')
+        def csv_item_map = config['evidence']['csv_item_map']
+
+        def csv = new File('src/test/resources/issues.csv').getText("MS932")
+        def data = new CsvParser().parse(csv, separator: ',', quoteChar: '"')
+        def row_num = 0
+        data.each { row ->
+            csv_item_map.each { column_name, property ->
+                def column_pos = row.columns.get(column_name)
+                if (column_pos) {
+                    def value = row.values[column_pos]
+                    println "$row_num : $property : $column_name : $value"
+                }
+            }
+            row_num ++
+        }
+        then:
+        1 == 1
     }
 }

@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils.*
 import groovy.transform.ToString
 import groovy.json.*
 import static groovy.json.JsonOutput.*
+import com.xlson.groovycsv.CsvParser
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -175,6 +176,36 @@ class EvidenceSheet {
         }
     }
 
+    def readServerCSV(String server_config_csv) throws IOException {
+        log.debug("Read CSV '${server_config_csv}'")
+
+        def config = Config.instance.read(config_file)
+        def csv_item_map = config['evidence']['csv_item_map']
+
+        def csv = new File(server_config_csv).getText("MS932")
+        def data = new CsvParser().parse(csv, separator: ',', quoteChar: '"')
+        def row_num = 0
+        data.each { row ->
+            def server_info = [:]
+            csv_item_map.each { column_name, property ->
+                def column_pos = row.columns.get(column_name)
+                if (column_pos) {
+                    def value = row.values[column_pos]
+                    println "$row_num : $property : $column_name : $value"
+                    server_info[property] = value
+                }
+            }
+            if (!server_info) {
+                def msg = "Can't parse '${server_config_csv}:${row_num}' : ${row}"
+                throw new IllegalArgumentException(msg)
+            }
+            def test_server = new TargetServer(server_info)
+            test_platforms[test_server.platform] = 1
+            test_servers.add(test_server)
+            row_num ++
+        }
+    }
+
     def readSheetSpec(String platform, Sheet sheet_spec) throws IOException {
         sheet_spec.with { sheet ->
             (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
@@ -268,7 +299,15 @@ class EvidenceSheet {
             WorkbookFactory.create(ins).with { workbook ->
                 // Read Excel test server sheet.
                 if (server_config_script) {
-                    readServerConfigScript(server_config_script)
+                    def ext = server_config_script[server_config_script.lastIndexOf('.')..-1]
+                    if (ext == 'groovy') {
+                        readServerConfigScript(server_config_script)
+                    } else if (ext == 'csv') {
+                        readServerConfigCSV(server_config_script)
+                    } else {
+                        def msg = "-i option need input.groovy or input.csv"
+                        throw new IllegalArgumentException(msg)
+                    }
                 } else {
                     log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
                     def sheet_server = workbook.getSheet(sheet_name_server)
