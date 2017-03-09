@@ -103,3 +103,8 @@ artifacts {
     archives zipApp
 }
 
+test {
+  beforeTest { descriptor ->
+     logger.lifecycle("Running test: ${descriptor}")
+  }
+}

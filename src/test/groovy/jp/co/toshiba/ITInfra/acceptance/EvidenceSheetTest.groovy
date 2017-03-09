@@ -141,7 +141,7 @@ class EvidenceSheetTest extends Specification{
     def "検査サーバCSV読み込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config_jp.groovy')
-        evidence.readServerCSV('src/test/resources/issues.csv')
+        evidence.readServerConfigCSV('src/test/resources/issues.csv')
 
         then:
         println evidence.test_servers[0].infos

@@ -12,7 +12,7 @@ class TestSchedulerTest extends Specification {
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
             '-r', './src/test/resources/log',
-            '-p', '3',
+            '--parallel', '3',
         ]
 
         when:
@@ -37,7 +37,7 @@ class TestSchedulerTest extends Specification {
             '-c', './src/test/resources/config.groovy',
             '-r', './src/test/resources/log',
             '-s', 'testtestdb',
-            '-p', '3',
+            '--parallel', '3',
         ]
 
         when:
@@ -57,7 +57,7 @@ class TestSchedulerTest extends Specification {
             '-c', './src/test/resources/config.groovy',
             '-r', './src/test/resources/log',
             '-t', 'hostname',
-            '-p', '3',
+            '--parallel', '3',
         ]
 
         when:
@@ -78,7 +78,7 @@ class TestSchedulerTest extends Specification {
             '-r', './src/test/resources/log',
             '-s', 'testtestdb',
             '-t', 'vm',
-            '-p', '3',
+            '--parallel', '3',
         ]
 
         when:

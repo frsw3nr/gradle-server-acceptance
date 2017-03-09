@@ -26,7 +26,7 @@ class TestRunnerTest extends Specification {
             '--verify',
             '-c', './src/test/resources/config.groovy',
             '-r', './src/test/resources/',
-            '-p', '3',
+            '--parallel', '3',
         ]
 
         when:
