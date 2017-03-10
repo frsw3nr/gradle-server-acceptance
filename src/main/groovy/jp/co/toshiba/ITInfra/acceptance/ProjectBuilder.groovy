@@ -43,7 +43,7 @@ class ProjectBuilder {
             new File("${target_path}/.gitkeep").createNewFile()
         }
         // Copy Config file under home
-        ['config.groovy', 'test_servers.groovy'].each {base ->
+        ['config.groovy', 'test_servers.groovy', 'issues.csv'].each {base ->
             FileUtils.copyFile(new File("${home}/config/${base}"),
                                new File("${target_dir}/config/${base}"))
         }

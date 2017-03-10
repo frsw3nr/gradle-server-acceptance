@@ -27,6 +27,7 @@ evidence.csv_item_map = [
     'vCenterアカウントID' : 'remote_account_id',
     'VMエイリアス名' :      'remote_alias',
     '検査ID' :              'verify_id',
+    '比較対象サーバ名' :    'compare_server',
     'CPU数' :               'NumCpu',
     'メモリ量' :            'MemoryGB',
     'ESXi名' :              'ESXiHost',

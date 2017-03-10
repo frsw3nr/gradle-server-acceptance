@@ -293,8 +293,6 @@ class EvidenceSheet {
                 domain_rules['_common'].with {
                     if (compare_server && compare_source) {
                         this.compare_servers[compare_server] = compare_source
-                    } else if (compare_server || compare_source) {
-                        log.error "'compare_server'(${compare_server}) and 'compare_source'(${compare_source}) are mandatory in pairs. Skip."
                     }
                 }
             }
@@ -354,9 +352,16 @@ class EvidenceSheet {
             def verify_id = test_server.infos['verify_id']
             if (verify_id) {
                 def compare_server = this.verify_rules[verify_id]['_common']['compare_server']
-                def compare_source = compare_servers[compare_server]
+                if (test_server.infos.containsKey('compare_server') &&
+                    test_server.infos['compare_server'].size() > 0) {
+                    compare_server = test_server.infos['compare_server']
+                }
+                def compare_source = this.verify_rules[verify_id]['_common']['compare_source']
                 test_server.compare_server = compare_server
                 test_server.compare_source = compare_source
+                if (!compare_servers.containsKey(compare_server)) {
+                    compare_servers[compare_server] = compare_source
+                }
             }
         }
         long elapsed = System.currentTimeMillis() - start
