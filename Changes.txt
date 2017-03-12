@@ -3,10 +3,10 @@ Changes for 0.1.9 (2017-3-6)
 New features:
 * 構成管理データベースとして Redmine 導入
     * 検査エビデンス検索用 Redmine プラグイン(redmine_getconfig)を追加
-    * データベーステーブル名を Rails の表記方法に変更
     * Redmine チケットのエクスポートファイルを検査対象として読み込むオプション追加
       * getconfig -i {issues.csv} オプション
 * ドキュメント整理。スタンドアローンPC構成での利用手順追加
+* 比較対象サーバをシート「検査対象」でも入力できるようにした
 
 Bug fixes:
 * ユニットテスト実行中に System.exit(0) 処理でテストが中断してしまう問題対処
