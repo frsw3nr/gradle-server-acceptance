@@ -46,7 +46,7 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // コマンド採取のタイムアウト
 // Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
 
-test.Linux.timeout   = 30
+test.Linux.timeout   = 300
 test.Windows.timeout = 300
 test.VMHost.timeout  = 300
 
@@ -76,3 +76,8 @@ account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
 // account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
 //                                    ['user':'test2' , 'password':'test2']]
+
+// VMHost 接続情報
+
+account.VMHost.Test.user      = 'test_user'
+account.VMHost.Test.password  = 'P@ssword'

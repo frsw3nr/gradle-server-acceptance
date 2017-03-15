@@ -422,7 +422,7 @@ class WindowsSpecBase extends InfraTestSpec {
     def dns(TestItem test_item) {
         run_script('Get-DnsClientServerAddress|FL') {
             def lines = exec('dns') {
-                new File("${local_dir}/dns")
+                new File("${local_dir}/dns").text
             }
             def adresses = [:]
             lines.eachLine {
@@ -432,22 +432,17 @@ class WindowsSpecBase extends InfraTestSpec {
                 }
             }
             def value = adresses.keySet().toString()
+            println value
             test_item.results(value)
         }
     }
 
     def ntp(TestItem test_item) {
-        run_script('w32tm /query /status') {
+        run_script('(Get-Item "HKLM:System\\CurrentControlSet\\Services\\W32Time\\Parameters").GetValue("NtpServer")') {
             def lines = exec('ntp') {
-                new File("${local_dir}/ntp")
+                new File("${local_dir}/ntp").text
             }
-            def adress = 'NG'
-            lines.eachLine {
-                (it =~ /^(NtpServer|ソース)\s*:\s*(.+?)$/).each {m0, m1, m2->
-                    adress = m2
-                }
-            }
-            test_item.results(adress)
+            test_item.results(lines)
         }
     }
 }

@@ -34,7 +34,8 @@ remiリポジトリの追加します。
 
 ::
 
-   sudo -E yum --enablerepo=epel,remi install -y sudo vim-enhanced syslog httpd httpd-devel php php-devel php-pear php-mysql php-gd php-mbstring php-pecl-imagick mariadb-server wget git java-1.8.0-openjdk-devel java-1.8.0-openjdk tomcat
+   sudo -E yum --enablerepo=epel install -y httpd \
+   httpd-devel wget git java-1.8.0-openjdk-devel java-1.8.0-openjdk tomcat
 
 .. note:: Gitbucket はJava1.8が必要になります。
 
@@ -55,7 +56,7 @@ tomcatフォルダ以下の権限を作成したtomcatユーザに変更しま�
 
 ::
 
-   useradd -s /sbin/nolog tomcat
+   sudo useradd -s /sbin/nolog tomcat
    sudo -E chown -R tomcat:tomcat /usr/share/tomcat
 
 
@@ -73,14 +74,14 @@ releaseから最新版のgitbucket.warをダウンロードして、実行用の
 
 ::
 
-   wget https://github.com/gitbucket/gitbucket/releases/download/4.7.1/gitbucket.war
+   wget https://github.com/gitbucket/gitbucket/releases/download/4.10/gitbucket.war
    sudo cp gitbucket.war /var/lib/tomcat/webapps/
 
 
 Apacheのプロキシ設定
 --------------------
 
-AJPというプロトコルによって、ApacheとTomcatの相互通信を行い、外部への配信はApacheが担当するようにします。
+AJPプロトコルを用いて、ApacheとTomcatの相互通信を行い、外部へのアクセスはApacheが担当するようにします。
 
 TomcatのAJP通信は、ポート8080ではなく8009を用います。
 
@@ -100,7 +101,7 @@ TomcatのAJP通信は、ポート8080ではなく8009を用います。
 
 ::
 
-   sudo service restart httpd
+   sudo /etc/init.d/httpd restart
 
 GitBucketにアクセスしてみます。
 
@@ -110,7 +111,19 @@ GitBucketにアクセスしてみます。
    # ユーザー名/パスワードは、root/root です
 
 
-ログイン後はrootのパスワードを変更し、新規ユーザーを作成しておきます。
+ユーザの作成
+------------
+
+ログイン後はrootのパスワードを変更し、新規ユーザーを作成します。
+
+画面右上のプロファイルアイコンを選択し、メニュー「System Administration」を選択します。
+
+画面右上の「Create User」を選択してユーザを作成します。
+
+* Username
+* Password
+* Full Name
+* Mail Address
 
 リファレンス
 ------------

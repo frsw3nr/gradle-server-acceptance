@@ -8,4 +8,5 @@
    01_Redmine
    02_RedmineCMDBSetup
    03_GitBucketSetup
-   04_JobShedulerSetup
+   04_Jenkins
+   05_JenkinsJobSchedulerSetup
