@@ -8,7 +8,7 @@ Redmine を構成管理データベースとしてカスタマイズします。
 --------
 
 * Ruby は rbenv で、/opt/ruby の下に配置
-* Redmine は ~/redmine に配置
+* Redmine は 管理者ユーザの $HOME下の ~/redmine に配置
 * Passenger で /sbin/httpd と連動。URL は http://サーバ/redmine
 
 システム要件
@@ -17,6 +17,7 @@ Redmine を構成管理データベースとしてカスタマイズします。
 以下の設定をしたCentOS環境を想定しています
 
 * CentOSは 6.x を使用
+* CPU 1 Core以上 / Memory 4 GB以上 / Disk 100 GB以上のHWリソースが必要です
 * SELinuxは無効化されていること
 * イントラネット環境の場合、プロキシーの設定がされていること
 
@@ -45,18 +46,17 @@ Ruby インストール
 
 ::
 
-   sudo -E yum -y install gcc make openssl-devel libffi-devel readline-devel git
+   sudo -E yum -y install gcc make openssl-devel libffi-devel readline-devel git ImageMagick-devel
 
 公式gitからclone
 
 ::
 
-   sudo cd /opt/
-   sudo chmod a+wrx /opt/
    cd /opt/
+   sudo chmod a+wrx .
    git clone git://github.com/sstephenson/rbenv.git
-   mkdir /opt/rbenv/plugins
-   cd /opt/rbenv/plugins
+   mkdir ./rbenv/plugins
+   cd ./rbenv/plugins
    git clone git://github.com/sstephenson/ruby-build.git
 
 /etc/profile に追記
@@ -65,7 +65,7 @@ Ruby インストール
 
    sudo vi /etc/profile
 
-下記３行を追記
+最終行に下記３行を追記
 
 ::
 
@@ -105,6 +105,8 @@ gemパッケージインストール
 
    sudo chown -R psadmin. /opt/rbenv/
 
+.. note:: psadmin の箇所はログインした管理者ユーザを指定してください
+
 gemを最新版に更新
 
 ::
@@ -123,12 +125,6 @@ passenger関連gemインストール
 ::
 
    gem install daemon_controller rack passenger --no-rdoc --no-ri
-
-インストールされたgemパッケージ確認
-
-::
-
-   gem list
 
 MySQL セットアップ
 ------------------
@@ -176,14 +172,15 @@ Redmine インストール
 
 ::
 
-   cd ~/
+   cd /tmp
    wget http://www.redmine.org/releases/redmine-3.2.5.tar.gz
 
 配置します
 
 ::
 
-   tar zxvf redmine-3.2.5.tar.gz
+   cd $HOME
+   tar zxvf /tmp/redmine-3.2.5.tar.gz
    ln -s redmine-3.2.5 redmine
 
 Redmine ビルド
@@ -220,11 +217,10 @@ productionとdevelpmentセクションの username, password を編集します�
 bundleインストール（インターネット上の最新リソースを参照）
 
 "vendor/bundle"にgemパッケージ等をインストールする
-対象はproduction環境のみ、rmagickも除く
 
 ::
 
-   bundle install --without development test rmagick --path vendor/bundle
+   bundle install --path vendor/bundle
 
 Redmineのビルド
 
@@ -297,7 +293,7 @@ passenger用conf設定
 
 シンボリックリンク作成
 
-::
+::00
 
    sudo ln -s ~/redmine/public /var/www/html/redmine
 
@@ -307,11 +303,11 @@ passenger用conf設定
 
    sudo chown -R apache:apache /var/www/html/redmine
 
-ホームディレクトリの参照権限追加
+ホームディレクトリの参照権限、実行権限の追加
 
 ::
 
-   sudo chmod a+r $HOME
+   sudo chmod a+rx $HOME
 
 httpdサービス自動起動有効化
 

@@ -322,47 +322,31 @@ vCenter サーバ もしくは、ESXi ホストに接続して、ESXi ホスト�
 
    * server_name : ESXi ホスト名
 
-      "ホスト名" を入力
+      "ホスト名" を入力。必須
 
-   * ip : 空白
+   * ip : ESXi ホスト IPアドレス
 
-      空白(未入力)
+      "IPアドレス" を入力。必須
 
    * platform : "VMHost"
 
       "VMHost" を入力
 
-   * os_account_id : 空白
+   * os_account_id : "Test"
 
-      空白(未入力)
-
-   * remote_account_id : "Test"
-
-      "Test" を入力。
-      vCenter サーバもしくは、 ESXi ホストのアカウントID。config.groovy に記述
-
-   * remote_alias
-
-      vCenter 側で管理しているESXi ホストのエイリアス名を入力。
-      vSphere Client 管理コンソールからメニュー、ホーム、インベントリを選択し、
-      画面左側のツリーリストのVM名を入力
-
-.. note::
-
-   直接　ESXi ホストに接続はせずに、vCenter 経由の間接的な採取となるため、
-   ip, os_account_id は未入力にします。
+      "Test" を入力
+      ESXi ホストのアカウントID。config.groovy に記述
 
 
 設定ファイル「config\\config.groovy」 を編集します。
-以下の行に vCenter サーバ もしくは ESXi ホストのアカウント情報パラメータを入力します。
+以下の行に ESXi ホストのアカウント情報パラメータを入力します。
 
 ::
 
-   // vCenter接続情報
+   // VMHost 接続情報
 
-   account.Remote.Test.server   = '192.168.10.100'
-   account.Remote.Test.user     = 'vCenter 管理者ユーザ'
-   account.Remote.Test.password = 'XXXXXXXX'
+   account.VMHost.Test.user      = 'test_user'
+   account.VMHost.Test.password  = 'P@ssword'
 
 PowerShell コンソールを開いて、プロジェクトディレクトリに移動し、getconfig コマンドを実行します。
 

@@ -12,6 +12,12 @@ class VMHostSpecBase extends vCenterSpecBase {
 
     def init() {
         super.init()
+
+        vcenter_ip       = test_server.ip
+        def os_account   = test_server.os_account
+        vcenter_user     = os_account['user']
+        vcenter_password = os_account['password']
+        vm               = test_server.ip
     }
 
     def finish() {

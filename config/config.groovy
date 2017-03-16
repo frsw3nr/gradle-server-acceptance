@@ -15,7 +15,7 @@ evidence.target='./build/check_sheet_<date>.xlsx'
 
 // Test result log directory.
 
-evidence.staging_dir='./build/log.<date>'
+evidence.staging_dir='./build/log'
 
 // Tasks not parallelized
 // Even if the degree of parallelism is specified, the specified domain task is executed serially
@@ -29,7 +29,7 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // Command timeout
 // In case of Windows,vCenter, it is a whole timeout value of PowerShell script.
 
-test.Linux.timeout   = 30
+test.Linux.timeout   = 300
 test.Windows.timeout = 300
 test.VMHost.timeout  = 300
 
@@ -59,3 +59,8 @@ account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
 account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
                                    ['user':'test2' , 'password':'test2']]
+
+// VMHost session
+
+account.VMHost.Test.user      = 'test_user'
+account.VMHost.Test.password  = 'P@ssword'
