@@ -42,7 +42,7 @@ node {
   stage 'アーカイブ'
   // set-item env:JAVA_OPTS -value '-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
   System.getProperties().put("JAVA_OPTS", "-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8");
-  bat 'set-item env:JAVA_OPTS -value "-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8"'
+  bat 'set JAVA_OPTS="-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8"'
   bat 'gradle shadowJar'
   bat 'gradle zipApp'
 
