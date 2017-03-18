@@ -29,7 +29,7 @@ def getConfigFiles() {
     }
   }
   if (config_files.size() == 0) {
-     error "config ファイルが取得できません : ${branch_output}"
+     error "config ファイルが取得できません"
   }
   return config_files
 }
