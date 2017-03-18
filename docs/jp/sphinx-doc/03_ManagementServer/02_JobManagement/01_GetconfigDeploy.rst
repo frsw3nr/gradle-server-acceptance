@@ -1,16 +1,8 @@
-Jenkinsジョブスケジューラ設定
-=============================
-
-GitbucketとJenkinsを用いて以下のジョブスケジュール設定を行います。
-
-* Jenkinsサーバにgetconfigモジュールをデプロイする
-* Jenkinsサーバにサーバ検査ジョブを登録する
-
 getconfig サーバ構成情報収集モジュールのデプロイ
-------------------------------------------------
+================================================
 
 Gitbucketのgetconfigリポジトリ登録
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 Gitbucketにgetconfigソースを登録します。
 
@@ -33,7 +25,7 @@ Gitbucket "http://{Gitbucketサーバ}/gitbucket" に接続し、登録した管
    git push -u origin master
 
 サーバ構成情報収集モジュールソースのGit登録
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------
 
 GitBucket にサーバ構成情報収集ツール getconfig のソースを登録します。
 
@@ -73,7 +65,7 @@ GitBucketの管理ユーザ、パスワードを入力して"OK"を選択しま�
 
 
 Jenkinsジョブ登録
-^^^^^^^^^^^^^^^^^
+-----------------
 
 Jenkinsにパイプラインスクリプト登録します。
 Jenkins 管理コンソール "http://{Jenkinsサーバ}:8080/"に接続し、管理ユーザでログインします。
@@ -115,7 +107,7 @@ Jenkins 管理コンソール "http://{Jenkinsサーバ}:8080/"に接続し、�
 「保存」を選択してジョブ登録を完了します。
 
 動作確認
-^^^^^^^^
+--------
 
 以下の手順でジョブを実行します。
 
@@ -149,52 +141,3 @@ Jenkins 管理コンソール "http://{Jenkinsサーバ}:8080/"に接続し、�
    method java.util.Dictionary put java.lang.Object java.lang.Object
    staticMethod java.lang.System getProperties
    staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods stripMargin java.lang.String
-
-サーバ構成収集ジョブ作成
-------------------------
-
-
-   検査ジョブの作成
-      getconfigプロジェクト作成
-         単体動作確認
-      Gitbucketにプロジェクトを登録
-      Jenkinsにパイプラインスクリプト登録
-      動作確認
-
-Jenkinsの管理
-
-In-process Script Approval
-
-::
-
-   method hudson.model.Job getBuildByNumber int
-   method java.io.File getName
-   method java.lang.String join java.lang.CharSequence java.lang.CharSequence[]
-   method java.util.regex.Matcher matches
-   method jenkins.model.Jenkins getItemByFullName java.lang.String
-   method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment
-   new java.io.File java.lang.String
-   staticMethod jenkins.model.Jenkins getInstance
-   staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure
-   staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
-
-新規ジョブ作成
-
-* Pipeline名
-   * 検査シナリオ実行
-* Definition
-   * Pipeline script
-   * SCM
-      * Git
-   * Repository URL
-      * http://root:root@192.168.10.1:8090/git/root/test1-job.git
-   * Script Path
-   * Jenkinsfile.groovy
-
-リファレンス
-------------
-
-* https://ics.media/entry/2410/2
-* https://wiki.jenkins-ci.org/display/JA/Installing+Jenkins
-* https://wiki.jenkins-ci.org/pages/viewpage.action?pageId=36111078
-
