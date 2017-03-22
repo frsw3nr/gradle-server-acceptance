@@ -79,6 +79,10 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
         from fileTree(dir: "docs/${language}").include('Readme.md', 'Usage.md')
         from fileTree(dir : '.').include('getconfig*', 'LICENSE.txt', 'Changes.txt')
     }
+    // def check_sheet = (language == 'jp') ? 'サーバチェックシート.xlsx' : 'check_sheet.xlsx'
+    // into("./${target}/${check_sheet}") {
+    //     from file(dir: "src/main/resources/root/${language}/check_sheet.xlsx")
+    // }
     into("./${target}/image") {
         from fileTree(dir: "image/")
     }

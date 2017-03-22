@@ -69,6 +69,8 @@ node {
   def comment = "Jenkins job=${current_env['JOB_NAME']}[${current_env['BUILD_ID']}]"
   println current_env
   bat 'git add .'
+  bat 'git config --global user.email "jenkins@example.com"'
+  bat 'git config --global user.name "Jenkins"'
   bat "git commit -a -m \"${comment}\""
   // bat 'git push --set-upstream origin master'
   bat 'git push'

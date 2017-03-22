@@ -1,4 +1,4 @@
-
+@NonCPS
 def getBranches() {
   def branch_output = bat script : 'git branch -a --sort=-committerdate',
                       returnStdout : true
@@ -13,7 +13,7 @@ def getBranches() {
     }
   }
   if (branches.size() == 0) {
-     error "繝悶Λ繝ｳ繝√′蜿門ｾ励〒縺阪∪縺帙ｓ : ${branch_output}"
+     error "ブランチが取得できません : ${branch_output}"
   }
   return branches
 }
@@ -23,13 +23,13 @@ def getConfigFiles() {
   def workspace = pwd()
   def config_files = []
   new File("${workspace}/config").eachFile { config_file ->
-    def matcher = config_file.name =~ '(config.*\\.groovy|config.*\\.groovy-encrypted)'
+    def matcher = config_file.name =~ '^(config.*\\.groovy|config.*\\.groovy-encrypted)$'
     if (matcher) {
       config_files.add(matcher[0][0])
     }
   }
   if (config_files.size() == 0) {
-     error "config 繝輔ぃ繧､繝ｫ縺悟叙蠕励〒縺阪∪縺帙ｓ : ${branch_output}"
+     error "config ファイルが取得できません"
   }
   return config_files
 }

@@ -79,5 +79,5 @@ account.Windows.Test.password = 'P@ssword'
 
 // VMHost session
 
-account.VMHost.Test.user      = 'test_user'
+account.VMHost.Test.user      = 'root'
 account.VMHost.Test.password  = 'P@ssword'
