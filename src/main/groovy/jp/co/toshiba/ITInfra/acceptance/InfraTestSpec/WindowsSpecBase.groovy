@@ -445,4 +445,87 @@ class WindowsSpecBase extends InfraTestSpec {
             test_item.results(lines)
         }
     }
+
+    def packages(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject Win32_Product | `
+            |    Select-Object Name,Vendor,Version | `
+            |    Format-List
+            |'''.stripMargin()
+        run_script(command) {
+            def lines = exec('packages') {
+                new File("${local_dir}/packages")
+            }
+
+            def package_info = [:].withDefault{0}
+            def csv = []
+            def packagename
+            def vendor
+            def version
+            def package_count = 0
+            lines.eachLine {
+                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+                    packagename = m1
+                }
+                (it =~ /Vendor\s+:\s(.+)/).each {m0, m1->
+                    vendor = m1
+                }
+                (it =~ /Version\s+:\s(.+)/).each {m0, m1->
+                    version = m1
+                    package_info['packages.' + packagename] = m1
+                    package_count ++
+                    csv << [packagename, vendor, version]
+                }
+            }
+            def headers = ['name', 'vendor', 'version']
+            test_item.devices(csv, headers)
+            package_info['packages'] = package_count.toString()
+            test_item.results(package_info)
+        }
+    }
+
+    def packages_in_registory(TestItem test_item) {
+        def command = '''\
+            |Get-ChildItem -Path( `
+            |  'HKLM:SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall', `
+            |  'HKCU:SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall') | `
+            |  % { Get-ItemProperty $_.PsPath | Select-Object DisplayName, Publisher, DisplayVersion } | `
+            |  Format-List
+            |'''.stripMargin()
+        run_script(command) {
+            def lines = exec('packages_in_registory') {
+                new File("${local_dir}/packages_in_registory")
+            }
+
+// DisplayName    : Kinza
+// DisplayVersion : 3.6.0
+// Publisher      : Dayz Inc.
+
+            def packages_in_registory = [:].withDefault{0}
+            def csv = []
+            def packagename
+            def vendor
+            def version
+            def package_count = 0
+            lines.eachLine {
+                (it =~ /DisplayName\s+:\s(.+)/).each {m0, m1->
+                    packagename = m1
+                }
+                (it =~ /Publisher\s+:\s(.+)/).each {m0, m1->
+                    vendor = m1
+                }
+                (it =~ /DisplayVersion\s+:\s(.+)/).each {m0, m1->
+                    version = m1
+                    packages_in_registory['packages_in_registory.' + packagename] = m1
+                    package_count ++
+                    csv << [packagename, vendor, version]
+                }
+            }
+            def headers = ['name', 'vendor', 'version']
+            test_item.devices(csv, headers)
+            packages_in_registory['packages_in_registory'] = package_count.toString()
+            test_item.results(packages_in_registory)
+        }
+    }
+
 }

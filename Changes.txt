@@ -21,7 +21,7 @@ New features:
 
 Bug fixes:
 * ユニットテスト実行中に System.exit(0) 処理でテストが中断してしまう問題対処
-* Windows ntpサーバ検査で、検査対象サーバではなく検査用PCの値を採ってしまう問題対象
+* Windows ntpサーバ検査で、検査対象サーバではなく検査用PCの値を採ってしまう問題対処
 * VMWare ESXi ホスト検査でvCenter接続から ESXi ホストに接続するように修正
 * Windows 環境のデプロイで検査シートファイル名が文字化けする問題対処
 

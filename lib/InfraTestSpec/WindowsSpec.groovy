@@ -20,6 +20,47 @@ class WindowsSpec extends WindowsSpecBase {
         super.finish()
     }
 
+    def packages(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject Win32_Product | `
+            |    Select-Object Name,Vendor,Version | `
+            |    Format-List
+            |'''.stripMargin()
+        run_script(command) {
+            def lines = exec('packages') {
+                new File("${local_dir}/packages")
+            }
+
+    // Name    : McAfee Agent
+    // Vendor  : McAfee, Inc.
+    // Version : 4.8.2003
+    // Caption : McAfee Agent
+            def package_info = [:].withDefault{0}
+            def csv = []
+            def packagename
+            def vendor
+            def version
+            def package_count = 0
+            lines.eachLine {
+                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+                    packagename = m1
+                }
+                (it =~ /Vendor\s+:\s(.+)/).each {m0, m1->
+                    vendor = m1
+                }
+                (it =~ /Version\s+:\s(.+)/).each {m0, m1->
+                    version = m1
+                    package_info['packages.' + packagename] = m1
+                    package_count ++
+                    csv << [packagename, vendor, version]
+                }
+            }
+            def headers = ['name', 'vendor', 'version']
+            test_item.devices(csv, headers)
+            package_info['packages'] = package_count.toString()
+            test_item.results(package_info)
+        }
+    }
     // def cpu(TestItem test_item) {
     //     run_script('Get-WmiObject Win32_Processor') {
     //         def lines = exec('cpu') {
