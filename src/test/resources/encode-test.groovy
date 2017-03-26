@@ -71,3 +71,7 @@ account.Linux.Test.work_dir  = '/tmp/gradle_test'
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
 
+// VMHost 接続情報
+
+account.VMHost.Test.user     = 'root'
+account.VMHost.Test.password = 'P@ssword'

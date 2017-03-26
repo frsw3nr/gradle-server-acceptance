@@ -159,9 +159,13 @@ class EvidenceSheet {
         (column_server_begin..max_server_columns).each {
             def server_id = server_ids[it]
             def test_server = new TargetServer(server_info[server_id])
-            test_platforms[test_server.platform] = 1
-            test_servers.add(test_server)
-            test_servers_hash[server_id] = test_server
+            if (sheet_name_specs.containsKey(test_server.platform)) {
+                test_platforms[test_server.platform] = 1
+                test_servers.add(test_server)
+                test_servers_hash[server_id] = test_server
+            } else {
+                log.warn "Malformed input : ${test_server.platform}"
+            }
         }
     }
 

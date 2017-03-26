@@ -456,6 +456,27 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(filesystems)
     }
 
+    def lvm(session, test_item) {
+        def lines = exec('lvm') {
+            run_ssh_command(session, 'mount', 'lvm')
+        }
+
+        // /dev/mapper/vg_ostrich-lv_root on / type ext4 (rw)
+        def csv = []
+        def lvms = [:]
+        lines.eachLine {
+            (it =~  /^\/dev\/mapper\/(.+?)-(.+?) on (.+?) /).each {
+                m0, vg_name, lv_name, mount ->
+                def columns = [vg_name, lv_name, mount]
+                lvms[lv_name] = mount
+                csv << columns
+            }
+        }
+        def headers = ['vg_name', 'lv_name', 'mountpoint']
+        test_item.devices(csv, headers)
+        test_item.results(lvms.toString())
+    }
+
     def filesystem_df_ip(session, test_item) {
         def lines = exec('filesystem_df_ip') {
             run_ssh_command(session, 'df -iP', 'filesystem_df_ip')
@@ -811,6 +832,27 @@ class LinuxSpecBase extends InfraTestSpec {
             }
             (it =~ /-x/).each {m0->
                 result = 'Enabled'
+            }
+        }
+        test_item.results(result)
+    }
+
+    def snmp_trap(session, test_item) {
+        def lines = exec('snmp_trap') {
+            def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
+            try {
+                def result = session.executeSudo command, pty: true, timeoutSec: timeout
+                log.info result
+                session.get from: "${work_dir}/snmp_trap", into: local_dir
+                new File("${local_dir}/snmp_trap").text
+            } catch (Exception e) {
+                log.info "[sudo] Error ${command}" + e
+            }
+        }
+        def result = 'NotFound'
+        lines.eachLine {
+            (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
+                result = trap_info
             }
         }
         test_item.results(result)
