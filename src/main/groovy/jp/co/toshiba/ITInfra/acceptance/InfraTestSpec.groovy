@@ -171,12 +171,14 @@ class InfraTestSpec {
 
     def init() {
         log.debug("Initialize infra test spec ${title}")
+
         if (dry_run) {
             log.debug("DryRun : 'Y'")
+        } else {
+            def target_log_dir = new File(local_dir)
+            target_log_dir.deleteDir()
+            target_log_dir.mkdirs()
         }
-        def target_log_dir = new File(local_dir)
-        target_log_dir.deleteDir()
-        target_log_dir.mkdirs()
     }
 
     def finish() {

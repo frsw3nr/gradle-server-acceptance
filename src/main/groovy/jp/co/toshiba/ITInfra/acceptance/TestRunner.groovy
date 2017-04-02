@@ -86,23 +86,7 @@ class TestRunner {
             new ProjectBuilder(project_home).xport(xport_file)
             System.exit(0)
         }
-        evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
-                                               project_home : project_home,
-                                               db_config_file : db_config_file)
 
-        if (options.u) {
-            if (options.u == 'local') {
-                evidence_manager.exportNodeDirectory()
-            } else if (options.u == 'db') {
-                evidence_manager.exportCMDB()
-            } else if (options.u == 'db-all') {
-                evidence_manager.exportCMDBAll()
-            } else {
-                cli.usage()
-                throw new IllegalArgumentException('--update option must be local or db or db-all')
-            }
-            System.exit(0)
-        }
         def keyword = options.k?:null
         if (options.encode) {
             Config.instance.encrypt(options.encode, keyword)
@@ -139,6 +123,28 @@ class TestRunner {
         }
 
         def config = Config.instance.read(config_file, keyword)
+        test_resource = (options.r) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
+        config['test']['dry_run_staging_dir'] = test_resource
+        evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
+                                               project_home : project_home,
+                                               db_config_file : db_config_file,
+                                               test_resource: test_resource)
+
+        if (options.u) {
+            if (options.u == 'local') {
+                evidence_manager.exportNodeDirectory()
+            } else if (options.u == 'db') {
+                evidence_manager.exportCMDB()
+            } else if (options.u == 'db-all') {
+                evidence_manager.exportCMDBAll()
+            } else {
+                cli.usage()
+                throw new IllegalArgumentException('--update option must be local or db or db-all')
+            }
+            System.exit(0)
+        }
+
+
         sheet_file = config['evidence']['source'] ?: './check_sheet.xlsx'
         if (options.excel) {
             sheet_file = options.excel
@@ -155,8 +161,6 @@ class TestRunner {
             }
         }
 
-        test_resource = (options.r) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
-        config['test']['dry_run_staging_dir'] = test_resource
         log.info "Parse Arguments : " + args.toString()
         log.info "\thome          : " + project_home
         log.info "\ttest_resource : " + test_resource

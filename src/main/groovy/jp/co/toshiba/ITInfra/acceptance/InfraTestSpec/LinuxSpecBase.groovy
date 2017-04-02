@@ -51,7 +51,7 @@ class LinuxSpecBase extends InfraTestSpec {
         ssh.run {
             session(ssh.remotes.ssh_host) {
                 try {
-                    execute "mkdir -vp ${work_dir}"
+                    execute "mkdir -p ${work_dir}"
                 } catch (Exception e) {
                     log.error "[SSH Test] Failed to create '$work_dir' in ${this.server_name}, skip.\n" + e
                     return

@@ -20,6 +20,7 @@ class EvidenceManager {
     String last_run_config
     String db_config
     String node_dir
+    String test_resource
 
     EvidenceManager(Map params) {
         assert params.project_home
@@ -30,6 +31,7 @@ class EvidenceManager {
         this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
         this.db_config  = params.db_config ?: "${params.getconfig_home}/config/cmdb.groovy"
         this.node_dir   = params.node_dir ?: this.project_home + '/node'
+        this.test_resource = params.test_resource ?: './src/test/resources/log'
     }
 
     def getNodeDirSource() throws IOException {
@@ -58,6 +60,8 @@ class EvidenceManager {
                 }
             }
         }
+        log.info "Archive log from './build/log' to '$test_resource'"
+        FileUtils.copyDirectory(new File('./build/log'), new File(test_resource))
     }
 
     def exportNodeDirectory() throws IOException {
@@ -65,6 +69,7 @@ class EvidenceManager {
         def last_run = new JsonSlurper().parseText(last_run_json)
         def node_path = new File("./node").getAbsolutePath()
         assert(last_run.node_dir)
+println "LAST_RUN_NODE_DIR*$last_run.node_dir"
         FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
         try {
             archiveEvidence(last_run.evidence, last_run.target)
