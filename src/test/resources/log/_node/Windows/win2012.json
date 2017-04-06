@@ -1,0 +1,82 @@
+[
+    {
+        "test_id": "model_name",
+        "domain": "Windows",
+        "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz"
+    },
+    {
+        "test_id": "mhz",
+        "domain": "Windows",
+        "value": "3193"
+    },
+    {
+        "test_id": "cpu_total",
+        "domain": "Windows",
+        "value": "2"
+    },
+    {
+        "test_id": "total_virtual",
+        "domain": "Windows",
+        "value": "2489908"
+    },
+    {
+        "test_id": "free_physical",
+        "domain": "Windows",
+        "value": "1494480"
+    },
+    {
+        "test_id": "Domain",
+        "domain": "Windows",
+        "value": "WORKGROUP"
+    },
+    {
+        "test_id": "Manufacturer",
+        "domain": "Windows",
+        "value": "VMware, Inc."
+    },
+    {
+        "test_id": "Model",
+        "domain": "Windows",
+        "value": "VMware Virtual Platform"
+    },
+    {
+        "test_id": "Name",
+        "domain": "Windows",
+        "value": "WIN2012"
+    },
+    {
+        "test_id": "driver",
+        "domain": "Windows",
+        "value": "101"
+    },
+    {
+        "test_id": "filesystem",
+        "domain": "Windows",
+        "value": "1"
+    },
+    {
+        "test_id": "fips",
+        "domain": "Windows",
+        "value": "Disabled"
+    },
+    {
+        "test_id": "network",
+        "domain": "Windows",
+        "value": "[null]"
+    },
+    {
+        "test_id": "firewall",
+        "domain": "Windows",
+        "value": "37"
+    },
+    {
+        "test_id": "dns",
+        "domain": "Windows",
+        "value": "[192.168.0.254, fec0:0:0:ffff::1, fec0:0:0:ffff::2, fec0:0:0:ffff::3]"
+    },
+    {
+        "test_id": "storage_timeout",
+        "domain": "Windows",
+        "value": "60"
+    }
+]

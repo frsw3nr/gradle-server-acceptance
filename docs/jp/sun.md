@@ -115,6 +115,11 @@ memory
 Memory size: 3072 Megabytes
 ```
 
+```
+swap -s
+total: 10492k bytes allocated + 7840k reserved = 18332k used, 21568k available
+```
+
 network
 -------
 
