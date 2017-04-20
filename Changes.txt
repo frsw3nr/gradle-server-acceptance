@@ -1,3 +1,16 @@
+Changes for 0.1.11 (2017-5-9)
+--------------------------------------------------------------------------------
+New features:
+* Linux 検査シナリオの見直し
+    - [ ] cron設定
+    - [ ] リソース制限設定(/etc/security/limits.conf)
+    - [ ] yumリポジトリの一覧(yum repolist all)
+* Windows 検査シナリオの見直し
+    - [ ] タスクスケジューラ一覧(Get-ScheduledTask)
+    - [ ] ホスト一覧(C:\Windows\System32\drivers\etc\hosts)
+    - [ ] セキュリティポリシー(net accounts)
+    - [ ] 適用パッチ(wmic qfeコマンド)
+
 Changes for 0.1.10 (2017-4-5)
 --------------------------------------------------------------------------------
 New features:
@@ -7,7 +20,7 @@ New features:
 * Linux 検査シナリオの見直し
     - [X] LVM 設定
     - [X] SNMPトラップ設定(注:rootまたは、 sudo 権限があるユーザでの実行が必要)
-    - [ ] ストレージRAID構成
+    - [X] ストレージRAID構成(HPサーバのみ、iLO4から収集)
 * Windows 検査シナリオの見直し
     - [X] パッケージ情報
 * Linux 収集でタイムアウト規定値(秒)を 30 から 300に変更
