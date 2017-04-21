@@ -79,6 +79,11 @@ class ProjectBuilder {
         def project_name  = new File(home).getName()
         def document_path = "${target_path}/docs/${project_name}"
         def document_dir  = new File(document_path)
+        def project_suffix = project_name
+        (project_name =~ /^(.+)-(.+?)$/).each { m0, m1, m2 ->
+            project_suffix = m2
+        }
+        println "Export project : $project_name, suffix : $project_suffix"
         document_dir.mkdirs()
         ['Changes.txt', 'Readme.md'].each { file ->
             def source = new File("${home}/${file}")
@@ -87,30 +92,30 @@ class ProjectBuilder {
             }
         }
 
-        // Copy '{home}/config/config*.groovy'
-        def config_path = "${target_path}/config"
-        def config_dir  = new File(config_path)
-        config_dir.mkdirs()
-        new File("${home}/config").eachFileMatch(~/config.*.groovy/) { file ->
-            def file_name = file.getName()
-            FileUtils.copyFile(file, new File("${config_path}/${file_name}"))
-        }
-
-        // Copy all files under the directory; 'lib/InfraTestSpec/*', 'script/*'
-        new File("${target_path}/lib").mkdirs()
-        ['lib/InfraTestSpec', 'script'].each { base ->
+        // Copy all files under the directory; 'config/', lib/*/'
+        ['config', 'lib/InfraTestSpec', 'lib/script', 'lib/template'].each { base ->
             def source = new File("${home}/${base}")
             if (source.exists()) {
-                FileUtils.copyDirectory(source, new File("${target_path}/${base}"))
+                def target = "${target_path}/${base}"
+                new File(target).mkdirs()
+                source.eachFile { file ->
+                    def file_name = file.getName()
+                    (file_name =~ /(?i)${project_suffix}/).each {m0 ->
+                        println "Copy ${base}/${file_name}"
+                        FileUtils.copyFile(file, new File("${target}/${file_name}"))
+                    }
+                }
             }
         }
         // Copy '{home}/*.xlsx'
         new File(home).eachFileMatch(~/.*.xlsx/) { file ->
             def file_name = file.getName()
+            println "Copy ${file_name}"
             FileUtils.copyFile(file, new File("${target_path}/${file_name}"))
         }
 
         // Archive working directory.
+        println "Archive ${xport_file}"
         new AntBuilder().zip(destfile: xport_file, basedir: target_path)
     }
 }
