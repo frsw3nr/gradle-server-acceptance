@@ -456,6 +456,7 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(filesystems)
     }
 
+
     def lvm(session, test_item) {
         def lines = exec('lvm') {
             run_ssh_command(session, 'mount', 'lvm')
@@ -616,6 +617,33 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.devices(csv, headers)
         users['user'] = user_count
         test_item.results(users)
+    }
+
+    def crontab(session, test_item) {
+        def csv  = []
+        def cron_number = [:].withDefault{0}
+
+        def lines = exec('crontab') {
+            run_ssh_command(session, 'crontab -l', 'crontab')
+        }
+        lines.eachLine {
+            (it =~ /^\s*\d/).each { m0 ->
+                csv << ['user', it]
+                cron_number['user'] ++
+            }
+        }
+        def lines2 = exec('crontab2') {
+            run_ssh_sudo(session, 'crontab -l', 'crontab2')
+        }
+        lines2.eachLine {
+            (it =~ /^\s*\d/).each { m0 ->
+                csv << ['root', it]
+                cron_number['root'] ++
+            }
+        }
+        def headers = ['account', 'crontab']
+        test_item.devices(csv, headers)
+        test_item.results(cron_number.toString())
     }
 
     def service(session, test_item) {

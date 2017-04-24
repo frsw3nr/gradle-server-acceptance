@@ -310,6 +310,31 @@ class LinuxSpec extends LinuxSpecBase {
     //     test_item.results(net_route.toString())
     // }
 
+    // def net_bond(session, test_item) {
+    //     def lines = exec('net_bond') {
+    //         def command = """\
+    //         |cd /etc/sysconfig/network-scripts/
+    //         |cat *-bond* 2>/dev/null
+    //         |if [ \$? != 0 ]; then
+    //         |   echo 'Not found'
+    //         |fi
+    //         """.stripMargin()
+    //         run_ssh_command(session, command, 'net_bond')
+    //     }
+    //     def results = [:].withDefault{[]}
+    //     lines.eachLine {
+    //         // DEVICE=bond0
+    //         (it =~ /^DEVICE=(.+)$/).each {m0,m1->
+    //             results['net_bond'] << m1
+    //         }
+    //         // BONDING_OPTS="mode=1 miimon=100 updelay=100"
+    //         (it =~ /^BONDING_OPTS="(.+)"$/).each {m0,m1->
+    //             results['net_bond_opts'] << m1
+    //         }
+    //     }
+    //     test_item.results(results)
+    // }
+
     // def block_device(session, test_item) {
     //     def lines = exec('block_device') {
     //         def command = """\
@@ -387,11 +412,46 @@ class LinuxSpec extends LinuxSpecBase {
     //     test_item.results(filesystems)
     // }
 
+    // def lvm(session, test_item) {
+    //     def lines = exec('lvm') {
+    //         run_ssh_command(session, 'mount', 'lvm')
+    //     }
+
+    //     // /dev/mapper/vg_ostrich-lv_root on / type ext4 (rw)
+    //     def csv = []
+    //     def lvms = [:]
+    //     lines.eachLine {
+    //         (it =~  /^\/dev\/mapper\/(.+?)-(.+?) on (.+?) /).each {
+    //             m0, vg_name, lv_name, mount ->
+    //             def columns = [vg_name, lv_name, mount]
+    //             lvms[lv_name] = mount
+    //             csv << columns
+    //         }
+    //     }
+    //     def headers = ['vg_name', 'lv_name', 'mountpoint']
+    //     test_item.devices(csv, headers)
+    //     test_item.results(lvms.toString())
+    // }
+
     // def filesystem_df_ip(session, test_item) {
     //     def lines = exec('filesystem_df_ip') {
     //         run_ssh_command(session, 'df -iP', 'filesystem_df_ip')
     //     }
     //     test_item.results(lines)
+    // }
+
+    // def fstab(session, test_item) {
+    //     def lines = exec('fstab') {
+    //         run_ssh_command(session, 'cat /etc/fstab', 'fstab')
+    //     }
+    //     def results = [:]
+    //     lines.eachLine {
+    //         // /dev/mapper/vg_paas-lv_root /  ext4  defaults        1 1
+    //         (it =~ /^(\/.+?)\s+(.+?)\s+(.+?)\s+defaults\s/).each {m0,m1,m2,m3->
+    //             results[m2] = m1
+    //         }
+    //     }
+    //     test_item.results((results.size() == 0) ? 'NotFound' : results.toString())
     // }
 
     // def fips(session, test_item) {
@@ -455,6 +515,29 @@ class LinuxSpec extends LinuxSpecBase {
     //     test_item.results(package_info)
     // }
 
+    // def yum(session, test_item) {
+    //     def lines = exec('yum') {
+    //         def command = "egrep -e '\\[|enabled' /etc/yum.repos.d/*.repo"
+    //         run_ssh_command(session, command, 'yum')
+    //     }
+    //     def yum = [:].withDefault{0}
+    //     def repository
+    //     def csv = []
+    //     lines.eachLine {
+    //         (it =~/\[(.+)\]/).each {m0, m1 ->
+    //             repository = m1
+    //         }
+    //         (it =~/:enabled=(\d+)/).each {m0, enabled ->
+    //             csv << [repository, enabled]
+    //             yum['yum.' . repository] = enabled
+    //         }
+    //     }
+    //     def headers = ['repository', 'enabled']
+    //     test_item.devices(csv, headers)
+    //     yum['yum'] = csv.size().toString()
+    //     test_item.results(yum)
+    // }
+
     // def user(session, test_item) {
     //     def lines = exec('user') {
     //         run_ssh_command(session, "cat /etc/passwd", 'user')
@@ -495,15 +578,25 @@ class LinuxSpec extends LinuxSpecBase {
     //     def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
     //     if (isRHEL7 == '0') {
     //         def lines = exec('service') {
-    //             run_ssh_command(session, '/usr/bin/systemctl status service', 'service')
+    //             run_ssh_command(session, '/usr/bin/systemctl list-units --type service --all', 'service')
     //         }
-    //         def service = 'inactive'
+    //         def services = [:].withDefault{'unkown'}
+    //         def csv = []
+    //         def service_count = 0
     //         lines.eachLine {
-    //             ( it =~ /Active: (.+?)\s/).each {m0,m1->
-    //                  service = m1
+    //             ( it =~ /^\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
+    //                 def service_name = 'service.' + m1
+    //                 def status = m2 + '.' + m3
+    //                 services[service_name] = status
+    //                 def columns = [m1, status]
+    //                 csv << columns
+    //                 service_count ++
     //             }
     //         }
-    //         test_item.results(service)
+    //         services['service'] = service_count.toString()
+    //         test_item.devices(csv, ['Name', 'Status'])
+    //         test_item.results(services)
+
     //     } else {
     //         def lines = exec('service') {
     //             run_ssh_command(session, '/sbin/chkconfig --list', 'service')
@@ -545,12 +638,12 @@ class LinuxSpec extends LinuxSpecBase {
     // def oracle(session, test_item) {
     //     def lines = exec('oracle') {
     //         def command = """\
-    //         |ls -d /opt/oracle/app/product/*/*  >> ${work_dir}/oracle
-    //         |ls -d /*/app/oracle/product/*/*    >> ${work_dir}/oracle
-    //         """
-    //         session.execute command.stripMargin()
-    //         session.get from: "${work_dir}/oracle", into: local_dir
-    //         new File("${local_dir}/oracle").text
+    //         |ls -d /opt/oracle/app/product/*/* /*/app/oracle/product/*/* 2>/dev/null
+    //         |if [ \$? != 0 ]; then
+    //         |   echo 'Not found'
+    //         |fi
+    //         """.stripMargin()
+    //         run_ssh_command(session, command, 'oracle')
     //     }
     //     def oracleinfo = 'NotFound'
     //     lines.eachLine {
@@ -563,7 +656,13 @@ class LinuxSpec extends LinuxSpecBase {
 
     // def proxy_global(session, test_item) {
     //     def lines = exec('proxy_global') {
-    //         run_ssh_command(session, 'grep proxy /etc/yum.conf', 'proxy_global')
+    //         def command = """\
+    //         |grep proxy /etc/yum.conf
+    //         |if [ \$? != 0 ]; then
+    //         |    echo 'Not found'
+    //         |fi
+    //         """.stripMargin()
+    //         run_ssh_command(session, command, 'proxy_global')
     //     }
     //     lines = lines.replaceAll(/(\r|\n)/, "")
     //     test_item.results(lines)
@@ -693,6 +792,49 @@ class LinuxSpec extends LinuxSpecBase {
     //         }
     //     }
     //     test_item.results(ntpservers.toString())
+    // }
+
+    // def ntp_slew(session, test_item) {
+    //     def lines = exec('ntp_slew') {
+    //         def command = """\
+    //         |grep -i options /etc/sysconfig/ntpd 2>/dev/null
+    //         |if [ \$? != 0 ]; then
+    //         |   echo 'Not found'
+    //         |fi
+    //         """.stripMargin()
+    //         run_ssh_command(session, command, 'ntp_slew')
+    //     }
+    //     def result = 'NotFound'
+    //     lines.eachLine {
+    //         (it =~ /-u/).each {m0->
+    //             result = 'Disabled'
+    //         }
+    //         (it =~ /-x/).each {m0->
+    //             result = 'Enabled'
+    //         }
+    //     }
+    //     test_item.results(result)
+    // }
+
+    // def snmp_trap(session, test_item) {
+    //     def lines = exec('snmp_trap') {
+    //         def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
+    //         try {
+    //             def result = session.executeSudo command, pty: true, timeoutSec: timeout
+    //             log.info result
+    //             session.get from: "${work_dir}/snmp_trap", into: local_dir
+    //             new File("${local_dir}/snmp_trap").text
+    //         } catch (Exception e) {
+    //             log.info "[sudo] Error ${command}" + e
+    //         }
+    //     }
+    //     def result = 'NotFound'
+    //     lines.eachLine {
+    //         (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
+    //             result = trap_info
+    //         }
+    //     }
+    //     test_item.results(result)
     // }
 
     // def sestatus(session, test_item) {
