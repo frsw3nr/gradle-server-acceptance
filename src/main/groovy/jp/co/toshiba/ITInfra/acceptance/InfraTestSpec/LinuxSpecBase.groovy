@@ -559,6 +559,29 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(package_info)
     }
 
+    def yum(session, test_item) {
+        def lines = exec('yum') {
+            def command = "egrep -e '\\[|enabled' /etc/yum.repos.d/*.repo"
+            run_ssh_command(session, command, 'yum')
+        }
+        def yum = [:].withDefault{0}
+        def repository
+        def csv = []
+        lines.eachLine {
+            (it =~/\[(.+)\]/).each {m0, m1 ->
+                repository = m1
+            }
+            (it =~/:enabled=(\d+)/).each {m0, enabled ->
+                csv << [repository, enabled]
+                yum['yum.' . repository] = enabled
+            }
+        }
+        def headers = ['repository', 'enabled']
+        test_item.devices(csv, headers)
+        yum['yum'] = csv.size().toString()
+        test_item.results(yum)
+    }
+
     def user(session, test_item) {
         def lines = exec('user') {
             run_ssh_command(session, "cat /etc/passwd", 'user')

@@ -493,6 +493,140 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+   def whoami(TestItem test_item) {
+        run_script('whoami /user') {
+            def lines = exec('whoami') {
+                new File("${local_dir}/whoami")
+            }
+            def row = 0
+            lines.eachLine {
+                // ヘッダのセパレータ '===' の次の行の値を抽出する
+                if (row == 1) {
+                    // 空白区切りで'ユーザ名'と'SID'を抽出
+                    def results = it.split(/ +/)
+                    def infos = [whoami_user: results[0], whoami_sid: results[1]]
+                    // 結果登録。Excelシートに 検査ID 'whoami_user' と 'whoami_sid'
+                    // を追加する必要あり
+                    test_item.results(infos)
+                }
+                (it =~ /^====/).each {
+                    row++
+                }
+            }
+        }
+    }
+
+    def task_scheduler(TestItem test_item) {
+        def command = '''\
+            |Get-ScheduledTask | `
+            | ? {$_.State -eq "Ready"} | `
+            | Get-ScheduledTaskInfo | `
+            | ? {$_.NextRunTime -ne $null}| `
+            | Format-List
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('task_scheduler') {
+                new File("${local_dir}/task_scheduler")
+            }
+
+            def schedule_info = [:].withDefault{0}
+            def csv = []
+            def last_run
+            def last_result
+            def task_name
+            def task_path
+            def missed_runs
+            def schedule_count = 0
+            lines.eachLine {
+                (it =~ /LastRunTime\s+:\s(.+)$/).each {m0, m1->
+                    last_run = m1
+                }
+                (it =~ /LastTaskResult\s+:\s(.+)$/).each {m0, m1->
+                    last_result = m1
+                }
+                (it =~ /NumberOfMissedRuns\s+:\s(.+)$/).each {m0, m1->
+                    missed_runs = m1
+                }
+                (it =~ /TaskName\s+:\s(.+)$/).each {m0, m1->
+                    task_name = m1
+                }
+                (it =~ /TaskPath\s+:\s(.+)$/).each {m0, m1->
+                    task_path = m1
+                    schedule_info['task_scheduler.' + task_name] = last_result
+                    schedule_count ++
+                    csv << [task_name, last_run, last_result, missed_runs, task_path]
+                }
+            }
+            def headers = ['task_name', 'last_run', 'last_result', 'missed_runs', 'task_path']
+            test_item.devices(csv, headers)
+            schedule_info['task_scheduler'] = schedule_count.toString()
+            test_item.results(schedule_info)
+        }
+    }
+
+    def etc_hosts(TestItem test_item) {
+        run_script('Get-Content "$($env:windir)\\system32\\Drivers\\etc\\hosts"') {
+            def lines = exec('etc_hosts') {
+                new File("${local_dir}/etc_hosts")
+            }
+
+            def hostsinfo    = [:].withDefault{0}
+            def csv = []
+            def hosts_number = 0
+            lines.eachLine {
+                (it =~ /^\s*([\d|\.]+?)\s+(.+)$/).each {m0, ip,hostname->
+                    csv << [ip, hostname]
+                    hostsinfo['hostsinfo.' + hostname] = ip
+                    hosts_number ++
+                }
+            }
+            def headers = ['ip', 'host_name']
+            test_item.devices(csv, headers)
+            hostsinfo["etc_hosts"] = hosts_number
+            test_item.results(hostsinfo)
+        }
+    }
+
+    def net_accounts(TestItem test_item) {
+        run_script('net accounts') {
+            def lines = exec('net_accounts') {
+                new File("${local_dir}/net_accounts")
+            }
+            def row = 0
+            def csv = []
+            def policy_number = 0
+            lines.eachLine {
+                (it =~ /^(.+):\s+(.+?)$/).each {m0, item_name, value ->
+                    csv << [item_name, value]
+                }
+            }
+            def headers = ['item_name', 'value']
+            test_item.devices(csv, headers)
+            test_item.results((policy_number > 0) ? 'OK' : 'NG')
+        }
+    }
+
+    def patch_lists(TestItem test_item) {
+        run_script('wmic qfe') {
+            def lines = exec('patch_lists') {
+                new File("${local_dir}/patch_lists")
+            }
+            def row = 0
+            def csv = []
+            def patch_number = 0
+            lines.eachLine {
+                (it =~ /\s(KB\d+)\s/).each {m0, knowledge_base ->
+                    csv << [knowledge_base]
+                    patch_number ++
+                }
+            }
+            def headers = ['knowledge_base']
+            test_item.devices(csv, headers)
+            test_item.results(patch_number.toString())
+        }
+    }
+
 //     def packages(TestItem test_item) {
 //         def command = '''\
 //             |Get-WmiObject Win32_Product | `

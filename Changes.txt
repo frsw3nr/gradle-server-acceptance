@@ -6,15 +6,16 @@ New features:
     - [ ] リソース制限設定(/etc/security/limits.conf)
     - [ ] yumリポジトリの一覧(yum repolist all)
 * Windows 検査シナリオの見直し
-    - [ ] タスクスケジューラ一覧(Get-ScheduledTask)
-    - [ ] ホスト一覧(C:\Windows\System32\drivers\etc\hosts)
-    - [ ] セキュリティポリシー(net accounts)
-    - [ ] 適用パッチ(wmic qfeコマンド)
+    - [X] タスクスケジューラ一覧(Get-ScheduledTask)
+    - [X] ホスト一覧(C:\Windows\System32\drivers\etc\hosts)
+    - [X] セキュリティポリシー(net accounts)
+    - [X] 適用パッチ(wmic qfeコマンド)
 
 Bug fixes:
 * テンプレートエクスポートコマンド(-x)でlib/templates下のファイルがコピーされない
 * Redmine 構成DBのデバイス表(device_results)の項目名列(item_name)を48文字に変更
 * Solaris パスワード入力プロンプトが、マルチバイトで表示された場合にログインできない
+  (Solaris 検査用に Ganymed-SSH2 ライブラリ追加)
 
 Changes for 0.1.10 (2017-4-5)
 --------------------------------------------------------------------------------
