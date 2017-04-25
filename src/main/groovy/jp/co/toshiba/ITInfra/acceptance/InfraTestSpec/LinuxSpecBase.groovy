@@ -559,27 +559,69 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(package_info)
     }
 
+    def cron(session, test_item) {
+        def users = exec('cron') {
+            run_ssh_sudo(session, "ls /var/spool/cron/ |cat", 'cron')
+        }
+        def csv = []
+        users.eachLine { user ->
+            def id = "cron.$user"
+            def command = "crontab -l -u $user"
+            def lines = exec(id) {
+                run_ssh_sudo(session, command, id)
+            }
+            lines.eachLine {
+                (it =~ /^\s*[^#].+$/).each {m0 ->
+                    csv << [user, it]
+                }
+            }
+        }
+        def headers = ['user', 'crontab']
+        test_item.devices(csv, headers)
+        test_item.results(csv.size().toString())
+    }
+
     def yum(session, test_item) {
         def lines = exec('yum') {
             def command = "egrep -e '\\[|enabled' /etc/yum.repos.d/*.repo"
             run_ssh_command(session, command, 'yum')
         }
-        def yum = [:].withDefault{0}
-        def repository
+        def yum_info = [:].withDefault{0}
+        def repository = 'Unkown'
         def csv = []
+        def row = []
         lines.eachLine {
             (it =~/\[(.+)\]/).each {m0, m1 ->
-                repository = m1
+                row << m1
             }
-            (it =~/:enabled=(\d+)/).each {m0, enabled ->
-                csv << [repository, enabled]
-                yum['yum.' . repository] = enabled
+            (it =~/:\s*enabled=(.+)/).each {m0, m1 ->
+                row << m1
+                if (row.size() == 2) {
+                    csv << row
+                    row = []
+                }
             }
         }
         def headers = ['repository', 'enabled']
         test_item.devices(csv, headers)
-        yum['yum'] = csv.size().toString()
-        test_item.results(yum)
+        test_item.results(csv.size().toString())
+    }
+
+    def resource_limits(session, test_item) {
+        def lines = exec('resource_limits') {
+            def command = "egrep -v '^#' /etc/security/limits.d/*"
+            run_ssh_command(session, command, 'resource_limits')
+        }
+        def csv = []
+        def row = []
+        lines.eachLine {
+            (it =~/limits\.d\/(.+?):(.+)$/).each {m0, m1, m2 ->
+                csv << [m1, m2]
+            }
+        }
+        def headers = ['source', 'limits']
+        test_item.devices(csv, headers)
+        test_item.results(csv.size().toString())
     }
 
     def user(session, test_item) {

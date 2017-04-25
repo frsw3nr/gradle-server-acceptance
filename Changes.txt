@@ -2,9 +2,9 @@ Changes for 0.1.11 (2017-5-9)
 --------------------------------------------------------------------------------
 New features:
 * Linux 検査シナリオの見直し
-    - [ ] cron設定
-    - [ ] リソース制限設定(/etc/security/limits.conf)
-    - [ ] yumリポジトリの一覧(yum repolist all)
+    - [X] cron設定
+    - [X] リソース制限設定(/etc/security/limits.conf)
+    - [X] yumリポジトリの一覧(yum repolist all)
 * Windows 検査シナリオの見直し
     - [X] タスクスケジューラ一覧(Get-ScheduledTask)
     - [X] ホスト一覧(C:\Windows\System32\drivers\etc\hosts)
@@ -16,6 +16,8 @@ Bug fixes:
 * Redmine 構成DBのデバイス表(device_results)の項目名列(item_name)を48文字に変更
 * Solaris パスワード入力プロンプトが、マルチバイトで表示された場合にログインできない
   (Solaris 検査用に Ganymed-SSH2 ライブラリ追加)
+* Excel 検査結果に null がある場合、JSONの検査結果出力で、IllegalArgumentException:
+  Maps with null keys can't be converted to JSON 例外をキャッチするように修正
 
 Changes for 0.1.10 (2017-4-5)
 --------------------------------------------------------------------------------
