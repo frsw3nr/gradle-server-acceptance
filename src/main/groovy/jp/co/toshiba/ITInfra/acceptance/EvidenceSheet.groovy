@@ -620,7 +620,7 @@ class EvidenceSheet {
     }
 
     def writeDeviceFile(String platform, String test_id, List headers, Map csvs)
-        throws IOException {
+        throws IOException, IllegalArgumentException {
         def base_dir = "${staging_dir}/${node_dir_prefix}"
         // Body registration
         csvs.each {server_name, server_csvs ->
@@ -646,7 +646,7 @@ class EvidenceSheet {
     }
 
     def insertDeviceSheet(String platform, String test_id, List headers, Map csvs)
-        throws IOException {
+        throws IOException, IllegalArgumentException {
         def device_sheet_name = "${platform}_${test_id}"
         log.info("Insert device sheet : ${device_sheet_name}")
         def inp = new FileInputStream(evidence_target)
