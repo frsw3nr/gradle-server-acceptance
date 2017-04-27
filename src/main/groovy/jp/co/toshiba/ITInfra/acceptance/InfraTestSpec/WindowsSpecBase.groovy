@@ -532,16 +532,12 @@ class WindowsSpecBase extends InfraTestSpec {
 
             def schedule_info = [:].withDefault{0}
             def csv = []
-            def last_run
             def last_result
             def task_name
             def task_path
             def missed_runs
             def schedule_count = 0
             lines.eachLine {
-                (it =~ /LastRunTime\s+:\s(.+)$/).each {m0, m1->
-                    last_run = m1
-                }
                 (it =~ /LastTaskResult\s+:\s(.+)$/).each {m0, m1->
                     last_result = m1
                 }
@@ -555,12 +551,12 @@ class WindowsSpecBase extends InfraTestSpec {
                     task_path = m1
                     schedule_info['task_scheduler.' + task_name] = last_result
                     schedule_count ++
-                    csv << [task_name, last_run, last_result, missed_runs, task_path]
+                    csv << [task_name, last_result, missed_runs, task_path]
                 }
             }
-            def headers = ['task_name', 'last_run', 'last_result', 'missed_runs', 'task_path']
+            def headers = ['task_name', 'last_result', 'missed_runs', 'task_path']
             test_item.devices(csv, headers)
-            schedule_info['task_scheduler'] = schedule_count.toString()
+            schedule_info['task_scheduler'] = (schedule_count == 0) ? 'Not found' : "${schedule_count} schedule found."
             test_item.results(schedule_info)
         }
     }
@@ -599,11 +595,12 @@ class WindowsSpecBase extends InfraTestSpec {
             lines.eachLine {
                 (it =~ /^(.+):\s+(.+?)$/).each {m0, item_name, value ->
                     csv << [item_name, value]
+                    policy_number ++
                 }
             }
             def headers = ['item_name', 'value']
             test_item.devices(csv, headers)
-            test_item.results((policy_number > 0) ? 'OK' : 'NG')
+            test_item.results((policy_number > 0) ? 'Policy found' : 'NG')
         }
     }
 

@@ -622,6 +622,8 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def headers = ['source', 'limits']
         test_item.devices(csv, headers)
+        def csv_rows = csv.size()
+        def result = (csv_rows == 0) ? 'No limits setting' : "${csv_rows} records found"
         test_item.results(csv.size().toString())
     }
 
