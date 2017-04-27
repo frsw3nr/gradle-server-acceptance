@@ -4,7 +4,7 @@ evidence.source = './src/test/resources/check_zabbix.xlsx'
 evidence.sheet_name_server = 'Target'
 evidence.sheet_name_rule = 'Rule'
 evidence.sheet_name_spec = [
-    'Zabbix':   'Check(Zabbix)',
+    'Zabbix':   'CheckSheet(Zabbix)',
 ]
 
 // 検査結果ファイル出力先

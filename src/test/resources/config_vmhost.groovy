@@ -4,7 +4,7 @@ evidence.source = './src/test/resources/check_vmhost.xlsx'
 evidence.sheet_name_server = 'Target'
 evidence.sheet_name_rule = 'Rule'
 evidence.sheet_name_spec = [
-    'VMHost':   'Check(VMHost)',
+    'VMHost':   'CheckSheet(VMHost)',
 ]
 
 // Test result file output destination

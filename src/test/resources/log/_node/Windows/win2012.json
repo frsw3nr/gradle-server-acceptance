@@ -15,6 +15,11 @@
         "value": "2"
     },
     {
+        "test_id": "total_visible",
+        "domain": "Windows",
+        "value": "2096692"
+    },
+    {
         "test_id": "total_virtual",
         "domain": "Windows",
         "value": "2489908"
@@ -45,6 +50,21 @@
         "value": "WIN2012"
     },
     {
+        "test_id": "os_caption",
+        "domain": "Windows",
+        "value": "Microsoft Windows Server 2012 R2 Standard \u8a55\u4fa1\u7248"
+    },
+    {
+        "test_id": "os_architecture",
+        "domain": "Windows",
+        "value": "64 \u30d3\u30c3\u30c8"
+    },
+    {
+        "test_id": "os_product_type",
+        "domain": "Windows",
+        "value": "3"
+    },
+    {
         "test_id": "driver",
         "domain": "Windows",
         "value": "101"
@@ -53,6 +73,37 @@
         "test_id": "filesystem",
         "domain": "Windows",
         "value": "1"
+    },
+    {
+        "test_id": "filesystem.C:",
+        "domain": "Windows",
+        "value": "42.580570112"
+    },
+    {
+        "test_id": "user",
+        "domain": "Windows",
+        "value": "[Administrator, Guest, test_user]"
+    },
+    {
+        "test_id": "logon_test",
+        "domain": "Windows",
+        "value": "[:]",
+        "verify": false
+    },
+    {
+        "test_id": "service",
+        "domain": "Windows",
+        "value": "144"
+    },
+    {
+        "test_id": "service.VMTools",
+        "domain": "Windows",
+        "value": "Running"
+    },
+    {
+        "test_id": "service.wuauserv",
+        "domain": "Windows",
+        "value": "Stopped"
     },
     {
         "test_id": "fips",
@@ -78,5 +129,10 @@
         "test_id": "storage_timeout",
         "domain": "Windows",
         "value": "60"
+    },
+    {
+        "test_id": "ntp",
+        "domain": "Windows",
+        "value": "\u6b21\u306e\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f\u3002 \u305d\u306e\u30b5\u30fc\u30d3\u30b9\u3092\u958b\u59cb\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002 (0x80070426)\r\n"
     }
 ]

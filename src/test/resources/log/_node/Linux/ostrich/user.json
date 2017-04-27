@@ -1,0 +1,422 @@
+[
+    {
+        "UserName": "root",
+        "UserID": "0",
+        "GroupID": "0",
+        "Group": "root"
+    },
+    {
+        "UserName": "bin",
+        "UserID": "1",
+        "GroupID": "1",
+        "Group": "bin"
+    },
+    {
+        "UserName": "daemon",
+        "UserID": "2",
+        "GroupID": "2",
+        "Group": "daemon"
+    },
+    {
+        "UserName": "adm",
+        "UserID": "3",
+        "GroupID": "4",
+        "Group": "adm"
+    },
+    {
+        "UserName": "lp",
+        "UserID": "4",
+        "GroupID": "7",
+        "Group": "lp"
+    },
+    {
+        "UserName": "sync",
+        "UserID": "5",
+        "GroupID": "0",
+        "Group": "root"
+    },
+    {
+        "UserName": "shutdown",
+        "UserID": "6",
+        "GroupID": "0",
+        "Group": "root"
+    },
+    {
+        "UserName": "halt",
+        "UserID": "7",
+        "GroupID": "0",
+        "Group": "root"
+    },
+    {
+        "UserName": "mail",
+        "UserID": "8",
+        "GroupID": "12",
+        "Group": "mail"
+    },
+    {
+        "UserName": "uucp",
+        "UserID": "10",
+        "GroupID": "14",
+        "Group": "uucp"
+    },
+    {
+        "UserName": "operator",
+        "UserID": "11",
+        "GroupID": "0",
+        "Group": "root"
+    },
+    {
+        "UserName": "games",
+        "UserID": "12",
+        "GroupID": "100",
+        "Group": "users"
+    },
+    {
+        "UserName": "gopher",
+        "UserID": "13",
+        "GroupID": "30",
+        "Group": "gopher"
+    },
+    {
+        "UserName": "ftp",
+        "UserID": "14",
+        "GroupID": "50",
+        "Group": "ftp"
+    },
+    {
+        "UserName": "nobody",
+        "UserID": "99",
+        "GroupID": "99",
+        "Group": "nobody"
+    },
+    {
+        "UserName": "dbus",
+        "UserID": "81",
+        "GroupID": "81",
+        "Group": "dbus"
+    },
+    {
+        "UserName": "avahi-autoipd",
+        "UserID": "170",
+        "GroupID": "170",
+        "Group": "avahi-autoipd"
+    },
+    {
+        "UserName": "vcsa",
+        "UserID": "69",
+        "GroupID": "69",
+        "Group": "vcsa"
+    },
+    {
+        "UserName": "rpc",
+        "UserID": "32",
+        "GroupID": "32",
+        "Group": "rpc"
+    },
+    {
+        "UserName": "rtkit",
+        "UserID": "499",
+        "GroupID": "497",
+        "Group": "rtkit"
+    },
+    {
+        "UserName": "abrt",
+        "UserID": "173",
+        "GroupID": "173",
+        "Group": "abrt"
+    },
+    {
+        "UserName": "haldaemon",
+        "UserID": "68",
+        "GroupID": "68",
+        "Group": "haldaemon"
+    },
+    {
+        "UserName": "ntp",
+        "UserID": "38",
+        "GroupID": "38",
+        "Group": "ntp"
+    },
+    {
+        "UserName": "saslauth",
+        "UserID": "498",
+        "GroupID": "76",
+        "Group": "saslauth"
+    },
+    {
+        "UserName": "postfix",
+        "UserID": "89",
+        "GroupID": "89",
+        "Group": "postfix"
+    },
+    {
+        "UserName": "avahi",
+        "UserID": "70",
+        "GroupID": "70",
+        "Group": "avahi"
+    },
+    {
+        "UserName": "rpcuser",
+        "UserID": "29",
+        "GroupID": "29",
+        "Group": "rpcuser"
+    },
+    {
+        "UserName": "nfsnobody",
+        "UserID": "65534",
+        "GroupID": "65534",
+        "Group": "nfsnobody"
+    },
+    {
+        "UserName": "pulse",
+        "UserID": "497",
+        "GroupID": "496",
+        "Group": "pulse"
+    },
+    {
+        "UserName": "gdm",
+        "UserID": "42",
+        "GroupID": "42",
+        "Group": "gdm"
+    },
+    {
+        "UserName": "sshd",
+        "UserID": "74",
+        "GroupID": "74",
+        "Group": "sshd"
+    },
+    {
+        "UserName": "tcpdump",
+        "UserID": "72",
+        "GroupID": "72",
+        "Group": "tcpdump"
+    },
+    {
+        "UserName": "commonstyle",
+        "UserID": "500",
+        "GroupID": "500",
+        "Group": "commonstyle"
+    },
+    {
+        "UserName": "postgres",
+        "UserID": "26",
+        "GroupID": "26",
+        "Group": "postgres"
+    },
+    {
+        "UserName": "pscommon",
+        "UserID": "501",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "apache",
+        "UserID": "48",
+        "GroupID": "48",
+        "Group": "apache"
+    },
+    {
+        "UserName": "mysql",
+        "UserID": "27",
+        "GroupID": "27",
+        "Group": "mysql"
+    },
+    {
+        "UserName": "esx",
+        "UserID": "516",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "himeji",
+        "UserID": "502",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "nexco",
+        "UserID": "511",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "payok04",
+        "UserID": "514",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "pcoit01",
+        "UserID": "513",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "pskag01",
+        "UserID": "504",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "pskg01",
+        "UserID": "505",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "psoit01",
+        "UserID": "506",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "psoit02",
+        "UserID": "507",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "psyok04",
+        "UserID": "512",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "psyok05",
+        "UserID": "508",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "tmeic",
+        "UserID": "515",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "psyok02",
+        "UserID": "517",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "rstudio-server",
+        "UserID": "496",
+        "GroupID": "493",
+        "Group": "rstudio-server"
+    },
+    {
+        "UserName": "pbyok01",
+        "UserID": "518",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "mitaka",
+        "UserID": "519",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "psadmin",
+        "UserID": "520",
+        "GroupID": "301",
+        "Group": "psadmin"
+    },
+    {
+        "UserName": "db2fenc1",
+        "UserID": "521",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "myinst",
+        "UserID": "522",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "mongod",
+        "UserID": "495",
+        "GroupID": "492",
+        "Group": "mongod"
+    },
+    {
+        "UserName": "git",
+        "UserID": "523",
+        "GroupID": "523",
+        "Group": "git"
+    },
+    {
+        "UserName": "redis",
+        "UserID": "494",
+        "GroupID": "491",
+        "Group": "redis"
+    },
+    {
+        "UserName": "psyok03",
+        "UserID": "524",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "pboit01",
+        "UserID": "525",
+        "GroupID": "525",
+        "Group": "pboit01"
+    },
+    {
+        "UserName": "nagios",
+        "UserID": "526",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "nails",
+        "UserID": "527",
+        "GroupID": "527",
+        "Group": "nailsgroup"
+    },
+    {
+        "UserName": "peyok04",
+        "UserID": "528",
+        "GroupID": "104",
+        "Group": "cacti"
+    },
+    {
+        "UserName": "zabbix",
+        "UserID": "493",
+        "GroupID": "300",
+        "Group": "zabbix"
+    },
+    {
+        "UserName": "snmptt",
+        "UserID": "492",
+        "GroupID": "299",
+        "Group": "snmptt"
+    },
+    {
+        "UserName": "carbon",
+        "UserID": "491",
+        "GroupID": "297",
+        "Group": "carbon"
+    },
+    {
+        "UserName": "influxdb",
+        "UserID": "490",
+        "GroupID": "490",
+        "Group": "influxdb"
+    },
+    {
+        "UserName": "grafana",
+        "UserID": "489",
+        "GroupID": "296",
+        "Group": "grafana"
+    },
+    {
+        "UserName": "oracle",
+        "UserID": "54321",
+        "GroupID": "54321",
+        "Group": "oinstall"
+    }
+]

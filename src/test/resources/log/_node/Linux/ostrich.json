@@ -70,6 +70,11 @@
         "value": "[eth0:yes, eth0:1:no, lo:yes]"
     },
     {
+        "test_id": "net_route",
+        "domain": "Linux",
+        "value": "[ens160:192.168.0.254]"
+    },
+    {
         "test_id": "block_device",
         "domain": "Linux",
         "value": "[sda:[timeout:180, queue_depth:32], sr0:[timeout:30, queue_depth:1]]"
@@ -85,6 +90,37 @@
         "value": "6"
     },
     {
+        "test_id": "filesystem./",
+        "domain": "Linux",
+        "value": "26.5G"
+    },
+    {
+        "test_id": "filesystem.[SWAP]",
+        "domain": "Linux",
+        "value": "3G"
+    },
+    {
+        "test_id": "filesystem./boot",
+        "domain": "Linux",
+        "value": "500M"
+    },
+    {
+        "test_id": "user",
+        "domain": "Linux",
+        "value": "70"
+    },
+    {
+        "test_id": "user.zabbix",
+        "domain": "Linux",
+        "value": "OK"
+    },
+    {
+        "test_id": "logon_test",
+        "domain": "Linux",
+        "value": "[:]",
+        "verify": false
+    },
+    {
         "test_id": "fips",
         "domain": "Linux",
         "value": "False"
@@ -95,9 +131,54 @@
         "value": "no KVM"
     },
     {
+        "test_id": "service",
+        "domain": "Linux",
+        "value": "78"
+    },
+    {
+        "test_id": "service.kdump",
+        "domain": "Linux",
+        "value": "On"
+    },
+    {
+        "test_id": "service.iptables",
+        "domain": "Linux",
+        "value": "Off"
+    },
+    {
+        "test_id": "service.ip6tables",
+        "domain": "Linux",
+        "value": "Off"
+    },
+    {
+        "test_id": "service.restorecond",
+        "domain": "Linux",
+        "value": "Off"
+    },
+    {
         "test_id": "packages",
         "domain": "Linux",
         "value": "[RHEL6:1012, COMMON:11]"
+    },
+    {
+        "test_id": "packages.gcc",
+        "domain": "Linux",
+        "value": "4.4.7"
+    },
+    {
+        "test_id": "packages.httpd",
+        "domain": "Linux",
+        "value": "2.2.15"
+    },
+    {
+        "test_id": "packages.mysql",
+        "domain": "Linux",
+        "value": "5.5.50"
+    },
+    {
+        "test_id": "packages.net-snmp-utils",
+        "domain": "Linux",
+        "value": "5.5"
     },
     {
         "test_id": "requiement_for_oracle",
@@ -115,19 +196,9 @@
         "value": "proxy=http://proxy.your.company.co.jp:8080"
     },
     {
-        "test_id": "kdump",
-        "domain": "Linux",
-        "value": "on"
-    },
-    {
         "test_id": "crash_size",
         "domain": "Linux",
         "value": "135266304"
-    },
-    {
-        "test_id": "iptables",
-        "domain": "Linux",
-        "value": "off"
     },
     {
         "test_id": "runlevel",
@@ -145,6 +216,11 @@
         "value": "[nameserver1:xxx.xxx.xxx.xxx]"
     },
     {
+        "test_id": "ntp",
+        "domain": "Linux",
+        "value": "[133.119.128.59]"
+    },
+    {
         "test_id": "sestatus",
         "domain": "Linux",
         "value": "enabled"
@@ -155,13 +231,13 @@
         "value": "permissive"
     },
     {
-        "test_id": "vncserver",
-        "domain": "Linux",
-        "value": "off"
-    },
-    {
         "test_id": "oracle_module",
         "domain": "Linux",
         "value": "NG"
+    },
+    {
+        "test_id": "oracle",
+        "domain": "Linux",
+        "value": "12.1.0"
     }
 ]

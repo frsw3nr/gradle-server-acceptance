@@ -29,5 +29,7 @@ try {
 }
 $ErrorActionPreference = "Continue"
 
-$log_path = Join-Path $log_dir "NetworkAdapter"
-Get-VMHostNetworkAdapter -VMHost $vm | Format-Table -Auto | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "vm"
+Get-VM $vm | `
+ select NumCpu, PowerState, MemoryGB, VMHost, @{N="Cluster";E={Get-Cluster -VM $_}} | `
+ Format-List | Out-File $log_path -Encoding UTF8
