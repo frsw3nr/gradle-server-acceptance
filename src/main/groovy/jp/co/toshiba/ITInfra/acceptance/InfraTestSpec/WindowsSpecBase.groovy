@@ -627,4 +627,91 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    def ie_version(TestItem test_item) {
+        run_script('Get-ItemProperty "HKLM:SOFTWARE\\Microsoft\\Internet Explorer"') {
+            def lines = exec('ie_version') {
+                new File("${local_dir}/ie_version")
+            }
+            def ie_info = [:]
+            lines.eachLine {
+                (it =~ /^(Version|svcVersion)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    ie_info[m1] = m2
+                 }
+            }
+            test_item.results(ie_info.toString())
+        }
+    }
+
+    def network_profile(TestItem test_item) {
+        run_script('Get-NetConnectionProfile') {
+            def lines = exec('network_profile') {
+                new File("${local_dir}/network_profile")
+            }
+            def instance_number = 0
+            def network_info = [:].withDefault{[:]}
+            def network_categorys = [:]
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    network_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && network_info[instance_number].size() > 0) {
+                    instance_number ++
+                }
+            }
+            def headers = ['Name','InterfaceAlias', 'InterfaceIndex', 'NetworkCategory',
+                           'IPv4Connectivity','IPv6Connectivity']
+
+            def csv = []
+            def network_name = ''
+            (0..instance_number).each { row ->
+                network_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                        network_categorys[it['InterfaceAlias']] = it['NetworkCategory']
+                    }
+                }
+            }
+            test_item.devices(csv, headers)
+            test_item.results(network_categorys.toString())
+        }
+    }
+
+    def feature(TestItem test_item) {
+        run_script('Get-WindowsFeature | ?{$_.InstallState -eq [Microsoft.Windows.ServerManager.Commands.InstallState]::Installed} | FL') {
+            def lines = exec('feature') {
+                new File("${local_dir}/feature")
+            }
+            def instance_number = 0
+            def feature_info = [:].withDefault{[:]}
+            def feature_categorys = [:]
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    feature_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && feature_info[instance_number].size() > 0) {
+                    instance_number ++
+                }
+            }
+            def headers = ['Name','DisplayName', 'Path', 'Depth']
+            def csv = []
+            def feature_name = ''
+            (0..instance_number).each { row ->
+                feature_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                    }
+                }
+            }
+            test_item.devices(csv, headers)
+            test_item.results(csv.size().toString() + ' installed')
+        }
+    }
 }

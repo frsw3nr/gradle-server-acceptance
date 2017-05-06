@@ -76,7 +76,7 @@ class TestScheduler {
                 if ((mode == SpecTestMode.serial   && is_serial) ||
                     (mode == SpecTestMode.parallel && !is_serial)) {
                     long start = System.currentTimeMillis()
-                    log.info "Tesing ${label} '${server_name}:${domain}'"
+                    log.info "Testing ${label} '${server_name}:${domain}'"
                     def filtered_test_ids = filterSpecs(test_ids)
                     def domain_test = new DomainTestRunner(it, domain)
                     domain_test.with {
