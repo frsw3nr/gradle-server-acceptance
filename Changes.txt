@@ -5,18 +5,19 @@ New features:
     - [X] cron設定
     - [X] リソース制限設定(/etc/security/limits.conf)
     - [X] yumリポジトリの一覧(yum repolist all)
-    - [X] キーボード(RHEL6:/etc/sysconfig/keyboard,RHEL7:/etc/vconsole.conf)
+    - [X] キーボード(RHEL6:/etc/sysconfig/keyboard, RHEL7:/etc/vconsole.conf)
     - [X] OS言語(/proc/cmdline)
     - [X] タイムゾーン(RHEL6:/etc/sysconfig/clock, RHEL7:timedatectl)
     - [X] Syslogのエラーメッセージ
 * Windows 検査シナリオの見直し
     - [X] タスクスケジューラ一覧(Get-ScheduledTask)
     - [X] ホスト一覧(C:\Windows\System32\drivers\etc\hosts)
-    - [X] セキュリティポリシー(net accounts)
+    - [X] アカウントセキュリティポリシー(net accounts)
     - [X] 適用パッチ(wmic qfeコマンド)
     - [X] InternetExplorerバージョン
     - [X] ネットワークプロファイル
     - [X] Windows 機能
+    - [X] Windows イベントログのエラーイベント
 
 Bug fixes:
 * テンプレートエクスポートコマンド(-x)でlib/templates下のファイルがコピーされない

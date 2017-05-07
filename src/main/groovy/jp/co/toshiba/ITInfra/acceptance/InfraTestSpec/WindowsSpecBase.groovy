@@ -714,4 +714,80 @@ class WindowsSpecBase extends InfraTestSpec {
             test_item.results(csv.size().toString() + ' installed')
         }
     }
+
+    def system_log(TestItem test_item) {
+        run_script('Get-EventLog system | Where-Object { $_.EntryType -eq "Error" } | FL') {
+            def lines = exec('system_log') {
+                new File("${local_dir}/system_log")
+            }
+            def max_row = 0
+            def log_info = [:].withDefault{[:]}
+            def log_categorys = [:]
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    log_info[max_row][m1] = m2
+                }
+                if (it.size() == 0 && log_info[max_row].size() > 0) {
+                    max_row ++
+                }
+            }
+            def headers = ['Index','TimeGenerated','InstanceId', 'Source', 'Message']
+            def csv = []
+            if (max_row > 100) {
+                max_row = 100
+            }
+            def log_name = ''
+            (0..max_row).each { row ->
+                log_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                    }
+                }
+            }
+            test_item.devices(csv, headers)
+            test_item.results(csv.size().toString() + ' event found')
+        }
+    }
+
+    def apps_log(TestItem test_item) {
+        run_script('Get-EventLog application | Where-Object { $_.EntryType -eq "Error" } | FL') {
+            def lines = exec('apps_log') {
+                new File("${local_dir}/apps_log")
+            }
+            def max_row = 0
+            def log_info = [:].withDefault{[:]}
+            def log_categorys = [:]
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    log_info[max_row][m1] = m2
+                }
+                if (it.size() == 0 && log_info[max_row].size() > 0) {
+                    max_row ++
+                }
+            }
+            def headers = ['Index','TimeGenerated','InstanceId', 'Source', 'Message']
+            def csv = []
+            if (max_row > 100) {
+                max_row = 100
+            }
+            def log_name = ''
+            (0..max_row).each { row ->
+                log_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                    }
+                }
+            }
+            test_item.devices(csv, headers)
+            test_item.results(csv.size().toString() + ' event found')
+        }
+    }
 }
