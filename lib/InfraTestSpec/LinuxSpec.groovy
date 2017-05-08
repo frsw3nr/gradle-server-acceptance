@@ -51,20 +51,33 @@ class LinuxSpec extends LinuxSpecBase {
         super.packages(session, test_item)
 
         def lines = new File("${local_dir}/packages").text
-        def packages = [:].withDefault{0}
-        def requiements = [:]
-        ['compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'].each {
-            requiements[it] = 1
-        }
-        def n_requiements = 0
-        lines.eachLine {
-            def arr = it.split(/\t/)
-            def packagename = arr[0]
-            if (requiements[packagename])
-                n_requiements ++
-        }
-        packages['requiement_for_oracle'] = (requiements.size() == n_requiements) ? 'OK' : 'NG'
+        def requiements = [
+            'oracle' :
+                ['compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'],
+            'base' :
+                ['sysstat','dmidecode','strace','net-snmp-libs','net-snmp-utils','busybox-anaconda',
+                'alchemist','xinetd','tftp-server','system-config-netboot-cmd','system-config-netboot'],
+            'sophos' :
+                ['glibc', 'nss-softokn-freebl', 'libXau', 'libxcb', 'libX11', 'libXpm'],
+            'msm' :
+                ['MegaRAID_Storage_Manager','Lib_Utils2','Lib_Utils','sas_snmp','sas_ir_snmp'],
+        ]
 
+        def packages = [:]
+        requiements.each {package_group, requiement ->
+            def checks = [:]
+            requiement.each {
+                checks[it] = 1
+            }
+            def n_requiements = 0
+            lines.eachLine {
+                def arr = it.split(/\t/)
+                def packagename = arr[0]
+                if (checks[packagename])
+                    n_requiements ++
+            }
+            packages['requiement_for_' + package_group] = (requiement.size() == n_requiements) ? 'OK' : 'NG'
+        }
         test_item.results(packages)
     }
 
