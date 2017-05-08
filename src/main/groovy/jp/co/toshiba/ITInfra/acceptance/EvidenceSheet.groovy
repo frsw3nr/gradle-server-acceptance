@@ -30,6 +30,7 @@ class EvidenceSheet {
     final column_server_begin = 3
     final column_body_begin   = 6
     final column_device_begin = 2
+    final row_server_name     = 7
 
     final device_cell_width   = 5760
     final evidence_cell_width = 11520
@@ -107,9 +108,9 @@ class EvidenceSheet {
         def max_server_columns = 0
         sheet_server.with { sheet ->
             // check server_ids from header
-            Row header_row = sheet.getRow(4)
+            Row header_row = sheet.getRow(row_server_name)
             (column_server_begin .. header_row.getLastCellNum()).each { column ->
-                def position = "4:${column}"
+                def position = "${row_server_name}:${column}"
                 def server_id_cell = header_row.getCell(column)
                 if (server_id_cell) {
                     try {

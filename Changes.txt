@@ -5,11 +5,19 @@ New features:
     - [X] cron設定
     - [X] リソース制限設定(/etc/security/limits.conf)
     - [X] yumリポジトリの一覧(yum repolist all)
+    - [X] キーボード(RHEL6:/etc/sysconfig/keyboard, RHEL7:/etc/vconsole.conf)
+    - [X] OS言語(/proc/cmdline)
+    - [X] タイムゾーン(RHEL6:/etc/sysconfig/clock, RHEL7:timedatectl)
+    - [X] Syslogのエラーメッセージ
 * Windows 検査シナリオの見直し
     - [X] タスクスケジューラ一覧(Get-ScheduledTask)
     - [X] ホスト一覧(C:\Windows\System32\drivers\etc\hosts)
-    - [X] セキュリティポリシー(net accounts)
+    - [X] アカウントセキュリティポリシー(net accounts)
     - [X] 適用パッチ(wmic qfeコマンド)
+    - [X] InternetExplorerバージョン
+    - [X] ネットワークプロファイル
+    - [X] Windows 機能
+    - [X] Windows イベントログのエラーイベント
 
 Bug fixes:
 * テンプレートエクスポートコマンド(-x)でlib/templates下のファイルがコピーされない
@@ -18,6 +26,7 @@ Bug fixes:
   (Solaris 検査用に Ganymed-SSH2 ライブラリ追加)
 * Excel 検査結果に null がある場合、JSONの検査結果出力で、IllegalArgumentException:
   Maps with null keys can't be converted to JSON 例外をキャッチするように修正
+* 検査対象シートの server_name 行の位置ずれ修正
 
 Changes for 0.1.10 (2017-4-5)
 --------------------------------------------------------------------------------
@@ -28,7 +37,7 @@ New features:
 * Linux 検査シナリオの見直し
     - [X] LVM 設定
     - [X] SNMPトラップ設定(注:rootまたは、 sudo 権限があるユーザでの実行が必要)
-    - [X] ストレージRAID構成(HPサーバのみ、iLO4から収集)
+    - [X] ストレージRAID構成(HPサーバのみ、iLO から収集)
 * Windows 検査シナリオの見直し
     - [X] パッケージ情報
 * Linux 収集でタイムアウト規定値(秒)を 30 から 300に変更

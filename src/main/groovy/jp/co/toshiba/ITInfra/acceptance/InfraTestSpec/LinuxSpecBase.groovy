@@ -969,4 +969,75 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(se_status)
     }
 
+    def keyboard(session, test_item) {
+        def lines = exec('keyboard') {
+            def command = """\
+            |if [ -f /etc/sysconfig/keyboard ]; then
+            |    cat /etc/sysconfig/keyboard > ${work_dir}/keyboard
+            |elif [ -f /etc/vconsole.conf ]; then
+            |    cat /etc/vconsole.conf > ${work_dir}/keyboard
+            |fi
+            """.stripMargin()
+            session.execute command
+            session.get from: "${work_dir}/keyboard", into: local_dir
+            new File("${local_dir}/keyboard").text
+        }
+        lines.eachLine {
+            ( it =~ /^(LAYOUT|KEYMAP)="(.+)"$/).each {m0,m1,m2->
+                test_item.results(m2)
+            }
+        }
+    }
+
+    def language(session, test_item) {
+        def lines = exec('language') {
+            run_ssh_command(session, 'cat /proc/cmdline', 'language')
+        }
+        lines.eachLine {
+            def params = it.split(/\s/)
+            params.each { param ->
+                ( it =~ /LANG=(.+)$/).each {m0,m1->
+                    test_item.results(m1)
+                }
+            }
+        }
+    }
+
+    def timezone(session, test_item) {
+        def lines = exec('timezone') {
+            def command = """\
+            |if [ -x /bin/timedatectl ]; then
+            |    /bin/timedatectl > ${work_dir}/timezone
+            |elif [ -f /etc/sysconfig/clock ]; then
+            |    cat /etc/sysconfig/clock > ${work_dir}/timezone
+            |fi
+            """.stripMargin()
+            session.execute command
+            session.get from: "${work_dir}/timezone", into: local_dir
+            new File("${local_dir}/timezone").text
+        }
+        lines.eachLine {
+            ( it =~ /Time zone: (.+)$/).each {m0,m1->
+                test_item.results(m1)
+            }
+            ( it =~ /ZONE="(.+)"$/).each {m0,m1->
+                test_item.results(m1)
+            }
+        }
+    }
+
+    def error_messages(session, test_item) {
+        def lines = exec('error_messages') {
+            run_ssh_sudo(session, 'egrep -i \'(error|warning|failed)\' /var/log/messages | head -100', 'error_messages')
+        }
+        def csv = []
+        lines.eachLine {
+            if (it.size() > 0) {
+                csv << [it]
+            }
+        }
+        def headers = ['message']
+        test_item.devices(csv, headers)
+        test_item.results((csv.size() == 0) ? 'Not found' : 'Message found')
+    }
 }
