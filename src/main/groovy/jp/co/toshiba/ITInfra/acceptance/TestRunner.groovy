@@ -21,11 +21,15 @@ class TestRunner {
     String sheet_file
     String export_file
     String server_config_script
+    String redmine_ticket_status
+    String redmine_ticket_tracker
+    String redmine_ticket_version
     int parallel_degree
     def target_servers
     def test_ids
     Boolean dry_run
     Boolean verify_test
+    Boolean use_redmine
     EvidenceManager evidence_manager
 
     def parse(String[] args) {
@@ -53,7 +57,7 @@ class TestRunner {
                 argName: 'vm,cpu,...'
             u longOpt: 'update',   args: 1, 'Update node config',
                 argName:'local|db|db-all'
-            r longOpt: 'resource', args: 1, 'Dry run test resource directory'
+            _ longOpt: 'resource', args: 1, 'Dry run test resource directory'
                 argName : './src/test/resources/log/'
             _ longOpt: 'parallel', args: 1, 'Degree of test runner processes'
                 argName:'n'
@@ -66,6 +70,13 @@ class TestRunner {
             d longOpt: 'dry-run', 'Enable Dry run test'
             _ longOpt: 'verify',  'Disable verify test'
             h longOpt: 'help',    'Print usage'
+            r longOpt: 'use-redmine', 'Get test targets from Redmine'
+            _ longOpt: 'redmine-status',  args: 1, 'Ticket filter of Redmine status',
+                argName : '構築前'
+            _ longOpt: 'redmine-tracker', args: 1, 'Ticket filter of Redmine tracker',
+                argName : 'AP|DB'
+            _ longOpt: 'redmine-version', args: 1, 'Ticket filter of Redmine version',
+                argName : '17A'
         }
         def options = cli.parse(args)
         if (options.h || ! options.arguments().isEmpty()) {
@@ -111,6 +122,7 @@ class TestRunner {
         parallel_degree = 1
         dry_run         =  options.d ?: false
         verify_test     = !options.verify ?: true
+        use_redmine     = options.r ?: false
 
         config_file = './config/config.groovy'
         if (options.c) {
@@ -123,7 +135,7 @@ class TestRunner {
         }
 
         def config = Config.instance.read(config_file, keyword)
-        test_resource = (options.r) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
+        test_resource = (options.resource) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
         config['test']['dry_run_staging_dir'] = test_resource
         evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
                                                project_home : project_home,
@@ -161,6 +173,12 @@ class TestRunner {
             }
         }
 
+        if (use_redmine) {
+            redmine_ticket_status  = options.status  ?: '%'
+            redmine_ticket_tracker = options.tracker ?: '%'
+            redmine_ticket_version = options.version ?: '%'
+        }
+
         log.info "Parse Arguments : " + args.toString()
         log.info "\thome          : " + project_home
         log.info "\ttest_resource : " + test_resource
@@ -168,6 +186,7 @@ class TestRunner {
         log.info "\tsheet_file    : " + sheet_file
         log.info "\tdry_run       : " + dry_run
         log.info "\tverify_test   : " + verify_test
+        log.info "\tuse_redmine   : " + use_redmine
         log.info "\tfilter option : "
         log.info "\t\ttarget servers : " + target_servers.toString()
         log.info "\t\ttest_ids       : " + test_ids.toString()

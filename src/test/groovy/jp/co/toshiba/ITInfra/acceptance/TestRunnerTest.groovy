@@ -11,7 +11,7 @@ class TestRunnerTest extends Specification {
         def test = new TestRunner()
 
         when:
-        String[] args = ['-r', './src/test/resources/', '-c', './src/test/resources/config.groovy']
+        String[] args = ['--resource', './src/test/resources/', '-c', './src/test/resources/config.groovy']
         test.parse(args)
 
         then:
@@ -25,7 +25,7 @@ class TestRunnerTest extends Specification {
             '--dry-run',
             '--verify',
             '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/',
+            '--resource', './src/test/resources/',
             '--parallel', '3',
         ]
 

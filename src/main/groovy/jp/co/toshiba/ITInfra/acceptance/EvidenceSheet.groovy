@@ -125,6 +125,11 @@ class EvidenceSheet {
                     }
                 }
             }
+            if (server_ids.size() == 0) {
+                log.info "Target server not found in '${sheet_name_server}' sheet."
+                return
+            }
+
             // check server from body
             (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
                 Row row = sheet.getRow(rownum)
@@ -159,6 +164,8 @@ class EvidenceSheet {
         }
         (column_server_begin..max_server_columns).each {
             def server_id = server_ids[it]
+            if (!server_id)
+                return
             def test_server = new TargetServer(server_info[server_id])
             if (sheet_name_specs.containsKey(test_server.platform)) {
                 test_platforms[test_server.platform] = 1

@@ -107,6 +107,10 @@ class TestScheduler {
         log.debug "Initialize test schedule"
         long run_test_start = System.currentTimeMillis()
 
+        if (test_runner.use_redmine) {
+            def cmdb_model = CMDBModel.instance
+            cmdb_model.initialize(this.evidence_manager)
+        }
         evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet(test_runner.server_config_script)
