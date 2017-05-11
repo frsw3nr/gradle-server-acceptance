@@ -69,7 +69,6 @@ class EvidenceManager {
         def last_run = new JsonSlurper().parseText(last_run_json)
         def node_path = new File("./node").getAbsolutePath()
         assert(last_run.node_dir)
-println "LAST_RUN_NODE_DIR*$last_run.node_dir"
         FileUtils.copyDirectory(new File(last_run.node_dir), new File(node_path))
         try {
             archiveEvidence(last_run.evidence, last_run.target)
