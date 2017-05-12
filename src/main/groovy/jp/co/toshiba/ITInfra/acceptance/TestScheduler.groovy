@@ -114,6 +114,7 @@ class TestScheduler {
         evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
         evidence_sheet.readSheet(test_runner.server_config_script)
+        
         evidence_sheet.prepareTestStage()
         test_servers = filterServer(evidence_sheet.test_servers)
 

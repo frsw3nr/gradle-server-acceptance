@@ -1,3 +1,11 @@
+Changes for 0.2.0 (2017-5-23)
+--------------------------------------------------------------------------------
+New features:
+* Redmine DB 連携
+* vCenter 検査シナリオの見直し
+    - [X] DataStore構成(Get-Datastore)
+    - [X] NetworkAdapter構成(Get-NetworkAdapter)
+
 Changes for 0.1.11 (2017-5-9)
 --------------------------------------------------------------------------------
 New features:

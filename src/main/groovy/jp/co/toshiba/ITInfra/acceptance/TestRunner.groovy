@@ -70,13 +70,9 @@ class TestRunner {
             d longOpt: 'dry-run', 'Enable Dry run test'
             _ longOpt: 'verify',  'Disable verify test'
             h longOpt: 'help',    'Print usage'
+            _ longOpt: 'csv', args: 1, 'Export csv from test result excel',
+                argName : 'check_sheet.xlsx,...'
             r longOpt: 'use-redmine', 'Get test targets from Redmine'
-            _ longOpt: 'redmine-status',  args: 1, 'Ticket filter of Redmine status',
-                argName : '構築前'
-            _ longOpt: 'redmine-tracker', args: 1, 'Ticket filter of Redmine tracker',
-                argName : 'AP|DB'
-            _ longOpt: 'redmine-version', args: 1, 'Ticket filter of Redmine version',
-                argName : '17A'
         }
         def options = cli.parse(args)
         if (options.h || ! options.arguments().isEmpty()) {
@@ -173,11 +169,11 @@ class TestRunner {
             }
         }
 
-        if (use_redmine) {
-            redmine_ticket_status  = options.status  ?: '%'
-            redmine_ticket_tracker = options.tracker ?: '%'
-            redmine_ticket_version = options.version ?: '%'
-        }
+        // if (use_redmine) {
+        //     redmine_ticket_status  = options.status  ?: '%'
+        //     redmine_ticket_tracker = options.tracker ?: '%'
+        //     redmine_ticket_version = options.version ?: '%'
+        // }
 
         log.info "Parse Arguments : " + args.toString()
         log.info "\thome          : " + project_home

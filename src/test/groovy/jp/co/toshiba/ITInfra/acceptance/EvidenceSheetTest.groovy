@@ -181,4 +181,17 @@ class EvidenceSheetTest extends Specification{
         then:
         evidence.compare_servers.size() > 0
     }
+
+    def "Excel検査結果の読込"() {
+        when:
+        def csv = []
+        def evidence = new EvidenceSheet('src/test/resources/config.groovy')
+        evidence.evidence_source = 'src/test/resources/check_sheet_20170512_143424.xlsx'
+        evidence.readAllTestResult(csv)
+        println csv.toString()
+
+        then:
+        1 == 1
+    }
+
 }
