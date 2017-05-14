@@ -65,6 +65,79 @@ class vCenterSpecBase extends InfraTestSpec {
         }
     }
 
+    def datastore(test_item) {
+        run_script("Get-Datastore -VM $vm | FL") {
+            def lines = exec('datastore') {
+                new File("${local_dir}/datastore")
+            }
+            def instance_number = 0
+            def datastore_info = [:].withDefault{[:]}
+            def datastore_names = []
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    datastore_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && datastore_info[instance_number].size() > 0) {
+                    instance_number ++
+                }
+            }
+            def headers = ['Name','DatastoreBrowserPath', 'Type', 'State']
+            def csv = []
+            def datastore_name = ''
+            (0..instance_number).each { row ->
+                datastore_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                        datastore_names << it['Name']
+                    }
+                }
+            }
+            test_item.devices(csv, headers)
+            test_item.results(datastore_names.toString())
+        }
+    }
+
+    def network(test_item) {
+        run_script("Get-NetworkAdapter -VM $vm | FL") {
+            def lines = exec('network') {
+                new File("${local_dir}/network")
+            }
+            def instance_number = 0
+            def network_info = [:].withDefault{[:]}
+            def connections  = []
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    network_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && network_info[instance_number].size() > 0) {
+                    instance_number ++
+                }
+            }
+            def headers = ['NetworkName', 'Type', 'ConnectionState']
+            def csv = []
+            def network_name = ''
+            (0..instance_number).each { row ->
+                network_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                        def arrs = it['ConnectionState'].split(/,/)
+                        connections << arrs[arrs.size() - 1].trim()
+                    }
+                }
+            }
+            test_item.devices(csv, headers)
+            test_item.results(connections.toString())
+        }
+    }
+
     def vmwaretool(test_item) {
         def command = '''\
             |Get-VM $vm | `
@@ -139,6 +212,23 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def vm_timesync(test_item) {
         run_script('Get-VM $vm | Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} | Format-List') {
+            def lines = exec('vm_timesync') {
+                new File("${local_dir}/vm_timesync")
+            }
+
+            def res = [:]
+
+            lines.eachLine {
+                (it =~  /^(TimeSync)\s+:\s(.+)$/).each { m0,m1,m2->
+                    res[m1] = m2
+                }
+            }
+            test_item.results(res.toString())
+        }
+    }
+
+    def vm_datastore(test_item) {
+        run_script('Get-Datastore $vm | Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} | Format-List') {
             def lines = exec('vm_timesync') {
                 new File("${local_dir}/vm_timesync")
             }

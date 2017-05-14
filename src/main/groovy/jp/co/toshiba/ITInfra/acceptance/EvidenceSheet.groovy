@@ -311,14 +311,10 @@ class EvidenceSheet {
         }
     }
 
-    def readTestResult(Sheet sheet, csv) throws IOException {
-        println "CHECK : ${sheet.getSheetName()}"
-// 5行目から順に読み込む
-// B列: ID (1)
-// D列: 分類 (3)
-// G列: 結果 (6～)
-        def servers = [:]
+    def readTestResult(Sheet sheet) throws IOException {
+        log.debug "Check test result sheet '${sheet.getSheetName()}'"
         // check servers from header
+        def servers = [:]
         Row header_row = sheet.getRow(row_header)
         def column_body_end = header_row.getLastCellNum() - 1
         if (column_body_end < column_body_begin)
@@ -328,34 +324,26 @@ class EvidenceSheet {
             def position = "${row_header}:${colnum}"
             servers[colnum] = "${header_row.getCell(colnum)}"
         }
-println servers.toString()
-        (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
+        log.debug "Fetch server '${servers.toString()}'"
+        // Fetch test results
+        def csv = []
+        (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
             Row row = sheet.getRow(rownum)
             if (row == null)
                 return true
             def testid = "${row.getCell(1)}"
             def domain = "${row.getCell(3)}"
             if (testid != '' && domain != '') {
-                (column_body_begin .. column_body_end).find { colnum ->
-                    println "$domain,$testid,${servers[colnum]},${row.getCell(colnum)}"
-                    // csv << [ domain, testid, servers[colnum], "${row.getCell(colnum)}"]
-                    // test_results[domain][testid][servers[colnum]] = "${row.getCell(colnum)}"
+                (column_body_begin .. column_body_end).each { colnum ->
+                    csv << [ servers[colnum], domain, testid, "${row.getCell(colnum)}"]
                 }
             }
         }
-// println csv.toSttest_results.toString()
+        return csv
     }
 
-    def readAllTestResult(csv) throws IOException {
-        long start = System.currentTimeMillis()
-        println evidence_source
-
-        // 4行目が Test,ID で始まる行を読み込み
-        // 5行目から順に読 
-        //  G列目から順に読み込み
-        //     D列で分類(vCenter,Linuxなど)を読み込み
-        //     結果配列登録 key : {server_name, domain, id}, value : { text }
-
+    def readAllTestResult() throws IOException {
+        def csv = []
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 Iterator<Sheet> sheets = workbook.sheetIterator()
@@ -364,11 +352,14 @@ println servers.toString()
                     // 4行目が Test,ID で始まる行かチェック
                     if ("${sheet.getRow(3)?.getCell(0)}" == 'Test' &&
                         "${sheet.getRow(3)?.getCell(1)}" == 'ID') {
-                        readTestResult(sheet, csv)
+                        def sheet_csv = readTestResult(sheet)
+                        if (sheet_csv)
+                            csv += sheet_csv
                     }
                 }
             }
         }
+        return csv
     }
 
     def readSheet(String server_config_script = null) throws IOException {

@@ -19,7 +19,7 @@ class TestRunner {
     String test_resource
     String config_file
     String sheet_file
-    String export_file
+    String export_files
     String server_config_script
     String redmine_ticket_status
     String redmine_ticket_tracker
@@ -43,7 +43,7 @@ class TestRunner {
                 argName: 'config.groovy'
             g longOpt: 'generate', args: 1, 'Generate project directory',
                 argName: '/work/project'
-            x longOpt: 'xport',    args: 1, 'Export project zip file',
+            b longOpt: 'backup',   args: 1, 'Backup project zip file',
                 argName: '/work/project.zip'
             _ longOpt: 'excel',    args: 1, 'Excel sheet path',
                 argName: 'check_sheet.xlsx'
@@ -70,7 +70,7 @@ class TestRunner {
             d longOpt: 'dry-run', 'Enable Dry run test'
             _ longOpt: 'verify',  'Disable verify test'
             h longOpt: 'help',    'Print usage'
-            _ longOpt: 'csv', args: 1, 'Export csv from test result excel',
+            x longOpt: 'export',   args: 1, 'Export csv from test result excel',
                 argName : 'check_sheet.xlsx,...'
             r longOpt: 'use-redmine', 'Get test targets from Redmine'
         }
@@ -88,8 +88,8 @@ class TestRunner {
             new ProjectBuilder(getconfig_home, site_home).generate()
             System.exit(0)
         }
-        if (options.x) {
-            def xport_file = options.x
+        if (options.backup) {
+            def xport_file = options.backup
             new ProjectBuilder(project_home).xport(xport_file)
             System.exit(0)
         }
@@ -152,6 +152,11 @@ class TestRunner {
             System.exit(0)
         }
 
+        if (options.export) {
+            this.export_files = options.export
+            new CSVExporter(this).run()
+            System.exit(0)
+        }
 
         sheet_file = config['evidence']['source'] ?: './check_sheet.xlsx'
         if (options.excel) {

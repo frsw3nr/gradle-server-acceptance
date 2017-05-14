@@ -37,7 +37,7 @@ class Config {
             def config_data = readConfigFile(config_file, keyword)
             def config = new ConfigSlurper().parse(config_data)
             (config['evidence']).with { evidence ->
-                ['target', 'staging_dir'].each {
+                ['target', 'staging_dir', 'csv_export'].each {
                     if (evidence[it]) {
                         evidence[it + '_original'] = evidence[it]
                         evidence[it] = evidence[it].replaceAll(

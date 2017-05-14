@@ -11,7 +11,7 @@ class TestSchedulerTest extends Specification {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
+            '-resource', './src/test/resources/log',
             '--parallel', '3',
         ]
 
@@ -35,7 +35,7 @@ class TestSchedulerTest extends Specification {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
+            '-resource', './src/test/resources/log',
             '-s', 'testtestdb',
             '--parallel', '3',
         ]
@@ -55,7 +55,7 @@ class TestSchedulerTest extends Specification {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
+            '-resource', './src/test/resources/log',
             '-t', 'hostname',
             '--parallel', '3',
         ]
@@ -75,7 +75,7 @@ class TestSchedulerTest extends Specification {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
+            '-resource', './src/test/resources/log',
             '-s', 'testtestdb',
             '-t', 'vm',
             '--parallel', '3',
@@ -96,7 +96,7 @@ class TestSchedulerTest extends Specification {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
-            '-r', './src/test/resources/log',
+            '-resource', './src/test/resources/log',
             '-i', './src/test/resources/test_servers.groovy',
         ]
 

@@ -13,6 +13,10 @@ evidence.sheet_name_spec = [
 
 evidence.target='./build/check_sheet_<date>.xlsx'
 
+// CSV Export path.
+
+evidence.csv_export='./build/export/compare_<date>.csv'
+
 // Test result log directory.
 
 evidence.staging_dir='./build/log'
