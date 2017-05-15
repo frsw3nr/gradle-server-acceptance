@@ -1,10 +1,12 @@
-Changes for 0.2.0 (2017-5-23)
+Changes for 0.1.12 (2017-5-23)
 --------------------------------------------------------------------------------
 New features:
 * Redmine DB 連携
 * vCenter 検査シナリオの見直し
     - [X] DataStore構成(Get-Datastore)
     - [X] NetworkAdapter構成(Get-NetworkAdapter)
+Bug fixes:
+* 検査対象シートの server_name 行の位置ずれ修正
 
 Changes for 0.1.11 (2017-5-9)
 --------------------------------------------------------------------------------
@@ -34,7 +36,6 @@ Bug fixes:
   (Solaris 検査用に Ganymed-SSH2 ライブラリ追加)
 * Excel 検査結果に null がある場合、JSONの検査結果出力で、IllegalArgumentException:
   Maps with null keys can't be converted to JSON 例外をキャッチするように修正
-* 検査対象シートの server_name 行の位置ずれ修正
 
 Changes for 0.1.10 (2017-4-5)
 --------------------------------------------------------------------------------

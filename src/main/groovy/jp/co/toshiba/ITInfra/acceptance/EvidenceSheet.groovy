@@ -26,11 +26,11 @@ public enum ResultCellStyle {
 class EvidenceSheet {
 
     final row_header          = 3
+    final column_header       = 1
     final row_body_begin      = 4
     final column_server_begin = 3
     final column_body_begin   = 6
     final column_device_begin = 2
-    final row_server_name     = 7
 
     final device_cell_width   = 5760
     final evidence_cell_width = 11520
@@ -105,12 +105,24 @@ class EvidenceSheet {
         def server_ids = [:]
         def server_info = [:].withDefault{[:]}
         def errors = []
+        def server_name_row = 7
         def max_server_columns = 0
         sheet_server.with { sheet ->
-            // check server_ids from header
-            Row header_row = sheet.getRow(row_server_name)
+
+            // Check rownum of 'server_name'
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
+                Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
+                if (row.getCell(1).getStringCellValue() == 'server_name') {
+                    server_name_row = rownum
+                    return
+                }
+            }
+            // Check server name from header, set the map of 'server_ids'.
+            Row header_row = sheet.getRow(server_name_row)
             (column_server_begin .. header_row.getLastCellNum()).each { column ->
-                def position = "${row_server_name}:${column}"
+                def position = "${server_name_row}:${column}"
                 def server_id_cell = header_row.getCell(column)
                 if (server_id_cell) {
                     try {
@@ -130,7 +142,7 @@ class EvidenceSheet {
                 return
             }
 
-            // check server from body
+            // Check server from body
             (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
                 Row row = sheet.getRow(rownum)
                 if (row == null)
