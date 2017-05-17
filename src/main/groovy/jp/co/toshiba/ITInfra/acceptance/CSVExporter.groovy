@@ -16,6 +16,8 @@ class CSVExporter {
     CSVExporter(TestRunner test_runner) {
         this.test_runner = test_runner
         def config = Config.instance.read(test_runner.config_file)
+        if (!config?.evidence?.csv_export)
+            log.warn "Parameter 'config.evidence.csv_export' not found in config.groovy. Use default : 'build/compare.csv'."
         csv_export = config?.evidence?.csv_export ?: 'build/compare.csv'
     }
 
@@ -36,6 +38,7 @@ class CSVExporter {
         if (csv.size() == 0) {
             throw new IllegalArgumentException("No test result data")
         }
+        log.info "Export ${csv_export}"
         def target_dir = new File(csv_export).getParentFile()
         target_dir.mkdirs()
         def writer = new PrintWriter(csv_export)

@@ -324,19 +324,19 @@ class EvidenceSheet {
     }
 
     def readTestResult(Sheet sheet) throws IOException {
-        log.debug "Check test result sheet '${sheet.getSheetName()}'"
+        log.info "Check test result sheet '${sheet.getSheetName()}'"
         // check servers from header
         def servers = [:]
         Row header_row = sheet.getRow(row_header)
         def column_body_end = header_row.getLastCellNum() - 1
+
         if (column_body_end < column_body_begin)
             return;
 
-        (column_body_begin .. column_body_end).find { colnum ->
-            def position = "${row_header}:${colnum}"
-            servers[colnum] = "${header_row.getCell(colnum)}"
+        (column_body_begin .. column_body_end).each { colnum ->
+            servers[colnum] = header_row.getCell(colnum).getStringCellValue()
         }
-        log.debug "Fetch server '${servers.toString()}'"
+        log.info "Fetch server '${servers.toString()}'"
         // Fetch test results
         def csv = []
         (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
@@ -356,6 +356,7 @@ class EvidenceSheet {
 
     def readAllTestResult() throws IOException {
         def csv = []
+        csv << ['ServerName', 'Domain', 'TestItem', 'Value']
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 Iterator<Sheet> sheets = workbook.sheetIterator()
