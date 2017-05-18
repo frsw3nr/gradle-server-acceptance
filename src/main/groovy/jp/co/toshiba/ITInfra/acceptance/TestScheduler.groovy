@@ -108,8 +108,24 @@ class TestScheduler {
         long run_test_start = System.currentTimeMillis()
 
         if (test_runner.use_redmine) {
-            def cmdb_model = CMDBModel.instance
-            cmdb_model.initialize(this.evidence_manager)
+            def redmine = RedmineContainer.instance.initialize(this.evidence_manager)
+            def filters
+            if (redmine.silent) {
+                filters = redmine.get_default_filter_options(project: 'クラウド基盤VM払出し',
+                                                           status: '構築前',
+                                                           version: '%',
+                                                           tracker: '%')
+            } else {
+                filters   = redmine.input_filter_options()
+            }
+    println "FILTER:"
+    println filters
+            // def filters = ['project' : 2, 'status' : 1]
+            redmine.get_issues(filters)
+    println "ISSUES:"
+    println redmine.server_infos.toString()
+            // println redmine.projects.toString()
+            return
         }
         evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file

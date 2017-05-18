@@ -355,8 +355,7 @@ class EvidenceSheet {
     }
 
     def readAllTestResult() throws IOException {
-        def csv = []
-        csv << ['ServerName', 'Domain', 'TestItem', 'Value']
+        def results = [:]
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 Iterator<Sheet> sheets = workbook.sheetIterator()
@@ -372,6 +371,8 @@ class EvidenceSheet {
                 }
             }
         }
+        def csv = []
+        csv << ['ServerName', 'Domain', 'TestItem', 'Value']
         return csv
     }
 

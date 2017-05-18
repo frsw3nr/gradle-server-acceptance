@@ -68,3 +68,20 @@ account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
 
 account.VMHost.Test.user      = 'test_user'
 account.VMHost.Test.password  = 'P@ssword'
+
+// Redmine custome fields map
+
+redmine.custom_fields = [
+    'ホスト名' :         'server_name',
+    'IPアドレス' :       'ip',
+    'プラットフォーム' : 'platform',
+    'OSアカウント' :     'os_account_id',
+    'vCenterアカウント': 'remote_account_id',
+    'VMエイリアス名' :   'remote_alias',
+    '検証ID' :           'verify_id',
+    '比較対象' :         'compare_server',
+    'CPU割り当て' :      'NumCpu',
+    'メモリ割り当て' :   'MemoryGB',
+    'ESXiホスト' :       'ESXiHost',
+    'ストレージ構成' :   'HDDtype',
+]
