@@ -21,15 +21,13 @@ class TestRunner {
     String sheet_file
     String export_files
     String server_config_script
-    String redmine_ticket_status
-    String redmine_ticket_tracker
-    String redmine_ticket_version
     int parallel_degree
     def target_servers
     def test_ids
     Boolean dry_run
     Boolean verify_test
     Boolean use_redmine
+    Boolean silent
     EvidenceManager evidence_manager
 
     def parse(String[] args) {
@@ -73,6 +71,7 @@ class TestRunner {
             x longOpt: 'export',   args: 1, 'Export csv from test result excel',
                 argName : 'check_sheet.xlsx,...'
             r longOpt: 'use-redmine', 'Get test targets from Redmine'
+            _ longOpt: 'silent', 'Silent mode'
         }
         def options = cli.parse(args)
         if (options.h || ! options.arguments().isEmpty()) {
@@ -119,6 +118,7 @@ class TestRunner {
         dry_run         =  options.d ?: false
         verify_test     = !options.verify ?: true
         use_redmine     = options.r ?: false
+        silent          = options.silent ?: false
 
         config_file = './config/config.groovy'
         if (options.c) {
@@ -136,7 +136,8 @@ class TestRunner {
         evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
                                                project_home : project_home,
                                                db_config_file : db_config_file,
-                                               test_resource: test_resource)
+                                               test_resource: test_resource,
+                                               silent: silent)
 
         if (options.u) {
             if (options.u == 'local') {
@@ -173,12 +174,6 @@ class TestRunner {
                 System.exit(1)
             }
         }
-
-        // if (use_redmine) {
-        //     redmine_ticket_status  = options.status  ?: '%'
-        //     redmine_ticket_tracker = options.tracker ?: '%'
-        //     redmine_ticket_version = options.version ?: '%'
-        // }
 
         log.info "Parse Arguments : " + args.toString()
         log.info "\thome          : " + project_home

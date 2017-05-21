@@ -13,15 +13,14 @@ import java.sql.*
 class RedmineContainer {
 
     def cmdb
-
     def csv_item_map
     def custom_fileds_map = [:]
     def server_infos = [:].withDefault{[:]}
-    def silent = false
+    def silent
+    def redmine_config
 
     def initialize(EvidenceManager evidence_manager) throws IOException, SQLException {
         if (!this.cmdb) {
-            this.evidence_manager = evidence_manager
             def db_config = evidence_manager.db_config
             def config_db = Config.instance.read(db_config)
             def config_ds = config_db?.cmdb?.dataSource
@@ -30,28 +29,34 @@ class RedmineContainer {
                 throw new IllegalArgumentException(msg)
             }
             this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
-                                  config_ds['password'], config_ds['driver'])
+                                        config_ds['password'], config_ds['driver'])
             this.csv_item_map = config_db?.cmdb?.redmine?.custom_fields
-
+            this.silent       = evidence_manager?.silent ?: false
             custom_fileds_map = get_custom_fields()
         }
         return this
+    }
+
+    def set_default_config(String config_file) {
+        def config = Config.instance.read(config_file)
+        redmine_config = config['redmine']
     }
 
     def get_custom_fields() throws SQLException {
         def costom_fields = cmdb.rows('SELECT id, name FROM custom_fields')
         def custom_fileds_map = [:]
         def csv_item_count = 0
-        costom_fields.each { row ->
-            if (csv_item_map.containsKey(row['name'])) {
-                custom_fileds_map[row['id']] = csv_item_map[row['name']]
-                csv_item_count ++
+        costom_fields.each { custom_field ->
+            custom_field.with {
+                if (csv_item_map.containsKey(name)) {
+                    custom_fileds_map[id] = csv_item_map[name]
+                    csv_item_count ++
+                }
             }
         }
         if (csv_item_count != csv_item_map.size()) {
-            def message = "Malformed Redmine custom fields. Please check 'csv_item_map' in config.groovy.\n"
-            message += csv_item_map.toString()
-            trhow new SQLException(message)
+            trhow new SQLException("Malformed Redmine custom fields." +
+                                   "Please check 'csv_item_map' in config.groovy.")
         }
         return custom_fileds_map
     }
@@ -94,6 +99,29 @@ class RedmineContainer {
                     throw new NumberFormatException(
                         "Please input the number [${min_range}..${max_range}].")
             } catch (NumberFormatException e) {
+                println e
+            }
+        }
+    }
+
+    def input_isok(message = null, default_value = 'y') throws IOException {
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in))
+
+        if (message)
+            println message
+        while (true) {
+            print "Enter 'y' or 'n' [${default_value}]: "
+            String userInput = input.readLine().trim()
+
+            if(userInput == "")
+                userInput = "${default_value}"
+
+            try {
+                if (userInput == 'y' || userInput == 'n')
+                    return userInput
+                else
+                    throw new IllegalArgumentException("Please input 'y' or 'n'.")
+            } catch (IllegalArgumentException e) {
                 println e
             }
         }
@@ -204,35 +232,39 @@ class RedmineContainer {
             throw new SQLException('Not found targets')
         }
 
+        def server_names = []
         issue_ids.each { issue_id ->
             def id = issue_id['id']
             sql = "SELECT custom_field_id, value FROM custom_values WHERE customized_id = ?"
-            def values = cmdb.rows(sql, [issue_id['id']])
-            values.each {
-                server_infos[id][custom_fileds_map[it['custom_field_id']]] = it['value']
+            def custom_values = cmdb.rows(sql, [id])
+            def server_info = [:]
+            custom_values.each { custom_value ->
+                custom_value.with {
+                    def item_name = custom_fileds_map[custom_field_id]
+                    if (item_name)
+                        server_info[item_name] = value
+                }
             }
+            if (server_info['platform'] && server_info['server_name'] &&
+                server_info['ip'] && server_info['os_account_id']) {
+                server_infos[id] = server_info
+                server_names << server_info['server_name']
+            }
+            else
+                log.warn "Malformed Redmine issue : #${id}. Skip."
         }
+        if (silent || input_isok("以下のサーバの検査をします\n${server_names}", 'y') == 'y')
+            return server_infos
     }
 
     static void run(String[] args) {
         def redmine = new RedmineContainer()
         redmine.initialize()
-        def filters
-        if (redmine.silent) {
-            filters = redmine.get_default_filter_options(project: 'クラウド基盤VM払出し',
-                                                       status: '構築前',
-                                                       version: '%',
-                                                       tracker: '%')
-        } else {
-            filters   = redmine.input_filter_options()
-        }
-println "FILTER:"
-println filters
-        // def filters = ['project' : 2, 'status' : 1]
+        def filters   = redmine.input_filter_options()
+        println "FILTER: \n${filters}"
+        println filters
         redmine.get_issues(filters)
-println "ISSUES:"
-println redmine.server_infos.toString()
-        // println redmine.projects.toString()
+        println "ISSUES: \n${redmine.server_infos}"
     }
 
 }

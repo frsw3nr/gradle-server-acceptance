@@ -50,9 +50,10 @@ class RedmineContainer {
             }
         }
         if (csv_item_count != csv_item_map.size()) {
-            def message = "Malformed Redmine custom fields. Please check 'csv_item_map' in config.groovy.\n"
-            message += csv_item_map.toString()
-            trhow new SQLException(message)
+            def message = "Define malformed:\n\n"
+            message += "Redmine custom fields : ${custom_fileds_map}\n"
+            message += "csv_item_map : ${csv_item_map}\n"
+            throw new IllegalArgumentException(message)
         }
         return custom_fileds_map
     }
@@ -208,9 +209,11 @@ class RedmineContainer {
         issue_ids.each { issue_id ->
             def id = issue_id['id']
             sql = "SELECT custom_field_id, value FROM custom_values WHERE customized_id = ?"
-            def values = cmdb.rows(sql, [issue_id['id']])
+            def values = cmdb.rows(sql, [id])
             values.each {
-                server_infos[id][custom_fileds_map[it['custom_field_id']]] = it['value']
+                def field_name = custom_fileds_map[it['custom_field_id']]
+                if (field_name)
+                    server_infos[id][field_name] = it['value']
             }
         }
     }

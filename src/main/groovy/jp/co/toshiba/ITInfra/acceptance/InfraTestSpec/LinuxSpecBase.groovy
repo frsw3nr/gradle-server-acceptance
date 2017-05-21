@@ -176,8 +176,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def info = [:]
         // = を含む行を除いて、重複行を取り除く
         lines.eachLine {
-            if (it =~ /=/) {
-            } else {
+            if (it.indexOf('=') == -1 && it.size() > 0) {
                 info[it] = ''
             }
         }
@@ -192,6 +191,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def cpuinfo    = [:].withDefault{0}
         def real_cpu   = [:].withDefault{0}
         def cpu_number = 0
+
         lines.eachLine {
             (it =~ /processor\s+:\s(.+)/).each {m0,m1->
                 cpu_number += 1
@@ -214,8 +214,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         cpuinfo["cpu_total"] = cpu_number
         cpuinfo["cpu_real"] = real_cpu.size()
-        cpuinfo["cpu_cores"] = real_cpu.size() * cpuinfo["cpu_cores"].toInteger()
-
+        cpuinfo["cpu_core"] = real_cpu.size() * cpuinfo["cores"].toInteger()
         test_item.results(cpuinfo)
     }
 
@@ -365,18 +364,22 @@ class LinuxSpecBase extends InfraTestSpec {
             """.stripMargin()
             run_ssh_command(session, command, 'net_bond')
         }
-        def results = [:].withDefault{[]}
+        def configured = 'NotConfigured'
+        def devices    = []
+        def options    = []
         lines.eachLine {
             // DEVICE=bond0
             (it =~ /^DEVICE=(.+)$/).each {m0,m1->
-                results['net_bond'] << m1
+                devices << m1
+                configured = 'Configured'
             }
             // BONDING_OPTS="mode=1 miimon=100 updelay=100"
             (it =~ /^BONDING_OPTS="(.+)"$/).each {m0,m1->
-                results['net_bond_opts'] << m1
+                options << m1
             }
         }
-        test_item.results(results)
+        def results = ['bonding': configured, 'devices': devices, 'options': options]
+        test_item.results(results.toString())
     }
 
     def block_device(session, test_item) {
@@ -899,15 +902,24 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def ntp(session, test_item) {
         def lines = exec('ntp') {
-            run_ssh_command(session, "egrep -e '^server' /etc/ntp.conf", 'ntp')
+            def command = """\
+            |egrep -e '^server' /etc/ntp.conf 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'ntp')
         }
+        def config = 'NotConfigured'
         def ntpservers = []
         lines.eachLine {
             ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
+                config = 'Configured'
                 ntpservers.add(m1)
             }
         }
-        test_item.results(ntpservers.toString())
+        def result = ['ntp': config, 'server': ntpservers]
+        test_item.results(result.toString())
     }
 
     def ntp_slew(session, test_item) {
@@ -944,13 +956,16 @@ class LinuxSpecBase extends InfraTestSpec {
                 log.info "[sudo] Error ${command}" + e
             }
         }
-        def result = 'NotFound'
+        def config = 'NotConfigured'
+        def trapsink = []
         lines.eachLine {
             (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
-                result = trap_info
+                config = 'Configured'
+                trapsink << trap_info
             }
         }
-        test_item.results(result)
+        def results = ['snmp_trap': config, 'trapsink': trapsink]
+        test_item.results(results.toString())
     }
 
     def sestatus(session, test_item) {

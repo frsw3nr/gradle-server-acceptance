@@ -189,6 +189,14 @@ class EvidenceSheet {
         }
     }
 
+    def setServerInfos(server_infos = [:]) {
+        server_infos.each { id, server_info ->
+            def test_server = new TargetServer(server_info)
+            test_platforms[test_server.platform] = 1
+            test_servers.add(test_server)
+        }
+    }
+
     def readServerConfigScript(String server_config_script) throws IOException {
         log.debug("Read script '${server_config_script}'")
 
@@ -355,6 +363,8 @@ class EvidenceSheet {
     }
 
     def readAllTestResult() throws IOException {
+        def csv = []
+        csv << ['ServerName', 'Domain', 'TestItem', 'Value']
         def results = [:]
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
@@ -371,18 +381,17 @@ class EvidenceSheet {
                 }
             }
         }
-        def csv = []
-        csv << ['ServerName', 'Domain', 'TestItem', 'Value']
         return csv
     }
 
-    def readSheet(String server_config_script = null) throws IOException {
+    def readSheet(HashMap options = [:]) throws IOException {
         log.debug("Read test spec from ${evidence_source}")
         long start = System.currentTimeMillis()
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->
                 // Read Excel test server sheet.
-                if (server_config_script) {
+                if (options['server_config']) {
+                    def server_config_script = options['server_config']
                     def ext = server_config_script[server_config_script.lastIndexOf('.')..-1]
                     if (ext == '.groovy') {
                         readServerConfigScript(server_config_script)
@@ -392,6 +401,10 @@ class EvidenceSheet {
                         def msg = "Usage :getconfig -i (input.groovy|input.csv)"
                         throw new IllegalArgumentException(msg)
                     }
+
+                } else if (options['server_infos']) {
+                    setServerInfos(options['server_infos'])
+
                 } else {
                     log.debug("Read excel sheet '${evidence_source}:${sheet_name_server}'")
                     def sheet_server = workbook.getSheet(sheet_name_server)

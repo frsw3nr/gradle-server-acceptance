@@ -2,9 +2,14 @@ package InfraTestSpec
 
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
+import org.apache.commons.io.FileUtils.*
+import static groovy.json.JsonOutput.*
 import org.hidetake.groovy.ssh.Ssh
+import org.hidetake.groovy.ssh.session.execution.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
+import org.apache.commons.net.util.SubnetUtils
+import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 @Slf4j
 @InheritConstructors
@@ -16,35 +21,6 @@ class LinuxSpec extends LinuxSpecBase {
 
     def finish() {
         super.finish()
-    }
-
-    def vncserver(session, test_item) {
-        def isRHEL7 = session.execute('test -f /usr/bin/systemctl ; echo $?')
-        if (isRHEL7 == '0') {
-            def lines = exec('vncserver') {
-                run_ssh_command(session, '/usr/bin/systemctl status vncserver', 'vncserver')
-            }
-            def vncserver = 'inactive'
-            lines.eachLine {
-                ( it =~ /Active: (.+?)\s/).each {m0,m1->
-                     vncserver = m1
-                }
-            }
-            test_item.results(vncserver)
-        } else {
-            def lines = exec('vncserver') {
-                run_ssh_command(session, '/sbin/chkconfig --list|grep vncserver', 'vncserver')
-            }
-            def vncserver = 'off'
-            lines.eachLine {
-                ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
-                    if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
-                        vncserver = 'on'
-                    }
-                }
-            }
-            test_item.results(vncserver)
-        }
     }
 
     def packages(session, test_item) {
@@ -109,6 +85,35 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results((isok) ? 'OK' : 'NG')
     }
 
+    def vncserver(session, test_item) {
+        def isRHEL7 = session.execute('test -f /usr/bin/systemctl ; echo $?')
+        if (isRHEL7 == '0') {
+            def lines = exec('vncserver') {
+                run_ssh_command(session, '/usr/bin/systemctl status vncserver', 'vncserver')
+            }
+            def vncserver = 'inactive'
+            lines.eachLine {
+                ( it =~ /Active: (.+?)\s/).each {m0,m1->
+                     vncserver = m1
+                }
+            }
+            test_item.results(vncserver)
+        } else {
+            def lines = exec('vncserver') {
+                run_ssh_command(session, '/sbin/chkconfig --list|grep vncserver', 'vncserver')
+            }
+            def vncserver = 'off'
+            lines.eachLine {
+                ( it =~ /\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3->
+                    if (m1 == 'on' && m2 == 'on' && m3 == 'on') {
+                        vncserver = 'on'
+                    }
+                }
+            }
+            test_item.results(vncserver)
+        }
+    }
+
     // def hostname(session, test_item) {
     //     def lines = exec('hostname') {
     //         run_ssh_command(session, 'hostname -s', 'hostname')
@@ -145,8 +150,7 @@ class LinuxSpec extends LinuxSpecBase {
     //     def info = [:]
     //     // = を含む行を除いて、重複行を取り除く
     //     lines.eachLine {
-    //         if (it =~ /=/) {
-    //         } else {
+    //         if (it.indexOf('=') == -1 && it.size() > 0) {
     //             info[it] = ''
     //         }
     //     }
@@ -161,6 +165,7 @@ class LinuxSpec extends LinuxSpecBase {
     //     def cpuinfo    = [:].withDefault{0}
     //     def real_cpu   = [:].withDefault{0}
     //     def cpu_number = 0
+
     //     lines.eachLine {
     //         (it =~ /processor\s+:\s(.+)/).each {m0,m1->
     //             cpu_number += 1
@@ -183,8 +188,7 @@ class LinuxSpec extends LinuxSpecBase {
     //     }
     //     cpuinfo["cpu_total"] = cpu_number
     //     cpuinfo["cpu_real"] = real_cpu.size()
-    //     cpuinfo["cpu_cores"] = real_cpu.size() * cpuinfo["cpu_cores"].toInteger()
-
+    //     cpuinfo["cpu_core"] = real_cpu.size() * cpuinfo["cores"].toInteger()
     //     test_item.results(cpuinfo)
     // }
 
@@ -334,18 +338,22 @@ class LinuxSpec extends LinuxSpecBase {
     //         """.stripMargin()
     //         run_ssh_command(session, command, 'net_bond')
     //     }
-    //     def results = [:].withDefault{[]}
+    //     def configured = 'NotConfigured'
+    //     def devices    = []
+    //     def options    = []
     //     lines.eachLine {
     //         // DEVICE=bond0
     //         (it =~ /^DEVICE=(.+)$/).each {m0,m1->
-    //             results['net_bond'] << m1
+    //             devices << m1
+    //             configured = 'Configured'
     //         }
     //         // BONDING_OPTS="mode=1 miimon=100 updelay=100"
     //         (it =~ /^BONDING_OPTS="(.+)"$/).each {m0,m1->
-    //             results['net_bond_opts'] << m1
+    //             options << m1
     //         }
     //     }
-    //     test_item.results(results)
+    //     def results = ['bonding': configured, 'devices': devices, 'options': options]
+    //     test_item.results(results.toString())
     // }
 
     // def block_device(session, test_item) {
@@ -424,6 +432,7 @@ class LinuxSpec extends LinuxSpecBase {
     //     filesystems['filesystem'] = csv.size()
     //     test_item.results(filesystems)
     // }
+
 
     // def lvm(session, test_item) {
     //     def lines = exec('lvm') {
@@ -528,27 +537,71 @@ class LinuxSpec extends LinuxSpecBase {
     //     test_item.results(package_info)
     // }
 
+    // def cron(session, test_item) {
+    //     def users = exec('cron') {
+    //         run_ssh_sudo(session, "ls /var/spool/cron/ |cat", 'cron')
+    //     }
+    //     def csv = []
+    //     users.eachLine { user ->
+    //         def id = "cron.$user"
+    //         def command = "crontab -l -u $user"
+    //         def lines = exec(id) {
+    //             run_ssh_sudo(session, command, id)
+    //         }
+    //         lines.eachLine {
+    //             (it =~ /^\s*[^#].+$/).each {m0 ->
+    //                 csv << [user, it]
+    //             }
+    //         }
+    //     }
+    //     def headers = ['user', 'crontab']
+    //     test_item.devices(csv, headers)
+    //     test_item.results(csv.size().toString())
+    // }
+
     // def yum(session, test_item) {
     //     def lines = exec('yum') {
     //         def command = "egrep -e '\\[|enabled' /etc/yum.repos.d/*.repo"
     //         run_ssh_command(session, command, 'yum')
     //     }
-    //     def yum = [:].withDefault{0}
-    //     def repository
+    //     def yum_info = [:].withDefault{0}
+    //     def repository = 'Unkown'
     //     def csv = []
+    //     def row = []
     //     lines.eachLine {
     //         (it =~/\[(.+)\]/).each {m0, m1 ->
-    //             repository = m1
+    //             row << m1
     //         }
-    //         (it =~/:enabled=(\d+)/).each {m0, enabled ->
-    //             csv << [repository, enabled]
-    //             yum['yum.' . repository] = enabled
+    //         (it =~/:\s*enabled=(.+)/).each {m0, m1 ->
+    //             row << m1
+    //             if (row.size() == 2) {
+    //                 csv << row
+    //                 row = []
+    //             }
     //         }
     //     }
     //     def headers = ['repository', 'enabled']
     //     test_item.devices(csv, headers)
-    //     yum['yum'] = csv.size().toString()
-    //     test_item.results(yum)
+    //     test_item.results(csv.size().toString())
+    // }
+
+    // def resource_limits(session, test_item) {
+    //     def lines = exec('resource_limits') {
+    //         def command = "egrep -v '^#' /etc/security/limits.d/*"
+    //         run_ssh_command(session, command, 'resource_limits')
+    //     }
+    //     def csv = []
+    //     def row = []
+    //     lines.eachLine {
+    //         (it =~/limits\.d\/(.+?):(.+)$/).each {m0, m1, m2 ->
+    //             csv << [m1, m2]
+    //         }
+    //     }
+    //     def headers = ['source', 'limits']
+    //     test_item.devices(csv, headers)
+    //     def csv_rows = csv.size()
+    //     def result = (csv_rows == 0) ? 'No limits setting' : "${csv_rows} records found"
+    //     test_item.results(result)
     // }
 
     // def user(session, test_item) {
@@ -585,6 +638,33 @@ class LinuxSpec extends LinuxSpecBase {
     //     test_item.devices(csv, headers)
     //     users['user'] = user_count
     //     test_item.results(users)
+    // }
+
+    // def crontab(session, test_item) {
+    //     def csv  = []
+    //     def cron_number = [:].withDefault{0}
+
+    //     def lines = exec('crontab') {
+    //         run_ssh_command(session, 'crontab -l', 'crontab')
+    //     }
+    //     lines.eachLine {
+    //         (it =~ /^\s*\d/).each { m0 ->
+    //             csv << ['user', it]
+    //             cron_number['user'] ++
+    //         }
+    //     }
+    //     def lines2 = exec('crontab2') {
+    //         run_ssh_sudo(session, 'crontab -l', 'crontab2')
+    //     }
+    //     lines2.eachLine {
+    //         (it =~ /^\s*\d/).each { m0 ->
+    //             csv << ['root', it]
+    //             cron_number['root'] ++
+    //         }
+    //     }
+    //     def headers = ['account', 'crontab']
+    //     test_item.devices(csv, headers)
+    //     test_item.results(cron_number.toString())
     // }
 
     // def service(session, test_item) {
@@ -796,15 +876,24 @@ class LinuxSpec extends LinuxSpecBase {
 
     // def ntp(session, test_item) {
     //     def lines = exec('ntp') {
-    //         run_ssh_command(session, "egrep -e '^server' /etc/ntp.conf", 'ntp')
+    //         def command = """\
+    //         |egrep -e '^server' /etc/ntp.conf 2>/dev/null
+    //         |if [ \$? != 0 ]; then
+    //         |   echo 'Not found'
+    //         |fi
+    //         """.stripMargin()
+    //         run_ssh_command(session, command, 'ntp')
     //     }
+    //     def config = 'NotConfigured'
     //     def ntpservers = []
     //     lines.eachLine {
     //         ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
+    //             config = 'Configured'
     //             ntpservers.add(m1)
     //         }
     //     }
-    //     test_item.results(ntpservers.toString())
+    //     def result = ['ntp': config, 'server': ntpservers]
+    //     test_item.results(result.toString())
     // }
 
     // def ntp_slew(session, test_item) {
@@ -841,14 +930,51 @@ class LinuxSpec extends LinuxSpecBase {
     //             log.info "[sudo] Error ${command}" + e
     //         }
     //     }
-    //     def result = 'NotFound'
+    //     def config = 'NotConfigured'
+    //     def trapsink = []
     //     lines.eachLine {
     //         (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
-    //             result = trap_info
+    //             config = 'Configured'
+    //             trapsink << trap_info
     //         }
     //     }
-    //     test_item.results(result)
+    //     def results = ['snmp_trap': config, 'trapsink': trapsink]
+    //     test_item.results(results.toString())
     // }
+
+//     def snmp_trap(session, test_item) {
+//         def command = """\
+//         |egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf 1> ${work_dir}/snmp_trap 2>/dev/null
+//         |if [ \$? != 0 ]; then
+//         |   echo 'Not found'
+//         |fi
+//         """.stripMargin()
+// println "CMD:$command"
+//         //     run_ssh_sudo(session, command, 'snmp_trap')
+//         // }
+
+//             // def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
+//         def lines = exec('snmp_trap') {
+//             try {
+//                 def result = session.executeSudo command, pty: true, timeoutSec: 5
+//                 log.info result
+//                 session.get from: "${work_dir}/snmp_trap", into: local_dir
+//                 new File("${local_dir}/snmp_trap").text
+//             } catch (Exception e) {
+//                 log.info "[sudo] Error ${command}" + e
+//             }
+//         }
+//         def config = 'NotConfigured'
+//         def trapsink = []
+//         lines.eachLine {
+//             (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
+//                 trapsink << trap_info
+//             }
+//         }
+//         def results = ['snmp_trap': config, 'trapsink': trapsink]
+// println "RES:$results"
+//         test_item.results(results.toString())
+//     }
 
     // def sestatus(session, test_item) {
     //     def lines = exec('sestatus') {
@@ -864,6 +990,78 @@ class LinuxSpec extends LinuxSpecBase {
     //         }
     //     }
     //     test_item.results(se_status)
+    // }
+
+    // def keyboard(session, test_item) {
+    //     def lines = exec('keyboard') {
+    //         def command = """\
+    //         |if [ -f /etc/sysconfig/keyboard ]; then
+    //         |    cat /etc/sysconfig/keyboard > ${work_dir}/keyboard
+    //         |elif [ -f /etc/vconsole.conf ]; then
+    //         |    cat /etc/vconsole.conf > ${work_dir}/keyboard
+    //         |fi
+    //         """.stripMargin()
+    //         session.execute command
+    //         session.get from: "${work_dir}/keyboard", into: local_dir
+    //         new File("${local_dir}/keyboard").text
+    //     }
+    //     lines.eachLine {
+    //         ( it =~ /^(LAYOUT|KEYMAP)="(.+)"$/).each {m0,m1,m2->
+    //             test_item.results(m2)
+    //         }
+    //     }
+    // }
+
+    // def language(session, test_item) {
+    //     def lines = exec('language') {
+    //         run_ssh_command(session, 'cat /proc/cmdline', 'language')
+    //     }
+    //     lines.eachLine {
+    //         def params = it.split(/\s/)
+    //         params.each { param ->
+    //             ( it =~ /LANG=(.+)$/).each {m0,m1->
+    //                 test_item.results(m1)
+    //             }
+    //         }
+    //     }
+    // }
+
+    // def timezone(session, test_item) {
+    //     def lines = exec('timezone') {
+    //         def command = """\
+    //         |if [ -x /bin/timedatectl ]; then
+    //         |    /bin/timedatectl > ${work_dir}/timezone
+    //         |elif [ -f /etc/sysconfig/clock ]; then
+    //         |    cat /etc/sysconfig/clock > ${work_dir}/timezone
+    //         |fi
+    //         """.stripMargin()
+    //         session.execute command
+    //         session.get from: "${work_dir}/timezone", into: local_dir
+    //         new File("${local_dir}/timezone").text
+    //     }
+    //     lines.eachLine {
+    //         ( it =~ /Time zone: (.+)$/).each {m0,m1->
+    //             test_item.results(m1)
+    //         }
+    //         ( it =~ /ZONE="(.+)"$/).each {m0,m1->
+    //             test_item.results(m1)
+    //         }
+    //     }
+    // }
+
+    // def error_messages(session, test_item) {
+    //     def lines = exec('error_messages') {
+    //         run_ssh_sudo(session, 'egrep -i \'(error|warning|failed)\' /var/log/messages | head -100', 'error_messages')
+    //     }
+    //     def csv = []
+    //     lines.eachLine {
+    //         if (it.size() > 0) {
+    //             csv << [it]
+    //         }
+    //     }
+    //     def headers = ['message']
+    //     test_item.devices(csv, headers)
+    //     test_item.results((csv.size() == 0) ? 'Not found' : 'Message found')
     // }
 
 }

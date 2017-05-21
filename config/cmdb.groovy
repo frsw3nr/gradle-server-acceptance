@@ -8,16 +8,16 @@ cmdb.dataSource.driver = "com.mysql.jdbc.Driver"
 // Redmine custome fields map
 
 cmdb.redmine.custom_fields = [
-    'ãƒ›ã‚¹ãƒˆå' :         'server_name',
-    'IPã‚¢ãƒ‰ãƒ¬ã‚¹' :       'ip',
-    'ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ' : 'platform',
-    'OSã‚¢ã‚«ã‚¦ãƒ³ãƒˆ' :     'os_account_id',
-    'vCenterã‚¢ã‚«ã‚¦ãƒ³ãƒˆ': 'remote_account_id',
-    'VMã‚¨ã‚¤ãƒªã‚¢ã‚¹å' :   'remote_alias',
-    'æ¤œè¨¼ID' :           'verify_id',
-    'æ¯”è¼ƒå¯¾è±¡' :         'compare_server',
-    'CPUå‰²ã‚Šå½“ã¦' :      'NumCpu',
-    'ãƒ¡ãƒ¢ãƒªå‰²ã‚Šå½“ã¦' :   'MemoryGB',
-    'ESXiãƒ›ã‚¹ãƒˆ' :       'ESXiHost',
-    'ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸æ§‹æˆ' :   'HDDtype',
+    'ƒzƒXƒg–¼' :         'server_name',
+    'IPƒAƒhƒŒƒX' :       'ip',
+    'ƒvƒ‰ƒbƒgƒtƒH[ƒ€' : 'platform',
+    'OSƒAƒJƒEƒ“ƒg' :     'os_account_id',
+    'vCenterƒAƒJƒEƒ“ƒg': 'remote_account_id',
+    'VMƒGƒCƒŠƒAƒX–¼' :   'remote_alias',
+    'ŒŸØID' :           'verify_id',
+    '”äŠr‘ÎÛ' :         'compare_server',
+    'CPUŠ„‚è“–‚Ä' :      'NumCpu',
+    'ƒƒ‚ƒŠŠ„‚è“–‚Ä' :   'MemoryGB',
+    'ESXiƒzƒXƒg' :       'ESXiHost',
+    'ƒXƒgƒŒ[ƒW\¬' :   'HDDtype',
 ]

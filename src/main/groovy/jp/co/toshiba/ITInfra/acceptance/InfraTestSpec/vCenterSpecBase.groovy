@@ -152,8 +152,21 @@ class vCenterSpecBase extends InfraTestSpec {
             def res = [:]
             lines.eachLine {
                 (it =~ /^vmware\.tools\.(.+?)\s+(\d+.)\s*$/).each { m0,m1,m2->
-                    res[m1] = m2
+                    res[m1] = m2.trim()
                 }
+            }
+            res['result'] = 'TestFaild'
+            try {
+                def internalversion = Integer.decode(res['internalversion'])
+                def requiredversion = Integer.decode(res['requiredversion'])
+                if (internalversion == 0)
+                    res['result'] = 'NotInstalled'
+                else if (internalversion < requiredversion)
+                    res['result'] = 'UpdateRequired'
+                else
+                    res['result'] = 'OK'
+            } catch (NumberFormatException e) {
+                log.warn "Test failed : $e"
             }
             test_item.results(res.toString())
         }
@@ -161,17 +174,21 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def vm_iops_limit(test_item) {
 
-        run_script('Get-VMResourceConfiguration -VM $vm | format-custom -property DiskResourceConfiguration') {
+        def command = '''\
+            |Get-VMResourceConfiguration -VM $vm | `
+            |format-custom -property DiskResourceConfiguration
+        '''.stripMargin()
+        run_script(command) {
             def lines = exec('vm_iops_limit') {
                 new File("${local_dir}/vm_iops_limit")
             }
 
             def res = [:]
-            def vm_iops_limt_number = 0
+            def disk_id = 1
             lines.eachLine {
                 (it =~  /DiskLimitIOPerSecond = (.+?)\s*$/).each { m0,m1->
-                    res["IOLimit${vm_iops_limt_number}"] = m1
-                    vm_iops_limt_number++
+                    res["IOLimit${disk_id}"] = m1
+                    disk_id++
                 }
             }
             test_item.results(res.toString())
@@ -211,36 +228,25 @@ class vCenterSpecBase extends InfraTestSpec {
     }
 
     def vm_timesync(test_item) {
-        run_script('Get-VM $vm | Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} | Format-List') {
+            def command = '''\
+            |Get-VM $vm |
+            |Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} |
+            |Format-List
+            '''.stripMargin()
+
+        run_script(command) {
             def lines = exec('vm_timesync') {
                 new File("${local_dir}/vm_timesync")
             }
 
-            def res = [:]
-
+            def res = ['TimeSync': 'TestFaild']
             lines.eachLine {
                 (it =~  /^(TimeSync)\s+:\s(.+)$/).each { m0,m1,m2->
-                    res[m1] = m2
+                    res['TimeSync'] = m2
                 }
             }
             test_item.results(res.toString())
         }
     }
 
-    def vm_datastore(test_item) {
-        run_script('Get-Datastore $vm | Select @{N=\'TimeSync\';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} | Format-List') {
-            def lines = exec('vm_timesync') {
-                new File("${local_dir}/vm_timesync")
-            }
-
-            def res = [:]
-
-            lines.eachLine {
-                (it =~  /^(TimeSync)\s+:\s(.+)$/).each { m0,m1,m2->
-                    res[m1] = m2
-                }
-            }
-            test_item.results(res.toString())
-        }
-    }
 }

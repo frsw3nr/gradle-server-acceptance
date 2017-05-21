@@ -151,7 +151,7 @@ class EvidenceSheetTest extends Specification{
     def "Excelファイルと検査サーバスクリプト読み込み"() {
         when:
         def evidence = new EvidenceSheet('src/test/resources/config.groovy')
-        evidence.readSheet('src/test/resources/test_servers.groovy')
+        evidence.readSheet(server_config: 'src/test/resources/test_servers.groovy')
 
         then:
         evidence.test_servers.size() > 0

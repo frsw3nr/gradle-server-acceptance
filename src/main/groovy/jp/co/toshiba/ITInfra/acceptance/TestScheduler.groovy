@@ -107,40 +107,45 @@ class TestScheduler {
         log.debug "Initialize test schedule"
         long run_test_start = System.currentTimeMillis()
 
+        evidence_sheet = new EvidenceSheet(test_runner.config_file)
+        evidence_sheet.evidence_source = test_runner.sheet_file
+
         if (test_runner.use_redmine) {
-            def redmine = RedmineContainer.instance.initialize(this.evidence_manager)
+            def redmine = RedmineContainer.instance.initialize(evidence_manager)
+            redmine.set_default_config(test_runner.config_file)
+
             def filters
             if (redmine.silent) {
-                filters = redmine.get_default_filter_options(project: 'クラウド基盤VM払出し',
-                                                           status: '構築前',
-                                                           version: '%',
-                                                           tracker: '%')
+                def default_filter_options = redmine?.redmine_config?.default_filter_options
+                if (!default_filter_options)
+                    throw new IllegalArgumentException("Not found 'redmine.default_filter_options' "+
+                                                       "in config.groovy")
+                filters = redmine.get_default_filter_options(default_filter_options)
             } else {
                 filters   = redmine.input_filter_options()
             }
-    println "FILTER:"
-    println filters
-            // def filters = ['project' : 2, 'status' : 1]
-            redmine.get_issues(filters)
-    println "ISSUES:"
-    println redmine.server_infos.toString()
-            // println redmine.projects.toString()
-            return
+            log.debug "FILTER: ${filters}"
+            def redmine_server_infos = redmine.get_issues(filters)
+            log.debug "ISSUES: ${redmine_server_infos}"
+            if (!redmine_server_infos)
+                return
+            evidence_sheet.readSheet(server_infos: redmine_server_infos)
+
+        } else if (test_runner.server_config_script) {
+            evidence_sheet.readSheet(server_config: test_runner.server_config_script)
+        } else {
+            evidence_sheet.readSheet()
         }
-        evidence_sheet = new EvidenceSheet(test_runner.config_file)
-        evidence_sheet.evidence_source = test_runner.sheet_file
-        evidence_sheet.readSheet(test_runner.server_config_script)
-        
         evidence_sheet.prepareTestStage()
         test_servers = filterServer(evidence_sheet.test_servers)
 
         evidence_sheet.compare_servers.each { server_name, server_source ->
             log.info "Read Config : [$server_name, $server_source]"
             if (server_source == 'local') {
-                ResultContainer.instance.loadNodeConfigJSON(this.evidence_manager,
+                ResultContainer.instance.loadNodeConfigJSON(evidence_manager,
                                                             server_name)
             } else if (server_source == 'db') {
-                ResultContainer.instance.getCMDBNodeConfig(this.evidence_manager,
+                ResultContainer.instance.getCMDBNodeConfig(evidence_manager,
                                                            server_name)
             }
         }
