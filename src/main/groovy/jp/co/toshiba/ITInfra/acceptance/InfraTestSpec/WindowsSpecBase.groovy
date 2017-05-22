@@ -51,21 +51,27 @@ class WindowsSpecBase extends InfraTestSpec {
     def _logon_test(TestItem test_item) {
         def results = [:]
         def script_path = new File("lib/template/test_logon_Windows.ps1").getAbsolutePath()
-        test_server.os_account.logon_test.each { test_user->
-            def cmd = """\
-                |powershell -NonInteractive ${script_path}
-                |-ip '${this.ip}'
-                |-user '${test_user.user}' -password '${test_user.password}'
-            """.stripMargin()
-            try {
-                execPowerShell(script_path, cmd)
-                results[test_user.user] = true
-            } catch (IOException e) {
-                log.error "[PowershellTest] Powershell script faild.\n" + e
-                results[test_user.user] = false
+        def result = 'Ignored'
+        if (test_server.os_account.logon_test) {
+            result = 'OK'
+            test_server.os_account.logon_test.each { test_user->
+                def cmd = """\
+                    |powershell -NonInteractive ${script_path}
+                    |-ip '${this.ip}'
+                    |-user '${test_user.user}' -password '${test_user.password}'
+                """.stripMargin()
+                try {
+                    execPowerShell(script_path, cmd)
+                    results[test_user.user] = true
+                } catch (IOException e) {
+                   result = 'NG'
+                   log.error "[PowershellTest] Powershell script faild.\n" + e
+                   results[test_user.user] = false
+                }
             }
         }
-        test_item.results(results.toString())
+        results['logon_test'] = result
+        test_item.results(results)
     }
 
     def cpu(TestItem test_item) {
@@ -165,6 +171,22 @@ class WindowsSpecBase extends InfraTestSpec {
                 }
             }
             test_item.results(systeminfo)
+        }
+    }
+
+    def virturalization(TestItem test_item) {
+        run_script('Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL') {
+            def lines = exec('virturalization') {
+                new File("${local_dir}/virturalization")
+            }
+            def config = 'NotVM'
+            lines.eachLine {
+                println "LINE:$it"
+                (it =~ /^Model\s*:\s+(.*Virtual.*?)$/).each {m0,m1->
+                    config = m1
+                }
+            }
+            test_item.results(config)
         }
     }
 
@@ -479,7 +501,6 @@ class WindowsSpecBase extends InfraTestSpec {
                 }
             }
             def value = adresses.keySet().toString()
-            println value
             test_item.results(value)
         }
     }

@@ -54,15 +54,15 @@ account.Remote.Test.password = 'P@ssword'
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
-account.Linux.Test.logon_test = [['user':'test1' , 'password':'test1'],
-                                 ['user':'root'  , 'password':'P@ssw0rd']]
+// account.Linux.Test.logon_test = [['user':'test1' , 'password':'test1'],
+//                                  ['user':'root'  , 'password':'P@ssw0rd']]
 
 // Windows session
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
-account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
-                                   ['user':'test2' , 'password':'test2']]
+// account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
+//                                    ['user':'test2' , 'password':'test2']]
 
 // VMHost session
 

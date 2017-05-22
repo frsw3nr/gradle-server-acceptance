@@ -126,6 +126,11 @@
         "value": "[192.168.0.254, fec0:0:0:ffff::1, fec0:0:0:ffff::2, fec0:0:0:ffff::3]"
     },
     {
+        "test_id": "virturalization",
+        "domain": "Windows",
+        "value": "NotVM"
+    },
+    {
         "test_id": "storage_timeout",
         "domain": "Windows",
         "value": "60"

@@ -38,8 +38,11 @@ Get-VM $vm | `
  Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion | `
  Select Name, Value | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vm_iops_limit"
-Get-VMResourceConfiguration -VM $vm | format-custom -property DiskResourceConfiguration | Out-File $log_path -Encoding UTF8
+Get-VMResourceConfiguration -VM $vm | `
+format-custom -property DiskResourceConfiguration | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vm_storage"
 Get-Harddisk -VM $vm | select Parent, Filename,CapacityGB, StorageFormat, DiskType | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vm_timesync"
-Get-VM $vm | Select @{N='TimeSync';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} | Format-List | Out-File $log_path -Encoding UTF8
+Get-VM $vm |
+Select @{N='TimeSync';E={$_.ExtensionData.Config.Tools.syncTimeWithHost}} |
+Format-List | Out-File $log_path -Encoding UTF8

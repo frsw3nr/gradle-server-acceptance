@@ -35,6 +35,11 @@
         "value": "1"
     },
     {
+        "test_id": "cpu_core",
+        "domain": "Linux",
+        "value": "1"
+    },
+    {
         "test_id": "cpu_real",
         "domain": "Linux",
         "value": "1"
@@ -218,7 +223,7 @@
     {
         "test_id": "ntp",
         "domain": "Linux",
-        "value": "[133.119.128.59]"
+        "value": "[ntp:Configured, server:[133.119.128.59]]"
     },
     {
         "test_id": "sestatus",

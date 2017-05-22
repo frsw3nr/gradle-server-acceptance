@@ -100,6 +100,10 @@ $log_path = Join-Path $log_dir "net_accounts"
 Invoke-Command -Session $session -ScriptBlock { `
     net accounts `
 } | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "virturalization"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL `
+} | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "storage_timeout"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\disk" `

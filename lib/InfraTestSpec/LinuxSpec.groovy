@@ -123,11 +123,23 @@ class LinuxSpec extends LinuxSpecBase {
     // }
 
     // def hostname_fqdn(session, test_item) {
+    //     def command = """\
+    //     |hostname --fqdn 2>/dev/null
+    //     |if [ \$? != 0 ]; then
+    //     |   echo 'Not found'
+    //     |fi
+    //     """.stripMargin()
+
     //     def lines = exec('hostname_fqdn') {
-    //         run_ssh_command(session, 'hostname --fqdn', 'hostname_fqdn')
+    //         run_ssh_command(session, command, 'hostname_fqdn')
     //     }
     //     lines = lines.replaceAll(/(\r|\n)/, "")
-    //     test_item.results(lines)
+    //     def info = '[NotConfigured]'
+    //     lines.eachLine {
+    //         if (it.indexOf('.') != -1)
+    //             info = it
+    //     }
+    //     test_item.results(info)
     // }
 
     // def uname(session, test_item) {
@@ -433,26 +445,28 @@ class LinuxSpec extends LinuxSpecBase {
     //     test_item.results(filesystems)
     // }
 
-
     // def lvm(session, test_item) {
     //     def lines = exec('lvm') {
     //         run_ssh_command(session, 'mount', 'lvm')
     //     }
 
     //     // /dev/mapper/vg_ostrich-lv_root on / type ext4 (rw)
-    //     def csv = []
-    //     def lvms = [:]
+    //     def csv    = []
+    //     def lvms   = [:]
+    //     def config = 'NotConfigured'
     //     lines.eachLine {
     //         (it =~  /^\/dev\/mapper\/(.+?)-(.+?) on (.+?) /).each {
     //             m0, vg_name, lv_name, mount ->
     //             def columns = [vg_name, lv_name, mount]
     //             lvms[lv_name] = mount
     //             csv << columns
+    //             config = 'Configured'
     //         }
     //     }
     //     def headers = ['vg_name', 'lv_name', 'mountpoint']
     //     test_item.devices(csv, headers)
-    //     test_item.results(lvms.toString())
+    //     def results = ['lvm': config, 'devices': lvms]
+    //     test_item.results(results.toString())
     // }
 
     // def filesystem_df_ip(session, test_item) {
@@ -669,50 +683,43 @@ class LinuxSpec extends LinuxSpecBase {
 
     // def service(session, test_item) {
     //     def isRHEL7 = session.execute(' test -f /usr/bin/systemctl ; echo $?')
-    //     if (isRHEL7 == '0') {
-    //         def lines = exec('service') {
-    //             run_ssh_command(session, '/usr/bin/systemctl list-units --type service --all', 'service')
-    //         }
-    //         def services = [:].withDefault{'unkown'}
-    //         def csv = []
-    //         def service_count = 0
-    //         lines.eachLine {
-    //             ( it =~ /^\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
-    //                 def service_name = 'service.' + m1
-    //                 def status = m2 + '.' + m3
-    //                 services[service_name] = status
-    //                 def columns = [m1, status]
-    //                 csv << columns
-    //                 service_count ++
-    //             }
-    //         }
-    //         services['service'] = service_count.toString()
-    //         test_item.devices(csv, ['Name', 'Status'])
-    //         test_item.results(services)
+    //     def command = (isRHEL7 == '0') ?
+    //         '/usr/bin/systemctl list-units --type service --all' :
+    //         '/sbin/chkconfig --list'
 
-    //     } else {
-    //         def lines = exec('service') {
-    //             run_ssh_command(session, '/sbin/chkconfig --list', 'service')
-    //         }
-    //         def services = [:].withDefault{'unkown'}
-    //         def csv = []
-    //         def service_count = 0
-    //         lines.eachLine {
-    //             ( it =~ /^(.+?)\s.*\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3,m4->
-    //                 def service_name = 'service.' + m1
-    //                 def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
-    //                 services[service_name] = status
-    //                 def columns = [m1, status]
-    //                 csv << columns
-    //                 service_count ++
-    //             }
-    //         }
-    //         services['service'] = service_count.toString()
-    //         test_item.devices(csv, ['Name', 'Status'])
-    //         test_item.results(services)
+    //     def lines = exec('service') {
+    //         run_ssh_command(session, command, 'service')
     //     }
-    // }
 
+    //     def services = [:].withDefault{'unkown'}
+    //     def csv = []
+    //     def service_count = 0
+    //     lines.eachLine {
+    //         // For RHEL7
+    //         // abrt-ccpp.service     loaded    active   exited  Install ABRT coredump hook
+    //         ( it =~ /^\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
+    //             def service_name = 'service.' + m1
+    //             def status = m2 + '.' + m3
+    //             services[service_name] = status
+    //             def columns = [m1, status]
+    //             csv << columns
+    //             service_count ++
+    //         }
+    //         // For RHEL6
+    //         // ypbind          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+    //         ( it =~ /^(.+?)\s.*\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3,m4->
+    //             def service_name = 'service.' + m1
+    //             def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
+    //             services[service_name] = status
+    //             def columns = [m1, status]
+    //             csv << columns
+    //             service_count ++
+    //         }
+    //     }
+    //     services['service'] = service_count.toString()
+    //     test_item.devices(csv, ['Name', 'Status'])
+    //     test_item.results(services)
+    // }
 
     // def mount_iso(session, test_item) {
     //     def lines = exec('mount_iso') {
