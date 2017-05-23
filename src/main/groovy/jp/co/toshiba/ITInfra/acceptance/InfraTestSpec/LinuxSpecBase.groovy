@@ -881,23 +881,17 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def runlevel(session, test_item) {
         def isRHEL7 = session.execute('test -f /usr/bin/systemctl ; echo $?')
-        if (isRHEL7 == '0') {
-            def lines = exec('runlevel') {
-                run_ssh_command(session, '/usr/bin/systemctl get-default', 'runlevel')
-            }
-            test_item.results(lines)
-        } else {
-            def lines = exec('runlevel') {
-                run_ssh_command(session, 'grep :initdefault /etc/inittab', 'runlevel')
-            }
-            def runlevel = 'unkown'
-            lines.eachLine {
-                ( it =~ /^id:(\d+):/).each {m0,m1->
-                    runlevel = m1
-                }
-            }
-            test_item.results(runlevel)
+        def command = (isRHEL7 == '0') ? '/usr/bin/systemctl get-default' : 'grep :initdefault /etc/inittab'
+        def lines = exec('runlevel') {
+            run_ssh_command(session, command, 'runlevel')
         }
+        def runlevel = "$lines"
+        lines.eachLine {
+            ( it =~ /^id:(\d+):/).each {m0,m1->
+                runlevel = m1
+            }
+        }
+        test_item.results(runlevel)
     }
 
     def resolve_conf(session, test_item) {
