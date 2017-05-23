@@ -335,13 +335,16 @@ class WindowsSpecBase extends InfraTestSpec {
                 new File("${local_dir}/nic_teaming")
             }
 
-            def results = [:].withDefault{[]}
+            def devices = []
+            def teaming = 'NotConfigured'
             lines.eachLine {
                 (it =~ /Name\s+:\s(.+)/).each {m0, m1->
-                    results["nic_teaming"] << m1
+                    devices << m1
+                    teaming = 'Configured'
                 }
             }
-            test_item.results(results)
+            def results = ['teaming': teaming, 'devices': devices]
+            test_item.results(results.toString())
         }
     }
 

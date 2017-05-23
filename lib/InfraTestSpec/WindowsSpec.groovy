@@ -20,25 +20,25 @@ class WindowsSpec extends WindowsSpecBase {
         super.finish()
     }
 
-    def _logon_test(TestItem test_item) {
-        def results = [:]
-        def script_path = new File("lib/template/test_logon_Windows.ps1").getAbsolutePath()
-        test_server.os_account.logon_test.each { test_user->
-            def cmd = """\
-                |powershell -NonInteractive ${script_path}
-                |-ip '${this.ip}'
-                |-user '${test_user.user}' -password '${test_user.password}'
-            """.stripMargin()
-            try {
-                execPowerShell(script_path, cmd)
-                results[test_user.user] = true
-            } catch (IOException e) {
-                log.error "[PowershellTest] Powershell script faild.\n" + e
-                results[test_user.user] = false
-            }
-        }
-        test_item.results(results.toString())
-    }
+    // def _logon_test(TestItem test_item) {
+    //     def results = [:]
+    //     def script_path = new File("lib/template/test_logon_Windows.ps1").getAbsolutePath()
+    //     test_server.os_account.logon_test.each { test_user->
+    //         def cmd = """\
+    //             |powershell -NonInteractive ${script_path}
+    //             |-ip '${this.ip}'
+    //             |-user '${test_user.user}' -password '${test_user.password}'
+    //         """.stripMargin()
+    //         try {
+    //             execPowerShell(script_path, cmd)
+    //             results[test_user.user] = true
+    //         } catch (IOException e) {
+    //             log.error "[PowershellTest] Powershell script faild.\n" + e
+    //             results[test_user.user] = false
+    //         }
+    //     }
+    //     test_item.results(results.toString())
+    // }
 
    //  def _logon_test(TestItem test_item) {
    //      def results = [:]
@@ -305,24 +305,24 @@ class WindowsSpec extends WindowsSpecBase {
    //      }
    //  }
 
-    def nic_teaming(TestItem test_item) {
-        run_script('Get-NetLbfoTeamNic') {
-            def lines = exec('nic_teaming') {
-                new File("${local_dir}/nic_teaming")
-            }
+    // def nic_teaming(TestItem test_item) {
+    //     run_script('Get-NetLbfoTeamNic') {
+    //         def lines = exec('nic_teaming') {
+    //             new File("${local_dir}/nic_teaming")
+    //         }
 
-            def devices = []
-            def teaming = 'NotConfigured'
-            lines.eachLine {
-                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
-                    devices << m1
-                    teaming = 'Configured'
-                }
-            }
-            def results = ['teaming': teaming, 'devices': devices]
-            test_item.results(results.toString)
-        }
-    }
+    //         def devices = []
+    //         def teaming = 'NotConfigured'
+    //         lines.eachLine {
+    //             (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+    //                 devices << m1
+    //                 teaming = 'Configured'
+    //             }
+    //         }
+    //         def results = ['teaming': teaming, 'devices': devices]
+    //         test_item.results(results.toString)
+    //     }
+    // }
 
    //  def firewall(TestItem test_item) {
    //      run_script('Get-NetFirewallRule -Direction Inbound -Enabled True') {
