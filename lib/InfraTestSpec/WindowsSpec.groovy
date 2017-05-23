@@ -160,6 +160,21 @@ class WindowsSpec extends WindowsSpecBase {
    //      }
    //  }
 
+    // def virturalization(TestItem test_item) {
+    //     run_script('Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL') {
+    //         def lines = exec('virturalization') {
+    //             new File("${local_dir}/virturalization")
+    //         }
+    //         def config = 'NotVM'
+    //         lines.eachLine {
+    //             (it =~ /^Model\s*:\s+(.*Virtual.*?)$/).each {m0,m1->
+    //                 config = m1
+    //             }
+    //         }
+    //         test_item.results(config)
+    //     }
+    // }
+
    //  def driver(TestItem test_item) {
    //      run_script('Get-WmiObject Win32_PnPSignedDriver') {
    //          def lines = exec('driver') {

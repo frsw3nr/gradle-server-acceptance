@@ -90,33 +90,39 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def _logon_test(TestItem test_item) {
         def results = [:]
-        test_server.os_account.logon_test.each { test_user->
-            def ssh = Ssh.newService()
-            ssh.remotes {
-                ssh_host {
-                    host       = this.ip
-                    port       = 22
-                    user       = test_user.user
-                    password   = test_user.password
-                    knownHosts = allowAnyHosts
-                }
-            }
-            ssh.settings {
-                dryRun     = this.dry_run
-                timeoutSec = this.timeout
-            }
-            try {
-                ssh.run {
-                    session(ssh.remotes.ssh_host) {
-                            execute "who"
-                            results[test_user.user] = true
+        def result = 'Ignored'
+        if (test_server.os_account.logon_test) {
+            result = 'OK'
+            test_server.os_account.logon_test.each { test_user->
+                def ssh = Ssh.newService()
+                ssh.remotes {
+                    ssh_host {
+                        host       = this.ip
+                        port       = 22
+                        user       = test_user.user
+                        password   = test_user.password
+                        knownHosts = allowAnyHosts
                     }
                 }
-            } catch (Exception e) {
-                log.error "[SSH Test] faild logon '${test_user.user}', skip.\n" + e
-                results[test_user.user] = false
+                ssh.settings {
+                    dryRun     = this.dry_run
+                    timeoutSec = this.timeout
+                }
+                try {
+                    ssh.run {
+                        session(ssh.remotes.ssh_host) {
+                                execute "who"
+                                results[test_user.user] = true
+                        }
+                    }
+                } catch (Exception e) {
+                    result = 'NG'
+                    log.error "[SSH Test] faild logon '${test_user.user}', skip.\n" + e
+                    results[test_user.user] = false
+                }
             }
         }
+        results['logon_test'] = result
         test_item.results(results.toString())
     }
 
@@ -276,9 +282,10 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('network') {
             run_ssh_command(session, '/sbin/ip addr', 'network')
         }
-        def csv = []
-        def network = [:].withDefault{[:]}
-        def device = ''
+        def csv        = []
+        def network    = [:].withDefault{[:]}
+        def infos      = [:]
+        def device     = ''
         def hw_address = []
         lines.eachLine {
             // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
@@ -322,12 +329,13 @@ class LinuxSpecBase extends InfraTestSpec {
                 columns.add(items[it] ?: 'NaN')
             }
             csv << columns
+            infos[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
 
         test_item.results([
-            'network' : network.keySet().toString(),
+            'network'    : infos.toString(),
             'hw_address' : hw_address.toString()
             ])
     }
@@ -452,14 +460,17 @@ class LinuxSpecBase extends InfraTestSpec {
         //   └─vg_ostrich-lv_swap (dm-1) 253:1    0    3G  0 lvm  [SWAP]
         def csv = []
         def filesystems = [:]
+        def infos = [:]
         lines.eachLine {
             (it =~  /^(.+?)\s+(\d+:\d+\s.+)$/).each { m0,m1,m2->
                 def device = m1
                 def arr = [device]
                 def columns = m2.split(/\s+/)
                 if (columns.size() == 6) {
-                    def mount = columns[5]
+                    def mount    = columns[5]
+                    def capacity = columns[2]
                     filesystems['filesystem.' + mount] = columns[2]
+                    infos[mount] = capacity
                 }
                 arr.addAll(columns)
                 csv << arr
@@ -467,7 +478,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def headers = ['name', 'maj:min', 'rm', 'size', 'ro', 'type', 'mountpoint']
         test_item.devices(csv, headers)
-        filesystems['filesystem'] = csv.size()
+        filesystems['filesystem'] = infos.toString()
         test_item.results(filesystems)
     }
 
@@ -1018,7 +1029,7 @@ class LinuxSpecBase extends InfraTestSpec {
         lines.eachLine {
             def params = it.split(/\s/)
             params.each { param ->
-                ( it =~ /LANG=(.+)$/).each {m0,m1->
+                ( param =~ /LANG=(.+)$/).each {m0,m1->
                     test_item.results(m1)
                 }
             }

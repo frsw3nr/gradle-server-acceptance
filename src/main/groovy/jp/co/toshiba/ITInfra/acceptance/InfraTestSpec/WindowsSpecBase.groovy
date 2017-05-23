@@ -71,7 +71,7 @@ class WindowsSpecBase extends InfraTestSpec {
             }
         }
         results['logon_test'] = result
-        test_item.results(results)
+        test_item.results(results.toString())
     }
 
     def cpu(TestItem test_item) {
@@ -181,7 +181,6 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             def config = 'NotVM'
             lines.eachLine {
-                println "LINE:$it"
                 (it =~ /^Model\s*:\s+(.*Virtual.*?)$/).each {m0,m1->
                     config = m1
                 }
@@ -228,19 +227,21 @@ class WindowsSpecBase extends InfraTestSpec {
             def csv = []
             def filesystems = [:]
             def device_id
+            def infos = [:]
             lines.eachLine {
                 (it =~ /^DeviceID\s*:\s+(.+)$/).each {m0,m1->
                     device_id = m1
                 }
                 (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
-                    def size_gb = m1.toDouble()/(1000*1000*1000)
+                    def size_gb = m1.toDouble()/(1024*1024*1024)
                     filesystems['filesystem.' + device_id] = size_gb
                     csv << [device_id, size_gb]
+                    infos[device_id] = (int)size_gb
                 }
             }
             def headers = ['device_id', 'size_gb']
             test_item.devices(csv, headers)
-            filesystems['filesystem'] = csv.size()
+            filesystems['filesystem'] = infos.toString()
             test_item.results(filesystems)
         }
     }
@@ -300,6 +301,9 @@ class WindowsSpecBase extends InfraTestSpec {
             def headers = ['ServiceName', 'MacAddress', 'IPAddress',
                            'DefaultIPGateway', 'Description', 'IPSubnet']
 
+            def infos    = [:]
+            def gateways = [:]
+            def subnets  = [:]
             def csv      = []
             def networks = [:]
             def devices  = []
@@ -312,9 +316,14 @@ class WindowsSpecBase extends InfraTestSpec {
                 def service_name = network_info[row]['ServiceName']
                 def ip_address   = network_info[row]['IPAddress']
                 networks['network.' + service_name] = ip_address
+                infos[service_name] = ip_address
+                gateways[network_info[row]['DefaultIPGateway']] = 1
+                subnets[network_info[row]['IPSubnet']]          = 1
                 devices.add(service_name)
             }
-            networks['network'] = devices.toString()
+            networks['network']        = infos.toString()
+            networks['network.gw']     = gateways.keySet().toString()
+            networks['network.subnet'] = subnets.keySet().toString()
             test_item.devices(csv, headers)
             test_item.results(networks)
         }
