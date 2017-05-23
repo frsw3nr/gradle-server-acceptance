@@ -346,18 +346,22 @@ class EvidenceSheet {
         }
         log.info "Fetch server '${servers.toString()}'"
         // Fetch test results
-        def csv = []
+        def csv_cols = [:].withDefault{[]}
         (row_body_begin .. sheet.getLastRowNum()).each { rownum ->
             Row row = sheet.getRow(rownum)
             if (row == null)
                 return true
-            def testid = "${row.getCell(1)}"
-            def domain = "${row.getCell(3)}"
-            if (testid != '' && domain != '') {
-                (column_body_begin .. column_body_end).each { colnum ->
-                    csv << [ servers[colnum], domain, testid, "${row.getCell(colnum)}"]
-                }
+            def testid = "${row?.getCell(1) ?: ''}"
+            def domain = "${row?.getCell(3) ?: ''}"
+            if (testid == '' || domain == '')
+                return
+            (column_body_begin .. column_body_end).each { colnum ->
+                csv_cols[colnum] << [ servers[colnum], domain, testid, "${row.getCell(colnum)}"]
             }
+        }
+        def csv = []
+        csv_cols.sort().each { colnum, csv_col ->
+            csv += csv_col
         }
         return csv
     }

@@ -25,7 +25,6 @@ class LinuxSpec extends LinuxSpecBase {
 
     def packages(session, test_item) {
         super.packages(session, test_item)
-
         def lines = new File("${local_dir}/packages").text
         def requiements = [
             'oracle' :
@@ -38,6 +37,9 @@ class LinuxSpec extends LinuxSpecBase {
             'msm' :
                 ['MegaRAID_Storage_Manager','Lib_Utils2','Lib_Utils','sas_snmp','sas_ir_snmp'],
         ]
+        // Config.instance.configs.each { config_file, config ->
+        //     println "${config.package.requirements}"
+        // }
 
         def packages = [:]
         requiements.each {package_group, requiement ->
