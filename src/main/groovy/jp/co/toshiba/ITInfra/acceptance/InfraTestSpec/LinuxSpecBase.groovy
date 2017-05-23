@@ -1026,14 +1026,16 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('language') {
             run_ssh_command(session, 'cat /proc/cmdline', 'language')
         }
+        def lang = 'NotConfigured'
         lines.eachLine {
             def params = it.split(/\s/)
             params.each { param ->
                 ( param =~ /LANG=(.+)$/).each {m0,m1->
-                    test_item.results(m1)
+                    lang = m1
                 }
             }
         }
+        test_item.results(lang)
     }
 
     def timezone(session, test_item) {
