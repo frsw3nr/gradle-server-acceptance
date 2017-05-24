@@ -60,28 +60,29 @@ class WindowsSpec extends WindowsSpecBase {
    //      test_item.results(results.toString())
    //  }
 
-   //  def cpu(TestItem test_item) {
-   //      run_script('Get-WmiObject Win32_Processor') {
-   //          def lines = exec('cpu') {
-   //              new File("${local_dir}/cpu")
-   //          }
-   //          def cpuinfo    = [:].withDefault{0}
-   //          def cpu_number = 0
-   //          lines.eachLine {
-   //              (it =~ /^DeviceID\s+:\s(.+)$/).each {m0, m1->
-   //                  cpu_number += 1
-   //              }
-   //              (it =~ /^Name\s+:\s(.+)$/).each {m0, m1->
-   //                  cpuinfo["model_name"] = m1
-   //              }
-   //              (it =~ /^MaxClockSpeed\s+:\s(.+)$/).each {m0, m1->
-   //                  cpuinfo["mhz"] = m1
-   //              }
-   //          }
-   //          cpuinfo["cpu_total"] = cpu_number
-   //          test_item.results(cpuinfo)
-   //      }
-   //  }
+    // def cpu(TestItem test_item) {
+    //     run_script('Get-WmiObject Win32_Processor') {
+    //         def lines = exec('cpu') {
+    //             new File("${local_dir}/cpu")
+    //         }
+    //         def cpuinfo    = [:].withDefault{0}
+    //         def cpu_number = 0
+    //         lines.eachLine {
+    //             (it =~ /^DeviceID\s+:\s(.+)$/).each {m0, m1->
+    //                 cpu_number += 1
+    //             }
+    //             (it =~ /^Name\s+:\s(.+)$/).each {m0, m1->
+    //                 cpuinfo["model_name"] = m1
+    //             }
+    //             (it =~ /^MaxClockSpeed\s+:\s(.+)$/).each {m0, m1->
+    //                 cpuinfo["mhz"] = m1
+    //             }
+    //         }
+    //         cpuinfo["cpu_total"] = cpu_number
+    //         cpuinfo["cpu"] = "${cpuinfo['model_name']} ${cpu_number} CPU"
+    //         test_item.results(cpuinfo)
+    //     }
+    // }
 
    //  def os(TestItem test_item) {
    //      def command = '''\

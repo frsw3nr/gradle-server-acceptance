@@ -356,7 +356,8 @@ class EvidenceSheet {
             if (testid == '' || domain == '')
                 return
             (column_body_begin .. column_body_end).each { colnum ->
-                csv_cols[colnum] << [ servers[colnum], domain, testid, "${row.getCell(colnum)}"]
+                def key = "${servers[colnum]}:${domain}:${testid}"
+                csv_cols[colnum] << [key, servers[colnum], domain, testid, "${row.getCell(colnum)}"]
             }
         }
         def csv = []
@@ -368,7 +369,7 @@ class EvidenceSheet {
 
     def readAllTestResult() throws IOException {
         def csv = []
-        csv << ['ServerName', 'Domain', 'TestItem', 'Value']
+        csv << ['Key', 'ServerName', 'Domain', 'TestItem', 'Value']
         def results = [:]
         new FileInputStream(evidence_source).withStream { ins ->
             WorkbookFactory.create(ins).with { workbook ->

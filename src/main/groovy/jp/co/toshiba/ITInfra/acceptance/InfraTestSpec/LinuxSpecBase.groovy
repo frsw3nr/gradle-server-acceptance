@@ -233,6 +233,12 @@ class LinuxSpecBase extends InfraTestSpec {
         cpuinfo["cpu_total"] = cpu_number
         cpuinfo["cpu_real"] = real_cpu.size()
         cpuinfo["cpu_core"] = real_cpu.size() * cpuinfo["cores"].toInteger()
+        def cpu_text = cpuinfo['model_name']
+        if (cpuinfo["cpu_real"] > 0)
+            cpu_text += " ${cpuinfo['cpu_real']} Socket ${cpuinfo['cpu_core']} Core"
+        else
+            cpu_text += " ${cpu_number} CPU"
+        cpuinfo["cpu"] = cpu_text
         test_item.results(cpuinfo)
     }
 
@@ -275,6 +281,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 meminfo['mem_free'] = norm(m1, m2)
             }
         }
+        meminfo['meminfo'] = meminfo['mem_total']
         test_item.results(meminfo)
     }
 

@@ -108,6 +108,7 @@ class WindowsSpecBase extends InfraTestSpec {
                 new File("${local_dir}/os")
             }
             def osinfo    = [:].withDefault{0}
+            osinfo['os_csd_version'] = ''
             lines.eachLine {
                 (it =~ /^Caption\s*:\s+(.+)$/).each {m0,m1->
                     osinfo['os_caption'] = m1
@@ -122,6 +123,7 @@ class WindowsSpecBase extends InfraTestSpec {
                     osinfo['os_architecture'] = m1
                 }
             }
+            osinfo['os'] = "${osinfo['os_caption']} ${osinfo['os_architecture']}"
             test_item.results(osinfo)
         }
     }
@@ -155,6 +157,7 @@ class WindowsSpecBase extends InfraTestSpec {
                     meminfo['free_space'] = m1
                 }
             }
+            meminfo['memory'] = meminfo['total_visible']
             test_item.results(meminfo)
         }
     }
@@ -170,6 +173,7 @@ class WindowsSpecBase extends InfraTestSpec {
                     systeminfo[m1] = m2
                 }
             }
+            systeminfo['system'] = "${systeminfo['Domain']}\\${systeminfo['Name']}"
             test_item.results(systeminfo)
         }
     }
