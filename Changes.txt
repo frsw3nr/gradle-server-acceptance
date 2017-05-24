@@ -10,6 +10,7 @@ New features:
     - 複数行の結果の場合、1行目にサマリを出力(filesystem,network)
 * Linuxパッケージグループの検査
     - config.groovy に記述したパッケージリストをまとめて検査する
+* CSVエクスポート機能
 
 Bug fixes:
 * 検査対象シートの server_name 行の位置ずれ修正
