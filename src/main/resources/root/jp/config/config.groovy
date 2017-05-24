@@ -81,3 +81,28 @@ account.Windows.Test.password = 'P@ssword'
 
 account.VMHost.Test.user      = 'root'
 account.VMHost.Test.password  = 'P@ssword'
+
+// Redmine Default filter options
+
+redmine.default_filter_options = [
+    'project': '構成管理データベース',
+    'status': '構築前',
+    'version': '%',
+    'tracker': '%',
+]
+
+// Package requirements list
+
+package.requirements.oracle = [
+    'compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'
+    ]
+package.requirements.base   = [
+    'sysstat','dmidecode','strace','net-snmp-libs','net-snmp-utils','busybox-anaconda',
+    'alchemist','xinetd','tftp-server','system-config-netboot-cmd','system-config-netboot'
+    ]
+package.requirements.sophos = [
+    'glibc', 'nss-softokn-freebl', 'libXau', 'libxcb', 'libX11', 'libXpm'
+    ]
+package.requirements.msm    = [
+    'MegaRAID_Storage_Manager','Lib_Utils2','Lib_Utils','sas_snmp','sas_ir_snmp'
+    ]

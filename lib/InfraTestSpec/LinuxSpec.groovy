@@ -25,37 +25,35 @@ class LinuxSpec extends LinuxSpecBase {
 
     def packages(session, test_item) {
         super.packages(session, test_item)
-        def lines = new File("${local_dir}/packages").text
-        def requiements = [
-            'oracle' :
-                ['compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'],
-            'base' :
-                ['sysstat','dmidecode','strace','net-snmp-libs','net-snmp-utils','busybox-anaconda',
-                'alchemist','xinetd','tftp-server','system-config-netboot-cmd','system-config-netboot'],
-            'sophos' :
-                ['glibc', 'nss-softokn-freebl', 'libXau', 'libxcb', 'libX11', 'libXpm'],
-            'msm' :
-                ['MegaRAID_Storage_Manager','Lib_Utils2','Lib_Utils','sas_snmp','sas_ir_snmp'],
-        ]
-        // Config.instance.configs.each { config_file, config ->
-        //     println "${config.package.requirements}"
-        // }
 
+        def lines = new File("${local_dir}/packages").text
+        def requirements = [:]
+        Config.instance.configs.each { config_file, config ->
+            if (!config?.package?.requirements)
+                return
+            config.package.requirements.each { package_group, packages ->
+                requirements[package_group] = packages
+            }
+        }
+        def infos = [:]
         def packages = [:]
-        requiements.each {package_group, requiement ->
+        requirements.each { package_group, requiement ->
             def checks = [:]
             requiement.each {
                 checks[it] = 1
             }
-            def n_requiements = 0
+            def n_requirements = 0
             lines.eachLine {
                 def arr = it.split(/\t/)
                 def packagename = arr[0]
                 if (checks[packagename])
-                    n_requiements ++
+                    n_requirements ++
             }
-            packages['requiement_for_' + package_group] = (requiement.size() == n_requiements) ? 'OK' : 'NG'
+            def isok = (requiement.size() == n_requirements) ? 'OK' : 'NG'
+            packages['packages_set.' + package_group] = isok
+            infos[package_group] = isok
         }
+        packages['packages'] = infos.toString()
         test_item.results(packages)
     }
 
