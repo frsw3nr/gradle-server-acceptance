@@ -677,24 +677,28 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         def csv = []
-        def user_count = 0
+        def general_users = []
         def users = [:].withDefault{'unkown'}
         lines.eachLine {
             def arr = it.split(/:/)
-            if (arr.size() > 4) {
+            if (arr.size() == 7) {
                 def username = arr[0]
                 def user_id  = arr[2]
                 def group_id = arr[3]
+                def home     = arr[5]
+                def shell    = arr[6]
                 def group    = groups[group_id] ?: 'Unkown'
 
-                csv << [username, user_id, group_id, group]
-                user_count ++
+                csv << [username, user_id, group_id, group, home, shell]
                 users['user.' + username] = 'OK'
+                (shell =~ /sh$/).each {
+                    general_users << username
+                }
             }
         }
-        def headers = ['UserName', 'UserID', 'GroupID', 'Group']
+        def headers = ['UserName', 'UserID', 'GroupID', 'Group', 'Home', 'Shell']
         test_item.devices(csv, headers)
-        users['user'] = user_count
+        users['user'] = general_users.toString()
         test_item.results(users)
     }
 
@@ -847,6 +851,19 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
+    }
+
+    def kdump_path(session, test_item) {
+        def lines = exec('kdump_path') {
+            run_ssh_command(session, "egrep -e '^path' /etc/kdump.conf", 'kdump_path')
+        }
+        def path = 'Unkown'
+        lines.eachLine {
+            ( it =~ /path\s+(.+?)$/).each {m0, m1->
+                path = m1
+            }
+        }
+        test_item.results(path)
     }
 
     def iptables(session, test_item) {

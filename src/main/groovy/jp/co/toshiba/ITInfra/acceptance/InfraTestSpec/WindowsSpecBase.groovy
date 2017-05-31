@@ -464,13 +464,39 @@ class WindowsSpecBase extends InfraTestSpec {
     }
 
     def user(TestItem test_item) {
-        run_script('Get-WmiObject Win32_UserAccount | FL') {
+
+        def command = '''
+            |$result = @()
+            |$accountObjList =  Get-CimInstance -ClassName Win32_Account
+            |$userObjList = Get-CimInstance -ClassName Win32_UserAccount
+            |foreach($userObj in $userObjList)
+            |{
+            |    $IsLocalAccount = ($userObjList | ?{$_.SID -eq $userObj.SID}).LocalAccount
+            |    if($IsLocalAccount)
+            |    {
+            |        $query = "WinNT://{0}/{1},user" -F $env:COMPUTERNAME,$userObj.Name
+            |        $dirObj = New-Object -TypeName System.DirectoryServices.DirectoryEntry -ArgumentList $query
+            |        $PasswordExpirationDate = $dirObj.InvokeGet("PasswordExpirationDate")
+            |        $PasswordExpirationRemainDays = ($PasswordExpirationDate - (Get-Date)).Days
+            |        $obj = New-Object -TypeName PsObject
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "UserName" -Value $userObj.Name
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationDate" -Value $PasswordExpirationDate
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationRemainDays" -Value $PasswordExpirationRemainDays
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "IsAccountLocked" -Value ($dirObj.InvokeGet("IsAccountLocked"))
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "SID" -Value $userObj.SID
+            |        $result += $obj
+            |    }
+            |}
+            |$result | Format-List
+            |'''.stripMargin()
+
+        run_script(command) {
             def lines = exec('user') {
                 new File("${local_dir}/user")
             }
             def account_number = 0
             def account_info   = [:].withDefault{[:]}
-            def user_names     = []
+            def user_names     = [:]
             lines.eachLine {
                 (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
                     account_info[account_number][m1] = m2
@@ -479,7 +505,7 @@ class WindowsSpecBase extends InfraTestSpec {
                     account_number ++
             }
             account_number --
-            def headers = ['Name', 'FullName', 'Caption', 'Domain', 'SID']
+            def headers = ['UserName', 'PasswordExpirationDate', 'IsAccountLocked', 'SID']
 
             def csv = []
             (0..account_number).each { row ->
@@ -487,7 +513,7 @@ class WindowsSpecBase extends InfraTestSpec {
                 headers.each { header ->
                     columns.add( account_info[row][header] ?: '')
                 }
-                user_names.add(account_info[row]['Name'])
+                user_names[account_info[row]['UserName']] = account_info[row]['IsAccountLocked']
                 csv << columns
             }
             test_item.devices(csv, headers)
