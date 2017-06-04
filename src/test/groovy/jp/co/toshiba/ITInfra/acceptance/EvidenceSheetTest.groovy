@@ -188,15 +188,15 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source = './src/test/resources/check_sheet_20170512_143424.xlsx'
         def csv = evidence.readAllTestResult()
         def row = csv.size()
-        def colsize_is_4 = true
+        def colsize_is_5 = true
         csv.each {
-            if ( it.size() != 4)
-                colsize_is_4 = false
+            if ( it.size() != 5)
+                colsize_is_5 = false
         }
 
         then:
         row > 0
-        colsize_is_4 == true
+        colsize_is_5 == true
     }
 
 }

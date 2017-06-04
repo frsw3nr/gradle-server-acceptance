@@ -2,6 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import org.apache.commons.lang.math.NumberUtils
+import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FileUtils.*
 import groovy.transform.ToString
 import groovy.json.*
@@ -710,6 +711,73 @@ class EvidenceSheet {
         writeNodeFile(platform, server_name, node_config)
     }
 
+    def updateTestTargetSheet(server_infos = [:]) throws IOException {
+        // Back up the inspection sheet. Copy to sheet file: "{filename}-backup.xlsx"
+        def backup_file = evidence_source.replace(".xlsx", "-backup.xlsx")
+        FileUtils.copyFile(new File(evidence_source), new File(backup_file))
+
+        def node_config = []
+        def inp = new FileInputStream(evidence_source)
+        def wb  = WorkbookFactory.create(inp)
+        def sheet_result = wb.getSheet(sheet_name_server)
+
+        def server_infos_pivot = [:].withDefault{[]}
+        server_infos.each {id, server_info ->
+            server_info.each { info_name, info_value ->
+                server_infos_pivot[info_name] << info_value
+            }
+        }
+        sheet_result.with { sheet ->
+            (row_header .. sheet.getLastRowNum()).find { rownum ->
+                Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
+                (column_server_begin .. row.getLastCellNum()).each { colnum ->
+                    Cell cell = row.getCell(colnum)
+                    if (cell)
+                        row.removeCell(cell)
+                }
+                // Register the header
+                if (rownum == row_header) {
+                    def colnum = column_server_begin
+                    (1 .. server_infos.size()).each { server_no ->
+                        def cell_result = row.createCell(colnum)
+                        cell_result.setCellValue(server_no)
+                        setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
+                        colnum ++
+                    }
+                    return
+                }
+                // Register the server info values
+                def cell_inventory = "${row?.getCell(column_header)}"
+                def server_info_pivot = server_infos_pivot[cell_inventory]
+                if (server_info_pivot.size() > 0) {
+                    def colnum = column_server_begin
+                    server_info_pivot.each { server_info_value ->
+                        def cell_result = row.createCell(colnum)
+                        cell_result.setCellValue(server_info_value)
+                        setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
+                        colnum ++
+                    }
+                // Register an empty line
+                } else {
+                    def colnum = column_server_begin
+                    (1 .. server_infos.size()).each { id ->
+                        def cell_result = row.createCell(colnum)
+                        cell_result.setCellValue('')
+                        setTestResultCellStyle(cell_result, ResultCellStyle.NORMAL)
+                        colnum ++
+                    }
+                }
+                return
+            }
+        }
+        log.info "Generate: $backup_file"
+        def fos = new FileOutputStream(backup_file)
+        wb.write(fos)
+        fos.close()
+    }
+
     def writeDeviceFile(String platform, String test_id, List headers, Map csvs)
         throws IOException, IllegalArgumentException {
         def base_dir = "${staging_dir}/${node_dir_prefix}"
@@ -805,7 +873,6 @@ class EvidenceSheet {
         fos.close()
         writeDeviceFile(platform, test_id, headers, csvs)
     }
-
 
     def prepareTestStage() throws IOException {
         def log_dir = new File(staging_dir)

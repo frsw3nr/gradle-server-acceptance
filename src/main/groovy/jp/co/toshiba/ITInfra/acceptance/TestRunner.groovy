@@ -192,8 +192,13 @@ class TestRunner {
         try {
             def test_runner = new TestRunner()
             test_runner.parse(args)
-            def test_scheduler = new TestScheduler(test_runner)
-            test_scheduler.runTest()
+            if (test_runner.use_redmine) {
+                def redmine = RedmineContainer.instance.initialize(test_runner.evidence_manager)
+                redmine.generate_server_sheet(test_runner)
+            } else {
+                def test_scheduler = new TestScheduler(test_runner)
+                test_scheduler.runTest()
+            }
         } catch (Exception e) {
             log.error "Fatal error : " + e
             e.printStackTrace()

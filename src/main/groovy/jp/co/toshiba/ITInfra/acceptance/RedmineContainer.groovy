@@ -37,6 +37,31 @@ class RedmineContainer {
         return this
     }
 
+    def generate_server_sheet(TestRunner test_runner)
+        throws IOException, IllegalArgumentException {
+        set_default_config(test_runner.config_file)
+        def filters
+        if (silent) {
+            def default_filter_options = redmine_config?.default_filter_options
+            if (!default_filter_options)
+                throw new IllegalArgumentException("Not found 'default_filter_options' "+
+                                                   "in config.groovy")
+            filters = get_default_filter_options(default_filter_options)
+        } else {
+            filters   = input_filter_options()
+        }
+        log.info "FILTER: ${filters}"
+        def redmine_server_infos = get_issues(filters)
+        log.info "ISSUES: ${redmine_server_infos}"
+        if (!redmine_server_infos) {
+            throw new IllegalArgumentException('Not found target servers.')
+            return
+        }
+        def evidence_sheet = new EvidenceSheet(test_runner.config_file)
+        evidence_sheet.evidence_source = test_runner.sheet_file
+        evidence_sheet.updateTestTargetSheet(redmine_server_infos)
+    }
+
     def set_default_config(String config_file) {
         def config = Config.instance.read(config_file)
         redmine_config = config['redmine']
@@ -54,8 +79,8 @@ class RedmineContainer {
                 }
             }
         }
-        if (csv_item_count != csv_item_map.size()) {
-            trhow new SQLException("Malformed Redmine custom fields." +
+        if (csv_item_count == 0) {
+            throw new SQLException("Malformed Redmine custom fields." +
                                    "Please check 'csv_item_map' in config.groovy.")
         }
         return custom_fileds_map
@@ -251,7 +276,7 @@ class RedmineContainer {
                 server_names << server_info['server_name']
             }
             else
-                log.warn "Malformed Redmine issue : #${id}. Skip."
+                log.warn "Issue : #${id}. Malformed input, Skip."
         }
         if (silent || input_isok("以下のサーバの検査をします\n${server_names}", 'y') == 'y')
             return server_infos

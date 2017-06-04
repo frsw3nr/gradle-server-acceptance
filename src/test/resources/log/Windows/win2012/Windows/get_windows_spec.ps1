@@ -48,7 +48,29 @@ Invoke-Command -Session $session -ScriptBlock { `
 } | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "user"
 Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject Win32_UserAccount | FL `
+    
+$result = @()
+$accountObjList =  Get-CimInstance -ClassName Win32_Account
+$userObjList = Get-CimInstance -ClassName Win32_UserAccount
+foreach($userObj in $userObjList)
+{
+    $IsLocalAccount = ($userObjList | ?{$_.SID -eq $userObj.SID}).LocalAccount
+    if($IsLocalAccount)
+    {
+        $query = "WinNT://{0}/{1},user" -F $env:COMPUTERNAME,$userObj.Name
+        $dirObj = New-Object -TypeName System.DirectoryServices.DirectoryEntry -ArgumentList $query
+        $PasswordExpirationDate = $dirObj.InvokeGet("PasswordExpirationDate")
+        $PasswordExpirationRemainDays = ($PasswordExpirationDate - (Get-Date)).Days
+        $obj = New-Object -TypeName PsObject
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "UserName" -Value $userObj.Name
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationDate" -Value $PasswordExpirationDate
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationRemainDays" -Value $PasswordExpirationRemainDays
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "IsAccountLocked" -Value ($dirObj.InvokeGet("IsAccountLocked"))
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "SID" -Value $userObj.SID
+        $result += $obj
+    }
+}
+$result | Format-List `
 } | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "service"
 Invoke-Command -Session $session -ScriptBlock { `

@@ -2,7 +2,7 @@
 
 cmdb.dataSource.username = "root"
 cmdb.dataSource.password = "getperf"
-cmdb.dataSource.url = "jdbc:mysql://localhost:3306/redmine?useUnicode=true&characterEncoding=utf8"
+cmdb.dataSource.url = "jdbc:mysql://ostrich:3306/redmine?useUnicode=true&characterEncoding=utf8"
 cmdb.dataSource.driver = "com.mysql.jdbc.Driver"
 
 // Redmine custome fields map
@@ -12,6 +12,7 @@ cmdb.redmine.custom_fields = [
     'IPアドレス' :       'ip',
     'プラットフォーム' : 'platform',
     'OSアカウント' :     'os_account_id',
+    '固有パスワード' :   'os_specific_password',
     'vCenterアカウント': 'remote_account_id',
     'VMエイリアス名' :   'remote_alias',
     '検証ID' :           'verify_id',

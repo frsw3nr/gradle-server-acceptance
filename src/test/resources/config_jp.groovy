@@ -6,7 +6,7 @@ evidence.sheet_name_rule = '検査ルール'
 evidence.sheet_name_spec = [
     'Linux':   'ゲストOSチェックシート(Linux)',
     'Windows': 'ゲストOSチェックシート(Windows)',
-    'VMHost':  'ゲストOSチェックシート(VMHost)',
+    'VMHost':  'ESXiホストチェックシート(VMHost)',
 ]
 
 // 検査結果ファイル出力先

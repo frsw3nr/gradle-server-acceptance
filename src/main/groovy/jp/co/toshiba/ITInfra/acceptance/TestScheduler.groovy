@@ -110,28 +110,7 @@ class TestScheduler {
         evidence_sheet = new EvidenceSheet(test_runner.config_file)
         evidence_sheet.evidence_source = test_runner.sheet_file
 
-        if (test_runner.use_redmine) {
-            def redmine = RedmineContainer.instance.initialize(evidence_manager)
-            redmine.set_default_config(test_runner.config_file)
-
-            def filters
-            if (redmine.silent) {
-                def default_filter_options = redmine?.redmine_config?.default_filter_options
-                if (!default_filter_options)
-                    throw new IllegalArgumentException("Not found 'redmine.default_filter_options' "+
-                                                       "in config.groovy")
-                filters = redmine.get_default_filter_options(default_filter_options)
-            } else {
-                filters   = redmine.input_filter_options()
-            }
-            log.debug "FILTER: ${filters}"
-            def redmine_server_infos = redmine.get_issues(filters)
-            log.debug "ISSUES: ${redmine_server_infos}"
-            if (!redmine_server_infos)
-                return
-            evidence_sheet.readSheet(server_infos: redmine_server_infos)
-
-        } else if (test_runner.server_config_script) {
+        if (test_runner.server_config_script) {
             evidence_sheet.readSheet(server_config: test_runner.server_config_script)
         } else {
             evidence_sheet.readSheet()

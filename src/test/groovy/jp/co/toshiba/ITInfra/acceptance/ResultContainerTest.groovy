@@ -95,7 +95,7 @@ class ResultContainerTest extends Specification {
         then:
         def test_results = ResultContainer.instance.test_results
         test_results['ostrich']['Linux']['hostname'] == 'ostrich'
-        test_results['ostrich']['Linux']['filesystem']  == 6
+        test_results['ostrich']['Linux']['filesystem']  == '[/boot:500M, /:26.5G, [SWAP]:3G]'
 
         def device_results = ResultContainer.instance.device_results
         device_results['ostrich']['Linux']['filesystem']['row1']['name'] == 'sr0'
