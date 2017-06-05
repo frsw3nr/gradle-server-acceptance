@@ -712,11 +712,6 @@ class EvidenceSheet {
     }
 
     def updateTestTargetSheet(server_infos = [:]) throws IOException {
-        // Back up the inspection sheet. Copy to sheet file: "{filename}-backup.xlsx"
-        def backup_file = evidence_source.replace(".xlsx", "-backup.xlsx")
-        FileUtils.copyFile(new File(evidence_source), new File(backup_file))
-
-        def node_config = []
         def inp = new FileInputStream(evidence_source)
         def wb  = WorkbookFactory.create(inp)
         def sheet_result = wb.getSheet(sheet_name_server)
@@ -772,8 +767,12 @@ class EvidenceSheet {
                 return
             }
         }
-        log.info "Generate: $backup_file"
-        def fos = new FileOutputStream(backup_file)
+        // Back up the inspection sheet. Copy to sheet file: "{filename}-backup.xlsx"
+        def backup_file = evidence_source.replace(".xlsx", "-backup.xlsx")
+        log.info "Backup: $backup_file"
+        FileUtils.copyFile(new File(evidence_source), new File(backup_file))
+        log.info "Update: $evidence_source"
+        def fos = new FileOutputStream(evidence_source)
         wb.write(fos)
         fos.close()
     }

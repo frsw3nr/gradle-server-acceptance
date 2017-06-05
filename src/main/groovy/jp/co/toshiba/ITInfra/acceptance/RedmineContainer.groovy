@@ -278,7 +278,7 @@ class RedmineContainer {
             else
                 log.warn "Issue : #${id}. Malformed input, Skip."
         }
-        if (silent || input_isok("以下のサーバの検査をします\n${server_names}", 'y') == 'y')
+        if (silent || input_isok("検索したサーバは以下の通りです。よろしいですか?\n${server_names}", 'y') == 'y')
             return server_infos
     }
 

@@ -2,7 +2,7 @@
 
 cmdb.dataSource.username = "root"
 cmdb.dataSource.password = "getperf"
-cmdb.dataSource.url = "jdbc:mysql://ostrich:3306/redmine?useUnicode=true&characterEncoding=utf8"
+cmdb.dataSource.url = "jdbc:mysql://redmine:3306/redmine?useUnicode=true&characterEncoding=utf8"
 cmdb.dataSource.driver = "com.mysql.jdbc.Driver"
 
 // Redmine custome fields map
