@@ -64,7 +64,6 @@ class TargetServer {
         remote_account = getConfigAccount(config_account, 'Remote', remote_account_id)
         if (this.infos['os_specific_password'])
             os_account['password'] = this.infos['os_specific_password']
-println os_account
         def config_test = config['test']
         dry_run = config_test[platform]['dry_run'] ?: false
         timeout = config_test[platform]['timeout'] ?: 0
