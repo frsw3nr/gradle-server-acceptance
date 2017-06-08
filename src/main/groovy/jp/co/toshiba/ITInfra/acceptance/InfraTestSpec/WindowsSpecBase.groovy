@@ -476,13 +476,13 @@ class WindowsSpecBase extends InfraTestSpec {
             |    {
             |        $query = "WinNT://{0}/{1},user" -F $env:COMPUTERNAME,$userObj.Name
             |        $dirObj = New-Object -TypeName System.DirectoryServices.DirectoryEntry -ArgumentList $query
-            |        $PasswordExpirationDate = $dirObj.InvokeGet("PasswordExpirationDate")
-            |        $PasswordExpirationRemainDays = ($PasswordExpirationDate - (Get-Date)).Days
+            |        $UserFlags = $dirObj.InvokeGet("UserFlags")
+            |        $DontExpirePasswd = [boolean]($UserFlags -band 0x10000)
+            |        $AccountDisable   = [boolean]($UserFlags -band 0x2)
             |        $obj = New-Object -TypeName PsObject
             |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "UserName" -Value $userObj.Name
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationDate" -Value $PasswordExpirationDate
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationRemainDays" -Value $PasswordExpirationRemainDays
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "IsAccountLocked" -Value ($dirObj.InvokeGet("IsAccountLocked"))
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "DontExpirePasswd" -Value $DontExpirePasswd
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "AccountDisable" -Value $AccountDisable
             |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "SID" -Value $userObj.SID
             |        $result += $obj
             |    }
@@ -505,7 +505,7 @@ class WindowsSpecBase extends InfraTestSpec {
                     account_number ++
             }
             account_number --
-            def headers = ['UserName', 'PasswordExpirationDate', 'IsAccountLocked', 'SID']
+            def headers = ['UserName', 'DontExpirePasswd', 'AccountDisable', 'SID']
 
             def csv = []
             (0..account_number).each { row ->
@@ -513,7 +513,7 @@ class WindowsSpecBase extends InfraTestSpec {
                 headers.each { header ->
                     columns.add( account_info[row][header] ?: '')
                 }
-                user_names[account_info[row]['UserName']] = account_info[row]['IsAccountLocked']
+                user_names[account_info[row]['UserName']] = account_info[row]['AccountDisable']
                 csv << columns
             }
             test_item.devices(csv, headers)
