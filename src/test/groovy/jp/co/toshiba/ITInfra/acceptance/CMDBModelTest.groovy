@@ -39,7 +39,7 @@ class CMDBModelTest extends Specification {
         def site = cmdb_model.cmdb.rows("select * from sites")
 
         then:
-        site[0]['id'] == 1
+        site[0]['id'] > 0
         site[0]['site_name'].size() > 0
     }
 
