@@ -1,6 +1,24 @@
-// æ§‹æˆç®¡ç†ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ï¼ˆCMDBï¼‰ã®æ¥ç¶šè¨­å®š
+// Configuration Management Database connection setting
 
 cmdb.dataSource.username = "sa"
 cmdb.dataSource.password = "sa"
 cmdb.dataSource.url = "jdbc:h2:mem:"
 cmdb.dataSource.driver = "org.h2.Driver"
+
+// Redmine custome fields map
+
+cmdb.redmine.custom_fields = [
+    'ƒzƒXƒg–¼' :         'server_name',
+    'IPƒAƒhƒŒƒX' :       'ip',
+    'ƒvƒ‰ƒbƒgƒtƒH[ƒ€' : 'platform',
+    'OSƒAƒJƒEƒ“ƒg' :     'os_account_id',
+    'ŒÅ—LƒpƒXƒ[ƒh' :   'os_specific_password',
+    'vCenterƒAƒJƒEƒ“ƒg': 'remote_account_id',
+    'VMƒGƒCƒŠƒAƒX–¼' :   'remote_alias',
+    'ŒŸØID' :           'verify_id',
+    '”äŠr‘ÎÛ' :         'compare_server',
+    'CPUŠ„‚è“–‚Ä' :      'NumCpu',
+    'ƒƒ‚ƒŠŠ„‚è“–‚Ä' :   'MemoryGB',
+    'ESXiƒzƒXƒg' :       'ESXiHost',
+    'ƒXƒgƒŒ[ƒW\¬' :   'HDDtype',
+]

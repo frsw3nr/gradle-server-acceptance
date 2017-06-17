@@ -7,7 +7,6 @@ import org.apache.commons.compress.utils.*
 
 def source='./archive1.tar.gz'
 def target='/tmp'
-final tar_buffer_size = 64 * 1024
 
 new BufferedInputStream(new GzipCompressorInputStream(new FileInputStream(source))).with { gzip ->
     new TarArchiveInputStream(gzip, tar_buffer_size).with { tar ->

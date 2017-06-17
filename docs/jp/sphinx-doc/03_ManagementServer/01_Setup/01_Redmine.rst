@@ -54,10 +54,10 @@ Ruby インストール
 
    cd /opt/
    sudo chmod a+wrx .
-   git clone git://github.com/sstephenson/rbenv.git
+   git clone https://github.com/sstephenson/rbenv.git
    mkdir ./rbenv/plugins
    cd ./rbenv/plugins
-   git clone git://github.com/sstephenson/ruby-build.git
+   git clone https://github.com/sstephenson/ruby-build.git
 
 /etc/profile に追記
 
@@ -293,7 +293,7 @@ passenger用conf設定
 
 シンボリックリンク作成
 
-::00
+::
 
    sudo ln -s ~/redmine/public /var/www/html/redmine
 

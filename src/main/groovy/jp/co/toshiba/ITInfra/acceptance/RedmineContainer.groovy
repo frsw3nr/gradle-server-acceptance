@@ -81,7 +81,7 @@ class RedmineContainer {
         }
         if (csv_item_count == 0) {
             throw new SQLException("Malformed Redmine custom fields." +
-                                   "Please check 'csv_item_map' in config.groovy.")
+                                   "Please check 'cmdb.redmine.custom_fields' in cmdb.groovy.")
         }
         return custom_fileds_map
     }
@@ -278,7 +278,7 @@ class RedmineContainer {
             else
                 log.warn "Issue : #${id}. Malformed input, Skip."
         }
-        if (silent || input_isok("以下のサーバの検査をします\n${server_names}", 'y') == 'y')
+        if (silent || input_isok("検索したサーバは以下の通りです。よろしいですか?\n${server_names}", 'y') == 'y')
             return server_infos
     }
 

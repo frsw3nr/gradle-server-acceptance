@@ -9,7 +9,8 @@ Contents:
    01_GettingStarted/index
    02_StandaloneTest/index
    03_ManagementServer/index
-   04_Appendix/index
+   04_ConfigurationManagement/index
+   05_Appendix/index
 
 Indices and tables
 ==================
