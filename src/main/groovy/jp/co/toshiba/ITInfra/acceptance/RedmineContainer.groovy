@@ -54,7 +54,7 @@ class RedmineContainer {
         def redmine_server_infos = get_issues(filters)
         log.info "ISSUES: ${redmine_server_infos}"
         if (!redmine_server_infos) {
-            throw new IllegalArgumentException('Not found target servers.')
+            log.info 'Not found target servers.'
             return
         }
         def evidence_sheet = new EvidenceSheet(test_runner.config_file)
