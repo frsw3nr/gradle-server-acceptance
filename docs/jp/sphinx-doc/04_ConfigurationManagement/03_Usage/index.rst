@@ -3,6 +3,6 @@
 
 .. toctree::
 
-   01_AssetManagement/index
-   02_TicketManagement/index
-   03_InventoryCollection/index
+   01_Planning/index
+   02_InventoryCollection/index
+   03_ChangeManagement/index
