@@ -1,7 +1,8 @@
-Redmine構成管理データベース
-===========================
+Redmine構成
+===========
 
 .. toctree::
+   :maxdepth: 2
 
    01_RedmineOverview
    02_RedmineAssetSetting

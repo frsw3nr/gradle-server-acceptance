@@ -1,6 +1,11 @@
 利用手順
 ========
 
+   .. figure:: ../../image/tutorial_env.png
+      :align: center
+      :alt: CMDB Overview
+      :width: 640px
+
 * プロジェクト
    * 構成管理データベース、システム監視
 * ユーザ
