@@ -2,7 +2,7 @@
 ============
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    01_RedmineConfiguration/index
    02_GetconfigCofiguration/index
