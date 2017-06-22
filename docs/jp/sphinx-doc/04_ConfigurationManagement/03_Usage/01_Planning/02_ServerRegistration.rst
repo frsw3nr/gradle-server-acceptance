@@ -15,8 +15,5 @@ Redmine に設備情報のチケット登録をします。
 
    .. figure:: image/05_registTicket2.png
       :align: center
-      :alt: Regist Ticket
+      :alt: Regist Ticket 2
       :width: 720px
-
-入力項目は選択した、トラッカーにより変わります。
-

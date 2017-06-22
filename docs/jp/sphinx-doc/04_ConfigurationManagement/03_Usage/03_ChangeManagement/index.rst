@@ -4,4 +4,5 @@
 .. toctree::
 
    01_ChangeCollection.rst
-   02_Closing.rst
+   02_IncidentRegistration.rst
+   03_Closing.rst
