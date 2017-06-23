@@ -37,6 +37,11 @@ Redmineの中でもっとも大きな分類となるもので、
    メニュー　管理、設定、チケットトラッキングから、
    「異なるプロジェクトのチケット間の親子関係を許可」を「すべてのプロジェクト」に変更
 
+   .. figure:: 01_TicketTracking.png
+      :align: center
+      :alt: Ticket Tracking
+      :width: 720px
+
 サブプロジェクト
 ^^^^^^^^^^^^^^^^
 
