@@ -3,7 +3,7 @@
 
 システム概要は以下の通りです。
 
-   .. figure:: ../image/overview.png
+   .. figure:: ../../image/overview.png
       :align: center
       :alt: System Overview
       :width: 640px

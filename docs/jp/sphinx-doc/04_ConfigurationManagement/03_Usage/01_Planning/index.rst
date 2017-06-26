@@ -2,6 +2,7 @@
 ============
 
 .. toctree::
+   :maxdepth: 2
 
    01_RedmineRegistration.rst
    02_ServerRegistration.rst

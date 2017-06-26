@@ -15,6 +15,8 @@ Redmine サイトに管理者ユーザでログインしてください。
       :alt: New Project
       :width: 720px
 
+登録が終わったら画面下の「送信」をクリックしてください。
+
 ユーザの登録
 ^^^^^^^^^^^^
 
@@ -69,4 +71,4 @@ Redmine サイトに管理者ユーザでログインしてください。
    .. figure:: image/06_Milestone.png
       :align: center
       :alt: Regist Milestone
-      :width: 640px
+      :width: 480px

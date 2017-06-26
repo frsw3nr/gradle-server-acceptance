@@ -32,23 +32,24 @@ Linux サーバ管理対象の設定
    .. figure:: image/02_registTargetServer.png
       :align: center
       :alt: New Project
-      :width: 720px
+      :width: 640px
 
-* 「platform」,「virtualization」項目選択後に、「～を入力して下さい」と表示されたセルの値を入します
-   * server_name : サーバ名を入力
-   * Ip : IPアドレスを入力
-   * os_account_id : "Test" を入力
-      * LinuxのアカウントID
-      * config\\config.groovy に記述
-   * os_specific_password
-      * OSアカウントで特定のパスワード設定が必要な場合はパスワードを入力
-      * 未記入の場合はconfig\\config.groovyの値が反映
-   * remote_account_id : "Test" を入力
-      * vCenter サーバもしくは、 ESXi ホストのアカウントID
-      * config\\config.groovy に記述
-   * remote_alias : vCenter 側で管理しているVMのエイリアス名。
-   * vSphere Client 管理コンソールからメニュー、ホーム、インベントリを選択し、
-     画面左側のツリーリストに表示されるVM名を入力
+「platform」,「virtualization」項目選択後に、「～を入力して下さい」と表示されたセルの値を入します
+
+* server_name : サーバ名を入力
+* Ip : IPアドレスを入力
+* os_account_id : "Test" を入力
+   * LinuxのアカウントID
+   * config\\config.groovy に記述
+* os_specific_password
+   * OSアカウントで特定のパスワード設定が必要な場合はパスワードを入力
+   * 未記入の場合はconfig\\config.groovyの値が反映
+* remote_account_id : "Test" を入力
+   * vCenter サーバもしくは、 ESXi ホストのアカウントID
+   * config\\config.groovy に記述
+* remote_alias : vCenter 側で管理しているVMのエイリアス名。
+* vSphere Client 管理コンソールからメニュー、ホーム、インベントリを選択し、
+  画面左側のツリーリストに表示されるVM名を入力
 
 config\\config.groovyの編集
 ---------------------------
@@ -85,6 +86,20 @@ Linux検査実行
 PowerShellを開いて、プロジェクトディレクトリに移動して、getconfig を実行します
 
    .. figure:: image/03_testLinuxServer.png
+      :align: center
+      :alt: New Project
+      :width: 720px
+
+実行後、プロジェクトディレクトリ下のbuildの下に生成されたExcel検査結果を開いて結果を確認します。
+
+   .. figure:: image/04_verifyTestResult.png
+      :align: center
+      :alt: New Project
+      :width: 720px
+
+Excel検査結果の確認ができたら"getconfig -u local"でローカルデータベースに検査結果を登録します。
+
+   .. figure:: image/04_verifyTestResult2.png
       :align: center
       :alt: New Project
       :width: 720px
@@ -134,25 +149,6 @@ WinRM リモート管理設定
 * WinRM用のLisner作成
 * WinRM用のファイヤーウォールの設定
 
-一時的な設定変更で検査をする場合
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-前頁の設定はサーバ運用開始後の検査も想定した恒久的な設定となりますが、
-一時的に検査作業時のみ設定をする場合、 Windows 環境で以下の設定変更をします。
-
-PowerShell から以下のコマンドでファイヤーウォールの無効化設定をします。
-
-::
-
-   Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled false
-
-検査終了後、基に戻す場合は以下コマンドで有効化設定をします。
-
-::
-
-   Get-NetFirewallProfile | Set-NetFirewallProfile -Enabled true
-
-
 PowerShell リモートアクセス許可の有効化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -173,21 +169,19 @@ Windows Server 2012 より前のOSでは、PowerShell のリモートアクセ�
 
 .. note:: Windows Server 2012 R2 以上の場合、リモートアクセス許可の既定値は有効化です
 
-
 Windows検査シート入力
 ---------------------
 
    .. figure:: image/02_registTargetWindows.png
       :align: center
       :alt: New Project
-      :width: 720px
+      :width: 640px
 
 * プロジェクトディレクトリに移動し、「サーバチェックシート.xlsx」を編集します
 * シート「チェック対象」の入力列に 検査対象の Windows サーバの情報を設定します
 * はじめに「platform」に"Windows"を選択してください
 * 「virtualization」に仮想化OSの場合は、"VM"、オンプレサーバの場合は"オンプレ"を選択してください
 * 各項目の入力手順はLinux検査と同じとなります
-
 
 config\\config.groovyの編集
 ---------------------------
@@ -222,18 +216,7 @@ PowerShellを開いて、プロジェクトディレクトリに移動して、g
       :width: 720px
 
 実行後、プロジェクトディレクトリ下のbuildの下に生成されたExcel検査結果を開いて結果を確認します。
-
-   .. figure:: image/04_verifyTestResult.png
-      :align: center
-      :alt: New Project
-      :width: 720px
-
 Excel検査結果の確認ができたら"getconfig -u local"でローカルデータベースに検査結果を登録します。
-
-   .. figure:: image/04_verifyTestResult2.png
-      :align: center
-      :alt: New Project
-      :width: 720px
 
 ESXiホストの検査
 ================
@@ -246,7 +229,7 @@ ESXiホスト検査シート入力
    .. figure:: image/02_registTargetESXi.png
       :align: center
       :alt: Regist ESXi server
-      :width: 720px
+      :width: 640px
 
 * シート「チェック対象」の入力列に 検査対象の ESXi ホストの情報を設定します
 * はじめに「platform」に"VMHost"を選択してください
@@ -277,43 +260,4 @@ PowerShellを開いて、プロジェクトディレクトリに移動して、g
 
 実行後、プロジェクトディレクトリ下のbuildの下に生成されたExcel検査結果を開いて結果を確認します。
 Excel検査結果の確認ができたら"getconfig -u local"でローカルデータベースに検査結果を登録します。
-
-ドライランモード
-================
-
-* getconfig実行オプションで、 -d オプションを追加すると予行演習(DryRun)モードを実行します
-* 予行演習モードを使用すると、検査対象へのアクセスをせずに、保存済みの収集ログから再検査を行います
-* 一部の検査対象を絞り込んで検査結果を作成したい場合などに使用します
-* はじめに全検査対象の検査を実行します
-* ここでは、例として、Linux,Windows,ESXiホストの計3台の検査を行います
-
-   .. figure:: image/02_registTargetServerDryRun.png
-      :align: center
-      :alt: Regist Dry Run
-      :width: 720px
-
-getconfig で検査を実行したら getconfig -u local でローカルディレクトリに検査結果をコピーします
-
-   .. figure:: image/05_dryRun1.png
-      :align: center
-      :alt: Regist Dry Run
-      :width: 720px
-
-再び検査シートのシート「検査対象」を開いて、検査結果の再作成が必要なサーバのみを絞り込みます。
-ここでは、Linuxの列のみに絞り込みます
-
-   .. figure:: image/05_dryRun2.png
-      :align: center
-      :alt: Regist Dry Run
-      :width: 720px
-
-getconfig -d オプションで、予行演習モードで実行します
-検査対象へのアクセスをせずに再検査を行います
-実行後、生成された検査結果シートは絞り込んだ対象サーバのみになります
-
-   .. figure:: image/05_dryRun3.png
-      :align: center
-      :alt: Regist Dry Run
-      :width: 720px
-
 
