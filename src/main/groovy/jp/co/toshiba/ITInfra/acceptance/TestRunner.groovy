@@ -189,20 +189,23 @@ class TestRunner {
     }
 
     static void main(String[] args) {
-        try {
-            def test_runner = new TestRunner()
-            test_runner.parse(args)
-            if (test_runner.use_redmine) {
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        if (test_runner.use_redmine) {
+            try {
                 def redmine = RedmineContainer.instance.initialize(test_runner.evidence_manager)
                 redmine.generate_server_sheet(test_runner)
-            } else {
+            } catch (Exception e) {
+                log.error "Fatal error : " + e
+            }
+        } else {
+            try {
                 def test_scheduler = new TestScheduler(test_runner)
                 test_scheduler.runTest()
+            } catch (Exception e) {
+                log.error "Fatal error : " + e
+                e.printStackTrace()
             }
-        } catch (Exception e) {
-            log.error "Fatal error : " + e
-            e.printStackTrace()
-            System.exit(1)
         }
     }
 }
