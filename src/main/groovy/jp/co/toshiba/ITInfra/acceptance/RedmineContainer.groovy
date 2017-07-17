@@ -31,6 +31,7 @@ class RedmineContainer {
             this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
                                         config_ds['password'], config_ds['driver'])
             this.csv_item_map = config_db?.cmdb?.redmine?.custom_fields
+
             this.silent       = evidence_manager?.silent ?: false
             custom_fileds_map = get_custom_fields()
         }
@@ -263,15 +264,31 @@ class RedmineContainer {
             sql = "SELECT custom_field_id, value FROM custom_values WHERE customized_id = ?"
             def custom_values = cmdb.rows(sql, [id])
             def server_info = [:]
+
+            // 設定パラメータ "redmine.default_values" の検査対象既定値を設定
+            redmine_config?.default_values.each { item_name, value ->
+                server_info[item_name] = value
+            }
             custom_values.each { custom_value ->
                 custom_value.with {
                     def item_name = custom_fileds_map[custom_field_id]
-                    if (item_name)
+                    // 設定パラメータ値 "redmine.fixed_items" にキーがある場合は、その値を設定
+                    if (redmine_config?.fixed_items.containsKey(item_name)) {
+                        server_info[item_name] = redmine_config.fixed_items[item_name]
+                    } else if (item_name) {
                         server_info[item_name] = value
+                    }
                 }
             }
-            if (server_info['platform'] && server_info['server_name'] &&
-                server_info['ip'] && server_info['os_account_id']) {
+            // 設定パラメータ"redmine.default_filter_options"で必須項目チェック
+            def is_ok = true
+            def required = redmine_config?.required_items ?:
+                           ['platform', 'server_name', 'ip', 'os_account_id']
+            required.each {
+                if (! server_info.containsKey(it))
+                    is_ok = false
+            }
+            if (is_ok) {
                 server_infos[id] = server_info
                 server_names << server_info['server_name']
             }

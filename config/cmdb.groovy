@@ -14,6 +14,7 @@ cmdb.redmine.custom_fields = [
     'OSアカウント' :     'os_account_id',
     '固有パスワード' :   'os_specific_password',
     'vCenterアカウント': 'remote_account_id',
+    'Zabbixアカウント':  'remote_account_id',
     'VMエイリアス名' :   'remote_alias',
     '検証ID' :           'verify_id',
     '比較対象' :         'compare_server',
