@@ -248,14 +248,13 @@ class RedmineContainer {
             sql += "AND status_id = ${filter_options['status']} "
 
         if (filter_options['version'])
-            sql += "AND assigned_to_id = ${filter_options['version']} "
+            sql += "AND fixed_version_id = ${filter_options['version']} "
 
         if (filter_options['tracker'])
             sql += "AND tracker_id = ${filter_options['tracker']} "
-
         def issue_ids = cmdb.rows(sql)
         if (issue_ids.size() == 0) {
-            throw new SQLException('Not found targets')
+            throw new SQLException("Not found targets : ${sql}")
         }
 
         def server_names = []
@@ -281,19 +280,22 @@ class RedmineContainer {
                 }
             }
             // 設定パラメータ"redmine.default_filter_options"で必須項目チェック
-            def is_ok = true
-            def required = redmine_config?.required_items ?:
-                           ['platform', 'server_name', 'ip', 'os_account_id']
-            required.each {
-                if (! server_info.containsKey(it))
-                    is_ok = false
+            def is_malformed = false
+            ['platform', 'server_name', 'ip', 'os_account_id'].each { required_item ->
+                if (! server_info[required_item]) {
+                    log.warn "Issue : #${id}. Not found '${required_item}'."
+                    is_malformed = true
+                }
             }
-            if (is_ok) {
+            if (is_malformed) {
+                log.warn "Issue : #${id}. Malformed input, Skip."
+            } else {
                 server_infos[id] = server_info
                 server_names << server_info['server_name']
             }
-            else
-                log.warn "Issue : #${id}. Malformed input, Skip."
+        }
+        if (server_names.size() == 0) {
+            throw new SQLException("Target servers is 0.")
         }
         if (silent || input_isok("検索したサーバは以下の通りです。よろしいですか?\n${server_names}", 'y') == 'y')
             return server_infos
@@ -303,10 +305,10 @@ class RedmineContainer {
         def redmine = new RedmineContainer()
         redmine.initialize()
         def filters   = redmine.input_filter_options()
-        println "FILTER: \n${filters}"
+        log.info "FILTER: \n${filters}"
         println filters
         redmine.get_issues(filters)
-        println "ISSUES: \n${redmine.server_infos}"
+        log.debug "ISSUES: \n${redmine.server_infos}"
     }
 
 }

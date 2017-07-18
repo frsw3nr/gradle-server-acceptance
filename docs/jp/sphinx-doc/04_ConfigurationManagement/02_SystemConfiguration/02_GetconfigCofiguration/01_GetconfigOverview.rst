@@ -3,7 +3,7 @@
 
 作業PCからGetconfig構成収集ツールを実行し、実行結果を構成管理データベースにアップロードします。
 
-Getconfigの詳細は、Getconfig ユーザガイドの :doc:`../../../01_GettingStarted/index`
+Getconfigの詳細は、Getconfig ユーザガイドの :doc:`../../../02_StandaloneTest/index`
 を参照してください。
 
 Getconfig設定
