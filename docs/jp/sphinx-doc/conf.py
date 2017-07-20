@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# getconfig documentation build configuration file, created by
-# sphinx-quickstart on Wed Jan  4 14:28:29 2017.
+# getconfig-instruction documentation build configuration file, created by
+# sphinx-quickstart on Fri Aug 26 10:20:12 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -45,8 +45,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Getconfig Users Guide'
-copyright = u'2017, Minoru Furusawa, Toshiba Coaporation'
+project = u'Getconfig Instruction Guid'
+copyright = u'2016, Toshiba Coaporation'
+author = u'Minofu Furusawa'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -72,7 +73,8 @@ language = 'ja'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+# This patterns also effect to html_static_path and html_extra_path
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -116,9 +118,9 @@ html_theme = 'agogo'
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
 
-# The name for this set of Sphinx documents.  If None, it defaults to
-# "<project> v<release> documentation".
-html_title = 'Getconfig Users Guide'
+# The name for this set of Sphinx documents.
+# "<project> v<release> documentation" by default.
+html_title = u'Getconfig Instruction Guide'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -127,8 +129,8 @@ html_title = 'Getconfig Users Guide'
 # of the sidebar.
 #html_logo = None
 
-# The name of an image file (within the static path) to use as favicon of the
-# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# The name of an image file (relative to this directory) to use as a favicon of
+# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 #html_favicon = None
 
@@ -142,9 +144,10 @@ html_static_path = ['_static']
 # directly to the root of the documentation.
 #html_extra_path = []
 
-# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
-# using the given strftime format.
-#html_last_updated_fmt = '%b %d, %Y'
+# If not None, a 'Last updated on:' timestamp is inserted at every page
+# bottom, using the given strftime format.
+# The empty string is equivalent to '%b %d, %Y'.
+#html_last_updated_fmt = None
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.
@@ -167,7 +170,7 @@ html_static_path = ['_static']
 #html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-#html_show_sourcelink = True
+html_show_sourcelink = False
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 #html_show_sphinx = True
@@ -186,11 +189,12 @@ html_static_path = ['_static']
 # Language to be used for generating the HTML full-text search index.
 # Sphinx supports the following languages:
 #   'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'ja'
-#   'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'tr'
+#   'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'tr', 'zh'
 #html_search_language = 'en'
 
 # A dictionary with options for the search language support, empty by default.
-# Now only 'ja' uses this config value
+# 'ja' uses this config value.
+# 'zh' user can custom change `jieba` dictionary path.
 #html_search_options = {'type': 'default'}
 
 # The name of a javascript file (relative to the configuration directory) that
@@ -198,7 +202,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'getconfigdoc'
+htmlhelp_basename = 'getconfig-instructiondoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -220,8 +224,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'getconfig.tex', u'getconfig Documentation',
-     u'Minoru Furusawa', 'manual'),
+    (master_doc, 'getconfig-instruction.tex', u'getconfig-instruction Documentation',
+     u'Minofu Furusawa', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -250,8 +254,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'getconfigusersguide', u'Getconfig Users Guide Documentation',
-     [u'Getperf org'], 1)
+    (master_doc, 'getconfig-instruction', u'getconfig-instruction Documentation',
+     [author], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -264,9 +268,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'GetconfigUsersGuide', u'Getconfig Users Guide Documentation',
-   u'Getconfig org', 'GetconfigUsersGuide', 'One line description of project.',
-   'Miscellaneous'),
+    (master_doc, 'getconfig-instruction', u'getconfig-instruction Documentation',
+     author, 'getconfig-instruction', 'One line description of project.',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -280,3 +284,76 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# -- Options for PDF output --------------------------------------------------
+
+# Grouping the document tree into PDF files. List of tuples
+# (source start file, target name, title, author, options).
+#
+# If there is more than one author, separate them with \\.
+# For example: r'Guido van Rossum\\Fred L. Drake, Jr., editor'
+#
+# The options element is a dictionary that lets you override
+# this config per-document.
+# For example,
+# ('index', u'MyProject', u'My Project', u'Author Name',
+#  dict(pdf_compressed = True))
+# would mean that specific document would be compressed
+# regardless of the global pdf_compressed setting.
+
+pdf_documents = [
+    ('index', u'GetconfigInstructionGuide', u'ITインフラ構成管理ガイド', u'Getconfig org'),
+]
+
+# A comma-separated list of custom stylesheets. Example:
+pdf_stylesheets = ['sphinx','kerning','a4','ja']
+
+# Create a compressed PDF
+# Use True/False or 1/0
+# Example: compressed=True
+#pdf_compressed = False
+
+# A colon-separated list of folders to search for fonts. Example:
+pdf_font_path = ['/usr/share/fonts']
+
+# Language to be used for hyphenation support
+pdf_language = "ja"
+
+# Mode for literal blocks wider than the frame. Can be
+# overflow, shrink or truncate
+#pdf_fit_mode = "shrink"
+
+# Section level that forces a break page.
+# For example: 1 means top-level sections start in a new page
+# 0 means disabled
+#pdf_break_level = 0
+
+# When a section starts in a new page, force it to be 'even', 'odd',
+# or just use 'any'
+#pdf_breakside = 'any'
+
+# Insert footnotes where they are defined instead of
+# at the end.
+#pdf_inline_footnotes = True
+
+# verbosity level. 0 1 or 2
+#pdf_verbosity = 0
+
+# If false, no index is generated.
+#pdf_use_index = True
+
+# If false, no modindex is generated.
+#pdf_use_modindex = True
+
+# If false, no coverpage is generated.
+#pdf_use_coverpage = True
+
+# Documents to append as an appendix to all manuals.
+#pdf_appendices = []
+
+# Enable experimental feature to split table cells. Use it
+# if you get "DelayedTable too big" errors
+#pdf_splittables = False
+
+# Set the default DPI for images
+#pdf_default_dpi = 72
