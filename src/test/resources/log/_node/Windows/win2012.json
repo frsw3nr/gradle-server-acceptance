@@ -15,6 +15,11 @@
         "value": "2"
     },
     {
+        "test_id": "memory",
+        "domain": "Windows",
+        "value": "2096692"
+    },
+    {
         "test_id": "total_visible",
         "domain": "Windows",
         "value": "2096692"
@@ -28,6 +33,11 @@
         "test_id": "free_physical",
         "domain": "Windows",
         "value": "1494480"
+    },
+    {
+        "test_id": "system",
+        "domain": "Windows",
+        "value": "WORKGROUP\\WIN2012"
     },
     {
         "test_id": "Domain",
@@ -50,9 +60,19 @@
         "value": "WIN2012"
     },
     {
+        "test_id": "os",
+        "domain": "Windows",
+        "value": "Microsoft Windows Server 2012 R2 Standard \u8a55\u4fa1\u7248 64 \u30d3\u30c3\u30c8"
+    },
+    {
         "test_id": "os_caption",
         "domain": "Windows",
         "value": "Microsoft Windows Server 2012 R2 Standard \u8a55\u4fa1\u7248"
+    },
+    {
+        "test_id": "os_csd_version",
+        "domain": "Windows",
+        "value": ""
     },
     {
         "test_id": "os_architecture",
@@ -72,23 +92,22 @@
     {
         "test_id": "filesystem",
         "domain": "Windows",
-        "value": "1"
+        "value": "[C::39]"
     },
     {
         "test_id": "filesystem.C:",
         "domain": "Windows",
-        "value": "42.580570112"
+        "value": "39.656246185302734"
     },
     {
         "test_id": "user",
         "domain": "Windows",
-        "value": "[Administrator, Guest, test_user]"
+        "value": "[null:null]"
     },
     {
         "test_id": "logon_test",
         "domain": "Windows",
-        "value": "[:]",
-        "verify": false
+        "value": "[logon_test:Ignored]"
     },
     {
         "test_id": "service",
@@ -113,7 +132,7 @@
     {
         "test_id": "network",
         "domain": "Windows",
-        "value": "[null]"
+        "value": "[null:{192.168.0.14, fe80::2c3d:7f3e:ea41:7f70}]"
     },
     {
         "test_id": "firewall",

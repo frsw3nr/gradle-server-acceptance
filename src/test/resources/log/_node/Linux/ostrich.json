@@ -20,6 +20,11 @@
         "value": "[CentOS release 6.7 (Final)]"
     },
     {
+        "test_id": "cpu",
+        "domain": "Linux",
+        "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz 1 Socket 1 Core"
+    },
+    {
         "test_id": "model_name",
         "domain": "Linux",
         "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz"
@@ -50,6 +55,11 @@
         "value": "76d1374a96baf95519ccde830000000e"
     },
     {
+        "test_id": "meminfo",
+        "domain": "Linux",
+        "value": "1922252"
+    },
+    {
         "test_id": "mem_total",
         "domain": "Linux",
         "value": "1922252"
@@ -62,7 +72,7 @@
     {
         "test_id": "network",
         "domain": "Linux",
-        "value": "[eth0]"
+        "value": "[eth0:null]"
     },
     {
         "test_id": "hw_address",
@@ -92,7 +102,7 @@
     {
         "test_id": "filesystem",
         "domain": "Linux",
-        "value": "6"
+        "value": "[/boot:500M, /:26.5G, [SWAP]:3G]"
     },
     {
         "test_id": "filesystem./",
@@ -112,7 +122,7 @@
     {
         "test_id": "user",
         "domain": "Linux",
-        "value": "70"
+        "value": "[root, commonstyle, postgres, pscommon, mysql, esx, himeji, nexco, payok04, pcoit01, pskag01, pskg01, psoit01, psoit02, psyok04, psyok05, tmeic, psyok02, rstudio-server, pbyok01, mitaka, psadmin, db2fenc1, myinst, git, psyok03, pboit01, nagios, peyok04, influxdb, oracle]"
     },
     {
         "test_id": "user.zabbix",
@@ -122,8 +132,7 @@
     {
         "test_id": "logon_test",
         "domain": "Linux",
-        "value": "[:]",
-        "verify": false
+        "value": "[logon_test:Ignored]"
     },
     {
         "test_id": "fips",
@@ -163,7 +172,7 @@
     {
         "test_id": "packages",
         "domain": "Linux",
-        "value": "[RHEL6:1012, COMMON:11]"
+        "value": "[:]"
     },
     {
         "test_id": "packages.gcc",
@@ -184,11 +193,6 @@
         "test_id": "packages.net-snmp-utils",
         "domain": "Linux",
         "value": "5.5"
-    },
-    {
-        "test_id": "requiement_for_oracle",
-        "domain": "Linux",
-        "value": "NG"
     },
     {
         "test_id": "mount_iso",

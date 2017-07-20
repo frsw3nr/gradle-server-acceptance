@@ -11,7 +11,7 @@
 対策として、複数の検査結果シートを1つにまとめるオプション機能を使用します。
 そのシステム構成は以下の通りです。
 
-   .. figure:: ../../image/export.png
+   .. figure:: ../image/export.png
       :align: center
       :alt: System Overview
       :width: 640px

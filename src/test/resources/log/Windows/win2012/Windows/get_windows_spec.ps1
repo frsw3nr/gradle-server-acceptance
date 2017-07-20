@@ -59,13 +59,13 @@ foreach($userObj in $userObjList)
     {
         $query = "WinNT://{0}/{1},user" -F $env:COMPUTERNAME,$userObj.Name
         $dirObj = New-Object -TypeName System.DirectoryServices.DirectoryEntry -ArgumentList $query
-        $PasswordExpirationDate = $dirObj.InvokeGet("PasswordExpirationDate")
-        $PasswordExpirationRemainDays = ($PasswordExpirationDate - (Get-Date)).Days
+        $UserFlags = $dirObj.InvokeGet("UserFlags")
+        $DontExpirePasswd = [boolean]($UserFlags -band 0x10000)
+        $AccountDisable   = [boolean]($UserFlags -band 0x2)
         $obj = New-Object -TypeName PsObject
         Add-Member -InputObject $obj -MemberType NoteProperty -Name "UserName" -Value $userObj.Name
-        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationDate" -Value $PasswordExpirationDate
-        Add-Member -InputObject $obj -MemberType NoteProperty -Name "PasswordExpirationRemainDays" -Value $PasswordExpirationRemainDays
-        Add-Member -InputObject $obj -MemberType NoteProperty -Name "IsAccountLocked" -Value ($dirObj.InvokeGet("IsAccountLocked"))
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "DontExpirePasswd" -Value $DontExpirePasswd
+        Add-Member -InputObject $obj -MemberType NoteProperty -Name "AccountDisable" -Value $AccountDisable
         Add-Member -InputObject $obj -MemberType NoteProperty -Name "SID" -Value $userObj.SID
         $result += $obj
     }

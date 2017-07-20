@@ -1,23 +1,20 @@
 [
     {
-        "Name": "Administrator",
-        "FullName": "",
-        "Caption": "WIN2012\\Administrator",
-        "Domain": "WIN2012",
+        "UserName": "",
+        "DontExpirePasswd": "",
+        "AccountDisable": "",
         "SID": "S-1-5-21-2445938759-3679242898-2052698735-500"
     },
     {
-        "Name": "Guest",
-        "FullName": "",
-        "Caption": "WIN2012\\Guest",
-        "Domain": "WIN2012",
+        "UserName": "",
+        "DontExpirePasswd": "",
+        "AccountDisable": "",
         "SID": "S-1-5-21-2445938759-3679242898-2052698735-501"
     },
     {
-        "Name": "test_user",
-        "FullName": "test_user",
-        "Caption": "WIN2012\\test_user",
-        "Domain": "WIN2012",
+        "UserName": "",
+        "DontExpirePasswd": "",
+        "AccountDisable": "",
         "SID": "S-1-5-21-2445938759-3679242898-2052698735-1001"
     }
 ]
