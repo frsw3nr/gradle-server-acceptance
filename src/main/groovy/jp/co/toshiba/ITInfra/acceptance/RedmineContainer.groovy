@@ -262,15 +262,23 @@ class RedmineContainer {
             sql = "SELECT custom_field_id, value FROM custom_values WHERE customized_id = ?"
             def custom_values = cmdb.rows(sql, [id])
             def server_info = [:]
+            redmine_config?.default_values.each { item, value ->
+                server_info[item] = value
+            }
             custom_values.each { custom_value ->
                 custom_value.with {
                     def item_name = custom_fileds_map[custom_field_id]
-                    if (item_name)
+                    if (redmine_config?.fixed_items.containsKey(item_name)) {
+                        server_info[item_name] = redmine_config?.fixed_items[item_name]
+                    } else if (item_name) {
                         server_info[item_name] = value
+                    }
                 }
             }
             def is_malformed = false
-            ['platform', 'server_name', 'ip', 'os_account_id'].each { required_item ->
+            def required_items = redmine_config?.required_items ?:
+                                 ['platform', 'server_name', 'ip', 'os_account_id']
+            required_items.each { required_item ->
                 if (! server_info[required_item]) {
                     log.warn "Issue : #${id}. Not found '${required_item}'."
                     is_malformed = true
