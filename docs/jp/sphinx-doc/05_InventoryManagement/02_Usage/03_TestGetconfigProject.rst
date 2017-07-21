@@ -19,17 +19,27 @@ Zabbix 検査シート入力
       :alt: zabbix Sheet 1
       :width: 640px
 
-* server_name は「構成管理データベース」と「構成収集作業PC」のホスト名を入力します。
+* server_name
+
+   「構成管理データベース」と「構成収集作業PC」のホスト名を入力します。
 
    .. note::
 
       ホスト名は Zabbix で設定したホスト名と同じにします。
       実際の環境に合せて設定してください。
 
-* platform は 「Zabbix」 固定にしてください。
-* remote_account_id は「Test」に固定してください。次のconfig_zabbix.groovy 
-  設定ファイル内パラメータ値を使用します。
-* verify_id は「RuleAP」固定にしてください。
+* platform
+
+   「Zabbix」 固定にしてください。
+
+* remote_account_id
+
+   「Test」に固定してください。
+   次の config_zabbix.groovy 設定ファイル内パラメータ値を使用します。
+
+* verify_id
+
+   「RuleAP」固定にしてください。
 
 .. note::
 
@@ -54,7 +64,7 @@ config\\config_zabbix.groovyの編集
 
    account.Remote.Test.server   = 'zabbixServer1'
    account.Remote.Test.user     = 'admin'
-   account.Remote.Test.password = 'getperf'
+   account.Remote.Test.password = 'zabbixPassword'
 
 .. note::
 
@@ -82,8 +92,14 @@ config\\config_zabbix.groovyの編集
 Redmine チケットから検査対象抽出
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Redmine チケットから検査対象設備の情報を抽出して、Excel検査仕様書を
-作成します。前回の getconfig コマンドに、-r(--redmineオプションの短縮形)
+Redmine チケットから検査対象設備の情報を抽出して、Excel検査仕様書を作成します。
+以下の、「構成管理検証サイト」の、「IAサーバ」を条件に絞り込んだ検査対象を抽出します。
+
+   .. figure:: image/06_zabbixRedmine2.png
+      :align: center
+      :alt: Redmine map
+
+前回の getconfig コマンドに、-r(--redmineオプションの短縮形)
 を追加してgetconfig を実行してください。
 
 ::

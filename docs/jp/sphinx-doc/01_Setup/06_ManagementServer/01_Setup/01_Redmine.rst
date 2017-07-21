@@ -238,15 +238,6 @@ httpdモジュールインストールします。
 
    passenger-install-apache2-module
 
-.. note::
-
-   `Anaconda`_ がインストールされている環境で、~/anaconda2/bin
-   のパスが通っていると、anaconda2 の lib を参照してしまい、
-   Curlのライブラリが見つからないなどの相性問題が発生する場合があります。
-   その場合、 .bashrc から anaconda2 のパスを外してください。
-
-   .. _Anaconda: http://https://www.continuum.io/downloads
-
 出力メッセージで以下の箇所をコピーします。
 
 ::

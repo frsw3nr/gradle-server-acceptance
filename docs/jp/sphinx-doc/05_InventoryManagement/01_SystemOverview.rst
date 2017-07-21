@@ -12,7 +12,7 @@
       :width: 720px
 
 * Redmine
-* Getconfigとプロジェクト
+* プロジェクト(Git)
 * GitBucket
 * Jenkins
 * 作業PC

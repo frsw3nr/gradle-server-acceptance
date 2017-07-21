@@ -28,7 +28,7 @@ cmdb.redmine.custom_fields パラメータに、
        'OSアカウント' :     'os_account_id',
        '固有パスワード' :   'os_specific_password',
        'vCenterアカウント': 'remote_account_id',
-       'Zabbixアカウント':  'remote_account_id',
+       'Zabbixアカウント':  'remote_account_id',    // Zabbix構成収集テンプレート用
        'VMエイリアス名' :   'remote_alias',
        '検証ID' :           'verify_id',
        '比較対象' :         'compare_server',
@@ -43,6 +43,11 @@ cmdb.redmine.custom_fields パラメータに、
    既定の設定は使用する収集シナリオと関係のないカスタムフィールドも含まれます。
    既定の設定はそのまま残し、行を追加して関連するカスタムフィールドを
    追加してください。
+
+.. note::
+
+   Redmine カスタムフィールドに「Zabbixアカウント」を追加し、
+   Zabbix 監視対象の設備トラッカーに追加したカスタムフィールドを追加(チェック)してください。
 
 今回のデモでは、Zabbix監視設定の以下のカスタムフィールドのマッピング定義をします。
 
@@ -60,6 +65,11 @@ Excel検査対象項目の既定値、固定値、必須項目の設定パラメ
 
    sakura config\config_zabbix.groovy
 
+.. note::
+
+   各収集テンプレートには設定ファイル内に上記パラメータの既定の設定がされています。
+   特に指定がない場合は既定の設定ファイルのまま変更をせずに使用してください。
+
 以下の行を編集してください。
 
 ::
@@ -75,14 +85,16 @@ Excel検査対象項目の既定値、固定値、必須項目の設定パラメ
    ]
    redmine.required_items = ['server_name', 'platform', 'remote_account_id']
 
-* redmine.default_values に Redmine フィールドが未入力の場合の規定値を設定します。
-* redmine.fixed_items に Redmine フィールドの固定値を設定します。
-  Redmine フィールドの入力値があっても、本固定値に上書きされます。
-  'platform'など別用途に使われているフィールドを使用させない場合に設定します。
-* redmine.required_items に 検査シートの必須項目を設定します。
+* redmine.default_values
 
-.. note::
+   Redmine フィールドが未入力の場合の規定値を設定します。
 
-   各収集テンプレートには設定ファイル内に上記パラメータの既定の設定がされています。
-   特に指定がない場合は既定の設定ファイルのまま変更をせずに使用してください。
+* redmine.fixed_items
 
+   Redmine フィールドの固定値を設定します。
+   Redmine フィールドの入力値があっても、本固定値に上書きされます。
+   'platform'など別用途に使われているフィールドを使用させない場合に設定します。
+
+* redmine.required_items
+
+   検査シートの必須項目を設定します。

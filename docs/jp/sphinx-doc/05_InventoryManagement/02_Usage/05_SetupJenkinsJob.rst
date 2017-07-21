@@ -72,6 +72,13 @@ Jenkinsのポータル画面から、作成した 「TestZabbixConfig」 ジョ�
       :alt: Jenkins config 5
       :width: 640px
 
+.. note::
+
+   初回に実行すると、 "jenkinsci.plugins.scriptsecurity" という
+   セキュリティ例外エラーが発生します。
+   :doc:`../../01_Setup/06_ManagementServer/02_JobManagement/01_GetconfigDeploy`
+   の「動作確認」を参考にセキュリティ例外の除外設定をしてください。
+
 パラメータは既定値のまま変更せずに、「ビルド」をクリックしてください。
 しばらくすると、ジョブ実行ステータスの画面が表示されます。
 

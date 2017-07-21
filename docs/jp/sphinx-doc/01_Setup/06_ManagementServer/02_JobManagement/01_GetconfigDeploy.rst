@@ -21,7 +21,7 @@ Gitbucket "http://{Gitbucketサーバ}/gitbucket" に接続し、登録した管
 
 ::
 
-   git remote add origin http://{サーバアドレス}/gitbucket/git/furusawa-m/gradle-server-acceptance.git
+   git remote add origin http://{サーバアドレス}/gitbucket/git/xxxxxx/gradle-server-acceptance.git
    git push -u origin master
 
 サーバ構成情報収集モジュールソースのGit登録
