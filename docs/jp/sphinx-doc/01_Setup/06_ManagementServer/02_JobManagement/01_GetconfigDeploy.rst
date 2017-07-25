@@ -30,7 +30,7 @@ Gitbucket "http://{Gitbucketサーバ}/gitbucket" に接続し、登録した管
 GitBucket にサーバ構成情報収集ツール getconfig のソースを登録します。
 
 Jenkins サーバにadministratorユーザでリモートデスクトップ接続します。
-:doc:`../../../02_StandaloneTest/01_Setup/02_DevelopmentOption` の手順に従い、サーバ構成収集ツールのソースプロジェクトを作成します。
+:doc:`../../05_StandaloneTest/02_DevelopmentOption` の手順に従い、サーバ構成収集ツールのソースプロジェクトを作成します。
 
 ここでは、以下ディレクトリに保存した、getconfig ソースをGitBucket に登録します。
 

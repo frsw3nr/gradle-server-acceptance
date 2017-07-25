@@ -17,14 +17,8 @@ Windows Server 2012 R2以上のPCが必要です。必要スペックは以下�
 * リモートデスクトップ接続を許可設定をします
 * プロキシー設定をしてプロキシー接続できるようにします
 * 以下の手順で 検査用 PC のセットアップを事前に行います
-   * :doc:`../../02_StandaloneTest/01_Setup/01_TestPCSetup`
-   * :doc:`../../02_StandaloneTest/01_Setup/02_DevelopmentOption`
-
-.. note::
-
-   リモートデスクトップ設定については、 `Windows Server 2012 リモートデスクトップ接続を許可する`_ を参考にしてください
-
-.. _Windows Server 2012 リモートデスクトップ接続を許可する: http://symfoware.blog68.fc2.com/blog-entry-1010.html
+   * :doc:`../..//05_StandaloneTest/01_TestPCSetup`
+   * :doc:`../..//05_StandaloneTest/02_DevelopmentOption`
 
 Jenkinsインストール、セットアップ
 ---------------------------------
