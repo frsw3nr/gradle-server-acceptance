@@ -5,16 +5,12 @@ Zabbixテンプレートのダウンロードと解凍
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 PowerShell を開いて、プロジェクトディレクトリに移動します。
-以下のダウンロードサイトから「 server-acceptance-zabbix.zip」をダウンロードし、
+GitHub サイトから「 server-acceptance-zabbix.zip」をダウンロードし、
 作成したプロジェクトディレクトリに下に保存します。
 
 ::
 
-   http://133.116.134.203/docs/gradle/
-
-.. note::
-
-   ログインユーザとパスワードは psadmin/psadmin です。
+   https://github.com/frsw3nr/server-acceptance-zabbix
 
 7-zipを用いてzipファイルをプロジェクトディレクトリ下に解凍します。
 zipファイルを選択し、[右クリック]、[7-Zip]、[ここに展開]を選択します。
