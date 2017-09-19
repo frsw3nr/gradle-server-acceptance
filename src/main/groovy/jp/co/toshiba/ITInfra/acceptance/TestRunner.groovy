@@ -71,6 +71,7 @@ class TestRunner {
             x longOpt: 'export',   args: 1, 'Export csv from test result excel',
                 argName : 'check_sheet.xlsx,...'
             r longOpt: 'use-redmine', 'Get test targets from Redmine'
+            v longOpt: 'gui', 'Get test targets from Redmine'
             _ longOpt: 'silent', 'Silent mode'
         }
         def options = cli.parse(args)
@@ -90,6 +91,11 @@ class TestRunner {
         if (options.backup) {
             def xport_file = options.backup
             new ProjectBuilder(project_home).xport(xport_file)
+            System.exit(0)
+        }
+        if (options.gui) {
+            def gui = new GUI()
+            gui.test1()
             System.exit(0)
         }
 
