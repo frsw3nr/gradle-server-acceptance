@@ -1,0 +1,103 @@
+@Grab('org.codehaus.groovyfx:groovyfx:0.4.0')
+@Grab('com.jfoenix:jfoenix:1.4.0')
+@Grab('net.java.openjfx.backport:openjfx-78-backport:1.8.0-ea-b96.1')
+aa
+
+int(11) auto_increment
+varchar(48)
+varchar(4000)
+
+CREATE TABLE FOO1 (id int, point int, data varchar(200));
+CREATE TABLE FOO2 (id int(11), point int, data varchar(200));
+
+Griffon 用のプラグインとして提供されている
+
+FXBuilder
+
+codehaus から GroovyFXが発表
+
+Griffonでも使える、Griffon 0.9.3 
+
+G*Magazine
+
+
+wget http://grails.jp/g_mag_jp/file/gmagazine_0.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_1.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_2.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_3.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_4.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_5.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_6.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_7.pdf
+wget http://grails.jp/g_mag_jp/file/gmagazine_8.pdf
+
+http://griffon-framework.org/tutorials/
+
+babun shell
+
+SDKMAN
+
+curl -s http://get.sdkman.io | bash
+
+source ~/.sdkman/bin/sdkman-init.sh
+
+Lazybones
+
+sdk install lazybones
+
+lazybones list
+
+Windows users should use the %USER_HOME%\.lazybones\config.groovy path.
+Griffon project templates are hosted at a Bintray repository, similarly as the standard Lazybones templates. Create the config.groovy file at the specified location if it doesn’t exist, place the following content on it
+
+PowerShell 実行
+
+mkdir .lazybones
+vi .lazybones/config.groovy
+
+bintrayRepositories = [
+    'griffon/griffon-lazybones-templates',
+    'pledbrook/lazybones-templates'
+]
+
+sdk install gradle
+
+sdk install maven
+
+lazybones list
+
+Available templates in griffon/griffon-lazybones-templates
+
+    griffon-javafx-groovy
+    griffon-javafx-java
+    griffon-javafx-kotlin
+    griffon-lanterna-groovy
+    griffon-lanterna-java
+    griffon-pivot-groovy
+    griffon-pivot-java
+    griffon-plugin
+    griffon-swing-groovy
+    griffon-swing-java
+
+lazybones create griffon-swing-java sample
+
+ C:\Users\ユーザ名\.babun\cygwin\home\ユーザ名
+
+mkdir -p work/gradle
+cd work/gradle
+lazybones create griffon-javafx-groovy sample-groovy
+
+...
+Project created in sample!
+
+Could not get unknown property 'classesDirs' sourceSets.integrationTest.output.classesDirs
+
+integration.test.gradle の 36行目をコメントアウト
+
+task integrationTest(type: Test, dependsOn: jar) {
+    // testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    reports.html.enabled = false
+}
+
+banbuの使用をやめ、CentOSでビルド、Windowsで確認の方針に変える

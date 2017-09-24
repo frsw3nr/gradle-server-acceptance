@@ -1,0 +1,26 @@
+
+gitが依存するパッケージのインストール
+
+pact install gettext-devel
+pact install libsasl2 # 最初から入ってるかも
+pact install ca-certificates # 最初から入ってるかも 
+
+pact install zip
+
+Cygwinのアップデート
+
+babunは32bit版のCygwinを使っているのでsetup-x86.exe をダウンロードする。
+
+インストーラを実行し、インストールディレクトリを .babun/cygwin にする
+パッケージ選択画面でDefaultを選択してアップデートを実行する
+oh-my-zsh のアップデート
+Gitのファイルモードのチェックをしない設定にする。
+これをやらないとoh-my-zshがアップデートできない。
+
+git config --global core.filemode false
+upgrade_oh_my_zsh 
+vim のマウスモード解除
+vimrcに下記を追記。デフォルトでマウスモードがオンになってるっぽい。ターミナルから選択してコピーができなくなるので解除した。
+
+vi .vimrc
+set mouse="" 
