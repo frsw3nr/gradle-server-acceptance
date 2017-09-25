@@ -1,39 +1,10 @@
-@Grab('org.codehaus.groovyfx:groovyfx:0.4.0')
-@Grab('com.jfoenix:jfoenix:1.4.0')
-@Grab('net.java.openjfx.backport:openjfx-78-backport:1.8.0-ea-b96.1')
-aa
+Windows 環境セットアップ
 
-int(11) auto_increment
-varchar(48)
-varchar(4000)
+babun のインストール
 
-CREATE TABLE FOO1 (id int, point int, data varchar(200));
-CREATE TABLE FOO2 (id int(11), point int, data varchar(200));
+zip インストール
 
-Griffon 用のプラグインとして提供されている
-
-FXBuilder
-
-codehaus から GroovyFXが発表
-
-Griffonでも使える、Griffon 0.9.3 
-
-G*Magazine
-
-
-wget http://grails.jp/g_mag_jp/file/gmagazine_0.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_1.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_2.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_3.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_4.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_5.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_6.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_7.pdf
-wget http://grails.jp/g_mag_jp/file/gmagazine_8.pdf
-
-http://griffon-framework.org/tutorials/
-
-babun shell
+pact install zip    
 
 SDKMAN
 
@@ -136,28 +107,3 @@ bintrayRepositories = [
 ]
 
 source ~/.sdkman/bin/sdkman-init.sh
-
-lazybones create griffon-javafx-groovy chapter01a
-
-gradle build
-
-x:\///home/psadmin/work/gradle/magazine/chapter01a/build/reports/tests/test/index.html
-
-Caused by: java.lang.UnsupportedOperationException: Unable to open DISPLAY
-
-inittab でレベル5 に設定して、リブート
-
-sudo yum -y groupinstall "Desktop"
-sudo yum -y groupinstall "Japanese Support"
-
-起動モードを 5 (X11) に変更した上で再起動
-
- sudo sed -i -e "s/^id:[0-6]/id:5/" /etc/inittab
-
-: Unable to open DISPLAY
-
-$ sudo su -
-[root@ostrich2 ~]# export DISPLAY=:0.0
-[root@ostrich2 ~]# xhost +
-access control disabled, clients can connect from any host
-
