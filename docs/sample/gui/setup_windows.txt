@@ -64,46 +64,6 @@ source ~/.sdkman/bin/sdkman-init.sh
 
 gradle build
 
+cd ~/work/
 
-...
-Project created in sample!
-
-Could not get unknown property 'classesDirs' sourceSets.integrationTest.output.classesDirs
-
-integration.test.gradle の 36行目をコメントアウト
-
-task integrationTest(type: Test, dependsOn: jar) {
-    // testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    reports.html.enabled = false
-}
-
-banbuの使用をやめ、CentOSでビルド、Windowsで確認の方針に変える
-
-Gradle Update
-
-export gradle_version=4.2
-
-sudo mkdir -p /usr/local/gradle
-cd /tmp/
-wget -N http://services.gradle.org/distributions/gradle-${gradle_version}-all.zip
-sudo unzip -q gradle-${gradle_version}-all.zip -d /usr/local/gradle
-sudo rm /usr/local/gradle/latest
-sudo ln -sfn gradle-${gradle_version} /usr/local/gradle/latest
-
-# check installation
-gradle -v
-
-Lazybones インストール
-
-sdk install lazybones
-
-mkdir ~/.lazybones
-vi ~/.lazybones/config.groovy
-
-bintrayRepositories = [
-    'griffon/griffon-lazybones-templates',
-    'pledbrook/lazybones-templates'
-]
-
-source ~/.sdkman/bin/sdkman-init.sh
+git clone https://github.com/griffon/griffon.git
