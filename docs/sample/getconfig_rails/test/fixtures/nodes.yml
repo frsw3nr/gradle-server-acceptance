@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tenant: one
+  node_name: MyString
+  ip: MyString
+
+two:
+  tenant: two
+  node_name: MyString
+  ip: MyString

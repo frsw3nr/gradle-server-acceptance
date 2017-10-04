@@ -118,7 +118,34 @@ seq:integer item_name:string value:string
 
 rails db:migrate RAILS_ENV=development
 
-rails g migration AddColumnToNode tenant:references
+ユニークキー作成
+----------------
+
+rails g migration AddIndexToSite
+
+vi db/migrate/20171004114752_add_index_to_site.rb
+
+    add_index :sites, [:site_name], :unique => true
+
+rails g migration AddIndexToSiteNode
+rails g migration AddIndexToNode
+rails g migration AddIndexToPlatform
+rails g migration AddIndexToAccount
+rails g migration AddIndexToNodeConfig
+rails g migration AddIndexToTestResult
+rails g migration AddIndexToDeviceResult
+rails g migration AddIndexToMetric
+rails g migration AddIndexToTest
+rails g migration AddIndexToTestConfig
+rails g migration AddIndexToTestHistory
+rails g migration AddIndexToTenant
+
+ bin/rails db:environment:set RAILS_ENV=development
+ bin/rails db:migrate:reset RAILS_ENV=development
+ 
+    add_index :site_nodes, [:site_id, :node_id], :unique => true
+
+# rails g migration AddColumnToNode tenant:references
 
 mysql -u root -p rails_getconfig_development2
 
@@ -129,15 +156,18 @@ insert into tenants (id, tenant_name) select id, tenant_name from redmine.tenant
 insert into nodes (id, tenant_id, node_name) select id, tenant_id, node_name from redmine.nodes;
 insert into platforms (id, platform_name) select id, domain_name from redmine.domains;
 insert into metrics(id, platform_id, metric_name, device_flag) select id, domain_id, metric_name, device_flag from redmine.metrics;
+insert into test_results(id, node_id, metric_id, verify, value) select id, node_id, metric_id, verify, value from redmine.test_results;
+insert into device_results(id, node_id, metric_id, seq, item_name, value) select id, node_id, metric_id, seq, item_name, value from redmine.device_results;
 
 
 ./bin/rails console
-@sites=Site.all
-Site.where(site_name: 'GitDemoEnv')
 
 site = Site.new(site_name: 'Test01')
 site.persisted?  # => false 保存済みでない
 site.save
+
+@sites=Site.all
+Site.where(site_name: 'GitDemoEnv')
 
 Tenant.joins(:nodes)
 @nodes=Node.all
@@ -158,12 +188,13 @@ Node.includes(:tenant).find_by(id: 1)
 検査結果
 
 Domain.all
-metric=Metric.eager_load(:domain).find_by(metric_name: 'cpu')
-Metric.eager_load(:domain).find_by(id:30).domain
-Metric.eager_load(:domain).find_by(metric_name: "mem_free").domain
+metric=Metric.eager_load(:platform).find_by(metric_name: 'cpu')
+Metric.eager_load(:platform).find_by(id:30).platform
+Metric.eager_load(:platform).find_by(metric_name: "mem_free").platform
 
-TestResult.eager_load(:metric,:domain,:node)
-TestResult.find_by(:metric_id: 30)
+TestResult.eager_load(:metric,:platform,:node)
+TestResult.eager_load(:metric,:node)
+TestResult.find_by(metric_id: 30)
 TestResult.eager_load(:metric).find_by(metric_id: 30)
 
 TestResult.find_by(metric_id: 30).node.tenant
@@ -173,31 +204,35 @@ TestResult.find_by(metric_id: 30).node.tenant
 DeviceResult.all()
 DeviceResult.find_by(metric_id: 90).metric
 
-@devices=Node.find_by(node_name:'Jenkins').device_results
+@devices=Node.find_by(node_name:'ostrich').device_results
 @devices[0].metric.metric_name
-@devices[0].metric.domain.domain_name
+@devices[0].metric.platform.platform_name
 
 コントローラ
 ------------
 
+# Gemfile に kaminari ページネーション追加
+gem "kaminari"
+
+
 # controller
 # 引数はplugin名, controller名, action名
-bundle exec rails generate redmine_plugin_controller getconfig test_result index
+bundle exec rails generate controller test_result index
 
 
-@devices=Node.find_by(node_name:'Jenkins').device_results
+@devices=Node.find_by(node_name:'ostrich').device_results
 
 /home/psadmin/work/gradle/redmine-3.2.5/vendor/bundle/ruby/2.3.0/gems/activesupport-4.2.7.1/lib/active_support/dependencies.rb:274:in `require': cannot load such file -- 
 /home/psadmin/work/gradle/redmine-3.2.5/plugins/redmine_getconfig/init.rb (LoadError)
 
 検査結果
 
-@results=Node.find_by(node_name:'Jenkins').test_results
+@results=Node.find_by(node_name:'ostrich').test_results
 
 @results[0].node.tenant.tenant_name
 => "_Default"
 
-@results[0].metric.domain.domain_name
+@results[0].metric.platform.platform_name
 => "Zabbix"
 
 @results[0].metric.metric_name

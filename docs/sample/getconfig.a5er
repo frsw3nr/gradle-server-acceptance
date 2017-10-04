@@ -1,4 +1,4 @@
-﻿# A5:ER FORMAT:08
+﻿# A5:ER FORMAT:11
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright (C)2007 m.matsubara
 # A5:SQL Mk-2 Copyright (C)1997 m.matsubara
@@ -10,7 +10,7 @@ Author=
 MaxEntityRowShow=1000
 ReadOnlyRecommend=0
 Page=Main
-PageInfo="Main",2,"A3Landscape"
+PageInfo="Main",2,"A3Landscape",$FFFFFF
 LogicalView=1
 DecodeDomain=0
 ViewModePageIndividually=1
@@ -41,14 +41,52 @@ DefaultIndexName=%0:s_IX%1:d
 DefaultFkName=%0:s_FK%1:d
 SqlSeparator=0
 ShowTag=1
+ShowCommonAttributes=0
 
 [Relation]
-Entity1=tests
+Entity1=tenants
+Entity2=nodes
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=tenant_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,934,9066,500,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20171005051645
+LineMode=0
+Bar1=93
+Bar2=907
+Bar3=50
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=tenants
+LName=tenants
+Comment=
+TableOption=
+Page=Main
+Left=1150
+Top=50
+Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="tenant_name","tenant_name","VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20171005051601
+Position="Main",1150,50
+
+[Relation]
+Entity1=verify_tests
 Entity2=test_histories
 RelationType1=1
 RelationType2=3
-Fields1=id
-Fields2=test_id
+Fields1=verify_id
+Fields2=verify_test_id
 Cardinarity1=
 Cardinarity2=
 Position="MAIN",0,3357,6643,2999,R,R
@@ -88,18 +126,18 @@ PName=test_histories
 LName=test_histories
 Comment=
 TableOption=
-Page=Main
-Left=450
+Page=MAIN
+Left=400
 Top=900
 Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
-Field="test_id","test_id","int(11) ",,,"","",$FFFFFFFF,""
-Field="metric_id","metric_id","int(11) ",,,"","",$FFFFFFFF,""
+Field="verify_test_id","verify_test_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
+Field="metric_id","metric_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
 Field="verified","verified","INT",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171004173906
-Position="Main",450,900
+ModifiedDateTime=20171005050603
+Position="MAIN",400,900
 
 [Relation]
 Entity1=platforms
@@ -144,12 +182,12 @@ TermPos1=R
 TermPos2=R
 
 [Relation]
-Entity1=tests
+Entity1=verify_tests
 Entity2=test_configs
 RelationType1=2
 RelationType2=3
-Fields1=id
-Fields2=test_id
+Fields1=verify_id
+Fields2=verify_test_id
 Cardinarity1=
 Cardinarity2=
 Position="MAIN",4,2038,7962,3613,R,R
@@ -170,18 +208,18 @@ LName=test_configs
 Comment=
 TableOption=
 Page=MAIN
-Left=150
+Left=100
 Top=950
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="test_id","test_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="verify_test_id","verify_test_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="value","value","varchar(256)",,,"","",$FFFFFFFF,""
-Index=uk_test_config=2,test_id,item_name
+Index=uk_test_config=2,verify_test_id,item_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923112427
-Position="MAIN",150,950
+ModifiedDateTime=20171005050637
+Position="MAIN",100,950
 
 [Relation]
 Entity1=metrics
@@ -439,11 +477,11 @@ Page=MAIN
 Left=250
 Top=100
 Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="site_name","site_name","varchar(48)",,,"","",$FFFFFFFF,""
+Field="site_name","site_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923111948
+ModifiedDateTime=20171005043835
 Position="MAIN",250,100,124,50
 
 [Entity]
@@ -466,20 +504,20 @@ ModifiedDateTime=20171004173447
 Position="MAIN",1100,400
 
 [Entity]
-PName=tests
-LName=tests
+PName=verify_tests
+LName=verify_tests
 Comment=
 TableOption=
 Page=MAIN
 Left=100
 Top=800
-Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="test_name","test_name","varchar(48)",,,"","",$FFFFFFFF,""
+Field="verify_id","verify_id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
+Field="test_name","test_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created","created","DATETIME",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171004173943
+ModifiedDateTime=20171005050541
 Position="MAIN",100,800,132,90
 
 [Entity]
@@ -533,13 +571,13 @@ Page=MAIN
 Left=250
 Top=400
 Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="platform_name","platform_name","varchar(48)",,,"","",$FFFFFFFF,""
+Field="platform_name","platform_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="build","build","int(11)",,,"","",$FFFFFFFF,""
 Field="created","created","DATETIME",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923112225
+ModifiedDateTime=20171005043853
 Position="MAIN",250,400,165,127
 
 [Entity]
@@ -550,11 +588,12 @@ TableOption=
 Page=MAIN
 Left=950
 Top=150
-Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="node_name","node_name","varchar(48)",,,"","",$FFFFFFFF,""
+Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="tenant_id","tenant_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="node_name","node_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="ip","ip","varchar(48)",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923112256
+ModifiedDateTime=20171005051629
 Position="MAIN",950,150
