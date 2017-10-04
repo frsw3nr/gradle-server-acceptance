@@ -2,6 +2,40 @@ Windows 環境セットアップ
 
 babun のインストール
 
+http://babun.github.io/
+
+To setup proxy uncomment following lines in the .babunrc file (%USERPROFILE%\.babun\cygwin\home\USER\.babunrc)
+
+プロキシー追加
+
+# Uncomment this lines to set up your proxy
+ export http_proxy=http://proxy.your.company.co.jp:8080
+ export https_proxy=$http_proxy
+ export ftp_proxy=$http_proxy
+ export no_proxy=localhost
+
+/etc/pki/tls/certs/ に SSL 証明書追加
+
+cd /etc/pki/tls/certs/
+unzip intra_ssl_cert.zip
+
+ca-bundle.crt のバックアップを取ります。
+
+cp -p ca-bundle.crt ca-bundle.crt.bak
+解凍した社外の証明書をca-bundle.crt に登録(アペンド)します。
+
+cat intra_ssl_cert.cer >> ca-bundle.crt
+
+
+JavaにSSL証明書追加
+
+cd "c:/Program Files/Java/jdk1.8.0_144/jre/lib/security"
+keytool -import -alias IntraRootCA -keystore ./cacerts -file .\intra-cer.cer
+keytool -import -alias IntraRootCA2 -keystore ./cacerts -file .\toshiba.cer
+
+
+プロキシー設定
+
 zip インストール
 
 pact install zip    
@@ -28,12 +62,23 @@ sdk install gradle
 sdk install maven
 
 mkdir ~/.lazybones
-vi ~/.lazybones/config.groovy
+sakura .lazybones/config.groovy
 
 bintrayRepositories = [
     'griffon/griffon-lazybones-templates',
     'pledbrook/lazybones-templates'
 ]
+
+systemProp {
+    http {
+        proxyHost = "localhost"
+        proxyPort = 8181
+    }
+    https {
+        proxyHost = "localhost"
+        proxyPort = 8181
+    }
+}
 
 lazybones list
 
