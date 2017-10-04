@@ -12,7 +12,7 @@ Railsインストール
 rbenv、Rubyのインストール
 rbenvとそのプラグインruby-buildをインストールする。
 
-git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 mkdir -p ~/.rbenv/plugins
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
@@ -70,6 +70,11 @@ https://github.com/voltrb/volt/issues/309
 gem uninstall volt
 gem install volt
 
+Gemfile の以下コメントアウトを外して、 bundle update 実行
+
+gem 'therubyracer', platforms: :ruby
+
+
 DB 作成
 -------
 
@@ -99,8 +104,8 @@ rails generate model metric platform:references metric_name:string level:integer
 
 # テスト,テスト履歴
 rails generate model verify_test test_name:string
-rails generate model test_config  verify_test:references  item_name:string value:string
-rails generate model test_history verify_test:references metric:references 
+rails generate model test_config  verify_test:references item_name:string value:string
+rails generate model test_history verify_test:references metric:references verified:boolean
 
 # ノード構成
 rails generate model node_configs platform:references node:references test_name:string value:string
