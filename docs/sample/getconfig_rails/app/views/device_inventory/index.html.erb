@@ -1,0 +1,42 @@
+<div id="content">
+
+<h2><%= t('device') %></h2>
+
+<%= form_tag({:action=>"index"}, {:method=>"get"}) do %>
+  <%= hidden_field_tag 'project_id', @project_id %>
+  <%= t('tenant') %> <input name="tenant" value="<%=h @tenant %>"/>
+  <%= t('node') %>   <input name="node"   value="<%=h @node   %>"/>
+  <%= t('device') %>
+  <%= select :device, :id,
+             @devices.map{|d| [d.platform.platform_name + ':' + d.metric_name, d.id]},
+             { :selected => @metric_id },
+             :onchange => "this.form.submit()"
+  %>
+  <%= submit_tag "検索" %>
+<% end %>
+<%= button_to t('button_back'),
+              {:controller => 'inventory', :action => 'index'},
+              :method => :get %>
+
+<table  class="inventory list">
+  <thead>
+    <tr>
+      <% @headers.each do |header| %>
+        <th><%= header %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tables.each do |row| %>
+      <tr class="<%= cycle("even", "odd") %>">
+        <% @headers.each do |header| %>
+          <td class="name"><%= row[header] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @rows %>
+
+</div>

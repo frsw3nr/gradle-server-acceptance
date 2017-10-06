@@ -183,7 +183,7 @@ Node.includes(:tenant).find_by(id: 1)
 @nodes=Node.eager_load(:sites).find_by(id: 1)
 @nodes[0].sites[0].site_name
 
- @nodes=Node.eager_load(:sites).find_by(node_name: 'testgit001')
+@nodes=Node.eager_load(:sites).find_by(node_name: 'testgit001')
 
 検査結果
 
