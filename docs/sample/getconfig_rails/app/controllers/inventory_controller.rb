@@ -8,7 +8,6 @@ class InventoryController < ApplicationController
     @node     = params[:node]   || '%'
     @platform = params[:platform] || '%'
     @metric   = params[:metric] || '%'
-binding.pry
     node_ids   = Node.joins(:tenant).where(
                     'tenants.tenant_name like ? and node_name like ?',
                     wildcard(@tenant),

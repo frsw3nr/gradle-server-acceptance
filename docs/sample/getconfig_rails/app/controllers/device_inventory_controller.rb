@@ -10,7 +10,6 @@ class DeviceInventoryController < ApplicationController
     @tenant   = params[:tenant] || '%'
     @node     = params[:node]   || '%'
     @platform = params[:platform] || '%'
-binding.pry
 
     nodes = Node.joins(:tenant).where(
            'tenants.tenant_name like ? and node_name like ?',
@@ -20,7 +19,7 @@ binding.pry
     return head(:not_found) if nodes.ids.blank?
 
     @metric_id = params[:device][:id]
-    @rows = DeviceResult.where(
+    @rows = DeviceResult.distinct.where(
                 node_id: nodes.ids, metric_id: @metric_id
             ).select(
                 :node_id, :metric_id, :seq

@@ -1,9 +1,6 @@
-<h1>TestResult#index</h1>
-<p>Find me in app/views/test_result/index.html.erb</p>
-
 <div id="content">
 
-<div class="contextual">
+<div class="page-header">
 <%= form_tag({:controller=>"device_inventory", :action=>"index"}, {:method=>"get"}) do %>
   <%= hidden_field_tag 'tenant',   @tenant %>
   <%= hidden_field_tag 'platform', @platform %>
@@ -27,7 +24,7 @@
   <%= submit_tag "検索" %>
 <% end %>
 
-<table  class="inventory list">
+<table class="table table-striped">
   <thead>
     <tr>
       <th><%= t('tenant') %></th>
