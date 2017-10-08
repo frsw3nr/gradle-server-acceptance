@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20171004201440) do
 
-  create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "node_id"
     t.bigint "platform_id"
     t.string "account_name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["platform_id"], name: "index_accounts_on_platform_id"
   end
 
-  create_table "device_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "device_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "node_id"
     t.bigint "metric_id"
     t.integer "seq"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["node_id"], name: "index_device_results_on_node_id"
   end
 
-  create_table "metrics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "metrics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "platform_id"
     t.string "metric_name"
     t.integer "level"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["platform_id"], name: "index_metrics_on_platform_id"
   end
 
-  create_table "node_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "node_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "platform_id"
     t.bigint "node_id"
     t.string "item_name"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["platform_id"], name: "index_node_configs_on_platform_id"
   end
 
-  create_table "nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "tenant_id"
     t.string "node_name"
     t.string "ip"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["tenant_id"], name: "index_nodes_on_tenant_id"
   end
 
-  create_table "platforms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "platforms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "platform_name"
     t.integer "build"
     t.datetime "created_at", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["platform_name"], name: "uk_platforms", unique: true
   end
 
-  create_table "site_nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "site_nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "site_id"
     t.bigint "node_id"
     t.datetime "created_at", null: false
@@ -89,21 +89,21 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["site_id"], name: "index_site_nodes_on_site_id"
   end
 
-  create_table "sites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "site_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_name"], name: "uk_sites", unique: true
   end
 
-  create_table "tenants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "tenants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "tenant_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tenant_name"], name: "uk_tenants", unique: true
   end
 
-  create_table "test_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "test_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "verify_test_id"
     t.string "item_name"
     t.string "value"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["verify_test_id"], name: "index_test_configs_on_verify_test_id"
   end
 
-  create_table "test_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "test_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "verify_test_id"
     t.bigint "metric_id"
     t.boolean "verified"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["verify_test_id"], name: "index_test_histories_on_verify_test_id"
   end
 
-  create_table "test_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "test_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "node_id"
     t.bigint "metric_id"
     t.boolean "verify"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["node_id"], name: "index_test_results_on_node_id"
   end
 
-  create_table "verify_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "verify_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "test_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

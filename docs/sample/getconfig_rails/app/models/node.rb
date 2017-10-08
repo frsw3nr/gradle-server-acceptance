@@ -4,6 +4,7 @@ class Node < ApplicationRecord
   has_many :sites, through: :site_nodes
   has_many :node_configs
   has_many :platforms, through: :node_configs
+  accepts_nested_attributes_for :platforms
   has_many :accounts
   has_many :platforms, through: :accounts
   has_many :test_results

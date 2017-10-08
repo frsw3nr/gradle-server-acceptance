@@ -1,0 +1,23 @@
+<%- model_class = Node -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:tenant_id) %>:</strong></dt>
+  <dd><%= @node.tenant_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:node_name) %>:</strong></dt>
+  <dd><%= @node.node_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ip) %>:</strong></dt>
+  <dd><%= @node.ip %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              nodes_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_node_path(@node), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              node_path(@node),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

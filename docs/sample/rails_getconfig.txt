@@ -208,6 +208,24 @@ DeviceResult.find_by(metric_id: 90).metric
 @devices[0].metric.metric_name
 @devices[0].metric.platform.platform_name
 
+デバッグ設定
+------------
+
+# Gemfile
+
+group :development, :test do
+  gem 'pry-rails'  # rails console(もしくは、rails c)でirbの代わりにpryを使われる
+  gem 'pry-doc'    # methodを表示
+  gem 'pry-byebug' # デバッグを実施(Ruby 2.0以降で動作する)
+  gem 'pry-stack_explorer' # スタックをたどれる
+end
+Bundlerでgemをインストールします。
+
+bundle install
+では、rails cでconsoleを開きましょう。
+consoleにpry(main)と表示されれば、Pryが使われている証拠です。
+
+
 コントローラ
 ------------
 
@@ -223,3 +241,114 @@ inventory
 device_inventory
 
 http://ostrich:3000/inventory/index?page=3
+
+デザイン
+--------
+
+https://qiita.com/kamizuno/items/5c3ecceea5aa78e25058
+
+Gemfileに以下を追加する
+
+# less(CSS)対応（後述LESSを使う場合）
+gem 'less-rails'
+# JavaScript のエンジンである v8 を Ruby から使えるようにする
+gem 'therubyracer'
+# JavaScriptコードを実行するためのエンジン
+gem 'execjs'
+
+# Twitter社が提供しているCSSとJavaScriptのフレームワーク
+gem 'twitter-bootstrap-rails'
+
+プロジェクトにbootstrap関連の必要なファイルをインストールする
+
+bundle exec spring stop
+bundle
+bundle exec rails g bootstrap:install less
+
+bundle exec rails g bootstrap:layout application fixed 
+
+ノード
+------
+
+現在の _form.html.erb のソースは少し見通しが悪いので、シンプルに記述できるSimple Formを導入する。
+
+# シンプルフォーム
+gem 'simple_form'
+bundlerでインストールする。
+
+$ bundler install
+simple_formに必要なファイルをプロジェクトにインストールする。
+
+rails generate simple_form:install --bootstrap
+   identical  config/initializers/simple_form.rb
+   identical  config/initializers/simple_form_bootstrap.rb
+       exist  config/locales
+   identical  config/locales/simple_form.en.yml
+   identical  lib/templates/erb/scaffold/_form.html.erb
+
+フォームをSimple Formにして再度Bootstrap化する。
+
+Terminal
+rails g bootstrap:themed Nodes
+   identical  app/views/users/index.html.erb
+   identical  app/views/users/new.html.erb
+   identical  app/views/users/edit.html.erb
+   identical  app/views/users/_form.html.erb
+   identical  app/views/users/show.html.erb
+シンプルな _form.html.erb が出来上がる。
+
+_form.html.erb
+<%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= error_span(@user[:name]) %>
+  <%= f.input :password %>
+  <%= error_span(@user[:password]) %>
+  <%= f.input :email %>
+  <%= error_span(@user[:email]) %>
+  <%= f.input :regist_date %>
+  <%= error_span(@user[:regist_date]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                users_path, :class => 'btn btn-default' %>
+<% end %>
+※ここで、Webサービスは再起動する。
+
+
+http://paas:3000/nodes
+
+多対多のフォーム
+----------------
+
+多対多のフォーム
+----------------
+
+https://qiita.com/sasarkyz/items/b17c8a108b3075a015c3
+http://www.rokurofire.info/2014/02/26/rails_tablerelationship/
+
+モデル
+
+nodeに追加
+
+  accepts_nested_attributes_for :app_categories
+
+コントローラ
+
+  def new
+    @app = App.new
+    @node.node_configs.build #2
+  end
+
+  def app_params #3
+    params.require(:app).permit(:id, :name, :app_categories_attributes => [:id, :category_id])
+  end
+end
+
+ビュー
+
+  <div class="field">
+    <%= f.fields_for :node_configs do |nc| %>
+      <%= nc.label 'ジャンル' %><br>
+      <%= nc.collection_select :platform_id, Platform.all, :id, :platform_name %>
+    <% end %>
+  </div>

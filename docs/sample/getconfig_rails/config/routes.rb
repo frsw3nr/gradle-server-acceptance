@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :nodes
+  get 'node/index'
+
   get 'test_result/index'
 
   get 'inventory/index'
