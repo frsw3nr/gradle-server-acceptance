@@ -80,6 +80,7 @@ DB 作成
 
 mysql -u root -p 
 create database rails_getconfig_development3;
+create database rails_getconfig_development;
 
 DB名とパスワード変更
 
@@ -104,8 +105,8 @@ rails generate model metric platform:references metric_name:string level:integer
 
 # テスト,テスト履歴
 rails generate model verify_test test_name:string
-rails generate model test_config  verify_test:references item_name:string value:string
-rails generate model test_history verify_test:references metric:references verified:boolean
+rails generate model verify_config  verify_test:references item_name:string value:string
+rails generate model verify_history verify_test:references metric:references verified:boolean
 
 # ノード構成
 rails generate model node_configs platform:references node:references test_name:string value:string
@@ -135,9 +136,9 @@ rails g migration AddIndexToNodeConfig
 rails g migration AddIndexToTestResult
 rails g migration AddIndexToDeviceResult
 rails g migration AddIndexToMetric
-rails g migration AddIndexToTest
-rails g migration AddIndexToTestConfig
-rails g migration AddIndexToTestHistory
+rails g migration AddIndexToVerifyTest
+rails g migration AddIndexToVerifyConfig
+rails g migration AddIndexToVerifyHistory
 rails g migration AddIndexToTenant
 
  bin/rails db:environment:set RAILS_ENV=development
@@ -155,6 +156,7 @@ insert into sites (id, site_name) select id, site_name from redmine.sites;
 insert into tenants (id, tenant_name) select id, tenant_name from redmine.tenants;
 insert into nodes (id, tenant_id, node_name) select id, tenant_id, node_name from redmine.nodes;
 insert into platforms (id, platform_name) select id, domain_name from redmine.domains;
+
 insert into metrics(id, platform_id, metric_name, device_flag) select id, domain_id, metric_name, device_flag from redmine.metrics;
 insert into test_results(id, node_id, metric_id, verify, value) select id, node_id, metric_id, verify, value from redmine.test_results;
 insert into device_results(id, node_id, metric_id, seq, item_name, value) select id, node_id, metric_id, seq, item_name, value from redmine.device_results;
@@ -352,3 +354,89 @@ end
       <%= nc.collection_select :platform_id, Platform.all, :id, :platform_name %>
     <% end %>
   </div>
+
+# データ登録
+
+mysql -u root -p rails_getconfig_development
+
+ bin/rails db:environment:set RAILS_ENV=development
+ bin/rails db:migrate:reset RAILS_ENV=development
+ bin/rails db:seed
+ 
+class DummyHost
+
+puts 'SERVERS'
+Server.find_or_create_by_servername :servername => 'pm00', :url_suffix_cm => '/pm00/_sitekey_' 
+
+puts 'STATS'
+Stat.find_or_create_by_statname :statname => 'HW'
+
+  testsite = Site.find_or_create_by_sitename :sitename => sitename, :sitekey => sitekey, :user_id => testuser.id, :deploy_flg => 1
+  puts 'site: ' << testsite.sitename
+  testsite.monitoring_tools << MonitoringTool.find(1)
+  testsite.monitoring_tools << MonitoringTool.find(2)
+
+bundle exec rails c
+
+site = Site.find_or_create_by(site_name: 'Tokyo01')
+tenant = Tenant.find_or_create_by(tenant_name: 'Test01')
+
+Node.find_or_create_by(node_name: 'ostrich') do |node|
+  node.ip = '192.168.10.1'
+  node.tenant_id = tenant.id
+end
+
+node = Node.find_or_create_by(node_name: 'ostrich', ip: '192.168.10.1')
+
+node.sites << site
+node.tenant = tenant
+node.save
+
+users = {}
+users['Linux']   = Account.find_or_create_by(account_name: 'Linux',   user_name: 'someuser',      password: 'P@ssword')
+users['Windows'] = Account.find_or_create_by(account_name: 'Windows', user_name: 'administrator', password: 'P@ssword')
+users['vCenter'] = Account.find_or_create_by(account_name: 'vCenter', user_name: 'guest',         password: 'P@ssword', remote_ip: '192.168.10.100')
+
+mysql> select * from domains order by id;
++----+-------------+
+| id | domain_name |
++----+-------------+
+|  1 | Linux       |
+|  2 | vCenter     |
+|  3 | VMHost      |
+|  4 | Windows     |
+|  5 | Solaris     |
++----+-------------+
+
+platforms = {}
+["Linux", "vCenter", "Windows"].each { |name|
+  platforms[name] = Platform.find_or_create_by(platform_name: name, build: 1)
+}
+
+platform = Platform.find_or_create_by(platform_name: 'vCenter', build: 1)
+Platform.find_or_create_by(platform_name: 'vCenter', build: 1)
+
+mysql> select * from nodes;
++----+-----------+-----------+
+| id | tenant_id | node_name |
++----+-----------+-----------+
+|  1 |         1 | ostrich   |
+|  2 |         1 | w2016     |
+|  3 |         1 | esxi      |
+|  4 |         1 | sol       |
++----+-----------+-----------+
+
+node = Node.find_or_create_by(node_name: 'ostrich', ip: '192.168.10.1')
+
+
+node_config = NodeConfig.find_or_create_by(platform_id: platform.id, node_id: node.id)
+
+, account_id: users['Linux'].id)
+
+[["ostrich", "Linux", "192.168.10.1"], ["w2016", "Windows", "192.168.10.2"]].each { |node_info|
+  node = Node.find_or_create_by(node_name: node_info[0], ip: node_info[2])
+  node.
+  pp node[0]
+  pp node[1]
+}
+
