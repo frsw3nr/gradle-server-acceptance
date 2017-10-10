@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  verify_test: one
+  metric: one
+  verified: false
+
+two:
+  verify_test: two
+  metric: two
+  verified: false

@@ -4,6 +4,7 @@ class CreateNodeConfigs < ActiveRecord::Migration[5.1]
       t.references :platform, foreign_key: true
       t.references :node, foreign_key: true
       t.string :node_config_name
+      t.references :account, foreign_key: true
 
       t.timestamps
     end

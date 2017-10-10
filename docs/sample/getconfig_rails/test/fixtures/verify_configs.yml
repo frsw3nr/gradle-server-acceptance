@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  verify_test: one
+  item_name: MyString
+  value: MyString
+
+two:
+  verify_test: two
+  item_name: MyString
+  value: MyString
