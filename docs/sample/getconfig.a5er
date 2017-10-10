@@ -1,4 +1,4 @@
-﻿# A5:ER FORMAT:11
+﻿# A5:ER FORMAT:08
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright (C)2007 m.matsubara
 # A5:SQL Mk-2 Copyright (C)1997 m.matsubara
@@ -10,7 +10,7 @@ Author=
 MaxEntityRowShow=1000
 ReadOnlyRecommend=0
 Page=Main
-PageInfo="Main",2,"A3Landscape",$FFFFFF
+PageInfo="Main",2,"A3Landscape"
 LogicalView=1
 DecodeDomain=0
 ViewModePageIndividually=1
@@ -41,7 +41,67 @@ DefaultIndexName=%0:s_IX%1:d
 DefaultFkName=%0:s_FK%1:d
 SqlSeparator=0
 ShowTag=1
-ShowCommonAttributes=0
+
+[Relation]
+Entity1=node_configs
+Entity2=node_config_details
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=node_config_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2687,7313,2457,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20171010123654
+LineMode=0
+Bar1=269
+Bar2=731
+Bar3=246
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=node_config_details
+LName=node_config_details
+Comment=
+TableOption=
+Page=Main
+Left=650
+Top=550
+Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="node_config_id","node_config_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
+Field="value","value","varchar(4000)",,,"","",$FFFFFFFF,""
+Index=uk_node_config=2,node_config_id,,item_name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20171010123556
+Position="Main",650,550
+
+[Relation]
+Entity1=accounts
+Entity2=node_configs
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",4,3162,7293,2676,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20171010152942
+LineMode=4
+Bar1=316
+Bar2=729
+Bar3=268
+TermPos1=R
+TermPos2=R
 
 [Relation]
 Entity1=tenants
@@ -69,7 +129,7 @@ PName=tenants
 LName=tenants
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1150
 Top=50
 Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
@@ -78,7 +138,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171005051601
-Position="Main",1150,50
+Position="MAIN",1150,50
 
 [Relation]
 Entity1=verify_tests
@@ -89,14 +149,14 @@ Fields1=verify_id
 Fields2=verify_test_id
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",0,3357,6643,2999,R,R
+Position="MAIN",0,3357,6643,2482,R,R
 Dependence=0
 Caption=
 PName=
 LineMode=0
 Bar1=336
 Bar2=664
-Bar3=300
+Bar3=248
 TermPos1=R
 TermPos2=R
 
@@ -127,8 +187,8 @@ LName=test_histories
 Comment=
 TableOption=
 Page=MAIN
-Left=400
-Top=900
+Left=500
+Top=850
 Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
 Field="verify_test_id","verify_test_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
 Field="metric_id","metric_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
@@ -136,8 +196,8 @@ Field="verified","verified","INT",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171005050603
-Position="MAIN",400,900
+ModifiedDateTime=20171010164209
+Position="MAIN",500,850
 
 [Relation]
 Entity1=platforms
@@ -161,27 +221,6 @@ TermPos1=R
 TermPos2=R
 
 [Relation]
-Entity1=nodes
-Entity2=accounts
-RelationType1=2
-RelationType2=3
-Fields1=id
-Fields2=node_id
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",0,1923,8077,2455,R,R
-Dependence=1
-Caption=
-PName=
-ModifiedDateTime=20170923092441
-LineMode=0
-Bar1=192
-Bar2=808
-Bar3=246
-TermPos1=R
-TermPos2=R
-
-[Relation]
 Entity1=verify_tests
 Entity2=test_configs
 RelationType1=2
@@ -194,7 +233,7 @@ Position="MAIN",4,2038,7962,3613,R,R
 Dependence=1
 Caption=
 PName=
-ModifiedDateTime=20170923094408
+ModifiedDateTime=20171010153017
 LineMode=4
 Bar1=204
 Bar2=796
@@ -209,7 +248,7 @@ Comment=
 TableOption=
 Page=MAIN
 Left=100
-Top=950
+Top=600
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="verify_test_id","verify_test_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
@@ -219,7 +258,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171005050637
-Position="MAIN",100,950
+Position="MAIN",100,600
 
 [Relation]
 Entity1=metrics
@@ -251,12 +290,12 @@ Fields1=id
 Fields2=node_id
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",0,3378,6622,1560,R,R
+Position="MAIN",4,3378,6622,1560,R,R
 Dependence=1
 Caption=
 PName=
-ModifiedDateTime=20170923094504
-LineMode=0
+ModifiedDateTime=20171010152816
+LineMode=4
 Bar1=338
 Bar2=662
 Bar3=156
@@ -269,7 +308,7 @@ LName=device_results
 Comment=
 TableOption=
 Page=MAIN
-Left=1100
+Left=1150
 Top=800
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
@@ -282,7 +321,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171004173535
-Position="MAIN",1100,800
+Position="MAIN",1150,800
 
 [Relation]
 Entity1=nodes
@@ -293,12 +332,12 @@ Fields1=id
 Fields2=node_id
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",4,2156,7844,1278,R,R
+Position="MAIN",0,2156,7844,1278,R,R
 Dependence=1
 Caption=
 PName=
-ModifiedDateTime=20170923094235
-LineMode=4
+ModifiedDateTime=20171010152806
+LineMode=0
 Bar1=216
 Bar2=784
 Bar3=128
@@ -353,7 +392,7 @@ LName=metrics
 Comment=
 TableOption=
 Page=MAIN
-Left=700
+Left=850
 Top=750
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="platform_id","platform_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
@@ -364,7 +403,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20170923112200
-Position="MAIN",700,750
+Position="MAIN",850,750
 
 [Relation]
 Entity1=nodes
@@ -375,36 +414,15 @@ Fields1=id
 Fields2=node_id
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",0,1107,8893,405,R,R
+Position="MAIN",3,1107,8893,405,R,R
 Dependence=0
 Caption=
 PName=
-ModifiedDateTime=20170923092509
-LineMode=0
+ModifiedDateTime=20171010123223
+LineMode=3
 Bar1=111
 Bar2=889
 Bar3=40
-TermPos1=R
-TermPos2=R
-
-[Relation]
-Entity1=platforms
-Entity2=accounts
-RelationType1=2
-RelationType2=3
-Fields1=id
-Fields2=platform_id
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",0,3830,6170,2388,R,R
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20170923092521
-LineMode=0
-Bar1=383
-Bar2=617
-Bar3=239
 TermPos1=R
 TermPos2=R
 
@@ -456,8 +474,8 @@ LName=site_nodes
 Comment=
 TableOption=
 Page=MAIN
-Left=550
-Top=100
+Left=600
+Top=50
 Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
 Field="site_id","site_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
 Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
@@ -466,7 +484,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20170923111751
-Position="MAIN",550,100,145,96
+Position="MAIN",600,50,145,96
 
 [Entity]
 PName=sites
@@ -474,15 +492,15 @@ LName=sites
 Comment=
 TableOption=
 Page=MAIN
-Left=250
-Top=100
+Left=300
+Top=50
 Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
 Field="site_name","site_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171005043835
-Position="MAIN",250,100,124,50
+Position="MAIN",300,50,124,50
 
 [Entity]
 PName=test_results
@@ -490,8 +508,8 @@ LName=test_results
 Comment=
 TableOption=
 Page=MAIN
-Left=1100
-Top=400
+Left=1050
+Top=450
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="metric_id","metric_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
@@ -501,7 +519,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171004173447
-Position="MAIN",1100,400
+Position="MAIN",1050,450
 
 [Entity]
 PName=verify_tests
@@ -509,8 +527,8 @@ LName=verify_tests
 Comment=
 TableOption=
 Page=MAIN
-Left=100
-Top=800
+Left=300
+Top=850
 Field="verify_id","verify_id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
 Field="test_name","test_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created","created","DATETIME",,,"","",$FFFFFFFF,""
@@ -518,7 +536,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171005050541
-Position="MAIN",100,800,132,90
+Position="MAIN",300,850,132,90
 
 [Entity]
 PName=node_configs
@@ -527,18 +545,17 @@ Comment=
 TableOption=
 Page=MAIN
 Left=600
-Top=500
+Top=300
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="platform_id","platform_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
-Field="value","value","varchar(4000)",,,"","",$FFFFFFFF,""
-Index=uk_node_config=2,platform_id,node_id,item_name
+Field="node_config_name","node_config_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
+Field="node_id","node_id","int(11)",,,"","",$FFFFFFFF,""
+Index=uk_node_config=2,platform_id,node_id,
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923112319
-Position="MAIN",600,500
+ModifiedDateTime=20171010152648
+Position="MAIN",600,300
 
 [Entity]
 PName=accounts
@@ -546,21 +563,19 @@ LName=accounts
 Comment=
 TableOption=
 Page=MAIN
-Left=600
-Top=250
+Left=300
+Top=200
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="platform_id","platform_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="account_name","account_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="username","username","varchar(48)",,,"","",$FFFFFFFF,""
 Field="password","password","varchar(48)",,,"","",$FFFFFFFF,""
 Field="remote_ip","remote_ip","varchar(48)",,,"","",$FFFFFFFF,""
-Index=uk_account=2,node_id,platform_id,account_name
+Index=uk_account=2,,,account_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923111938
-Position="MAIN",600,250
+ModifiedDateTime=20171010152856
+Position="MAIN",300,200
 
 [Entity]
 PName=platforms
@@ -568,7 +583,7 @@ LName=platforms
 Comment=
 TableOption=
 Page=MAIN
-Left=250
+Left=300
 Top=400
 Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
 Field="platform_name","platform_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
@@ -578,7 +593,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171005043853
-Position="MAIN",250,400,165,127
+Position="MAIN",300,400,165,127
 
 [Entity]
 PName=nodes
@@ -586,7 +601,7 @@ LName=nodes
 Comment=
 TableOption=
 Page=MAIN
-Left=950
+Left=900
 Top=150
 Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="tenant_id","tenant_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
@@ -596,4 +611,4 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20171005051629
-Position="MAIN",950,150
+Position="MAIN",900,150

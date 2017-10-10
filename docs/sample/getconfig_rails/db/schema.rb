@@ -10,19 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004201440) do
+ActiveRecord::Schema.define(version: 20171010075444) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.bigint "node_id"
-    t.bigint "platform_id"
     t.string "account_name"
     t.string "user_name"
     t.string "password"
+    t.string "remote_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["node_id", "platform_id", "account_name"], name: "uk_accounts", unique: true
-    t.index ["node_id"], name: "index_accounts_on_node_id"
-    t.index ["platform_id"], name: "index_accounts_on_platform_id"
+    t.index ["account_name"], name: "uk_accounts", unique: true
   end
 
   create_table "device_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -49,14 +46,23 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["platform_id"], name: "index_metrics_on_platform_id"
   end
 
-  create_table "node_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.bigint "platform_id"
-    t.bigint "node_id"
+  create_table "node_config_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.bigint "node_config_id"
     t.string "item_name"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["node_id", "platform_id", "item_name"], name: "uk_node_configs", unique: true
+    t.index ["node_config_id", "item_name"], name: "uk_node_config_details", unique: true
+    t.index ["node_config_id"], name: "index_node_config_details_on_node_config_id"
+  end
+
+  create_table "node_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.bigint "platform_id"
+    t.bigint "node_id"
+    t.string "node_config_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["node_id", "platform_id"], name: "uk_node_configs", unique: true
     t.index ["node_id"], name: "index_node_configs_on_node_id"
     t.index ["platform_id"], name: "index_node_configs_on_platform_id"
   end
@@ -67,7 +73,7 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.string "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["node_name"], name: "uk_nodes", unique: true
+    t.index ["tenant_id", "node_name"], name: "uk_nodes", unique: true
     t.index ["tenant_id"], name: "index_nodes_on_tenant_id"
   end
 
@@ -143,11 +149,10 @@ ActiveRecord::Schema.define(version: 20171004201440) do
     t.index ["test_name"], name: "uk_verify_tests", unique: true
   end
 
-  add_foreign_key "accounts", "nodes"
-  add_foreign_key "accounts", "platforms"
   add_foreign_key "device_results", "metrics"
   add_foreign_key "device_results", "nodes"
   add_foreign_key "metrics", "platforms"
+  add_foreign_key "node_config_details", "node_configs"
   add_foreign_key "node_configs", "nodes"
   add_foreign_key "node_configs", "platforms"
   add_foreign_key "nodes", "tenants"

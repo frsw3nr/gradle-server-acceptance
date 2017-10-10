@@ -1,15 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  node: one
-  platform: one
   account_name: MyString
   user_name: MyString
   password: MyString
+  remote_ip: MyString
 
 two:
-  node: two
-  platform: two
   account_name: MyString
   user_name: MyString
   password: MyString
+  remote_ip: MyString

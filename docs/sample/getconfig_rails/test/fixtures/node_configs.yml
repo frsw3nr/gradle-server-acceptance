@@ -3,11 +3,9 @@
 one:
   platform: one
   node: one
-  test_name: MyString
-  value: MyString
+  node_config_name: MyString
 
 two:
   platform: two
   node: two
-  test_name: MyString
-  value: MyString
+  node_config_name: MyString
