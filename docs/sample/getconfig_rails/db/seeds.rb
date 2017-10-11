@@ -46,14 +46,22 @@ puts 'Regist Node,NodeConfig,NodeConfigDetail'
         node_config = NodeConfig.find_or_create_by(node_config_name: "%s - %s"%[host, pf],
                                                    platform_id: platforms[pf].id,
                                                    node_id: node.id)
-# binding.pry
         node_config.account_id=accounts[pf].id
         node_config.platform_id=platforms[pf].id
         node_config.save
+        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id,
+                                           item_name: 'tenant_identification_enabled',
+                                           value: 'false')
+        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id,
+                                           item_name: 'node_identification_enabled',
+                                           value: 'false')
+        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id,
+                                           item_name: 'config_path',
+                                           value: "/config/%s"%[pf])
     }
-
 }
 
-end
+puts 'Regist VerifyTest,VerifyConfig,VerifyHistory'
 
+end
 
