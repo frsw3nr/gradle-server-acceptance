@@ -278,7 +278,7 @@ bundle exec rails g bootstrap:layout application fixed
 gem 'simple_form'
 bundlerでインストールする。
 
-$ bundler install
+bundler install
 simple_formに必要なファイルをプロジェクトにインストールする。
 
 rails generate simple_form:install --bootstrap
@@ -297,6 +297,10 @@ rails g bootstrap:themed Nodes
    identical  app/views/users/edit.html.erb
    identical  app/views/users/_form.html.erb
    identical  app/views/users/show.html.erb
+
+rails g bootstrap:themed Tenants
+
+
 シンプルな _form.html.erb が出来上がる。
 
 _form.html.erb
@@ -359,9 +363,12 @@ end
 
 mysql -u root -p rails_getconfig_development
 
- bin/rails db:environment:set RAILS_ENV=development
- bin/rails db:migrate:reset RAILS_ENV=development
- bin/rails db:seed
+bundle install
+bundle update
+
+bundle exec rails db:environment:set RAILS_ENV=development
+bundle exec rails db:migrate:reset RAILS_ENV=development
+bundle exec rails db:seed
  
 class DummyHost
 
