@@ -88,21 +88,21 @@ ActiveRecord::Schema.define(version: 20171010204743) do
     t.index ["platform_name"], name: "uk_platforms", unique: true
   end
 
-  create_table "site_nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "site_id"
+  create_table "tag_nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "tag_id"
     t.bigint "node_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["node_id"], name: "index_site_nodes_on_node_id"
-    t.index ["site_id", "node_id"], name: "uk_site_nodes", unique: true
-    t.index ["site_id"], name: "index_site_nodes_on_site_id"
+    t.index ["node_id"], name: "index_tag_nodes_on_node_id"
+    t.index ["tag_id", "node_id"], name: "uk_tag_nodes", unique: true
+    t.index ["tag_id"], name: "index_tag_nodes_on_tag_id"
   end
 
-  create_table "sites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "site_name"
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["site_name"], name: "uk_sites", unique: true
+    t.index ["tag_name"], name: "uk_tags", unique: true
   end
 
   create_table "tenants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -136,11 +136,13 @@ ActiveRecord::Schema.define(version: 20171010204743) do
 
   create_table "verify_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "verify_test_id"
+    t.bigint "node_id"
     t.bigint "metric_id"
     t.boolean "verified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["metric_id"], name: "index_verify_histories_on_metric_id"
+    t.index ["node_id"], name: "index_verify_histories_on_node_id"
     t.index ["verify_test_id", "metric_id"], name: "uk_verify_histories", unique: true
     t.index ["verify_test_id"], name: "index_verify_histories_on_verify_test_id"
   end
@@ -160,11 +162,12 @@ ActiveRecord::Schema.define(version: 20171010204743) do
   add_foreign_key "node_configs", "nodes"
   add_foreign_key "node_configs", "platforms"
   add_foreign_key "nodes", "tenants"
-  add_foreign_key "site_nodes", "nodes"
-  add_foreign_key "site_nodes", "sites"
+  add_foreign_key "tag_nodes", "nodes"
+  add_foreign_key "tag_nodes", "tags"
   add_foreign_key "test_results", "metrics"
   add_foreign_key "test_results", "nodes"
   add_foreign_key "verify_configs", "verify_tests"
   add_foreign_key "verify_histories", "metrics"
+  add_foreign_key "verify_histories", "nodes"
   add_foreign_key "verify_histories", "verify_tests"
 end

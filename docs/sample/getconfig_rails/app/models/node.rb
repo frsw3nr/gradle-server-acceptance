@@ -1,7 +1,7 @@
 class Node < ApplicationRecord
   belongs_to :tenant
-  has_many :site_nodes
-  has_many :sites, through: :site_nodes
+  has_many :tag_nodes
+  has_many :tags, through: :tag_nodes
   has_many :node_configs
   has_many :platforms, through: :node_configs
   accepts_nested_attributes_for :platforms

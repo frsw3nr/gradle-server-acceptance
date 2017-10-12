@@ -6,62 +6,64 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# マスター参照用配列
+platforms = {}
+tags = {}
+tenants = {}
+accounts = {}
+
+puts 'Regist default Platform,Tenant'
+tenants['_Default'] = Tenant.find_or_create_by(tenant_name: '_Default')
+['Linux', 'Windows', 'vCenter'].each {|name|
+  platforms[name] = Platform.find_or_create_by(platform_name: name, build: 1)
+}
+
 case Rails.env
 when "development", "test"
 
-puts 'Regist Account'
-accounts = {}
-[['Linux', 'someuser'], ['Windows', 'Administrator'], ['vCenter', 'guest', '192.168.10.10']].each { |info|
+  puts 'Regist Account'
+  [['Linux', 'someuser'], ['Windows', 'Administrator'], ['vCenter', 'guest', '192.168.10.10']].each { |info|
     passwd = 'P@ssword'
     remote_ip = info[2] || nil
     accounts[info[0]] = Account.find_or_create_by(account_name: info[0], user_name: info[1], password: passwd, remote_ip: remote_ip)
-}
+  }
 
-puts 'Regist Platform'
-platforms = {}
-['Linux', 'Windows', 'vCenter'].each {|name|
-    platforms[name] = Platform.find_or_create_by(platform_name: name, build: 1)
-}
+  puts 'Regist Tag'
+  ['Deploy01', 'Deploy02', 'Deploy03', 'Deploy04'].each {|name|
+    tags[name] = Tag.find_or_create_by(tag_name: name)
+  }
 
-puts 'Regist Site'
-sites = {}
-['Tokyo01', 'Tokyo02', 'Nagoya01', 'Nagoya02'].each {|name|
-    sites[name] = Site.find_or_create_by(site_name: name)
-}
-
-puts 'Regist Tenant'
-tenants = {}
-['Test01', 'Test02'].each {|name|
+  puts 'Regist Tenant'
+  ['Test01', 'Test02'].each {|name|
     tenants[name] = Tenant.find_or_create_by(tenant_name: name)
-}
+  }
 
-puts 'Regist Node,NodeConfig,NodeConfigDetail'
-[['ostrich', 'Linux', '192.168.10.1'], ['w2016', 'Windows', '192.168.10.2']].each {|info|
-    host, platform, ip = info
+  puts 'Regist Node,NodeConfig,NodeConfigDetail'
+  [['ostrich', 'Linux', '192.168.10.1', 2, 4, 40], ['w2016', 'Windows', '192.168.10.2', 2, 4, 20]].each {|info|
+    host, platform, ip, num_cpu, memory_size, disk_size = info
     node = Node.find_or_create_by(node_name: host, ip: ip)
     node.tenant = tenants['Test01']
     node.save
-    SiteNode.find_or_create_by(site_id: sites['Tokyo01'].id, node_id:node.id)
+    TagNode.find_or_create_by(tag_id: tags['Deploy01'].id, node_id:node.id)
     [platform, 'vCenter'].each{|pf|
-        node_config = NodeConfig.find_or_create_by(node_config_name: "%s - %s"%[host, pf],
-                                                   platform_id: platforms[pf].id,
-                                                   node_id: node.id)
-        node_config.account_id=accounts[pf].id
-        node_config.platform_id=platforms[pf].id
-        node_config.save
-        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id,
-                                           item_name: 'tenant_identification_enabled',
-                                           value: 'false')
-        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id,
-                                           item_name: 'node_identification_enabled',
-                                           value: 'false')
-        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id,
-                                           item_name: 'config_path',
-                                           value: "/config/%s"%[pf])
-    }
-}
+      node_config = NodeConfig.find_or_create_by(node_config_name: "%s - %s"%[host, pf],
+                                                 platform_id: platforms[pf].id,
+                                                 node_id: node.id)
+      node_config.account_id=accounts[pf].id
+      node_config.platform_id=platforms[pf].id
+      node_config.save
 
-puts 'Regist VerifyTest,VerifyConfig,VerifyHistory'
+      case pf when 'vCenter'
+        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id, item_name: 'cpu',     value: num_cpu)
+        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id, item_name: 'memory',  value: memory_size)
+        NodeConfigDetail.find_or_create_by(node_config_id: node_config.id, item_name: 'storage', value: disk_size)
+      end
+    }
+  }
+
+  puts 'Regist VerifyTest,VerifyConfig,VerifyHistory'
+  verify_test = VerifyTest.find_or_create_by(test_name: 'Deploy01A')
+  VerifyConfig.find_or_create_by(verify_test_id: verify_test.id, item_name: 'node_config_file_path', value: nil)
 
 end
 
