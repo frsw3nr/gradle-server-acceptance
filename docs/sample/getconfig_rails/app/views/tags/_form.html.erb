@@ -1,0 +1,35 @@
+<%= simple_form_for @tag, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :tag_name %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t(:group_name) %></th>
+        <th><%= t(:node_name) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><%= form_tag({:action=>params[:action]}, {:method=>"get"}) do %>
+        <th><input name="group" value="<%=h @group %>"/></th>
+        <th><input name="node"   value="<%=h @node   %>"/></th>
+        <th><%= submit_tag "検索" %></th>
+      <% end %></tr>
+
+      <% @nodes.each do |node| %>
+        <tr>
+          <td><%= node.group.group_name %></td>
+          <td><%= node.node_name %></td>
+          <td>
+            <%= check_box_tag :node_ids, node.id, @tag.nodes.include?(node),
+                              :name => 'tag[node_ids][]' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                tags_path, :class => 'btn btn-default' %>
+<% end %>

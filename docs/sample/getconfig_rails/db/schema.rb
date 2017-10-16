@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010204743) do
+ActiveRecord::Schema.define(version: 20171016210103) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "account_name"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20171010204743) do
     t.index ["metric_id"], name: "index_device_results_on_metric_id"
     t.index ["node_id", "metric_id", "seq", "item_name"], name: "uk_device_results", unique: true
     t.index ["node_id"], name: "index_device_results_on_node_id"
+  end
+
+  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "group_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_name"], name: "uk_groups", unique: true
   end
 
   create_table "metrics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -70,14 +77,25 @@ ActiveRecord::Schema.define(version: 20171010204743) do
   end
 
   create_table "nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "tenant_id"
+    t.bigint "group_id"
     t.string "node_name"
     t.string "ip"
     t.string "specific_password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tenant_id", "node_name"], name: "uk_nodes", unique: true
-    t.index ["tenant_id"], name: "index_nodes_on_tenant_id"
+    t.string "alias_name"
+    t.index ["group_id", "node_name"], name: "uk_nodes", unique: true
+    t.index ["group_id"], name: "index_nodes_on_group_id"
+  end
+
+  create_table "platform_config_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "platform_id"
+    t.string "item_name"
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_id", "item_name"], name: "uk_platform_config_details", unique: true
+    t.index ["platform_id"], name: "index_platform_config_details_on_platform_id"
   end
 
   create_table "platforms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -103,13 +121,6 @@ ActiveRecord::Schema.define(version: 20171010204743) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_name"], name: "uk_tags", unique: true
-  end
-
-  create_table "tenants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "tenant_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tenant_name"], name: "uk_tenants", unique: true
   end
 
   create_table "test_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -143,7 +154,6 @@ ActiveRecord::Schema.define(version: 20171010204743) do
     t.datetime "updated_at", null: false
     t.index ["metric_id"], name: "index_verify_histories_on_metric_id"
     t.index ["node_id"], name: "index_verify_histories_on_node_id"
-    t.index ["verify_test_id", "metric_id"], name: "uk_verify_histories", unique: true
     t.index ["verify_test_id"], name: "index_verify_histories_on_verify_test_id"
   end
 
@@ -157,13 +167,14 @@ ActiveRecord::Schema.define(version: 20171010204743) do
   add_foreign_key "device_results", "metrics"
   add_foreign_key "device_results", "nodes"
   add_foreign_key "metrics", "platforms"
-  add_foreign_key "node_config_details", "node_configs"
+  add_foreign_key "node_config_details", "node_configs", on_delete: :cascade
   add_foreign_key "node_configs", "accounts"
-  add_foreign_key "node_configs", "nodes"
+  add_foreign_key "node_configs", "nodes", on_delete: :cascade
   add_foreign_key "node_configs", "platforms"
-  add_foreign_key "nodes", "tenants"
-  add_foreign_key "tag_nodes", "nodes"
-  add_foreign_key "tag_nodes", "tags"
+  add_foreign_key "nodes", "groups"
+  add_foreign_key "platform_config_details", "platforms", on_delete: :cascade
+  add_foreign_key "tag_nodes", "nodes", on_delete: :cascade
+  add_foreign_key "tag_nodes", "tags", on_delete: :cascade
   add_foreign_key "test_results", "metrics"
   add_foreign_key "test_results", "nodes"
   add_foreign_key "verify_configs", "verify_tests"

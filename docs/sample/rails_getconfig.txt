@@ -447,3 +447,137 @@ node_config = NodeConfig.find_or_create_by(platform_id: platform.id, node_id: no
   pp node[1]
 }
 
+コントローラ作成
+----------------
+
+bundle install
+
+bundle exec rails db:environment:set RAILS_ENV=development
+bundle exec rails db:migrate:reset RAILS_ENV=development
+
+bundle update
+
+bundle exec rails db:seed
+
+bundle exec rails s
+
+bundle install
+
+bundle exec rails db:environment:set RAILS_ENV=development
+bundle exec rails db:migrate:reset RAILS_ENV=development
+
+bundle update
+
+bundle exec rails db:seed
+
+bundle exec rails s
+
+マスターメンテ
+
+tenants
+accounts
+
+bundle exec rails generate scaffold_controller tenants
+bundle exec rails generate scaffold_controller accounts
+rails g bootstrap:themed Accounts
+
+<model>
+
+validates :password, confirmation: true
+
+  attr_writer :password_confirmation
+
+<view>
+
+    div.field
+      =f.label :password_confirmation
+      br
+      =f.password_field :password_confirmation
+      
+
+インポート
+
+platfroms
+
+bundle exec rails g scaffold_controller platforms
+bundle exec rails g bootstrap:themed Platforms
+bundle exec rails g controller platforms import
+
+
+ノードリスト
+
+Node.find(1)
+
+
+    node_ids   = Node.joins(:tenant).where(
+                    'tenants.tenant_name like ? and node_name like ?',
+                    wildcard(@tenant),
+                    wildcard(@node)).ids
+    metric_ids = Metric.joins(:domain).where(
+                    'domains.domain_name like ? and metric_name like ?',
+                    wildcard(@domain),
+                    wildcard(@metric)).ids
+    @inventories = TestResult.where(
+                        node_id: node_ids, metric_id: metric_ids
+                    ).includes(:node, :metric).page(params[:page])
+
+bundle exec rails db:environment:set RAILS_ENV=development
+bundle exec rails db:migrate:reset RAILS_ENV=development
+
+bundle update
+
+bundle exec rails db:seed
+
+node_ids     = Node.joins(:tenant).where('tenants.tenant_name like ?', 'Test01').ids
+node_configs = NodeConfig.preload(:platform).where(node_id: node_ids)
+
+Node.joins(:tenant).where('tenants.tenant_name like ?', 'Test01')
+
+node_configs[0].platform.platform_name
+=> "Linux"
+node_configs[0].account.account_name
+=> "Linux"
+
+select * from node_configs distinct_by node_id
+
+render :partial => 'form'
+
+= render partial: "node_config", locals: {contents: @nodes[0].node_configs}
+
+@nodes[0]
+
+@nodes[0].platforms
+
+@nodes[0].node_configs[0].platform.platform_name
+=> "Linux"
+# contents/_index.html.slim
+
+table
+  tr
+    - contents.each do |content|
+      td content.xxx
+
+selection
+
+f.input :country_id, collection: @continents, as: :grouped_select, group_method: :countries
+@tagss.map{|t| [t.tag_name, t.id]}
+
+
+collectionに配列を指定する
+= f.input :source, as: :select, required: true, collection: [["Search", :search], ["Manual", :manual]]
+associationから選択
+= f.association :company
+simple_enum
+
+= f.input :deliver_cd, collection: f.object.class.delivers.hash
+
+      
+ノード構成
+
+bundle exec rails g scaffold_controller node_configs
+bundle exec rails g bootstrap:themed NodeConfigs
+bundle exec rails g controller platforms import
+
+ 
+bundle exec rails g scaffold_controller tags
+bundle exec rails g bootstrap:themed Tags

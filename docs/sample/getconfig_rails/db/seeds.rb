@@ -9,13 +9,18 @@
 # マスター参照用配列
 platforms = {}
 tags = {}
-tenants = {}
+groups = {}
 accounts = {}
 
-puts 'Regist default Platform,Tenant'
-tenants['_Default'] = Tenant.find_or_create_by(tenant_name: '_Default')
+puts 'Regist default Platform,Group'
+groups['_Default'] = Group.find_or_create_by(group_name: '_Default')
 ['Linux', 'Windows', 'vCenter'].each {|name|
   platforms[name] = Platform.find_or_create_by(platform_name: name, build: 1)
+  case name when 'vCenter'
+    PlatformConfigDetail.find_or_create_by(platform_id: platforms[name].id, item_name: 'cpu',     value: nil)
+    PlatformConfigDetail.find_or_create_by(platform_id: platforms[name].id, item_name: 'memory',  value: nil)
+    PlatformConfigDetail.find_or_create_by(platform_id: platforms[name].id, item_name: 'storage', value: nil)
+  end
 }
 
 case Rails.env
@@ -25,7 +30,7 @@ when "development", "test"
   [['Linux', 'someuser'], ['Windows', 'Administrator'], ['vCenter', 'guest', '192.168.10.10']].each { |info|
     passwd = 'P@ssword'
     remote_ip = info[2] || nil
-    accounts[info[0]] = Account.find_or_create_by(account_name: info[0], user_name: info[1], password: passwd, remote_ip: remote_ip)
+    accounts[info[0]] = Account.find_or_create_by(account_name: info[0] + 'Account1', user_name: info[1], password: passwd, remote_ip: remote_ip)
   }
 
   puts 'Regist Tag'
@@ -33,16 +38,16 @@ when "development", "test"
     tags[name] = Tag.find_or_create_by(tag_name: name)
   }
 
-  puts 'Regist Tenant'
-  ['Test01', 'Test02'].each {|name|
-    tenants[name] = Tenant.find_or_create_by(tenant_name: name)
+  puts 'Regist group'
+  ['System01', 'System02'].each {|name|
+    groups[name] = Group.find_or_create_by(group_name: name)
   }
 
   puts 'Regist Node,NodeConfig,NodeConfigDetail'
   [['ostrich', 'Linux', '192.168.10.1', 2, 4, 40], ['w2016', 'Windows', '192.168.10.2', 2, 4, 20]].each {|info|
     host, platform, ip, num_cpu, memory_size, disk_size = info
-    node = Node.find_or_create_by(node_name: host, ip: ip)
-    node.tenant = tenants['Test01']
+    node = Node.find_or_create_by(node_name: host, ip: ip, alias_name: host)
+    node.group = groups['System01']
     node.save
     TagNode.find_or_create_by(tag_id: tags['Deploy01'].id, node_id:node.id)
     [platform, 'vCenter'].each{|pf|

@@ -1,0 +1,73 @@
+<%- model_class = Node -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<%= form_tag({:action=>"index"}, {:method=>"get"}) do %>
+  <%= hidden_field_tag 'group', @group %>
+  <%= hidden_field_tag 'node',   @node %>
+  <%= t('tag') %>
+  <%= select :tag, :id,
+             @tags.map{|t| [t.tag_name, t.id]},
+             { :selected => session[:tag_id], :include_blank => true },
+             {:onchange => "this.form.submit()", :id => "project_quick_jump_box" } %>
+  <%= link_to t('.new', :default => t("helpers.links.add")),
+              new_tag_path,
+              :class => 'btn btn-xs btn-primary' %>
+  <% if (@tag_id) then %>
+  <%= link_to t('.update', :default => t("helpers.links.edit")),
+              edit_tag_path(@tag_id),
+              :class => 'btn btn-xs btn-primary' %>
+  <% end %>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:group_name) %></th>
+      <th><%= model_class.human_attribute_name(:node_name) %></th>
+      <th><%= model_class.human_attribute_name(:platform) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= form_tag({:action=>"index"}, {:method=>"get"}) do %>
+      <tr>
+        <td><input name="group" value="<%=h @group %>"/></td>
+        <td><input name="node"   value="<%=h @node   %>"/></td>
+        <td></td>
+        <td><%= submit_tag "検索" %></td>
+      </tr>
+    <% end %>
+    <% @nodes.each do |node| %>
+      <tr>
+        <td><%= node.group.group_name %></td>
+        <td><%= link_to node.node_name, edit_node_path(node) %></td>
+        <td>
+          <% node.node_configs.each do |config| %>
+            <%= link_to t('.edit', :default => config.platform.platform_name),
+                        edit_node_config_path(config),
+                        :class => 'btn btn-link' %>
+          <% end %>
+          <%= link_to t('.edit', :default => t("helpers.links.add")),
+                      new_node_config_path(node_id: node.id),
+                      :class => 'btn btn-xs btn-primary' %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.copy")),
+                      nodes_copy_path(id: node.id),
+                      :class => 'btn btn-xs btn-info' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      node_path(node),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @nodes %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_node_path,
+            :class => 'btn btn-primary' %>
