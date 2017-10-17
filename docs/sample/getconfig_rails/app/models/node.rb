@@ -5,7 +5,7 @@ class Node < ApplicationRecord
   accepts_nested_attributes_for :tag_nodes
   has_many :node_configs
   has_many :platforms, through: :node_configs
-  accepts_nested_attributes_for :node_configs
+  accepts_nested_attributes_for :node_configs, allow_destroy: true
   has_many :test_results
   has_many :metrics, through: :test_results
   has_many :device_results

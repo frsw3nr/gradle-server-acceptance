@@ -36,13 +36,14 @@ class NodesController < ApplicationController
     src = Node.find(params[:id])
     @node = src.dup
     @node.tags << src.tags
-    @node.node_configs << src.node_configs
+    @node.platforms << src.platforms
     idx = 0
-    src.node_configs.each do |node_config|
-      @node.node_configs[idx].node_config_details << node_config.node_config_details
+    src.node_configs.each do |src_node_config|
+      @node.node_configs[idx].account_id = src_node_config.account_id
+      @node.node_configs[idx].node_config_details << src_node_config.node_config_details
       idx += 1
     end
-
+binding.pry
     @node.node_name = nil
     @node.alias_name = nil
     @node.ip = nil
@@ -118,8 +119,19 @@ class NodesController < ApplicationController
       params.fetch(:node, {}).permit(:group_id, :node_name, :ip, :specific_password,
                                      { :tag_ids => [] },
                                      { :platform_ids => [] },
+                                     { :node_configs_attributes => [:account_id]},
                                      :platforms => [:id,
-                                       :node_configs => [:id, :platform_id, :node_id]
+                                       :node_configs => [:id, :platform_id, :node_id, :account_id]
                                      ])
     end
+
+  # private
+  # def team_params
+  #   params.require(:team).permit(:name, :description, members_attributes: [:name, :grade])
+  # end
+
+  # def update_team_params
+  #   params.require(:team).permit(:name, :description, members_attributes: [:name, :grade, :_destroy, :id])
+  # end
+
 end
