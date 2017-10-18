@@ -43,7 +43,6 @@ class NodesController < ApplicationController
       @node.node_configs[idx].node_config_details << src_node_config.node_config_details
       idx += 1
     end
-binding.pry
     @node.node_name = nil
     @node.alias_name = nil
     @node.ip = nil
@@ -116,13 +115,18 @@ binding.pry
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def node_params
-      params.fetch(:node, {}).permit(:group_id, :node_name, :ip, :specific_password,
-                                     { :tag_ids => [] },
-                                     { :platform_ids => [] },
-                                     { :node_configs_attributes => [:account_id]},
-                                     :platforms => [:id,
-                                       :node_configs => [:id, :platform_id, :node_id, :account_id]
-                                     ])
+      params.fetch(:node, {}).permit(
+        :group_id, :node_name, :ip, :specific_password,
+        tag_ids: [],
+        platform_ids: [],
+        node_configs_attributes: [:id, :_destroy, :platform_id, :node_id, :account_id]
+      );
+                                     # { :tag_ids => [] },
+                                     # { :platform_ids => [] },
+                                     # { :node_configs_attributes => [:platform_id, :node_id, :account_id] },
+                                     # :platforms => [:id,
+                                     #   :node_configs => [:id, :platform_id, :node_id, :account_id]
+                                     # ])
     end
 
   # private

@@ -581,3 +581,15 @@ bundle exec rails g controller platforms import
  
 bundle exec rails g scaffold_controller tags
 bundle exec rails g bootstrap:themed Tags
+
+p @node.node_configs.find_by(platform_id: platform.id)
+p @node.node_configs.find_by(platform_id: 3)
+p @node.node_configs.find_by(platform_id: 3).node_config_details
+
+Nested form デモ
+
+git clone https://github.com/nathanvda/cocoon_simple_form_demo
+
+sudo -E yum install sqlite-devel
+gem install sqlite3 -v '1.3.13'
+ 

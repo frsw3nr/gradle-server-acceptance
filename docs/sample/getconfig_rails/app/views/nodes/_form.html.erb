@@ -24,6 +24,10 @@
           <td>
             <%= check_box_tag :platform_ids, platform.id, @node.platforms.include?(platform),
                               :name => 'node[platform_ids][]' %>
+            <% if (@node.platforms.include?(platform)) then %>
+              <%= render partial: 'node_config_form',
+                         locals: { node_config: @node.node_configs.find_by(platform_id: platform.id) } %>
+            <% end %>
           </td>
         </tr>
       <% end %>
