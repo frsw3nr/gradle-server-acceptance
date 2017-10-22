@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016210103) do
+ActiveRecord::Schema.define(version: 20171020210432) do
 
-  create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string "account_name"
     t.string "user_name"
     t.string "password"
@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 20171016210103) do
     t.index ["account_name"], name: "uk_accounts", unique: true
   end
 
-  create_table "device_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "node_id"
-    t.bigint "metric_id"
+  create_table "device_results", force: :cascade do |t|
+    t.integer "node_id"
+    t.integer "metric_id"
     t.integer "seq"
     t.string "item_name"
-    t.string "value"
+    t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["metric_id"], name: "index_device_results_on_metric_id"
@@ -35,15 +35,15 @@ ActiveRecord::Schema.define(version: 20171016210103) do
     t.index ["node_id"], name: "index_device_results_on_node_id"
   end
 
-  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "groups", force: :cascade do |t|
     t.string "group_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_name"], name: "uk_groups", unique: true
   end
 
-  create_table "metrics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "platform_id"
+  create_table "metrics", force: :cascade do |t|
+    t.integer "platform_id"
     t.string "metric_name"
     t.integer "level"
     t.boolean "device_flag"
@@ -53,43 +53,44 @@ ActiveRecord::Schema.define(version: 20171016210103) do
     t.index ["platform_id"], name: "index_metrics_on_platform_id"
   end
 
-  create_table "node_config_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "node_config_id"
+  create_table "node_config_details", force: :cascade do |t|
+    t.integer "node_config_id"
     t.string "item_name"
-    t.string "value"
+    t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["node_config_id", "item_name"], name: "uk_node_config_details", unique: true
+    t.index ["node_config_id", "item_name"], name: "uk_config_details", unique: true
     t.index ["node_config_id"], name: "index_node_config_details_on_node_config_id"
   end
 
-  create_table "node_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "platform_id"
-    t.bigint "node_id"
+  create_table "node_configs", force: :cascade do |t|
+    t.integer "platform_id"
+    t.integer "node_id"
+    t.integer "account_id"
     t.string "node_config_name"
-    t.bigint "account_id"
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_node_configs_on_account_id"
-    t.index ["node_id", "platform_id"], name: "uk_node_configs", unique: true
     t.index ["node_id"], name: "index_node_configs_on_node_id"
+    t.index ["platform_id", "node_id"], name: "uk_node_configs", unique: true
     t.index ["platform_id"], name: "index_node_configs_on_platform_id"
   end
 
-  create_table "nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "group_id"
+  create_table "nodes", force: :cascade do |t|
+    t.integer "group_id"
     t.string "node_name"
     t.string "ip"
     t.string "specific_password"
+    t.string "alias_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "alias_name"
     t.index ["group_id", "node_name"], name: "uk_nodes", unique: true
     t.index ["group_id"], name: "index_nodes_on_group_id"
   end
 
-  create_table "platform_config_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "platform_id"
+  create_table "platform_config_details", force: :cascade do |t|
+    t.integer "platform_id"
     t.string "item_name"
     t.text "value"
     t.datetime "created_at", null: false
@@ -98,17 +99,19 @@ ActiveRecord::Schema.define(version: 20171016210103) do
     t.index ["platform_id"], name: "index_platform_config_details_on_platform_id"
   end
 
-  create_table "platforms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "platforms", force: :cascade do |t|
     t.string "platform_name"
     t.integer "build"
+    t.string "upload_file_name"
+    t.binary "upload_file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["platform_name"], name: "uk_platforms", unique: true
   end
 
-  create_table "tag_nodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "tag_id"
-    t.bigint "node_id"
+  create_table "tag_nodes", force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "node_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["node_id"], name: "index_tag_nodes_on_node_id"
@@ -116,18 +119,18 @@ ActiveRecord::Schema.define(version: 20171016210103) do
     t.index ["tag_id"], name: "index_tag_nodes_on_tag_id"
   end
 
-  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "tags", force: :cascade do |t|
     t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_name"], name: "uk_tags", unique: true
   end
 
-  create_table "test_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "node_id"
-    t.bigint "metric_id"
+  create_table "test_results", force: :cascade do |t|
+    t.integer "node_id"
+    t.integer "metric_id"
     t.boolean "verify"
-    t.string "value"
+    t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["metric_id"], name: "index_test_results_on_metric_id"
@@ -135,50 +138,34 @@ ActiveRecord::Schema.define(version: 20171016210103) do
     t.index ["node_id"], name: "index_test_results_on_node_id"
   end
 
-  create_table "verify_configs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "verify_test_id"
+  create_table "verify_configs", force: :cascade do |t|
+    t.integer "verify_test_id"
     t.string "item_name"
-    t.string "value"
+    t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["verify_test_id", "item_name"], name: "uk_verify_configs", unique: true
     t.index ["verify_test_id"], name: "index_verify_configs_on_verify_test_id"
   end
 
-  create_table "verify_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "verify_test_id"
-    t.bigint "node_id"
-    t.bigint "metric_id"
+  create_table "verify_histories", force: :cascade do |t|
+    t.integer "verify_test_id"
+    t.integer "node_id"
+    t.integer "metric_id"
     t.boolean "verified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["metric_id"], name: "index_verify_histories_on_metric_id"
     t.index ["node_id"], name: "index_verify_histories_on_node_id"
+    t.index ["verify_test_id", "node_id", "metric_id"], name: "uk_verify_histories", unique: true
     t.index ["verify_test_id"], name: "index_verify_histories_on_verify_test_id"
   end
 
-  create_table "verify_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "verify_tests", force: :cascade do |t|
     t.string "test_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["test_name"], name: "uk_verify_tests", unique: true
   end
 
-  add_foreign_key "device_results", "metrics"
-  add_foreign_key "device_results", "nodes"
-  add_foreign_key "metrics", "platforms"
-  add_foreign_key "node_config_details", "node_configs", on_delete: :cascade
-  add_foreign_key "node_configs", "accounts"
-  add_foreign_key "node_configs", "nodes", on_delete: :cascade
-  add_foreign_key "node_configs", "platforms"
-  add_foreign_key "nodes", "groups"
-  add_foreign_key "platform_config_details", "platforms", on_delete: :cascade
-  add_foreign_key "tag_nodes", "nodes", on_delete: :cascade
-  add_foreign_key "tag_nodes", "tags", on_delete: :cascade
-  add_foreign_key "test_results", "metrics"
-  add_foreign_key "test_results", "nodes"
-  add_foreign_key "verify_configs", "verify_tests"
-  add_foreign_key "verify_histories", "metrics"
-  add_foreign_key "verify_histories", "nodes"
-  add_foreign_key "verify_histories", "verify_tests"
 end

@@ -3,9 +3,9 @@
 one:
   node_config: one
   item_name: MyString
-  value: MyString
+  value: MyText
 
 two:
   node_config: two
   item_name: MyString
-  value: MyString
+  value: MyText

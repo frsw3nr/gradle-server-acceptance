@@ -15,7 +15,6 @@ class NodeConfigsController < ApplicationController
   # GET /node_configs/new
   def new
     @node_config = NodeConfig.new
-    @node_config[:node_id] = params[:node_id]
   end
 
   # GET /node_configs/1/edit
@@ -57,7 +56,7 @@ class NodeConfigsController < ApplicationController
   def destroy
     @node_config.destroy
     respond_to do |format|
-      format.html { redirect_to node_configs_url, notice: 'Node config was successfully destroyed.' }
+      format.html { redirect_to edit_node_url @node_config.node_id, notice: 'Node config was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,7 +69,6 @@ class NodeConfigsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def node_config_params
-      params.fetch(:node_config, {}).permit(:platform_id, :node_id, :node_config_name, :account_id,
-        node_config_details_attributes: [:item_name, :value])
+      params.fetch(:node_config, {})
     end
 end

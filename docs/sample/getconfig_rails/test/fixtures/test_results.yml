@@ -4,10 +4,10 @@ one:
   node: one
   metric: one
   verify: false
-  value: MyString
+  value: MyText
 
 two:
   node: two
   metric: two
   verify: false
-  value: MyString
+  value: MyText

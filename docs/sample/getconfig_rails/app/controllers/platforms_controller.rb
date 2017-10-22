@@ -28,7 +28,7 @@ class PlatformsController < ApplicationController
 
     respond_to do |format|
       if @platform.save
-        format.html { redirect_to platforms_url, notice: 'Platform was successfully created.' }
+        format.html { redirect_to @platform, notice: 'Platform was successfully created.' }
         format.json { render :show, status: :created, location: @platform }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PlatformsController < ApplicationController
   def update
     respond_to do |format|
       if @platform.update(platform_params)
-        format.html { redirect_to platforms_url, notice: 'Platform was successfully created.' }
+        format.html { redirect_to @platform, notice: 'Platform was successfully updated.' }
         format.json { render :show, status: :ok, location: @platform }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class PlatformsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def platform_params
-      params.fetch(:platform, {}).permit(:platform_name)
+      params.fetch(:platform, {})
     end
 end

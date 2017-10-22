@@ -1,0 +1,39 @@
+- if (@tag) then
+  = label_tag(:q, "Tag for:")
+  = link_to @tag.tag_name, edit_tag_path(@tag), :class => 'btn btn-primary'
+= simple_form_for @node, :html => { :class => 'form-horizontal' } do |f|
+  = f.error_notification
+  = f.association :group, label_method: :group_name
+  = f.input :node_name
+  = f.input :ip
+  = f.input :specific_password
+  = f.input :alias_name
+
+  table.table.table-striped
+    thead
+      tr
+        th
+          = t(:platform_name)
+        th
+          =t '.properties', :default => t("helpers.properties")
+    tbody
+      #platforms
+        = f.simple_fields_for :node_configs do |node_config|
+          tr
+            td
+              - if (node_config.object.id) then
+                = node_config.object.platform.platform_name
+                = link_to node_config_path(node_config.object.id),
+                  method: :delete,
+                  data: {:confirm => 'do you really want to do this?'},
+                  class: 'btn btn-default btn-xs' do
+                    .glyphicon.glyphicon-remove
+            td
+              = render 'node_config_form', :f => node_config
+        tr
+          td colspan=2
+            = link_to_add_association 'add a platform', f, :node_configs
+
+  = f.button :submit, :class => 'btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")),
+  -                 nodes_path, :class => 'btn btn-default'

@@ -5,11 +5,11 @@ one:
   metric: one
   seq: 1
   item_name: MyString
-  value: MyString
+  value: MyText
 
 two:
   node: two
   metric: two
   seq: 1
   item_name: MyString
-  value: MyString
+  value: MyText

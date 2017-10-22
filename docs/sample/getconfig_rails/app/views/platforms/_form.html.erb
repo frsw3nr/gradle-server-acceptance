@@ -1,7 +1,0 @@
-<%= simple_form_for @platform, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :platform_name %>
-
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                platforms_path, :class => 'btn btn-default' %>
-<% end %>

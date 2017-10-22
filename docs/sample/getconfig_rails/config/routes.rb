@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'platforms/import'
   get 'nodes/copy'
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :groups
   resources :accounts
   resources :platforms
@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   resources :node_configs
   resources :tags
   resources :tag_nodes
+  resources :platform, only: [:index, :new, :create, :destroy]
+
+  root :to => 'nodes#index'
 end

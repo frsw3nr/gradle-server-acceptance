@@ -1,0 +1,9 @@
+= simple_form_for @node_config, :html => { :class => 'form-horizontal' } do |f|
+  = f.association :node, label_method: :node_name
+  = f.association :platform, label_method: :platform_name
+  = f.association :account, label_method: :account_name
+  = f.input :node_config_name
+  = f.input :value
+  = f.button :submit, :class => 'btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")),
+              edit_node_path(f.object.node_id), :class => 'btn btn-default'

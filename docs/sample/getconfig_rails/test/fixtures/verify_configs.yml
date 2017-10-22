@@ -3,9 +3,9 @@
 one:
   verify_test: one
   item_name: MyString
-  value: MyString
+  value: MyText
 
 two:
   verify_test: two
   item_name: MyString
-  value: MyString
+  value: MyText

@@ -1,8 +1,0 @@
-<%= simple_form_for @tag_node, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :tag_id %>
-  <%= f.input :node_id %>
-
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                tag_nodes_path, :class => 'btn btn-default' %>
-<% end %>
