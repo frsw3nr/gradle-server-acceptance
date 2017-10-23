@@ -129,7 +129,9 @@ class NodesController < ApplicationController
         :group_id, :node_name, :ip, :specific_password, :alias_name,
         node_configs_attributes: [:id, :_destroy, :platform_id, :node_id, :account_id,
           node_config_details_attributes: [:id, :_destroy, :node_config_id, :item_name, :value]
-        ]
+        ],
+        tag_nodes_attributes: [:id, :_destroy, :tag_id, :node_id, tag_attributes: [:id, :_destroy, :tag_name]]
+
       );
 
     end

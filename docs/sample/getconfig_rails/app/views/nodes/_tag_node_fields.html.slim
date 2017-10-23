@@ -1,0 +1,7 @@
+.nested-fields.tag-node-fields
+
+  .form-inline
+    .tag_from_list style="display: inline; padding:20px;"
+      = f.association :tag, collection: Tag.order(:tag_name), prompt: 'Choose an Tag', label: false, label_method: :tag_name
+    = link_to_remove_association f, class: 'remove-tag btn btn-default btn-xs' do
+      .glyphicon.glyphicon-remove

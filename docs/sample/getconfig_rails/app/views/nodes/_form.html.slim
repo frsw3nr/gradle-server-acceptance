@@ -3,8 +3,8 @@
   = link_to @tag.tag_name, edit_tag_path(@tag), :class => 'btn btn-primary'
 = simple_form_for @node, :html => { :class => 'form-horizontal' } do |f|
   = f.error_notification
-  = f.association :group, label_method: :group_name
   = f.input :node_name
+  = f.association :group, label_method: :group_name
   = f.input :ip
   = f.input :specific_password
   = f.input :alias_name
@@ -16,7 +16,7 @@
           = t(:platform_name)
         th
           =t '.properties', :default => t("helpers.properties")
-    tbody
+    tbody.node_configs
       #platforms
         = f.simple_fields_for :node_configs do |node_config|
           tr
@@ -30,10 +30,24 @@
                     .glyphicon.glyphicon-remove
             td
               = render 'node_config_form', :f => node_config
-        tr
-          td colspan=2
-            = link_to_add_association 'add a platform', f, :node_configs
+  .links
+    = link_to_add_association "Add an platform", f,
+      :node_configs,
+      data: { "association-insertion-node" => "tbody.node_configs",
+        "association-insertion-method" => "append"},
+       class: 'btn btn-xs btn-info'
 
+  br
+  #tags.tab-pane role='tabpanel'
+    = f.label :Tag
+    = f.simple_fields_for :tag_nodes do |tag_node|
+      = render 'tag_node_fields', :f => tag_node
+    br
+    .links
+      = link_to_add_association 'Add an tag', f, :tag_nodes,
+        class: 'btn btn-xs btn-info'
+
+  br
   = f.button :submit, :class => 'btn-primary'
   = link_to t('.cancel', :default => t("helpers.links.cancel")),
   -                 nodes_path, :class => 'btn btn-default'
