@@ -1,0 +1,7 @@
+= simple_form_for @verify_test, :html => { :class => 'form-horizontal' } do |f|
+  = f.input :test_name
+  = f.simple_fields_for :verify_configs do |verify_config|
+    = render 'verify_config_form', :f => verify_config
+  = f.button :submit, :class => 'btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")),
+              verify_tests_path, :class => 'btn btn-default'

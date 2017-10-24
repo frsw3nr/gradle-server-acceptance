@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020210432) do
+ActiveRecord::Schema.define(version: 20171024201357) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "account_name"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20171020210432) do
     t.string "alias_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "compare_node"
     t.index ["group_id", "node_name"], name: "uk_nodes", unique: true
     t.index ["group_id"], name: "index_nodes_on_group_id"
   end

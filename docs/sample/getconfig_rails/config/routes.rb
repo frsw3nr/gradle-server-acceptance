@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :tags
   resources :tag_nodes
   resources :platform, only: [:index, :new, :create, :destroy]
+  resources :verify_tests
 
   root :to => 'nodes#index'
 end
