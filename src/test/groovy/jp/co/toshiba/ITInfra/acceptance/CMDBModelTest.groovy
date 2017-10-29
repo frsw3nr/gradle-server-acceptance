@@ -18,11 +18,23 @@ class CMDBModelTest extends Specification {
         params = [
             getconfig_home: System.getProperty("user.dir"),
             project_home: 'src/test/resources',
-            db_config: 'src/test/resources/cmdb.groovy'
+            db_config: 'src/test/resources/cmdb_test.groovy'
         ]
         evidence_manager = new EvidenceManager(params)
         cmdb_model = CMDBModel.instance
         cmdb_model.initialize(evidence_manager)
+    }
+
+    def "DB初期化"() {
+        when:
+        cmdb_model.initialize_data(true)
+
+        then:
+        cmdb_model.cmdb.rows("select * from platform_config_details").size() > 0
+        cmdb_model.cmdb.rows("select * from accounts").size() > 0
+        cmdb_model.cmdb.rows("select * from node_configs").size() > 0
+        cmdb_model.cmdb.rows("select * from node_config_details").size() > 0
+        1 == 1
     }
 
     def "DB登録"() {
@@ -35,59 +47,59 @@ class CMDBModelTest extends Specification {
 
     def "マスター登録"() {
         when:
-        def id = cmdb_model.registMaster("sites", [site_name: 'site01'])
-        def site = cmdb_model.cmdb.rows("select * from sites")
+        def id = cmdb_model.registMaster("tags", [tag_name: 'site01'])
+        def site = cmdb_model.cmdb.rows("select * from tags")
 
         then:
         site[0]['id'] > 0
-        site[0]['site_name'].size() > 0
+        site[0]['tag_name'].size() > 0
     }
 
     def "マスター重複登録"() {
         when:
-        def id1 = cmdb_model.registMaster("tenants", [tenant_name: '_Default'])
-        def id2 = cmdb_model.registMaster("tenants", [tenant_name: '_Default'])
-        def tenant = cmdb_model.cmdb.rows("select * from tenants")
+        def id1 = cmdb_model.registMaster("groups", [group_name: '_Default'])
+        def id2 = cmdb_model.registMaster("groups", [group_name: '_Default'])
+        def group = cmdb_model.cmdb.rows("select * from groups")
 
         then:
         id1 == id2
-        tenant.size() == 1
+        id1 > 0
     }
 
     def "マスター登録複数列"() {
         when:
-        def id = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
+        def id = cmdb_model.registMaster("nodes", [node_name: 'node01', group_id: 1])
         def node = cmdb_model.cmdb.rows("select * from nodes where node_name = 'node01'")
 
         then:
         id > 0
         node[0]['node_name'] == 'node01'
-        node[0]['tenant_id'] == 1
+        node[0]['group_id'] == 1
     }
 
     def "複数サイトノード登録"() {
         when:
-        def site_id1      = cmdb_model.registMaster("sites", [site_name: 'site01'])
-        def site_id2      = cmdb_model.registMaster("sites", [site_name: 'site02'])
-        def node_id1      = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
-        def site_node_id1 = cmdb_model.registMaster("site_nodes", [node_id: node_id1, site_id: site_id1])
+        def tag_id1      = cmdb_model.registMaster("tags", [tag_name: 'tag01'])
+        def tag_id2      = cmdb_model.registMaster("tags", [tag_name: 'tag02'])
+        def node_id1      = cmdb_model.registMaster("nodes", [node_name: 'node01', group_id: 1])
+        def tag_node_id1 = cmdb_model.registMaster("tag_nodes", [node_id: node_id1, tag_id: tag_id1])
 
-        def node_id2      = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
-        def site_node_id2 = cmdb_model.registMaster("site_nodes", [node_id: node_id2, site_id: site_id2])
+        def node_id2      = cmdb_model.registMaster("nodes", [node_name: 'node01', group_id: 1])
+        def tag_node_id2 = cmdb_model.registMaster("tag_nodes", [node_id: node_id2, tag_id: tag_id2])
 
         then:
-        site_node_id1 != site_node_id2
-        def sql = "select * from site_nodes where node_id = ? order by site_id"
-        def site_node = cmdb_model.cmdb.rows(sql, node_id1)
-        site_node[0]['site_id'] == site_id1
-        site_node[0]['node_id'] == node_id1
-        site_node[1]['site_id'] == site_id2
-        site_node[1]['node_id'] == node_id1
+        tag_node_id1 != tag_node_id2
+        def sql = "select * from tag_nodes where node_id = ? order by tag_id"
+        def tag_node = cmdb_model.cmdb.rows(sql, node_id1)
+        tag_node[0]['tag_id'] == tag_id1
+        tag_node[0]['node_id'] == node_id1
+        tag_node[1]['tag_id'] == tag_id2
+        tag_node[1]['node_id'] == node_id1
     }
 
     def "マスター登録列名なし"() {
         when:
-        def id = cmdb_model.registMaster("nodes", [HOGE: 'node01', tenant_id: 1])
+        def id = cmdb_model.registMaster("nodes", [HOGE: 'node01', group_id: 1])
 
         then:
         thrown(SQLException)
@@ -95,8 +107,8 @@ class CMDBModelTest extends Specification {
 
     def "マスター登録キャッシュ"() {
         when:
-        def id1 = cmdb_model.registMaster("sites", [site_name: 'site01'])
-        def id2 = cmdb_model.registMaster("sites", [site_name: 'site01'])
+        def id1 = cmdb_model.registMaster("tags", [tag_name: 'tag01'])
+        def id2 = cmdb_model.registMaster("tags", [tag_name: 'tag01'])
 
         then:
         id1 == id2
@@ -126,7 +138,7 @@ class CMDBModelTest extends Specification {
         when:
         def metric_id = cmdb_model.registMaster("metrics",
                                     [metric_name: 'metric1',
-                                     domain_id: 1])
+                                     platform_id: 1])
         def devices = [
             ["value": "value01", "verify": true],
             ["value": "value02", "verify": false],

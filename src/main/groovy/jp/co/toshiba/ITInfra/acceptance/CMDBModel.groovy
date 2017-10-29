@@ -30,18 +30,24 @@ class CMDBModel {
         }
         def query = "select id from ${table_name} where " +
                     conditions.join(' and ')
+println "QUERY:$query"
+println "QUERY_DATA:$values"
         def rows = cmdb.rows(query, values)
+println "ROWS:$rows"
         if (rows != null && rows.size() == 1) {
             def id = rows[0]['id']
             cmdb_cache[cache_key] = id
             return id
         }
+println "INSERT:$table_name"
+println "INSERT_DATA:$columns"
         def table = cmdb.dataSet(table_name)
         try {
             table.add(columns)
         } catch (SQLException e) {
+println e
             log.info "This table already have a data, Skip\n" +
-                     "${table_name} : ${columns}"
+                     "${table_name} : ${columns}\n"
         }
         rows = cmdb.rows(query, values)
         if (rows != null && rows.size() == 1) {
@@ -81,14 +87,13 @@ class CMDBModel {
         IllegalArgumentException {
 
         long start = System.currentTimeMillis()
-        // Regist SITE, TENANT table
-        def site_id   = registMaster("sites", [site_name: evidence_manager.project_name])
-        def tenant_id = registMaster("tenants", [tenant_name: '_Default'])
+        // Regist tag, group table
+        def tag_id   = registMaster("tags", [tag_name: evidence_manager.project_name])
 
         new File(node_config_source).eachDir {
             def domain_name = it.name
             log.info "Regist domain ${domain_name}"
-            def domain_id = registMaster("domains", [domain_name: domain_name])
+            def domain_id = registMaster("platforms", [platform_name: domain_name])
             def domain_dir = "${node_config_source}/${domain_name}"
 
             // Regist Metrics
@@ -98,14 +103,13 @@ class CMDBModel {
                     def metrics = new JsonSlurper().parseText(metric_text)
 
                     log.info "Regist node ${node_name}"
-                    def node_id = registMaster("nodes", [node_name: node_name,
-                                               tenant_id: tenant_id])
-                    registMaster("site_nodes", [site_id: site_id, node_id: node_id])
+                    def node_id = registMaster("nodes", [node_name: node_name])
+                    registMaster("tag_nodes", [tag_id: tag_id, node_id: node_id])
                     metrics.each { metric ->
                         log.debug "Regist metric ${metric}"
                         def metric_id = registMaster("metrics",
                                                     [metric_name: metric?.test_id,
-                                                     domain_id: domain_id])
+                                                     platform_id: domain_id])
                         registMetric(node_id, metric_id, metric)
                     }
                 }
@@ -114,9 +118,9 @@ class CMDBModel {
             // Regist Devices
             new File(domain_dir).eachDir {
                 def node_name = it.name
-                def node_id = registMaster("nodes", [node_name: node_name,
-                                           tenant_id: tenant_id])
-                registMaster("site_nodes", [site_id: site_id, node_id: node_id])
+                def node_id = registMaster("nodes", [node_name: node_name])
+println "DEVICE: $node_name, $node_id"
+                registMaster("tag_nodes", [tag_id: tag_id, node_id: node_id])
                 def device_dir = "${domain_dir}/${node_name}"
                 def set_flag_sql = 'update metrics set device_flag = true where id = ?'
                 new File(device_dir).eachFile {
@@ -126,7 +130,7 @@ class CMDBModel {
                         log.info "Regist device ${node_name} ${metric_name}"
                         def metric_id = registMaster("metrics",
                                                     [metric_name: metric_name,
-                                                     domain_id: domain_id])
+                                                     platform_id: domain_id])
                         registDevice(node_id, metric_id, devices)
                         cmdb.execute(set_flag_sql, metric_id)
 
@@ -165,11 +169,15 @@ class CMDBModel {
     }
 
     def initialize(EvidenceManager evidence_manager) throws IOException, SQLException {
+        this.evidence_manager = evidence_manager
+        def db_config = evidence_manager.db_config
+        def config_db = Config.instance.read(db_config)
+        def config_ds = config_db?.cmdb?.dataSource
+        this.initialize(config_ds)
+    }
+
+    def initialize(Map config_ds) throws IOException, SQLException {
         if (!this.cmdb) {
-            this.evidence_manager = evidence_manager
-            def db_config = evidence_manager.db_config
-            def config_db = Config.instance.read(db_config)
-            def config_ds = config_db?.cmdb?.dataSource
             if (!config_ds) {
                 def msg = "Config not found cmdb.dataSource: ${db_config}"
                 throw new IllegalArgumentException(msg)
@@ -181,7 +189,7 @@ class CMDBModel {
         // Confirm existence of Version table. If not, execute db create script
         def cmdb_exists = false
         try {
-            List rows = this.cmdb.rows('select * from tenants')
+            List rows = this.cmdb.rows('select * from version')
             if (rows.size()) {
                 cmdb_exists = true
             }
@@ -197,4 +205,70 @@ class CMDBModel {
         }
     }
 
+    def initialize_data(Boolean is_test = false) throws IOException, SQLException {
+        def platforms = [:]
+        def tags      = [:]
+        def groups    = [:]
+        def accounts  = [:]
+
+        // Regist default 'GROUPS'
+        groups['_Default'] = registMaster("groups", [group_name: '_Default'])
+        // Regist default 'PLATFORMS'
+        ['Linux', 'Windows', 'vCenter'].each { name ->
+            def platform_id = registMaster("platforms", [platform_name: name, build: 1])
+            platforms[name] = platform_id
+            if (name == 'vCenter') {
+                // Regist default 'PLATFORM_CONFIG_DETAILS'
+                ['cpu', 'memory', 'storage'].each { item_name ->
+                    registMaster('platform_config_details', [platform_id: platform_id, item_name: item_name])
+                }
+            }
+        }
+
+        // For development environment
+        if (is_test) {
+            // Regits 'ACCOUNTS'
+            [[platform_name: 'Linux',   account_name: 'LinuxAccount1',   username: 'someuser'],
+             [platform_name: 'Windows', account_name: 'WindowsAccount1', username: 'Administrator'],
+             [platform_name: 'vCenter', account_name: 'vCenterAccount1', username: 'guest', remote_ip: '192.168.10.10']
+            ].each { info ->
+                def platform_name = info.platform_name
+                info['password']  = 'P@ssword'
+                info.remove('platform_name')
+                accounts[platform_name] = registMaster('accounts', info)
+            }
+
+            // Regist 'TAGS'
+            ['Deploy01', 'Deploy02', 'Deploy03', 'Deploy04'].each { name ->
+                tags[name] = registMaster("tags", [tag_name: name])
+            }
+            // Regist 'GROUPS'
+            ['System01', 'System02'].each { name ->
+                groups[name] = registMaster("groups", [group_name: name])
+            }
+            // Regist 'NODES'
+            [[node_name: 'ostrich', platform_name: 'Linux',   ip: '192.168.10.1'],
+             [node_name: 'w2016',   platform_name: 'Windows', ip: '192.168.10.2'],
+            ].each { info->
+                def platform_name = info.platform_name
+                info['group_id']  = groups['System01']
+                info.remove('platform_name')
+                def node_id = registMaster('nodes', info)
+
+                // Regist 'NODE_CONFIGS'
+                [platform_name, 'vCenter'].each{ platform ->
+                    def node_config_id = registMaster('node_configs',
+                        [platform_id: platforms[platform], node_id: node_id, account_id: accounts[platform]])
+
+                    // Regist 'NODE_CONFIG_DETAILS'
+                    registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'cpu',       value: 4])
+                    registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'memory',    value: 8])
+                    registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'disk_size', value: 20])
+                }
+            }
+
+            def verify_test_id = registMaster('verify_tests', [test_name: 'Deploy01A'])
+            registMaster('verify_configs', [verify_test_id: verify_test_id, item_name: 'node_config_file_path'])
+        }
+    }
 }

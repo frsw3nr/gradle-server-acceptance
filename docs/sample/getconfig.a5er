@@ -1,4 +1,4 @@
-﻿# A5:ER FORMAT:10
+﻿# A5:ER FORMAT:11
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright (C)2007 m.matsubara
 # A5:SQL Mk-2 Copyright (C)1997 m.matsubara
@@ -30,8 +30,6 @@ ShowPageoutRelation=1
 RDBMSType=5
 RDBMSTypeName=MySQL
 GenerateComment=0
-GenerateDropTableStatement=1
-DropTableIfExists=1
 GenerateCommentStatement=0
 GenerateCommentStatement_LName=0
 GenerateCommentStatement_Comment=0
@@ -45,7 +43,7 @@ ShowCommonAttributes=0
 
 [Relation]
 Entity1=platforms
-Entity2=NEW_ENTITY1
+Entity2=platform_config_details
 RelationType1=2
 RelationType2=3
 Fields1=id
@@ -65,23 +63,23 @@ TermPos1=R
 TermPos2=R
 
 [Entity]
-PName=NEW_ENTITY1
+PName=platform_config_details
 LName=platform_config_details
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=300
 Top=500
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="platform_id","platform_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="platform_id","platform_id","integer ","NOT NULL",,"","",$FFFFFFFF,""
+Field="item_name","item_name","varchar(128)","NOT NULL",,"","",$FFFFFFFF,""
 Field="value","value","varchar(4000)",,,"","",$FFFFFFFF,""
 Index=uk_node_config=2,platform_id,,item_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017050301
-Position="Main",300,500
+ModifiedDateTime=20171028145110
+Position="MAIN",300,500
 
 [Relation]
 Entity1=nodes
@@ -133,7 +131,7 @@ TableOption=
 Page=MAIN
 Left=650
 Top=550
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="node_config_id","node_config_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="value","value","varchar(4000)",,,"","",$FFFFFFFF,""
@@ -141,7 +139,7 @@ Index=uk_node_config=2,node_config_id,,item_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171010123556
+ModifiedDateTime=20171028145232
 Position="MAIN",650,550
 
 [Relation]
@@ -194,12 +192,12 @@ TableOption=
 Page=MAIN
 Left=1300
 Top=400
-Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="group_name","group_name","VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017045428
+ModifiedDateTime=20171028145322
 Position="MAIN",1300,400
 
 [Relation]
@@ -251,7 +249,7 @@ TableOption=
 Page=MAIN
 Left=650
 Top=750
-Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="verify_test_id","verify_test_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
 Field="node_id","node_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
 Field="metric_id","metric_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
@@ -259,7 +257,7 @@ Field="verified","verified","INT",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017050053
+ModifiedDateTime=20171028145245
 Position="MAIN",650,750
 
 [Relation]
@@ -285,7 +283,7 @@ TermPos2=R
 
 [Relation]
 Entity1=verify_tests
-Entity2=test_configs
+Entity2=verify_configs
 RelationType1=2
 RelationType2=3
 Fields1=verify_id
@@ -305,14 +303,14 @@ TermPos1=R
 TermPos2=R
 
 [Entity]
-PName=test_configs
-LName=test_configs
+PName=verify_configs
+LName=verify_configs
 Comment=
 TableOption=
 Page=MAIN
 Left=350
 Top=850
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="verify_test_id","verify_test_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="item_name","item_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="value","value","varchar(256)",,,"","",$FFFFFFFF,""
@@ -320,7 +318,7 @@ Index=uk_test_config=2,verify_test_id,item_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171005050637
+ModifiedDateTime=20171028145257
 Position="MAIN",350,850
 
 [Relation]
@@ -373,7 +371,7 @@ TableOption=
 Page=MAIN
 Left=1300
 Top=850
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="metric_id","metric_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="seq","seq","int(11)","NOT NULL",,"","",$FFFFFFFF,""
@@ -383,7 +381,7 @@ Index=uk_device_result_hist=2,test_id,node_id,metric_id,seq,item_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171004173535
+ModifiedDateTime=20171028145317
 Position="MAIN",1300,850
 
 [Relation]
@@ -457,7 +455,7 @@ TableOption=
 Page=MAIN
 Left=850
 Top=1000
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="platform_id","platform_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="metric_name","metric_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="level","level","INTEGER ",,,"0","",$FFFFFFFF,""
@@ -465,7 +463,7 @@ Field="device_flag","device_flag","INTEGER ",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20170923112200
+ModifiedDateTime=20171028145308
 Position="MAIN",850,1000
 
 [Relation]
@@ -539,14 +537,14 @@ TableOption=
 Page=MAIN
 Left=1050
 Top=150
-Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="tag_id","tag_id","int(11) ","NOT NULL",,"","",$FFFFFFFF,""
-Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="id","id","integer auto_increment",,0,"","",$FFFFFFFF,""
+Field="tag_id","tag_id","integer ","NOT NULL",,"","",$FFFFFFFF,""
+Field="node_id","node_id","integer ","NOT NULL",,"","",$FFFFFFFF,""
 Index=uk_site_nodes=1,tag_id,node_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017045036
+ModifiedDateTime=20171028145056
 Position="MAIN",1050,150,145,96
 
 [Entity]
@@ -557,12 +555,12 @@ TableOption=
 Page=MAIN
 Left=1300
 Top=200
-Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="tag_name","tag_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment",,0,"","",$FFFFFFFF,""
+Field="tag_name","tag_name","varchar(128)","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017045006
+ModifiedDateTime=20171028145212
 Position="MAIN",1300,200,124,50
 
 [Entity]
@@ -573,7 +571,7 @@ TableOption=
 Page=MAIN
 Left=1100
 Top=700
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="metric_id","metric_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="verify","verify","INTEGER",,,"","",$FFFFFFFF,""
@@ -581,7 +579,7 @@ Field="value","value","varchar(4000)",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171004173447
+ModifiedDateTime=20171028145252
 Position="MAIN",1100,700
 
 [Entity]
@@ -592,13 +590,13 @@ TableOption=
 Page=MAIN
 Left=250
 Top=700
-Field="verify_id","verify_id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
+Field="verify_id","verify_id","integer  auto_increment",,0,"","",$FFFFFFFF,""
 Field="test_name","test_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created","created","DATETIME",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171005050541
+ModifiedDateTime=20171028145302
 Position="MAIN",250,700,132,90
 
 [Entity]
@@ -609,15 +607,15 @@ TableOption=
 Page=MAIN
 Left=600
 Top=300
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="platform_id","platform_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="account_id","account_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="node_id","node_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="platform_id","platform_id","integer ","NOT NULL",,"","",$FFFFFFFF,""
+Field="account_id","account_id","integer ","NOT NULL",,"","",$FFFFFFFF,""
+Field="node_id","node_id","integer ","NOT NULL",,"","",$FFFFFFFF,""
 Index=uk_node_config=2,platform_id,node_id,
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017045706
+ModifiedDateTime=20171028145117
 Position="MAIN",600,300
 
 [Entity]
@@ -628,16 +626,16 @@ TableOption=
 Page=MAIN
 Left=450
 Top=100
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="id","id","integer auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="account_name","account_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
 Field="username","username","varchar(48)",,,"","",$FFFFFFFF,""
 Field="password","password","varchar(48)",,,"","",$FFFFFFFF,""
 Field="remote_ip","remote_ip","varchar(48)",,,"","",$FFFFFFFF,""
-Index=uk_account=2,,,account_name
+Index=uk_account=2,account_name
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171010152856
+ModifiedDateTime=20171028145430
 Position="MAIN",450,100
 
 [Entity]
@@ -648,14 +646,14 @@ TableOption=
 Page=MAIN
 Left=100
 Top=300
-Field="id","id","int(11) auto_increment",,0,"","",$FFFFFFFF,""
-Field="platform_name","platform_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
-Field="build","build","int(11)",,,"","",$FFFFFFFF,""
-Field="created","created","DATETIME",,,"","",$FFFFFFFF,""
+Field="id","id","integer  auto_increment",,0,"","",$FFFFFFFF,""
+Field="platform_name","platform_name","varchar(128)","NOT NULL",,"","",$FFFFFFFF,""
+Field="build","build","integer",,,"","",$FFFFFFFF,""
+Field="created","created","timestamp","NOT NULL",,"current_timestamp","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171005043853
+ModifiedDateTime=20171028145522
 Position="MAIN",100,300,165,127
 
 [Entity]
@@ -666,14 +664,15 @@ TableOption=
 Page=MAIN
 Left=1000
 Top=400
-Field="id","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="group_id","group_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
-Field="node_name","node_name","varchar(48)","NOT NULL",,"","",$FFFFFFFF,""
-Field="ip","ip","varchar(48)",,,"","",$FFFFFFFF,""
-Field="specific_password","specific_password","varchar(48)",,,"","",$FFFFFFFF,""
-Field="alias_name","alias_name","varchar(48)",,,"","",$FFFFFFFF,""
+Field="id","id","integer auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="group_id","group_id","integer","NOT NULL",,"","",$FFFFFFFF,""
+Field="node_name","node_name","varchar(128)","NOT NULL",,"","",$FFFFFFFF,""
+Field="ip","ip","varchar(128)",,,"","",$FFFFFFFF,""
+Field="specific_password","specific_password","varchar(128)",,,"","",$FFFFFFFF,""
+Field="compare_node","compare_node","varchar(128)",,,"","",$FFFFFFFF,""
+Field="alias_name","alias_name","varchar(128)",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20171017045554
+ModifiedDateTime=20171028145225
 Position="MAIN",1000,400

@@ -9,81 +9,169 @@ create table version (
 
 insert into version(build) values (1);
 
+create table accounts (
+  id integer auto_increment not null
+  , account_name varchar(128) not null
+  , username varchar(128)
+  , password varchar(128)
+  , remote_ip varchar(128)
+  , created timestamp default current_timestamp not null
+  , constraint accounts_pkc primary key (id)
+) ;
+
+alter table accounts add unique uk_account (account_name) ;
+
+create table platforms (
+  id integer  auto_increment not null
+  , platform_name varchar(128) not null
+  , build integer
+  , created timestamp default current_timestamp not null
+  , constraint platforms_pkc primary key (id)
+) ;
+
+alter table platforms add unique uk_platform (platform_name) ;
+
+create table platform_config_details (
+  id integer  auto_increment not null
+  , platform_id integer  not null
+  , item_name varchar(128) not null
+  , value varchar(4000)
+  , created timestamp default current_timestamp not null
+  , constraint platform_config_details_pkc primary key (id)
+) ;
+
+alter table platform_config_details add unique uk_platform_config_detail (platform_id, item_name) ;
+
+create table tags (
+  id integer  auto_increment not null
+  , tag_name varchar(128) not null
+  , created timestamp default current_timestamp not null
+  , constraint tags_pkc primary key (id)
+) ;
+
+alter table tags add unique uk_tag (tag_name);
+
+create table tag_nodes (
+  id integer auto_increment not null
+  , tag_id integer  not null
+  , node_id integer  not null
+  , created timestamp default current_timestamp not null
+  , constraint tag_nodes_pkc primary key (id)
+) ;
+
+alter table tag_nodes add unique uk_tag_node (tag_id,node_id);
+
+create table groups (
+  id integer  auto_increment not null
+  , group_name varchar(128) not null
+  , created timestamp default current_timestamp not null
+  , constraint groups_pkc primary key (id)
+) ;
+
+alter table groups add unique uk_group (group_name);
+
+create table nodes (
+  id integer auto_increment not null
+  , group_id integer
+  , node_name varchar(128) not null
+  , ip varchar(128)
+  , specific_password varchar(128)
+  , compare_node varchar(128)
+  , alias_name varchar(128)
+  , created timestamp default current_timestamp not null
+  , constraint nodes_pkc primary key (id)
+) ;
+
+alter table nodes add unique uk_node (node_name);
+
+create table node_configs (
+  id integer  auto_increment not null
+  , node_id integer  not null
+  , platform_id integer  not null
+  , account_id integer
+  , created timestamp default current_timestamp not null
+  , constraint node_configs_PKC primary key (id)
+) ;
+
+alter table node_configs add unique uk_node_config (platform_id,node_id);
+
+create table node_config_details (
+  id integer  auto_increment not null
+  , node_config_id integer not null
+  , item_name varchar(128) not null
+  , value varchar(4000)
+  , created timestamp default current_timestamp not null
+  , constraint node_config_details_pkc primary key (id)
+) ;
+
+alter table node_config_details add unique uk_node_config_details (node_config_id, item_name);
+
+create table verify_tests (
+  id integer  auto_increment
+  , test_name varchar(128) not null
+  , created timestamp default current_timestamp not null
+  , constraint verify_tests_pkc primary key (id)
+) ;
+
+alter table verify_tests add unique uk_verify_test (test_name);
+
+create table verify_histories (
+  id integer  auto_increment not null
+  , verify_test_id integer  not null
+  , node_id integer  not null
+  , metric_id integer  not null
+  , verified boolean
+  , created timestamp default current_timestamp not null
+  , constraint verify_histories_pkc primary key (id)
+) ;
+
+alter table verify_histories add unique uk_verify_history (verify_test_id, node_id, metric_id);
+
+create table verify_configs (
+  id integer  auto_increment not null
+  , verify_test_id integer not null
+  , item_name varchar(128) not null
+  , value varchar(4000)
+  , created timestamp default current_timestamp not null
+  , constraint verify_configs_pkc primary key (id)
+) ;
+
+alter table verify_configs add unique uk_test_config (verify_test_id,item_name) ;
+
+create table metrics (
+  id integer  auto_increment not null
+  , platform_id integer not null
+  , metric_name varchar(128) not null
+  , level integer default 0
+  , device_flag boolean
+  , created timestamp default current_timestamp not null
+  , constraint metrics_PKC primary key (id)
+) ;
+
+alter table metrics add unique uk_metric (platform_id, metric_name);
+
+create table test_results (
+  id integer  auto_increment not null
+  , node_id integer not null
+  , metric_id integer not null
+  , verify integer
+  , value varchar(4000)
+  , created timestamp default current_timestamp not null
+  , constraint test_results_pkc primary key (id)
+) ;
+
+alter table test_results add unique uk_test_result (node_id, metric_id);
+
 create table device_results (
-  node_id integer not null
+  id integer  auto_increment not null
+  , node_id integer not null
   , metric_id integer not null
   , seq integer not null
   , item_name varchar(128) not null
   , value varchar(4000)
-  , created timestamp not null default current_timestamp
-  , constraint device_result_pkc primary key (node_id, metric_id, seq, item_name)
-);
+  , created timestamp default current_timestamp not null
+  , constraint device_results_PKC primary key (id)
+) ;
 
-create table test_results (
-  node_id integer not null
-  , metric_id integer not null
-  , value varchar(4000)
-  , verify integer
-  , created timestamp not null default current_timestamp
-  , constraint test_result_pkc primary key (node_id, metric_id)
-);
+alter table device_results add unique uk_device_result_hist (node_id,metric_id,seq,item_name) ;
 
-create table metrics (
-  id integer not null auto_increment
-  , domain_id integer not null
-  , metric_name varchar(128) not null
-  , device_flag integer
-  , created timestamp not null default current_timestamp
-  , constraint metric_pkc primary key (id)
-);
-
-create unique index uk_metric on metrics(domain_id, metric_name);
-
-create table nodes (
-  id integer not null auto_increment
-  , tenant_id integer not null
-  , node_name varchar(128) not null
-  , created timestamp not null default current_timestamp
-  , constraint node_pkc primary key (id)
-);
-
-create unique index uk_node on nodes(node_name);
-
-create table tenants (
-  id integer not null auto_increment
-  , tenant_name varchar(128) not null
-  , created timestamp not null default current_timestamp
-  , constraint tenant_pkc primary key (id)
-);
-
-create unique index uk_tenant on tenants(tenant_name);
-
-insert into tenants(tenant_name) values ('_Default');
-
-create table domains (
-  id integer not null auto_increment
-  , domain_name varchar(128) not null
-  , created timestamp not null default current_timestamp
-  , constraint domain_pkc primary key (id)
-);
-
-create unique index uk_domain on domains(domain_name);
-
-create table sites (
-  id integer not null auto_increment
-  , site_name varchar(128) not null
-  , created timestamp not null default current_timestamp
-  , constraint site_pkc primary key (id)
-);
-
-create unique index uk_site on sites(site_name);
-
-create table site_nodes (
-  id integer not null auto_increment
-  , site_id integer not null
-  , node_id integer not null
-  , created timestamp not null default current_timestamp
-  , constraint site_node_pkc primary key (id)
-);
-
-create unique index uk_site_node on site_nodes(site_id, node_id);
