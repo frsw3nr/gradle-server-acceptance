@@ -30,22 +30,18 @@ class CMDBModel {
         }
         def query = "select id from ${table_name} where " +
                     conditions.join(' and ')
-println "QUERY:$query"
-println "QUERY_DATA:$values"
         def rows = cmdb.rows(query, values)
-println "ROWS:$rows"
         if (rows != null && rows.size() == 1) {
             def id = rows[0]['id']
             cmdb_cache[cache_key] = id
             return id
         }
-println "INSERT:$table_name"
-println "INSERT_DATA:$columns"
+        log.debug "INSERT:$table_name"
+        log.debug "INSERT_DATA:$columns"
         def table = cmdb.dataSet(table_name)
         try {
             table.add(columns)
         } catch (SQLException e) {
-println e
             log.info "This table already have a data, Skip\n" +
                      "${table_name} : ${columns}\n"
         }
@@ -119,7 +115,7 @@ println e
             new File(domain_dir).eachDir {
                 def node_name = it.name
                 def node_id = registMaster("nodes", [node_name: node_name])
-println "DEVICE: $node_name, $node_id"
+                log.debug "DEVICE: $node_name, $node_id"
                 registMaster("tag_nodes", [tag_id: tag_id, node_id: node_id])
                 def device_dir = "${domain_dir}/${node_name}"
                 def set_flag_sql = 'update metrics set device_flag = true where id = ?'
@@ -197,7 +193,8 @@ println "DEVICE: $node_name, $node_id"
             log.warn "VERSION table not found in CMDB, Create tables"
         }
         if (!cmdb_exists) {
-            def getconfig_home = evidence_manager.getconfig_home
+            def getconfig_home = evidence_manager?.getconfig_home ?: System.getProperty("user.dir")
+            log.info "Set HOME: ${getconfig_home}";
             def create_db_script = "${getconfig_home}/lib/script/cmdb/create_db.sql"
             def create_sqls = new File(create_db_script).text.split(/;\s*\n/).each {
                 this.cmdb.execute it
@@ -261,13 +258,15 @@ println "DEVICE: $node_name, $node_id"
                         [platform_id: platforms[platform], node_id: node_id, account_id: accounts[platform]])
 
                     // Regist 'NODE_CONFIG_DETAILS'
-                    registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'cpu',       value: 4])
-                    registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'memory',    value: 8])
-                    registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'disk_size', value: 20])
+                    if (platform == 'vCenter') {
+                        registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'cpu',       value: 4])
+                        registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'memory',    value: 8])
+                        registMaster('node_config_details', [node_config_id: node_config_id, item_name: 'disk_size', value: 20])
+                    }
                 }
             }
 
-            def verify_test_id = registMaster('verify_tests', [test_name: 'Deploy01A'])
+            def verify_test_id = registMaster('verify_tests', [verify_test_name: 'Deploy01A'])
             registMaster('verify_configs', [verify_test_id: verify_test_id, item_name: 'node_config_file_path'])
         }
     }

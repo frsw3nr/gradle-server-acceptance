@@ -108,12 +108,12 @@ alter table node_config_details add unique uk_node_config_details (node_config_i
 
 create table verify_tests (
   id integer  auto_increment
-  , test_name varchar(128) not null
+  , verify_test_name varchar(128) not null
   , created timestamp default current_timestamp not null
   , constraint verify_tests_pkc primary key (id)
 ) ;
 
-alter table verify_tests add unique uk_verify_test (test_name);
+alter table verify_tests add unique uk_verify_test (verify_test_name);
 
 create table verify_histories (
   id integer  auto_increment not null
