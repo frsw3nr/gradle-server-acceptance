@@ -625,3 +625,23 @@ set convert-meta off
 「右クリック」→「Options...」→「Text」の「locale」を「ja_JP」、「Character set」を「SJIS」に設定。コンパイルオプションでutf-8を指定してもcp932で出力されるとか。参照元は失念。地味にはまったのでメモ。
 
 gradle 環境
+
+管理者権限でPowerShellを起動し、choco -y install gradle でインストール
+
+git clone https://github.com/frsw3nr/gradle-server-acceptance.git -b develop
+cd gradle-server-acceptance
+gradle test
+文字化けしないこと
+
+GroovyFX
+
+git clone https://github.com/groovyfx-project/groovyfx.git
+cd groovyfx
+gradle AnchorDemo
+
+src/demo/groovy のサンプルコードを追加
+build.gradle に サンプルコード用、XXXDemo タスク追加
+gradle GridPaneDemo で実行
+
+
+git clone https://github.com/swtestacademy/javafxexample
