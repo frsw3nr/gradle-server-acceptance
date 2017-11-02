@@ -172,7 +172,7 @@
     {
         "test_id": "packages",
         "domain": "Linux",
-        "value": "[:]"
+        "value": "[oracle:NG, base:NG, sophos:OK, msm:NG]"
     },
     {
         "test_id": "packages.gcc",

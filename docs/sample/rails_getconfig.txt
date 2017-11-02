@@ -607,3 +607,21 @@ bundle exec rails generate scaffold_controller node_configs
 
 bundle exec rails g migration AddColumnToNode compare_node:string
 
+JavaFX調査
+----------
+
+GitBash 環境
+
+ホームディレクトリにある.inputrcファイルを編集します。msysを起動した直後のディレクトリをエクスプローラーなどで見てください。
+
+.inputrcファイル
+
+set meta-flag on
+set kanji-code sjis
+set input-meta on
+set output-meta on
+set convert-meta off
+
+「右クリック」→「Options...」→「Text」の「locale」を「ja_JP」、「Character set」を「SJIS」に設定。コンパイルオプションでutf-8を指定してもcp932で出力されるとか。参照元は失念。地味にはまったのでメモ。
+
+gradle 環境
