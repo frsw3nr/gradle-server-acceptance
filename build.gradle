@@ -43,6 +43,7 @@ dependencies {
     compile "mysql:mysql-connector-java:5.1.6"
     compile "com.h2database:h2:1.3.157"
     compile 'org.codehaus.groovyfx:groovyfx:0.4.0'
+    compile 'org.controlsfx:controlsfx:8.40.14'
     compile 'com.jfoenix:jfoenix:1.4.0'
     compile 'net.java.openjfx.backport:openjfx-78-backport:1.8.0-ea-b96.1'
 
