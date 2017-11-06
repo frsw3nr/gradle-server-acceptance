@@ -22,11 +22,13 @@ GroovyFX.start {
             columnConstraints(minWidth: 50, halignment: "right")
             columnConstraints(prefWidth: 250, hgrow: 'always')
 
-            label("Please Send Us Your Feedback", style: "-fx-font-size: 18px;",
-                    row: 0, columnSpan: 2, halignment: "center", margin: [0, 0, 10]) {
-                onMouseEntered { e -> e.source.parent.gridLinesVisible = true }
-                onMouseExited { e -> e.source.parent.gridLinesVisible = false }
-            }
+            // label("Please Send Us Your Feedback", style: "-fx-font-size: 18px;",
+            //         row: 0, columnSpan: 2, halignment: "center", margin: [0, 0, 10]) {
+            //     onMouseEntered { e -> e.source.parent.gridLinesVisible = true }
+            //     onMouseExited { e -> e.source.parent.gridLinesVisible = false }
+            // }
+            label("Edit node", style: "-fx-font-size: 18px;",
+                    row: 0, columnSpan: 2, halignment: "center")
 
             label("Name", hgrow: "never", row: 1, column: 0)
             textField(promptText: "Your name", row: 1, column: 1)
@@ -37,7 +39,9 @@ GroovyFX.start {
             label("Message", row: 3, column: 0, valignment: "baseline")
             textArea(prefRowCount: 8, row: 3, column: 1, vgrow: 'always')
 
-            button("Send Message", row: 4, column: 1, halignment: "right")
+            button("Send Message", row: 4, column: 1, halignment: "right") {
+                
+            }
         }
     }
 
