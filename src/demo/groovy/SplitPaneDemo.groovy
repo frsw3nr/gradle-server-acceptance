@@ -22,8 +22,8 @@ import javafx.collections.FXCollections
 import static groovyx.javafx.GroovyFX.start
 
 def layoutFrame(SceneGraphBuilder sgb) {
-    sgb.anchorPane(width: 800, height: 400) {
-        splitPane(orientation: HORIZONTAL, anchor: [5, 5, 5, 5]) {
+    sgb.anchorPane {
+        splitPane(orientation: HORIZONTAL, anchor: [0, 0, 0, 0]) {
             // dividerPosition(index: 0, position: 0.25)
             // dividerPosition(index: 1, position: 0.50)
             // dividerPosition(index: 2, position: 1.0)

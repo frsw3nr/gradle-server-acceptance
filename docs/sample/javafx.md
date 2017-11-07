@@ -146,6 +146,56 @@ def layoutFrame(SceneGraphBuilder sgb) {
 
 gradle SplitPane
 
+    stage(title: "GroovyfX, SplitPane Demo", width: 800, height: 400, visible: true) {
+        scene(fill: GROOVYBLUE) {
+            def left_pane = delegate
+            layoutFrame(left_pane)
+        }
+    }
+
+AnchorPane から GridPane のキャストができない
+org.codehaus.groovy.runtime.typehandling.GroovyCastException: 
+Cannot cast object 'AnchorPane@3b390684[styleClass=root]' 
+Cannot cast object with class 'javafx.scene.layout.AnchorPane' to class 'javafx.scene.layout.GridPane'
+
+println '[methods]'
+obj.metaClass.methods.each { method ->
+    println method
+}
+
+    stage title: "GroovyFX Logo", x: 10, y: 10, visible: true, {
+        scene(fill: GROOVYBLUE, width: 300, height: 300) {
+            stackPane {
+                rectangle x: 0, y: 0, width: 120, height: 120, opacity: 0d
+                borderPane id: 'parent', {
+                    group id: 'logo', {
+                        transitions = parallelTransition()
+                        star delegate, 12, [LIGHTGREEN, GREEN]*.brighter()
+                        star delegate, 6, [LIGHTBLUE, BLUE]*.brighter()
+                        star delegate, 0, [YELLOW, ORANGE]
+                        fxLabel delegate
+                        onMouseClicked { transitions.playFromStart() }
+                    }
+                }
+            }
+        }
+
+            borderPane(padding: 10) {
+                text = textArea(prefRowCount: 10, prefColumnCount: 80)
+                bottom(align: "center", margin: [10, 0]) {
+                    button("Print Text", onAction: { println text.text })
+                }
+            }
+
+    }
+
+中間まとめ
+
+builder.group() { } にすると、キャストエラーは減る。group()の引数が不明
+リサイズ時の自動調整が利かない。以下で強制的にサイズ指定してる
+	splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350)
+	もう一度 JavaFX チュートリアルの CSS の記事を再読した方が良いかも
+
 ボーダーボタン
 ---------------
 
