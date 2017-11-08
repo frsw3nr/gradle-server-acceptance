@@ -79,45 +79,52 @@ def mainFrame(SceneGraphBuilder builder) {
     // builder.group(scaleX: 0.25, scaleY: 0.25, translateX: 6, translateY: 4) {
     builder.group() {
         splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350) {
-        // splitPane(orientation: HORIZONTAL, anchor: [0, 0, 0, 0]) {
+        // splitPane(orientation: HORIZONTAL) {
             anchorPane {
                 button("ONE", leftAnchor: 10)
                 button("TWO", rightAnchor: 10, bottomAnchor: 10)
             }
-            anchorPane(padding:0) {
-                gridPane(anchor: [0, 0, 0, 0]) {
-                    def index = 0
-                    label id: 'header', row: index, column: 1,
-                            'Please Send Us Your ip'
+            anchorPane {
+                vbox(spacing: 10, padding: 10) {
+                    hbox(spacing: 10, padding: 10) {
+                        button("New")
+                        button("Edit")
+                        button("Copy")
+                    }
+                    gridPane {
+                        def index = 1
+                        label id: 'header', row: index, column: 1
+                                'Please Send Us Your ip'
 
-                    index += 1
-                    label 'NodeName', row: index, column: 0
-                    textField id: 'nodeName', row: index, column: 1
+                        index += 1
+                        label 'NodeName', row: index, column: 0
+                        textField id: 'nodeName', row: index, column: 1
 
-                    index += 1
-                    label 'AliasName', row: index, column: 0
-                    textField id: 'aliasName', row: index, column: 1
+                        index += 1
+                        label 'AliasName', row: index, column: 0
+                        textField id: 'aliasName', row: index, column: 1
 
-                    index += 1
-                    label 'IP', row: index, column: 0
-                    textField id: 'ip', row: index, column: 1
+                        index += 1
+                        label 'IP', row: index, column: 0
+                        textField id: 'ip', row: index, column: 1
 
-                    index += 1
-                    label 'SpecificPassword', row: index, column: 0
-                    passwordField id: 'specificPassword', row: index, column: 1
+                        index += 1
+                        label 'SpecificPassword', row: index, column: 0
+                        passwordField id: 'specificPassword', row: index, column: 1
 
-                    index += 1
-                    label 'Group', row: index, column: 0
-                    choiceBox id: 'group', row: index, column: 1,
-                            items: ["System01", "System02", "System03"]
+                        index += 1
+                        label 'Group', row: index, column: 0
+                        choiceBox id: 'group', row: index, column: 1,
+                                items: ["System01", "System02", "System03"]
 
-                    index += 1
-                    label 'Platform', row: index, column: 0
-                    hyperlink 'Linux', id: 'platform', row: index, column: 1,
-                              onAction: { println "Link 'Linux'" }
+                        index += 1
+                        label 'Platform', row: index, column: 0
+                        hyperlink 'Linux', id: 'platform', row: index, column: 1,
+                                  onAction: { println "Link 'Linux'" }
 
-                    index += 1
-                    button id: 'submit', row: index, column: 1, halignment: RIGHT, "Save"
+                        index += 1
+                        button id: 'submit', row: index, column: 1, halignment: RIGHT, "Save"
+                    }
                 }
             }
         }
