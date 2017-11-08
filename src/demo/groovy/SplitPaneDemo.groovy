@@ -21,8 +21,8 @@ import javafx.collections.FXCollections
 
 import static groovyx.javafx.GroovyFX.start
 
-def layoutFrame(SceneGraphBuilder sgb) {
-    sgb.anchorPane {
+def layoutFrame(SceneGraphBuilder builder) {
+    builder.anchorPane {
         splitPane(orientation: HORIZONTAL, anchor: [0, 0, 0, 0]) {
             // dividerPosition(index: 0, position: 0.25)
             // dividerPosition(index: 1, position: 0.50)
@@ -33,6 +33,24 @@ def layoutFrame(SceneGraphBuilder sgb) {
             }
             anchorPane {
                 label("Label 1") // left or top
+                gridPane(prefHeight : 400.0, prefWidth : 600.0, anchor: [0, 0, 0, 0]) {
+                    def index = 0
+
+                    label 'NodeName', row: index
+                    textField id: 'nodeName', row: index, column: 1
+
+                    index += 1
+                    label 'AliasName', row: index
+                    textField id: 'aliasName', row: index, column: 1
+
+                    index += 1
+                    label 'IP', row: index
+                    textField id: 'ip', row: index, column: 1
+
+                    index += 1
+                    label 'SpecificPassword', row: index, column: 0
+                    passwordField id: 'specificPassword', row: index, column: 1
+                }
             }
         }
     }

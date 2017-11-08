@@ -33,13 +33,19 @@ import static groovyx.javafx.GroovyFX.start
 import static javafx.geometry.HPos.RIGHT
 import static javafx.geometry.VPos.BASELINE
 
-class NodeTest {
-    @FXBindable String nodeName, aliasName, ip, group, specificPassword
+class Node {
+    @FXBindable String nodeName, aliasName, ip, platforms, group, specificPassword
 
     String toString() {
         "name: $nodeName, alias: $aliasName,  group: $group, ip:$ip, pass:$specificPassword"
     }
 }
+
+def nodes = [
+    new Node(nodeName: "ostrich", ip: '192.168.10.1', platforms: 'RedHat6',    group: 'System01'),
+    new Node(nodeName: "win2012", ip: '192.168.10.2', platforms: 'Windows',    group: 'System01'),
+    new Node(nodeName: "centos6", ip: '192.168.10.3', platforms: 'RedHat6,vCenter', group: 'System01')
+]
 
 @Canonical
 class GroupTest {
@@ -54,35 +60,53 @@ start { app ->
     stage(title: "GroovyfX, SplitPane Demo", width: 800, height: 400, visible: true) {
 
         scene(fill: GROOVYBLUE) {
-            borderPane(anchor:[0,0,0,0]) {
+            borderPane {
                 top {
                     menuBar {
                         menu("File")
                     }
                 }
-                center(align: "center") {
-                    mainFrame delegate
+                center {
+                    mainFrame delegate, nodes
                 }
             }
         }
     }
     // DemoStyle.style builder
 
-    def model = new NodeTest()
+    def model = new Node()
     bindModelToViews model, builder
     attachHandlers model, builder
 
     primaryStage.show()
 }
 
-def mainFrame(SceneGraphBuilder builder) {
+def mainFrame(SceneGraphBuilder builder, nodes) {
     // builder.group(scaleX: 0.25, scaleY: 0.25, translateX: 6, translateY: 4) {
     builder.group() {
-        splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350) {
+        splitPane(orientation: HORIZONTAL) {
         // splitPane(orientation: HORIZONTAL) {
             anchorPane {
-                button("ONE", leftAnchor: 10)
-                button("TWO", rightAnchor: 10, bottomAnchor: 10)
+                tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: nodes) {
+                    tableColumn(editable: true, property: "nodeName", text: "Name", prefWidth: 150,
+                            onEditCommit: { event ->
+                                Node item = event.tableView.items.get(event.tablePosition.row)
+                                item.nodeName = event.newValue
+                            }
+                    )
+                    tableColumn(editable: true, property: "ip", text: "IP", prefWidth: 150,
+                            onEditCommit: { event ->
+                                Node item = event.tableView.items.get(event.tablePosition.row)
+                                item.ip = event.newValue;
+                            }
+                    )
+                    tableColumn(editable: true, property: "platforms", text: "platforms", prefWidth: 150,
+                            onEditCommit: { event ->
+                                Node item = event.tableView.items.get(event.tablePosition.row)
+                                item.platforms = event.newValue;
+                            }
+                    )
+                }
             }
             anchorPane {
                 vbox(spacing: 10, padding: 10) {
@@ -91,12 +115,10 @@ def mainFrame(SceneGraphBuilder builder) {
                         button("Edit")
                         button("Copy")
                     }
+                    label id: 'header', 'Please Send Us Your ip'
                     gridPane {
-                        def index = 1
-                        label id: 'header', row: index, column: 1
-                                'Please Send Us Your ip'
+                        def index = 0
 
-                        index += 1
                         label 'NodeName', row: index, column: 0
                         textField id: 'nodeName', row: index, column: 1
 
@@ -132,7 +154,7 @@ def mainFrame(SceneGraphBuilder builder) {
 }
 
 
-void bindModelToViews(NodeTest node, SceneGraphBuilder sgb) {
+void bindModelToViews(Node node, SceneGraphBuilder sgb) {
     sgb.with {
         node.nodeNameProperty().bind         nodeName.textProperty()
         node.aliasNameProperty().bind        aliasName.textProperty()
@@ -142,6 +164,6 @@ void bindModelToViews(NodeTest node, SceneGraphBuilder sgb) {
     }
 }
 
-void attachHandlers(NodeTest node, SceneGraphBuilder sgb) {
+void attachHandlers(Node node, SceneGraphBuilder sgb) {
     sgb.submit.onAction = { println "update node: $node" } as EventHandler
 }
