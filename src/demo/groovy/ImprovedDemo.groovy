@@ -23,24 +23,50 @@
    @author Dierk Koenig
 */
 
+import groovy.transform.Canonical
 import groovyx.javafx.SceneGraphBuilder
 import groovyx.javafx.beans.FXBindable
 import javafx.event.EventHandler
+import javafx.collections.FXCollections
 
 import static groovyx.javafx.GroovyFX.start
 import static javafx.geometry.HPos.RIGHT
 import static javafx.geometry.VPos.BASELINE
 
 class NodeTest {
-    @FXBindable String node_name, alias_name, ip, group, specific_password
+    @FXBindable String nodeName, aliasName, ip, group, specificPassword
 
-    String toString() { "<$node_name> $alias_name : $group, $ip, $specific_password" }
+    String toString() {
+        "name: $nodeName, alias: $aliasName,  group: $group, ip:$ip, pass:$specificPassword"
+    }
+}
+
+@Canonical
+class GroupTest {
+    String id, group_name
+
+    @Override
+    String toString() { "$id" }
 }
 
 start { app ->
     SceneGraphBuilder builder = delegate
-    layoutFrame builder
-    DemoStyle.style builder
+    stage(title: "GroovyfX, SplitPane Demo", width: 800, height: 400, visible: true) {
+
+        scene(fill: GROOVYBLUE) {
+            borderPane(anchor:[0,0,0,0]) {
+                top {
+                    menuBar {
+                        menu("File")
+                    }
+                }
+                center(align: "center") {
+                    mainFrame delegate
+                }
+            }
+        }
+    }
+    // DemoStyle.style builder
 
     def model = new NodeTest()
     bindModelToViews model, builder
@@ -49,46 +75,73 @@ start { app ->
     primaryStage.show()
 }
 
-def layoutFrame(SceneGraphBuilder sgb) {
-    sgb.stage {
-        scene {
-            gridPane {
-                label id: 'header', row: 0, column: 1,
-                        'Please Send Us Your ip'
+def mainFrame(SceneGraphBuilder builder) {
+    // builder.group(scaleX: 0.25, scaleY: 0.25, translateX: 6, translateY: 4) {
+    builder.group() {
+        splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350) {
+        // splitPane(orientation: HORIZONTAL) {
+            anchorPane {
+                button("ONE", leftAnchor: 10)
+                button("TWO", rightAnchor: 10, bottomAnchor: 10)
+            }
+            anchorPane {
+                vbox(spacing: 10, padding: 10) {
+                    hbox(spacing: 10, padding: 10) {
+                        button("New")
+                        button("Edit")
+                        button("Copy")
+                    }
+                    gridPane {
+                        def index = 1
+                        label id: 'header', row: index, column: 1
+                                'Please Send Us Your ip'
 
-                label 'NodeName', row: 1, column: 0
-                textField id: 'node_name', row: 1, column: 1
+                        index += 1
+                        label 'NodeName', row: index, column: 0
+                        textField id: 'nodeName', row: index, column: 1
 
-                label 'AliasName', row: 2, column: 0
-                textField id: 'alias_name', row: 2, column: 1
+                        index += 1
+                        label 'AliasName', row: index, column: 0
+                        textField id: 'aliasName', row: index, column: 1
 
-                label 'IP', row: 3, column: 0
-                textField id: 'ip', row: 3, column: 1
+                        index += 1
+                        label 'IP', row: index, column: 0
+                        textField id: 'ip', row: index, column: 1
 
-                label 'SpecificPassword', row: 4, column: 0
-                passwordField id: 'specific_password', row: 4, column: 1
+                        index += 1
+                        label 'SpecificPassword', row: index, column: 0
+                        passwordField id: 'specificPassword', row: index, column: 1
 
-                label 'Group', row: 5, column: 0
-                choiceBox id: 'group', row: 5, column: 1,
-                        items: ["one", "two", "three"]
+                        index += 1
+                        label 'Group', row: index, column: 0
+                        choiceBox id: 'group', row: index, column: 1,
+                                items: ["System01", "System02", "System03"]
 
-                button id: 'submit', row: 6, column: 1, halignment: RIGHT,
-                        "Send ip"
+                        index += 1
+                        label 'Platform', row: index, column: 0
+                        hyperlink 'Linux', id: 'platform', row: index, column: 1,
+                                  onAction: { println "Link 'Linux'" }
+
+                        index += 1
+                        button id: 'submit', row: index, column: 1, halignment: RIGHT, "Save"
+                    }
+                }
             }
         }
     }
 }
 
+
 void bindModelToViews(NodeTest node, SceneGraphBuilder sgb) {
     sgb.with {
-        node.node_nameProperty().bind node_name.textProperty()
-        node.alias_nameProperty().bind alias_name.textProperty()
-        node.ipProperty().bind ip.textProperty()
-        node.specific_passwordProperty().bind specific_password.textProperty()
-        node.groupProperty().bind group.getSelectionModel().selectedItemProperty()
+        node.nodeNameProperty().bind         nodeName.textProperty()
+        node.aliasNameProperty().bind        aliasName.textProperty()
+        node.ipProperty().bind               ip.textProperty()
+        node.specificPasswordProperty().bind specificPassword.textProperty()
+        node.groupProperty().bind            group.getSelectionModel().selectedItemProperty()
     }
 }
 
 void attachHandlers(NodeTest node, SceneGraphBuilder sgb) {
-    sgb.submit.onAction = { println "preparing and sending the mail: $node" } as EventHandler
+    sgb.submit.onAction = { println "update node: $node" } as EventHandler
 }
