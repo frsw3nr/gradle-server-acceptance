@@ -196,6 +196,103 @@ builder.group() { } にすると、キャストエラーは減る。group()の�
 	splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350)
 	もう一度 JavaFX チュートリアルの CSS の記事を再読した方が良いかも
 
+AddressApp調査
+==============
+
+モデル
+------
+
+Person
+    private final StringProperty firstName;
+    private final StringProperty lastName;
+    private final StringProperty street;
+    private final IntegerProperty postalCode;
+    private final StringProperty city;
+    private final ObjectProperty<LocalDate> birthday;
+
+    public Person(String firstName, String lastName)
+
+PersonListWrapper
+    private List<Person> persons;
+    public List<Person> getPersons()
+    public void setPersons(List<Person> persons)
+
+ビュー
+------
+
+BirthdayStatistics.fxml
+PersonEditDialog.fxml
+PersonOverview.fxml
+RootLayout.fxml
+DarkTheme.css
+
+BirthdayStatisticsController.java
+    private BarChart<String, Integer> barChart;
+    private ObservableList<String> monthNames = FXCollections.observableArrayList();
+    public void setPersonData(List<Person> persons)
+
+PersonEditDialogController.java
+Person編集画面
+    @FXML    private TextField firstNameField;
+    @FXML    private TextField lastNameField;
+    @FXML    private TextField streetField;
+    @FXML    private TextField postalCodeField;
+    @FXML    private TextField cityField;
+    @FXML    private TextField birthdayField;
+
+    public boolean isOkClicked() {
+    public void setPerson(Person person)
+        モデルセット
+    private void handleOk() {
+        モデル更新
+    private void handleCancel()
+        dialogStage.close();
+    private boolean isInputValid() {
+        バリデーション
+
+PersonOverviewController.java
+    @FXML    private TableView<Person> personTable;
+    @FXML    private TableColumn<Person, String> firstNameColumn;
+    @FXML    private TableColumn<Person, String> lastNameColumn;
+
+    @FXML    private Label firstNameLabel;
+    @FXML    private Label lastNameLabel;
+    @FXML    private Label streetLabel;
+    @FXML    private Label postalCodeLabel;
+    @FXML    private Label cityLabel;
+    @FXML    private Label birthdayLabel;
+
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been loaded.
+    private void initialize()
+     * Fills all text fields to show details about the person.
+     * If the specified person is null, all text fields are cleared.
+    private void showPersonDetails(Person person)
+     * Called when the user clicks on the delete button.
+    private void handleDeletePerson()    
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new person.
+    private void handleNewPerson()
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+    private void handleEditPerson()
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+    private void handleEditPerson()
+
+RootLayoutController.java
+
+@ThreadInterrupt
+
+Gaelyk
+
+
 ボーダーボタン
 ---------------
 
