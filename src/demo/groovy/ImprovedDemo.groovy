@@ -41,11 +41,11 @@ class Node {
     }
 }
 
-def nodes = [
+def nodes = FXCollections.observableList([
     new Node(nodeName: "ostrich", ip: '192.168.10.1', platforms: 'RedHat6',    group: 'System01'),
     new Node(nodeName: "win2012", ip: '192.168.10.2', platforms: 'Windows',    group: 'System01'),
     new Node(nodeName: "centos6", ip: '192.168.10.3', platforms: 'RedHat6,vCenter', group: 'System01')
-]
+])
 
 @Canonical
 class GroupTest {
@@ -87,34 +87,56 @@ def mainFrame(SceneGraphBuilder builder, nodes) {
         splitPane(orientation: HORIZONTAL) {
         // splitPane(orientation: HORIZONTAL) {
             anchorPane {
-                tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: nodes) {
-                    tableColumn(editable: true, property: "nodeName", text: "Name", prefWidth: 150,
-                            onEditCommit: { event ->
-                                Node item = event.tableView.items.get(event.tablePosition.row)
-                                item.nodeName = event.newValue
-                            }
-                    )
-                    tableColumn(editable: true, property: "ip", text: "IP", prefWidth: 150,
-                            onEditCommit: { event ->
-                                Node item = event.tableView.items.get(event.tablePosition.row)
-                                item.ip = event.newValue;
-                            }
-                    )
-                    tableColumn(editable: true, property: "platforms", text: "platforms", prefWidth: 150,
-                            onEditCommit: { event ->
-                                Node item = event.tableView.items.get(event.tablePosition.row)
-                                item.platforms = event.newValue;
-                            }
-                    )
-                }
-            }
-            anchorPane {
-                vbox(spacing: 10, padding: 10) {
-                    hbox(spacing: 10, padding: 10) {
-                        button("New")
+                vbox {
+                    hbox {
+                        button("New",
+                            onAction: {
+                                nodes << new Node(nodeName: "node${nodes.size()}")
+                            })
                         button("Edit")
                         button("Copy")
                     }
+                    tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: nodes,
+                                onMouseClicked: { event ->
+println 'プロパティ'
+ println event.target
+println 'メソッド:EventType'
+println event.getEventType()
+println 'メソッド:getPickResult'
+println event.getPickResult()
+println 'メソッド:getSource'
+println event.getSource()
+println 'メソッド:getTarget'
+println event.getTarget()
+ 
+                                      // Node item = event.tableView.items.get(event.tablePosition.row)
+                                    // println "OnAction: ${item}"
+                                }
+                        ) {
+                        tableColumn(editable: true, property: "nodeName", text: "Name", prefWidth: 150,
+                                onEditCommit: { event ->
+                                    Node item = event.tableView.items.get(event.tablePosition.row)
+                                    println "OnEditCommit: ${item}"
+                                    item.nodeName = event.newValue
+                                }
+                        )
+                        tableColumn(editable: true, property: "ip", text: "IP", prefWidth: 150,
+                                onEditCommit: { event ->
+                                    Node item = event.tableView.items.get(event.tablePosition.row)
+                                    item.ip = event.newValue;
+                                }
+                        )
+                        tableColumn(editable: true, property: "platforms", text: "platforms", prefWidth: 150,
+                                onEditCommit: { event ->
+                                    Node item = event.tableView.items.get(event.tablePosition.row)
+                                    item.platforms = event.newValue;
+                                }
+                        )
+                    }
+                }
+            }
+            anchorPane {
+                vbox {
                     label id: 'header', 'Please Send Us Your ip'
                     gridPane {
                         def index = 0

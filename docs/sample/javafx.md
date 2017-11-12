@@ -196,6 +196,7 @@ builder.group() { } にすると、キャストエラーは減る。group()の�
 	splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350)
 	もう一度 JavaFX チュートリアルの CSS の記事を再読した方が良いかも
 
+<<<<<<< HEAD
 AddressApp調査
 ==============
 
@@ -292,12 +293,232 @@ RootLayoutController.java
 
 Gaelyk
 
+=======
+tableView
+
+class Node {
+    @FXBindable String nodeName, aliasName, ip, group, specificPassword
+
+    String toString() {
+        "name: $nodeName, alias: $aliasName,  group: $group, ip:$ip, pass:$specificPassword"
+    }
+}
+
+def nodes = [
+    new Node(nodeName: "ostrich", ip: '192.168.10.1', group: 'System01'),
+    new Node(nodeName: "win2012", ip: '192.168.10.2', group: 'System01'),
+    new Node(nodeName: "centos6", ip: '192.168.10.3', group: 'System01')
+]
+
+:ImprovedDemogroovy.lang.MissingPropertyException: No such property: nodes for class: ImprovedDemo
+        at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.unwrap(ScriptBytecodeAdapter.java:53)
+        at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:52)
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:307)
+        at ImprovedDemo$_mainFrame_closure2$_closure11$_closure12.doCall(ImprovedDemo.groovy:90)
 
 ボーダーボタン
 ---------------
 
+テーブルのプロパティは以下の通り定義する
+
+def nodes = FXCollections.observableList([
+    new Node(nodeName: "ostrich", ip: '192.168.10.1', platforms: 'RedHat6',    group: 'System01'),
+    new Node(nodeName: "win2012", ip: '192.168.10.2', platforms: 'Windows',    group: 'System01'),
+    new Node(nodeName: "centos6", ip: '192.168.10.3', platforms: 'RedHat6,vCenter', group: 'System01')
+])
+
+アクション
+
+button("New", onAction: {nodes << new Node(nodeName: "node${nodes.size()}")})
+
+
 メニュー
 ---------------
+
+イベント通信
+------------
+
+セルを選択したら、入力フィールドのパラメータ設定
+
+tableView   javafx.scene.control.TableView(args, body)
+tableColumn javafx.scene.control.TableColumn(args)
+tableRow    javafx.scene.control.TableRow(args)
+
+[shortcutDown:false, stillSincePress:true, 
+target:Text
+[text="win2012b", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL_VERTICAL_CENTER, font=Font[name=System Regular, family=System, style=Regular, size=12.0], fontSmoothingType=LCD, fill=0xffffffff], middleButtonDown:false, popupTrigger:false, sceneX:92.0, clickCount:1, button:PRIMARY, controlDown:false, synthesized:false, metaDown:false, z:0.0, primaryButtonDown:false, screenX:337.0, shiftDown:false, dragDetect:true, class:class javafx.scene.input.MouseEvent, pickResult:PickResult [node = Text[text="win2012b", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL_VERTICAL_CENTER, font=Font[name=System Regular, family=System, style=Regular, size=12.0], fontSmoothingType=LCD, fill=0xffffffff], point = Point3D [x = 45.0, y = 1.0, z = 0.0], distance = 673.6351707661823, sceneY:117.0, consumed:false, altDown:false, y:66.0, source:TableView@15db5574[styleClass=table-view], secondaryButtonDown:false, eventType:MOUSE_CLICKED, x:49.0, screenY:594.0]
+メソッド
+[clone, consume, copyFor, copyForMouseDragEvent, equals, fireEvent, getButton, getClass, getClickCount, getEventType, getPickResult, getSceneX, getSceneY, getScreenX, getScreenY, getSource, getTarget, getX, getY, getZ, hashCode, isAltDown, isConsumed, isControlDown, isDragDetect, isMetaDown, isMiddleButtonDown, isPopupTrigger, isPrimaryButtonDown, isSecondaryButtonDown, isShiftDown, isShortcutDown, isStillSincePress, isSynthesized, notify, notifyAll, setDragDetect, toString, wait]
+
+PersonOverviewController.java
+
+@FXML
+private void initialize() {
+    // Initialize the person table with the two columns.
+    firstNameColumn.setCellValueFactory(
+            cellData -> cellData.getValue().firstNameProperty());
+    lastNameColumn.setCellValueFactory(
+            cellData -> cellData.getValue().lastNameProperty());
+
+    // Clear person details.
+    showPersonDetails(null);
+
+    // Listen for selection changes and show the person details when changed.
+    personTable.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> showPersonDetails(newValue));
+}
+
+TableFactory.groovy
+
+onMouseEntered { e -> e.source.parent.gridLinesVisible = true }
+
+getSelectionModel
+
+    boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map attributes) {
+        if(node instanceof TableView) {
+
+onSelectionChanged
+onSelect
+onAction
+
+[clone, consume, copyFor, copyForMouseDragEvent, equals, fireEvent, 
+getButton, getClass, getClickCount, getEventType, getPickResult, 
+getSceneX, getSceneY, getScreenX, getScreenY, getSource, getTarget, 
+getX, getY, getZ, hashCode, isAltDown, isConsumed, isControlDown, isDragDetect, isMetaDown, isMiddleButtonDown, isPopupTrigger, isPrimaryButtonDown, isSecondaryButtonDown, isShiftDown, isShortcutDown, isStillSincePress, isSynthesized, notify, notifyAll, setDragDetect, toString, wait]
+
+https://github.com/dmpe/JavaFX.git
+
+groovyfx
+
+ActionMenuDemo.groovy
+
+レイアウト
+menuItem(openAction) {rectangle(width: 16, height: 16, fill: RED)}
+アクション
+bean({ID}, プロパティ名： bind({ID}.selectedPrpperty()) で制御している
+center {
+    vbox(spacing: 20, padding: 10) {
+        checkBox("Enable 'Open' menu", id: 'cb')
+        actions {
+            bean(openAction, enabled: bind(cb.selectedProperty()))
+        }
+    }
+}
+
+AnalogClockDemo.groovy
+
+バインド。度数計算して、xxxAnglePropertyにバインドしている
+// bind the angle properties to the clock time
+hourAngleProperty.bind((hours() * 30.0) + (minutes() * 0.5))
+minuteAngleProperty.bind(minutes() * 6.0)
+secondAngleProperty.bind(seconds() * 6.0)
+
+BindDemo.groovy
+
+bindで色々くっつける。処理の追加は不要
+
+textField(id: "tf2", promptText: 'Change Me!')
+textField(text: bind(tf2.textProperty()))   // tf2 のフィールドの変更をバインド
+
+bindの書き方色々
+    label(text: bind(tf.textProperty()))  // これが一番しっくりくる
+    label(text: bind({tf.text}))
+    label(text: bind(tf.text()))
+
+FXBindable 宣言
+
+class QuickTest {
+    @FXBindable String qtText = "Quick Test"    // String形でバインドする
+    def onClick = {
+        qtText = "Quick Test ${++clickCount}"
+    }
+
+ChartDemo.groovy
+
+FXCollections.observableArrayList で配列宣言
+
+final pieData = FXCollections.observableArrayList([new PieChart.Data("Yours", 42), new PieChart.Data("Mine", 58)])
+
+バインド値はコントローラのdata型と合わせる必要がある
+
+stackPane(alignment: TOP_RIGHT) {
+    pieChart(data: pieData, animated: true)
+    button('Add Slice') {
+        onAction {
+            pieData.add(new PieChart.Data('Other', 25))
+        }
+    }
+}
+
+ChoiceBoxDemo.groovy
+
+choiceBoxコントローラのバインド。リスト形式でマップはない？
+
+ChooserDemo.groovy
+
+onAction でダイアログ開いて、
+button("Open file", onAction: {
+    selectedfile = fileChooser.showOpenDialog(primaryStage)
+    selectedProperty.set(selectedfile ? selectedfile.toString() : "")
+
+結果のバインド。id でラベル定義して、selectedProperty にバインドしている
+    label(id: 'selected')
+    selected.textProperty().bind(selectedProperty)
+
+CustomFieldDemo.groovy
+
+class RejectField extends TextField
+
+    Closure onReject
+
+バリデーションの仕方。クロージャの使い方が難しい。モジュール化しずらい？
+
+DerksCodeStyleDemo.groovy
+
+accordion、titledPane コンポーネントを使った例
+シンプルな指定でレイアウトしやすい。アクションやプロパティが不明。要再調査
+
+FXBindableDemo.groovy
+
+@FXBindable
+class FXPerson {
+    String firstName;
+    String lastName;
+    int age;
+    ObservableList likes = []; 
+    ObservableMap attributes = [:];
+    ObservableSet aSet = [] as Set;
+    
+}
+
+リストを登録する場合
+person.aSet = [0] as ObservableSet
+person.aSet << 1
+person.aSet << 2
+
+マップを登録する場合
+person.attributes = ['one':'two'] as ObservableMap
+person.attributes.put('foo', 'bar');
+
+FXMLDemo.groovy 
+動作しない。プロローグにはコンテンツを指定できません。
+
+GroovyFxPad
+-----------
+
+C:\usr\opt\Griffon\griffon-1.0.0\samples\GroovyFxPad>set java
+JAVAFX_HOME=c:\usr\opt\JavaFX\javaFXSDK2.1
+JAVA_HOME=C:\usr\opt\java\jdk1.7.0_04
+GroovyFxPadの実行
+
+[C:\usr\opt\Griffon\griffon-1.0.0\samples\GroovyFxPad]griffon run-app
+Welcome to Griffon 1.0.0 - http://griffon-framework.org/
+Licensed under Apache Standard License 2.0
+Griffon home is set to: C:\usr\opt\Griffon\griffon-1.0.0
+
+git clone -b version8 https://github.com/groovyfx-project/groovyfx.git
+
+ObservableList<E> observableList = FXCollections.observableList(list);
 
 ポップアップ
 ---------------

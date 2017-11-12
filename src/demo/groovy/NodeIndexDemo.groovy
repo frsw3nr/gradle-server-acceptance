@@ -41,8 +41,8 @@ def persons = [
 
 def dateFormat = new SimpleDateFormat("MMM dd, yyyy")
 
-def _node_list() {
-    stage(title: "GroovyFX Table Demo", width: 600, height: 400, visible: true) {
+start {
+    stage(title: "GroovyFX Table Demo", width: 500, height: 200, visible: true) {
         scene(fill: GROOVYBLUE) {
             tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: persons) {
                 tableColumn(editable: true, property: "name", text: "Name", prefWidth: 150,
@@ -78,10 +78,5 @@ def _node_list() {
             }
         }
     }
-}
-
-
-start {
-    _node_list()
 }
 
