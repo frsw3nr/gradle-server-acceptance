@@ -520,6 +520,32 @@ git clone -b version8 https://github.com/groovyfx-project/groovyfx.git
 
 ObservableList<E> observableList = FXCollections.observableList(list);
 
+SwingDemo.groovy
+
+:SwingDemoException in thread "main" java.lang.ExceptionInInitializerError
+        at javafx.scene.web.WebEngine.<clinit>(WebEngine.java:315)
+
+def sg = new SceneGraphBuilder();
+
+WebEngineの互換性エラー？
+
+TabPaneDemo.groovy
+
+ap.getChildren().remove(btn);
+No signature of method: javafx.scene.layout.VBox.group()
+
+Table2Demo.groovy
+
+people = FXCollections.observableList([])
+tableView(items: people, selectionMode: "single", cellSelectionEnabled: true, editable: true, row: 2, column: 0) {
+  tableColumn(editable: true, property: "name", text: "Name", prefWidth: 150,
+    onEditCommit: { event ->
+      Person item = event.tableView.items.get(event.tablePosition.row)
+      item.name = event.newValue
+    }
+  )
+
+
 ポップアップ
 ---------------
 
