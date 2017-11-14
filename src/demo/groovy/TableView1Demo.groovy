@@ -17,21 +17,20 @@ import groovy.transform.Canonical
 import groovyx.javafx.beans.FXBindable
 
 import java.text.SimpleDateFormat
-// import groovy.sql.Sql
-// import java.sql.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.CMDBModel.*
 
 import static groovyx.javafx.GroovyFX.start
 
-def datasource_config = [
-    username : "sa",
-    password : "sa",
-    url      : "jdbc:h2:mem:",
-    driver   : "org.h2.Driver",
-]
+enum Gender {
+    MALE, FEMALE
+}
 
-def db = new NodeTable(datasource_config)
+@Canonical
+class Person {
+    @FXBindable String name
+    @FXBindable int age
+    @FXBindable Gender gender
+    @FXBindable Date dob
+}
 
 def persons = [
         new Person(name: "Jim Clarke", age: 29, gender: Gender.MALE, dob: new Date() - 90),
@@ -44,7 +43,40 @@ def dateFormat = new SimpleDateFormat("MMM dd, yyyy")
 start {
     stage(title: "GroovyFX Table Demo", width: 500, height: 200, visible: true) {
         scene(fill: GROOVYBLUE) {
-            tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: persons) {
+            tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: persons,
+                onMouseClicked: {event ->
+                    println "TARGET:${event.pickResult}"
+def obj = event.source.getItems()
+println "GETITEM:${obj}"
+println "GETCOLUMS:${event.source.getColumns()}"
+println "${event.source}"
+def props = obj.properties
+def methods1 = obj.metaClass.methods.name.sort().unique()
+def methods2 = obj.class.methods.name.sort().unique()
+
+// event.sourceでプロパティ、メソッドを表示するとプロパティから row が取得できる
+// [anchor:TablePosition [ row: 1, column: javafx.scene.control.TableColumn@19286b89, tableView: TableView@ab9f1bd[styleClass=root table-view] ]]
+
+// event.source.getItems()とすると、バインドした persons が取得できる
+// GETITEM:[Person(Jim Clarke, 29, MALE, Wed Aug 16 06:17:06 JST 2017), Person(Dean Iverson, 30, MALE, Sat Sep 30 06:17:06 JST 2017), Person(Angelina Jolie, 36, FEMALE, Tue Nov 14 06:17:06 JST 2017)]
+
+println """
+properties:
+${props}
+metaClass methods:
+${methods1}
+class methods:
+${methods2}
+"""
+                }
+                    // onMouseClicked: {event ->
+                    //     println "Event: ${event}"
+                    //     def row = event.target.getParent().id
+                    //     println "Row: ${row}"
+                    //     def item = event.source.items.get(row)
+                    //     println "Item: ${item}"
+                    // }
+                ) {
                 tableColumn(editable: true, property: "name", text: "Name", prefWidth: 150,
                         onEditCommit: { event ->
                             Person item = event.tableView.items.get(event.tablePosition.row)

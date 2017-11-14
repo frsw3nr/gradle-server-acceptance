@@ -645,4 +645,3 @@ gradle GridPaneDemo で実行
 
 
 git clone https://github.com/swtestacademy/javafxexample
-
