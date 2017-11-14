@@ -93,6 +93,11 @@ start {
         return s1;
     }
     def drawCurveSegment = {gc, Point2D[] points, Point2D pos->
+def obj = gc
+println """
+ITEM PROP1: ${obj.properties}
+ITEM METH1: ${obj.metaClass.methods.name.sort().unique()}
+"""
         Point2D handler=checkIntersection(points[0], points[1], points[2], points[3])
         gc.stroke = strokeColor;
         gc.lineWidth = 1
@@ -105,29 +110,29 @@ start {
 
 
     def drawCanvas = { gc ->
-        // long start = System.currentTimeMillis();
-        // gc.clearRect(0, 0, canvas.width, canvas.height)
+        long start = System.currentTimeMillis();
+        gc.clearRect(0, 0, canvas.width, canvas.height)
 
-        // center = new Point2D(canvas.width/2.0, canvas.height/2.0);
-        // wDelta = (2*Math.PI)/numParticles;
-        // Point2D pos;
-        // Point2D[] pts = new Point2D[4];
-        // Point2D[] tmp = calculate(0);
-        // pts[0] = tmp[0];
-        // pts[1] = tmp[1];
+        center = new Point2D(canvas.width/2.0, canvas.height/2.0);
+        wDelta = (2*Math.PI)/numParticles;
+        Point2D pos;
+        Point2D[] pts = new Point2D[4];
+        Point2D[] tmp = calculate(0);
+        pts[0] = tmp[0];
+        pts[1] = tmp[1];
 
-        // for(int i=1; i<numParticles; i++){
-        //     tmp=calculate(i);
-        //     pos = pts[2] = tmp[0];
-        //     pts[3] = tmp[1];    
-        //     drawCurveSegment(gc, pts, pos);
-        //     pts[0] = pts[2];
-        //     pts[1] = pts[3];
-        // }
-        // long end = System.currentTimeMillis();
-        // long elpased = end-start;
-        // double time = Math.floor(10000.0/elpased)/10.0;
-        // fps = time+" fps";
+        for(int i=1; i<numParticles; i++){
+            tmp=calculate(i);
+            pos = pts[2] = tmp[0];
+            pts[3] = tmp[1];
+            drawCurveSegment(gc, pts, pos);
+            pts[0] = pts[2];
+            pts[1] = pts[3];
+        }
+        long end = System.currentTimeMillis();
+        long elpased = 1+end-start;
+        double time = Math.floor(10000.0/elpased)/10.0;
+        fps = time+" fps";
     }
 
     img_particle = image(DatatypeConverter.parseBase64Binary(imgData));
@@ -137,13 +142,14 @@ start {
             vbox(spacing: 10) {
                 canvas(id:"canvas", width: bind(scene.width()),
                     height: bind(scene.height() - 200 )) {
-                    // operation drawCanvas
-                    // onInvalidate("width") {
-                    //     canvas.userData.draw()
-                    // }
-                    // onInvalidate("height") {
-                    //     canvas.userData.draw()
-                    // }
+                    operation drawCanvas
+
+                    onInvalidate("width") {
+                        canvas.userData.draw()
+                    }
+                    onInvalidate("height") {
+                        canvas.userData.draw()
+                    }
                 }
                 gridPane(id:"sliderPane", hgap: 20, vgap: 10, padding: 5) {
                     columnConstraints(prefWidth: 150, halignment: "right")

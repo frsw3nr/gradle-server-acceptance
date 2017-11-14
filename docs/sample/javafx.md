@@ -627,6 +627,30 @@ primary:false とすれば複数画面表示できる
 
     stage(primary: false, x: 100, y: 400, visible: true)
 
+TableView1.groovy
+
+以下リファレンスでtablePositionを理解
+
+http://d.hatena.ne.jp/eerga/touch/searchdiary?word=%2A%5BJavaFX%5D
+
+properties:
+[anchor:TablePosition 
+    [ row: 1, 
+      column: javafx.scene.control.TableColumn@4a9a4436, 
+      tableView: TableView@5377cd66[
+        styleClass=root table-view
+      ]
+    ]
+]
+
+    public static String getSelection(TableView<?> table) {
+        StringBuilder clipboardString = new StringBuilder();
+        ObservableList<TablePosition> positionList = 
+            table.getSelectionModel().getSelectedCells();
+        int prevRow = -1;
+        for (TablePosition position : positionList) {
+
+
 
 ポップアップ
 ---------------

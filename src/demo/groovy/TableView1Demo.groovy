@@ -17,8 +17,8 @@ import groovy.transform.Canonical
 import groovyx.javafx.beans.FXBindable
 
 import java.text.SimpleDateFormat
-
 import static groovyx.javafx.GroovyFX.start
+import javafx.scene.control.TablePosition
 
 enum Gender {
     MALE, FEMALE
@@ -46,28 +46,20 @@ start {
             tableView(selectionMode: "single", cellSelectionEnabled: true, editable: true, items: persons,
                 onMouseClicked: {event ->
                     println "TARGET:${event.pickResult}"
-def obj = event.source.getItems()
-println "GETITEM:${obj}"
-println "GETCOLUMS:${event.source.getColumns()}"
-println "${event.source}"
-def props = obj.properties
-def methods1 = obj.metaClass.methods.name.sort().unique()
-def methods2 = obj.class.methods.name.sort().unique()
+// ObservableList<TablePosition> obj = event.source
 
-// event.sourceでプロパティ、メソッドを表示するとプロパティから row が取得できる
-// [anchor:TablePosition [ row: 1, column: javafx.scene.control.TableColumn@19286b89, tableView: TableView@ab9f1bd[styleClass=root table-view] ]]
-
-// event.source.getItems()とすると、バインドした persons が取得できる
-// GETITEM:[Person(Jim Clarke, 29, MALE, Wed Aug 16 06:17:06 JST 2017), Person(Dean Iverson, 30, MALE, Sat Sep 30 06:17:06 JST 2017), Person(Angelina Jolie, 36, FEMALE, Tue Nov 14 06:17:06 JST 2017)]
-
+def obj = event.source.getSelectionModel().getSelectedItem()
 println """
-properties:
-${props}
-metaClass methods:
-${methods1}
-class methods:
-${methods2}
+ITEM PROP1: ${obj.properties}
+ITEM METH1: ${obj.metaClass.methods.name.sort().unique()}
 """
+
+Person obj2 = event.source.getSelectionModel().getSelectedItem() as Person
+println """
+CELL PROP1: ${obj2.properties}
+CELL METH1: ${obj2.metaClass.methods.name.sort().unique()}
+"""
+
                 }
                     // onMouseClicked: {event ->
                     //     println "Event: ${event}"
