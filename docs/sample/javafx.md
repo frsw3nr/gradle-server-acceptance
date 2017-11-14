@@ -196,10 +196,9 @@ builder.group() { } にすると、キャストエラーは減る。group()の�
 	splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350)
 	もう一度 JavaFX チュートリアルの CSS の記事を再読した方が良いかも
 
-<<<<<<< HEAD
+
 Anchor Pane "Fit to Parent"
-=======
-<<<<<<< HEAD
+
 AddressApp調査
 ==============
 
@@ -318,14 +317,13 @@ def nodes = [
         at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:52)
         at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:307)
         at ImprovedDemo$_mainFrame_closure2$_closure11$_closure12.doCall(ImprovedDemo.groovy:90)
->>>>>>> ecd570f4bf733b9fab25f9a146304799e894f073
 
 ボーダーボタン
 ---------------
 
-<<<<<<< HEAD
 New Edit Copy 
 =======
+
 テーブルのプロパティは以下の通り定義する
 
 def nodes = FXCollections.observableList([
@@ -338,7 +336,6 @@ def nodes = FXCollections.observableList([
 
 button("New", onAction: {nodes << new Node(nodeName: "node${nodes.size()}")})
 
->>>>>>> ecd570f4bf733b9fab25f9a146304799e894f073
 
 メニュー
 ---------------
