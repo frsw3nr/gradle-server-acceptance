@@ -196,8 +196,12 @@ builder.group() { } にすると、キャストエラーは減る。group()の�
 	splitPane(orientation: HORIZONTAL, prefWidth:800, prefHeight:350)
 	もう一度 JavaFX チュートリアルの CSS の記事を再読した方が良いかも
 
+Anchor Pane "Fit to Parent"
+
 ボーダーボタン
 ---------------
+
+New Edit Copy 
 
 メニュー
 ---------------
