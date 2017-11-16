@@ -23,9 +23,14 @@
    @author Dierk Koenig
 */
 
+import javafx.scene.Scene
+import javafx.scene.layout.GridPane
+import javafx.stage.Stage
+import javafx.event.EventHandler
+import javafx.scene.control.Alert
+import javafx.scene.control.Alert.AlertType
 import groovyx.javafx.SceneGraphBuilder
 import groovyx.javafx.beans.FXBindable
-import javafx.event.EventHandler
 
 import static groovyx.javafx.GroovyFX.start
 import static javafx.geometry.HPos.RIGHT
@@ -33,7 +38,20 @@ import static javafx.geometry.VPos.BASELINE
 
 class Email3 {
     @FXBindable String node_name, alias_name, ip
+    String errorMessage
 
+    boolean isInputValid() {
+        boolean is_ok = true
+        if (!node_name || node_name.size() == 0) {
+            errorMessage = "No valid node_name\n"
+            is_ok = false
+        }
+        if (!ip || ip.size() == 0) {
+            errorMessage += "No valid ip\n"
+            is_ok = false
+        }
+        return is_ok
+    }
     String toString() { "<$node_name> $alias_name : $ip" }
 }
 
@@ -46,10 +64,25 @@ start { app ->
     bindModelToViews model, builder
     attachHandlers model, builder
 
+    Stage frame = builder.primaryStage
+    Scene scene = frame.scene
+    // scene.stylesheets << '/bootstrap3.css'
+    scene.getStylesheets().add(this.class.getResource("/bootstrap3.css").toExternalForm());
+
     primaryStage.show()
 }
 
 def layoutFrame(SceneGraphBuilder sgb) {
+    def popup
+
+    popup = sgb.popup(autoHide: true) {
+        stackPane() {
+            rectangle(width: 200, height: 200, fill: blue,
+                stroke: cyan, strokeWidth: 5, arcHeight: 20, arcWidth: 20)
+            button( text: "OK", onAction: {popup.hide()})
+        }
+    }
+
     sgb.stage {
         scene {
             gridPane {
@@ -67,9 +100,16 @@ def layoutFrame(SceneGraphBuilder sgb) {
 
                 button id: 'submit', row: 5, column: 1, halignment: RIGHT,
                         "Send ip"
+                button id: 'popup', row: 6, column: 1, halignment: RIGHT,
+                        "Popup",
+                        styleClass: "default",
+                        onMouseClicked: {
+                            popup.show(primaryStage, 150, 150)
+                        }
             }
         }
     }
+
 }
 
 
@@ -82,5 +122,16 @@ void bindModelToViews(Email3 email, SceneGraphBuilder sgb) {
 }
 
 void attachHandlers(Email3 email, SceneGraphBuilder sgb) {
-    sgb.submit.onAction = { println "preparing and sending the mail: $email" } as EventHandler
+    sgb.submit.onAction = {
+        if (email.isInputValid()) {
+            println "preparing and sending the mail: $email"
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(email.errorMessage);
+            alert.showAndWait();
+        }
+
+    } as EventHandler
 }

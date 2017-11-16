@@ -293,9 +293,6 @@ RootLayoutController.java
 
 @ThreadInterrupt
 
-Gaelyk
-
-=======
 tableView
 
 class Node {
@@ -650,10 +647,99 @@ properties:
         int prevRow = -1;
         for (TablePosition position : positionList) {
 
+バリデーション
+--------------
 
+* css
+Proto3.groovy
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+    private boolean isInputValid() {
+
+            // Show the error message.
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(errorMessage);
 
 ポップアップ
 ---------------
+
+ポップアップ
+
+    popup = sgb.popup(autoHide: true) {
+        stackPane() {
+            rectangle(width: 200, height: 200, fill: blue,
+                stroke: cyan, strokeWidth: 5, arcHeight: 20, arcWidth: 20)
+            button( text: "OK", onAction: {popup.hide()})
+        }
+    }
+
+イベントハンドリング
+
+    onMouseClicked: {
+        popup.show(primaryStage, 150, 150)
+    }
+
+CSS
+---
+
+bootstrapfx
+
+git clone https://github.com/aalmiray/bootstrapfx.git
+
+jbootx
+
+It's very easy to use because no java code is required! Simply add the bootstrap3.css file in your project
+
+scene.getStylesheets().add(Main.class.getResource("bootstrap3.css").toExternalForm());
+
+git clone https://github.com/dicolar/jbootx.git
+
+jbootx の bootstrap テーマを groovyfx の demo/resources にコピー
+
+minoru@rooms2 MINGW64 ~/work/JavaFX/tmp/jbootx/src/main/resources (master)
+$ cp * ~/work/groovyfx/src/demo/resources/
+
+$ ls
+bootstrap2.css           bootstrap3.css
+bootstrap2overview.fxml  bootstrap3overview.fxml
+
+FXMLDemo.groovy
+
+start {
+    stage(title: "GroovyFX FXML Demo", visible: true) {
+        scene(fill: GROOVYBLUE, width: 640, height: 800) {
+            vbox(padding: 10) {
+                stackPane {
+                    fxml resource("/bootstrap3overview.fxml"), {
+                        onMouseEntered { println "Entered"}
+
+styleClass
+this.class.getResource
+Thread.currentThread().getContextClassLoader().getResource(
+
+groo
+
+FXMLベースが望ましい。styleClass に bootstrap 部品を記述
+
+ラップアップ
+
+1.プロトタイピング
+
+FXML 部品調査 -> FXMLDemo.groovy
+FXML プロトタイプ TableViewとGridPane 画面
+FXML イベントハンドラ調査
+
+2.UMLモデル
+
+Redmine 連携モチーフ
+DB 連携モデル(タグ管理、
+クラス図作成
+JavaFX 部品洗い出し
 
 コンソールログ
 ---------------

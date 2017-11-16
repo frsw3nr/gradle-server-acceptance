@@ -27,7 +27,7 @@ class DemoStyle {
     static style(SceneGraphBuilder sgb) {
         Stage frame = sgb.primaryStage
         Scene scene = frame.scene
-        scene.stylesheets << 'demo.css'
+        scene.stylesheets << '/bootstrap3.css'
 //        def GROOVYBLUE = sgb.groovyblue
 //        scene.fill = sgb.radialGradient(stops: [
 //            GROOVYBLUE.brighter(),
