@@ -17,18 +17,14 @@ import static groovyx.javafx.GroovyFX.start
 
 start {
     stage(title: "GroovyFX FXML Demo", visible: true) {
-        scene(fill: GROOVYBLUE, width: 640, height: 800) {
-            vbox(padding: 10) {
-                stackPane {
-                    fxml resource("/bootstrap3overview.fxml"), {
+        scene(fill: GROOVYBLUE, width: 1000, height: 800) {
+            // vbox(padding: 10) {
+            //     stackPane {
+                    fxml resource("/RootLayout.fxml"), {
                         onMouseEntered { println "Entered"}
                     }
-                }
-            }
+            //     }
+            // }
         }
     }
 }
-
-
-
-
