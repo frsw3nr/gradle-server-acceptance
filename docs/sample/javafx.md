@@ -744,3 +744,72 @@ JavaFX 部品洗い出し
 コンソールログ
 ---------------
 
+
+JFoeniX調査
+===========
+
+リファレンス
+------------
+
+開発元
+
+http://www.jfoenix.com/index.html#start
+
+サンプル
+
+git clone https://github.com/toastkidjp/search_app_widget.git
+
+
+git clone https://github.com/jfoenixadmin/JFoenix.git
+
+
+Scene Builder
+-------------
+
+To import JFoenix components in scene builder do the follwing:
+
+click on "Import JAR/FXML file" in scene builder
+select JFoenix jar file
+choose the components to import into scene builder
+
+自動ダウンロード、JFXButtonなどの部品が追加される
+FXMLファイルコピーして、FXMLDemo.groovy 実行
+
+JFoenix-Components
+------------------
+
+エラー: メイン・クラスapplication.Mainが見つからなかったかロードできませんでした
+
+
+    sourceSets {
+        demo {
+            compileClasspath += sourceSets.main.output + configurations.compile
+            runtimeClasspath += sourceSets.main.output
+            java {
+                srcDir 'src/main/java/demos/components'
+            }
+            resources {
+                srcDir 'src/main/resources'
+            }
+        }
+    }
+
+    new File('demo/src/main/java/demos/components').eachFileMatch(~/.*Demo.java/) { file ->
+        def taskName = file.name - '.java'
+println "TASKNAME:${taskName}"
+        task "$taskName"(type: JavaExec) {
+            group = "Demo"
+            description = "Run the $taskName program"
+            main = taskName
+            classpath sourceSets.main.runtimeClasspath + sourceSets.demo.runtimeClasspath
+        }
+    }
+
+demo/src/main/java/demos/components/AnimationDemo.java
+
+gradle Animation
+
+:jfoenix:AnimationDemoエラー: メイン・クラスAnimationDemoが見つからなかったかロードできませんでした
+ FAILED
+注意:入力ファイルの操作のうち、未チェックまたは安全ではないものがあります。
+注意:詳細は、-Xlint:uncheckedオプションを指定して再コンパイルしてください。

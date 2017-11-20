@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.HTMLEditor?>
+<?import java.lang.*?>
+<!--
+<ScrollPane prefHeight="3000.0" prefViewportHeight="600.0" prefViewportWidth="800.0" prefWidth="1000.0"
+            style="-fx-background-color: white;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+-->
+<BorderPane>
+ <!--
+    <contextMenu>
+        <ContextMenu>
+            <items>
+                <MenuItem mnemonicParsing="false" text="Unspecified Action"/>
+                <CheckMenuItem mnemonicParsing="false" text="check mi"/>
+                <RadioMenuItem mnemonicParsing="false" text="radio mi"/>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <Menu mnemonicParsing="false" text="Unspecified Menu">
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                </Menu>
+            </items>
+        </ContextMenu>
+    </contextMenu>
+ -->
+    <VBox layoutX="250.0" layoutY="-38.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <HBox prefHeight="39.0" spacing="5.0">
+            <MenuBar>
+                <Menu mnemonicParsing="false" text="File">
+                    <MenuItem mnemonicParsing="false" text="Close"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <MenuItem mnemonicParsing="false" text="Delete"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <MenuItem mnemonicParsing="false" text="About"/>
+                </Menu>
+            </MenuBar>
+        </HBox>
+
+        <HBox prefHeight="39.0" spacing="5.0">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <MenuButton mnemonicParsing="false" styleClass="default" text="default">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                    <MenuItem mnemonicParsing="false" text="Action 2"/>
+                </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" styleClass="primary" text=".primary">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                    <MenuItem mnemonicParsing="false" text="Action 2"/>
+                </items>
+            </MenuButton>
+            <Button mnemonicParsing="false" styleClass="success" text="success"/>
+            <Button mnemonicParsing="false" style="-fx-background-insets: 0,0,-1,0;" styleClass="info"
+                    text=".info"/>
+        </HBox>
+
+    </VBox>
+
+<!-- </ScrollPane>
+ -->
+</BorderPane>
+<!--
+<BorderPane prefHeight="3000.0" prefViewportHeight="600.0" prefViewportWidth="800.0" prefWidth="1000.0"
+            style="-fx-background-color: white;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+     <contextMenu>
+        <ContextMenu>
+            <items>
+                <MenuItem mnemonicParsing="false" text="Unspecified Action"/>
+                <CheckMenuItem mnemonicParsing="false" text="check mi"/>
+                <RadioMenuItem mnemonicParsing="false" text="radio mi"/>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <Menu mnemonicParsing="false" text="Unspecified Menu">
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                </Menu>
+            </items>
+        </ContextMenu>
+    </contextMenu>
+    <VBox layoutX="250.0" layoutY="-38.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    </VBox>
+</BorderPane>
+ -->
+
+<!-- <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@Bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.RootLayoutController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Statistics">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Statistics" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
+ -->

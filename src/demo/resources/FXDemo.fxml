@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.HTMLEditor?>
+<?import java.lang.*?>
+<ScrollPane prefHeight="3000.0" prefViewportHeight="600.0" prefViewportWidth="800.0" prefWidth="1000.0"
+            style="-fx-background-color: white;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <contextMenu>
+        <ContextMenu>
+            <items>
+                <MenuItem mnemonicParsing="false" text="Unspecified Action"/>
+                <CheckMenuItem mnemonicParsing="false" text="check mi"/>
+                <RadioMenuItem mnemonicParsing="false" text="radio mi"/>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <Menu mnemonicParsing="false" text="Unspecified Menu">
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                </Menu>
+            </items>
+        </ContextMenu>
+    </contextMenu>
+    <VBox layoutX="250.0" layoutY="-38.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    </VBox>
+</ScrollPane>
