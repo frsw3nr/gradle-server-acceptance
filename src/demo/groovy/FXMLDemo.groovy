@@ -20,7 +20,7 @@ start {
         scene(fill: GROOVYBLUE, width: 640, height: 800) {
             vbox(padding: 10) {
                 stackPane {
-                    fxml resource("/bootstrap3overview.fxml"), {
+                    fxml resource("/test1.fxml"), {
                         onMouseEntered { println "Entered"}
                     }
                 }

@@ -93,11 +93,11 @@ start {
         return s1;
     }
     def drawCurveSegment = {gc, Point2D[] points, Point2D pos->
-def obj = gc
-println """
-ITEM PROP1: ${obj.properties}
-ITEM METH1: ${obj.metaClass.methods.name.sort().unique()}
-"""
+// def obj = gc
+// println """
+// ITEM PROP1: ${obj.properties}
+// ITEM METH1: ${obj.metaClass.methods.name.sort().unique()}
+// """
         Point2D handler=checkIntersection(points[0], points[1], points[2], points[3])
         gc.stroke = strokeColor;
         gc.lineWidth = 1
