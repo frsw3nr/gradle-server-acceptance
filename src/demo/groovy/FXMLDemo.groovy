@@ -20,11 +20,23 @@ start {
         scene(fill: GROOVYBLUE, width: 1000, height: 800) {
             // vbox(padding: 10) {
             //     stackPane {
-                    fxml resource("/RootLayout.fxml"), {
->                       onMouseEntered { println "Entered"}
+                    fxml resource("/TreeTableView.fxml"), {
+                        onMouseEntered { println "Entered"}
                     }
             //     }
             // }
         }
     }
+    ObservableList<Person> dummyData = [
+        new Person(name: "Jim Clarke", age: 29, gender: Gender.MALE, dob: new Date() - 90),
+        new Person(name: "Dean Iverson", age: 30, gender: Gender.MALE, dob: new Date() - 45),
+        new Person(name: "Angelina Jolie", age: 36, gender: Gender.FEMALE, dob: new Date())
+    ]
+    table_view = primaryStage.scene.lookup('#treeTableView')
+
+def obj = table_view
+println """
+ITEM PROP1: ${obj.properties}
+ITEM METH1: ${obj.metaClass.methods.name.sort().unique()}
+"""
 }
