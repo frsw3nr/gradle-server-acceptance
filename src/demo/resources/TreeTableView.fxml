@@ -20,13 +20,14 @@
             </HBox>
             <JFXTreeTableView fx:id="treeTableView">
                 <columns>
-                    <JFXTreeTableColumn fx:id="firstNameColumn"
-                                        minWidth="133" text="First Name" prefWidth="133"
+                    <JFXTreeTableColumn fx:id="name" minWidth="133" text="Name" prefWidth="133"
                                         resizable="false"></JFXTreeTableColumn>
-                    <JFXTreeTableColumn fx:id="lastNameColumn" text="Last Name"
-                                        minWidth="133" resizable="false"></JFXTreeTableColumn>
-                    <JFXTreeTableColumn fx:id="ageColumn" text="Age"
-                                        minWidth="133" resizable="false"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="age" minWidth="133" text="Age" prefWidth="133"
+                                        resizable="false"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="gender" minWidth="133" text="Gender" prefWidth="133"
+                                        resizable="false"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="dob" minWidth="133" text="Date of Birth" prefWidth="133"
+                                        resizable="false"></JFXTreeTableColumn>
                 </columns>
             </JFXTreeTableView>
 

@@ -1,0 +1,1088 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FindBugs Report</title>
+<style type="text/css">
+		.tablerow0 {
+			background: #EEEEEE;
+		}
+
+		.tablerow1 {
+			background: white;
+		}
+
+		.detailrow0 {
+			background: #EEEEEE;
+		}
+
+		.detailrow1 {
+			background: white;
+		}
+
+		.tableheader {
+			background: #b9b9fe;
+			font-size: larger;
+		}
+
+		.tablerow0:hover, .tablerow1:hover {
+			background: #aaffaa;
+		}
+
+		.priority-1 {
+		    color: red;
+		    font-weight: bold;
+		}
+		.priority-2 {
+		    color: orange;
+		    font-weight: bold;
+		}
+		.priority-3 {
+		    color: green;
+		    font-weight: bold;
+		}
+		.priority-4 {
+		    color: blue;
+		    font-weight: bold;
+		}
+		</style>
+<script type="text/javascript">
+			function toggleRow(elid) {
+				if (document.getElementById) {
+					element = document.getElementById(elid);
+					if (element) {
+						if (element.style.display == 'none') {
+							element.style.display = 'block';
+							//window.status = 'Toggle on!';
+						} else {
+							element.style.display = 'none';
+							//window.status = 'Toggle off!';
+						}
+					}
+				}
+			}
+		</script>
+</head>
+<body>
+<h1>
+<a href="http://findbugs.sourceforge.net">FindBugs</a> Report</h1>
+<h2>Project Information</h2>
+<p>Project: 
+		</p>
+<p>FindBugs version: 3.0.1</p>
+<p>Code analyzed:</p>
+<ul>
+<li>C:\Users\minoru\work\JavaFX\JFoenix\demo\build\classes\java\main</li>
+</ul>
+<p>
+<br/>
+<br/>
+</p>
+<h2>Metrics</h2>
+<p>2147 lines of code analyzed,
+	in 57 classes, 
+	in 6 packages.</p>
+<table width="500" cellpadding="5" cellspacing="2">
+<tr class="tableheader">
+<th align="left">Metric</th>
+<th align="right">Total</th>
+<th align="right">Density*</th>
+</tr>
+<tr class="tablerow0">
+<td>High Priority Warnings</td>
+<td align="right">1</td>
+<td align="right">0.47</td>
+</tr>
+<tr class="tablerow1">
+<td>Medium Priority Warnings</td>
+<td align="right">25</td>
+<td align="right">11.64</td>
+</tr>
+<tr class="tablerow1">
+<td>Low Priority Warnings</td>
+<td align="right">20</td>
+<td align="right">9.32</td>
+</tr>
+<tr class="$totalClass">
+<td>
+<b>Total Warnings</b>
+</td>
+<td align="right">
+<b>46</b>
+</td>
+<td align="right">
+<b>21.43</b>
+</td>
+</tr>
+</table>
+<p>
+<i>(* Defects per Thousand lines of non-commenting source statements)</i>
+</p>
+<p>
+<br/>
+<br/>
+</p>
+<h2>Contents</h2>
+<ul>
+<li>
+<a href="#Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+</li>
+<li>
+<a href="#Warnings_CORRECTNESS">Correctness Warnings</a>
+</li>
+<li>
+<a href="#Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
+</li>
+<li>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+</li>
+<li>
+<a href="#Warnings_STYLE">Dodgy code Warnings</a>
+</li>
+<li>
+<a href="#Details">Details</a>
+</li>
+</ul>
+<h1>Summary</h1>
+<table width="500" cellpadding="5" cellspacing="2">
+<tr class="tableheader">
+<th align="left">Warning Type</th>
+<th align="right">Number</th>
+</tr>
+<tr class="tablerow0">
+<td>
+<a href="#Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+</td>
+<td align="right">2</td>
+</tr>
+<tr class="tablerow1">
+<td>
+<a href="#Warnings_CORRECTNESS">Correctness Warnings</a>
+</td>
+<td align="right">10</td>
+</tr>
+<tr class="tablerow0">
+<td>
+<a href="#Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
+</td>
+<td align="right">1</td>
+</tr>
+<tr class="tablerow1">
+<td>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+</td>
+<td align="right">11</td>
+</tr>
+<tr class="tablerow0">
+<td>
+<a href="#Warnings_STYLE">Dodgy code Warnings</a>
+</td>
+<td align="right">22</td>
+</tr>
+<tr class="tablerow1">
+<td>
+<b>Total</b>
+</td>
+<td align="right">
+<b>46</b>
+</td>
+</tr>
+</table>
+<h1>Warnings</h1>
+<p>Click on a warning row to see full context information.</p>
+<h2>
+<a name="Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67609');">
+<td>
+<span class="priority-2">DE</span>
+</td>
+<td>demos.gui.uicomponents.SVGLoaderController.viewGlyphDetail(SVGGlyph) は、java.lang.Exception を無視しているかもしれません。</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67609" style="display: none;">
+<a href="#DE_MIGHT_IGNORE">Bug type DE_MIGHT_IGNORE (click for details)</a>
+<br/>クラス demos.gui.uicomponents.SVGLoaderController<br/>メソッド demos.gui.uicomponents.SVGLoaderController.viewGlyphDetail(SVGGlyph)<br/>例外クラス java.lang.Exception<br/>該当箇所 SVGLoaderController.java:[line 172]<br/>該当箇所 SVGLoaderController.java:[line 172]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65657');">
+<td>
+<span class="priority-2">DE</span>
+</td>
+<td>demos.MainDemo.start(Stage) は、java.lang.Exception を無視しているかもしれません。</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65657" style="display: none;">
+<a href="#DE_MIGHT_IGNORE">Bug type DE_MIGHT_IGNORE (click for details)</a>
+<br/>クラス demos.MainDemo<br/>メソッド demos.MainDemo.start(Stage)<br/>例外クラス java.lang.Exception<br/>該当箇所 MainDemo.java:[line 54]<br/>該当箇所 MainDemo.java:[line 54]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_CORRECTNESS">Correctness Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65841');">
+<td>
+<span class="priority-2">FCBL</span>
+</td>
+<td>Class demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation defines fields that are used only as locals</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65841" style="display: none;">
+<a href="#FCBL_FIELD_COULD_BE_LOCAL">Bug type FCBL_FIELD_COULD_BE_LOCAL (click for details)</a>
+<br/>クラス demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation<br/>フィールド demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation.newX<br/>該当箇所 AnimationDemo.java:[line 132]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65892');">
+<td>
+<span class="priority-2">FCBL</span>
+</td>
+<td>Class demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation defines fields that are used only as locals</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65892" style="display: none;">
+<a href="#FCBL_FIELD_COULD_BE_LOCAL">Bug type FCBL_FIELD_COULD_BE_LOCAL (click for details)</a>
+<br/>クラス demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation<br/>フィールド demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation.newY<br/>該当箇所 AnimationDemo.java:[line 133]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66523');">
+<td>
+<span class="priority-2">FCBL</span>
+</td>
+<td>Class demos.components.TreeViewDemo$FilterableTreeItem defines fields that are used only as locals</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66523" style="display: none;">
+<a href="#FCBL_FIELD_COULD_BE_LOCAL">Bug type FCBL_FIELD_COULD_BE_LOCAL (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo$FilterableTreeItem<br/>フィールド demos.components.TreeViewDemo$FilterableTreeItem.filteredList<br/>該当箇所 TreeViewDemo.java:[line 123]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67117');">
+<td>
+<span class="priority-2">FCBL</span>
+</td>
+<td>Class demos.gui.uicomponents.ListViewController defines fields that are used only as locals</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67117" style="display: none;">
+<a href="#FCBL_FIELD_COULD_BE_LOCAL">Bug type FCBL_FIELD_COULD_BE_LOCAL (click for details)</a>
+<br/>クラス demos.gui.uicomponents.ListViewController<br/>フィールド demos.gui.uicomponents.ListViewController.subList<br/>該当場所 ListViewController.java</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67256');">
+<td>
+<span class="priority-2">FCBL</span>
+</td>
+<td>Class demos.gui.uicomponents.PopupController defines fields that are used only as locals</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67256" style="display: none;">
+<a href="#FCBL_FIELD_COULD_BE_LOCAL">Bug type FCBL_FIELD_COULD_BE_LOCAL (click for details)</a>
+<br/>クラス demos.gui.uicomponents.PopupController<br/>フィールド demos.gui.uicomponents.PopupController.burger5<br/>該当場所 PopupController.java</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67303');">
+<td>
+<span class="priority-2">FCBL</span>
+</td>
+<td>Class demos.gui.uicomponents.PopupController defines fields that are used only as locals</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67303" style="display: none;">
+<a href="#FCBL_FIELD_COULD_BE_LOCAL">Bug type FCBL_FIELD_COULD_BE_LOCAL (click for details)</a>
+<br/>クラス demos.gui.uicomponents.PopupController<br/>フィールド demos.gui.uicomponents.PopupController.root<br/>該当場所 PopupController.java</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67774');">
+<td>
+<span class="priority-2">ITU</span>
+</td>
+<td>Method demos.gui.uicomponents.SVGLoaderController.lambda$createIconButton$5(ObservableValue, Color, Color) performs algorithmic operations on the result of a toString() call</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67774" style="display: none;">
+<a href="#ITU_INAPPROPRIATE_TOSTRING_USE">Bug type ITU_INAPPROPRIATE_TOSTRING_USE (click for details)</a>
+<br/>クラス demos.gui.uicomponents.SVGLoaderController<br/>メソッド demos.gui.uicomponents.SVGLoaderController.lambda$createIconButton$5(ObservableValue, Color, Color)<br/>該当箇所 SVGLoaderController.java:[line 144]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67827');">
+<td>
+<span class="priority-2">ITU</span>
+</td>
+<td>Method demos.gui.uicomponents.SVGLoaderController.lambda$createIconButton$6(JFXButton, SVGGlyph, ActionEvent) performs algorithmic operations on the result of a toString() call</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67827" style="display: none;">
+<a href="#ITU_INAPPROPRIATE_TOSTRING_USE">Bug type ITU_INAPPROPRIATE_TOSTRING_USE (click for details)</a>
+<br/>クラス demos.gui.uicomponents.SVGLoaderController<br/>メソッド demos.gui.uicomponents.SVGLoaderController.lambda$createIconButton$6(JFXButton, SVGGlyph, ActionEvent)<br/>該当箇所 SVGLoaderController.java:[line 157]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66574');">
+<td>
+<span class="priority-2">PCOA</span>
+</td>
+<td>Constructor new demos.components.TreeViewDemo$FilterableTreeItem(TreeViewDemo, Object) makes call to non-final method</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66574" style="display: none;">
+<a href="#PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS">Bug type PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo$FilterableTreeItem<br/>メソッド new demos.components.TreeViewDemo$FilterableTreeItem(TreeViewDemo, Object)<br/>該当箇所 TreeViewDemo.java:[line 141]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66341');">
+<td>
+<span class="priority-2">SPP</span>
+</td>
+<td>Method demos.components.TreeViewDemo.lambda$null$0(TextField, String) calls toString() on a String</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66341" style="display: none;">
+<a href="#SPP_TOSTRING_ON_STRING">Bug type SPP_TOSTRING_ON_STRING (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo<br/>メソッド demos.components.TreeViewDemo.lambda$null$0(TextField, String)<br/>該当箇所 TreeViewDemo.java:[line 91]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66394');">
+<td>
+<span class="priority-3">DP</span>
+</td>
+<td>reflect.Field.setAccessible(boolean) の呼び出しは doPrivileged ブロックの中から呼び出すべきです。demos.components.TreeViewDemo$FilterableTreeItem.setHiddenFieldChildren(ObservableList)</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66394" style="display: none;">
+<a href="#DP_DO_INSIDE_DO_PRIVILEGED">Bug type DP_DO_INSIDE_DO_PRIVILEGED (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo$FilterableTreeItem<br/>メソッド demos.components.TreeViewDemo$FilterableTreeItem.setHiddenFieldChildren(ObservableList)<br/>呼び出されたメソッド reflect.Field.setAccessible(boolean)<br/>該当箇所 TreeViewDemo.java:[line 147]<br/>他の出現箇所 TreeViewDemo.java:[line 151]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_PERFORMANCE">Performance Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66013');">
+<td>
+<span class="priority-2">PRMC</span>
+</td>
+<td>Method demos.components.ProgressBarDemo.start(Stage) appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66013" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.components.ProgressBarDemo<br/>メソッド demos.components.ProgressBarDemo.start(Stage)<br/>該当箇所 ProgressBarDemo.java:[line 43]<br/>値 valueOf(I)Ljava/lang/Integer;</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66070');">
+<td>
+<span class="priority-2">PRMC</span>
+</td>
+<td>Method demos.components.ProgressBarDemo.start(Stage) appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66070" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.components.ProgressBarDemo<br/>メソッド demos.components.ProgressBarDemo.start(Stage)<br/>該当箇所 ProgressBarDemo.java:[line 51]<br/>値 valueOf(I)Ljava/lang/Integer;</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66127');">
+<td>
+<span class="priority-3">PRMC</span>
+</td>
+<td>Method demos.components.ProgressBarDemo.start(Stage) appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66127" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.components.ProgressBarDemo<br/>メソッド demos.components.ProgressBarDemo.start(Stage)<br/>該当箇所 ProgressBarDemo.java:[line 47]<br/>値 secondaryProgressProperty()Ljavafx/beans/property/DoubleProperty;</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67199');">
+<td>
+<span class="priority-2">PRMC</span>
+</td>
+<td>Method demos.gui.uicomponents.MasonryPaneController.init() appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67199" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.gui.uicomponents.MasonryPaneController<br/>メソッド demos.gui.uicomponents.MasonryPaneController.init()<br/>該当箇所 MasonryPaneController.java:[line 99]<br/>値 valueOf(I)Ljava/lang/Integer;</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67438');">
+<td>
+<span class="priority-2">PRMC</span>
+</td>
+<td>Method demos.gui.uicomponents.ProgressBarController.init() appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67438" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.gui.uicomponents.ProgressBarController<br/>メソッド demos.gui.uicomponents.ProgressBarController.init()<br/>該当箇所 ProgressBarController.java:[line 30]<br/>値 valueOf(I)Ljava/lang/Integer;</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67495');">
+<td>
+<span class="priority-2">PRMC</span>
+</td>
+<td>Method demos.gui.uicomponents.ProgressBarController.init() appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67495" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.gui.uicomponents.ProgressBarController<br/>メソッド demos.gui.uicomponents.ProgressBarController.init()<br/>該当箇所 ProgressBarController.java:[line 37]<br/>値 valueOf(I)Ljava/lang/Integer;</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67552');">
+<td>
+<span class="priority-3">PRMC</span>
+</td>
+<td>Method demos.gui.uicomponents.ProgressBarController.init() appears to call the same method on the same object redundantly</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67552" style="display: none;">
+<a href="#PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">Bug type PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS (click for details)</a>
+<br/>クラス demos.gui.uicomponents.ProgressBarController<br/>メソッド demos.gui.uicomponents.ProgressBarController.init()<br/>該当箇所 ProgressBarController.java:[line 34]<br/>値 secondaryProgressProperty()Ljavafx/beans/property/DoubleProperty;</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65943');">
+<td>
+<span class="priority-3">SIC</span>
+</td>
+<td>クラス demos.components.ComboBoxDemo$1 は、名前付き static 内部クラスにリファクタリングできるかもしれません。</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65943" style="display: none;">
+<a href="#SIC_INNER_SHOULD_BE_STATIC_ANON">Bug type SIC_INNER_SHOULD_BE_STATIC_ANON (click for details)</a>
+<br/>クラス demos.components.ComboBoxDemo$1<br/>該当箇所 ComboBoxDemo.java:[lines 23-31]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66627');">
+<td>
+<span class="priority-2">SIC</span>
+</td>
+<td>demos.components.TreeViewDemo$FilterableTreeItem は、static 内部クラスにすべきです。</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66627" style="display: none;">
+<a href="#SIC_INNER_SHOULD_BE_STATIC">Bug type SIC_INNER_SHOULD_BE_STATIC (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo$FilterableTreeItem<br/>該当箇所 TreeViewDemo.java:[lines 117-171]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67047');">
+<td>
+<span class="priority-3">SIC</span>
+</td>
+<td>クラス demos.gui.uicomponents.ComboBoxController$1 は、名前付き static 内部クラスにリファクタリングできるかもしれません。</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67047" style="display: none;">
+<a href="#SIC_INNER_SHOULD_BE_STATIC_ANON">Bug type SIC_INNER_SHOULD_BE_STATIC_ANON (click for details)</a>
+<br/>クラス demos.gui.uicomponents.ComboBoxController$1<br/>該当箇所 ComboBoxController.java:[lines 40-47]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66831');">
+<td>
+<span class="priority-3">UPM</span>
+</td>
+<td>demos.gui.main.MainController$InputController.submit() は、決して呼び出されません。</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66831" style="display: none;">
+<a href="#UPM_UNCALLED_PRIVATE_METHOD">Bug type UPM_UNCALLED_PRIVATE_METHOD (click for details)</a>
+<br/>クラス demos.gui.main.MainController$InputController<br/>メソッド demos.gui.main.MainController$InputController.submit()<br/>該当箇所 MainController.java:[lines 108-111]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_STYLE">Dodgy code Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66219');">
+<td>
+<span class="priority-3">BC</span>
+</td>
+<td>javafx.scene.control.TreeItem&lt;java.lang.String&gt; からの demos.components.TreeViewDemo$FilterableTreeItem 戻り値への未チェック/未確認のキャストです。demos.components.TreeViewDemo.start(Stage)</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66219" style="display: none;">
+<a href="#BC_UNCONFIRMED_CAST_OF_RETURN_VALUE">Bug type BC_UNCONFIRMED_CAST_OF_RETURN_VALUE (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo<br/>メソッド demos.components.TreeViewDemo.start(Stage)<br/>実際の型 javafx.scene.control.TreeItem&lt;java.lang.String&gt;<br/>期待された demos.components.TreeViewDemo$FilterableTreeItem<br/>depNode からロードされた値<br/>該当箇所 TreeViewDemo.java:[line 63]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66470');">
+<td>
+<span class="priority-1">EXS</span>
+</td>
+<td>Unconstrained method demos.components.TreeViewDemo$FilterableTreeItem.setHiddenFieldChildren(ObservableList) converts checked exception to unchecked</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66470" style="display: none;">
+<a href="#EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS">Bug type EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo$FilterableTreeItem<br/>メソッド demos.components.TreeViewDemo$FilterableTreeItem.setHiddenFieldChildren(ObservableList)<br/>該当箇所 TreeViewDemo.java:[line 154]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65978');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.components.ListViewDemo does not implement a toString method</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65978" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.components.ListViewDemo<br/>該当箇所 ListViewDemo.java:[lines 14-81]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66184');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.components.TabsDemo does not implement a toString method</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66184" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.components.TabsDemo<br/>該当箇所 TabsDemo.java:[lines 18-78]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66306');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.components.TreeViewDemo does not implement a toString method</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66306" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo<br/>該当箇所 TreeViewDemo.java:[lines 29-101]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66715');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.datafx.ExtendedAnimatedFlowContainer does not implement a toString method</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66715" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.datafx.ExtendedAnimatedFlowContainer<br/>該当箇所 ExtendedAnimatedFlowContainer.java:[lines 24-133]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66796');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.gui.main.MainController does not implement a toString method</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66796" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.gui.main.MainController<br/>該当箇所 MainController.java:[lines 26-99]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66884');">
+<td>
+<span class="priority-2">IMC</span>
+</td>
+<td>Method demos.gui.sidemenu.SideMenuController.lambda$null$0(Label, FlowHandler) prints the stack trace to the console</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66884" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_PRINTSTACKTRACE">Bug type IMC_IMMATURE_CLASS_PRINTSTACKTRACE (click for details)</a>
+<br/>クラス demos.gui.sidemenu.SideMenuController<br/>メソッド demos.gui.sidemenu.SideMenuController.lambda$null$0(Label, FlowHandler)<br/>該当箇所 SideMenuController.java:[line 98]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66937');">
+<td>
+<span class="priority-2">IMC</span>
+</td>
+<td>Method demos.gui.sidemenu.SideMenuController.lambda$null$0(Label, FlowHandler) prints the stack trace to the console</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66937" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_PRINTSTACKTRACE">Bug type IMC_IMMATURE_CLASS_PRINTSTACKTRACE (click for details)</a>
+<br/>クラス demos.gui.sidemenu.SideMenuController<br/>メソッド demos.gui.sidemenu.SideMenuController.lambda$null$0(Label, FlowHandler)<br/>該当箇所 SideMenuController.java:[line 100]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67082');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.gui.uicomponents.IconsController does not implement a toString method</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67082" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.gui.uicomponents.IconsController<br/>該当箇所 IconsController.java:[lines 16-89]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67164');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.gui.uicomponents.ListViewController does not implement a toString method</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67164" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.gui.uicomponents.ListViewController<br/>該当箇所 ListViewController.java:[lines 11-43]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67350');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.gui.uicomponents.PopupController does not implement a toString method</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67350" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.gui.uicomponents.PopupController<br/>該当箇所 PopupController.java:[lines 17-56]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67385');">
+<td>
+<span class="priority-2">IMC</span>
+</td>
+<td>Method demos.gui.uicomponents.PopupController.init() prints the stack trace to the console</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67385" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_PRINTSTACKTRACE">Bug type IMC_IMMATURE_CLASS_PRINTSTACKTRACE (click for details)</a>
+<br/>クラス demos.gui.uicomponents.PopupController<br/>メソッド demos.gui.uicomponents.PopupController.init()<br/>該当箇所 PopupController.java:[line 50]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67686');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.gui.uicomponents.SVGLoaderController does not implement a toString method</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67686" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.gui.uicomponents.SVGLoaderController<br/>該当箇所 SVGLoaderController.java:[lines 34-174]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N67721');">
+<td>
+<span class="priority-2">IMC</span>
+</td>
+<td>Method demos.gui.uicomponents.SVGLoaderController.lambda$init$0(Stage, ActionEvent) prints the stack trace to the console</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N67721" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_PRINTSTACKTRACE">Bug type IMC_IMMATURE_CLASS_PRINTSTACKTRACE (click for details)</a>
+<br/>クラス demos.gui.uicomponents.SVGLoaderController<br/>メソッド demos.gui.uicomponents.SVGLoaderController.lambda$init$0(Stage, ActionEvent)<br/>該当箇所 SVGLoaderController.java:[line 85]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67933');">
+<td>
+<span class="priority-3">IMC</span>
+</td>
+<td>Class demos.gui.uicomponents.TreeTableViewController does not implement a toString method</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67933" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_NO_TOSTRING">Bug type IMC_IMMATURE_CLASS_NO_TOSTRING (click for details)</a>
+<br/>クラス demos.gui.uicomponents.TreeTableViewController<br/>該当箇所 TreeTableViewController.java:[lines 29-190]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65734');">
+<td>
+<span class="priority-2">IMC</span>
+</td>
+<td>Method demos.MainDemo.lambda$start$0() prints the stack trace to the console</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65734" style="display: none;">
+<a href="#IMC_IMMATURE_CLASS_PRINTSTACKTRACE">Bug type IMC_IMMATURE_CLASS_PRINTSTACKTRACE (click for details)</a>
+<br/>クラス demos.MainDemo<br/>メソッド demos.MainDemo.lambda$start$0()<br/>該当箇所 MainDemo.java:[line 35]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65787');">
+<td>
+<span class="priority-3">REC</span>
+</td>
+<td>例外がスローされないのに例外をキャッチしています。demos.MainDemo.start(Stage)</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65787" style="display: none;">
+<a href="#REC_CATCH_EXCEPTION">Bug type REC_CATCH_EXCEPTION (click for details)</a>
+<br/>クラス demos.MainDemo<br/>メソッド demos.MainDemo.start(Stage)<br/>該当箇所 MainDemo.java:[line 54]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66750');">
+<td>
+<span class="priority-3">RI</span>
+</td>
+<td>クラス demos.datafx.ExtendedAnimatedFlowContainer は、スーパークラスと同じインタフェースを実装しています。</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66750" style="display: none;">
+<a href="#RI_REDUNDANT_INTERFACES">Bug type RI_REDUNDANT_INTERFACES (click for details)</a>
+<br/>クラス demos.datafx.ExtendedAnimatedFlowContainer<br/>インターフェース io.datafx.controller.flow.FlowContainer<br/>該当箇所 ExtendedAnimatedFlowContainer.java:[lines 24-133]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N67880');">
+<td>
+<span class="priority-2">SEC</span>
+</td>
+<td>Method new demos.gui.uicomponents.SVGLoaderController$GlyphDetailViewer() uses a Side Effect Constructor</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N67880" style="display: none;">
+<a href="#SEC_SIDE_EFFECT_CONSTRUCTOR">Bug type SEC_SIDE_EFFECT_CONSTRUCTOR (click for details)</a>
+<br/>クラス demos.gui.uicomponents.SVGLoaderController$GlyphDetailViewer<br/>メソッド new demos.gui.uicomponents.SVGLoaderController$GlyphDetailViewer()<br/>該当箇所 SVGLoaderController.java:[line 198]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N66990');">
+<td>
+<span class="priority-2">UP</span>
+</td>
+<td>Static or private method demos.gui.sidemenu.SideMenuController.bindNodeToController(Node, Class, Flow, FlowHandler) has unused parameters</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N66990" style="display: none;">
+<a href="#UP_UNUSED_PARAMETER">Bug type UP_UNUSED_PARAMETER (click for details)</a>
+<br/>クラス demos.gui.sidemenu.SideMenuController<br/>メソッド demos.gui.sidemenu.SideMenuController.bindNodeToController(Node, Class, Flow, FlowHandler)<br/>値 Parameter 4: flowHandler<br/>該当箇所 SideMenuController.java:[lines 128-129]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N66662');">
+<td>
+<span class="priority-3">WEM</span>
+</td>
+<td>Method demos.components.TreeViewDemo$FilterableTreeItem.setHiddenFieldChildren(ObservableList) throws exception with static message string</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N66662" style="display: none;">
+<a href="#WEM_WEAK_EXCEPTION_MESSAGING">Bug type WEM_WEAK_EXCEPTION_MESSAGING (click for details)</a>
+<br/>クラス demos.components.TreeViewDemo$FilterableTreeItem<br/>メソッド demos.components.TreeViewDemo$FilterableTreeItem.setHiddenFieldChildren(ObservableList)<br/>該当箇所 TreeViewDemo.java:[line 154]</p>
+</td>
+</tr>
+</table>
+<h1>
+<a name="Details">Details</a>
+</h1>
+<h2>
+<a name="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE">BC_UNCONFIRMED_CAST_OF_RETURN_VALUE: メソッドからの戻り値の未チェック/未確認のキャスト</a>
+</h2>
+
+<p>
+このコードは、メソッドの戻り値の未確認のキャストを実行しています。
+コードは、キャストが安全であることが保証されるようにメソッドを呼び出しているかもしれませんが、FindBugs はキャストが安全であることを検証できません。
+プログラムのロジックがこのキャストが失敗しないことを確実に確認してください。 
+</p>
+
+    
+<h2>
+<a name="DE_MIGHT_IGNORE">DE_MIGHT_IGNORE: 例外を無視しているかもしれないメソッド</a>
+</h2>
+
+<p>
+このメソッドは例外を無視しているかもしれません。
+一般的に例外は何らかの方法で処理、または報告するべきです、またはメソッドからスローするべきです。
+</p>
+
+    
+<h2>
+<a name="DP_DO_INSIDE_DO_PRIVILEGED">DP_DO_INSIDE_DO_PRIVILEGED: doPrivileged ブロック内で呼び出すべきメソッド</a>
+</h2>
+
+<p>
+このコードは、セキュリティ許可チェックが必要なメソッドを呼び出しています。
+このコードにセキュリティ許可が与えられるとしても、セキュリティ許可を持たないコードによって呼び出されるなら doPrivileged ブロックの中で呼び出す必要があります。
+</p>
+
+    
+<h2>
+<a name="EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS">EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS: Unconstrained method converts checked exception to unchecked</a>
+</h2>
+			
+			<p>This method is not constrained by an interface or superclass, but converts a caught checked exception
+			to unchecked exception and thrown. It would be more appropriate just to throw the checked exception, adding
+			the exception to the throws clause of the method.</p>
+			
+		
+<h2>
+<a name="FCBL_FIELD_COULD_BE_LOCAL">FCBL_FIELD_COULD_BE_LOCAL: Class defines fields that are used only as locals</a>
+</h2>
+			
+			<p>This class defines fields that are used in a locals only fashion,
+			specifically private fields or protected fields in final classes that are accessed
+			first in each method with a store vs. a load. This field could be replaced by one
+			or more local variables.</p>
+			
+		
+<h2>
+<a name="IMC_IMMATURE_CLASS_NO_TOSTRING">IMC_IMMATURE_CLASS_NO_TOSTRING: Class does not implement a toString method</a>
+</h2>
+    		
+    		<p>This class, which has instance fields, has no toString() method which will make debugging with this
+    		class more difficult than it could be. Consider adding a toString() method. Using libraries like commons-lang3 
+    		ToStringBuilder makes this process easy.
+    		</p>
+    		
+    	
+<h2>
+<a name="IMC_IMMATURE_CLASS_PRINTSTACKTRACE">IMC_IMMATURE_CLASS_PRINTSTACKTRACE: Method prints the stack trace to the console</a>
+</h2>
+    		
+    		<p>This method prints a stack trace to the console. This is non configurable, and causes an 
+    		application to look unprofessional. Switch to using loggers so that users can control what 
+    		is logged and where.</p>
+    		
+    	
+<h2>
+<a name="ITU_INAPPROPRIATE_TOSTRING_USE">ITU_INAPPROPRIATE_TOSTRING_USE: Method performs algorithmic operations on the result of a toString() call</a>
+</h2>
+			
+			<p>This method calls algorithmic operations on a String that was returned from a toString() method.
+			As these methods are for debugging/logging purposes, it shouldn't be the basis of core logic in your code.</p>
+			
+		
+<h2>
+<a name="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS">PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS: Constructor makes call to non-final method</a>
+</h2>
+			
+			<p>This constructor makes a call to a non-final method. Since this method can be overridden, a subclasses
+			implementation will be executing against an object that has not been initialized at the subclass level.
+			You should mark all methods called from the constructor as final to avoid this problem.</p>
+			
+		
+<h2>
+<a name="PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS">PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS: Method appears to call the same method on the same object redundantly</a>
+</h2>
+			
+			<p>This method makes two consecutive calls to the same method using the same constant
+			parameters, on the same instance without any intervening changes to the objects. If this
+			method does not make changes to the object, which it appears it doesn't, then making
+			two calls is just a waste. These method calls could be combined by assigning the
+			result into a temporary variable, and using the variable the second time.</p>
+			
+		
+<h2>
+<a name="REC_CATCH_EXCEPTION">REC_CATCH_EXCEPTION: 例外がスローされないのに例外をキャッチしている</a>
+</h2>
+
+<p>
+このメソッドは、例外オブジェクトをキャッチする try-catch ブロックを使用していますが、例外は try ブロックの中でスローされません。また、実行時例外は明示的にキャッチされません。
+それぞれの catch ブロックが同一である多くの例外型をキャッチすることの短縮形として <code>try { ... } catch (Exception e) { something }</code> を使用することが共通のバグパターンです。
+しかし、この構文は誤って実行時例外も同様にキャッチするので、潜在的なバグを隠します。
+</p>
+<p>
+より良いアプローチは、明示的にキャッチするよりもスローされる特定の例外をスローします。
+あるいは、以下に示すように明示的に RuntimeException をキャッチ、再スローして、非実行時例外をキャッチします。
+</p>
+<blockquote><pre>
+try {
+    ...
+} catch (RuntimeException e) {
+    throw e;
+} catch (Exception e) {
+    ... deal with all non-runtime exceptions ...
+}
+</pre></blockquote>
+
+    
+<h2>
+<a name="RI_REDUNDANT_INTERFACES">RI_REDUNDANT_INTERFACES: スーパークラスと同じインタフェースを実装しているクラス</a>
+</h2>
+
+<p>
+このクラスは、スーパークラスによっても実装されるインタフェースを実装することを宣言しています。
+スーパークラスがインタフェースを実装するので、これは冗長です。デフォルトですべてのサブクラスもこのインタフェースを実装します。
+このクラスが作成されてから継承階層が変わったことを指摘するかもしれません。インタフェースの実装の所有権を考慮するべきです。
+</p>
+    
+    
+<h2>
+<a name="SEC_SIDE_EFFECT_CONSTRUCTOR">SEC_SIDE_EFFECT_CONSTRUCTOR: Method uses a Side Effect Constructor</a>
+</h2>
+			
+			<p>This method creates an object but does not assign this object to any variable or field.
+			This implies that the class operates through side effects in the constructor, which is a
+			bad pattern to use, as it adds unnecessary coupling. Consider pulling the side effect out of
+			the constructor, into a separate method, or into the calling method.</p>
+			
+		
+<h2>
+<a name="SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC: static 内部クラスにすべき</a>
+</h2>
+
+<p>
+このクラスは内部クラスなのにそれを作成したオブジェクトへの埋め込まれた参照を使用していません。
+この参照はより大きなクラスのインスタンスを作成して、必要以上に作成オブジェクトへの参照を存続しておくことがあります。
+できれば、クラスは static にすべきです。
+</p>
+
+    
+<h2>
+<a name="SIC_INNER_SHOULD_BE_STATIC_ANON">SIC_INNER_SHOULD_BE_STATIC_ANON: 名前付き static 内部クラスにリファクタリングできるかもしれない</a>
+</h2>
+
+<p>
+このクラスは内部クラスなのにそれを作成したオブジェクトへの埋め込まれた参照を使用していません。
+この参照はより大きなクラスのインスタンスを作成して、必要以上に作成オブジェクトへの参照を存続しておくことがあります。
+できれば、クラスは static 内部クラスにすべきです。
+無名内部クラスは static にできないので、名前付き内部クラスにリファクタリングする必要があります。
+</p>
+
+    
+<h2>
+<a name="SPP_TOSTRING_ON_STRING">SPP_TOSTRING_ON_STRING: Method calls toString() on a String</a>
+</h2>
+	       
+	       <p>This method calls toString on a String. Just use the object itself if you want a String.</p>
+	       
+	   
+<h2>
+<a name="UP_UNUSED_PARAMETER">UP_UNUSED_PARAMETER: Static or private method has unused parameters</a>
+</h2>
+	       
+	       <p>This method defines parameters that are never used. As this method is either static or private,
+	       and can't be derived from, it is safe to remove these parameters and simplify your method.
+	       You should consider, while unlikely, that this method may be used reflectively, and thus you will
+	       want to change that call as well. In this case, it is likely that once you remove the parameter,
+	       there will be a chain of method calls that have spent time creating this parameter and passing it
+	       down the line. All of this may be able to be removed.</p>
+	       
+	   
+<h2>
+<a name="UPM_UNCALLED_PRIVATE_METHOD">UPM_UNCALLED_PRIVATE_METHOD: private メソッドは決して呼び出されない</a>
+</h2>
+
+<p>
+この private メソッドは、決して呼び出されません。
+メソッドがリフレクションによって呼び出されるかもしれないが、決して使われないなら除去するべきです。
+</p>
+
+    
+<h2>
+<a name="WEM_WEAK_EXCEPTION_MESSAGING">WEM_WEAK_EXCEPTION_MESSAGING: Method throws exception with static message string</a>
+</h2>
+			
+			<p>This method creates and throws an exception using a static string as the exceptions message.
+			Without any specific context of this particular exception invocation, such as the value of parameters,
+			key member variables, or local variables, it may be difficult to infer how this exception occurred. Consider
+			adding context to the exception message.</p>
+			
+		</body>
+</html>

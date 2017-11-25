@@ -13,6 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import com.jfoenix.controls.*
+import com.jfoenix.controls.cells.editors.IntegerTextFieldEditorBuilder
+import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder
+import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject
 import static groovyx.javafx.GroovyFX.start
 
 start {
@@ -33,6 +39,12 @@ start {
         new Person(name: "Angelina Jolie", age: 36, gender: Gender.FEMALE, dob: new Date())
     ]
     table_view = primaryStage.scene.lookup('#treeTableView')
+
+    final RecursiveTreeItem<Person> root = new RecursiveTreeItem<Person>(dummyData);
+
+    // table_view.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren))
+    // table_view.setRoot(dummyData)
+    // table_view.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
 
 def obj = table_view
 println """

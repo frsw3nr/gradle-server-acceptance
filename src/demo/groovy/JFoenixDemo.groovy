@@ -32,21 +32,24 @@ start {
     button1.getStyleClass().add("button-raised");
     // main.getChildren().add(button);
 
-    stage(title: "GroovyFX Chooser Demo", width: 400, height: 300, visible: true, resizable: true) {
-        scene(fill: GROOVYBLUE, root: group(), stylesheets: resource("/css/jfoenix-components.css")) {
-            vbox(spacing: 10, padding: 10) {
-                test1 = hbox(spacing: 10, padding: 10) {
-                    button("Open file", onAction: { selectedProperty.set("Open") })
-                    button("Save file", onAction: { selectedProperty.set("Save") })
-                }
-                label(id: 'selected')
-
+    stage(title: "GroovyFX Chooser Demo", width: 800, height: 500, visible: true, resizable: true) {
+        scene(root: group(), stylesheets: resource("/css/jfoenix-components.css")) {
+            fxml resource("/fxml/ui/Button.fxml"), {
+                onMouseEntered { println "Entered"}
             }
+            // vbox(spacing: 10, padding: 10) {
+            //     test1 = hbox(spacing: 10, padding: 10) {
+            //         button("Open file", onAction: { selectedProperty.set("Open") })
+            //         button("Save file", onAction: { selectedProperty.set("Save") })
+            //     }
+            //     label(id: 'selected')
+
+            // }
         }
     }
-    test1.getChildren().add(button1);
+    // test1.getChildren().add(button1);
 
         // scene.getStylesheets().add(ButtonDemo.class.getResource("/css/jfoenix-components.css").toExternalForm());
 
-    selected.textProperty().bind(selectedProperty)
+    // selected.textProperty().bind(selectedProperty)
 }

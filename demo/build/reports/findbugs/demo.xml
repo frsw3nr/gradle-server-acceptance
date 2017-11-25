@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.0.1" sequence="0" timestamp="1511564188693" analysisTimestamp="1511564188861" release="">
+  <Project projectName="">
+    <Jar>C:\Users\minoru\work\JavaFX\JFoenix\demo\build\classes\java\demo</Jar>
+    <AuxClasspathEntry>C:\Users\minoru\work\JavaFX\JFoenix\demo\build\classes\java\main</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\work\JavaFX\JFoenix\demo\build\resources\main</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\work\JavaFX\JFoenix\jfoenix\build\libs\jfoenix-0.0.0-SNAPSHOT.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\work\JavaFX\JFoenix\jfoenix\build\dalvik-sdk\rt\lib\ext\jfxrt.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\.gradle\caches\modules-2\files-2.1\io.datafx\datafx\8.0.1\87e0cf0311d1425b723e21f40ccc0ec34c8203c2\datafx-8.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\.gradle\caches\modules-2\files-2.1\io.datafx\flow\8.0.1\eb5efe930962872fd9f27c7c751b806ab3965bca\flow-8.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\.gradle\caches\modules-2\files-2.1\de.jensd\fontawesomefx-fontawesome\4.7.0-5\e3133c89faa95c10cd9a32486760426dc6b62a36\fontawesomefx-fontawesome-4.7.0-5.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\.gradle\caches\modules-2\files-2.1\io.datafx\core\8.0.1\d17f9a980d67ed56c01e98b663f2dd5538740f5d\core-8.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\minoru\.gradle\caches\modules-2\files-2.1\de.jensd\fontawesomefx-commons\8.15\b2c373e1706665588916e08ea513fcdb4c86148\fontawesomefx-commons-8.15.jar</AuxClasspathEntry>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\AnimationDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ButtonDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\CheckBoxDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ColorPickerDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ComboBoxDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\DatePickerDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\DrawerDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\HamburgerDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ListViewDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\NodesListDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\PopupDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ProgressBarDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\RadioButtonDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\RipplerDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ScrollPaneDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\SliderDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\SpinnerDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\TabsDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\TextAreaDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\TextFieldDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ToggleButtonDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\ToolBarDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\TreeTableDemo.java</SrcDir>
+    <SrcDir>C:\Users\minoru\work\JavaFX\JFoenix\demo\src\main\java\demos\components\TreeViewDemo.java</SrcDir>
+    <Plugin id="com.mebigfatguy.fbcontrib" enabled="true"/>
+  </Project>
+  <BugInstance type="FCBL_FIELD_COULD_BE_LOCAL" priority="2" rank="7" abbrev="FCBL" category="CORRECTNESS">
+    <Class classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation">
+      <SourceLine classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" start="126" end="178" sourcefile="AnimationDemo.java" sourcepath="demos/components/AnimationDemo.java"/>
+    </Class>
+    <Field classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" name="newX" signature="D" isStatic="false">
+      <SourceLine classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" sourcefile="AnimationDemo.java" sourcepath="demos/components/AnimationDemo.java"/>
+    </Field>
+    <SourceLine classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" start="132" end="132" startBytecode="40" endBytecode="40" sourcefile="AnimationDemo.java" sourcepath="demos/components/AnimationDemo.java"/>
+  </BugInstance>
+  <BugInstance type="FCBL_FIELD_COULD_BE_LOCAL" priority="2" rank="7" abbrev="FCBL" category="CORRECTNESS">
+    <Class classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation">
+      <SourceLine classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" start="126" end="178" sourcefile="AnimationDemo.java" sourcepath="demos/components/AnimationDemo.java"/>
+    </Class>
+    <Field classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" name="newY" signature="D" isStatic="false">
+      <SourceLine classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" sourcefile="AnimationDemo.java" sourcepath="demos/components/AnimationDemo.java"/>
+    </Field>
+    <SourceLine classname="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" start="133" end="133" startBytecode="45" endBytecode="45" sourcefile="AnimationDemo.java" sourcepath="demos/components/AnimationDemo.java"/>
+  </BugInstance>
+  <BugInstance type="SIC_INNER_SHOULD_BE_STATIC_ANON" priority="3" rank="20" abbrev="SIC" category="PERFORMANCE">
+    <Class classname="demos.components.ComboBoxDemo$1">
+      <SourceLine classname="demos.components.ComboBoxDemo$1" start="23" end="31" sourcefile="ComboBoxDemo.java" sourcepath="demos/components/ComboBoxDemo.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="IMC_IMMATURE_CLASS_NO_TOSTRING" priority="3" rank="20" abbrev="IMC" category="STYLE">
+    <Class classname="demos.components.ListViewDemo">
+      <SourceLine classname="demos.components.ListViewDemo" start="14" end="81" sourcefile="ListViewDemo.java" sourcepath="demos/components/ListViewDemo.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS" priority="2" rank="18" abbrev="PRMC" category="PERFORMANCE">
+    <Class classname="demos.components.ProgressBarDemo">
+      <SourceLine classname="demos.components.ProgressBarDemo" start="16" end="74" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    </Class>
+    <Method classname="demos.components.ProgressBarDemo" name="start" signature="(Ljavafx/stage/Stage;)V" isStatic="false">
+      <SourceLine classname="demos.components.ProgressBarDemo" start="21" end="70" startBytecode="0" endBytecode="736" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.ProgressBarDemo" start="43" end="43" startBytecode="154" endBytecode="154" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    <String value="valueOf(I)Ljava/lang/Integer;"/>
+  </BugInstance>
+  <BugInstance type="PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS" priority="2" rank="18" abbrev="PRMC" category="PERFORMANCE">
+    <Class classname="demos.components.ProgressBarDemo">
+      <SourceLine classname="demos.components.ProgressBarDemo" start="16" end="74" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    </Class>
+    <Method classname="demos.components.ProgressBarDemo" name="start" signature="(Ljavafx/stage/Stage;)V" isStatic="false">
+      <SourceLine classname="demos.components.ProgressBarDemo" start="21" end="70" startBytecode="0" endBytecode="736" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.ProgressBarDemo" start="51" end="51" startBytecode="267" endBytecode="267" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    <String value="valueOf(I)Ljava/lang/Integer;"/>
+  </BugInstance>
+  <BugInstance type="PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS" priority="3" rank="20" abbrev="PRMC" category="PERFORMANCE">
+    <Class classname="demos.components.ProgressBarDemo">
+      <SourceLine classname="demos.components.ProgressBarDemo" start="16" end="74" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    </Class>
+    <Method classname="demos.components.ProgressBarDemo" name="start" signature="(Ljavafx/stage/Stage;)V" isStatic="false">
+      <SourceLine classname="demos.components.ProgressBarDemo" start="21" end="70" startBytecode="0" endBytecode="736" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.ProgressBarDemo" start="47" end="47" startBytecode="206" endBytecode="206" sourcefile="ProgressBarDemo.java" sourcepath="demos/components/ProgressBarDemo.java"/>
+    <String value="secondaryProgressProperty()Ljavafx/beans/property/DoubleProperty;"/>
+  </BugInstance>
+  <BugInstance type="IMC_IMMATURE_CLASS_NO_TOSTRING" priority="3" rank="20" abbrev="IMC" category="STYLE">
+    <Class classname="demos.components.TabsDemo">
+      <SourceLine classname="demos.components.TabsDemo" start="18" end="78" sourcefile="TabsDemo.java" sourcepath="demos/components/TabsDemo.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE" priority="3" rank="20" abbrev="BC" category="STYLE">
+    <Class classname="demos.components.TreeViewDemo">
+      <SourceLine classname="demos.components.TreeViewDemo" start="29" end="101" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Method classname="demos.components.TreeViewDemo" name="start" signature="(Ljavafx/stage/Stage;)V" isStatic="false">
+      <SourceLine classname="demos.components.TreeViewDemo" start="56" end="101" startBytecode="0" endBytecode="147" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Method>
+    <Type descriptor="Ljavafx/scene/control/TreeItem;" role="TYPE_FOUND" typeParameters="&lt;java.lang.String&gt;">
+      <SourceLine classname="javafx.scene.control.TreeItem" start="203" end="957" sourcefile="TreeItem.java" sourcepath="javafx/scene/control/TreeItem.java"/>
+    </Type>
+    <Type descriptor="Ldemos/components/TreeViewDemo$FilterableTreeItem;" role="TYPE_EXPECTED">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Type>
+    <LocalVariable name="depNode" register="8" pc="123" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="demos.components.TreeViewDemo" start="63" end="63" startBytecode="125" endBytecode="125" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+  </BugInstance>
+  <BugInstance type="IMC_IMMATURE_CLASS_NO_TOSTRING" priority="3" rank="20" abbrev="IMC" category="STYLE">
+    <Class classname="demos.components.TreeViewDemo">
+      <SourceLine classname="demos.components.TreeViewDemo" start="29" end="101" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="SPP_TOSTRING_ON_STRING" priority="2" rank="7" abbrev="SPP" category="CORRECTNESS">
+    <Class classname="demos.components.TreeViewDemo">
+      <SourceLine classname="demos.components.TreeViewDemo" start="29" end="101" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Method classname="demos.components.TreeViewDemo" name="lambda$null$0" signature="(Ljavafx/scene/control/TextField;Ljava/lang/String;)Z" isStatic="true">
+      <SourceLine classname="demos.components.TreeViewDemo" start="91" end="91" startBytecode="0" endBytecode="63" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.TreeViewDemo" start="91" end="91" startBytecode="1" endBytecode="1" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+  </BugInstance>
+  <BugInstance type="DP_DO_INSIDE_DO_PRIVILEGED" priority="3" rank="20" abbrev="DP" category="MALICIOUS_CODE">
+    <Class classname="demos.components.TreeViewDemo$FilterableTreeItem">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Method classname="demos.components.TreeViewDemo$FilterableTreeItem" name="setHiddenFieldChildren" signature="(Ljavafx/collections/ObservableList;)V" isStatic="false">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="146" end="156" startBytecode="0" endBytecode="252" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Method>
+    <Method classname="java.lang.reflect.Field" name="setAccessible" signature="(Z)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.reflect.Field" sourcefile="Field.java" sourcepath="java/lang/reflect/Field.java"/>
+    </Method>
+    <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="147" end="147" startBytecode="10" endBytecode="10" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="151" end="151" startBytecode="29" endBytecode="29" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java" role="SOURCE_LINE_ANOTHER_INSTANCE"/>
+  </BugInstance>
+  <BugInstance type="EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS" priority="1" rank="15" abbrev="EXS" category="STYLE">
+    <Class classname="demos.components.TreeViewDemo$FilterableTreeItem">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Method classname="demos.components.TreeViewDemo$FilterableTreeItem" name="setHiddenFieldChildren" signature="(Ljavafx/collections/ObservableList;)V" isStatic="false">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="146" end="156" startBytecode="0" endBytecode="252" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="154" end="154" startBytecode="60" endBytecode="60" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+  </BugInstance>
+  <BugInstance type="FCBL_FIELD_COULD_BE_LOCAL" priority="2" rank="7" abbrev="FCBL" category="CORRECTNESS">
+    <Class classname="demos.components.TreeViewDemo$FilterableTreeItem">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Field classname="demos.components.TreeViewDemo$FilterableTreeItem" name="filteredList" signature="Ljavafx/collections/transformation/FilteredList;" isStatic="false">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Field>
+    <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="123" end="123" startBytecode="40" endBytecode="40" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+  </BugInstance>
+  <BugInstance type="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS" priority="2" rank="9" abbrev="PCOA" category="CORRECTNESS">
+    <Class classname="demos.components.TreeViewDemo$FilterableTreeItem">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Method classname="demos.components.TreeViewDemo$FilterableTreeItem" name="&lt;init&gt;" signature="(Ldemos/components/TreeViewDemo;Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="120" end="142" startBytecode="0" endBytecode="199" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="141" end="141" startBytecode="78" endBytecode="78" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+  </BugInstance>
+  <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" rank="18" abbrev="SIC" category="PERFORMANCE">
+    <Class classname="demos.components.TreeViewDemo$FilterableTreeItem">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="WEM_WEAK_EXCEPTION_MESSAGING" priority="3" rank="20" abbrev="WEM" category="STYLE">
+    <Class classname="demos.components.TreeViewDemo$FilterableTreeItem">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="117" end="171" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Class>
+    <Method classname="demos.components.TreeViewDemo$FilterableTreeItem" name="setHiddenFieldChildren" signature="(Ljavafx/collections/ObservableList;)V" isStatic="false">
+      <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="146" end="156" startBytecode="0" endBytecode="252" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+    </Method>
+    <SourceLine classname="demos.components.TreeViewDemo$FilterableTreeItem" start="154" end="154" startBytecode="60" endBytecode="60" sourcefile="TreeViewDemo.java" sourcepath="demos/components/TreeViewDemo.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Sat, 25 Nov 2017 07:56:28 +0900" total_classes="31" referenced_classes="228" total_bugs="17" total_size="1249" num_packages="1" java_version="1.8.0_144" vm_version="25.144-b01" cpu_seconds="52.55" clock_seconds="17.57" peak_mbytes="370.39" alloc_mbytes="1751.50" gc_seconds="0.40" priority_3="8" priority_2="8" priority_1="1">
+    <PackageStats package="demos.components" total_bugs="17" total_types="31" total_size="1249" priority_3="8" priority_2="8" priority_1="1">
+      <ClassStats class="demos.components.AnimationDemo" sourceFile="AnimationDemo.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="demos.components.AnimationDemo$FlowPaneStackPaneJFXNodesAnimation" sourceFile="AnimationDemo.java" interface="false" size="49" bugs="2" priority_2="2"/>
+      <ClassStats class="demos.components.ButtonDemo" sourceFile="ButtonDemo.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="demos.components.CheckBoxDemo" sourceFile="CheckBoxDemo.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="demos.components.ColorPickerDemo" sourceFile="ColorPickerDemo.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="demos.components.ComboBoxDemo" sourceFile="ComboBoxDemo.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="demos.components.ComboBoxDemo$1" sourceFile="ComboBoxDemo.java" interface="false" size="10" bugs="1" priority_3="1"/>
+      <ClassStats class="demos.components.DatePickerDemo" sourceFile="DatePickerDemo.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="demos.components.DrawerDemo" sourceFile="DrawerDemo.java" interface="false" size="76" bugs="0"/>
+      <ClassStats class="demos.components.HamburgerDemo" sourceFile="HamburgerDemo.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="demos.components.ListViewDemo" sourceFile="ListViewDemo.java" interface="false" size="57" bugs="1" priority_3="1"/>
+      <ClassStats class="demos.components.NodesListDemo" sourceFile="NodesListDemo.java" interface="false" size="99" bugs="0"/>
+      <ClassStats class="demos.components.PopupDemo" sourceFile="PopupDemo.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="demos.components.ProgressBarDemo" sourceFile="ProgressBarDemo.java" interface="false" size="43" bugs="3" priority_3="1" priority_2="2"/>
+      <ClassStats class="demos.components.RadioButtonDemo" sourceFile="RadioButtonDemo.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="demos.components.RipplerDemo" sourceFile="RipplerDemo.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="demos.components.ScrollPaneDemo" sourceFile="ScrollPaneDemo.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="demos.components.SliderDemo" sourceFile="SliderDemo.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="demos.components.SpinnerDemo" sourceFile="SpinnerDemo.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="demos.components.TabsDemo" sourceFile="TabsDemo.java" interface="false" size="50" bugs="1" priority_3="1"/>
+      <ClassStats class="demos.components.TextAreaDemo" sourceFile="TextAreaDemo.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="demos.components.TextFieldDemo" sourceFile="TextFieldDemo.java" interface="false" size="64" bugs="0"/>
+      <ClassStats class="demos.components.ToggleButtonDemo" sourceFile="ToggleButtonDemo.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="demos.components.ToolBarDemo" sourceFile="ToolBarDemo.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="demos.components.TreeTableDemo" sourceFile="TreeTableDemo.java" interface="false" size="107" bugs="0"/>
+      <ClassStats class="demos.components.TreeTableDemo$User" sourceFile="TreeTableDemo.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="demos.components.TreeViewDemo" sourceFile="TreeViewDemo.java" interface="false" size="48" bugs="3" priority_3="2" priority_2="1"/>
+      <ClassStats class="demos.components.TreeViewDemo$1" sourceFile="TreeViewDemo.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="demos.components.TreeViewDemo$Employee" sourceFile="TreeViewDemo.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="demos.components.TreeViewDemo$FilterableTreeItem" sourceFile="TreeViewDemo.java" interface="false" size="45" bugs="6" priority_3="2" priority_2="3" priority_1="1"/>
+      <ClassStats class="demos.components.TreeViewDemo$TreeItemPredicate" sourceFile="TreeViewDemo.java" interface="true" size="5" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="6001" invocations="1911" avgMicrosecondsPerInvocation="3140" maxMicrosecondsPerInvocation="38670" standardDeviationMircosecondsPerInvocation="2174"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="944" invocations="1890" avgMicrosecondsPerInvocation="499" maxMicrosecondsPerInvocation="34915" standardDeviationMircosecondsPerInvocation="1424"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="601" invocations="228" avgMicrosecondsPerInvocation="2640" maxMicrosecondsPerInvocation="40696" standardDeviationMircosecondsPerInvocation="5502"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="555" invocations="140" avgMicrosecondsPerInvocation="3970" maxMicrosecondsPerInvocation="303348" standardDeviationMircosecondsPerInvocation="25715"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="521" invocations="228" avgMicrosecondsPerInvocation="2285" maxMicrosecondsPerInvocation="60034" standardDeviationMircosecondsPerInvocation="5633"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="454" invocations="138" avgMicrosecondsPerInvocation="3292" maxMicrosecondsPerInvocation="94194" standardDeviationMircosecondsPerInvocation="10163"/>
+      <ClassProfile name="com.mebigfatguy.fbcontrib.collect.CollectStatistics" totalMilliseconds="410" invocations="228" avgMicrosecondsPerInvocation="1801" maxMicrosecondsPerInvocation="37570" standardDeviationMircosecondsPerInvocation="4500"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="374" invocations="140" avgMicrosecondsPerInvocation="2673" maxMicrosecondsPerInvocation="36691" standardDeviationMircosecondsPerInvocation="6274"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="272" invocations="140" avgMicrosecondsPerInvocation="1947" maxMicrosecondsPerInvocation="36126" standardDeviationMircosecondsPerInvocation="5077"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="257" invocations="531" avgMicrosecondsPerInvocation="485" maxMicrosecondsPerInvocation="13379" standardDeviationMircosecondsPerInvocation="988"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="230" invocations="133" avgMicrosecondsPerInvocation="1735" maxMicrosecondsPerInvocation="41090" standardDeviationMircosecondsPerInvocation="5217"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="220" invocations="141" avgMicrosecondsPerInvocation="1560" maxMicrosecondsPerInvocation="32021" standardDeviationMircosecondsPerInvocation="4074"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="205" invocations="141" avgMicrosecondsPerInvocation="1458" maxMicrosecondsPerInvocation="25044" standardDeviationMircosecondsPerInvocation="3537"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="201" invocations="1840" avgMicrosecondsPerInvocation="109" maxMicrosecondsPerInvocation="47010" standardDeviationMircosecondsPerInvocation="1119"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="165" invocations="573" avgMicrosecondsPerInvocation="289" maxMicrosecondsPerInvocation="27694" standardDeviationMircosecondsPerInvocation="1308"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="159" invocations="228" avgMicrosecondsPerInvocation="698" maxMicrosecondsPerInvocation="43475" standardDeviationMircosecondsPerInvocation="3681"/>
+      <ClassProfile name="com.mebigfatguy.fbcontrib.detect.SuspiciousJDKVersionUse" totalMilliseconds="132" invocations="31" avgMicrosecondsPerInvocation="4272" maxMicrosecondsPerInvocation="107477" standardDeviationMircosecondsPerInvocation="18936"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="130" invocations="228" avgMicrosecondsPerInvocation="570" maxMicrosecondsPerInvocation="13034" standardDeviationMircosecondsPerInvocation="1399"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="127" invocations="141" avgMicrosecondsPerInvocation="904" maxMicrosecondsPerInvocation="55074" standardDeviationMircosecondsPerInvocation="4912"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueRangeAnalysisFactory" totalMilliseconds="119" invocations="141" avgMicrosecondsPerInvocation="848" maxMicrosecondsPerInvocation="89738" standardDeviationMircosecondsPerInvocation="7614"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUselessObjects" totalMilliseconds="116" invocations="31" avgMicrosecondsPerInvocation="3766" maxMicrosecondsPerInvocation="57611" standardDeviationMircosecondsPerInvocation="10350"/>
+      <ClassProfile name="com.mebigfatguy.fbcontrib.collect.CollectMethodsReturningImmutableCollections" totalMilliseconds="108" invocations="228" avgMicrosecondsPerInvocation="476" maxMicrosecondsPerInvocation="15622" standardDeviationMircosecondsPerInvocation="1409"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="97" invocations="228" avgMicrosecondsPerInvocation="425" maxMicrosecondsPerInvocation="12548" standardDeviationMircosecondsPerInvocation="1206"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>
