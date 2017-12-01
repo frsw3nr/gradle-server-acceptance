@@ -46,7 +46,8 @@ Ruby インストール
 
 ::
 
-   sudo -E yum -y install gcc make openssl-devel libffi-devel readline-devel git ImageMagick-devel
+   sudo -E yum -y install gcc make openssl-devel libffi-devel readline-devel git
+   sudo -E yum -y install ImageMagick-devel
 
 公式gitからclone
 

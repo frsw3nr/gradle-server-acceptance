@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\demo-0.0.0-SNAPSHOT.jar;%APP_HOME%\lib\jfoenix-0.0.0-SNAPSHOT.jar;%APP_HOME%\lib\jfxrt.jar;%APP_HOME%\lib\datafx-8.0.1.jar;%APP_HOME%\lib\flow-8.0.1.jar;%APP_HOME%\lib\fontawesomefx-fontawesome-4.7.0-5.jar;%APP_HOME%\lib\core-8.0.1.jar;%APP_HOME%\lib\fontawesomefx-commons-8.15.jar
+set CLASSPATH=%APP_HOME%\lib\demo.jar;%APP_HOME%\lib\datafx-8.0.1.jar;%APP_HOME%\lib\flow-8.0.1.jar;%APP_HOME%\lib\mysql-connector-java-5.1.6.jar;%APP_HOME%\lib\h2-1.3.157.jar;%APP_HOME%\lib\jfoenix-1.10.0.jar;%APP_HOME%\lib\fontawesomefx-fontawesome-4.7.0-5.jar;%APP_HOME%\lib\core-8.0.1.jar;%APP_HOME%\lib\fontawesomefx-commons-8.15.jar
 
 @rem Execute demo
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %DEMO_OPTS%  -classpath "%CLASSPATH%" demos.MainDemo %CMD_LINE_ARGS%
