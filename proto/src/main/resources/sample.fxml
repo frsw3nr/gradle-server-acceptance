@@ -1,0 +1,8 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import sample.CustomForm?>
+
+<VBox fx:controller="sample.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center">
+    <Button onAction="#onButtonAction" text="Show Dialog" />
+    <CustomForm fx:id="customForm" visible="false" alignment="CENTER" />
+</VBox>
