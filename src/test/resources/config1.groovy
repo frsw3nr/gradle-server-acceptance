@@ -4,6 +4,7 @@ evidence.sheet_name_rule = 'Rule'
 evidence.sheet_name_spec = [
     'Linux':   'CheckSheet(Linux)',
     'Windows': 'CheckSheet(Windows)',
+    'VMHost': 'CheckSheet(VMHost)',
 ]
 evidence.target='./build/check_sheet.xlsx'
 evidence.staging_dir='./build/log'

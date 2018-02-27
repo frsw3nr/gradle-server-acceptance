@@ -1,0 +1,65 @@
+Tree table View 調査
+====================
+
+ToDo
+----
+
+リファレンス調査
+	カラムの自動開閉
+	カラムの階層化
+プロトタイピング
+	コード実装
+	
+リファレンス
+------------
+
+Oracle社
+https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/tree-table-view.htm
+
+軽LAB
+JavaFX UIコントロール３（テーブル、ツリーテーブル）
+http://krr.blog.shinobi.jp/javafx/javafx%20ui%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%AB%EF%BC%93%EF%BC%88%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%80%81%E3%83%84%E3%83%AA%E3%83%BC%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%EF%BC%89
+
+ユニコード空白文字 u00a0 置換が必要
+
+JavaFX TreeTableView Example
+https://examples.javacodegeeks.com/desktop-java/javafx/javafx-treetableview-example/
+
+チュートリアル
+--------------
+
+Creating a TreeTableView
+
+FxTreeTableViewExample 1,2,3 で確認
+
+Showing and Hiding Columns
+
+4で確認
+ageCategoryColumn.setVisible(false);で非表示にしている
+
+Selecting Cells and Rows in a TreeTableView
+
+5で確認。シフト+右クリック、CTRL+右クリック で複数カラムの選択
+
+TreeTableViewSelectionModel<Person> selection = treeTable.getSelectionModel();
+selection.setSelectionMode(SelectionMode.MULTIPLE);
+
+Editing Data in a TableView
+
+6で確認。
+treeTable.setEditable(true);
+イベントハンドラのサンプルはなし
+
+Adding and Deleting Rows in a TableView
+
+7で確認。
+Add / Remove row のイベントハンドラ
+
+ラップアップ
+------------
+
+FxTreeTableExample7 でカスタマイズしてみる
+
+* カラムの階層化
+* ボタン追加 Zabbix, vCenter, iLO, ...
+* カラムの非表示/表示

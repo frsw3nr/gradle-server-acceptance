@@ -615,7 +615,34 @@ class EvidenceSheet {
         def fos = new FileOutputStream(evidence_target)
         wb.write(fos)
         fos.close()
+        println(evidence_target)
     }
+
+    def addTestItemsToTargetSheet(String platform, String domain, test_items = [])
+        throws IOException {
+        log.info("Add test items : platform = ${platform}")
+
+        def inp = new FileInputStream(evidence_target)
+        def wb  = WorkbookFactory.create(inp)
+        def sheet_result = wb.getSheet(sheet_name_specs[platform])
+        def cell_style = createBorderedStyle(wb)
+        sheet_result.with { sheet ->
+            (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
+                Row row = sheet.getRow(rownum)
+                if (row == null)
+                    return true
+                // def row_style  = wb.createCellStyle().setWrapText(true)
+                // row.setRowStyle(row_style)
+
+                def cell_test_id = row.getCell(1).getStringCellValue()
+                def cell_domain  = row.getCell(3).getStringCellValue()
+                if (cell_test_id.size() == 0 && cell_domain.size() == 0)
+                    return true
+                println("${cell_test_id}, ${cell_domain}")
+            }
+        }
+    }
+
 
     def updateTestResult(String platform, String server_name, int sequence, Map results)
         throws IOException {

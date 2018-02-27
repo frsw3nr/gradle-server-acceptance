@@ -79,6 +79,27 @@ class EvidenceSheetTest extends Specification{
         evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
     }
 
+    def "複数検査結果書き込み"() {
+        when:
+        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
+        evidence.readSheet()
+        evidence.prepareTestStage()
+        def data = ['VMHost': ['ostrich': ['VMHost': [
+            // 'test': ['NumCpu':'2'],
+            'test': ['NumCpu':['A': '1', 'B': '2']],
+            'verify': ['NumCpu':true],
+        ]]]]
+        def test_items = [
+            ['test_id': 'A', 'domain': 'VMHost'],
+            ['test_id': 'B', 'domain': 'VMHost'],
+        ]
+        evidence.addTestItemsToTargetSheet('VMHost', 'VMHost', test_items)
+        evidence.updateTestResult('VMHost', 'ostrich', 0, data['VMHost']['ostrich'])
+
+        then:
+        evidence.evidence_source == './src/test/resources/check_sheet.xlsx'
+    }
+
     def "テンプレート書き込み"() {
         setup:
         def evidence_manager = new EvidenceManager(

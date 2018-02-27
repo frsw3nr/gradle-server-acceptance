@@ -1,0 +1,79 @@
+Getconfig サマリシートの項目追加
+=================================
+
+既存コード調査
+--------------
+
+既定のExcelファイル書き込み
+
+gradle --daemon clean test --tests "EvidenceSheetTest.既定のExcelファイル書き込み"
+gradle --daemon clean test --tests "EvidenceSheetTest.複数検査結果書き込み"
+
+テストコード内
+
+        def evidence = new EvidenceSheet('src/test/resources/config1.groovy')
+        evidence.readSheet()
+        evidence.prepareTestStage()
+
+        def data = ['Linux': ['ostrich': ['vCenter': [
+            'test': ['NumCpu':2, 'PowerState':'PoweredOn', 'MemoryGB':2],
+            'verify':['NumCpu':true, 'MemoryGB':false]
+        ]]]]
+        evidence.updateTestResult('Linux', 'ostrich', 0, data['Linux']['ostrich'])
+
+変更範囲調査
+
+メソッド
+
+private static CellStyle createBorderedStyle(Workbook wb)
+readSheetServer(Sheet sheet_server)					# 検査対象シートの読み込み
+setServerInfos(server_infos = [:])					# test_servers に検査対象サーバセット
+readServerConfigScript(String server_config_script)	# Groovyスクリプトから検査対象読み込み
+readServerConfigCSV(String server_config_csv)		# CSVから検査対象読み込み
+readSheetSpec(String platform, Sheet sheet_spec)	# テスト項目セット xxx_test_ids
+readSheetRule(Sheet sheet_rule)						# ルール定義シート読み込み
+readTestResult(Sheet sheet)							# CSVエクスポート用
+readAllTestResult()									# CSVエクスポート用(メイン)
+readSheet(HashMap options = [:])					# Excel読み込み(メイン)
+setTestResultCellStyle(XSSFCell cell, ResultCellStyle type)	# スタイルユーティリティ
+writeNodeFile(String platform, String server_name, def node_config)	# ??? .last_run更新
+
+サマリシート更新メソッド
+
+updateTemplateResult(String platform, String server_name, int sequence)
+	テンプレートファイル読み込んでExcel シート更新
+
+updateTestResult(String platform, String server_name, int sequence, Map results)
+	検査対象結果登録。以下、使用例
+        def data = ['Linux': ['ostrich': ['vCenter': [
+            'test': ['NumCpu':2, 'PowerState':'PoweredOn', 'MemoryGB':2],
+            'verify':['NumCpu':true, 'MemoryGB':false]
+        ]]]]
+        evidence.updateTestResult('Linux', 'ostrich', 0, data['Linux']['ostrich'])
+	
+	シートからテストID読み込んでいる
+
+updateTestTargetSheet(server_infos = [:])
+	全検査対象の結果登録
+
+デバイス更新メソッド
+
+insertDeviceSheet(String platform, String test_id, List headers, Map csvs)
+writeDeviceFile(String platform, String test_id, List headers, Map csvs)
+
+updateTestResult()をコールする前にシート結果にテスト項目を追加する
+
+最終行に追加
+
+        def inp = new FileInputStream(evidence_target)
+        def wb  = WorkbookFactory.create(inp)
+        def sheet_result = wb.getSheet(sheet_name_specs[platform])
+
+Excel(ファイル名=evidence_target)を読む
+プラットフォームからシートを選択
+最終行にテスト項目を追加
+
+
+addTestItemsToTargetSheet(String platform, test_items = [])
+
+
