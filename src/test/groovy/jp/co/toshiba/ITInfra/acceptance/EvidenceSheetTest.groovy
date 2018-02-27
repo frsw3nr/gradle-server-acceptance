@@ -86,8 +86,8 @@ class EvidenceSheetTest extends Specification{
         evidence.prepareTestStage()
         def data = ['VMHost': ['ostrich': ['VMHost': [
             // 'test': ['NumCpu':'2'],
-            'test': ['NumCpu':['A': '1', 'B': '2']],
-            'verify': ['NumCpu':true],
+            'test': ['NumCpu':2, 'A': '1', 'B': '2'],
+            'verify': ['NumCpu':true, 'A':true, 'B':null],
         ]]]]
         def test_items = [
             ['test_id': 'A', 'domain': 'VMHost'],

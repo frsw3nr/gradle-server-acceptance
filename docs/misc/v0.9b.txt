@@ -76,4 +76,11 @@ Excel(ファイル名=evidence_target)を読む
 
 addTestItemsToTargetSheet(String platform, test_items = [])
 
+//ヘッダ行の作成
+ addTestItemsToTargetSheet(String platform, String domain, test_items = [])
 
+テスト項目追加メソッド追加
+
+addTestItemsToTargetSheet
+
+gradle --daemon clean test --tests "TestSchedulerTest.テスト項目追加"

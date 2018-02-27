@@ -22,6 +22,7 @@ class TestScheduler {
     String server_config_script
     def serialization_domains = [:]
     def test_evidences = [:].withDefault{[:].withDefault{[:]}}
+    def additional_test_items = [:].withDefault{[:]}
 
     TestScheduler(TestRunner test_runner) {
         this.test_runner = test_runner
@@ -62,6 +63,10 @@ class TestScheduler {
             }
         }
         return filtered_test_ids
+    }
+
+    def add_test_items(String platform, Map test_item) {
+        additional_test_items[platform] << test_item
     }
 
     def runServerTest(TargetServer test_server, SpecTestMode mode, String label = '') {

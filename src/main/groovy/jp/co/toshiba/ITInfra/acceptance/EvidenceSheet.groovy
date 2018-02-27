@@ -626,21 +626,42 @@ class EvidenceSheet {
         def wb  = WorkbookFactory.create(inp)
         def sheet_result = wb.getSheet(sheet_name_specs[platform])
         def cell_style = createBorderedStyle(wb)
+        def last_row = 0
         sheet_result.with { sheet ->
             (row_body_begin .. sheet.getLastRowNum()).find { rownum ->
+                last_row = rownum
                 Row row = sheet.getRow(rownum)
                 if (row == null)
                     return true
-                // def row_style  = wb.createCellStyle().setWrapText(true)
-                // row.setRowStyle(row_style)
 
                 def cell_test_id = row.getCell(1).getStringCellValue()
                 def cell_domain  = row.getCell(3).getStringCellValue()
                 if (cell_test_id.size() == 0 && cell_domain.size() == 0)
                     return true
-                println("${cell_test_id}, ${cell_domain}")
+            }
+            def row_index = 0
+            test_items.each { test_item ->
+                def rownum = last_row + row_index
+                def row = sheet.createRow(rownum)
+                (0..5).find { colnum ->
+                    def cell = row.createCell(colnum)
+                    cell.setCellStyle(cell_style)
+                    if (colnum == 1) {
+                        cell.setCellValue(test_item?.test_id)
+                    } else if (colnum == 2) {
+                        cell.setCellValue(test_item?.test_name)
+                    } else if (colnum == 3) {
+                        cell.setCellValue(test_item?.domain)
+                    } else if (colnum == 5) {
+                        cell.setCellValue(test_item?.desc)
+                    }
+                }
+                row_index ++
             }
         }
+        def fos = new FileOutputStream(evidence_target)
+        wb.write(fos)
+        fos.close()
     }
 
 
