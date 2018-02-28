@@ -101,6 +101,15 @@ class InfraTestSpec {
         }
     }
 
+    def addAdditionalTestItem(TestItem test_item, String test_id, 
+                              String test_name = null, String desc = null) {
+        test_item.additional_test_items[test_id] = [
+            'test_name': test_name, 
+            'domain':    this.domain, 
+            'desc':      desc,
+        ]
+    }
+
     def execPowerShell(String script_path, String cmd) throws IOException {
         if (!dry_run) {
             def sout = new StringBuilder()

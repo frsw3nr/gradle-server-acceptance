@@ -90,10 +90,10 @@ class EvidenceSheetTest extends Specification{
             'verify': ['NumCpu':true, 'A':true, 'B':null],
         ]]]]
         def test_items = [
-            ['test_id': 'A', 'domain': 'VMHost'],
-            ['test_id': 'B', 'domain': 'VMHost'],
+            'A': ['domain': 'VMHost'],
+            'B': ['domain': 'VMHost'],
         ]
-        evidence.addTestItemsToTargetSheet('VMHost', 'VMHost', test_items)
+        evidence.addTestItemsToTargetSheet('VMHost', test_items)
         evidence.updateTestResult('VMHost', 'ostrich', 0, data['VMHost']['ostrich'])
 
         then:

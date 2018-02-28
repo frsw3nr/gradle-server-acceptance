@@ -84,3 +84,64 @@ addTestItemsToTargetSheet(String platform, test_items = [])
 addTestItemsToTargetSheet
 
 gradle --daemon clean test --tests "TestSchedulerTest.テスト項目追加"
+
+InfraTestSpec にテスト項目追加メソッドを追加
+
+DomainTestRunner 内
+
+        def test = new DomainTestRunner(test_server, 'vCenter')
+        TestItem[] test_items = []
+        test.run(test_items)
+
+        def test_results = test.makeTest(['vm'])
+
+TestScheduler 内
+
+    def runServerTest(TargetServer test_server, SpecTestMode mode, String label = '') {
+        test_server.with {
+            setAccounts(test_runner.config_file)
+            domain_specs.each { domain, test_ids ->
+                def is_serial = serialization_domains.containsKey(domain)
+
+                    def domain_test = new DomainTestRunner(it, domain)
+                    domain_test.with {
+                        ...
+                        def domain_results = [
+                            'test' : getResults(),
+                            'verify' : getVerifyStatuses(),
+                            'additional_test_items': getAdditionalTestItems(), <=== 追加
+                        ]
+
+    TestItem(String test_id) {
+        this.test_id = test_id
+        this.enabled = true
+        this.results = [:]
+        this.verify_status = [:]
+        this.additional_test_items = [:]
+    }
+
+	test_item.additional_test_items = ['A': ['test_name': 'Aテスト', 'desc': 'テストA']]
+	
+    def addAdditionalTestItem(TestItem test_item, String test_id, 
+                              String test_name = null, String desc = null) {
+        test_item.additional_test_items[test_id] = [
+            'test_name': test_name, 
+            'domain':    this.domain, 
+            'desc':      desc,
+        ]
+    }
+
+getAdditionalTestItems
+
+TestScheduler.groovy 内
+
+runSetverTest(TargetServer test_server,...)
+
+    def domain_results = [
+        'test' : getResults(),
+        'verify' : getVerifyStatuses(),
+        'additional_test': getAdditionalTestItems(),
+    ]
+    test_evidences[platform][server_name][domain] = domain_results
+
+

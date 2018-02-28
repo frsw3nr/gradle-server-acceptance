@@ -65,10 +65,14 @@ class TestSchedulerTest extends Specification {
         test_runner.parse(args)
         def test_scheduler = new TestScheduler(test_runner)
         def dat = [
-            'A': ['test_name': 'Aテスト', 'desc': 'テスト用A'],
             'B': ['test_name': 'Bテスト', 'desc': 'テスト用B'],
+            'A': ['test_name': 'Aテスト', 'desc': 'テスト用A'],
         ]
         test_scheduler.add_test_items('VMHost', dat)
+        test_scheduler.add_test_items('VMHost', [
+            'C': ['test_name': 'Cテスト', 'desc': 'テスト用C'],
+            'B': ['test_name': 'Bテスト', 'desc': 'テスト用B'],
+        ])
         println(test_scheduler.additional_test_items)
         then:
         1 == 1
