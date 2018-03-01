@@ -144,4 +144,6 @@ runSetverTest(TargetServer test_server,...)
     ]
     test_evidences[platform][server_name][domain] = domain_results
 
+    def addAdditionalTestItem(TestItem test_item, String test_id, 
+                              String test_name = null, String desc = null) {
 
