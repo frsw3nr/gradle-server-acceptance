@@ -17,12 +17,14 @@ class TestItem {
     def verify_status
     def device_header = []
     def devices = []
+    def additional_test_items
 
     TestItem(String test_id) {
         this.test_id = test_id
         this.enabled = true
         this.results = [:]
         this.verify_status = [:]
+        this.additional_test_items = [:]
     }
 
     def preset_null_status = { Closure closure ->

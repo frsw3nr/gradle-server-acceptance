@@ -615,10 +615,9 @@ class EvidenceSheet {
         def fos = new FileOutputStream(evidence_target)
         wb.write(fos)
         fos.close()
-        println(evidence_target)
     }
 
-    def addTestItemsToTargetSheet(String platform, String domain, test_items = [])
+    def addTestItemsToTargetSheet(String platform, test_items = [:])
         throws IOException {
         log.info("Add test items : platform = ${platform}")
 
@@ -639,15 +638,16 @@ class EvidenceSheet {
                 if (cell_test_id.size() == 0 && cell_domain.size() == 0)
                     return true
             }
+            last_row ++
             def row_index = 0
-            test_items.each { test_item ->
+            test_items.each { test_id, test_item ->
                 def rownum = last_row + row_index
                 def row = sheet.createRow(rownum)
                 (0..5).find { colnum ->
                     def cell = row.createCell(colnum)
                     cell.setCellStyle(cell_style)
                     if (colnum == 1) {
-                        cell.setCellValue(test_item?.test_id)
+                        cell.setCellValue(test_id)
                     } else if (colnum == 2) {
                         cell.setCellValue(test_item?.test_name)
                     } else if (colnum == 3) {

@@ -101,4 +101,13 @@ class DomainTestRunner {
         }
         return results
     }
+
+    def getAdditionalTestItems() {
+        def additional_test_items = [:]
+        result_test_items.each { test_item ->
+            additional_test_items << test_item.additional_test_items
+        }
+        return additional_test_items
+    }
+
 }

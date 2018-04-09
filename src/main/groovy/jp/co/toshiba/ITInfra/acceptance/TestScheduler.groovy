@@ -22,7 +22,7 @@ class TestScheduler {
     String server_config_script
     def serialization_domains = [:]
     def test_evidences = [:].withDefault{[:].withDefault{[:]}}
-    def additional_test_items = [:].withDefault{[:]}
+    def additional_test_items = [:].withDefault{[:].withDefault{[:]}}
 
     TestScheduler(TestRunner test_runner) {
         this.test_runner = test_runner
@@ -100,6 +100,7 @@ class TestScheduler {
                             'verify' : getVerifyStatuses(),
                         ]
                         test_evidences[platform][server_name][domain] = domain_results
+                        add_test_items(platform, getAdditionalTestItems())
                     }
                     long elapsed = System.currentTimeMillis() - start
                     log.info "Finish ${label} '${server_name}:${domain}', Elapsed : ${elapsed} ms"
@@ -152,7 +153,10 @@ class TestScheduler {
             }
         }
         log.debug "Evidence : " + test_evidences
+
         test_evidences.each { platform, platform_evidence ->
+            def test_items = additional_test_items[platform]
+            evidence_sheet.addTestItemsToTargetSheet(platform, test_items)
             def server_index = 0
             evidence_sheet.compare_servers.each { compare_server, compare_source ->
                 if (compare_server && ResultContainer.instance.test_results[compare_server][platform]) {

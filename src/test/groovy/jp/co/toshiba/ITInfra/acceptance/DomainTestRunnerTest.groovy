@@ -62,16 +62,36 @@ class DomainTestRunnerTest extends Specification {
         def test = new DomainTestRunner(test_server, 'vCenter')
         def test_results = test.makeTest(['vm'])
         def statuses = test.verify()
-        println statuses
+        println 'test.verify() : ' + statuses
         def statuses2 = test.getVerifyStatuses()
-        println statuses2
+        println 'test.getVerifyStatuses() : ' + statuses2
         def results = test.getResults()
-        println results
+        println 'test.getResults() : ' + results
 
         then:
         statuses.size()  == 3
         statuses2.size() == 3
         results.size()   == 5
+    }
+
+    def "追加テスト項目の追加"() {
+        when:
+        def test = new DomainTestRunner(test_server, 'Linux')
+        def test_results = test.makeTest(['meminfo', 'packages'])
+        test.result_test_items[0].additional_test_items = [
+            'AddedTestB': ['test_name': '追加テストB', 'domain': 'Linux'],
+            'AddedTestA': ['test_name': '追加テストA', 'domain': 'Linux'],
+        ]
+        test.result_test_items[1].additional_test_items = [
+            'AddedTestC': ['test_name': '追加テストC', 'domain': 'Linux'],
+            'AddedTestA': ['test_name': '追加テストA2', 'domain': 'Linux'],
+        ]
+
+        def results = test.getAdditionalTestItems()
+        println 'test.getAdditionalTestItems() : ' + results
+
+        then:
+        1 == 1
     }
 
     def "デバイス付検査結果の検証"() {
