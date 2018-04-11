@@ -9,8 +9,8 @@ applicationDefaultJvmArgs = [
     "-Dtest.config=./config/config.groovy",
 ]
 
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 version = '0.1.17'
 
 repositories {
@@ -49,6 +49,8 @@ dependencies {
     compile 'com.jfoenix:jfoenix:1.4.0'
     compile 'net.java.openjfx.backport:openjfx-78-backport:1.8.0-ea-b96.1'
     compile 'jp.sf.amateras.xlsbeans:xlsbeans:1.2.5'
+    compile 'com.github.mygreen:xlsmapper:1.6'
+    compile 'net.sf.jett:jett-core:0.10.0'
 
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.12'
