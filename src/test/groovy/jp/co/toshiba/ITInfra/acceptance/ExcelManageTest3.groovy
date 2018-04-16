@@ -1,10 +1,11 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 import org.apache.poi.ss.usermodel.Workbook
 import com.github.k3286.dto.Invoice
 import com.github.k3286.dto.InvoiceDetail
-import com.github.k3286.report.ReportMaker
+// import com.github.k3286.report.ReportMaker
 
 // gradle --daemon clean test --tests "ExcelManageTest3.書き込み処理"
 
@@ -12,7 +13,65 @@ class ExcelManageTest3 extends Specification {
 
     private static BigDecimal TAX_RATE = new BigDecimal(0.08);
 
+    def "エビデンス書き込み"() {
+        when:
+        ServerAcceptanceEvidence evidence = new ServerAcceptanceEvidence();
+
+        for (int idx = 1; idx <= 5; idx++) {
+            ServerAcceptanceConfigs config = new ServerAcceptanceConfigs();
+            config.itemName = "サンプル明細ですよ " + idx;
+            // dtl.setUnitCost(BigDecimal.valueOf(10000));
+            // dtl.setQuantity(Double.valueOf(idx));
+            // dtl.setAmt(dtl.getUnitCost().multiply(//
+            //         BigDecimal.valueOf(dtl.getQuantity())));
+            evidence.configs << config;
+        }
+        // 帳票変換
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("evidence", evidence);
+
+        Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_evidence.xlsx");
+
+        // ファイル出力
+        final String outPath = "build/output_invoice.xlsx";
+        FileOutputStream fileOut = new FileOutputStream(outPath);
+        workbook.write(fileOut);
+        fileOut.close();
+
+        then:
+        1 == 1
+    }
+
     def "書き込み処理"() {
+        when:
+        Invoice inv = new Invoice();
+
+        for (int idx = 1; idx <= 5; idx++) {
+            InvoiceDetail dtl = new InvoiceDetail();
+            dtl.setItemName("サンプル明細ですよ " + idx);
+            dtl.setUnitCost(BigDecimal.valueOf(10000));
+            dtl.setQuantity(Double.valueOf(idx));
+            dtl.setAmt(dtl.getUnitCost().multiply(//
+                    BigDecimal.valueOf(dtl.getQuantity())));
+            inv.getDetails().add(dtl);
+        }
+        // 帳票変換
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("config", inv);
+
+        Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_evidence.xlsx");
+
+        // ファイル出力
+        final String outPath = "build/output_invoice.xlsx";
+        FileOutputStream fileOut = new FileOutputStream(outPath);
+        workbook.write(fileOut);
+        fileOut.close();
+
+        then:
+        1 == 1
+    }
+
+    def "書き込み処理2"() {
         when:
         Invoice inv = new Invoice();
         inv.setInvoiceNo("INV-00000001");
@@ -51,7 +110,7 @@ class ExcelManageTest3 extends Specification {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("inv", inv);
 
-        Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_invoice.xlsx");
+        Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_check_sheet.xlsx");
 
         // ファイル出力
         final String outPath = "build/output_invoice.xlsx";
