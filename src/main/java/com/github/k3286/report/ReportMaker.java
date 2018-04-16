@@ -24,11 +24,6 @@ public class ReportMaker {
         InputStream is = null;
         try {
             is = new BufferedInputStream(new FileInputStream(templateName));
-
-            // is = ReportMaker.class.getResourceAsStream("/" + templateName);
-            System.out.println(templateName);
-            System.out.println(is);
-            System.out.println(params);
             ExcelTransformer transformer = new ExcelTransformer();
             workbook = transformer.transform(is, params);
         } catch (InvalidFormatException | IOException e) {

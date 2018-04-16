@@ -1,5 +1,6 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
 import groovy.sql.Sql
 import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
@@ -7,83 +8,71 @@ import com.gh.mygreen.xlsmapper.annotation.*
 
 // gradle --daemon clean test --tests "ExcelManageTest2.パース処理"
 
-@XlsSheet(name="Sheet1")
-public class Diary {
-  @XlsHorizontalRecords(tableLabel="日記", recordClass=DiaryLine.class)
-  public List<DiaryLine> lines;
-}
- 
-class DiaryLine {
-    @XlsColumn(columnName="日付")
-    public String date
-    @XlsColumn(columnName="天気")
-    public String tenki
-    @XlsColumn(columnName="コンテンツ")
-    public String content
-}
-
 class ExcelManageTest2 extends Specification {
 
-
-    def params = [
-        getconfig_home:  '.',
-        project_home:    'src/test/resources',
-        db_config:       'src/test/resources/cmdb.groovy',
-        last_run_config: 'src/test/resources/log/.last_run',
-    ]
-
-    def "パース処理"() {
+    def "チェックシートパース処理"() {
         when:
         XlsMapper xlsMapper = new XlsMapper();
-        Diary sheet = xlsMapper.load(
-            new FileInputStream("src/test/resources/日記.xlsx"), // 読み込むExcelファイル。
-            Diary.class                     // シートマッピング用のPOJOクラス。
-            );
+        CheckSheet check_sheet = xlsMapper.load(
+            new FileInputStream("src/test/resources/check_sheet.xlsx"),
+            CheckSheet.class
+        );
 
-        for(DiaryLine line : sheet.lines) {
-            println("${line.date} ${line.tenki} ${line.content}")
+        for(CheckSheetTestItem test_item : check_sheet.test_items) {
+            println("${test_item.id} ${test_item.name} ${test_item.description}")
         }
 
         then:
-        1 == 1
+        check_sheet.test_items.size() > 0
     }
-        // 出力結果:
-        // 2011-08-01 晴 今日は何ごともなかった
-        // 2011-08-02 曇り 今日も何ごともなかった
-        // 問題点:
-        // 日付は正しく表示されている。xlsxファイルでも読める
 
-        // 継続調査
-        // jett-example
-        // xlsmapper
+    def "複数チェックシートのパース処理"() {
+        when:
+        XlsMapper xlsMapper = new XlsMapper();
+        Object[] check_sheets = xlsMapper.loadMultiple(
+            new FileInputStream("src/test/resources/check_sheet.xlsx"),
+            CheckSheet.class
+        );
+
+        println(check_sheets.size())
+        for (CheckSheet check_sheet : check_sheets) {
+            println(check_sheet.sheetName)
+        }
+
+        then:
+        check_sheets.size() > 0
+    }
+
+    def "検査対象シートパース処理"() {
+        when:
+        XlsMapper xlsMapper = new XlsMapper();
+        TestTargetSheet test_target_sheet = xlsMapper.load(
+            new FileInputStream("src/test/resources/check_sheet.xlsx"),
+            TestTargetSheet.class
+        );
+
+        for(TestTaargetSheetItem test_target_item : test_target_sheet.test_target_items) {
+            println("${test_target_item.platform} ${test_target_item.server_name}")
+        }
+
+        then:
+        test_target_sheet.test_target_items.size() > 0
+    }
 
     def "書き込み処理"() {
         when:
-        Diary sheet = new Diary();
+        CheckSheet sheet = new CheckSheet();
         
-        List<DiaryLine> dairys = new ArrayList<>();
+        List<CheckSheetTestItem> test_items = new ArrayList<>();
+        test_items.add(new CheckSheetTestItem(id: 'ID1', name: 'NAME1', description:'明日は木曜'))
+        test_items.add(new CheckSheetTestItem(id: 'ID2', name: 'NAME2', description:'明日は金曜'))
+        sheet.test_items = test_items;
         
-        // 1レコード分の作成
-        DiaryLine record1 = new DiaryLine();
-        record1.date    = "2018/4/11";
-        record1.tenki   = "晴れ";
-        record1.content = "明日は木曜";
-        dairys.add(record1);
-        
-        DiaryLine record2 = new DiaryLine();
-        record2.date    = "2018/4/12";
-        record2.tenki   = "晴れ";
-        record2.content = "明日は金曜";
-        dairys.add(record2);
-        
-        sheet.lines = dairys;
-        
-        // シートの書き込み
         XlsMapper xlsMapper = new XlsMapper();
         xlsMapper.save(
-            new FileInputStream("src/test/resources/日記.xlsx"), // テンプレートのExcelファイル
-            new FileOutputStream(new File('build', "sample_out.xlsx")),     // 書き込むExcelファイル
-            sheet                                // 作成したデータ
+            new FileInputStream("src/test/resources/check_sheet.xlsx"),
+            new FileOutputStream(new File('build', "sample_out.xlsx")),
+            sheet
             );
 
         then:
