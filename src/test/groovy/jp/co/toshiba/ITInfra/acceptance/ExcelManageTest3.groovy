@@ -19,11 +19,25 @@ class ExcelManageTest3 extends Specification {
 
         for (int idx = 1; idx <= 5; idx++) {
             ServerAcceptanceConfigs config = new ServerAcceptanceConfigs();
-            config.itemName = "サンプル明細ですよ " + idx;
-            // dtl.setUnitCost(BigDecimal.valueOf(10000));
-            // dtl.setQuantity(Double.valueOf(idx));
-            // dtl.setAmt(dtl.getUnitCost().multiply(//
-            //         BigDecimal.valueOf(dtl.getQuantity())));
+            config.system              = "Aシステム";
+            config.model               = "DL360 G9";
+            config.user                = "root";
+            config.password            = "root";
+            config.ui_type             = "GNOME";
+            config.os_type             = "CentOS6(64bit)";
+            config.os_version          = "6.8";
+            config.cpu_size            = "8";
+            config.memory_size         = "64";
+            config.raid_config         = "600GB(RAID-1)";
+            config.disk_size           = "600GB";
+            config.disk_partition      = "/ 600GB";
+            config.disk_partition_size = "600GB";
+            config.managed_hostname    = "test${idx}-iLO";
+            config.managed_ip          = "192.168.10.${idx}";
+            config.managed_subnet      = "255.255.255.0";
+            config.managed_gateway     = "192.168.10.254";
+            config.nic1_hostname       = "test${idx}-eth0";
+            config.nic1_ip             = "192.168.0.${idx}";
             evidence.configs << config;
         }
         // 帳票変換
