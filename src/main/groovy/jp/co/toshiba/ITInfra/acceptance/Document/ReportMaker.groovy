@@ -10,11 +10,11 @@ import net.sf.jett.transform.ExcelTransformer;
 
 public class ReportMaker {
 
-    public static Workbook toReport(Map<String, Object> params, String templateName)
+    public static Workbook toReport(Map<String, Object> params, String excel_template)
         throws IOException {
         Workbook workbook = null;
         ExcelTransformer transformer = new ExcelTransformer();
-        new FileInputStream(templateName).withStream { ins ->
+        new FileInputStream(excel_template).withStream { ins ->
             workbook = transformer.transform(ins, params);
         }
         return workbook;

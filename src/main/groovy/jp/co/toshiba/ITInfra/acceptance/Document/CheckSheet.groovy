@@ -5,18 +5,19 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon clean test --tests "ExcelManageTest2.パース処理"
-
 @XlsSheet(regex="CheckSheet.+")
 class CheckSheet {
     @XlsSheetName
     String sheetName
 
-    @XlsHorizontalRecords(headerColumn=0, headerRow=3, recordClass=CheckSheetTestItem.class)
-    List<CheckSheetTestItem> test_items
+    @XlsHorizontalRecords(headerColumn=0,
+                          headerRow=3,
+                          recordClass=CheckSheetLine.class)
+
+    List<CheckSheetLine> test_items
 }
 
-class CheckSheetTestItem {
+class CheckSheetLine {
     @XlsColumn(columnName="Test")
     String enabled
     @XlsColumn(columnName="ID")
@@ -31,24 +32,3 @@ class CheckSheetTestItem {
     String description
 }
 
-@XlsSheet(regex="Target")
-class TestTargetSheet {
-    @XlsSheetName
-    String sheetName
-
-    @XlsVerticalRecords(headerColumn=1, headerRow=3, recordClass=TestTaargetSheetItem.class)
-    List<TestTaargetSheetItem> test_target_items
-}
-
-class TestTaargetSheetItem {
-    @XlsColumn(columnName="platform")
-    String platform
-    @XlsColumn(columnName="virtualization")
-    String virtualization
-    @XlsColumn(columnName="server_name")
-    String server_name
-    @XlsColumn(columnName="ip")
-    String ip
-    @XlsColumn(columnName="os_account_id")
-    String os_account_id
-}

@@ -25,8 +25,8 @@ class ServerAcceptanceConfigs {
     String ui_type;
     String os_type;
     String os_version;
-    String cpu_size;
-    String memory_size;
+    Double cpu_size;
+    Double memory_size;
     String raid_config;
     String disk_size;
     String disk_partition;
