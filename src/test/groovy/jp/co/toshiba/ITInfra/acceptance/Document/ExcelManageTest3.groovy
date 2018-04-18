@@ -15,19 +15,73 @@ class ExcelManageTest3 extends Specification {
 
     def "エビデンス書き込み"() {
         when:
-        ServerAcceptanceEvidence evidence = new ServerAcceptanceEvidence();
+        [10,20,40,100].each { row ->
+            long start = System.currentTimeMillis()
 
-        for (int idx = 1; idx <= 5; idx++) {
+            ServerAcceptanceEvidence evidence = new ServerAcceptanceEvidence();
+            evidence.system = "Aシステム";
+            (1..row).each { idx ->
+                ServerAcceptanceConfigs config = new ServerAcceptanceConfigs();
+                config.system              = "Aシステム";
+                config.model               = "DL360 G9";
+                config.user                = "root";
+                config.password            = "root";
+                config.ui_type             = "GNOME";
+                config.os_type             = "CentOS6(64bit)";
+                config.os_version          = "6.8";
+                config.cpu_size            = 8;
+                config.memory_size         = 64;
+                config.raid_config         = "600GB(RAID-1)";
+                config.disk_size           = "600GB";
+                config.disk_partition      = "/";
+                config.disk_partition_size = "600GB";
+                config.managed_hostname    = "test${idx}-iLO";
+                config.managed_ip          = "192.168.10.${idx}";
+                config.managed_subnet      = "255.255.255.0";
+                config.managed_gateway     = "192.168.10.254";
+                config.nic1_hostname       = "test${idx}-eth0";
+                config.nic1_ip             = "192.168.0.${idx}";
+                evidence.configs << config;
+            }
+            // 帳票変換
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("evidence", evidence);
+            println(map);
+
+            Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_evidence2.xlsx");
+
+            // ファイル出力
+            final String outPath = "build/output_invoice.xlsx";
+            FileOutputStream fileOut = new FileOutputStream(outPath);
+            workbook.write(fileOut);
+            fileOut.close();
+
+            long elapsed = System.currentTimeMillis() - start
+            println "Export ${row}, Elapsed : ${elapsed} ms"
+        }
+        then:
+        1 == 1
+    }
+
+    def "エビデンス書き込みグルーピング"() {
+        when:
+        long start = System.currentTimeMillis()
+
+        ServerAcceptanceEvidence evidence = new ServerAcceptanceEvidence();
+        evidence.system = "Aシステム";
+        def row = 10
+        (1..row).each { idx ->
+            def system_idx = idx/5 as int
             ServerAcceptanceConfigs config = new ServerAcceptanceConfigs();
-            config.system              = "Aシステム";
+            config.system              = "Aシステム${system_idx}";
             config.model               = "DL360 G9";
             config.user                = "root";
             config.password            = "root";
             config.ui_type             = "GNOME";
             config.os_type             = "CentOS6(64bit)";
             config.os_version          = "6.8";
-            config.cpu_size            = "8";
-            config.memory_size         = "64";
+            config.cpu_size            = 8;
+            config.memory_size         = 64;
             config.raid_config         = "600GB(RAID-1)";
             config.disk_size           = "600GB";
             config.disk_partition      = "/";
@@ -43,14 +97,18 @@ class ExcelManageTest3 extends Specification {
         // 帳票変換
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("evidence", evidence);
+        println(map);
 
-        Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_evidence.xlsx");
+        Workbook workbook = ReportMaker.toReport(map, "src/test/resources/template_evidence2.xlsx");
 
         // ファイル出力
         final String outPath = "build/output_invoice.xlsx";
         FileOutputStream fileOut = new FileOutputStream(outPath);
         workbook.write(fileOut);
         fileOut.close();
+
+        long elapsed = System.currentTimeMillis() - start
+        println "Export ${row}, Elapsed : ${elapsed} ms"
 
         then:
         1 == 1

@@ -45,19 +45,25 @@ class CheckSheetTest extends Specification {
 
     def "書き込み処理"() {
         when:
-        CheckSheet sheet = new CheckSheet();
-        
-        List<CheckSheetLine> test_items = new ArrayList<>();
-        test_items.add(new CheckSheetLine(id: 'ID1', name: 'NAME1', description:'明日は木曜'))
-        test_items.add(new CheckSheetLine(id: 'ID2', name: 'NAME2', description:'明日は金曜'))
-        sheet.test_items = test_items;
-        
-        XlsMapper xlsMapper = new XlsMapper();
-        xlsMapper.save(
-            new FileInputStream("src/test/resources/check_sheet.xlsx"),
-            new FileOutputStream(new File('build', "sample_out.xlsx")),
-            sheet
-            );
+        [10,20,40,100].each { row ->
+            long start = System.currentTimeMillis()
+            ResultSheet sheet = new ResultSheet();
+            // sheet.sheetName = '検査結果(Linux)'
+            List<ResultSheetLine> test_items = new ArrayList<>();
+            (1..row).each { idx ->
+                test_items.add(new ResultSheetLine(id: "ID${idx}", name: "NAME${idx}", description:'明日は木曜'))
+            }
+            sheet.test_items = test_items;
+            
+            XlsMapper xlsMapper = new XlsMapper();
+            xlsMapper.save(
+                new FileInputStream("src/test/resources/result_sheet.xlsx"),
+                new FileOutputStream(new File('build', "sample_out.xlsx")),
+                sheet
+                );
+            long elapsed = System.currentTimeMillis() - start
+            println "Export ${row}, Elapsed : ${elapsed} ms"
+        }
 
         then:
         1 == 1

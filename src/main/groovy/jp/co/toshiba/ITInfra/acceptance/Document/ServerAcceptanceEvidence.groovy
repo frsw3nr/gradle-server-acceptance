@@ -14,10 +14,6 @@ public class ServerAcceptanceEvidence {
 }
 
 class ServerAcceptanceConfigs {
-    String itemName;
-    Double unitCost;
-    Double quantity;
-
     String system;
     String model;
     String user;
