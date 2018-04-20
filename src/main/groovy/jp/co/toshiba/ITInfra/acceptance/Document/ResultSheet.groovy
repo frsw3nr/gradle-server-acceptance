@@ -16,17 +16,17 @@ class ResultSheet {
 
     List<ResultSheetLine> test_items
 
-    def clone_sheet() {
-        // シートのクローン
-        Workbook workbook = WorkbookFactory.create(new FileInputStream("template.xlsx"));
-        Sheet templateSheet = workbook.getSheet("XlsSheet(regexp)");
-        for(SampleSheet sheetObj : sheets) {
-            int sheetIndex = workbook.getSheetIndex(templateSheet);
-            Sheet cloneSheet = workbook.cloneSheet(sheetIndex);
-            workbook.setSheetName(workbook.getSheetIndex(cloneSheet), sheetObj.sheetName);
-        }
-        
-    }
+    // def clone_sheet() {
+    //     // シートのクローン
+    //     Workbook workbook = WorkbookFactory.create(new FileInputStream("template.xlsx"));
+    //     Sheet templateSheet = workbook.getSheet("XlsSheet(regexp)");
+    //     for(SampleSheet sheetObj : sheets) {
+    //         int sheetIndex = workbook.getSheetIndex(templateSheet);
+    //         Sheet cloneSheet = workbook.cloneSheet(sheetIndex);
+    //         workbook.setSheetName(workbook.getSheetIndex(cloneSheet), sheetObj.sheetName);
+    //     }
+    // }
+
 }
 
 class ResultSheetLine {

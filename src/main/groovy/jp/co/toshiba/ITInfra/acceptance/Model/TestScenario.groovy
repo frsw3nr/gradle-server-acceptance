@@ -2,6 +2,6 @@ package jp.co.toshiba.ITInfra.acceptance.Model
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class TestResultLine extends SpecModel {
+class TestScenario extends SpecModel {
 
 }

@@ -2,7 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance.Model
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class TestTarget {
+class TestTarget extends SpecModel {
     String config_file
     String server_name
     String ip
