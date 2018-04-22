@@ -5,12 +5,7 @@ import groovy.transform.ToString
 @Slf4j
 @ToString
 class SpecModel {
-    String name = null
-
-    SpecModel(Map properties = null) {
-        properties.each { name, value ->
-            this."${name}" = value
-        }
-    }
-
+   def storage = [:]
+   def propertyMissing(String name, value) { storage[name] = value }
+   def propertyMissing(String name) { storage[name] }
 }

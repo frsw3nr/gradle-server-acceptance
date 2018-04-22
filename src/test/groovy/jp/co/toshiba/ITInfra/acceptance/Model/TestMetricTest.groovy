@@ -7,23 +7,26 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon clean test --tests "TestDomainTest.初期化"
+// gradle --daemon clean test --tests "TestMetricTest.初期化"
 
-class TestDomainTest extends Specification {
+class TestMetricTest extends Specification {
 
     def "初期化"() {
         setup:
         def param1 = ['name': 'Linux', "enabled": false]
 
         when:
-        TestDomain d1 = new TestDomain(param1)
-        TestDomain d2 = new TestDomain(name: 'Linux', enabled: false)
-        TestDomain d3 = new TestDomain()
-        d3.with {name = 'Windows' }
+        TestDomain d1 = new TestDomain(name: 'Linux', enabled: false)
+        def test_metrics = [:]
+        (1..3).each { idx ->
+            def id = "test_${idx}"
+            test_metrics[id] = new TestMetric(name: id)
+        }
+        d1.test_metrics = test_metrics
+        println("$d1")
 
         then:
-        [d1.name, d1.enabled]  == ['Linux', false]
-        [d2.name, d2.enabled]  == ['Linux', false]
-        [d3.name] == ['Windows']
+        1 == 1
     }
+
 }
