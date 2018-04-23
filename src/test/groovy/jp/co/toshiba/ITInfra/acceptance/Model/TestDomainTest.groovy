@@ -24,6 +24,6 @@ class TestDomainTest extends Specification {
         then:
         [d1.name, d1.enabled]  == ['Linux', false]
         [d2.name, d2.enabled]  == ['Linux', false]
-        [d3.name] == ['Windows']
+        [d3.name, d3.enabled] == ['Windows', null]
     }
 }

@@ -5,6 +5,6 @@ import groovy.transform.ToString
 @Slf4j
 @ToString
 class TestDomain extends SpecModel {
-    def name
-    def test_metrics = [:]
+    String name
+    TestMetric test_metrics = [:]
 }
