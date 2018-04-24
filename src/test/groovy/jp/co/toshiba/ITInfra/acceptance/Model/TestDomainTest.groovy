@@ -30,7 +30,7 @@ class TestDomainTest extends Specification {
     def "ビジターパターン"() {
         when:
         def test_scenario = new TestScenario(name: 'OS情報採取')
-        test_scenario.accept(new ExcelParser())
+        test_scenario.accept(new ExcelParser('src/test/resources/check_sheet.xlsx'))
 
         then:
         1 == 1
