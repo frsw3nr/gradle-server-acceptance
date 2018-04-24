@@ -5,12 +5,11 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 @Slf4j
 @ToString
-class TestScenario extends SpecModel {
+class TestDomainTemplate extends SpecModel {
     String name
-    TestTarget test_targets = [:]
-    TestDomainTemplate test_domain_templates = [:]
+    TestMetric test_metrics = [:]
 
     def accept(visitor){
-        visitor.visit_test_scenario(this)
+        visitor.visit_check_sheet(this)
     }
 }

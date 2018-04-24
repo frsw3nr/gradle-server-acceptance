@@ -62,7 +62,7 @@ class ErrorHandler(Handler):
 
 
 if __name__ == '__main__':
-    report = Report(ReportFormat.TEXT)
+    report = Report(ReportFormat.PDF)
     pdf_handler = PDFHandler()
     text_handler = TextHandler()
 

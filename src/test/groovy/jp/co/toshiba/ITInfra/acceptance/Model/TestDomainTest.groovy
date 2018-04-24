@@ -26,4 +26,13 @@ class TestDomainTest extends Specification {
         [d2.name, d2.enabled]  == ['Linux', false]
         [d3.name, d3.enabled] == ['Windows', null]
     }
+
+    def "ビジターパターン"() {
+        when:
+        def test_scenario = new TestScenario(name: 'OS情報採取')
+        test_scenario.accept(new ExcelParser())
+
+        then:
+        1 == 1
+    }
 }
