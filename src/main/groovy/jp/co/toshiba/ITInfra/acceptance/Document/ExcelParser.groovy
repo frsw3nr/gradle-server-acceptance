@@ -10,26 +10,61 @@ import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
+public enum SpecSheetType {
+    check_sheet,
+    target_sheet,
+    rule_sheet,
+    unkown,
+}
+
+class SheetDefine {
+    int header_row    = 0
+    int header_column = 0
+
+    SheetDefine(row, column) {
+        this.header_row = row
+        this.header_column = column
+    }
+}
+
 class ExcelParser {
     String excel_file
+    def sheet_defines = [:]
 
     ExcelParser(excel_file) {
         this.excel_file = excel_file
+        def sheet_defines = [:]
+        sheet_defines[SpecSheetType.check_sheet] = new SheetDefine(3, 0)
     }
 
-    def get_sheet_header(Sheet sheet, start_row = 0, start_column = 0) throws IllegalArgumentException {
+    def get_sheet_header(Sheet sheet, start_row = 0, start_column = 0) {
+        def headers = []
         def header_row = sheet.getRow(start_row)
-        (start_column .. header_row.getLastCellNum()).each { column ->
-            println("COLUMN:${header_row.getCell(column)}")
+        if (header_row) {
+            (start_column .. header_row.getLastCellNum()).each { column ->
+                headers << "${header_row.getCell(column)}"
+            }
+        }
+        return headers
+    }
+
+    SpecSheetType get_spec_sheet_type(Sheet sheet) {
+        headers = get_sheet_header(sheet, 3, 0)
+        println "HEADERS: ${headers}"
+        if (headers[0] == 'Test' && headers[1] == 'ID') {
+            return SpecSheetType.check_sheet
         }
     }
 
     def get_scenario_sheet(Sheet sheet) {
         String sheet_name = sheet.getSheetName()
-        ( sheet.getSheetName() =~ /[\(\[](.+)[\)\]]/ ).each { m0, scenario_name ->
-            println scenario_name
-            get_sheet_header(sheet, 3, 0)
+        ( sheet_name =~ /[\(\[](.+)[\)\]]/ ).each { m0, scenario_name ->
+            def headers = get_sheet_header(sheet, 3, 0)
+            println "HEADERS: ${headers[0..1]}"
             // 4行目のヘッダが Test,ID で始まる行かチェック
+            if (headers[0..1] == ['Test', 'ID']) {
+                println "READ: ${scenario_name}"
+            }
             // if ("${sheet.getRow(3)?.getCell(0)}" == 'Test' &&
             //     "${sheet.getRow(3)?.getCell(1)}" == 'ID') {
             //     def sheet_csv = readTestResult(sheet)
@@ -49,23 +84,6 @@ class ExcelParser {
                 while(sheets.hasNext()) {
                     Sheet sheet = sheets.next()
                     println this.get_scenario_sheet(sheet)
-
-                    // ( sheet.getSheetName() =~ /[\(\[](.+)[\)\]]/ ).each { m0, test_id ->
-                    //     def results = new JsonSlurper().parseText(device_config_json.text)
-                    //     def row = 1
-                    //     results.each { result ->
-                    //         this.device_results[server_name][platform][test_id]["row${row}"] = result
-                    //         row ++
-                    //     }
-                    // }
-                    
-                    // 4行目が Test,ID で始まる行かチェック
-                    // if ("${sheet.getRow(3)?.getCell(0)}" == 'Test' &&
-                    //     "${sheet.getRow(3)?.getCell(1)}" == 'ID') {
-                    //     def sheet_csv = readTestResult(sheet)
-                    //     if (sheet_csv)
-                    //         csv += sheet_csv
-                    // }
                 }
             }
         }
