@@ -18,6 +18,7 @@ public enum SpecSheetType {
 }
 
 class SheetDefine {
+    int[] header_pos
     int header_row    = 0
     int header_column = 0
 

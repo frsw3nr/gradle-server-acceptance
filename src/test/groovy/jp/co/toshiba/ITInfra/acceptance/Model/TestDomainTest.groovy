@@ -7,7 +7,7 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon clean test --tests "TestDomainTest.初期化"
+// gradle --daemon clean test --tests "TestDomainTest.ビジターパターン"
 
 class TestDomainTest extends Specification {
 
