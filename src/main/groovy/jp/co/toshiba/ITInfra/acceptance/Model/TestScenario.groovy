@@ -7,8 +7,9 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 @ToString
 class TestScenario extends SpecModel {
     String name
-    TestTarget test_targets = [:]
-    TestDomainTemplate test_domain_templates = [:]
+    TestTargetSet test_targets
+    LinkedHashMap<String,TestDomainTemplate> test_domain_templates = [:]
+    TestRuleSet test_rules
 
     def accept(visitor){
         visitor.visit_test_scenario(this)

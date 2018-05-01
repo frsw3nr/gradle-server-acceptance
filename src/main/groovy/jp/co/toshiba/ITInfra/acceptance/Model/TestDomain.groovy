@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 @ToString
 class TestDomain extends SpecModel {
     String name
-    TestResult test_results = [:]
+    LinkedHashMap<String,TestResult> test_results  = [:]
 
     def accept(visitor){
         visitor.visit_test_domain(this)

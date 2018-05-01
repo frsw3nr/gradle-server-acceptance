@@ -1,6 +1,9 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
+import groovy.transform.AutoClone
 import groovy.xml.MarkupBuilder
+import groovy.util.ConfigObject
+import groovy.util.logging.Slf4j
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -10,69 +13,178 @@ import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-public enum SpecSheetType {
-    check_sheet,
-    target_sheet,
-    rule_sheet,
-    unkown,
+public enum SheetType {
+    vertical,
+    horizontal,
 }
 
-class SheetDefine {
-    int[] header_pos
-    int header_row    = 0
-    int header_column = 0
+@AutoClone
+@Slf4j
+class SheetDesign extends SpecModel {
+    String name
+    SheetParser sheet_parser
+    Sheet sheet
 
-    SheetDefine(row, column) {
-        this.header_row = row
-        this.header_column = column
+    def create(Sheet sheet, String domain_name = null) {
+        def current_sheet = this.clone()
+        current_sheet.domain_name = domain_name
+        current_sheet.sheet = sheet
+
+        return current_sheet
+    }
+
+    def get() {
+        return sheet_parser.get_sheet_body(this.sheet)
     }
 }
 
-class ExcelParser {
-    String excel_file
-    def sheet_defines = [:]
+abstract class SheetParser {
+    String sheet_prefix    = ''
+    int[] header_pos       = [0, 0]
+    String[] header_checks = []
 
-    ExcelParser(excel_file) {
-        this.excel_file = excel_file
-        def sheet_defines = [:]
-        sheet_defines[SpecSheetType.check_sheet] = new SheetDefine(3, 0)
-    }
+    abstract def get_sheet_body(Sheet sheet)
+}
 
-    def get_sheet_header(Sheet sheet, start_row = 0, start_column = 0) {
+@Slf4j
+class ExcelSheetParserHorizontal extends SheetParser {
+    private def get_sheet_header(Sheet sheet) {
         def headers = []
-        def header_row = sheet.getRow(start_row)
+        def header_row = sheet.getRow(header_pos[0])
         if (header_row) {
-            (start_column .. header_row.getLastCellNum()).each { column ->
+            (header_pos[1] .. header_row.getLastCellNum()).each { column ->
                 headers << "${header_row.getCell(column)}"
             }
+        }
+        def length = header_checks.size()
+        if (headers.size() < length || headers[0..length-1] != header_checks) {
+            def msg = "Invalid Sheet header '${sheet.getSheetName()}' : ${headers}"
+            throw new IllegalArgumentException(msg)
         }
         return headers
     }
 
-    SpecSheetType get_spec_sheet_type(Sheet sheet) {
-        headers = get_sheet_header(sheet, 3, 0)
-        println "HEADERS: ${headers}"
-        if (headers[0] == 'Test' && headers[1] == 'ID') {
-            return SpecSheetType.check_sheet
+    def get_sheet_body(Sheet sheet) {
+        def headers = this.get_sheet_header(sheet)
+        def lines = []
+        (header_pos[0] + 1 .. sheet?.getLastRowNum()).each { rownum ->
+            Row row = sheet.getRow(rownum)
+            if (row == null)
+                return true
+            def line = [:]
+            (0 .. headers.size()-1).each { colnum_idx ->
+                def colnum = header_pos[1] + colnum_idx
+                line[headers[colnum_idx]] = "${row.getCell(colnum)}"
+            }
+            lines << line
+        }
+        return lines
+    }
+}
+
+@Slf4j
+class ExcelSheetParserVertical extends SheetParser {
+    private def get_sheet_header(Sheet sheet) {
+        def headers = []
+        (header_pos[0] .. sheet.getLastRowNum()).each { rownum ->
+            Row row = sheet.getRow(rownum)
+            if (row == null)
+                return true
+            headers << "${row.getCell(header_pos[1])}"
+        }
+        def length = header_checks.size()
+        if (length == 0)
+            return headers
+
+        if (headers.size() < length || headers[0..length-1] != header_checks) {
+            def msg = "Invalid Sheet header '${sheet.getSheetName()}' : ${headers}"
+            throw new IllegalArgumentException(msg)
+        }
+        return headers
+    }
+
+    def get_sheet_body(Sheet sheet) {
+        def headers = this.get_sheet_header(sheet)
+        def lines = [].withDefault{[:]}
+        (header_pos[0] .. sheet.getLastRowNum()).each { rownum ->
+            def header_id   = rownum - header_pos[0]
+            def header_name = headers[header_id]
+            Row row = sheet.getRow(rownum)
+            // println("ROW:$row")
+            if (row == null)
+                return true
+            (header_pos[1] + 2 .. row.getLastCellNum()).each { colnum ->
+                def target_id = colnum - (header_pos[1] + 2)
+                lines[target_id][header_name] = "${row.getCell(colnum)}"
+            }
+        }
+        return lines
+    }
+}
+
+@Slf4j
+class ExcelParser {
+    String excel_file
+    def sheet_desings = []
+    ConfigObject sheet_sources
+
+    ExcelParser(excel_file) {
+        this.sheet_sources = new ConfigObject()
+        this.excel_file = excel_file
+        this.sheet_desings = [
+            new SheetDesign(name: 'target', 
+                            sheet_parser : new ExcelSheetParserVertical(
+                                header_pos: [4, 1], sheet_prefix: 'Target')),
+            new SheetDesign(name: 'check_sheet',
+                            sheet_parser : new ExcelSheetParserHorizontal(
+                                header_pos: [3, 0], sheet_prefix: 'CheckSheet',
+                                header_checks: ['Test', 'ID'])),
+            new SheetDesign(name: 'check_rule',
+                            sheet_parser : new ExcelSheetParserVertical(
+                                header_pos: [4, 1], sheet_prefix: 'Rule',
+                                header_checks: ['name', 'compare_server'])),
+        ]
+    }
+
+    def scan_sheet() throws IOException {
+        new FileInputStream(this.excel_file).withStream { ins ->
+            WorkbookFactory.create(ins).with { wb ->
+                Iterator<Sheet> sheets = wb.sheetIterator()
+                while (sheets.hasNext()) {
+                    def sheet = sheets.next()
+                    def sheet_design = this.make_sheet_design(sheet)
+                    if (sheet_design) {
+                        if (sheet_design.name == 'check_sheet') {
+                            def domain_name = sheet_design.domain_name
+                            this.sheet_sources.check_sheet."$domain_name" = sheet_design
+                        } else {
+                            this.sheet_sources."${sheet_design.name}" = sheet_design
+                        }
+                    } else {
+                        log.warn "Unkown sheet, skip : ${sheet.getSheetName()}"
+                    }
+                }
+            }
         }
     }
 
-    def get_scenario_sheet(Sheet sheet) {
+    SheetDesign make_sheet_design(Sheet sheet) {
         String sheet_name = sheet.getSheetName()
-        ( sheet_name =~ /[\(\[](.+)[\)\]]/ ).each { m0, scenario_name ->
-            def headers = get_sheet_header(sheet, 3, 0)
-            println "HEADERS: ${headers[0..1]}"
-            // 4行目のヘッダが Test,ID で始まる行かチェック
-            if (headers[0..1] == ['Test', 'ID']) {
-                println "READ: ${scenario_name}"
-            }
-            // if ("${sheet.getRow(3)?.getCell(0)}" == 'Test' &&
-            //     "${sheet.getRow(3)?.getCell(1)}" == 'ID') {
-            //     def sheet_csv = readTestResult(sheet)
-            //     if (sheet_csv)
-            //         csv += sheet_csv
-            // }
+        log.info "Attach sheet : '${sheet_name}'"
+        String domain_name = null
+        ( sheet_name =~ /^(.+)[\(](.*)[\)]$/ ).each { m0, postfix, suffix ->
+            sheet_name  = postfix
+            domain_name = suffix
         }
+        
+        SheetDesign current_sheet = null
+        this.sheet_desings.each { sheet_design ->
+            if (sheet_name == sheet_design.sheet_parser.sheet_prefix) {
+                current_sheet = sheet_design.create(sheet, domain_name)
+                return true
+            }
+        }
+        return current_sheet
     }
 
     def visit_test_scenario(test_scenario) throws IOException {
@@ -82,36 +194,83 @@ class ExcelParser {
         new FileInputStream(this.excel_file).withStream { ins ->
             WorkbookFactory.create(ins).with { wb ->
                 Iterator<Sheet> sheets = wb.sheetIterator()
-                while(sheets.hasNext()) {
-                    Sheet sheet = sheets.next()
-                    println this.get_scenario_sheet(sheet)
+                while (sheets.hasNext()) {
+                    def sheet_design = this.make_sheet_design(sheets.next())
+                    switch (sheet_design.name) {
+                        case 'check_sheet' :
+                            def domain_name = sheet_design.domain_name
+                            def test_domain = new TestDomainTemplate(name: domain_name)
+                            test_scenario.with {
+                                test_domain_templates[domain_name] = test_domain
+                            }
+                            test_domain.accept(this, sheet_design)
+                            break
+
+                        case 'target' :
+                            // def test_domain = new TestDomainTemplate(name: domain_name)
+                            // test_scenario.with {
+                            //     test_domain_templates[domain_name] = test_domain
+                            // }
+                            // test_domain.accept(this, sheet_design)
+                            break
+
+                        case 'check_rule' :
+                            // def lines = sheet_design.get_sheet_body()
+                            // println("CHECK_RULE:${lines}")
+                            break
+
+                        default :
+                            break
+                    }
                 }
             }
-        }
-        ['Linux', 'Windows'].each { domain_name ->
-            def test_domain = new TestDomainTemplate(name: domain_name)
-            test_domain.accept(this)
-            test_scenario.test_domain_templates[domain_name] = test_domain
         }
     }
 
     def visit_check_sheet(check_sheet) {
-        println "visit_check_sheet ${check_sheet}"
-        // Excle シート名を読み込み
-        // 順に検索してシート登録
-
+        def domain_name = check_sheet.name
+        def source = this.sheet_sources.check_sheet."$domain_name"
+        def lines = source.get()
+        lines.find { line ->
+            def id = line['ID']
+            if (!id)
+                return true
+            def test_metric = new TestMetric(id: id, name: line['項目'], 
+                                             enabled: line['Test'], 
+                                             device_enabled: line['デバイス'])
+            check_sheet.test_metrics[id] = test_metric
+            return
+        }
+        log.info "Read test(${domain_name}) : ${check_sheet.test_metrics.size()} row"
     }
 
-    def visit_test_target(test_target) {
-        println "visit_test_target"
-    }
-
-    def visit_test_domain(test_domain) {
-        println "visit_test_domain"
+    def visit_test_target(test_target_set) {
+        def lines = this.sheet_sources.target.get()
+        lines.find { line ->
+            if (!line['platform'])
+                return true
+            line['name'] = line['server_name']
+            def test_target = new TestTarget(line)
+            test_target_set.add(test_target)
+            return
+        }
+        log.info "Read target : ${test_target_set.get_all().size()} row"
     }
 
     def visit_test_rule(test_rule) {
         println "visit_test_rule"
+        def lines = this.sheet_sources.check_rule.get()
+        lines.find { line ->
+            println "LINE:${line}"
+            // if (!line['name'])
+            //     return true
+            // println line
+            // line['name'] = line['server_name']
+            // def test_target = new TestTarget(line)
+            // test_target_set.add(test_target)
+            // return
+        }
+        // log.info "Read target : ${test_target_set.get_all().size()} row"
     }
 
 }

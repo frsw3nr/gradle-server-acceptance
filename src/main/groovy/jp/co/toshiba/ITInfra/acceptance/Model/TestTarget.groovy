@@ -10,10 +10,25 @@ class TestTarget extends SpecModel {
     String platform
     String ip
     String os_account_id
-    TestDomain test_domains = [:]
-    TestRule test_rules = [:]
+    LinkedHashMap<String,TestDomain> test_domains = [:]
+    LinkedHashMap<String,TestRule> test_rules = [:]
+}
+
+@Slf4j
+class TestTargetSet extends TestTarget {
+    def children = new ConfigObject()
+
+    def add(test_target) {
+        test_target.with {
+            this.children[name][platform] = it
+        }
+    }
 
     def accept(visitor){
         visitor.visit_test_target(this)
+    }
+
+    def get_all() {
+        return this.children
     }
 }

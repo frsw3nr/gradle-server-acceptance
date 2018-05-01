@@ -14,3 +14,22 @@ class TestRule extends SpecModel {
         visitor.visit_test_rule(this)
     }
 }
+
+@Slf4j
+class TestRuleSet extends TestRule {
+    def children = new ConfigObject()
+
+    def add(test_rule) {
+        test_rule.with {
+            // this.children[name][platform] = it
+        }
+    }
+
+    def accept(visitor){
+        visitor.visit_test_rule(this)
+    }
+
+    def get_all() {
+        return this.children
+    }
+}
