@@ -23,13 +23,13 @@ class ExcelParserTest extends Specification {
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
-        excel_parser.sheets.check_sheet.each { domain_name, sheet->
+        excel_parser.sheet_sources.check_sheet.each { domain_name, sheet->
             println "Domain:$domain_name"
         }
 
         then:
-        excel_parser.sheets.keySet() as List == ['target', 'check_sheet', 'check_rule']
-        excel_parser.sheets.check_sheet.keySet() as List == ['Linux', 'Windows', 'VMHost']
+        excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 'check_rule']
+        excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows', 'VMHost']
     }
 
     def "チェックシートパース"() {
@@ -73,23 +73,35 @@ class ExcelParserTest extends Specification {
         def rule_set = new TestRuleSet(name: 'root')
         rule_set.accept(excel_parser)
         def test_rules = rule_set.get_all()
-        println test_rules
 
         then:
-        1 == 1
-        // test_targets['centos7'].Linux.verify_id   == 'AP'
-        // test_targets['win2012'].Windows.verify_id == 'AP'
+        test_rules.size() == 2
+        def result_AP = test_rules['RuleAP'].config.vCenter.NumCpu
+        result_AP == "x == NumberUtils.toDouble(server_info['NumCpu'])"
+        test_rules['RuleAP'].config.vCenter.Cluster.size() == 0
     }
 
     def "シート全体パース"() {
+        setup:
+        def domains = ['Linux', 'Windows', 'VMHost']
+
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'OS情報採取')
         test_scenario.accept(excel_parser)
+        def test_targets = test_scenario.test_targets.get_all()
+        def test_rules   = test_scenario.test_rules.get_all()
 
         then:
-        1 == 1
+        test_targets.size() == 2
+        test_rules.size() == 2
+        domains.each { domain ->
+            def template = test_scenario.test_domain_templates[domain]
+            template.name == domain
+            template.test_metrics.size() > 0
+        }
+
     }
 
 }

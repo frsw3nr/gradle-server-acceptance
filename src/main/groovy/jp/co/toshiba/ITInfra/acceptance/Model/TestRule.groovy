@@ -7,8 +7,9 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 @ToString
 class TestRule extends SpecModel {
     String name
-    String definition
-    CompareRule compare_rule
+    String compare_rule
+    String compare_server
+    ConfigObject config
 
     def accept(visitor){
         visitor.visit_test_rule(this)
@@ -21,7 +22,7 @@ class TestRuleSet extends TestRule {
 
     def add(test_rule) {
         test_rule.with {
-            // this.children[name][platform] = it
+            this.children[name] = it
         }
     }
 

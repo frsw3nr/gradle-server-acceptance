@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 @ToString
 class TestTarget extends SpecModel {
     String name
-    String platform
+    String domain
     String ip
     String os_account_id
     LinkedHashMap<String,TestDomain> test_domains = [:]
@@ -20,7 +20,7 @@ class TestTargetSet extends TestTarget {
 
     def add(test_target) {
         test_target.with {
-            this.children[name][platform] = it
+            this.children[name][domain] = it
         }
     }
 

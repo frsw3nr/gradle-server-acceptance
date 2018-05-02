@@ -134,7 +134,8 @@ class ExcelParser {
         this.sheet_desings = [
             new SheetDesign(name: 'target', 
                             sheet_parser : new ExcelSheetParserVertical(
-                                header_pos: [4, 1], sheet_prefix: 'Target')),
+                                header_pos: [4, 1], sheet_prefix: 'Target',
+                                header_checks: ['domain'])),
             new SheetDesign(name: 'check_sheet',
                             sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [3, 0], sheet_prefix: 'CheckSheet',
@@ -187,43 +188,19 @@ class ExcelParser {
         return current_sheet
     }
 
-    def visit_test_scenario(test_scenario) throws IOException {
-        println "visit_test_scenario"
-        // Excel 本体からシートリストを読み込み、シート名からドメイン識別
-        // ドメインテンプレートを生成して登録
-        new FileInputStream(this.excel_file).withStream { ins ->
-            WorkbookFactory.create(ins).with { wb ->
-                Iterator<Sheet> sheets = wb.sheetIterator()
-                while (sheets.hasNext()) {
-                    def sheet_design = this.make_sheet_design(sheets.next())
-                    switch (sheet_design.name) {
-                        case 'check_sheet' :
-                            def domain_name = sheet_design.domain_name
-                            def test_domain = new TestDomainTemplate(name: domain_name)
-                            test_scenario.with {
-                                test_domain_templates[domain_name] = test_domain
-                            }
-                            test_domain.accept(this, sheet_design)
-                            break
-
-                        case 'target' :
-                            // def test_domain = new TestDomainTemplate(name: domain_name)
-                            // test_scenario.with {
-                            //     test_domain_templates[domain_name] = test_domain
-                            // }
-                            // test_domain.accept(this, sheet_design)
-                            break
-
-                        case 'check_rule' :
-                            // def lines = sheet_design.get_sheet_body()
-                            // println("CHECK_RULE:${lines}")
-                            break
-
-                        default :
-                            break
-                    }
-                }
+    def visit_test_scenario(test_scenario) {
+        log.info "Parse spec sheet"
+        test_scenario.with {
+            test_targets = new TestTargetSet(name: 'root')
+            test_targets.accept(this)
+            test_rules = new TestRuleSet(name: 'root')
+            test_rules.accept(this)
+            this.sheet_sources.check_sheet.each { domain_name, check_sheet ->
+                def domain_template = new TestDomainTemplate(name: domain_name)
+                domain_template.accept(this)
+                test_domain_templates[domain_name] = domain_template
             }
+
         }
     }
 
@@ -247,7 +224,7 @@ class ExcelParser {
     def visit_test_target(test_target_set) {
         def lines = this.sheet_sources.target.get()
         lines.find { line ->
-            if (!line['platform'])
+            if (!line['domain'])
                 return true
             line['name'] = line['server_name']
             def test_target = new TestTarget(line)
@@ -257,20 +234,34 @@ class ExcelParser {
         log.info "Read target : ${test_target_set.get_all().size()} row"
     }
 
-    def visit_test_rule(test_rule) {
-        println "visit_test_rule"
-        def lines = this.sheet_sources.check_rule.get()
-        lines.find { line ->
-            println "LINE:${line}"
-            // if (!line['name'])
-            //     return true
-            // println line
-            // line['name'] = line['server_name']
-            // def test_target = new TestTarget(line)
-            // test_target_set.add(test_target)
-            // return
+    def visit_test_rule(test_rule_set) {
+        def lines = this.sheet_sources.check_rule.get() as Queue
+        def line_num = 0
+        def platforms = [:]
+        def platform_line = lines.poll()
+        platform_line.each { key, value ->
+            if (value)
+                platforms[key] = value
         }
-        // log.info "Read target : ${test_target_set.get_all().size()} row"
+        lines.find { line ->
+            if (!line['name'])
+                return true
+            def params = new ConfigObject()
+            line.each { key, value ->
+                if (!value)
+                    return
+                def platform = platforms[key]
+                if (platform) {
+                    params.config[platform][key] = value
+                } else {
+                    params[key] = value
+                }
+            }
+            def test_rule = new TestRule(params)
+            test_rule_set.add(test_rule)
+            return
+        }
+        log.info "Read rule : ${test_rule_set.get_all().size()} row"
     }
 
 }
