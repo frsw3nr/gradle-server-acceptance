@@ -14,8 +14,6 @@ import groovy.json.*
 @Singleton
 class Config {
     def configs = [:]
-    def servers = [:].withDefault{[:]}
-    def devices = [:].withDefault{[:].withDefault{[:]}}
     def date = new Date().format("yyyyMMdd_HHmmss")
     final encryption_mode = 'Blowfish'
 

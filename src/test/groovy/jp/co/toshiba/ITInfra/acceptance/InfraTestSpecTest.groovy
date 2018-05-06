@@ -1,17 +1,28 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon clean test --tests "InfraTestSpecTest"
+// gradle --daemon test --tests "InfraTestSpecTest.UTF-16検査結果の読込"
 
 class InfraTestSpecTest extends Specification {
 
     TargetServer test_server
+    TestTarget test_target
     DomainTestRunner test
     InfraTestSpec spec
 
     def setup() {
         test_server = new TargetServer(
             server_name       : 'win2012',
+            ip                : '192.168.0.12',
+            platform          : 'Windows',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'win2012.ostrich',
+        )
+        test_target = new TestTarget(
+            name              : 'win2012',
             ip                : '192.168.0.12',
             platform          : 'Windows',
             os_account_id     : 'Test',

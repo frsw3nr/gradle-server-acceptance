@@ -8,7 +8,7 @@ enum ResultStatus {
 }
 
 @Slf4j
-@ToString
+@ToString(includePackage = false)
 class TestResult extends SpecModel {
     String name
     def value

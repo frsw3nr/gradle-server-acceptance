@@ -4,14 +4,15 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 @Slf4j
-@ToString
+@ToString(includePackage = false)
 class TestScenario extends SpecModel {
     String name
     TestTargetSet test_targets
-    LinkedHashMap<String,TestDomainTemplate> test_domain_templates = [:]
+    TestMetricSet test_metrics
     TestRuleSet test_rules
 
     def accept(visitor){
         visitor.visit_test_scenario(this)
     }
+
 }

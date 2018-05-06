@@ -5,180 +5,82 @@ import static groovy.json.JsonOutput.*
 import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool
 import jsr166y.ForkJoinPool
-
-public enum SpecTestMode {
-    serial,
-    parallel,
-}
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
 class TestScheduler {
 
     TestRunner test_runner
-    EvidenceManager evidence_manager
-    EvidenceSheet evidence_sheet
-    TargetServer[] test_servers
-    DeviceResultSheet device_results
-    String server_config_script
-    def serialization_domains = [:]
-    def test_evidences = [:].withDefault{[:].withDefault{[:]}}
-    def additional_test_items = [:].withDefault{[:].withDefault{[:]}}
+    TestScenario test_scenario
+    PlatformTester platform_tester
+    String filter_server
+    String filter_metric
+    Boolean verify_test
+    def serialize_platforms = [:]
+    int parallel_degree = 0
+    def test_platform_tasks = [:].withDefault{[:]}
 
-    TestScheduler(TestRunner test_runner) {
-        this.test_runner = test_runner
-        this.evidence_manager = test_runner.evidence_manager
-        this.device_results = new DeviceResultSheet()
-
-        setSerializationDomainTasks()
+    def init() {
+        def config = Config.instance.read(this.test_runner.config_file)
+        println config
+        // evidence:[source:./src/test/resources/check_sheet.xlsx
+        def excel = config?.evidence?.source
+        // def excel_parser = new ExcelParser(config?.evidence?.sourc)
+        def excel_parser = new ExcelParser(config?.evidence?.source)
+        excel_parser.scan_sheet()
+        this.test_scenario = new TestScenario(name: 'root')
+        this.test_scenario.accept(excel_parser)
     }
 
-    def setSerializationDomainTasks() {
-        def config = Config.instance.read(test_runner.config_file)
-        def domains = config['test']['serialization']['tasks']
-        if (domains) {
-            assert domains in List
-            domains.each { domain ->
-                this.serialization_domains[domain] = 1
+    def make_test_platform_tasks(test_scenario) {
+        def domain_metrics = test_scenario.test_metrics.get_all()
+        def targets = test_scenario.test_targets.search_all(this.filter_server)
+        def rules = test_scenario.test_rules.get_all()
+
+        targets.find { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                def platform_metrics = domain_metrics[domain].get_all()
+                platform_metrics.each { platform, platform_metric ->
+                    def metrics = platform_metric.search_all(this.filter_metric)
+                    if (metrics.size() == 0)
+                        return
+                    def test_rule = rules[test_target.verify_id]
+                    def test_platform = new TestPlatform(name: platform,
+                                                         test_target: test_target,
+                                                         test_metrics: metrics,
+                                                         test_rule: test_rule)
+                    this.test_platform_tasks[platform][target_name] = test_platform
+                }
             }
+            return
         }
+        return this.test_platform_tasks
     }
 
-    List filterServer(List servers) {
-        def filtered_servers = []
-        def target_servers = test_runner.target_servers
-        servers.each { server ->
-            if (!target_servers || target_servers.containsKey(server.server_name)) {
-                filtered_servers << server
-            }
-        }
-        return filtered_servers
-    }
-
-    def filterSpecs(List test_ids) {
-        def filtered_test_ids = []
-        def target_test_ids = test_runner.test_ids
-        test_ids.each { test_id ->
-            if (!target_test_ids || target_test_ids.containsKey(test_id)) {
-                filtered_test_ids << test_id
-            }
-        }
-        return filtered_test_ids
-    }
-
-    def add_test_items(String platform, Map test_item) {
-        additional_test_items[platform] << test_item
-    }
-
-    def runServerTest(TargetServer test_server, SpecTestMode mode, String label = '') {
-        test_server.with {
-            setAccounts(test_runner.config_file)
-            it.dry_run = test_runner.dry_run
-            def compare_source = evidence_sheet.compare_servers[server_name]
-
-            def domain_specs = evidence_sheet.domain_test_ids[platform]
-            domain_specs.each { domain, test_ids ->
-                def is_serial = serialization_domains.containsKey(domain)
-                if ((mode == SpecTestMode.serial   && is_serial) ||
-                    (mode == SpecTestMode.parallel && !is_serial)) {
-                    long start = System.currentTimeMillis()
-                    log.info "Testing ${label} '${server_name}:${domain}'"
-                    def filtered_test_ids = filterSpecs(test_ids)
-                    def domain_test = new DomainTestRunner(it, domain)
-                    domain_test.with {
-                        makeTest(filtered_test_ids)
-                        if (test_runner.verify_test) {
-                            verify()
-                        }
-                        log.debug "Set Device results '${domain},${server_name}'"
-                        device_results.setResults(domain, server_name, result_test_items)
-                        if (compare_source == 'actual') {
-                            ResultContainer.instance.setNodeConfig(server_name, platform,
-                                                                   result_test_items)
-                        }
-                        def domain_results = [
-                            'test' : getResults(),
-                            'verify' : getVerifyStatuses(),
-                        ]
-                        test_evidences[platform][server_name][domain] = domain_results
-                        add_test_items(platform, getAdditionalTestItems())
+    def visit_test_scenario(test_scenario) {
+        def test_platform_tasks = this.make_test_platform_tasks(test_scenario)
+        test_platform_tasks.each { platform, test_platforms ->
+            def n_test_platforms = test_platforms.size()
+            log.info "Prepare platform test(${platform}) : ${n_test_platforms} targets"
+            if (this.parallel_degree > 1 && !this.serialize_platforms[platform]) {
+                log.info "Parallel execute : ${this.parallel_degree}"
+                GParsPool.withPool(this.parallel_degree) { ForkJoinPool pool ->
+                    test_platforms.collectParallel { target_name, test_platform ->
+                        test_platform.accept(this)
                     }
-                    long elapsed = System.currentTimeMillis() - start
-                    log.info "Finish ${label} '${server_name}:${domain}', Elapsed : ${elapsed} ms"
+                }
+            } else {
+                test_platforms.each { target_name, test_platform ->
+                    test_platform.accept(this)
                 }
             }
         }
     }
 
-    def runTest() {
-        log.debug "Initialize test schedule"
-        long run_test_start = System.currentTimeMillis()
-
-        evidence_sheet = new EvidenceSheet(test_runner.config_file)
-        evidence_sheet.evidence_source = test_runner.sheet_file
-
-        if (test_runner.server_config_script) {
-            evidence_sheet.readSheet(server_config: test_runner.server_config_script)
-        } else {
-            evidence_sheet.readSheet()
-        }
-        evidence_sheet.prepareTestStage()
-        test_servers = filterServer(evidence_sheet.test_servers)
-
-        evidence_sheet.compare_servers.each { server_name, server_source ->
-            log.info "Read Config : [$server_name, $server_source]"
-            if (server_source == 'local') {
-                ResultContainer.instance.loadNodeConfigJSON(evidence_manager,
-                                                            server_name)
-            } else if (server_source == 'db') {
-                ResultContainer.instance.getCMDBNodeConfig(evidence_manager,
-                                                           server_name)
-            }
-        }
-        def verifier = VerifyRuleGenerator.instance
-        verifier.setVerifyRule(evidence_sheet.verify_rules)
-        def n_test_servers = test_servers.size()
-        if (serialization_domains) {
-            def count = 1
-            test_servers.each { test_server ->
-                def label = "S ${count}/${n_test_servers}"
-                runServerTest(test_server, SpecTestMode.serial, label)
-                count ++
-            }
-        }
-        GParsPool.withPool(test_runner.parallel_degree) { ForkJoinPool pool ->
-            // def count = 1
-            test_servers.eachWithIndexParallel { test_server, count ->
-                def label = "P ${count+1}/${n_test_servers}"
-                runServerTest(test_server, SpecTestMode.parallel, label)
-            }
-        }
-        log.debug "Evidence : " + test_evidences
-
-        test_evidences.each { platform, platform_evidence ->
-            def test_items = additional_test_items[platform]
-            evidence_sheet.addTestItemsToTargetSheet(platform, test_items)
-            def server_index = 0
-            evidence_sheet.compare_servers.each { compare_server, compare_source ->
-                if (compare_server && ResultContainer.instance.test_results[compare_server][platform]) {
-                    evidence_sheet.updateTemplateResult(platform, compare_server, server_index)
-                    server_index ++
-                }
-            }
-            platform_evidence.each { server_name, server_evidence ->
-                evidence_sheet.updateTestResult(platform, server_name, server_index, server_evidence)
-                server_index ++
-            }
-        }
-        evidence_sheet.device_test_ids.each { domain,test_ids->
-            test_ids.each { test_id, flag->
-                def header = device_results.getHeaders(domain, test_id)
-                def csv = device_results.getCSVs(domain, test_id)
-                if (header && csv) {
-                    evidence_sheet.insertDeviceSheet(domain, test_id, header, csv)
-                }
-            }
-        }
-        long run_test_elapsed = System.currentTimeMillis() - run_test_start
-        log.info "Finish server acceptance test, Total Elapsed : ${run_test_elapsed} ms"
+    def visit_test_platform(test_platform) {
+        log.info "visit_test_platform : ${test_platform.name}"
+        this.platform_tester.run(test_platform)
+        // def test_domain_template = test_domain_templates[]
     }
 }

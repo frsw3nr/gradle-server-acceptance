@@ -1,141 +1,89 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import static groovy.json.JsonOutput.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon clean test --tests "TestSchedulerTest"
+// gradle --daemon test --tests "TestSchedulerTest.初期化"
 
 class TestSchedulerTest extends Specification {
+    TestRunner test_runner
+    TestScenario test_scenario
+    PlatformTester platform_tester
 
-    def "メイン処理"() {
-        setup:
+    def setup() {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
             '-resource', './src/test/resources/log',
             '--parallel', '3',
         ]
-
-        when:
-        def test_runner = new TestRunner()
+        test_runner = new TestRunner()
         test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
 
-        // println prettyPrint(toJson(Config.instance.servers))
-        // println prettyPrint(toJson(Config.instance.devices))
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
 
-        then:
-        1 == 1
-        // Config.instance.servers.size() > 0
-        // Config.instance.devices.size() > 0
+        platform_tester = new PlatformTester()
     }
 
-    def "サーバー絞り込み"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '-s', 'testtestdb',
-            '--parallel', '3',
-        ]
-
+    def "初期化"() {
         when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
+        def test_scheduler = new TestScheduler(test_runner: test_runner)
+        test_scheduler.init()
 
         then:
-        1 == 1
+        test_scheduler.test_scenario != null
     }
 
-    def "テスト項目追加"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '-t', 'hostname',
-            '--parallel', '3',
-        ]
-
+    def "テストタスク作成"() {
         when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        def dat = [
-            'B': ['test_name': 'Bテスト', 'desc': 'テスト用B'],
-            'A': ['test_name': 'Aテスト', 'desc': 'テスト用A'],
-        ]
-        test_scheduler.add_test_items('VMHost', dat)
-        test_scheduler.add_test_items('VMHost', [
-            'C': ['test_name': 'Cテスト', 'desc': 'テスト用C'],
-            'B': ['test_name': 'Bテスト', 'desc': 'テスト用B'],
-        ])
-        println(test_scheduler.additional_test_items)
+        def test_scheduler = new TestScheduler()
+        def tasks = test_scheduler.make_test_platform_tasks(test_scenario)
+
         then:
-        1 == 1
+        tasks.size() == 3
     }
 
-    def "テスト絞り込み"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '-t', 'hostname',
-            '--parallel', '3',
-        ]
-
+    def "ターゲット絞り込み"() {
         when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
+        def test_scheduler = new TestScheduler(filter_server: 'centos7')
+        def tasks = test_scheduler.make_test_platform_tasks(test_scenario)
+
+        then:
+        tasks.size() == 2
+    }
+
+    def "メトリック絞り込み"() {
+        when:
+        def test_scheduler = new TestScheduler(filter_metric: 'uname')
+        def tasks = test_scheduler.make_test_platform_tasks(test_scenario)
+
+        then:
+        tasks.size() == 1
+    }
+
+    def "シナリオ読み込み"() {
+        when:
+        def test_scheduler = new TestScheduler(platform_tester: platform_tester)
+        test_scenario.accept(test_scheduler)
 
         then:
         1 == 1
     }
 
-    def "サーバ、テスト絞り込み"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '-s', 'testtestdb',
-            '-t', 'vm',
-            '--parallel', '3',
-        ]
-
+    def "多重実行"() {
         when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
+        def test_scheduler = new TestScheduler(serialize_platforms: ['vCenter': true],
+                                               parallel_degree: 3,
+                                               platform_tester: platform_tester)
+        test_scenario.accept(test_scheduler)
 
         then:
         1 == 1
     }
 
-    def "検査対象サーバスクリプト指定"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '-i', './src/test/resources/test_servers.groovy',
-        ]
-
-        when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_scheduler = new TestScheduler(test_runner)
-        test_scheduler.runTest()
-
-        then:
-        1 == 1
-    }
 
 }

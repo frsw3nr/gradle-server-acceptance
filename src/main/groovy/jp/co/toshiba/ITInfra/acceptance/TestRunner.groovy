@@ -22,6 +22,8 @@ class TestRunner {
     String export_files
     String server_config_script
     int parallel_degree
+    String filter_server
+    String filter_metric
     def target_servers
     def test_ids
     Boolean dry_run
@@ -47,12 +49,8 @@ class TestRunner {
                 argName: 'check_sheet.xlsx'
             i longOpt: 'input',    args: 1, 'Target server config script',
                 argName: 'test_servers.groovy'
-            s longOpt: 'server',   args: Option.UNLIMITED_VALUES,
-                valueSeparator: ',' as char, 'Filtering list of servers',
-                argName: 'svr1,svr2,...'
-            t longOpt: 'test',     args: Option.UNLIMITED_VALUES,
-                valueSeparator: ',' as char, 'Filtering list of test_ids',
-                argName: 'vm,cpu,...'
+            s longOpt: 'server',   args: 1, 'Keyword of target server'
+            t longOpt: 'test',     args: 1, 'Keyword of test metric'
             u longOpt: 'update',   args: 1, 'Update node config',
                 argName:'local|db|db-all'
             _ longOpt: 'resource', args: 1, 'Dry run test resource directory'
@@ -71,7 +69,6 @@ class TestRunner {
             x longOpt: 'export',   args: 1, 'Export csv from test result excel',
                 argName : 'check_sheet.xlsx,...'
             r longOpt: 'use-redmine', 'Get test targets from Redmine'
-            v longOpt: 'gui', 'Get test targets from Redmine'
             _ longOpt: 'silent', 'Silent mode'
         }
         def options = cli.parse(args)
@@ -93,11 +90,6 @@ class TestRunner {
             new ProjectBuilder(project_home).xport(xport_file)
             System.exit(0)
         }
-        if (options.gui) {
-            def gui = new GUI()
-            gui.test1()
-            System.exit(0)
-        }
 
         def keyword = options.k?:null
         if (options.encode) {
@@ -108,19 +100,10 @@ class TestRunner {
             Config.instance.decrypt(options.decode, keyword)
             System.exit(0)
         }
-        target_servers = [:]
-        if (options.ss) {
-            options.ss.each {
-                target_servers[it] = true
-            }
-        }
-        test_ids = [:]
-        if (options.ts) {
-            options.ts.each {
-                test_ids[it] = true
-            }
-        }
+
         parallel_degree = 1
+        filter_server  = options.s
+        filter_metric  = options.t
         dry_run         =  options.d ?: false
         verify_test     = !options.verify ?: true
         use_redmine     = options.r ?: false
@@ -190,8 +173,8 @@ class TestRunner {
         log.info "\tverify_test   : " + verify_test
         log.info "\tuse_redmine   : " + use_redmine
         log.info "\tfilter option : "
-        log.info "\t\ttarget servers : " + target_servers.toString()
-        log.info "\t\ttest_ids       : " + test_ids.toString()
+        log.info "\t\ttarget servers : " + filter_server
+        log.info "\t\tmetrics        : " + filter_metric
     }
 
     static void main(String[] args) {

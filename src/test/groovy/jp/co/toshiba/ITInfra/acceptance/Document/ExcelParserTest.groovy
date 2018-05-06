@@ -7,7 +7,7 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon clean test --tests "ExcelParserTest.チェックシートパース"
+// gradle --daemon test --tests "ExcelParserTest.チェックシートパース"
 
 class ExcelParserTest extends Specification {
 
@@ -35,21 +35,21 @@ class ExcelParserTest extends Specification {
     def "チェックシートパース"() {
         setup:
         def domains = ['Linux', 'Windows', 'VMHost']
-        def templates = [:]
+        def test_metric_sets = [:]
 
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         domains.each { domain ->
-            def template = new TestDomainTemplate(name: domain)
-            template.accept(excel_parser)
-            templates[domain] = template
+            def source = excel_parser.sheet_sources.check_sheet."$domain"
+            test_metric_sets[domain] = new TestMetricSet(name: domain)
+            test_metric_sets[domain].accept(excel_parser)
         }
 
         then:
         domains.each { domain ->
-            templates[domain].name == domain
-            templates[domain].test_metrics.size() > 0
+            test_metric_sets[domain].name == domain
+            test_metric_sets[domain].count() > 0
         }
     }
 
@@ -82,26 +82,28 @@ class ExcelParserTest extends Specification {
     }
 
     def "シート全体パース"() {
-        setup:
-        def domains = ['Linux', 'Windows', 'VMHost']
-
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'OS情報採取')
         test_scenario.accept(excel_parser)
+        def test_domains = test_scenario.test_metrics.get_all()
         def test_targets = test_scenario.test_targets.get_all()
         def test_rules   = test_scenario.test_rules.get_all()
+
+        def result_platform_keys = [:]
+        test_domains.each { domain, test_domain ->
+            def platform_metrics = test_domain.get_all()
+            platform_metrics.each { platform, platform_metric ->
+                result_platform_keys[domain, platform] = platform_metric.count()
+            }
+        }
+        println result_platform_keys
 
         then:
         test_targets.size() == 2
         test_rules.size() == 2
-        domains.each { domain ->
-            def template = test_scenario.test_domain_templates[domain]
-            template.name == domain
-            template.test_metrics.size() > 0
-        }
-
+        result_platform_keys.size() > 0
     }
 
 }

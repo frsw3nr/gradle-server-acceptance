@@ -16,14 +16,14 @@ class TestMetricTest extends Specification {
         def param1 = ['name': 'Linux', "enabled": false]
 
         when:
-        TestDomain d1 = new TestDomain(name: 'Linux', enabled: false)
+        TestPlatform linux = new TestPlatform(name: 'Linux', enabled: false)
         def test_metrics = [:]
         (1..3).each { idx ->
             def id = "test_${idx}"
             test_metrics[id] = new TestMetric(name: id)
         }
-        d1.test_metrics = test_metrics
-        println("$d1")
+        linux.test_metrics = test_metrics
+        println("$linux")
 
         then:
         1 == 1

@@ -4,7 +4,7 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 @Slf4j
-@ToString
+@ToString(includePackage = false)
 class SpecModel {
     def custom_fields = [:]
     def propertyMissing(String name, value) { custom_fields[name] = value }
