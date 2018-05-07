@@ -28,12 +28,15 @@ class LinuxSpecBase extends InfraTestSpec {
     def init() {
         super.init()
 
-        this.ip          = test_platform.test_target.ip
-        def os_account   = test_platform.os_account
-        this.os_user     = os_account['user']
-        this.os_password = os_account['password']
-        this.work_dir    = os_account['work_dir']
-        this.timeout     = test_platform.timeout
+        this.ip           = test_platform.test_target.ip
+        def os_account    = test_platform.os_account
+        this.os_user      = os_account['user']
+        this.os_password  = os_account['password']
+        this.work_dir     = os_account['work_dir']
+        this.timeout      = test_platform.timeout
+        println "TEST_PLATFORM:${test_platform}"
+        println "TEST_PLATFORM2:${test_platform.test_results}"
+        // this.test_results = test_platform.test_results
         println "LinuxSpec: ${this}"
         println "dry_run: ${this.dry_run}"
     }

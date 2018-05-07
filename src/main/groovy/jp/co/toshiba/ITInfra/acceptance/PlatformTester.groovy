@@ -30,12 +30,6 @@ class PlatformTester {
         test_spec = clazz.newInstance(this.test_platform)
     }
 
-    def visit_test_platform(test_platform) {
-        def config = new ConfigTestEnvironment(this.config_file)
-        config.set_account(test_platform)
-        config.set_test_environment(test_platform)
-    }
-
     def init() {
         def config = new ConfigTestEnvironment(this.config_file)
         config.set_account(this.test_platform)

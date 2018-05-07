@@ -62,8 +62,7 @@ class ExcelParserTest extends Specification {
         def test_targets = target_set.get_all()
 
         then:
-        test_targets['centos7'].Linux.verify_id   == 'AP'
-        test_targets['win2012'].Windows.verify_id == 'AP'
+        test_targets['centos7'].Linux.verify_id   == 'RuleAP'
     }
 
     def "ルール定義パース"() {

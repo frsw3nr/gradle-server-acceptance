@@ -9,12 +9,53 @@ import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
+@Slf4j
 abstract class ExcelSheetParser {
     String sheet_prefix    = ''
     int[] header_pos       = [0, 0]
     String[] header_checks = []
 
     abstract def get_sheet_body(Sheet sheet)
+
+    public static String getStringFormulaValue(Cell cell) {
+        assert cell.getCellType() == Cell.CELL_TYPE_FORMULA;
+
+        Workbook book = cell.getSheet().getWorkbook();
+        CreationHelper helper = book.getCreationHelper();
+        FormulaEvaluator evaluator = helper.createFormulaEvaluator();
+        CellValue value = evaluator.evaluate(cell);
+        switch (value.getCellType()) {
+        case Cell.CELL_TYPE_STRING:
+            return value.getStringValue();
+        case Cell.CELL_TYPE_NUMERIC:
+            return Double.toString(value.getNumberValue());
+        case Cell.CELL_TYPE_BOOLEAN:
+            return Boolean.toString(value.getBooleanValue());
+        default:
+            return null;
+        }
+    }
+
+    public static String getStringValue(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        switch (cell.getCellType()) {
+        case Cell.CELL_TYPE_STRING:
+            return cell.getStringCellValue();
+        case Cell.CELL_TYPE_NUMERIC:
+            return Double.toString(cell.getNumericCellValue());
+        case Cell.CELL_TYPE_BOOLEAN:
+            return Boolean.toString(cell.getBooleanCellValue());
+        case Cell.CELL_TYPE_FORMULA:
+            // return cell.getCellFormula();
+            return getStringFormulaValue(cell);
+        case Cell.CELL_TYPE_BLANK:
+            return "";
+        default:
+            return null;
+        }
+    }
 }
 
 @Slf4j
@@ -86,7 +127,8 @@ class ExcelSheetParserVertical extends ExcelSheetParser {
                 return true
             (header_pos[1] + 2 .. row.getLastCellNum()).each { colnum ->
                 def target_id = colnum - (header_pos[1] + 2)
-                lines[target_id][header_name] = "${row.getCell(colnum)}"
+                // lines[target_id][header_name] = "${row.getCell(colnum)}"
+                lines[target_id][header_name] = this.getStringValue(row.getCell(colnum))
             }
         }
         return lines

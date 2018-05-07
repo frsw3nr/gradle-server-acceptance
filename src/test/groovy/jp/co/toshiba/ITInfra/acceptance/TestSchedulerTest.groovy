@@ -51,6 +51,7 @@ class TestSchedulerTest extends Specification {
         when:
         def test_scheduler = new TestScheduler(filter_server: 'centos7')
         def tasks = test_scheduler.make_test_platform_tasks(test_scenario)
+        println "TASKS:${tasks['vCenter']['centos7'].test_metrics}"
 
         then:
         tasks.size() == 2

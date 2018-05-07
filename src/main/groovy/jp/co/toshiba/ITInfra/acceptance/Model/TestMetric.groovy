@@ -49,7 +49,7 @@ class TestMetricSet extends TestMetric {
     def search_all(String filter_metric) {
         def filterd = new ConfigObject()
         children.each { name, test_metric ->
-            if (this.check_filter(name, filter_metric)) {
+            if (test_metric.enabled && this.check_filter(name, filter_metric)) {
                 filterd[name] = test_metric
             }
         }
