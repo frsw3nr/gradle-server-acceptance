@@ -4,49 +4,58 @@ import static groovy.json.JsonOutput.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "PlatformTesterTest.初期化"
+// gradle --daemon test --tests "PlatformTesterTest.Linuxテストタスク"
 
 class PlatformTesterTest extends Specification {
-    def test_platform_tasks = [:].withDefault{[]}
-    TestRunner test_runner
+    // def test_platform_tasks = [:].withDefault{[]}
+    // TestRunner test_runner
+    String config_file = 'src/test/resources/config.groovy'
+    TestPlatform test_platform
 
     def setup() {
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '--parallel', '3',
+        def test_target = new TestTarget(
+            name              : 'ostrich',
+            ip                : '192.168.10.1',
+            domain            : 'Linux',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'ostrich',
+        )
+
+        def test_rule = new TestRule(name : 'AP',
+                                 compare_rule : 'Actual',
+                                 compare_source : 'centos7')
+
+        def test_metrics = [
+            'uname': new TestMetric(name : 'uname', enabled : true),
+            'cpu'  : new TestMetric(name : 'cpu', enabled : true),
         ]
-        test_runner = new TestRunner()
-        test_runner.parse(args)
 
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-        excel_parser.scan_sheet()
-
-        def test_scenario = new TestScenario(name: 'root')
-        test_scenario.accept(excel_parser)
-        test_scenario.test_targets.copy('centos7', "ostrich")
-
-        def test_scheduler = new TestScheduler(test_runner: test_runner)
-        test_platform_tasks = test_scheduler.make_test_platform_tasks(test_scenario)
+        test_platform = new TestPlatform(
+            name         : 'Linux',
+            test_target  : test_target,
+            test_metrics : test_metrics,
+            test_rule    : test_rule,
+            dry_run      : true,
+        )
     }
 
     def "初期化"() {
         when:
-        def platform_tester = new PlatformTester(test_runner: test_runner)
-        // platform_tester.init()
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
 
         then:
-        platform_tester != null
+        platform_tester.test_spec != null
     }
 
     def "Linuxテストタスク"() {
-        setup:
-        def platform_tester = new PlatformTester(test_runner: test_runner)
-
         when:
-        def test_platform_task = test_platform_tasks['Linux']['ostrich']
-        platform_tester.run(test_platform_task)
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file : config_file)
+        platform_tester.init()
+        platform_tester.run()
 
         then:
         1 == 1

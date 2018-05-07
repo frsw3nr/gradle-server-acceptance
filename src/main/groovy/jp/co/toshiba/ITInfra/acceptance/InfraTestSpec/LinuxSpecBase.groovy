@@ -1,6 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
 
 import groovy.util.logging.Slf4j
+import groovy.transform.ToString
 import groovy.transform.InheritConstructors
 import org.apache.commons.io.FileUtils.*
 import static groovy.json.JsonOutput.*
@@ -9,8 +10,12 @@ import org.hidetake.groovy.ssh.session.execution.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
+import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
+@ToString(includePackage = false)
 @InheritConstructors
 class LinuxSpecBase extends InfraTestSpec {
 
@@ -23,17 +28,20 @@ class LinuxSpecBase extends InfraTestSpec {
     def init() {
         super.init()
 
-        this.ip          = test_server.ip
-        def os_account   = test_server.os_account
+        this.ip          = test_platform.test_target.ip
+        def os_account   = test_platform.os_account
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
         this.work_dir    = os_account['work_dir']
-        this.timeout     = test_server.timeout
+        this.timeout     = test_platform.timeout
+        println "LinuxSpec: ${this}"
+        println "dry_run: ${this.dry_run}"
     }
 
-    def setup_exec(TestItem[] test_items) {
+    // def setup_exec(TestItem[] test_items) {
+    def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
         super.setup_exec()
-
+        println 'setup_exec'
         def ssh = Ssh.newService()
         ssh.remotes {
             ssh_host {
@@ -50,6 +58,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         ssh.run {
             session(ssh.remotes.ssh_host) {
+                println 'setup_exec2'
                 try {
                     execute "mkdir -p ${work_dir}"
                 } catch (Exception e) {
@@ -57,18 +66,19 @@ class LinuxSpecBase extends InfraTestSpec {
                     return
                 }
 
-                test_items.each {
-                    def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
+                test_metrics.each { metric_name, test_metric ->
+                    println "setup_exec3 : ${metric_name}"
+                    def method = this.metaClass.getMetaMethod(metric_name, Object, TestItem)
                     if (method) {
                         log.debug "Invoke command '${method.name}()'"
                         try {
                             long start = System.currentTimeMillis();
-                            method.invoke(this, delegate, it)
+                            method.invoke(this, delegate, test_metric)
                             long elapsed = System.currentTimeMillis() - start
                             log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-                            it.succeed = 1
+                            // it.succeed = 1
                         } catch (Exception e) {
-                            it.verify_status(false)
+                            // it.verify_status(false)
                             log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
                         }
                     }
@@ -81,11 +91,11 @@ class LinuxSpecBase extends InfraTestSpec {
                 }
             }
         }
-        test_items.each { test_item ->
-            if (test_item.test_id == 'logon_test') {
-                _logon_test(test_item)
-            }
-        }
+        // test_items.each { test_item ->
+        //     if (test_item.test_id == 'logon_test') {
+        //         _logon_test(test_item)
+        //     }
+        // }
     }
 
     def _logon_test(TestItem test_item) {
@@ -184,7 +194,8 @@ class LinuxSpecBase extends InfraTestSpec {
                 info = m1
             }
         }
-        test_item.results(info)
+        println("uname:${info}")
+        // test_item.results(info)
     }
 
     def lsb(session, test_item) {
@@ -239,7 +250,8 @@ class LinuxSpecBase extends InfraTestSpec {
         else
             cpu_text += " ${cpu_number} CPU"
         cpuinfo["cpu"] = cpu_text
-        test_item.results(cpuinfo)
+        println("cpu:${cpuinfo}")
+        // test_item.results(cpuinfo)
     }
 
     def machineid(session, test_item) {

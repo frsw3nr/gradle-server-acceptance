@@ -2,32 +2,60 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
+import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
+@ToString(includePackage = false)
 class PlatformTester {
 
-    TestRunner test_runner
-
+    String name
     static final user_lib = './lib'
     static final user_package = 'InfraTestSpec'
-
-    String     platform
-    String     verify_id
-    def result_test_items = []
     private test_spec
-    def server_info = [:]
 
-    // PlatformTester() {
+    TestRunner   test_runner
+    TestPlatform test_platform
+    String config_file
 
-    // }
-    def run(TestPlatform test_platform) {
-        println "Run tester: $test_platform"
-        println "Metrics: ${test_platform.test_metrics}"
-        test_platform.test_metrics.each { metric_name, metric ->
+    def init_test_script() {
+        def loader = new GroovyClassLoader()
+        loader.addClasspath(user_lib)
+        loader.clearCache()
 
+        def user_script = "${user_lib}/${user_package}/${test_platform.name}Spec.groovy"
+        log.debug "Load ${user_script}"
+        def clazz = loader.parseClass(new File(user_script))
+        test_spec = clazz.newInstance(this.test_platform)
+    }
+
+    def visit_test_platform(test_platform) {
+        def config = new ConfigTestEnvironment(this.config_file)
+        config.set_account(test_platform)
+        config.set_test_environment(test_platform)
+    }
+
+    def init() {
+        def config = new ConfigTestEnvironment(this.config_file)
+        config.set_account(this.test_platform)
+        config.set_test_environment(this.test_platform)
+        this.init_test_script()
+    }
+
+    def run() {
+        test_spec.init()
+        try {
+            test_spec.setup_exec(test_platform.test_metrics)
+            // log.debug "\tresults : " + summaryReport(test_items)
+        } catch (Exception e) {
+            log.error "[Test] Failed to run ${test_spec.title}, skip.\n" + e
         }
+        test_spec.cleanup_exec()
+
+        // test_platform.test_metrics.each { metric_name, metric ->
+        //     println "METRIC: ${metric_name}"
+        // }
     }
 
     // PlatformTestRunner(TargetServer test_server, String platform) throws IOException {

@@ -3,6 +3,9 @@ package jp.co.toshiba.ITInfra.acceptance
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
 import groovy.transform.ToString
+import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 public enum RunMode {
     prepare,
@@ -11,9 +14,11 @@ public enum RunMode {
 }
 
 @Slf4j
+@ToString(includePackage = false)
 class InfraTestSpec {
 
     def config
+    TestPlatform test_platform
     TargetServer test_server
     String server_name
     String platform
@@ -30,22 +35,40 @@ class InfraTestSpec {
     RunMode mode
     def server_info = [:]
 
-    def InfraTestSpec(TargetServer test_server, String domain) {
-        this.test_server            = test_server
-        this.server_name            = test_server.server_name
-        this.platform               = test_server.platform
-        this.domain                 = domain
-        this.title                  = domain + '(' + test_server.info() + ')'
-        this.evidence_log_dir       = test_server.evidence_log_dir
-        this.evidence_log_share_dir = test_server.evidence_log_share_dir
-        this.local_dir              = "${evidence_log_dir}/${domain}"
-        this.dry_run                = test_server.dry_run
-        this.dry_run_staging_dir    = test_server.dry_run_staging_dir
-        this.timeout                = test_server.timeout
-        this.debug                  = test_server.debug
+    def InfraTestSpec(TestPlatform test_platform) {
+        // this.test_server            = test_server
+        this.test_platform          = test_platform
+        this.server_name            = test_platform.test_target.name
+        this.platform               = test_platform.name
+        this.domain                 = test_platform.test_target.domain
+        this.title                  = domain + '(' + server_name + ')'
+        this.evidence_log_dir       = test_platform.evidence_log_dir
+        this.evidence_log_share_dir = test_platform.evidence_log_share_dir
+        this.local_dir              = "${evidence_log_dir}/${platform}"
+        this.dry_run                = test_platform.dry_run
+        this.dry_run_staging_dir    = test_platform.dry_run_staging_dir
+        this.timeout                = test_platform.timeout
+        this.debug                  = test_platform.debug
         this.mode                   = RunMode.prepare
-        this.server_info            = test_server.infos
+        this.server_info            = test_platform.test_target
     }
+
+    // def InfraTestSpec(TargetServer test_server, String domain) {
+    //     this.test_server            = test_server
+    //     this.server_name            = test_server.server_name
+    //     this.platform               = test_server.platform
+    //     this.domain                 = domain
+    //     this.title                  = domain + '(' + test_server.info() + ')'
+    //     this.evidence_log_dir       = test_server.evidence_log_dir
+    //     this.evidence_log_share_dir = test_server.evidence_log_share_dir
+    //     this.local_dir              = "${evidence_log_dir}/${domain}"
+    //     this.dry_run                = test_server.dry_run
+    //     this.dry_run_staging_dir    = test_server.dry_run_staging_dir
+    //     this.timeout                = test_server.timeout
+    //     this.debug                  = test_server.debug
+    //     this.mode                   = RunMode.prepare
+    //     this.server_info            = test_server.infos
+    // }
 
     def prepare = { Closure closure ->
         return closure.call()
@@ -69,11 +92,11 @@ class InfraTestSpec {
     }
 
     def exec = { HashMap settings = [:], String test_id, Closure closure ->
-        def log_path = "${dry_run_staging_dir}/${platform}"
+        def log_path = "${dry_run_staging_dir}/${domain}"
         Boolean shared = settings['shared'] ?: false
         String  encode = settings['encode'] ?: null
         if (shared == false) {
-            log_path += "/${server_name}/${domain}"
+            log_path += "/${server_name}/${platform}"
         }
         log_path += '/' + test_id
         def target_path = (shared) ? evidence_log_share_dir : local_dir

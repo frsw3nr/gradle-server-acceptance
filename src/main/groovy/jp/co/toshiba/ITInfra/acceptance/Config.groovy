@@ -43,9 +43,34 @@ class Config {
                     }
                 }
             }
+            config.config_file = config_file
             configs[config_file] = config
         }
         return configs[config_file]
+    }
+
+    def get_account(String platform, String id = null) {
+        def account = [:]
+        def config_account = this?.account
+        if (!config_account) {
+            def msg = "Not found parameter 'account' in ${this.config_file}"
+            log.error(msg)
+            throw new IllegalArgumentException(msg)
+        }
+        if (id) {
+            if (!platform) {
+                def msg = "Parameter platform required"
+                log.error(msg)
+                throw new IllegalArgumentException(msg)
+            }
+            account = config_account[platform][id]
+            if (!account) {
+                def msg = "Not found parameter 'account.${platform}.${id}' in ${this.config_file}"
+                log.error(msg)
+                throw new IllegalArgumentException(msg)
+            }
+        }
+        return account
     }
 
     String inputPassword(Map options = [:]) {
