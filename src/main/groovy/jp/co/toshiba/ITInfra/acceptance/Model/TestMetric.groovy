@@ -34,6 +34,10 @@ class TestMetricSet extends TestMetric {
         return this.children
     }
 
+    def get_keys() {
+        return this.children.keySet()
+    }
+
     def get(String key) {
         return this.children?."$key"
     }
