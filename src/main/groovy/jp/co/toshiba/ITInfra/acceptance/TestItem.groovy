@@ -1,64 +1,60 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-public enum VerifyStatus {
-    ok,
-    ng,
-    unkown,
-}
+import groovy.util.logging.Slf4j
+import groovy.transform.ToString
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
+@Slf4j
+@ToString(includePackage = false)
 class TestItem {
 
-    String  test_id
-    String  description
-    Boolean enabled
+    String test_id
+    LinkedHashMap<String,TestResult> test_results = [:]
 
-    int succeed = 0
-    def results
-    def verify_status
-    def device_header = []
-    def devices = []
-    def additional_test_items
-
-    TestItem(String test_id) {
-        this.test_id = test_id
-        this.enabled = true
-        this.results = [:]
-        this.verify_status = [:]
-        this.additional_test_items = [:]
+    TestResult make_test_result(String metric_name, Object value) {
+        def test_result = this.test_results?."${metric_name}" ?:
+                          new TestResult(name: metric_name)
+        def value_str = "$value"
+        if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '')
+            test_result.status = ResultStatus.FAILED
+        else
+            test_result.value = value_str
+        this.test_results[metric_name] = test_result
     }
 
-    def preset_null_status = { Closure closure ->
-        if (!results.containsKey(this.test_id)) {
-            if (closure.call() == true) {
-                this.verify_status[this.test_id] = false
-            }
+    TestResult make_verify_status(String metric_name, Boolean status_ok) {
+        def test_result = this.test_results?."${metric_name}" ?:
+                          new TestResult(name: metric_name)
+        test_result.status = (status_ok) ? ResultStatus.OK : ResultStatus.FAILED
+        this.test_results[metric_name] = test_result
+    }
+
+    def results(Object value = null) {
+        this.make_test_result(this.test_id, value)
+    }
+
+    def results(Map values) {
+        values.each { metric_name, value ->
+            this.make_test_result(metric_name, value)
         }
     }
 
-    def results(String result) {
-        preset_null_status() {
-            (result == '[:]' || result.size() == 0)
+    def verify_status(Boolean status_ok) {
+        this.make_verify_status(this.test_id, status_ok)
+    }
+
+    def verify_status(Map status_oks) {
+        status_oks.each { metric_name, status_ok ->
+            this.make_verify_status(metric_name, status_ok)
         }
-        this.results[this.test_id] = result
     }
 
-    def results(Map results_in) {
-        preset_null_status() {
-            (results_in.size() == 0)
-        }
-        this.results << results_in
+    def devices(List csv, List header) {
+        def test_result = this.test_results[this.test_id] ?:
+                          new TestResult(name: this.test_id)
+        def test_result_line = new TestResultLine(csv : csv, header : header)
+        test_result.devices = test_result_line
+        this.test_results[this.test_id] = test_result
     }
 
-    def verify_status(Boolean result) {
-        this.verify_status[this.test_id] = result
-    }
-
-    def verify_status(Map results) {
-        this.verify_status << results
-    }
-
-    def devices(HashMap settings = [:], List csv, List header) {
-        this.devices = csv
-        this.device_header = header
-    }
 }

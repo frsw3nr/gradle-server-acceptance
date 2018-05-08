@@ -58,7 +58,39 @@ class PlatformTesterTest extends Specification {
         platform_tester.run()
 
         then:
-        1 == 1
+        test_platform.test_results.size() > 0
+    }
+
+    def "Linuxメトリック指定"() {
+        when:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file : config_file)
+        platform_tester.init()
+        platform_tester.set_test_items('hostname', 'hostname_fqdn', 'cpu')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results['hostname'].value.size() > 0
+        test_platform.test_results['hostname_fqdn'].value.size() > 0
+        test_platform.test_results['cpu'].value.size() > 0
+    }
+
+    def "Linuxデバイステストタスク"() {
+        setup:
+        def test_metrics = [
+            'network': new TestMetric(name : 'network', enabled : true),
+        ]
+        test_platform.test_metrics = test_metrics
+
+        when:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file : config_file)
+        platform_tester.init()
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        test_platform.test_results['network'].devices.csv.size() > 0
     }
 
     // def "テストタスク絞り込み"() {

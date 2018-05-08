@@ -34,12 +34,16 @@ class TestMetricSet extends TestMetric {
         return this.children
     }
 
-    def check_filter(name, keyworkd) {
+    def get(String key) {
+        return this.children?."$key"
+    }
+
+    def check_filter(name, keyword) {
         def matched = false
-        if (!keyworkd) {
+        if (!keyword) {
             matched = true
         } else {
-            ( name =~ /${keyworkd}/ ).each { m0 ->
+            ( name =~ /${keyword}/ ).each { m0 ->
                 matched = true
             }
         }

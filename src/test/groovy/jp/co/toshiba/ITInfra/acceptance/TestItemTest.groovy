@@ -1,38 +1,81 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon clean test --tests "TestItemTest"
+// gradle --daemon test --tests "TestItemTest"
 
 class TestItemTest extends Specification {
 
-    def "検査項目の初期化"() {
-        when:
-        def test_item = new TestItem('cpu')
+    String config_file = 'src/test/resources/config.groovy'
+    TestItem test_item
 
-        then:
-        test_item.test_id == 'cpu'
+    def setup() {
+        def test_metrics = [
+            'uname': new TestMetric(name : 'uname', enabled : true),
+            'cpu'  : new TestMetric(name : 'cpu', enabled : true),
+        ]
+
+        test_item = new TestItem(test_id  : 'uname')
     }
 
-    def "検査結果の登録"() {
-        setup:
-        def test_item = new TestItem('cpu')
 
+    def "検査結果登録"() {
         when:
-        test_item.results('1')
+        test_item.results('ostrich')
 
         then:
-        test_item.results['cpu'] == '1'
+        test_item.test_results['uname'].value == 'ostrich'
     }
 
-    def "検査結果配列の登録"() {
-        setup:
-        def test_item = new TestItem('cpu')
-
+    def "複数検査結果登録"() {
         when:
-        test_item.results(['cpu': '4', 'core' : '2'])
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
 
         then:
-        test_item.results['cpu']  == '4'
-        test_item.results['core'] == '2'
+        test_item.test_results['uname'].value == 'ostrich'
+        test_item.test_results['cpu'].value == '3'
+    }
+
+    def "空の結果登録"() {
+        when:
+        test_item.results()
+
+        then:
+        test_item.test_results['uname'].status == ResultStatus.FAILED
+    }
+
+    def "空の複数結果登録"() {
+        when:
+        test_item.results(['uname' : '[:]', 'cpu' : '', 'lsb' : null])
+
+        then:
+        test_item.test_results['uname'].status == ResultStatus.FAILED
+        test_item.test_results['cpu'].status == ResultStatus.FAILED
+        test_item.test_results['lsb'].status == ResultStatus.FAILED
+    }
+
+    def "検証結果登録"() {
+        when:
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        test_item.verify_status(['cpu' : false, 'lsb' : true])
+
+        then:
+        test_item.test_results['cpu'].status == ResultStatus.FAILED
+        test_item.test_results['lsb'].status == ResultStatus.OK
+    }
+
+    def "デバイス登録"() {
+        setup:
+        def csv = [['col1': 1, 'col2': 2, 'col3': 3],
+                   ['col1': 4, 'col2': 5, 'col3': 6],
+                  ]
+        def header = ['col1', 'col2', 'col3']
+
+        when:
+        test_item.devices(csv, header)
+
+        then:
+        test_item.test_results['uname'].devices != null
     }
 }

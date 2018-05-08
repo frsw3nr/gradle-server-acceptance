@@ -13,5 +13,5 @@ class TestResult extends SpecModel {
     String name
     def value
     ResultStatus status
-    LinkedHashMap<String,TestResultLine> devices
+    TestResultLine devices
 }
