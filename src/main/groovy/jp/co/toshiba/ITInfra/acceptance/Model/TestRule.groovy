@@ -34,4 +34,8 @@ class TestRuleSet extends TestRule {
     def get_all() {
         return this.children
     }
+
+    def get(String key) {
+        return this.children?."$key"
+    }
 }

@@ -189,7 +189,7 @@ class InfraTestSpec {
                     log.debug "parse command ${method.name}"
                     try {
                         method.invoke(this, it)
-                        it.succeed = 1
+                        // it.succeed = 1
                     } catch (Exception e) {
                         it.verify_status(false)
                         log.warn "[${domain}Test] Parser of '${method.name}()' faild, skip.\n" + e

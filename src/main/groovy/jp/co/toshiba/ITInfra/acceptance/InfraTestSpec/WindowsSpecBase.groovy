@@ -41,11 +41,11 @@ class WindowsSpecBase extends InfraTestSpec {
 
         runPowerShellTest('lib/template', 'Windows', cmd, test_items)
 
-        test_items.each { test_item ->
-            if (test_item.test_id == 'logon_test') {
-                _logon_test(test_item)
-            }
-        }
+        // test_items.each { test_item ->
+        //     if (test_item.test_id == 'logon_test') {
+        //         _logon_test(test_item)
+        //     }
+        // }
     }
 
     def _logon_test(TestItem test_item) {

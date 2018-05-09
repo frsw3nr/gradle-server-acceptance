@@ -66,7 +66,7 @@ class TestSchedulerTest extends Specification {
         tasks.size() == 1
     }
 
-    def "シナリオ読み込み"() {
+    def "シナリオ実行"() {
         when:
         def test_scheduler = new TestScheduler(platform_tester: platform_tester)
         test_scenario.accept(test_scheduler)

@@ -46,10 +46,11 @@ class TestScheduler {
                     if (metrics.size() == 0)
                         return
                     def test_rule = rules[test_target.verify_id]
-                    def test_platform = new TestPlatform(name: platform,
-                                                         test_target: test_target,
-                                                         test_metrics: metrics,
-                                                         test_rule: test_rule)
+                    def test_platform = new TestPlatform(name         : platform,
+                                                         test_target  : test_target,
+                                                         test_metrics : metrics,
+                                                         test_rule    : test_rule,
+                                                         dry_run      : true)
                     this.test_platform_tasks[platform][target_name] = test_platform
                 }
             }
@@ -80,7 +81,10 @@ class TestScheduler {
 
     def visit_test_platform(test_platform) {
         log.info "visit_test_platform : ${test_platform.name}"
-        this.platform_tester.run(test_platform)
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: './src/test/resources/config.groovy')
+        platform_tester.init()
+        platform_tester.run()
         // def test_domain_template = test_domain_templates[]
     }
 }

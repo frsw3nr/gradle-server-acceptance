@@ -62,174 +62,163 @@ class WindowsBaseTest extends Specification {
         platform_tester.run()
 
         then:
-        1 == 1
+        test_platform.test_results['mhz'].value.size() > 0
+        test_platform.test_results['model_name'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 memory"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('memory')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        test_platform.test_results['total_virtual'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 system"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('system')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        // println test_platform.test_results
+        test_platform.test_results['Domain'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 driver"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('driver')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        test_platform.test_results['driver'].devices.csv.size() > 0
+    }
+
+    def "Windows テスト仕様 firewall"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('firewall')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        // println test_platform.test_results
+        test_platform.test_results['firewall'].devices.csv.size() > 0
+    }
+
+    def "Windows テスト仕様 dns"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('dns')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        test_platform.test_results['dns'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 storage_timeout"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('storage_timeout')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        // println test_platform.test_results
+        test_platform.test_results['storage_timeout'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 service"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('service')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        // println test_platform.test_results
+        // test_platform.test_results['service'].value.size() > 0
+        test_platform.test_results['service'].devices.csv.size() > 0
+    }
+
+    def "Windows 複数テスト仕様のロード"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('cpu', 'memory')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
         println test_platform.test_results
+        test_platform.test_results['mhz'].value.size() > 0
+        test_platform.test_results['total_virtual'].value.size() > 0
+    }
 
-        // setup:
-        // test = new DomainTestRunner(test_server, 'Windows')
+    def "Windows 全テスト仕様のロード"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
 
-        // when:
-        // def test_item = new TestItem('cpu')
-        // test.run(test_item)
+        when:
+        platform_tester.run()
 
-        // then:
-        // test_item.results.size() > 0
+        then:
+        test_platform.test_results.size() > 0
     }
 
 
-    // def "Windows テスト仕様 memory"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
+    def "Windows テスト項目なし"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
 
-    //     when:
-    //     def test_item = new TestItem('memory')
-    //     test.run(test_item)
+        when:
+        platform_tester.set_test_items()
+        platform_tester.run()
 
-    //     then:
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows テスト仕様 system"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('system')
-    //     test.run(test_item)
-
-    //     then:
-    //     println test_item.results.toString()
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows テスト仕様 driver"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('driver')
-    //     test.run(test_item)
-
-    //     then:
-    //     println test_item.results.toString()
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows テスト仕様 firewall"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('firewall')
-    //     test.run(test_item)
-
-    //     then:
-    //     println test_item.results.toString()
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows テスト仕様 dns"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('dns')
-    //     test.run(test_item)
-
-    //     then:
-    //     println test_item.results.toString()
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows テスト仕様 storage_timeout"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('storage_timeout')
-    //     test.run(test_item)
-
-    //     then:
-    //     println test_item.results.toString()
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows テスト仕様 service"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('service')
-    //     test.run(test_item)
-
-    //     then:
-    //     println test_item.results.toString()
-    //     test_item.results.size() > 0
-    // }
-
-    // def "Windows 複数テスト仕様のロード"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     def test_ids = ['cpu', 'memory']
-    //     def test_items = []
-    //     test_ids.each {
-    //         test_items << new TestItem(it)
-    //     }
-
-    //     when:
-    //     test.run(test_items as TestItem[])
-    //     test_items.each { test_item ->
-    //         println test_item.results.toString()
-    //    }
-
-    //     then:
-    //     test_items.each { test_item ->
-    //         test_item.results.size() > 0
-    //     }
-    // }
-
-    // def "Windows 全テスト仕様のロード"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     def test_ids = [
-    //         'cpu',
-    //         'driver',
-    //         'filesystem',
-    //         'fips',
-    //         'memory',
-    //         'network',
-    //         'virturalization',
-    //     ]
-    //     def test_items = []
-    //     test_ids.each {
-    //         test_items << new TestItem(it)
-    //     }
-
-    //     when:
-    //     test.run(test_items as TestItem[])
-    //     test_items.each { test_item ->
-    //         println test_item.results.toString()
-    //    }
-
-    //     then:
-    //     test_items.each { test_item ->
-    //         test_item.results.size() > 0
-    //     }
-    // }
-
-    // def "Windows テスト項目なし"() {
-    //     setup:
-    //     test = new DomainTestRunner(test_server, 'Windows')
-
-    //     when:
-    //     def test_item = new TestItem('hoge')
-    //     test.run(test_item)
-
-    //     then:
-    //     test_item.results.size() == 0
-    // }
-
+        then:
+        test_platform.test_results.size() == 0
+    }
 
 }

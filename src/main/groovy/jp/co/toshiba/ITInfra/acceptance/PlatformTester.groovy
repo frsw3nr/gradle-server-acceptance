@@ -51,7 +51,7 @@ class PlatformTester {
         // this.test_items = this.make_test_items()
     }
 
-    def set_test_items(String[] metric_names) {
+    def set_test_items(String[] metric_names = null) {
         def test_items = []
         metric_names.each { metric_name ->
             def test_item = new TestItem(test_id : metric_name,

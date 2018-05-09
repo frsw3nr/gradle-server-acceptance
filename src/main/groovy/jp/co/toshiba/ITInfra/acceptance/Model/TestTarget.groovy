@@ -16,6 +16,14 @@ class TestTarget extends SpecModel {
     String verify_id
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]
+
+    public Map asMap() {
+        def map = this.class.declaredFields.findAll { !it.synthetic }.collectEntries {
+            [ (it.name) : this."$it.name" ]
+        }
+        map << this.custom_fields
+        return map
+    }
 }
 
 @Slf4j
@@ -69,4 +77,5 @@ class TestTargetSet extends TestTarget {
     def get_all() {
         return this.children
     }
+
 }

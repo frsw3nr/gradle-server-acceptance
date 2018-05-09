@@ -1,20 +1,18 @@
-Changes for 0.1.17 (2018-4-18)
+Changes for 0.1.17 (2018-5-18)
 --------------------------------------------------------------------------------
 New features:
 * 検査シートサマリにテスト項目の追加機能追加
+* モデルリファクタリング。データモデルクラス追加
+    * 検査対象(TestTarget) / 検査対象構成(TargetConfig) / 検査ドメイン(TestDomain) /
+      メトリック(TestMetric) / 検査ルール(TestRule) / 検査成績(TestResult) /
+      検査明細(DeviceResult)
+* ログオンテストの条件入力を設定ファイルから、Excelシートに変更
+* 
 
 ToDo:
 * ReportMaker仕様ライブラリ比較 JETT,XlsMapper
     * 数千行登録時間計測
     * グルーピング
-* ドキュメントモデルリファクタリング
-    * 検査対象(TestTarget)
-        * 検査対象構成(TargetConfig)
-        * 検査ドメイン(TestDomain)
-            * メトリック(TestMetric)
-            * 検査ルール(TestRule)
-            * 検査成績(TestResult)
-                * 検査明細(DeviceResult)
 * ルールライブラリ化
     * ルール定義例整理
         * 文字列比較(完全一致/中間一致/正規表現)
