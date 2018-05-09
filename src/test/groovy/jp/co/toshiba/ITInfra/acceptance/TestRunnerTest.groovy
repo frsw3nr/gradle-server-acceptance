@@ -5,7 +5,6 @@ import jp.co.toshiba.ITInfra.acceptance.*
 
 class TestRunnerTest extends Specification {
 
-
     def "実行オプション"() {
         setup:
         def test = new TestRunner()
@@ -17,6 +16,23 @@ class TestRunnerTest extends Specification {
         then:
         test.test_resource == './src/test/resources/'
         test.config_file == './src/test/resources/config.groovy'
+    }
+
+    def "configセット"() {
+        setup:
+        def test = new TestRunner()
+        ConfigTestEnvironment config_env = ConfigTestEnvironment.instance
+
+        when:
+        String[] args = ['--resource', './src/test/resources/', '-c', './src/test/resources/config.groovy']
+        test.parse(args)
+        config_env.read_config(test.config_file)
+        config_env.read_test_args(test)
+
+        then:
+        config_env.config.getconfig_home == '.'
+        config_env.config.dry_run == false
+        config_env.config.evidence != null
     }
 
     def "長い名前のオプション"() {

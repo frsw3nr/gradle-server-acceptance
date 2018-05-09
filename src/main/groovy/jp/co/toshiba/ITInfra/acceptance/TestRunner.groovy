@@ -1,6 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
+import groovy.transform.ToString
 import org.apache.commons.lang.math.NumberUtils
 import groovy.util.CliBuilder
 import org.apache.commons.cli.Option
@@ -11,6 +12,7 @@ import org.apache.commons.cli.Option
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
 @Slf4j
+@ToString(includePackage = false)
 class TestRunner {
 
     String getconfig_home
@@ -102,12 +104,12 @@ class TestRunner {
         }
 
         parallel_degree = 1
-        filter_server  = options.s
-        filter_metric  = options.t
-        dry_run         =  options.d ?: false
-        verify_test     = !options.verify ?: true
-        use_redmine     = options.r ?: false
-        silent          = options.silent ?: false
+        filter_server   = options.s
+        filter_metric   = options.t
+        dry_run         =  options.d
+        verify_test     = !options.verify
+        use_redmine     = options.r
+        silent          = options.silent
 
         config_file = './config/config.groovy'
         if (options.c) {
@@ -122,31 +124,31 @@ class TestRunner {
         def config = Config.instance.read(config_file, keyword)
         test_resource = (options.resource) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'
         config['test']['dry_run_staging_dir'] = test_resource
-        evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
-                                               project_home : project_home,
-                                               db_config_file : db_config_file,
-                                               test_resource: test_resource,
-                                               silent: silent)
+        // evidence_manager = new EvidenceManager(getconfig_home : getconfig_home,
+        //                                        project_home : project_home,
+        //                                        db_config_file : db_config_file,
+        //                                        test_resource: test_resource,
+        //                                        silent: silent)
 
-        if (options.u) {
-            if (options.u == 'local') {
-                evidence_manager.exportNodeDirectory()
-            } else if (options.u == 'db') {
-                evidence_manager.exportCMDB()
-            } else if (options.u == 'db-all') {
-                evidence_manager.exportCMDBAll()
-            } else {
-                cli.usage()
-                throw new IllegalArgumentException('--update option must be local or db or db-all')
-            }
-            System.exit(0)
-        }
+        // if (options.u) {
+        //     if (options.u == 'local') {
+        //         evidence_manager.exportNodeDirectory()
+        //     } else if (options.u == 'db') {
+        //         evidence_manager.exportCMDB()
+        //     } else if (options.u == 'db-all') {
+        //         evidence_manager.exportCMDBAll()
+        //     } else {
+        //         cli.usage()
+        //         throw new IllegalArgumentException('--update option must be local or db or db-all')
+        //     }
+        //     System.exit(0)
+        // }
 
-        if (options.export) {
-            this.export_files = options.export
-            new CSVExporter(this).run()
-            System.exit(0)
-        }
+        // if (options.export) {
+        //     this.export_files = options.export
+        //     new CSVExporter(this).run()
+        //     System.exit(0)
+        // }
 
         sheet_file = config['evidence']['source'] ?: './check_sheet.xlsx'
         if (options.excel) {

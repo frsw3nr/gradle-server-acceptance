@@ -7,13 +7,19 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
 @ToString(includePackage = false)
+@Singleton
 class ConfigTestEnvironment {
     String config_file
     ConfigObject config
+    TestRunner test_runner
 
-    ConfigTestEnvironment(String config_file = 'config/config.groovy') {
+    def read_config(String config_file = 'config/config.groovy') {
         this.config_file = config_file
         this.config = Config.instance.read(config_file)
+    }
+
+    def read_test_args(TestRunner test_runner) {
+        this.config << test_runner.getProperties()
     }
 
     private get_config_account(Map config_account, String platform, String id) {
@@ -46,20 +52,23 @@ class ConfigTestEnvironment {
     }
 
     def set_test_environment(TestPlatform test_platform) {
-        def config_test = config['test']
-        def platform    = test_platform.name
+        def config_test     = config.test
+        def platform        = test_platform.name
         def target_name = test_platform.test_target.name
-        def evidence_log_share_dir = config['evidence']['staging_dir'] ?: './build/log/'
+        def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
         evidence_log_share_dir += '/' + platform
 
+        def config_platform = config_test[platform]
         def test_platform_configs = [
-            'dry_run'                : config_test[platform]['dry_run'] ?: false,
-            'timeout'                : config_test[platform]['timeout'] ?: 0,
-            'debug'                  : config_test[platform]['debug'] ?: false,
-            'dry_run_staging_dir'    : config_test['dry_run_staging_dir'] ?: './src/test/resources/log',
+            'dry_run'                : config.dry_run ?: config_platform.dry_run ?: false,
+            'timeout'                : config.timeout ?: config_platform.timeout ?: 0,
+            'debug'                  : config.debug ?: config_platform.debug ?: false,
+            'dry_run_staging_dir'    : config_test.dry_run_staging_dir ?:
+                                        './src/test/resources/log',
             'evidence_log_share_dir' : evidence_log_share_dir,
             'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
         ]
+        println test_platform_configs
 
         test_platform_configs.each { key, test_platform_config ->
             if (!test_platform[key])
