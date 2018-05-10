@@ -11,6 +11,14 @@ import com.github.k3286.dto.InvoiceDetail
 
 class ExcelManageTest3 extends Specification {
 
+    def ダミーテスト() {
+        when:
+        println 'Test'
+
+        then:
+        1 == 1
+    }
+
     // private static BigDecimal TAX_RATE = new BigDecimal(0.08);
 
     // def "エビデンス書き込み"() {

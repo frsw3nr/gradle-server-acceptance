@@ -7,7 +7,28 @@ New features:
       メトリック(TestMetric) / 検査ルール(TestRule) / 検査成績(TestResult) /
       検査明細(DeviceResult)
 * ログオンテストの条件入力を設定ファイルから、Excelシートに変更
-* 
+* チェックシート見直し
+    * ターゲットシート見直し
+        * テンプレートID追加
+        * 縦型から横型へ
+    * テンプレートシート追加
+    * ルールシート廃止
+* 結果検証見直し
+    * 共通
+        * テンプレート値の参照 server_info
+        * 検証メソッドに server_info 追加
+    * 個別シナリオ修正
+        * Linux
+        * Windows
+        * vCenter
+        * Zabbix
+* エビデンス作成実装
+    * Excelシート登録
+* 比較検証
+    * 実績との比較
+        * 実績の登録,JSON変換
+        * 実績の読み込み
+    * 検証に比較ルール追加
 
 ToDo:
 * ReportMaker仕様ライブラリ比較 JETT,XlsMapper

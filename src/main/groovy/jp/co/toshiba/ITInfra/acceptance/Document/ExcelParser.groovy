@@ -22,9 +22,9 @@ class ExcelParser {
         this.excel_file = excel_file
         this.sheet_desings = [
             new SheetDesign(name: 'target', 
-                            sheet_parser : new ExcelSheetParserVertical(
-                                header_pos: [4, 1], sheet_prefix: 'Target',
-                                header_checks: ['domain'])),
+                            sheet_parser : new ExcelSheetParserHorizontal(
+                                header_pos: [1, 0], sheet_prefix: 'Target',
+                                header_checks: ['#', 'domain'])),
             new SheetDesign(name: 'check_sheet',
                             sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [3, 0], sheet_prefix: 'CheckSheet',

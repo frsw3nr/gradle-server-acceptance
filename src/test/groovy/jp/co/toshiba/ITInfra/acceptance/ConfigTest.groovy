@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils
 import static groovy.json.JsonOutput.*
 import com.xlson.groovycsv.CsvParser
 
-// gradle --daemon clean test --tests "ConfigTest.Config test read"
+// gradle --daemon test --tests "ConfigTest"
 
 class ConfigTest extends Specification {
     def original_config = 'src/test/resources/config.groovy'

@@ -51,7 +51,7 @@ abstract class ExcelSheetParser {
             // return cell.getCellFormula();
             return getStringFormulaValue(cell);
         case Cell.CELL_TYPE_BLANK:
-            return "";
+            return null;
         default:
             return null;
         }
@@ -68,9 +68,10 @@ class ExcelSheetParserHorizontal extends ExcelSheetParser {
                 headers << "${header_row.getCell(column)}"
             }
         }
+        println headers
         def length = header_checks.size()
         if (headers.size() < length || headers[0..length-1] != header_checks) {
-            def msg = "Invalid Sheet header '${sheet.getSheetName()}' : ${headers}"
+            def msg = "Invalid Sheet header '${sheet.getSheetName()}'${header_pos} : ${headers}"
             throw new IllegalArgumentException(msg)
         }
         return headers
@@ -86,7 +87,8 @@ class ExcelSheetParserHorizontal extends ExcelSheetParser {
             def line = [:]
             (0 .. headers.size()-1).each { colnum_idx ->
                 def colnum = header_pos[1] + colnum_idx
-                line[headers[colnum_idx]] = "${row.getCell(colnum)}"
+                def cell = row.getCell(colnum)
+                line[headers[colnum_idx]] = this.getStringValue(cell)
             }
             lines << line
         }
@@ -128,7 +130,8 @@ class ExcelSheetParserVertical extends ExcelSheetParser {
             (header_pos[1] + 2 .. row.getLastCellNum()).each { colnum ->
                 def target_id = colnum - (header_pos[1] + 2)
                 // lines[target_id][header_name] = "${row.getCell(colnum)}"
-                lines[target_id][header_name] = this.getStringValue(row.getCell(colnum))
+                def cell = row.getCell(colnum)
+                lines[target_id][header_name] = this.getStringValue(cell)
             }
         }
         return lines

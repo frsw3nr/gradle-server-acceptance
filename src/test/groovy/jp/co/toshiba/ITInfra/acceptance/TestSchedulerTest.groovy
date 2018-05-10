@@ -4,7 +4,7 @@ import static groovy.json.JsonOutput.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestSchedulerTest.初期化"
+// gradle --daemon test --tests "TestSchedulerTest"
 
 class TestSchedulerTest extends Specification {
     TestRunner test_runner
@@ -49,9 +49,9 @@ class TestSchedulerTest extends Specification {
 
     def "ターゲット絞り込み"() {
         when:
-        def test_scheduler = new TestScheduler(filter_server: 'centos7')
+        def test_scheduler = new TestScheduler(filter_server: 'ostrich')
         def tasks = test_scheduler.make_test_platform_tasks(test_scenario)
-        println "TASKS:${tasks['vCenter']['centos7'].test_metrics}"
+        println "TASKS:${tasks['vCenter']['ostrich'].test_metrics}"
 
         then:
         tasks.size() == 2

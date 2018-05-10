@@ -4,7 +4,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradlew --daemon test --tests "WindowsBaseTest.Windows テスト仕様のロード"
+// gradle --daemon test --tests "WindowsBaseTest.Windows テスト仕様のロード"
 
 class WindowsBaseTest extends Specification {
 
@@ -34,22 +34,6 @@ class WindowsBaseTest extends Specification {
             dry_run      : true,
         )
     }
-
-    // TargetServer test_server
-    // DomainTestRunner test
-
-    // def setup() {
-    //     test_server = new TargetServer(
-    //         server_name       : 'win2012',
-    //         ip                : '192.168.0.12',
-    //         platform          : 'Windows',
-    //         os_account_id     : 'Test',
-    //         remote_account_id : 'Test',
-    //         remote_alias      : 'win2012.ostrich',
-    //     )
-    //     test_server.setAccounts('src/test/resources/config.groovy')
-    //     test_server.dry_run = true
-    // }
 
     def "Windows テスト仕様 cpu"() {
         setup:

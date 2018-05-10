@@ -7,24 +7,32 @@ import com.goebl.david.Webb;
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
-// gradlew --daemon clean test --tests "ZabbixBaseTest.Zabbix 認証"
+// gradle --daemon test --tests "ZabbixBaseTest.Zabbix 認証"
 
 class ZabbixBaseTest extends Specification {
 
-    TargetServer test_server
-    DomainTestRunner test
+    def ダミーテスト() {
+        when:
+        println 'Test'
 
-    def setup() {
-        test_server = new TargetServer(
-            server_name       : 'localhost',
-            ip                : '127.0.0.1',
-            platform          : 'Zabbix',
-            os_account_id     : 'Test',
-            remote_alias      : 'localhost',
-        )
-        test_server.setAccounts('src/test/resources/config_zabbix.groovy')
-        test_server.dry_run = true
+        then:
+        1 == 1
     }
+
+    // TargetServer test_server
+    // DomainTestRunner test
+
+    // def setup() {
+    //     test_server = new TargetServer(
+    //         server_name       : 'localhost',
+    //         ip                : '127.0.0.1',
+    //         platform          : 'Zabbix',
+    //         os_account_id     : 'Test',
+    //         remote_alias      : 'localhost',
+    //     )
+    //     test_server.setAccounts('src/test/resources/config_zabbix.groovy')
+    //     test_server.dry_run = true
+    // }
 
     // def "Zabbix 認証"() {
     //     setup:
@@ -61,29 +69,29 @@ class ZabbixBaseTest extends Specification {
     //     1 == 1
     // }
 
-    def "subnet"() {
-        setup:
-        when:
-        String subnet = "192.168.0.0/16";
-        SubnetUtils subnetUtils = new SubnetUtils(subnet);
-        SubnetInfo subnetInfo = subnetUtils.getInfo();
+    // def "subnet"() {
+    //     setup:
+    //     when:
+    //     String subnet = "192.168.0.0/16";
+    //     SubnetUtils subnetUtils = new SubnetUtils(subnet);
+    //     SubnetInfo subnetInfo = subnetUtils.getInfo();
 
-        System.out.println("サブネット : " + subnet);
-        System.out.println("下限 : " + subnetInfo.getLowAddress());
-        System.out.println("上限 : " + subnetInfo.getHighAddress());
+    //     System.out.println("サブネット : " + subnet);
+    //     System.out.println("下限 : " + subnetInfo.getLowAddress());
+    //     System.out.println("上限 : " + subnetInfo.getHighAddress());
 
-        then:
-        subnetInfo.getNetmask() == '255.255.0.0'
-    }
+    //     then:
+    //     subnetInfo.getNetmask() == '255.255.0.0'
+    // }
 
-    def "subnet_ng"() {
-        setup:
-        when:
-        String subnet = "hoge";
-        SubnetUtils subnetUtils = new SubnetUtils(subnet);
-        SubnetInfo subnetInfo = subnetUtils.getInfo();
+    // def "subnet_ng"() {
+    //     setup:
+    //     when:
+    //     String subnet = "hoge";
+    //     SubnetUtils subnetUtils = new SubnetUtils(subnet);
+    //     SubnetInfo subnetInfo = subnetUtils.getInfo();
 
-        then:
-        thrown(IllegalArgumentException)
-    }
+    //     then:
+    //     thrown(IllegalArgumentException)
+    // }
 }

@@ -43,7 +43,7 @@ class TestTargetTest extends Specification {
         def test_targets = target_set.get_all()
 
         when:
-        def server_info = test_targets['centos7'].Linux.asMap()
+        def server_info = test_targets['ostrich'].Linux.asMap()
 
         then:
         server_info['verify_id'] == 'RuleAP'

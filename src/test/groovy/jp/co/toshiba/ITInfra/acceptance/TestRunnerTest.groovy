@@ -1,7 +1,7 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 
-// gradle --daemon clean test --tests "TestRunnerTest"
+// gradle --daemon test --tests "TestRunnerTest"
 
 class TestRunnerTest extends Specification {
 
@@ -21,18 +21,18 @@ class TestRunnerTest extends Specification {
     def "configセット"() {
         setup:
         def test = new TestRunner()
-        ConfigTestEnvironment config_env = ConfigTestEnvironment.instance
+        ConfigTestEnvironment test_env = ConfigTestEnvironment.instance
 
         when:
         String[] args = ['--resource', './src/test/resources/', '-c', './src/test/resources/config.groovy']
         test.parse(args)
-        config_env.read_config(test.config_file)
-        config_env.read_test_args(test)
+        test_env.read_config(test.config_file)
+        test_env.read_test_args(test)
 
         then:
-        config_env.config.getconfig_home == '.'
-        config_env.config.dry_run == false
-        config_env.config.evidence != null
+        test_env.config.getconfig_home == '.'
+        test_env.config.dry_run == false
+        test_env.config.evidence != null
     }
 
     def "長い名前のオプション"() {

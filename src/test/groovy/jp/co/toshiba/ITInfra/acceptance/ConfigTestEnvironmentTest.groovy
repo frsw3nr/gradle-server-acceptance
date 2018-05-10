@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "ConfigTestEnvironmentTest.Linux環境セット"
+// gradle --daemon test --tests "ConfigTestEnvironmentTest"
 
 class ConfigTestEnvironmentTest extends Specification {
 
@@ -11,11 +11,11 @@ class ConfigTestEnvironmentTest extends Specification {
     TestTarget test_target
     TestPlatform test_platform
     TestRule test_rule
-    ConfigTestEnvironment config_env
+    ConfigTestEnvironment test_env
 
     def setup() {
         config_file = 'src/test/resources/config.groovy'
-        config_env = ConfigTestEnvironment.instance
+        test_env = ConfigTestEnvironment.instance
 
         test_target = new TestTarget(
             name              : 'ostrich',
@@ -40,8 +40,8 @@ class ConfigTestEnvironmentTest extends Specification {
 
     def "Linuxアカウントセット"() {
         when:
-        config_env.read_config(config_file)
-        config_env.set_account(test_platform)
+        test_env.read_config(config_file)
+        test_env.set_account(test_platform)
 
         then:
         test_platform.os_account.user == 'someuser'
@@ -53,8 +53,8 @@ class ConfigTestEnvironmentTest extends Specification {
         test_target.os_specific_password = 'P@ssword2'
 
         when:
-        config_env.read_config(config_file)
-        config_env.set_account(test_platform)
+        test_env.read_config(config_file)
+        test_env.set_account(test_platform)
 
         then:
         test_platform.os_account.password == 'P@ssword2'
@@ -62,8 +62,8 @@ class ConfigTestEnvironmentTest extends Specification {
 
     def "Linux環境セット"() {
         when:
-        config_env.read_config(config_file)
-        config_env.set_test_environment(test_platform)
+        test_env.read_config(config_file)
+        test_env.set_test_environment(test_platform)
         println "ENV:${test_platform.evidence_log_dir}"
 
         then:
@@ -73,9 +73,9 @@ class ConfigTestEnvironmentTest extends Specification {
 
     def "Linux環境カスタム"() {
         when:
-        config_env.read_config(config_file)
-        config_env.config.dry_run = true
-        config_env.set_test_environment(test_platform)
+        test_env.read_config(config_file)
+        test_env.config.dry_run = true
+        test_env.set_test_environment(test_platform)
         println "ENV1:${test_platform.evidence_log_dir}"
         println "ENV2:${test_platform.dry_run}"
 
@@ -89,9 +89,9 @@ class ConfigTestEnvironmentTest extends Specification {
         test_platform.name = 'Windows'
 
         when:
-        config_env.read_config(config_file)
-        config_env.set_account(test_platform)
-        config_env.set_test_environment(test_platform)
+        test_env.read_config(config_file)
+        test_env.set_account(test_platform)
+        test_env.set_test_environment(test_platform)
 
         then:
         test_platform.os_account.user == 'administrator'

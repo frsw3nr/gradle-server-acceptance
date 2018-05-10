@@ -7,7 +7,7 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon clean test --tests "TestMetricTest.初期化"
+// gradle --daemon test --tests "TestMetricTest.初期化"
 
 class TestMetricTest extends Specification {
 
