@@ -1,5 +1,6 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 import org.apache.poi.ss.usermodel.Workbook
@@ -7,10 +8,66 @@ import com.github.k3286.dto.Invoice
 import com.github.k3286.dto.InvoiceDetail
 // import com.github.k3286.report.ReportMaker
 
-// gradle --daemon clean test --tests "ExcelManageTest3.書き込み処理"
+// gradle --daemon test --tests "SummrySheet.初期化"
 
-class ExcelManageTest3 extends Specification {
+class SummrySheet extends Specification {
+    TestScenario test_scenario
 
+    def setup() {
+    }
+
+    def 初期化() {
+        setup:
+        String[] args = [
+            '--dry-run',
+            '-c', './src/test/resources/config.groovy',
+            '-resource', './src/test/resources/log',
+        ]
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        def platform_tester = new PlatformTester()
+
+        def test_scheduler = new TestScheduler(platform_tester: platform_tester)
+        test_scenario.accept(test_scheduler)
+
+        when:
+        println 'Test'
+        def test_targets = test_scenario.test_targets
+        test_targets.get_all().each { target_name, test_target ->
+            println "TARGET:${test_target}"
+            test_target.test_platforms.each { platform_name, platform_sets ->
+                println "PLATFORM:${target_name},${platform_name}"
+                println "RES:${platform_sets}"
+            }
+        }
+
+        then:
+        1 == 1
+    }
+
+    def テンプレート作成() {
+        when:
+        def root_domains = new TestTargetSet(name : 'root')
+        def linux_domains = new TestTargetSet(name : 'Linux')
+        def windows_domains = new TestTargetSet(name : 'Windows')
+        def linux_target = new TestTarget(name : 'ostrich')
+        def windows_target = new TestTarget(name : 'win2012')
+        linux_domains.add(linux_target)
+        windows_domains.add(windows_target)
+        root_domains.add(linux_domains)
+        root_domains.add(windows_domains)
+
+        def test_scenario = new TestScenario(name : 'root', test_targets : root_domains)
+
+        then:
+        1 == 1
+    }
     // private static BigDecimal TAX_RATE = new BigDecimal(0.08);
 
     // def "エビデンス書き込み"() {
