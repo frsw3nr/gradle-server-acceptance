@@ -33,6 +33,10 @@ class ExcelParser {
                             sheet_parser : new ExcelSheetParserVertical(
                                 header_pos: [4, 1], sheet_prefix: 'Rule',
                                 header_checks: ['name', 'compare_server'])),
+            new SheetDesign(name: 'template',
+                            sheet_parser : new ExcelSheetParserVertical(
+                                header_pos: [0, 0], sheet_prefix: 'Template',
+                                header_checks: ['Platform'])),
         ]
     }
 
@@ -45,9 +49,11 @@ class ExcelParser {
                     def sheet = sheets.next()
                     def sheet_design = this.make_sheet_design(sheet)
                     if (sheet_design) {
-                        if (sheet_design.name == 'check_sheet') {
+                        if (sheet_design.name == 'check_sheet' ||
+                            sheet_design.name == 'template') {
+                            def sheet_name = sheet_design.name
                             def domain_name = sheet_design.domain_name
-                            this.sheet_sources.check_sheet."$domain_name" = sheet_design
+                            this.sheet_sources."$sheet_name"."$domain_name" = sheet_design
                         } else {
                             this.sheet_sources."${sheet_design.name}" = sheet_design
                         }
@@ -90,6 +96,12 @@ class ExcelParser {
                 check_sheet_metrics.accept(this)
                 test_metrics.add(check_sheet_metrics)
             }
+            test_templates = new TestTemplateSet(name: 'root')
+            this.sheet_sources.template.each { template_name, template_sheet ->
+                def test_template = new TestTemplate(name: template_name)
+                test_template.accept(this)
+                test_templates.add(test_template)
+            }
         }
     }
 
@@ -126,11 +138,40 @@ class ExcelParser {
             if (!line['domain'])
                 return true
             line['name'] = line['server_name']
+            // line << [name: line['server_name']]
             def test_target = new TestTarget(line)
             test_target_set.add(test_target)
             return
         }
         log.info "Read target : ${test_target_set.get_all().size()} row"
+    }
+
+    def visit_test_template(test_template) {
+        def template_name = test_template.name
+        println "TEMPLATE:${template_name}"
+        def source = this.sheet_sources.template."$template_name"
+        def lines = source.get()
+
+        def template_values = new ConfigObject()
+        def row_count = 0
+        lines.find { line ->
+            def metric_name = line['#']
+            def platform = line['Platform']
+            if (!metric_name && !platform)
+                return true
+            def values = []
+            line.each { row_id, value ->
+                if (!row_id.isDouble() || value == null)
+                    return
+                values << value
+            }
+            row_count ++
+            template_values[platform][metric_name] = values
+            return
+        }
+        test_template.values = template_values
+
+        log.info "Read template($template_name) : ${row_count} row"
     }
 
     def visit_test_rule_set(test_rule_set) {

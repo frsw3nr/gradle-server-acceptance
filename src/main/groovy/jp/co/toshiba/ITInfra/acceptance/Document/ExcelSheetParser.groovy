@@ -65,10 +65,12 @@ class ExcelSheetParserHorizontal extends ExcelSheetParser {
         def header_row = sheet.getRow(header_pos[0])
         if (header_row) {
             (header_pos[1] .. header_row.getLastCellNum()).each { column ->
-                headers << "${header_row.getCell(column)}"
+                def cell = header_row.getCell(column)
+                if (!cell)
+                    return
+                headers << this.getStringValue(cell)
             }
         }
-        println headers
         def length = header_checks.size()
         if (headers.size() < length || headers[0..length-1] != header_checks) {
             def msg = "Invalid Sheet header '${sheet.getSheetName()}'${header_pos} : ${headers}"
@@ -104,7 +106,7 @@ class ExcelSheetParserVertical extends ExcelSheetParser {
             Row row = sheet.getRow(rownum)
             if (row == null)
                 return true
-            headers << "${row.getCell(header_pos[1])}"
+            headers << this.getStringValue(row.getCell(header_pos[1]))
         }
         def length = header_checks.size()
         if (length == 0)

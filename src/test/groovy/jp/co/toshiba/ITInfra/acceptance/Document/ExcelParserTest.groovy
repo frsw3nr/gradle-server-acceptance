@@ -7,7 +7,7 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon test --tests "ExcelParserTest.チェックシートパース"
+// gradle --daemon test --tests "ExcelParserTest.検査対象パース"
 
 class ExcelParserTest extends Specification {
 
@@ -28,7 +28,7 @@ class ExcelParserTest extends Specification {
         }
 
         then:
-        excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 'check_rule']
+        excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 'check_rule', 'template']
         excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows', 'VMHost']
     }
 
@@ -67,6 +67,19 @@ class ExcelParserTest extends Specification {
         // test_targets['ostrich'].Linux.verify_id   == 'RuleAP'
     }
 
+    def "テンプレートパース"() {
+        when:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def template = new TestTemplate(name: 'AP')
+        template.accept(excel_parser)
+        println template
+        
+        then:
+        1 == 1
+        // test_targets['ostrich'].Linux.verify_id   == 'RuleAP'
+    }
+
     def "ルール定義パース"() {
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
@@ -88,9 +101,10 @@ class ExcelParserTest extends Specification {
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'OS情報採取')
         test_scenario.accept(excel_parser)
-        def test_domains = test_scenario.test_metrics.get_all()
-        def test_targets = test_scenario.test_targets.get_all()
-        def test_rules   = test_scenario.test_rules.get_all()
+        def test_domains   = test_scenario.test_metrics.get_all()
+        def test_targets   = test_scenario.test_targets.get_all()
+        def test_rules     = test_scenario.test_rules.get_all()
+        def test_templates = test_scenario.test_templates.get_all()
 
         def result_platform_keys = [:]
         test_domains.each { domain, test_domain ->
@@ -99,7 +113,8 @@ class ExcelParserTest extends Specification {
                 result_platform_keys[domain, platform] = platform_metric.count()
             }
         }
-        println result_platform_keys
+        // println result_platform_keys
+        println test_templates['AP']
 
         then:
         test_targets.size() == 2

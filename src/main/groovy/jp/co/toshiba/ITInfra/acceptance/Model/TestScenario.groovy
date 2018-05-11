@@ -10,6 +10,7 @@ class TestScenario extends SpecModel {
     TestTargetSet test_targets
     TestMetricSet test_metrics
     TestRuleSet test_rules
+    TestTemplateSet test_templates
 
     def accept(visitor){
         visitor.visit_test_scenario(this)

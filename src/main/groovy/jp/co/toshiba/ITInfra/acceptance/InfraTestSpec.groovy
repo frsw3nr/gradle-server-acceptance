@@ -111,7 +111,7 @@ class InfraTestSpec {
                 return (encode) ? source_log.getText(encode) : source_log.text
             } catch (FileNotFoundException e) {
                 def message = "[DryRun] Not found : ${log_path}"
-                log.warn(message)
+                // log.warn(message)
                 throw new FileNotFoundException(message)
             }
         } else {
