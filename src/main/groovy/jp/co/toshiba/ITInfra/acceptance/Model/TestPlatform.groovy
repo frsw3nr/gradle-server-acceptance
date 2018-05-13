@@ -19,20 +19,22 @@ class TestPlatform extends SpecModel {
 
 @Slf4j
 @ToString(includePackage = false)
-class TestPlatformSet extends TestPlatform {
-    def children = new ConfigObject()
+class TestPlatformSet extends SpecCompositeModel {
+    String name
 
-    def add(test_platform) {
-        test_platform.with {
-            this.children[name] = it
-        }
-    }
+    // def children = new ConfigObject()
+
+    // def add(test_platform) {
+    //     test_platform.with {
+    //         this.children[name] = it
+    //     }
+    // }
 
     def accept(visitor) {
         visitor.visit_test_platform_set(this)
     }
 
-    def get_all() {
-        return this.children
-    }
+    // def get_all() {
+    //     return this.children
+    // }
 }

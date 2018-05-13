@@ -18,24 +18,25 @@ class TestRule extends SpecModel {
 
 @Slf4j
 @ToString(includePackage = false)
-class TestRuleSet extends TestRule {
-    def children = new ConfigObject()
+class TestRuleSet extends SpecCompositeModel {
+    String name
+    // def children = new ConfigObject()
 
-    def add(test_rule) {
-        test_rule.with {
-            this.children[name] = it
-        }
-    }
+    // def add(test_rule) {
+    //     test_rule.with {
+    //         this.children[name] = it
+    //     }
+    // }
 
     def accept(visitor){
         visitor.visit_test_rule_set(this)
     }
 
-    def get_all() {
-        return this.children
-    }
+    // def get_all() {
+    //     return this.children
+    // }
 
-    def get(String key) {
-        return this.children?."$key"
-    }
+    // def get(String key) {
+    //     return this.children?."$key"
+    // }
 }

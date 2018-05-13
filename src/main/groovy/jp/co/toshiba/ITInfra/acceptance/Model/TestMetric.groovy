@@ -17,58 +17,75 @@ class TestMetric extends SpecModel {
 
 @Slf4j
 @ToString(includePackage = false)
-class TestMetricSet extends TestMetric {
-    def children = new ConfigObject()
+class TestMetricSet extends SpecCompositeModel {
+    String name
+    // def children = new ConfigObject()
 
-    def add(test_metric) {
-        test_metric.with {
-            this.children[name] = it
-        }
-    }
+    // def add(test_metric) {
+    //     test_metric.with {
+    //         this.children[name] = it
+    //     }
+    // }
 
     def accept(visitor) {
         visitor.visit_test_metric_set(this)
     }
 
-    def get_all() {
-        return this.children
-    }
-
-    def get_keys() {
-        return this.children.keySet()
-    }
-
-    def get(String key) {
-        return this.children?."$key"
-    }
-
-    def check_filter(name, keyword) {
-        def matched = false
-        if (!keyword) {
-            matched = true
-        } else {
-            ( name =~ /${keyword}/ ).each { m0 ->
-                matched = true
-            }
-        }
-        return matched
-    }
-
     def search_all(String filter_metric) {
-        def filterd = new ConfigObject()
-        children.each { name, test_metric ->
-            if (test_metric.enabled && this.check_filter(name, filter_metric)) {
-                filterd[name] = test_metric
-            }
-        }
-        return filterd
+        // def filterd = new ConfigObject()
+        // children.each { name, test_metric ->
+        //     println "SEARCH:$filter_metric, $name"
+        //     if (test_metric.enabled && this.check_filter(name, filter_metric)) {
+        //         filterd[name] = test_metric
+        //     }
+        // }
+        def filterd = super.search_all(filter_metric)
+        def new_filterd = filterd.findAll { it.value.enabled == true }.each { it }
+        println "FILTER1:$filterd"
+        println "FILTER2:$new_filterd"
+
+        return new_filterd
     }
 
-    def count() {
-        def n = 0
-        this.children.each { key, value ->
-            n += value.count()
-        }
-        return n
-    }
+    // def get_all() {
+    //     return this.children
+    // }
+
+    // def get_keys() {
+    //     return this.children.keySet()
+    // }
+
+    // def get(String key) {
+    //     return this.children?."$key"
+    // }
+
+    // def check_filter(name, keyword) {
+    //     def matched = false
+    //     if (!keyword) {
+    //         matched = true
+    //     } else {
+    //         ( name =~ /${keyword}/ ).each { m0 ->
+    //             matched = true
+    //         }
+    //     }
+    //     return matched
+    // }
+
+    // def search_all(String filter_metric) {
+    //     def filterd = new ConfigObject()
+    //     children.each { name, test_metric ->
+    //         if (test_metric.enabled && this.check_filter(name, filter_metric)) {
+    //             filterd[name] = test_metric
+    //         }
+    //     }
+    //     return filterd
+    // }
+
+    // def count() {
+    //     def n = 0
+    //     this.children.each { key, value ->
+    //         n += value.count()
+    //     }
+    //     return n
+    // }
 }

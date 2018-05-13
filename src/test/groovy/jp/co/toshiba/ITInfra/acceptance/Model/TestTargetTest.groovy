@@ -40,9 +40,11 @@ class TestTargetTest extends Specification {
         excel_parser.scan_sheet()
         def target_set = new TestTargetSet(name: 'root')
         target_set.accept(excel_parser)
+        println "ROW:${target_set.get_all().size()}"
         def test_targets = target_set.get_all()
 
         when:
+        println "SERVER:${test_targets['ostrich']}"
         def server_info = test_targets['ostrich'].Linux.asMap()
 
         then:

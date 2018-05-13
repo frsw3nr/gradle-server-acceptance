@@ -148,7 +148,6 @@ class ExcelParser {
 
     def visit_test_template(test_template) {
         def template_name = test_template.name
-        println "TEMPLATE:${template_name}"
         def source = this.sheet_sources.template."$template_name"
         def lines = source.get()
 

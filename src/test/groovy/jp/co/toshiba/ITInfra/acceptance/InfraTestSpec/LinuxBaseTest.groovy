@@ -4,7 +4,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "LinuxBaseTest.Linux テスト仕様のロード"
+// gradle --daemon test --tests "LinuxBaseTest.Linux 全テスト仕様のロード"
 
 class LinuxBaseTest extends Specification {
 
@@ -90,10 +90,10 @@ class LinuxBaseTest extends Specification {
 
         when:
         platform_tester.run()
-
+        println "COUNT: ${test_platform.test_results.size()}"
         then:
         test_platform.test_results['hostname'].status == null
-        test_platform.test_results['keyboard'].status == ResultStatus.FAILED
+        test_platform.test_results['keyboard'].status == null
     }
 
     def "Linux ネットワーク"() {

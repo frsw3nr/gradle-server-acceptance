@@ -1,0 +1,1 @@
+ro root=/dev/mapper/vg_alpaca2-lv_root rd_NO_LUKS rd_NO_MD crashkernel=129M@48M rd_LVM_LV=vg_alpaca2/lv_root  KEYBOARDTYPE=pc KEYTABLE=jp106 LANG=ja_JP.UTF-8 rd_LVM_LV=vg_alpaca2/lv_swap rd_NO_DM rhgb quiet
