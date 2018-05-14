@@ -50,15 +50,7 @@ class PlatformTester {
         this.init_test_script()
         def metric_names = this.test_platform.test_metrics.keySet() as String[]
         this.set_test_items(metric_names)
-        // this.set_server_info()
         // this.test_items = this.make_test_items()
-    }
-
-    def set_server_info() {
-        if (this?.test_platform?.test_target) {
-            // this.server_info = this.test_platform.asMap()
-            this.server_info = this.test_platform.test_target.asMap()
-        }
     }
 
     def set_test_items(String[] metric_names = null) {
@@ -73,7 +65,6 @@ class PlatformTester {
 
     def run() {
         test_spec.init()
-        println "run() TEST_ITEM:${test_items}"
         // try {
             test_spec.setup_exec(test_items)
             // log.debug "\tresults : " + summaryReport(test_items)

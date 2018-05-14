@@ -175,4 +175,130 @@ class LinuxBaseTest extends Specification {
         println test_platform.test_results['ntp']
         test_platform.test_results['ntp'].value.size() > 0
     }
+
+    // Linux   Kernel  2.6.43      uname
+    def "Linux値検証 Kernel" () {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('uname')
+        platform_tester.run()
+
+        then:
+        println test_platform.test_results['uname']
+        1 == 1
+    }
+
+    // Linux   OS  CentOS      lsb
+    def "Linux値検証 OS" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   OSRelease   6.7     lsb
+    def "Linux値検証 OSRelease" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   Arch    x86_64      uname
+    def "Linux値検証 Arch" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   cpu_total   1       cpu
+    // Linux   cpu_real    1       cpu
+    def "Linux値検証 cpu_total" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   memory2 4GB     meminfo
+    def "Linux値検証 memory2" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   net_onboot  eth0    eth1    net_onboot
+    def "Linux値検証 net_onboot" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   net_route   192.168.0.254       net_route
+    def "Linux値検証 net_route" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   filesystem  /:26.5G [swap]:3G   filesystem
+    def "Linux値検証 filesystem" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   users   zabbix      user
+    def "Linux値検証 users" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   service kdump:On    iptables:Off    service
+    def "Linux値検証 service" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   SELinux Off     sestatus
+    def "Linux値検証 SELinux" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
+    // Linux   packages    sysstat dmidecode   packages
+    def "Linux値検証 packages" () {
+        when:
+        println 'test'
+
+        then:
+        1 == 1
+    }
+
 }

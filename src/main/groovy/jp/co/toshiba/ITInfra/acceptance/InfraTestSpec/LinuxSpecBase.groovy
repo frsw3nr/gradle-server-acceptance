@@ -34,17 +34,11 @@ class LinuxSpecBase extends InfraTestSpec {
         this.os_password  = os_account['password']
         this.work_dir     = os_account['work_dir']
         this.timeout      = test_platform.timeout
-        println "TEST_PLATFORM:${test_platform}"
-        println "TEST_PLATFORM2:${test_platform.test_results}"
-        // this.test_results = test_platform.test_results
-        println "LinuxSpec: ${this}"
-        println "dry_run: ${this.dry_run}"
     }
 
     def setup_exec(TestItem[] test_items) {
     // def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
         super.setup_exec()
-        println 'setup_exec'
         def ssh = Ssh.newService()
         ssh.remotes {
             ssh_host {
@@ -61,7 +55,6 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         ssh.run {
             session(ssh.remotes.ssh_host) {
-                println 'setup_exec2'
                 try {
                     execute "mkdir -p ${work_dir}"
                 } catch (Exception e) {
@@ -186,6 +179,15 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(info)
     }
 
+    def test_val(String item, String platform = null) {
+        if (!platform)
+            platform = this.platform
+        if (!server_info.containsKey(platform) ||
+            !server_info[platform].containsKey(item))
+            return
+        return server_info[platform][item]
+    }
+
     def uname(session, test_item) {
         def lines = exec('uname') {
             run_ssh_command(session, 'uname -a', 'uname')
@@ -197,6 +199,12 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         println("uname:${info}")
+        println("server_info:${server_info}")
+        println("server_info:Kernel:${server_info['Linux']['Kernel']}")
+        def test_value = test_val('Kernel')
+        def test_value2 = test_val('Kernel-hgoge')
+        println("server_info:Kernel:${test_value}")
+        println("server_info:Kernel:${test_value2}")
         test_item.results(info)
     }
 
