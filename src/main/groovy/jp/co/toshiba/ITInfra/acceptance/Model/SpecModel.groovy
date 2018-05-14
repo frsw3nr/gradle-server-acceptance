@@ -16,8 +16,8 @@ class SpecModel {
 class SpecCompositeModel {
     def children = new ConfigObject()
 
-    def add(test_metric) {
-        test_metric.with {
+    def add(child) {
+        child.with {
             this.children[name] = it
         }
     }
@@ -57,11 +57,11 @@ class SpecCompositeModel {
         return matched
     }
 
-    def search_all(String filter_metric) {
+    def search_all(String keyworkd) {
         def filterd = new ConfigObject()
         children.each { name, test_metric ->
-            println "SEARCH:$filter_metric, $name"
-            if (this.check_filter(name, filter_metric)) {
+            println "SEARCH:$keyworkd, $name"
+            if (this.check_filter(name, keyworkd)) {
                 filterd[name] = test_metric
             }
         }

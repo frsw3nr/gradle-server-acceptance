@@ -10,7 +10,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestTargetTest.初期化"
+// gradle --daemon test --tests "TestTargetTest.Excelパース"
 
 class TestTargetTest extends Specification {
     def test_target
@@ -40,16 +40,81 @@ class TestTargetTest extends Specification {
         excel_parser.scan_sheet()
         def target_set = new TestTargetSet(name: 'root')
         target_set.accept(excel_parser)
-        println "ROW:${target_set.get_all().size()}"
         def test_targets = target_set.get_all()
 
         when:
-        println "SERVER:${test_targets['ostrich']}"
-        def server_info = test_targets['ostrich'].Linux.asMap()
+        def server_info = test_targets['ostrich']['Linux'].asMap()
 
         then:
         server_info['verify_id'] == 'RuleAP'
         server_info['NumCpu'] == '4.0'
     }
 
+    def "暗黙的なテンプレートセット"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+        def test_targets = test_scenario.test_targets.get_all()
+
+        when:
+        def test_target = test_targets['ostrich']['Linux']
+        def server_info = test_target.asMap()
+
+        println "SERVER:${test_target}"
+        println "INFOS:${server_info}"
+
+        then:
+        server_info['verify_id'] == 'RuleAP'
+        server_info['NumCpu'] == '4.0'
+        server_info['vCenter']['memory'] == '4.0'
+        server_info['Linux']['net_onboot'] == ['eth0', 'eth1']
+        server_info['Linux']['filesystem'] == ['/:26.5G', '[swap]:3G']
+    }
+
+    def "明示的なテンプレートセット"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+        def test_targets = test_scenario.test_targets.get_all()
+        def test_target = test_targets['ostrich']['Linux']
+
+        when:
+        excel_parser.make_template_link(test_target, test_scenario)
+        def server_info = test_target.asMap()
+
+        println "SERVER:${test_target}"
+        println "INFOS:${server_info}"
+
+        then:
+        server_info['verify_id'] == 'RuleAP'
+        server_info['NumCpu'] == '4.0'
+        server_info['vCenter']['memory'] == '4.0'
+        server_info['Linux']['net_onboot'] == ['eth0', 'eth1']
+        server_info['Linux']['filesystem'] == ['/:26.5G', '[swap]:3G']
+    }
+
+    def "Windowsテンプレートセット"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+        def test_targets = test_scenario.test_targets.get_all()
+
+        when:
+        def test_target = test_targets['win2012']['Windows']
+        def server_info = test_target.asMap()
+
+        println "SERVER:${test_target}"
+        println "INFOS:${server_info}"
+
+        then:
+        server_info['verify_id'] == 'RuleAP'
+        server_info['vCenter']['memory'] == '2.0'
+        server_info['Windows']['net_onboot'] == ['eth0', 'eth1']
+    }
 }

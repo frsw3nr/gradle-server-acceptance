@@ -12,16 +12,23 @@ class TestTarget extends SpecModel {
     String name
     String domain
     String ip
-    String os_account_id
+    String template_id
+    String account_id
     String verify_id
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
+    LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]
 
     public Map asMap() {
-        def map = this.class.declaredFields.findAll { !it.synthetic }.collectEntries {
-            [ (it.name) : this."$it.name" ]
-        }
+        def map = [name:name, domain:domain, ip:ip,
+                   template_id:template_id, account_id:account_id,
+                   verify_id:verify_id]
         map << this.custom_fields
+
+        def template_config = test_templates[template_id]?.values
+        if (template_config && template_config.size() > 0) {
+            map << template_config
+        }
         return map
     }
 }

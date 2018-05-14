@@ -253,6 +253,7 @@ class LinuxSpecBase extends InfraTestSpec {
             cpu_text += " ${cpu_number} CPU"
         cpuinfo["cpu"] = cpu_text
         println("cpu:${cpuinfo}")
+        println("server_info:${server_info}")
         test_item.results(cpuinfo)
     }
 

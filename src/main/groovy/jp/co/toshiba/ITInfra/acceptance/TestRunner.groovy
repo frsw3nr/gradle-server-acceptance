@@ -22,12 +22,12 @@ class TestRunner {
     String config_file
     String sheet_file
     String export_files
-    String server_config_script
+    // String server_config_script
     int parallel_degree
     String filter_server
     String filter_metric
-    def target_servers
-    def test_ids
+    // def target_servers
+    // def test_ids
     Boolean dry_run
     Boolean verify_test
     Boolean use_redmine
@@ -116,10 +116,10 @@ class TestRunner {
             config_file = options.c
         }
 
-        server_config_script = null
-        if (options.i) {
-            server_config_script = options.i
-        }
+        // server_config_script = null
+        // if (options.i) {
+        //     server_config_script = options.i
+        // }
 
         def config = Config.instance.read(config_file, keyword)
         test_resource = (options.resource) ?: config['test']['dry_run_staging_dir'] ?: './src/test/resources/log'

@@ -4,7 +4,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "LinuxBaseTest.Linux 全テスト仕様のロード"
+// gradle --daemon test --tests "LinuxBaseTest.Linux 複数テスト仕様のロード"
 
 class LinuxBaseTest extends Specification {
 
@@ -16,6 +16,7 @@ class LinuxBaseTest extends Specification {
             name              : 'ostrich',
             ip                : '192.168.10.1',
             domain            : 'Linux',
+            template_id       : 'AP',
             os_account_id     : 'Test',
             remote_account_id : 'Test',
             remote_alias      : 'ostrich',
@@ -29,6 +30,7 @@ class LinuxBaseTest extends Specification {
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
+        excel_parser.make_template_link(test_target, test_scenario)
         def test_metrics = test_scenario.test_metrics.get('Linux').get('Linux').get_all()
 
         test_platform = new TestPlatform(
@@ -57,6 +59,7 @@ class LinuxBaseTest extends Specification {
         platform_tester.init()
 
         when:
+        println("SERVER_INFO:${platform_tester.server_info}")
         platform_tester.set_test_items('hostname', 'hostname_fqdn', 'cpu')
         platform_tester.run()
 

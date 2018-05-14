@@ -83,6 +83,24 @@ class ExcelParser {
         return current_sheet
     }
 
+    def make_template_link(TestTarget test_target, TestScenario test_scenario) {
+        test_target.with {
+            def template = test_scenario.test_templates.get(template_id)
+            if (template) {
+                it.test_templates[template_id] = template
+            }
+        }
+    }
+
+    def make_template_links(TestScenario test_scenario) {
+        def all_targets = test_scenario.test_targets.get_all()
+        all_targets.each { target_name, domain_targets ->
+            domain_targets.each { domain_name, target ->
+                this.make_template_link(target, test_scenario)
+            }
+        }
+    }
+
     def visit_test_scenario(test_scenario) {
         log.info "Parse spec sheet"
         test_scenario.with {
@@ -103,6 +121,7 @@ class ExcelParser {
                 test_templates.add(test_template)
             }
         }
+        make_template_links(test_scenario)
     }
 
     def visit_test_metric_set(test_metric_set) {
@@ -165,7 +184,10 @@ class ExcelParser {
                 values << value
             }
             row_count ++
-            template_values[platform][metric_name] = values
+            if (values.size() == 1)
+                template_values[platform][metric_name] = values[0]
+            else if (values.size() >= 2)
+                template_values[platform][metric_name] = values
             return
         }
         test_template.values = template_values

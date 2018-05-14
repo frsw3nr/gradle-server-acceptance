@@ -50,7 +50,7 @@ class InfraTestSpec {
         this.timeout                = test_platform.timeout
         this.debug                  = test_platform.debug
         this.mode                   = RunMode.prepare
-        this.server_info            = test_platform.test_target
+        this.server_info            = test_platform?.test_target?.asMap()
     }
 
     // def InfraTestSpec(TargetServer test_server, String domain) {
