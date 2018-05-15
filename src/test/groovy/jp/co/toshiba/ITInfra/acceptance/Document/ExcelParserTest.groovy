@@ -50,6 +50,12 @@ class ExcelParserTest extends Specification {
         domains.each { domain ->
             test_metric_sets[domain].name == domain
             test_metric_sets[domain].count() > 0
+
+            println "DOMAIN:$domain"
+            def metrics = test_metric_sets[domain].get_all()
+            def json = new groovy.json.JsonBuilder()
+            json(metrics)
+            println json.toPrettyString()
         }
     }
 
@@ -73,7 +79,10 @@ class ExcelParserTest extends Specification {
         excel_parser.scan_sheet()
         def template = new TestTemplate(name: 'AP')
         template.accept(excel_parser)
-        println template
+        println template.values
+        def json = new groovy.json.JsonBuilder()
+        json(template.values)
+        println json.toPrettyString()
         
         then:
         1 == 1

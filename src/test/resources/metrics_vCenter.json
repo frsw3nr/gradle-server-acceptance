@@ -1,0 +1,9 @@
+[
+"vm",
+"datastore",
+"network",
+"vmwaretool",
+"vm_timesync",
+"vm_iops_limit",
+"vm_storage"
+]

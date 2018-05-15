@@ -4,7 +4,7 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 enum ResultStatus {
-  OK, FAILED, MATCH, UNMATCH, UNKOWN
+  OK, NG, MATCH, UNMATCH, UNKOWN
 }
 
 @Slf4j
@@ -13,5 +13,6 @@ class TestResult extends SpecModel {
     String name
     def value
     ResultStatus status
+    ResultStatus verify
     TestResultLine devices
 }

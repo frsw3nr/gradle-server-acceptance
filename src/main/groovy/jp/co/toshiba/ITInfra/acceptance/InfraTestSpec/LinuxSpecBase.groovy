@@ -73,7 +73,7 @@ class LinuxSpecBase extends InfraTestSpec {
                             log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
                             // test_item.succeed = 1
                         } catch (Exception e) {
-                            test_item.verify_status(false)
+                            test_item.status(false)
                             log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
                         }
                     }
@@ -179,48 +179,59 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(info)
     }
 
-    def test_val(String item, String platform = null) {
-        if (!platform)
-            platform = this.platform
-        if (!server_info.containsKey(platform) ||
-            !server_info[platform].containsKey(item))
-            return
-        return server_info[platform][item]
-    }
-
     def uname(session, test_item) {
         def lines = exec('uname') {
             run_ssh_command(session, 'uname -a', 'uname')
         }
-        def info = ''
+
+        // parse 'Linux ostrich 2.6.32-573.12.1.el6.x86_64'
+        def infos = [:]
         lines.eachLine {
-            (it =~ /^(.+?)#/).each {m0,m1->
-                info = m1
+            (it =~ /^(.+)\.(.+?)#/).each {m0, kernel, arch ->
+                infos['uname']  = "${kernel}.${arch}"
+                infos['kernel'] = kernel
+                infos['arch']   = arch
             }
         }
-        println("uname:${info}")
-        println("server_info:${server_info}")
-        println("server_info:Kernel:${server_info['Linux']['Kernel']}")
-        def test_value = test_val('Kernel')
-        def test_value2 = test_val('Kernel-hgoge')
-        println("server_info:Kernel:${test_value}")
-        println("server_info:Kernel:${test_value2}")
-        test_item.results(info)
+        test_item.results(infos)
+
+        // Verify 'kernel' and 'arch' with intermediate match
+        Closure intermediate_match = { String a, String b ->
+            return (a =~ /$b/) as boolean
+        }
+        def checks = verify_data(infos, intermediate_match)
+        test_item.verify(checks)
     }
 
     def lsb(session, test_item) {
         def lines = exec('lsb') {
             run_ssh_command(session, 'cat /etc/*-release', 'lsb')
         }
-        def info = [:]
+        def scan_lines = [:]
         // = を含む行を除いて、重複行を取り除く
         lines.eachLine {
             if (it.indexOf('=') == -1 && it.size() > 0) {
-                info[it] = ''
+                scan_lines[it] = ''
             }
         }
-        test_item.results(info.keySet().toString())
-    }
+        def lsb = scan_lines.keySet().toString()
+
+        // parse 'CentOS release 6.7 (Final)'
+        def infos = [:]
+        infos['lsb'] = lsb
+        (lsb =~ /^\[(.+) ([\d\.]+)/).each {m0, os, os_release ->
+            infos['os'] = os
+            infos['os_release'] = os_release
+        }
+        test_item.results(infos)
+
+        // Verify 'os' and 'os_release' with intermediate match
+        Closure intermediate_match = { String a, String b ->
+            return (a =~ /$b/) as boolean
+        }
+        def checks = verify_data(infos, intermediate_match)
+        test_item.verify(checks)
+   }
 
     def cpu(session, test_item) {
         def lines = exec('cpu') {
@@ -260,9 +271,12 @@ class LinuxSpecBase extends InfraTestSpec {
         else
             cpu_text += " ${cpu_number} CPU"
         cpuinfo["cpu"] = cpu_text
-        println("cpu:${cpuinfo}")
-        println("server_info:${server_info}")
         test_item.results(cpuinfo)
+
+        Closure  equal_number = { a, b -> ("${a * 1.0}" == "${b * 1.0}") }
+        def checks = verify_data(cpuinfo, equal_number)
+        println checks
+        test_item.verify(checks)
     }
 
     def machineid(session, test_item) {
@@ -291,6 +305,8 @@ class LinuxSpecBase extends InfraTestSpec {
                 return value
             } else if (unit == 'mB') {
                 return value * 1024
+            } else if (unit == 'gB') {
+                return value * 1024 * 1024
             } else {
                 return "${value}${unit}"
             }
@@ -306,6 +322,16 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         meminfo['meminfo'] = meminfo['mem_total']
         test_item.results(meminfo)
+
+        Closure  error_range = { a, b ->
+            int value_a = a as Integer
+            int value_b = b as Integer
+            def max_value = Math.max(value_a, value_b)
+            def differ = Math.abs(value_a - value_b)
+            return ((1.0 * differ / max_value) < 0.1) as boolean
+        }
+        def checks = verify_data(meminfo, error_range)
+        test_item.verify(checks)
     }
 
     def network(session, test_item) {
@@ -370,6 +396,13 @@ class LinuxSpecBase extends InfraTestSpec {
             ])
     }
 
+    def convert_array(element) {
+        if (element.getClass() == String)
+            return [element]
+        else
+            return element
+    }
+
     def net_onboot(session, test_item) {
         def lines = exec('net_onboot') {
             def command = """\
@@ -380,27 +413,53 @@ class LinuxSpecBase extends InfraTestSpec {
             session.get from: "${work_dir}/net_onboot", into: local_dir
             new File("${local_dir}/net_onboot").text
         }
-        def net_onboot = [:]
+        def infos = [:]
         lines.eachLine {
             (it =~ /^ifcfg-(.+):ONBOOT=(.+)$/).each {m0,m1,m2->
-                net_onboot[m1] = m2
+                infos[m1] = m2
             }
         }
-        test_item.results(net_onboot.toString())
+        def result = infos.toString()
+        test_item.results(result)
+
+        def target_checks = target_info('net_onboot')
+        if (target_checks) {
+            target_checks = convert_array(target_checks)
+            def validate = true
+            target_checks.each { target_check ->
+                (target_check =~ /(.+):(.+)/).each {m0, device, yesno ->
+                    def status = infos[device]
+                    if (status && status != yesno)
+                        validate = false
+                }
+            }
+            test_item.verify(validate)
+        }
     }
 
     def net_route(session, test_item) {
         def lines = exec('net_route') {
             run_ssh_command(session, '/sbin/ip route', 'net_route')
         }
-        def net_route = [:]
+        def infos = [:]
         lines.eachLine {
             // default via 192.168.10.254 dev eth0
             (it =~ /default via (.+?) dev (.+?)\s/).each {m0,m1,m2->
-                net_route[m2] = m1
+                infos[m1] = m2
             }
         }
-        test_item.results(net_route.toString())
+        test_item.results(infos.toString())
+
+        def target_checks = target_info('net_route')
+        if (target_checks) {
+            target_checks = convert_array(target_checks)
+            def validate = true
+            target_checks.each { device ->
+                if (!infos.containsKey(device))
+                    validate = false
+            }
+            test_item.verify(validate)
+        }
     }
 
     def net_bond(session, test_item) {
@@ -510,6 +569,21 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.devices(csv, headers)
         filesystems['filesystem'] = infos.toString()
         test_item.results(filesystems)
+
+        def target_checks = target_info('filesystem')
+        if (target_checks) {
+            target_checks = convert_array(target_checks)
+            def validate = true
+            target_checks.each { target_check ->
+                (target_check =~ /(.+):(.+)/).each {m0, device, check_value ->
+                    def value = infos[device]
+                    if (value && value != check_value)
+                        validate = false
+                }
+            }
+            test_item.verify(validate)
+        }
+
     }
 
     def lvm(session, test_item) {
@@ -590,7 +664,7 @@ class LinuxSpecBase extends InfraTestSpec {
             def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
             run_ssh_command(session, "${command} ${argument}", 'packages')
         }
-        def package_info = [:].withDefault{0}
+        def package_info = [:].withDefault{'unkown'}
         def distributions = [:].withDefault{0}
         def csv = []
         lines.eachLine {
@@ -614,8 +688,20 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
         package_info['packages'] = distributions.toString()
+
         test_item.devices(csv, headers)
         test_item.results(package_info)
+        def target_checks = target_info('packages')
+        if (target_checks) {
+            target_checks = convert_array(target_checks)
+            def validate = true
+            target_checks.each { device ->
+                if (package_info["packages.$device"] == 'unkown')
+                    validate = false
+            }
+            test_item.verify(validate)
+        }
+
     }
 
     def cron(session, test_item) {
@@ -700,7 +786,7 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         def csv = []
-        def general_users = []
+        def general_users = [:]
         def users = [:].withDefault{'unkown'}
         lines.eachLine {
             def arr = it.split(/:/)
@@ -715,14 +801,25 @@ class LinuxSpecBase extends InfraTestSpec {
                 csv << [username, user_id, group_id, group, home, shell]
                 users['user.' + username] = 'OK'
                 (shell =~ /sh$/).each {
-                    general_users << username
+                    general_users[username] = 'OK'
                 }
             }
         }
         def headers = ['UserName', 'UserID', 'GroupID', 'Group', 'Home', 'Shell']
         test_item.devices(csv, headers)
-        users['user'] = general_users.toString()
+        users['user'] = general_users.keySet().toString()
         test_item.results(users)
+
+        def target_checks = target_info('user')
+        if (target_checks) {
+            target_checks = convert_array(target_checks)
+            def validate = true
+            target_checks.each { device ->
+                if (users["user.$device"] == 'unkown')
+                    validate = false
+            }
+            test_item.verify(validate)
+        }
     }
 
     def crontab(session, test_item) {
@@ -790,6 +887,20 @@ class LinuxSpecBase extends InfraTestSpec {
         services['service'] = service_count.toString()
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
+
+        def target_checks = target_info('service')
+        if (target_checks) {
+            target_checks = convert_array(target_checks)
+            def validate = true
+            target_checks.each { target_check ->
+                (target_check =~ /(.+):(.+)/).each {m0, device, yesno ->
+                    def status = services["service.${device}"]
+                    if (status && status != yesno)
+                        validate = false
+                }
+            }
+            test_item.verify(validate)
+        }
     }
 
     def mount_iso(session, test_item) {
@@ -1041,6 +1152,10 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(se_status)
+
+        Closure  equal_string = { a, b -> ( a == b) }
+        def checks = verify_data(se_status, equal_string)
+        test_item.verify(checks)
     }
 
     def keyboard(session, test_item) {

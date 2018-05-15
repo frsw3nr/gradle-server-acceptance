@@ -42,27 +42,37 @@ class TestItemTest extends Specification {
         test_item.results()
 
         then:
-        test_item.test_results['uname'].status == ResultStatus.FAILED
+        test_item.test_results['uname'].status == ResultStatus.NG
     }
 
     def "空の複数結果登録"() {
         when:
-        test_item.results(['uname' : '[:]', 'cpu' : '', 'lsb' : null])
+        test_item.results(['uname' : '[]', 'cpu' : '', 'lsb' : null])
 
         then:
-        test_item.test_results['uname'].status == ResultStatus.FAILED
-        test_item.test_results['cpu'].status == ResultStatus.FAILED
-        test_item.test_results['lsb'].status == ResultStatus.FAILED
+        test_item.test_results['uname'].status == ResultStatus.NG
+        test_item.test_results['cpu'].status == ResultStatus.NG
+        test_item.test_results['lsb'].status == ResultStatus.NG
+    }
+
+    def "結果登録"() {
+        when:
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        test_item.status(['cpu' : false, 'lsb' : true])
+
+        then:
+        test_item.test_results['cpu'].status == ResultStatus.NG
+        test_item.test_results['lsb'].status == ResultStatus.OK
     }
 
     def "検証結果登録"() {
         when:
         test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
-        test_item.verify_status(['cpu' : false, 'lsb' : true])
+        test_item.verify(['cpu' : false, 'lsb' : true])
 
         then:
-        test_item.test_results['cpu'].status == ResultStatus.FAILED
-        test_item.test_results['lsb'].status == ResultStatus.OK
+        test_item.test_results['cpu'].verify == ResultStatus.NG
+        test_item.test_results['lsb'].verify == ResultStatus.OK
     }
 
     def "デバイス登録"() {

@@ -47,7 +47,7 @@ class InfraTestSpec {
         this.local_dir              = "${evidence_log_dir}/${platform}"
         this.dry_run                = test_platform.dry_run
         this.dry_run_staging_dir    = test_platform.dry_run_staging_dir
-        this.timeout                = test_platform.timeout
+        this.timeout                = test_platform.timeout ?: 0
         this.debug                  = test_platform.debug
         this.mode                   = RunMode.prepare
         this.server_info            = test_platform?.test_target?.asMap()
@@ -133,6 +133,30 @@ class InfraTestSpec {
         ]
     }
 
+    def target_info(String item, String platform = null) {
+        if (!platform)
+            platform = this.platform
+        if (server_info.containsKey(item))
+            return server_info[item]
+        if (!server_info.containsKey(platform) ||
+            !server_info[platform].containsKey(item))
+            return
+        return server_info[platform][item]
+    }
+
+    def verify_data(Map infos, Closure check_closure) {
+        def checks = [:]
+        infos.each { info_name, info_value ->
+            def test_value = target_info(info_name)
+            if (test_value) {
+                def check = check_closure(info_value, test_value)
+                println "CHECK:$info_name, $info_value, $test_value, $check"
+                checks[info_name] = check
+            }
+        }
+        return checks
+    }
+
     def execPowerShell(String script_path, String cmd) throws IOException {
         if (!dry_run) {
             def sout = new StringBuilder()
@@ -191,7 +215,7 @@ class InfraTestSpec {
                         method.invoke(this, it)
                         // it.succeed = 1
                     } catch (Exception e) {
-                        it.verify_status(false)
+                        it.status(false)
                         log.warn "[${domain}Test] Parser of '${method.name}()' faild, skip.\n" + e
                     }
                 }

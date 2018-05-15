@@ -1,0 +1,41 @@
+{
+    "vCenter": {
+        "memory": "4.0"
+    },
+    "Linux": {
+        "kernel": "2.6",
+        "os": "CentOS",
+        "os_release": "6.7",
+        "arch": "x86_64",
+        "cpu_total": "1.0",
+        "cpu_real": "1.0",
+        "mem_total": "2000000",
+        "net_onboot": [
+            "eth0:yes"
+        ],
+        "net_route": "192.168.0.254",
+        "filesystem": [
+            "/:26.5G",
+            "[swap]:3G"
+        ],
+        "user": "zabbix",
+        "service": [
+            "kdump:On",
+            "iptables:Off"
+        ],
+        "sestatus": "enabled",
+        "packages": [
+            "sysstat",
+            "dmidecode",
+            "strace",
+            "net-snmp-libs",
+            "net-snmp-utils",
+            "busybox-anaconda",
+            "alchemist",
+            "xinetd",
+            "tftp-server",
+            "system-config-netboot-cmd",
+            "system-config-netboot"
+        ]
+    }
+}

@@ -7,9 +7,9 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "LinuxBaseTest.Linux 複数テスト仕様のロード"
+// gradle --daemon test --tests "LinuxNoTemplateTest.Linux値検証 Kernel"
 
-class LinuxBaseTest extends Specification {
+class LinuxNoTemplateTest extends Specification {
 
     String config_file = 'src/test/resources/config.groovy'
     TestPlatform test_platform
@@ -27,7 +27,7 @@ class LinuxBaseTest extends Specification {
             os_account_id     : 'Test',
             remote_account_id : 'Test',
             remote_alias      : 'ostrich',
-            test_templates    : ['AP': template]
+            // test_templates    : ['AP': template]
         )
 
         test_platform = new TestPlatform(
@@ -194,8 +194,8 @@ class LinuxBaseTest extends Specification {
         println test_platform.test_results['kernel']
         println test_platform.test_results['arch']
         test_platform.test_results['uname'].status  == ResultStatus.OK
-        test_platform.test_results['kernel'].verify == ResultStatus.OK
-        test_platform.test_results['arch'].verify   == ResultStatus.OK
+        // test_platform.test_results['kernel'].verify == ResultStatus.OK
+        // test_platform.test_results['arch'].verify   == ResultStatus.OK
     }
 
     // Linux   OS  CentOS      lsb
@@ -214,8 +214,8 @@ class LinuxBaseTest extends Specification {
         println test_platform.test_results['os']
         println test_platform.test_results['os_release']
         test_platform.test_results['lsb'].status  == ResultStatus.OK
-        test_platform.test_results['os'].verify == ResultStatus.OK
-        test_platform.test_results['os_release'].verify   == ResultStatus.OK
+        // test_platform.test_results['os'].verify == ResultStatus.OK
+        // test_platform.test_results['os_release'].verify   == ResultStatus.OK
     }
 
     // Linux   cpu_total   1       cpu
@@ -233,8 +233,8 @@ class LinuxBaseTest extends Specification {
         then:
         println test_platform.test_results
         test_platform.test_results['cpu'].status  == ResultStatus.OK
-        test_platform.test_results['cpu_total'].verify == ResultStatus.OK
-        test_platform.test_results['cpu_real'].verify   == ResultStatus.OK
+        // test_platform.test_results['cpu_total'].verify == ResultStatus.OK
+        // test_platform.test_results['cpu_real'].verify   == ResultStatus.OK
     }
 
     // Linux   memory2 4GB     meminfo
@@ -250,7 +250,7 @@ class LinuxBaseTest extends Specification {
 
         then:
         test_platform.test_results['meminfo'].status  == ResultStatus.OK
-        test_platform.test_results['mem_total'].verify == ResultStatus.OK
+        // test_platform.test_results['mem_total'].verify == ResultStatus.OK
     }
 
     // Linux   net_onboot  eth0    eth1    net_onboot
@@ -267,7 +267,7 @@ class LinuxBaseTest extends Specification {
         then:
         println test_platform.test_results
         test_platform.test_results['net_onboot'].status  == ResultStatus.OK
-        test_platform.test_results['net_onboot'].verify == ResultStatus.OK
+        // test_platform.test_results['net_onboot'].verify == ResultStatus.OK
     }
 
     // Linux   net_route   192.168.0.254       net_route
@@ -284,7 +284,7 @@ class LinuxBaseTest extends Specification {
         then:
         println test_platform.test_results
         test_platform.test_results['net_route'].status  == ResultStatus.OK
-        test_platform.test_results['net_route'].verify == ResultStatus.OK
+        // test_platform.test_results['net_route'].verify == ResultStatus.OK
     }
 
     // Linux   filesystem  /:26.5G [swap]:3G   filesystem
@@ -301,7 +301,7 @@ class LinuxBaseTest extends Specification {
         then:
         println test_platform.test_results
         test_platform.test_results['filesystem'].status  == ResultStatus.OK
-        test_platform.test_results['filesystem'].verify == ResultStatus.OK
+        // test_platform.test_results['filesystem'].verify == ResultStatus.OK
     }
 
     // Linux   users   zabbix      user
@@ -317,7 +317,7 @@ class LinuxBaseTest extends Specification {
 
         then:
         test_platform.test_results['user'].status  == ResultStatus.OK
-        test_platform.test_results['user'].verify == ResultStatus.OK
+        // test_platform.test_results['user'].verify == ResultStatus.OK
         // 1 == 1
     }
 
@@ -334,7 +334,7 @@ class LinuxBaseTest extends Specification {
 
         then:
         test_platform.test_results['service'].status  == ResultStatus.OK
-        test_platform.test_results['service'].verify == ResultStatus.OK
+        // test_platform.test_results['service'].verify == ResultStatus.OK
     }
 
     // Linux   SELinux Off     sestatus
@@ -350,7 +350,7 @@ class LinuxBaseTest extends Specification {
 
         then:
         test_platform.test_results['sestatus'].status  == ResultStatus.OK
-        test_platform.test_results['sestatus'].verify == ResultStatus.OK
+        // test_platform.test_results['sestatus'].verify == ResultStatus.OK
     }
 
     // Linux   packages    sysstat dmidecode   packages
@@ -365,9 +365,10 @@ class LinuxBaseTest extends Specification {
         platform_tester.run()
 
         then:
-        // println test_platform.test_results['packages'].status
-        test_platform.test_results['packages'].status == ResultStatus.OK
-        test_platform.test_results['packages'].verify == ResultStatus.NG
+        println test_platform.test_results
+        1 == 1
+        // test_platform.test_results['packages'].status  == ResultStatus.OK
+        // test_platform.test_results['packages'].verify == ResultStatus.NG
     }
 
 }

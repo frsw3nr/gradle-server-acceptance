@@ -1,0 +1,8 @@
+[
+"VMHost",
+"Account",
+"NetworkAdapter",
+"Disk",
+"DiskPartition",
+"Datastore"
+]

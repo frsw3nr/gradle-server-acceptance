@@ -15,17 +15,24 @@ class TestItem {
         def test_result = this.test_results?."${metric_name}" ?:
                           new TestResult(name: metric_name)
         def value_str = "$value"
+        test_result.value = value_str
+        test_result.status = ResultStatus.OK
         if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '')
-            test_result.status = ResultStatus.FAILED
-        else
-            test_result.value = value_str
+            test_result.status = ResultStatus.NG
         this.test_results[metric_name] = test_result
     }
 
-    TestResult make_verify_status(String metric_name, Boolean status_ok) {
+    TestResult make_status(String metric_name, Boolean status_ok) {
         def test_result = this.test_results?."${metric_name}" ?:
                           new TestResult(name: metric_name)
-        test_result.status = (status_ok) ? ResultStatus.OK : ResultStatus.FAILED
+        test_result.status = (status_ok) ? ResultStatus.OK : ResultStatus.NG
+        this.test_results[metric_name] = test_result
+    }
+
+    TestResult make_verify(String metric_name, Boolean verify_ok) {
+        def test_result = this.test_results?."${metric_name}" ?:
+                          new TestResult(name: metric_name)
+        test_result.verify = (verify_ok) ? ResultStatus.OK : ResultStatus.NG
         this.test_results[metric_name] = test_result
     }
 
@@ -35,17 +42,31 @@ class TestItem {
 
     def results(Map values) {
         values.each { metric_name, value ->
+            if (value == '[:]')     // Aboid withDefault{[:]} null object check
+                return
             this.make_test_result(metric_name, value)
         }
     }
 
-    def verify_status(Boolean status_ok) {
-        this.make_verify_status(this.test_id, status_ok)
+    def status(Boolean status_ok) {
+        this.make_status(this.test_id, status_ok)
     }
 
-    def verify_status(Map status_oks) {
+    def status(Map status_oks) {
         status_oks.each { metric_name, status_ok ->
-            this.make_verify_status(metric_name, status_ok)
+            this.make_status(metric_name, status_ok)
+        }
+    }
+
+    def verify(Boolean status_ok) {
+        this.make_verify(this.test_id, status_ok)
+    }
+
+    def verify(Map status_oks) {
+        status_oks.each { metric_name, status_ok ->
+            if (status_ok == '[:]')     // Aboid withDefault{[:]} null object check
+                return
+            this.make_verify(metric_name, status_ok)
         }
     }
 
@@ -54,6 +75,9 @@ class TestItem {
                           new TestResult(name: this.test_id)
         def test_result_line = new TestResultLine(csv : csv, header : header)
         test_result.devices = test_result_line
+        test_result.status = ResultStatus.OK
+        // if (csv == null || csv.size() == 0)
+        //     test_result.status = ResultStatus.NG
         this.test_results[this.test_id] = test_result
     }
 

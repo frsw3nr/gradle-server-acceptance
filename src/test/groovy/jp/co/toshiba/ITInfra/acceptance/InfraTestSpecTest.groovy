@@ -2,17 +2,70 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "InfraTestSpecTest"
+// gradle --daemon test --tests "InfraTestSpecTest.初期化"
 
 class InfraTestSpecTest extends Specification {
 
-    def ダミーテスト() {
+    String config_file = 'src/test/resources/config.groovy'
+    TestPlatform test_platform
+
+    def setup() {
+        def test_target = new TestTarget(
+            name              : 'ostrich',
+            ip                : '192.168.10.1',
+            domain            : 'Linux',
+            template_id       : 'AP',
+            os_account_id     : 'Test',
+            remote_account_id : 'Test',
+            remote_alias      : 'ostrich',
+        )
+
+        def test_rule = new TestRule(name : 'AP',
+                                 compare_rule : 'Actual',
+                                 compare_source : 'centos7')
+
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+        excel_parser.make_template_link(test_target, test_scenario)
+        def test_metrics = test_scenario.test_metrics.get('Linux').get('Linux').get_all()
+
+        test_platform = new TestPlatform(
+            name         : 'Linux',
+            test_target  : test_target,
+            test_metrics : test_metrics,
+            test_rule    : test_rule,
+            dry_run      : true,
+        )
+    }
+
+    def "初期化"() {
         when:
-        println 'Test'
+        def test_spec = new InfraTestSpec(test_platform)
 
         then:
-        1 == 1
+        test_spec != null
+    }
+
+    def "サーバ情報"() {
+        when:
+        def test_spec = new InfraTestSpec(test_platform)
+        def test_value = test_spec.target_info('kernel')
+
+        then:
+        test_value.size() > 0
+    }
+
+    def "基底サーバ情報"() {
+        when:
+        def test_spec = new InfraTestSpec(test_platform)
+        def test_value = test_spec.target_info('ip')
+
+        then:
+        test_value.size() > 0
     }
 
     // TargetServer test_server
