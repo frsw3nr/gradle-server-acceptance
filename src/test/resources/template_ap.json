@@ -16,7 +16,7 @@
         "net_route": "192.168.0.254",
         "filesystem": [
             "/:26.5G",
-            "[swap]:3G"
+            "[SWAP]:3G"
         ],
         "user": "zabbix",
         "service": [

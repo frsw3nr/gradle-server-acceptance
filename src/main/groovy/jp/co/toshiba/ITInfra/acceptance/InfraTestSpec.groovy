@@ -157,6 +157,64 @@ class InfraTestSpec {
         return checks
     }
 
+    def verify_data_match(Map infos) {
+        Closure intermediate_match = { String a, String b ->
+            return (a =~ /$b/) as boolean
+        }
+        return verify_data(infos, intermediate_match)
+    }
+
+    def verify_data_equal_number(Map infos) {
+        Closure  equal_number = { a, b -> ("${a * 1.0}" == "${b * 1.0}") }
+        return verify_data(infos, equal_number)
+    }
+
+    def verify_data_error_range(Map infos, double error_rate = 0.1) {
+        Closure  error_range = { a, b ->
+            int value_a = a as Integer
+            int value_b = b as Integer
+            def max_value = Math.max(value_a, value_b)
+            def differ = Math.abs(value_a - value_b)
+            return ((1.0 * differ / max_value) < error_rate) as boolean
+        }
+        return verify_data(infos, error_range)
+    }
+
+    def convert_array(element) {
+        return (element.getClass() == String) ? [element] : element
+    }
+
+    def verify_map(Object target_checks, Map infos, String prefix = null) {
+        target_checks = convert_array(target_checks)
+        def validate = true
+        target_checks.each { target_check ->
+            (target_check =~ /(.+):(.+)/).each {m0, device, check_value ->
+                if (prefix)
+                    device = prefix + '.' + device
+                println infos
+                def status = infos[device]
+                if (!status || status != check_value)
+                    validate = false
+                println "CHECK: $status, $device, $check_value, $validate"
+            }
+        }
+        return validate
+    }
+
+    def verify_list(Object target_checks, Map infos, String prefix = null) {
+        target_checks = convert_array(target_checks)
+        def validate = true
+        println infos
+        target_checks.each { device ->
+            if (prefix)
+                device = prefix + '.' + device
+            if (!infos.containsKey(device))
+                validate = false
+            println "CHECK: $device, $validate"
+        }
+        return validate
+    }
+
     def execPowerShell(String script_path, String cmd) throws IOException {
         if (!dry_run) {
             def sout = new StringBuilder()

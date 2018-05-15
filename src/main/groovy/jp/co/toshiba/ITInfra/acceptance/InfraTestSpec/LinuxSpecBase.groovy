@@ -196,11 +196,7 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(infos)
 
         // Verify 'kernel' and 'arch' with intermediate match
-        Closure intermediate_match = { String a, String b ->
-            return (a =~ /$b/) as boolean
-        }
-        def checks = verify_data(infos, intermediate_match)
-        test_item.verify(checks)
+        test_item.verify(verify_data_match(infos))
     }
 
     def lsb(session, test_item) {
@@ -226,11 +222,7 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(infos)
 
         // Verify 'os' and 'os_release' with intermediate match
-        Closure intermediate_match = { String a, String b ->
-            return (a =~ /$b/) as boolean
-        }
-        def checks = verify_data(infos, intermediate_match)
-        test_item.verify(checks)
+        test_item.verify(verify_data_match(infos))
    }
 
     def cpu(session, test_item) {
@@ -273,10 +265,8 @@ class LinuxSpecBase extends InfraTestSpec {
         cpuinfo["cpu"] = cpu_text
         test_item.results(cpuinfo)
 
-        Closure  equal_number = { a, b -> ("${a * 1.0}" == "${b * 1.0}") }
-        def checks = verify_data(cpuinfo, equal_number)
-        println checks
-        test_item.verify(checks)
+        // Verify 'cpu_total' and 'cpu_real' with equal number
+        test_item.verify(verify_data_equal_number(cpuinfo))
     }
 
     def machineid(session, test_item) {
@@ -323,15 +313,8 @@ class LinuxSpecBase extends InfraTestSpec {
         meminfo['meminfo'] = meminfo['mem_total']
         test_item.results(meminfo)
 
-        Closure  error_range = { a, b ->
-            int value_a = a as Integer
-            int value_b = b as Integer
-            def max_value = Math.max(value_a, value_b)
-            def differ = Math.abs(value_a - value_b)
-            return ((1.0 * differ / max_value) < 0.1) as boolean
-        }
-        def checks = verify_data(meminfo, error_range)
-        test_item.verify(checks)
+        // Verify 'mem_total' with error range
+        test_item.verify(verify_data_error_range(meminfo, 0.1))
     }
 
     def network(session, test_item) {
@@ -396,12 +379,12 @@ class LinuxSpecBase extends InfraTestSpec {
             ])
     }
 
-    def convert_array(element) {
-        if (element.getClass() == String)
-            return [element]
-        else
-            return element
-    }
+    // def convert_array(element) {
+    //     if (element.getClass() == String)
+    //         return [element]
+    //     else
+    //         return element
+    // }
 
     def net_onboot(session, test_item) {
         def lines = exec('net_onboot') {
@@ -422,18 +405,10 @@ class LinuxSpecBase extends InfraTestSpec {
         def result = infos.toString()
         test_item.results(result)
 
+        // Verify targets include in the result of map
         def target_checks = target_info('net_onboot')
         if (target_checks) {
-            target_checks = convert_array(target_checks)
-            def validate = true
-            target_checks.each { target_check ->
-                (target_check =~ /(.+):(.+)/).each {m0, device, yesno ->
-                    def status = infos[device]
-                    if (status && status != yesno)
-                        validate = false
-                }
-            }
-            test_item.verify(validate)
+            test_item.verify(verify_map(target_checks, infos))
         }
     }
 
@@ -450,15 +425,10 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         test_item.results(infos.toString())
 
+        // Verify targets include in the result of list
         def target_checks = target_info('net_route')
         if (target_checks) {
-            target_checks = convert_array(target_checks)
-            def validate = true
-            target_checks.each { device ->
-                if (!infos.containsKey(device))
-                    validate = false
-            }
-            test_item.verify(validate)
+            test_item.verify(verify_list(target_checks, infos))
         }
     }
 
@@ -570,20 +540,11 @@ class LinuxSpecBase extends InfraTestSpec {
         filesystems['filesystem'] = infos.toString()
         test_item.results(filesystems)
 
+        // Verify targets include in the result of map
         def target_checks = target_info('filesystem')
         if (target_checks) {
-            target_checks = convert_array(target_checks)
-            def validate = true
-            target_checks.each { target_check ->
-                (target_check =~ /(.+):(.+)/).each {m0, device, check_value ->
-                    def value = infos[device]
-                    if (value && value != check_value)
-                        validate = false
-                }
-            }
-            test_item.verify(validate)
+            test_item.verify(verify_map(target_checks, infos))
         }
-
     }
 
     def lvm(session, test_item) {
@@ -693,15 +654,8 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(package_info)
         def target_checks = target_info('packages')
         if (target_checks) {
-            target_checks = convert_array(target_checks)
-            def validate = true
-            target_checks.each { device ->
-                if (package_info["packages.$device"] == 'unkown')
-                    validate = false
-            }
-            test_item.verify(validate)
+            test_item.verify(verify_list(target_checks, package_info, 'packages'))
         }
-
     }
 
     def cron(session, test_item) {
@@ -810,15 +764,10 @@ class LinuxSpecBase extends InfraTestSpec {
         users['user'] = general_users.keySet().toString()
         test_item.results(users)
 
+        // Verify targets include in the result of map
         def target_checks = target_info('user')
         if (target_checks) {
-            target_checks = convert_array(target_checks)
-            def validate = true
-            target_checks.each { device ->
-                if (users["user.$device"] == 'unkown')
-                    validate = false
-            }
-            test_item.verify(validate)
+            test_item.verify(verify_list(target_checks, users, 'user'))
         }
     }
 
@@ -890,16 +839,7 @@ class LinuxSpecBase extends InfraTestSpec {
 
         def target_checks = target_info('service')
         if (target_checks) {
-            target_checks = convert_array(target_checks)
-            def validate = true
-            target_checks.each { target_check ->
-                (target_check =~ /(.+):(.+)/).each {m0, device, yesno ->
-                    def status = services["service.${device}"]
-                    if (status && status != yesno)
-                        validate = false
-                }
-            }
-            test_item.verify(validate)
+            test_item.verify(verify_map(target_checks, services, 'service'))
         }
     }
 
@@ -1153,9 +1093,8 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         test_item.results(se_status)
 
-        Closure  equal_string = { a, b -> ( a == b) }
-        def checks = verify_data(se_status, equal_string)
-        test_item.verify(checks)
+        // Verify 'sestatus' with string match
+        test_item.verify(verify_data_match(se_status))
     }
 
     def keyboard(session, test_item) {
