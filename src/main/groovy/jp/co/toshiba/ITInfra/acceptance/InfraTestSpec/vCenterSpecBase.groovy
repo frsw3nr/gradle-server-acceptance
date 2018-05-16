@@ -25,7 +25,6 @@ class vCenterSpecBase extends InfraTestSpec {
         // vcenter_user     = remote_account['user']
         // vcenter_password = remote_account['password']
         // vm               = test_server.remote_alias
-
         def remote_account = test_platform.os_account
         vcenter_ip       = remote_account['server']
         vcenter_user     = remote_account['user']
@@ -37,7 +36,6 @@ class vCenterSpecBase extends InfraTestSpec {
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
-
         def cmd = """\
             |powershell -NonInteractive ${script_path}
             |-log_dir '${local_dir}'
@@ -47,6 +45,8 @@ class vCenterSpecBase extends InfraTestSpec {
         """.stripMargin()
         if (vcenter_ip && vcenter_user && vcenter_password && vm) {
             runPowerShellTest('lib/template', 'vCenter', cmd, test_items)
+        } else {
+            log.info "Skip vCenter test because the target information is unknown"
         }
     }
 
@@ -68,6 +68,8 @@ class vCenterSpecBase extends InfraTestSpec {
                 }
             }
             test_item.results(res)
+            // Verify 'NumCpu', 'MemoryGB' and 'VMHost' with intermediate match
+            test_item.verify(verify_data_match(res))
         }
     }
 

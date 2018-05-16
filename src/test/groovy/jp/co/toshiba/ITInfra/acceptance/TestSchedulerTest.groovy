@@ -16,7 +16,6 @@ class TestSchedulerTest extends Specification {
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
             '-resource', './src/test/resources/log',
-            '--parallel', '3',
         ]
         test_runner = new TestRunner()
         test_runner.parse(args)

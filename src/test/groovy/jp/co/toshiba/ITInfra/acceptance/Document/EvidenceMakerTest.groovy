@@ -12,19 +12,38 @@ import com.gh.mygreen.xlsmapper.annotation.*
 class EvidenceMakerTest extends Specification {
 
     def excel_parser
+    def test_runner
     def test_scenario
     def evidence_maker
 
     def setup() {
+        String[] args = [
+            '--dry-run',
+            '-c', './src/test/resources/config.groovy',
+            '-resource', './src/test/resources/log',
+            '--parallel', '3',
+        ]
+        test_runner = new TestRunner()
+        test_runner.parse(args)
+
         excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
-        def test_scenario = new TestScenario(name: 'root')
+        test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
     }
 
     def "初期化"() {
         when:
         evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+
+        then:
+        1 == 1
+    }
+
+    def "DryRun シナリオ実行"() {
+        when:
+        def test_scheduler = new TestScheduler(test_runner: test_runner)
+        test_scenario.accept(test_scheduler)
 
         then:
         1 == 1

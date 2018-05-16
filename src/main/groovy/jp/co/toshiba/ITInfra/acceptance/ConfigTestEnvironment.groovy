@@ -45,7 +45,7 @@ class ConfigTestEnvironment {
             throw new IllegalArgumentException(msg)
         }
         test_platform.with {
-            os_account = get_config_account(config_account, platform, test_target.os_account_id)
+            os_account = get_config_account(config_account, platform, test_target.account_id)
             if (test_target.os_specific_password)
                 os_account.password = test_target.os_specific_password
         }
@@ -68,7 +68,7 @@ class ConfigTestEnvironment {
             'evidence_log_share_dir' : evidence_log_share_dir,
             'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
         ]
-        println test_platform_configs
+        // println test_platform_configs
 
         test_platform_configs.each { key, test_platform_config ->
             if (!test_platform[key])

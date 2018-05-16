@@ -77,7 +77,7 @@ class ExcelParserTest extends Specification {
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
-        def template = new TestTemplate(name: 'AP')
+        def template = new TestTemplate(name: 'Win')
         template.accept(excel_parser)
         println template.values
         def json = new groovy.json.JsonBuilder()

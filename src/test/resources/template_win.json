@@ -1,0 +1,20 @@
+{
+    "vCenter": {
+        "memory": "2.0"
+    },
+    "Windows": {
+        "os_caption": "Windows Server 2012 R2 Standard",
+        "os_architecture": "64 ビット",
+        "cpu_total": "2.0",
+        "pyhis_mem": "2096692.0",
+        "net_ip": "192.168.0.14,192.168.0.254,255.255.255.0",
+        "filesystem": [
+            "C:40"
+        ],
+        "users": "zabbix",
+        "service": [
+            "VMTools:Running",
+            "wuauserv:Stopped"
+        ]
+    }
+}

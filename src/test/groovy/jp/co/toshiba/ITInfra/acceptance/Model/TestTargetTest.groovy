@@ -68,9 +68,8 @@ class TestTargetTest extends Specification {
         then:
         server_info['verify_id'] == 'RuleAP'
         server_info['NumCpu'] == '4.0'
-        server_info['vCenter']['memory'] == '4.0'
-        server_info['Linux']['net_onboot'] == ['eth0', 'eth1']
-        server_info['Linux']['filesystem'] == ['/:26.5G', '[swap]:3G']
+        server_info['vCenter']['MemoryGB'] == '2.0'
+        server_info['Linux']['filesystem'] == ['/:26.5G', '[SWAP]:3G']
     }
 
     def "明示的なテンプレートセット"() {
@@ -92,9 +91,8 @@ class TestTargetTest extends Specification {
         then:
         server_info['verify_id'] == 'RuleAP'
         server_info['NumCpu'] == '4.0'
-        server_info['vCenter']['memory'] == '4.0'
-        server_info['Linux']['net_onboot'] == ['eth0', 'eth1']
-        server_info['Linux']['filesystem'] == ['/:26.5G', '[swap]:3G']
+        server_info['vCenter']['MemoryGB'] == '2.0'
+        server_info['Linux']['filesystem'] == ['/:26.5G', '[SWAP]:3G']
     }
 
     def "Windowsテンプレートセット"() {
@@ -114,7 +112,7 @@ class TestTargetTest extends Specification {
 
         then:
         server_info['verify_id'] == 'RuleAP'
-        server_info['vCenter']['memory'] == '2.0'
-        server_info['Windows']['net_onboot'] == ['eth0', 'eth1']
+        server_info['vCenter']['MemoryGB'] == '2.0'
+        server_info['Windows']['net_ip'] == '192.168.0.14,192.168.0.254,255.255.255.0'
     }
 }

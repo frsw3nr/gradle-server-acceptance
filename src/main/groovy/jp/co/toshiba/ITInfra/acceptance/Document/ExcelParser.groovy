@@ -67,7 +67,6 @@ class ExcelParser {
 
     SheetDesign make_sheet_design(Sheet sheet) {
         String sheet_name = sheet.getSheetName()
-        log.info "Attach sheet : '${sheet_name}'"
         String domain_name = null
         ( sheet_name =~ /^(.+)[\(](.*)[\)]$/ ).each { m0, postfix, suffix ->
             sheet_name  = postfix
@@ -77,6 +76,7 @@ class ExcelParser {
         this.sheet_desings.each { sheet_design ->
             if (sheet_name == sheet_design.sheet_parser.sheet_prefix) {
                 current_sheet = sheet_design.create(sheet, domain_name)
+                log.info "Attach sheet '${sheet_name}' as '${sheet_design.name}' format"
                 return true
             }
         }
@@ -148,7 +148,7 @@ class ExcelParser {
                 platform_test_set.add(test_metric)
             }
         }
-        log.info "Read test(${domain_name}) : ${test_metric_set.count()} row"
+        log.info "Read test spec(${domain_name}) : ${test_metric_set.count()} row"
     }
 
     def visit_test_target_set(test_target_set) {
@@ -157,6 +157,8 @@ class ExcelParser {
             if (!line['domain'])
                 return true
             line['name'] = line['server_name']
+            if (!line['remote_alias'])
+                line['remote_alias'] = line['server_name']
             // line << [name: line['server_name']]
             def test_target = new TestTarget(line)
             test_target_set.add(test_target)
@@ -192,7 +194,7 @@ class ExcelParser {
         }
         test_template.values = template_values
 
-        log.info "Read template($template_name) : ${row_count} row"
+        log.info "Read target template($template_name) : ${row_count} row"
     }
 
     def visit_test_rule_set(test_rule_set) {

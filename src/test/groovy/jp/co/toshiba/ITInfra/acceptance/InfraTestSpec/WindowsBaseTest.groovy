@@ -1,4 +1,7 @@
 import spock.lang.Specification
+import static groovy.json.JsonOutput.*
+import groovy.json.*
+import org.apache.commons.io.FileUtils
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
@@ -12,28 +15,46 @@ class WindowsBaseTest extends Specification {
     TestPlatform test_platform
 
     def setup() {
+        def template_text = new File('src/test/resources/template_win.json').text
+        def template_json = new JsonSlurper().parseText(template_text)
+        def template = new TestTemplate(name : 'Win', values : template_json)
+
         def test_target = new TestTarget(
             name              : 'win2012',
             ip                : '192.168.0.12',
             domain            : 'Windows',
+            template_id       : 'Win',
             os_account_id     : 'Test',
             remote_account_id : 'Test',
             remote_alias      : 'win2012.ostrich',
+            test_templates    : ['Win': template]
         )
 
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-        excel_parser.scan_sheet()
-        def test_scenario = new TestScenario(name: 'root')
-        test_scenario.accept(excel_parser)
-        def test_metrics = test_scenario.test_metrics.get('Windows').get('Windows').get_all()
-
-        test_platform = new TestPlatform(
+       test_platform = new TestPlatform(
             name         : 'Windows',
             test_target  : test_target,
-            test_metrics : test_metrics,
             dry_run      : true,
         )
     }
+
+    def "Windows テスト仕様 os"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('os')
+        platform_tester.run()
+
+        then:
+        println test_platform.test_results['os_caption']
+        println test_platform.test_results['os_architecture']
+        test_platform.test_results['os_caption'].status  == ResultStatus.OK
+        test_platform.test_results['os_caption'].verify == ResultStatus.OK
+        test_platform.test_results['os_architecture'].status  == ResultStatus.OK
+        test_platform.test_results['os_architecture'].verify == ResultStatus.OK
+     }
 
     def "Windows テスト仕様 cpu"() {
         setup:
@@ -46,9 +67,14 @@ class WindowsBaseTest extends Specification {
         platform_tester.run()
 
         then:
+        println test_platform.test_results
         test_platform.test_results['mhz'].value.size() > 0
         test_platform.test_results['model_name'].value.size() > 0
-    }
+
+        println test_platform.test_results['cpu_total']
+        test_platform.test_results['cpu_total'].status  == ResultStatus.OK
+        test_platform.test_results['cpu_total'].verify == ResultStatus.OK
+     }
 
     def "Windows テスト仕様 memory"() {
         setup:
@@ -63,6 +89,10 @@ class WindowsBaseTest extends Specification {
         then:
         test_platform.test_results.size() > 0
         test_platform.test_results['total_virtual'].value.size() > 0
+        println test_platform.test_results
+        println test_platform.test_results['pyhis_mem']
+        test_platform.test_results['pyhis_mem'].status  == ResultStatus.OK
+        test_platform.test_results['pyhis_mem'].verify == ResultStatus.OK
     }
 
     def "Windows テスト仕様 system"() {
@@ -94,6 +124,60 @@ class WindowsBaseTest extends Specification {
         then:
         test_platform.test_results.size() > 0
         test_platform.test_results['driver'].devices.csv.size() > 0
+    }
+
+    def "Windows テスト仕様 network"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('network')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        println test_platform.test_results
+        test_platform.test_results['network'].status == ResultStatus.OK
+        test_platform.test_results['network'].verify == ResultStatus.OK
+         // test_platform.test_results['Domain'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 filesystem"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('filesystem')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        println test_platform.test_results
+        test_platform.test_results['filesystem'].status == ResultStatus.OK
+        test_platform.test_results['filesystem'].verify == ResultStatus.OK
+         // test_platform.test_results['Domain'].value.size() > 0
+    }
+
+    def "Windows テスト仕様 user"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('user')
+        platform_tester.run()
+
+        then:
+        test_platform.test_results.size() > 0
+        println test_platform.test_results
+        // test_platform.test_results['user'].status == ResultStatus.OK
+        // test_platform.test_results['user'].verify == ResultStatus.OK
+         // test_platform.test_results['Domain'].value.size() > 0
     }
 
     def "Windows テスト仕様 firewall"() {
@@ -155,10 +239,12 @@ class WindowsBaseTest extends Specification {
 
         then:
         test_platform.test_results.size() > 0
-        // println test_platform.test_results
+        println test_platform.test_results
         // test_platform.test_results['service'].value.size() > 0
         test_platform.test_results['service'].devices.csv.size() > 0
-    }
+        test_platform.test_results['service'].status == ResultStatus.OK
+        test_platform.test_results['service'].verify == ResultStatus.OK
+     }
 
     def "Windows 複数テスト仕様のロード"() {
         setup:
@@ -183,7 +269,12 @@ class WindowsBaseTest extends Specification {
                                                  config_file: config_file)
         platform_tester.init()
 
+        def metric_text = new File('src/test/resources/metrics_Windows.json').text
+        def metric_json = new JsonSlurper().parseText(metric_text) as String[]
+
         when:
+        println metric_json
+        platform_tester.set_test_items(metric_json)
         platform_tester.run()
 
         then:

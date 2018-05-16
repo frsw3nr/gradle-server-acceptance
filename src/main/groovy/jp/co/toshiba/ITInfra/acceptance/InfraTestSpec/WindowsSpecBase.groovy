@@ -31,7 +31,6 @@ class WindowsSpecBase extends InfraTestSpec {
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
-
         def cmd = """\
             |powershell -NonInteractive ${script_path}
             |-log_dir '${local_dir}'
@@ -94,6 +93,9 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             cpuinfo["cpu_total"] = cpu_number
             test_item.results(cpuinfo)
+
+            // Verify 'cpu_total' with equal number
+            test_item.verify(verify_data_equal_number(cpuinfo))
         }
     }
 
@@ -125,6 +127,8 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             osinfo['os'] = "${osinfo['os_caption']} ${osinfo['os_architecture']}"
             test_item.results(osinfo)
+            // Verify 'os_caption' and 'os_architecture' with intermediate match
+            test_item.verify(verify_data_match(osinfo))
         }
     }
 
@@ -157,8 +161,10 @@ class WindowsSpecBase extends InfraTestSpec {
                     meminfo['free_space'] = m1
                 }
             }
-            meminfo['memory'] = meminfo['total_visible']
+            meminfo['pyhis_mem'] = meminfo['total_visible']
             test_item.results(meminfo)
+            // Verify 'mem_total' with error range
+            test_item.verify(verify_data_error_range(meminfo, 0.1))
         }
     }
 
@@ -230,23 +236,29 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             def csv = []
             def filesystems = [:]
-            def device_id
+            def drive_letter = 'unkown'
             def infos = [:]
             lines.eachLine {
-                (it =~ /^DeviceID\s*:\s+(.+)$/).each {m0,m1->
-                    device_id = m1
+                (it =~ /^DeviceID\s*:\s+(.+):$/).each {m0,m1->
+                    drive_letter = m1
                 }
                 (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
                     def size_gb = m1.toDouble()/(1024*1024*1024)
-                    filesystems['filesystem.' + device_id] = size_gb
-                    csv << [device_id, size_gb]
-                    infos[device_id] = (int)size_gb
+                    filesystems['filesystem.' + drive_letter] = size_gb
+                    csv << [drive_letter, size_gb]
+                    infos[drive_letter] = Math.ceil(size_gb) as Integer
                 }
             }
             def headers = ['device_id', 'size_gb']
             test_item.devices(csv, headers)
             filesystems['filesystem'] = infos.toString()
             test_item.results(filesystems)
+
+            // Verify targets include in the result of list
+            def target_checks = target_info('filesystem')
+            if (target_checks) {
+                test_item.verify(verify_map(target_checks, infos))
+            }
         }
     }
 
@@ -280,6 +292,14 @@ class WindowsSpecBase extends InfraTestSpec {
         }
     }
 
+    String parse_ip( String text ) {
+        String address = null
+        (text =~ /([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/).each {m0, ip ->
+            address = ip
+        }
+        return address
+    }
+
     def network(TestItem test_item) {
         def command = '''\
             |Get-WmiObject Win32_NetworkAdapterConfiguration | `
@@ -304,32 +324,29 @@ class WindowsSpecBase extends InfraTestSpec {
             device_number --
             def headers = ['ServiceName', 'MacAddress', 'IPAddress',
                            'DefaultIPGateway', 'Description', 'IPSubnet']
-
-            def infos    = [:]
-            def gateways = [:]
-            def subnets  = [:]
-            def csv      = []
-            def networks = [:]
-            def devices  = []
+            def csv          = []
+            def ip_configs   = [:]
             (0..device_number).each { row ->
                 def columns = []
                 headers.each { header ->
                     columns.add( network_info[row][header] ?: '')
                 }
                 csv << columns
-                def service_name = network_info[row]['ServiceName']
-                def ip_address   = network_info[row]['IPAddress']
-                networks['network.' + service_name] = ip_address
-                infos[service_name] = ip_address
-                gateways[network_info[row]['DefaultIPGateway']] = 1
-                subnets[network_info[row]['IPSubnet']]          = 1
-                devices.add(service_name)
+                def ip_address   = parse_ip(network_info[row]['IPAddress'])
+                def gateway      = parse_ip(network_info[row]['DefaultIPGateway'])
+                def subnet       = parse_ip(network_info[row]['IPSubnet'])
+                def ip_config = "${ip_address},${gateway},${subnet}"
+                ip_configs[ip_config] = 1
             }
-            networks['network']        = infos.toString()
-            networks['network.gw']     = gateways.keySet().toString()
-            networks['network.subnet'] = subnets.keySet().toString()
+
             test_item.devices(csv, headers)
-            test_item.results(networks)
+            test_item.results(ip_configs.keySet().toString())
+
+            // Verify targets include in the result of list
+            def target_checks = target_info('net_ip')
+            if (target_checks) {
+                test_item.verify(verify_list(target_checks, ip_configs))
+            }
         }
     }
 
@@ -413,6 +430,13 @@ class WindowsSpecBase extends InfraTestSpec {
             services['service'] = instance_number.toString()
             test_item.devices(csv, headers)
             test_item.results(services)
+
+            // Verify targets include in the result of map
+            def target_checks = target_info('service')
+            if (target_checks) {
+                test_item.verify(verify_map(target_checks, services, 'service'))
+            }
+
         }
     }
 

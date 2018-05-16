@@ -60,7 +60,6 @@ class SpecCompositeModel {
     def search_all(String keyworkd) {
         def filterd = new ConfigObject()
         children.each { name, test_metric ->
-            println "SEARCH:$keyworkd, $name"
             if (this.check_filter(name, keyworkd)) {
                 filterd[name] = test_metric
             }

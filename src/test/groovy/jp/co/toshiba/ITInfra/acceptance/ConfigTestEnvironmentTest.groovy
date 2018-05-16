@@ -18,13 +18,14 @@ class ConfigTestEnvironmentTest extends Specification {
         test_env = ConfigTestEnvironment.instance
 
         test_target = new TestTarget(
-            name              : 'ostrich',
-            ip                : '192.168.10.1',
-            platform          : 'Linux',
-            os_account_id     : 'Test',
-            remote_account_id : 'Test',
-            remote_alias      : 'ostrich',
-            verify_id         : 'AP',
+            name           : 'ostrich',
+            ip             : '192.168.10.1',
+            platform       : 'Linux',
+            account_id     : 'Test',
+            template_id    : 'AP',
+            compare_server : 'cent7',
+            remote_alias   : 'ostrich',
+            verify_id      : 'AP',
         )
 
         test_rule = new TestRule(name : 'AP',

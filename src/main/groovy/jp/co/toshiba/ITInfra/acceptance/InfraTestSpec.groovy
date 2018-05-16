@@ -150,7 +150,7 @@ class InfraTestSpec {
             def test_value = target_info(info_name)
             if (test_value) {
                 def check = check_closure(info_value, test_value)
-                println "CHECK:$info_name, $info_value, $test_value, $check"
+                log.debug "CHECK:$info_name, $info_value, $test_value, $check"
                 checks[info_name] = check
             }
         }
@@ -171,8 +171,8 @@ class InfraTestSpec {
 
     def verify_data_error_range(Map infos, double error_rate = 0.1) {
         Closure  error_range = { a, b ->
-            int value_a = a as Integer
-            int value_b = b as Integer
+            double value_a = a as Double
+            double value_b = b as Double
             def max_value = Math.max(value_a, value_b)
             def differ = Math.abs(value_a - value_b)
             return ((1.0 * differ / max_value) < error_rate) as boolean
@@ -191,11 +191,17 @@ class InfraTestSpec {
             (target_check =~ /(.+):(.+)/).each {m0, device, check_value ->
                 if (prefix)
                     device = prefix + '.' + device
-                println infos
                 def status = infos[device]
-                if (!status || status != check_value)
+                if (!status) {
                     validate = false
-                println "CHECK: $status, $device, $check_value, $validate"
+                } else if (status.getClass() == String) {
+                    if (status != check_value)
+                        validate = false
+                } else {
+                    if (status as Double != check_value as Double)
+                        validate = false
+                }
+                log.debug "CHECK: $status, $device, $check_value, $validate"
             }
         }
         return validate
@@ -204,13 +210,12 @@ class InfraTestSpec {
     def verify_list(Object target_checks, Map infos, String prefix = null) {
         target_checks = convert_array(target_checks)
         def validate = true
-        println infos
         target_checks.each { device ->
             if (prefix)
                 device = prefix + '.' + device
             if (!infos.containsKey(device))
                 validate = false
-            println "CHECK: $device, $validate"
+            log.debug "CHECK: $device, $validate"
         }
         return validate
     }

@@ -41,8 +41,6 @@ class TestMetricSet extends SpecCompositeModel {
         // }
         def filterd = super.search_all(filter_metric)
         def new_filterd = filterd.findAll { it.value.enabled == true }.each { it }
-        println "FILTER1:$filterd"
-        println "FILTER2:$new_filterd"
 
         return new_filterd
     }

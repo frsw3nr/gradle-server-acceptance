@@ -1,6 +1,8 @@
 {
     "vCenter": {
-        "memory": "4.0"
+        "NumCpu": "2",
+        "MemoryGB": "2",
+        "VMHost": "esx"
     },
     "Linux": {
         "kernel": "2.6",
