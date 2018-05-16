@@ -7,7 +7,7 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon test --tests "EvidenceMakerTest.初期化"
+// gradle --daemon test --tests "EvidenceMakerTest.DryRun シナリオ実行"
 
 class EvidenceMakerTest extends Specification {
 
@@ -44,6 +44,8 @@ class EvidenceMakerTest extends Specification {
         when:
         def test_scheduler = new TestScheduler(test_runner: test_runner)
         test_scenario.accept(test_scheduler)
+        evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+        test_scenario.accept(evidence_maker)
 
         then:
         1 == 1

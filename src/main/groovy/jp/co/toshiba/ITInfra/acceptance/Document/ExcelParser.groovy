@@ -58,7 +58,7 @@ class ExcelParser {
                             this.sheet_sources."${sheet_design.name}" = sheet_design
                         }
                     } else {
-                        log.warn "Unkown sheet, skip : ${sheet.getSheetName()}"
+                        log.warn "Unkown sheet name, skip : '${sheet.getSheetName()}'"
                     }
                 }
             }
@@ -76,7 +76,7 @@ class ExcelParser {
         this.sheet_desings.each { sheet_design ->
             if (sheet_name == sheet_design.sheet_parser.sheet_prefix) {
                 current_sheet = sheet_design.create(sheet, domain_name)
-                log.info "Attach sheet '${sheet_name}' as '${sheet_design.name}' format"
+                log.info "Attach sheet '${sheet.getSheetName()}'"
                 return true
             }
         }

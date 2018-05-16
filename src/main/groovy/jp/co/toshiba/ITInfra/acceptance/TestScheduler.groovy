@@ -81,18 +81,20 @@ class TestScheduler {
 
     def visit_test_platform(test_platform) {
         def target_name = test_platform.test_target.name
-        def test_label = "[${test_platform.name} - ${target_name}]"
+        def test_label = "${test_platform.name}(${target_name})"
         long start = System.currentTimeMillis()
         // log.info "Start  test $test_label"
         def platform_tester = new PlatformTester(test_platform : test_platform,
                                                  config_file: './src/test/resources/config.groovy')
         platform_tester.init()
         platform_tester.run()
-        def test_results = test_platform.test_results
-        long elapsed = System.currentTimeMillis() - start
-        log.info "Finish test $test_label, Elapsed : ${elapsed} ms"
 
-        println "RESULTS:$test_results"
+        def counts = test_platform.count_test_result_status()
+        long elapse = System.currentTimeMillis() - start
+        log.info "Finish test ${test_label}, ${counts}, Elapse : ${elapse} ms"
+
+        def test_results = test_platform.test_results
+        // println "RESULTS:$test_results"
         // def test_domain_template = test_domain_templates[]
     }
 }

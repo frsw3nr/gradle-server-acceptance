@@ -19,6 +19,7 @@ class EvidenceMaker {
     ConfigObject device_sheet
 
     def visit_test_scenario(test_scenario) {
+        // build 下にエビデンス Excel　をコピー
         def test_platform_tasks = this.make_test_platform_tasks(test_scenario)
         test_platform_tasks.each { platform, test_platforms ->
             // def n_test_platforms = test_platforms.size()

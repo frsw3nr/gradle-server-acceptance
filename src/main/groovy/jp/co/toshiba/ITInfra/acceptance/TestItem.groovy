@@ -18,7 +18,7 @@ class TestItem {
         test_result.value = value_str
         test_result.status = ResultStatus.OK
         if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '')
-            test_result.status = ResultStatus.NG
+            test_result.status = ResultStatus.WARNING
         this.test_results[metric_name] = test_result
     }
 

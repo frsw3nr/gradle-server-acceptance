@@ -15,6 +15,14 @@ class TestPlatform extends SpecModel {
     def accept(visitor){
         visitor.visit_test_platform(this)
     }
+
+    def count_test_result_status() {
+        def counts = [:].withDefault{0}
+        test_results.each { name, test_result ->
+            counts[test_result.status] ++
+        }
+        return counts
+    }
 }
 
 @Slf4j
