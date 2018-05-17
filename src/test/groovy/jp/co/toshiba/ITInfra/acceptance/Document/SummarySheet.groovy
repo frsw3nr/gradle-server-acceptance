@@ -8,9 +8,9 @@ import com.github.k3286.dto.Invoice
 import com.github.k3286.dto.InvoiceDetail
 // import com.github.k3286.report.ReportMaker
 
-// gradle --daemon test --tests "SummrySheet.初期化"
+// gradle --daemon test --tests "SummarySheet.初期化"
 
-class SummrySheet extends Specification {
+class SummarySheet extends Specification {
     TestScenario test_scenario
 
     def setup() {
@@ -18,14 +18,6 @@ class SummrySheet extends Specification {
 
     def 初期化() {
         setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-        ]
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
@@ -40,10 +32,9 @@ class SummrySheet extends Specification {
         println 'Test'
         def test_targets = test_scenario.test_targets
         test_targets.get_all().each { target_name, test_target ->
-            println "TARGET:${test_target}"
             test_target.test_platforms.each { platform_name, platform_sets ->
                 println "PLATFORM:${target_name},${platform_name}"
-                println "RES:${platform_sets}"
+                // println "RES:${platform_sets}"
             }
         }
 

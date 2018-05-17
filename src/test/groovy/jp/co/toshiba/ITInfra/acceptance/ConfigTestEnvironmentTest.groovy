@@ -108,6 +108,6 @@ class ConfigTestEnvironmentTest extends Specification {
         then:
         evidence_maker.evidence_source.size() > 0
         evidence_maker.evidence_target.size() > 0
-        evidence_maker.staging_dir.size() > 0
+        evidence_maker.json_dir.size() > 0
     }
 }
