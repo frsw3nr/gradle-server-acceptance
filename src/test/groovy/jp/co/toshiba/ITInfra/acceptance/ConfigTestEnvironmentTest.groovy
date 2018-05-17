@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "ConfigTestEnvironmentTest"
+// gradle --daemon test --tests "ConfigTestEnvironmentTest.エビデンス環境設定"
 
 class ConfigTestEnvironmentTest extends Specification {
 
@@ -97,5 +97,17 @@ class ConfigTestEnvironmentTest extends Specification {
         then:
         test_platform.os_account.user == 'administrator'
         test_platform.evidence_log_dir == './build/log/Windows/ostrich'
+    }
+
+    def "エビデンス環境設定"() {
+        when:
+        def evidence_maker = new EvidenceMaker()
+        test_env.read_config(config_file)
+        test_env.set_evidence_environment(evidence_maker)
+
+        then:
+        evidence_maker.evidence_source.size() > 0
+        evidence_maker.evidence_target.size() > 0
+        evidence_maker.staging_dir.size() > 0
     }
 }

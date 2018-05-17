@@ -1,9 +1,11 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
-import groovy.transform.AutoClone
 import groovy.xml.MarkupBuilder
 import groovy.util.ConfigObject
 import groovy.util.logging.Slf4j
+import groovy.transform.ToString
+import static groovy.json.JsonOutput.*
+import groovy.json.*
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -11,32 +13,112 @@ import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
+enum EvidenceMakerCommand {
+  OUTPUT_JSON, OUTPUT_EXCEL, READ_JSON
+}
+
 @Slf4j
+@ToString(includePackage = false)
 class EvidenceMaker {
-    String excel_file
+    EvidenceMakerCommand command = EvidenceMakerCommand.OUTPUT_EXCEL
+    String evidence_source
+    String evidence_target
+    String json_dir
     ExcelParser excel_parser
     ConfigObject evidence_sheet
     ConfigObject device_sheet
 
-    def visit_test_scenario(test_scenario) {
-        // build 下にエビデンス Excel　をコピー
-        def test_platform_tasks = this.make_test_platform_tasks(test_scenario)
-        test_platform_tasks.each { platform, test_platforms ->
-            // def n_test_platforms = test_platforms.size()
-            // log.info "Prepare platform test(${platform}) : ${n_test_platforms} targets"
-            // if (this.parallel_degree > 1 && !this.serialize_platforms[platform]) {
-            //     log.info "Parallel execute : ${this.parallel_degree}"
-            //     GParsPool.withPool(this.parallel_degree) { ForkJoinPool pool ->
-            //         test_platforms.collectParallel { target_name, test_platform ->
-            //             test_platform.accept(this)
-            //         }
-            //     }
-            // } else {
-            //     test_platforms.each { target_name, test_platform ->
-            //         test_platform.accept(this)
-            //     }
-            // }
+    def write_platform_result_to_json(String target_name, String platform_name, 
+                                      TestPlatform test_platform) throws IOException {
+        def output_dir = "${json_dir}/${target_name}"
+        new File(output_dir).mkdirs()
+        new File("${output_dir}/${platform_name}.json").with {
+            def json = JsonOutput.toJson(test_platform.test_results)
+            it.text = JsonOutput.prettyPrint(json)
         }
+    }
+
+    def output_results_to_json(test_scenario) {
+        def targets = test_scenario.test_targets.get_all()
+
+        targets.each { target, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                test_target.test_platforms.each { platform, test_platform ->
+                    write_platform_result_to_json(target, platform, test_platform)
+                }
+            }
+        }
+    }
+
+    def convert_to_result_status(String status) {
+        def status_hash = [
+            'OK'      : ResultStatus.OK,
+            'NG'      : ResultStatus.NG,
+            'WARNING' : ResultStatus.WARNING,
+            'MATCH'   : ResultStatus.MATCH,
+            'UNMATCH' : ResultStatus.UNMATCH,
+            'UNKOWN'  : ResultStatus.UNKOWN,
+        ]
+        return(status_hash[status])
+    }
+
+    def read_platform_result_from_json(String target_name, String platform_name) 
+                                       throws IOException {
+        def json_file = new File("${json_dir}/${target_name}/${platform_name}.json")
+        if(!json_file.exists())
+            return
+        def results_json = new JsonSlurper().parseText(json_file.text)
+        def test_platform = new TestPlatform(name: platform_name, 
+                                             test_results: results_json,
+                                             )
+        test_platform.test_results.each { metric_name, test_result ->
+            test_result.status = convert_to_result_status(test_result.status)
+            test_result.verify = convert_to_result_status(test_result.verify)
+        }
+        return test_platform
+    }
+
+    def read_results_from_json(test_scenario) {
+        def domain_metrics = test_scenario.test_metrics.get_all()
+        def targets = test_scenario.test_targets.get_all()
+
+        targets.each { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                def platform_metrics = domain_metrics[domain].get_all()
+                platform_metrics.each { platform_name, platform_metric ->
+                    def test_platform = read_platform_result_from_json(target_name,
+                                                                       platform_name)
+                    if (test_platform) {
+                        test_platform.test_target = test_target
+                        test_target.test_platforms[platform_name] = test_platform
+                    }
+                }
+            }
+        }
+    }
+
+    def visit_test_scenario(test_scenario) {
+        long start = System.currentTimeMillis()
+        switch (this.command) {
+            case EvidenceMakerCommand.OUTPUT_JSON:
+                output_results_to_json(test_scenario)
+                break;
+
+            case EvidenceMakerCommand.OUTPUT_EXCEL:
+                println 'OUTPUT_EXCEL'
+                break;
+
+            case EvidenceMakerCommand.READ_JSON:
+                println 'READ_JSON'
+                read_results_from_json(test_scenario)
+                break;
+
+            default :
+                println 'EvidenceMaker : Other command'
+                break
+        }
+        long elapse = System.currentTimeMillis() - start
+        log.info "Finish command '${this.command}', Elapse : ${elapse} ms"
     }
 
     def visit_test_platform(test_platform) {

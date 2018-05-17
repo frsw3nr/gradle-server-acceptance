@@ -1,140 +1,185 @@
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import static groovy.json.JsonOutput.*
+import groovy.json.*
 import groovy.sql.Sql
 import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
+import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // gradle --daemon test --tests "EvidenceMakerTest.DryRun シナリオ実行"
 
 class EvidenceMakerTest extends Specification {
 
+    def config_file = 'src/test/resources/config.groovy'
     def excel_parser
-    def test_runner
     def test_scenario
     def evidence_maker
 
     def setup() {
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
-            '--parallel', '3',
-        ]
-        test_runner = new TestRunner()
-        test_runner.parse(args)
-
         excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
+
+        evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+        def test_env = ConfigTestEnvironment.instance
+        // 'src/test/resources/json/'
+        test_env.read_config(config_file)
+        test_env.set_evidence_environment(evidence_maker)
     }
 
-    def "初期化"() {
+    def "DryRun シナリオ実行"() {
         when:
+        def test_scheduler = new TestScheduler()
+        test_scenario.accept(test_scheduler)
         evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+        // test_scenario.accept(evidence_maker)
 
         then:
         1 == 1
     }
 
-    def "DryRun シナリオ実行"() {
+    def "DryRun 実行結果JSON保存"() {
         when:
-        def test_scheduler = new TestScheduler(test_runner: test_runner)
+        def test_scheduler = new TestScheduler()
         test_scenario.accept(test_scheduler)
-        evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+        evidence_maker.command = EvidenceMakerCommand.OUTPUT_JSON
         test_scenario.accept(evidence_maker)
 
         then:
         1 == 1
     }
 
-    // def "シート読み込み"() {
-    //     when:
-    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-    //     excel_parser.scan_sheet()
-    //     excel_parser.sheet_sources.check_sheet.each { domain_name, sheet->
-    //         println "Domain:$domain_name"
-    //     }
+    def "JSON 実行結果読み込み"() {
+        when:
+        println test_scenario.test_targets.get_all()
+        evidence_maker.command = EvidenceMakerCommand.READ_JSON
+        test_scenario.accept(evidence_maker)
 
-    //     then:
-    //     excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 'check_rule']
-    //     excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows', 'VMHost']
-    // }
+        then:
+        def targets = test_scenario.test_targets.get_all()
+        targets.each { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                test_target.test_platforms.each { platform_name, test_platform ->
+                    println "$target_name, $domain, $platform_name"
+                    test_platform.test_results.size() > 0
+                }
+            }
+        }
+    }
 
-    // def "チェックシートパース"() {
-    //     setup:
-    //     def domains = ['Linux', 'Windows', 'VMHost']
-    //     def test_metric_sets = [:]
+    def "JSON 実行結果単体読み込み"() {
+        setup:
+        def json_text = """\
+        |{
+        |    "hostname": {
+        |        "devices": null,
+        |        "value": "ostrich",
+        |        "status": "OK",
+        |        "custom_fields": {
+        |            
+        |        },
+        |        "verify": null,
+        |        "name": "hostname"
+        |    },
+        |    "network": {
+        |        "devices": {
+        |            "header": [
+        |                "device",
+        |                "ip",
+        |                "mtu",
+        |                "state",
+        |                "mac",
+        |                "subnet"
+        |            ],
+        |            "csv": [
+        |                [
+        |                    "eth0",
+        |                    "NaN",
+        |                    "1500",
+        |                    "UP",
+        |                    "00:0c:29:ca:44:db",
+        |                    "NaN"
+        |                ]
+        |            ],
+        |            "custom_fields": {
+        |                
+        |            }
+        |        },
+        |        "value": "[eth0:null]",
+        |        "status": "OK",
+        |        "custom_fields": {
+        |            
+        |        },
+        |        "verify": null,
+        |        "name": "network"
+        |    }
+        |}
+        """.stripMargin()
 
-    //     when:
-    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-    //     excel_parser.scan_sheet()
-    //     domains.each { domain ->
-    //         def source = excel_parser.sheet_sources.check_sheet."$domain"
-    //         test_metric_sets[domain] = new TestMetricSet(name: domain)
-    //         test_metric_sets[domain].accept(excel_parser)
-    //     }
+        when:
+        def slurper = new groovy.json.JsonSlurper()
+        def result = slurper.parseText(json_text)
+        def result_hostname = new TestResult(result['hostname'])
+        println result_hostname
+        def result_network = new TestResult(result['network'])
+        println result_network
 
-    //     then:
-    //     domains.each { domain ->
-    //         test_metric_sets[domain].name == domain
-    //         test_metric_sets[domain].count() > 0
-    //     }
-    // }
+        then:
+        result_hostname != null
+        result_network != null
+    }
 
-    // def "検査対象パース"() {
-    //     when:
-    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-    //     excel_parser.scan_sheet()
-    //     def target_set = new TestTargetSet(name: 'root')
-    //     target_set.accept(excel_parser)
-    //     def test_targets = target_set.get_all()
+    def "JSON 実行結果ファイル読み込み"() {
+        when:
+        def results_text = new File("src/test/resources/json/ostrich/Linux.json").text
+        def results_json = new JsonSlurper().parseText(results_text)
+        def test_platform = new TestPlatform(name: 'Linux', test_results: results_json)
+        def status_hash = [
+            'OK'      : ResultStatus.OK,
+            'NG'      : ResultStatus.NG,
+            'WARNING' : ResultStatus.WARNING,
+            'MATCH'   : ResultStatus.MATCH,
+            'UNMATCH' : ResultStatus.UNMATCH,
+            'UNKOWN'  : ResultStatus.UNKOWN,
+        ]
+        test_platform.test_results.each { metric_name, test_result ->
+            test_result.status = status_hash[test_result.status]
+            test_result.verify = status_hash[test_result.verify]
+        }
 
-    //     then:
-    //     test_targets['centos7'].Linux.verify_id   == 'RuleAP'
-    // }
+        then:
+        println test_platform.test_results['hostname']
+        println test_platform.test_results['network']
+        test_platform.test_results['hostname'].status == ResultStatus.OK
+        test_platform.test_results['network'].status  == ResultStatus.OK
+        test_platform.test_results['hostname'].status != 'OK'
+        test_platform.test_results['network'].status  != 'OK'
+    }
 
-    // def "ルール定義パース"() {
-    //     when:
-    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-    //     excel_parser.scan_sheet()
-    //     def rule_set = new TestRuleSet(name: 'root')
-    //     rule_set.accept(excel_parser)
-    //     def test_rules = rule_set.get_all()
+    def "実行結果Excel書き込み"() {
+        when:
+        println test_scenario.test_targets.get_all()
+        evidence_maker.command = EvidenceMakerCommand.READ_JSON
+        test_scenario.accept(evidence_maker)
+        evidence_maker.command = EvidenceMakerCommand.OUTPUT_EXCEL
+        test_scenario.accept(evidence_maker)
 
-    //     then:
-    //     test_rules.size() == 2
-    //     def result_AP = test_rules['RuleAP'].config.vCenter.NumCpu
-    //     result_AP == "x == NumberUtils.toDouble(server_info['NumCpu'])"
-    //     test_rules['RuleAP'].config.vCenter.Cluster.size() == 0
-    // }
-
-    // def "シート全体パース"() {
-    //     when:
-    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-    //     excel_parser.scan_sheet()
-    //     def test_scenario = new TestScenario(name: 'OS情報採取')
-    //     test_scenario.accept(excel_parser)
-    //     def test_domains = test_scenario.test_metrics.get_all()
-    //     def test_targets = test_scenario.test_targets.get_all()
-    //     def test_rules   = test_scenario.test_rules.get_all()
-
-    //     def result_platform_keys = [:]
-    //     test_domains.each { domain, test_domain ->
-    //         def platform_metrics = test_domain.get_all()
-    //         platform_metrics.each { platform, platform_metric ->
-    //             result_platform_keys[domain, platform] = platform_metric.count()
-    //         }
-    //     }
-    //     println result_platform_keys
-
-    //     then:
-    //     test_targets.size() == 2
-    //     test_rules.size() == 2
-    //     result_platform_keys.size() > 0
-    // }
+        then:
+        1 == 1
+        // def targets = test_scenario.test_targets.get_all()
+        // targets.each { target_name, domain_targets ->
+        //     domain_targets.each { domain, test_target ->
+        //         test_target.test_platforms.each { platform_name, test_platform ->
+        //             println "$target_name, $domain, $platform_name"
+        //             test_platform.test_results.size() > 0
+        //         }
+        //     }
+        // }
+    }
 
 }
+

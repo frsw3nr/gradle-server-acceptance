@@ -52,8 +52,8 @@ class ConfigTestEnvironment {
     }
 
     def set_test_environment(TestPlatform test_platform) {
-        def config_test     = config.test
-        def platform        = test_platform.name
+        def config_test = config.test
+        def platform    = test_platform.name
         def target_name = test_platform.test_target.name
         def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
         evidence_log_share_dir += '/' + platform
@@ -74,5 +74,12 @@ class ConfigTestEnvironment {
             if (!test_platform[key])
                 test_platform[key] = test_platform_config
         }
+    }
+
+    def set_evidence_environment(EvidenceMaker evidence_maker) {
+        def config_test = config.test
+        evidence_maker.json_dir        = config?.evidence?.json_dir ?: './build/json/'
+        evidence_maker.evidence_target = config?.evidence?.target ?: './build/check_sheet.xlsx'
+        evidence_maker.evidence_source = config?.evidence?.source ?: './check_sheet.xlsx'
     }
 }

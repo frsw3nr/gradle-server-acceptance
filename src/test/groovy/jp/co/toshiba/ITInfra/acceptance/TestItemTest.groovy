@@ -42,7 +42,7 @@ class TestItemTest extends Specification {
         test_item.results()
 
         then:
-        test_item.test_results['uname'].status == ResultStatus.NG
+        test_item.test_results['uname'].status == ResultStatus.WARNING
     }
 
     def "空の複数結果登録"() {
@@ -50,9 +50,9 @@ class TestItemTest extends Specification {
         test_item.results(['uname' : '[]', 'cpu' : '', 'lsb' : null])
 
         then:
-        test_item.test_results['uname'].status == ResultStatus.NG
-        test_item.test_results['cpu'].status == ResultStatus.NG
-        test_item.test_results['lsb'].status == ResultStatus.NG
+        test_item.test_results['uname'].status == ResultStatus.WARNING
+        test_item.test_results['cpu'].status == ResultStatus.WARNING
+        test_item.test_results['lsb'].status == ResultStatus.WARNING
     }
 
     def "結果登録"() {

@@ -1,0 +1,141 @@
+{
+    "NumCpu": {
+        "devices": null,
+        "value": "2",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": "NG",
+        "name": "NumCpu"
+    },
+    "PowerState": {
+        "devices": null,
+        "value": "PoweredOn",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "PowerState"
+    },
+    "MemoryGB": {
+        "devices": null,
+        "value": "2",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": "NG",
+        "name": "MemoryGB"
+    },
+    "VMHost": {
+        "devices": null,
+        "value": "esx19.local",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": "OK",
+        "name": "VMHost"
+    },
+    "Cluster": {
+        "devices": null,
+        "value": "PC001",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "Cluster"
+    },
+    "datastore": {
+        "devices": {
+            "header": [
+                "Name",
+                "DatastoreBrowserPath",
+                "Type",
+                "State"
+            ],
+            "csv": [
+                
+            ],
+            "custom_fields": {
+                
+            }
+        },
+        "value": "[]",
+        "status": "WARNING",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "datastore"
+    },
+    "network": {
+        "devices": null,
+        "value": null,
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "network"
+    },
+    "vmwaretool": {
+        "devices": null,
+        "value": "[internalversion:9344, requiredversion:9344, result:OK]",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vmwaretool"
+    },
+    "vm_timesync": {
+        "devices": null,
+        "value": "[TimeSync:False]",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm_timesync"
+    },
+    "vm_iops_limit": {
+        "devices": null,
+        "value": "[IOLimit1:-1]",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm_iops_limit"
+    },
+    "vm_storage": {
+        "devices": {
+            "header": [
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
+            ],
+            "csv": [
+                [
+                    "[datastore1] ostrich/ostrich.vmdk",
+                    "Thin",
+                    "30"
+                ]
+            ],
+            "custom_fields": {
+                
+            }
+        },
+        "value": "[Thin:30]",
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm_storage"
+    }
+}

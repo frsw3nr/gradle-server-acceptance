@@ -14,8 +14,10 @@ evidence.target='./build/check_sheet_<date>.xlsx'
 //evidence.target='./build/check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
-
 evidence.staging_dir='./build/log'
+
+// 検査、検証結果ディレクトリ
+evidence.json_dir='./src/test/resources/json'
 
 // CSV変換マップ
 

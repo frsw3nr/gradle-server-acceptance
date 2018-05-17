@@ -42,6 +42,7 @@ class TestScheduler {
             domain_targets.each { domain, test_target ->
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform, platform_metric ->
+                    println "TEST:$domain, $target_name, $platform"
                     def metrics = platform_metric.search_all(this.filter_metric)
                     if (metrics.size() == 0)
                         return
@@ -51,6 +52,7 @@ class TestScheduler {
                                                          test_metrics : metrics,
                                                          test_rule    : test_rule,
                                                          dry_run      : true)
+                    test_target.test_platforms[platform] = test_platform
                     this.test_platform_tasks[platform][target_name] = test_platform
                 }
             }

@@ -19,7 +19,6 @@ class InfraTestSpec {
 
     def config
     TestPlatform test_platform
-    TargetServer test_server
     String server_name
     String platform
     String domain
@@ -36,7 +35,6 @@ class InfraTestSpec {
     def server_info = [:]
 
     def InfraTestSpec(TestPlatform test_platform) {
-        // this.test_server            = test_server
         this.test_platform          = test_platform
         this.server_name            = test_platform.test_target.name
         this.platform               = test_platform.name
@@ -52,23 +50,6 @@ class InfraTestSpec {
         this.mode                   = RunMode.prepare
         this.server_info            = test_platform?.test_target?.asMap()
     }
-
-    // def InfraTestSpec(TargetServer test_server, String domain) {
-    //     this.test_server            = test_server
-    //     this.server_name            = test_server.server_name
-    //     this.platform               = test_server.platform
-    //     this.domain                 = domain
-    //     this.title                  = domain + '(' + test_server.info() + ')'
-    //     this.evidence_log_dir       = test_server.evidence_log_dir
-    //     this.evidence_log_share_dir = test_server.evidence_log_share_dir
-    //     this.local_dir              = "${evidence_log_dir}/${domain}"
-    //     this.dry_run                = test_server.dry_run
-    //     this.dry_run_staging_dir    = test_server.dry_run_staging_dir
-    //     this.timeout                = test_server.timeout
-    //     this.debug                  = test_server.debug
-    //     this.mode                   = RunMode.prepare
-    //     this.server_info            = test_server.infos
-    // }
 
     def prepare = { Closure closure ->
         return closure.call()
@@ -92,7 +73,7 @@ class InfraTestSpec {
     }
 
     def exec = { HashMap settings = [:], String test_id, Closure closure ->
-        def log_path = "${dry_run_staging_dir}/${domain}"
+        def log_path = dry_run_staging_dir
         Boolean shared = settings['shared'] ?: false
         String  encode = settings['encode'] ?: null
         if (shared == false) {
@@ -122,15 +103,6 @@ class InfraTestSpec {
                 return closure.call()
             }
         }
-    }
-
-    def addAdditionalTestItem(TestItem test_item, String test_id, 
-                              String test_name = null, String desc = null) {
-        test_item.additional_test_items[test_id] = [
-            'test_name': test_name, 
-            'domain':    this.domain, 
-            'desc':      desc,
-        ]
     }
 
     def target_info(String item, String platform = null) {

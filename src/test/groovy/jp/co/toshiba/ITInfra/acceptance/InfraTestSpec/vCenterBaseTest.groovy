@@ -24,8 +24,7 @@ class vCenterBaseTest extends Specification {
             ip                : '192.168.0.12',
             domain            : 'Linux',
             template_id       : 'AP',
-            os_account_id     : 'Test',
-            remote_account_id : 'Test',
+            account_id        : 'Test',
             remote_alias      : 'ostrich',
             test_templates    : ['AP': template]
         )
