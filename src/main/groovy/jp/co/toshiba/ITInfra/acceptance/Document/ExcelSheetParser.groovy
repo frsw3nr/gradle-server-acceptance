@@ -13,6 +13,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 abstract class ExcelSheetParser {
     String sheet_prefix    = ''
     int[] header_pos       = [0, 0]
+    int[] result_pos       = [0, 0]
     String[] header_checks = []
 
     abstract def get_sheet_body(Sheet sheet)

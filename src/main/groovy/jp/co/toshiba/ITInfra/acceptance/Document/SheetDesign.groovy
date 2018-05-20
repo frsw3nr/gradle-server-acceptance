@@ -13,8 +13,10 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @Slf4j
 class SheetDesign extends SpecModel {
     String name
+    String domain_name
     ExcelSheetParser sheet_parser
     Sheet sheet
+    def sheet_row = [:]
 
     def create(Sheet sheet, String domain_name = null) {
         def current_sheet = this.clone()

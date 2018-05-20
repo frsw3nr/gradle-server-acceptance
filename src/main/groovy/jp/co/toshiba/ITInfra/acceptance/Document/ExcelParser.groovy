@@ -16,6 +16,7 @@ class ExcelParser {
     String excel_file
     def sheet_desings = []
     ConfigObject sheet_sources
+    Workbook workbook
 
     ExcelParser(excel_file) {
         this.sheet_sources = new ConfigObject()
@@ -28,7 +29,8 @@ class ExcelParser {
             new SheetDesign(name: 'check_sheet',
                             sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [3, 0], sheet_prefix: 'CheckSheet',
-                                header_checks: ['Test', 'ID'])),
+                                header_checks: ['Test', 'ID'],
+                                result_pos: [3, 6])),
             new SheetDesign(name: 'check_rule',
                             sheet_parser : new ExcelSheetParserVertical(
                                 header_pos: [4, 1], sheet_prefix: 'Rule',
@@ -44,6 +46,7 @@ class ExcelParser {
         log.info "Open excel sheet : '${this.excel_file}'"
         new FileInputStream(this.excel_file).withStream { ins ->
             WorkbookFactory.create(ins).with { wb ->
+                this.workbook = wb
                 Iterator<Sheet> sheets = wb.sheetIterator()
                 while (sheets.hasNext()) {
                     def sheet = sheets.next()
@@ -67,16 +70,17 @@ class ExcelParser {
 
     SheetDesign make_sheet_design(Sheet sheet) {
         String sheet_name = sheet.getSheetName()
+        String sheet_prefix = sheet_name
         String domain_name = null
-        ( sheet_name =~ /^(.+)[\(](.*)[\)]$/ ).each { m0, postfix, suffix ->
-            sheet_name  = postfix
+        ( sheet_prefix =~ /^(.+)[\(](.*)[\)]$/ ).each { m0, postfix, suffix ->
+            sheet_prefix  = postfix
             domain_name = suffix
         }
         SheetDesign current_sheet = null
         this.sheet_desings.each { sheet_design ->
-            if (sheet_name == sheet_design.sheet_parser.sheet_prefix) {
+            if (sheet_prefix == sheet_design.sheet_parser.sheet_prefix) {
                 current_sheet = sheet_design.create(sheet, domain_name)
-                log.info "Attach sheet '${sheet.getSheetName()}'"
+                log.info "Attach sheet '${sheet_name}'"
                 return true
             }
         }
@@ -126,12 +130,15 @@ class ExcelParser {
 
     def visit_test_metric_set(test_metric_set) {
         def domain_name = test_metric_set.name
-        def source = this.sheet_sources.check_sheet."$domain_name"
-        def lines = source.get()
+        def sheet_design = this.sheet_sources.check_sheet."$domain_name"
+        def lines = sheet_design.get()
         def platform_tests = [:].withDefault{[:]}
+        def sheet_row = 0
         lines.find { line ->
+            sheet_row ++
             def id = line['ID']
             def platform = line['分類']
+            sheet_design.sheet_row[[platform, id]] = sheet_row
             if (!id && !platform)
                 return true
             def test_metric = new TestMetric(name: id, description: line['項目'], 

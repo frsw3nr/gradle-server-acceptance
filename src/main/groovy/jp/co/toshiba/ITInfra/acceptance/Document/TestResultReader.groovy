@@ -30,7 +30,7 @@ class TestResultReader {
         if(!json_file.exists())
             return
         def results_json = new JsonSlurper().parseText(json_file.text)
-        def test_platform = new TestPlatform(name: platform_name, 
+        def test_platform = new TestPlatform(name: platform_name,
                                              test_results: results_json)
         test_platform.test_results.each { metric_name, test_result ->
             test_result.status = convert_to_result_status(test_result.status)
