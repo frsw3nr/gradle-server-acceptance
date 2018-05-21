@@ -31,7 +31,9 @@ class TestSchedulerTest extends Specification {
 
     def "初期化"() {
         when:
-        def test_scheduler = new TestScheduler(test_runner: test_runner)
+        def excel_file = 'src/test/resources/check_sheet.xlsx'
+        def output_evidence = 'build/check_sheet.xlsx'
+        def test_scheduler = new TestScheduler(excel_file : excel_file)
         test_scheduler.init()
 
         then:
@@ -66,10 +68,14 @@ class TestSchedulerTest extends Specification {
         tasks.size() == 1
     }
 
-    def "シナリオ実行"() {
+    def "シナリオ結合 1"() {
         when:
-        def test_scheduler = new TestScheduler(platform_tester: platform_tester,
-                                               excel_parser: excel_parser)
+        def excel_file = 'src/test/resources/check_sheet.xlsx'
+        def output_evidence = 'build/check_sheet.xlsx'
+        def test_scheduler = new TestScheduler(platform_tester : platform_tester,
+                                               excel_parser : excel_parser,
+                                               excel_file : excel_file,
+                                               output_evidence: output_evidence)
         test_scenario.accept(test_scheduler)
         def evidence_maker = new EvidenceMaker()
         test_scenario.accept(evidence_maker)
@@ -77,6 +83,22 @@ class TestSchedulerTest extends Specification {
                                     excel_parser: excel_parser,
                                     evidence_maker: evidence_maker)
         excel_sheet_maker.output('build/check_sheet.xlsx')
+
+        then:
+        1 == 1
+    }
+
+    def "シナリオ結合 2"() {
+        when:
+        def excel_file = 'src/test/resources/check_sheet.xlsx'
+        def output_evidence = 'build/check_sheet.xlsx'
+
+        def test_scheduler = new TestScheduler(platform_tester : platform_tester,
+                                               excel_file : excel_file,
+                                               output_evidence: output_evidence)
+        test_scheduler.init()
+        test_scheduler.run()
+        test_scheduler.finish()
 
         then:
         1 == 1

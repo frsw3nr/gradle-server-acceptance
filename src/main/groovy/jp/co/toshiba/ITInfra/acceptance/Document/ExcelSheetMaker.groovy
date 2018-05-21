@@ -255,7 +255,7 @@ class ExcelSheetMaker {
                 break
         }
         style.setWrapText(true);
-
+        println "style:$style"
         cell.setCellStyle(style);
     }
 

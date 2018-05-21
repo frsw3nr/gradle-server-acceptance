@@ -126,10 +126,10 @@ class ConfigTestEnvironment extends SpecModel {
         }
     }
 
-    def set_evidence_environment(EvidenceMaker evidence_maker) {
-        def config_test = config.test
-        evidence_maker.json_dir        = config?.evidence?.json_dir ?: './build/json/'
-        evidence_maker.evidence_target = config?.evidence?.target ?: './build/check_sheet.xlsx'
-        evidence_maker.evidence_source = config?.evidence?.source ?: './check_sheet.xlsx'
-    }
+    // def set_evidence_environment(EvidenceMaker evidence_maker) {
+    //     def config_test = config.test
+    //     evidence_maker.json_dir        = config?.evidence?.json_dir ?: './build/json/'
+    //     evidence_maker.evidence_target = config?.evidence?.target ?: './build/check_sheet.xlsx'
+    //     evidence_maker.evidence_source = config?.evidence?.source ?: './check_sheet.xlsx'
+    // }
 }
