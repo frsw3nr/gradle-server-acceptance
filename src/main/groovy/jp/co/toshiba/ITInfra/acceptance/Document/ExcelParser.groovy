@@ -140,7 +140,7 @@ class ExcelParser {
             def platform = line['分類']
             sheet_design.sheet_row[[platform, id]] = sheet_row
             if (!id && !platform)
-                return true
+                return
             def test_metric = new TestMetric(name: id, description: line['項目'], 
                                              platform: platform,
                                              enabled: line['Test'], 

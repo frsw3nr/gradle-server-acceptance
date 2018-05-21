@@ -13,15 +13,15 @@ import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.IndexedColors
 
-public enum ResultCellStyle {
-    NORMAL,
-    TITLE,
-    OK,
-    NG,
-    SAME,
-    NOTFOUND,
-    NOTEST,
-}
+// public enum ResultCellStyle {
+//     NORMAL,
+//     TITLE,
+//     OK,
+//     NG,
+//     SAME,
+//     NOTFOUND,
+//     NOTEST,
+// }
 
 @Slf4j
 class EvidenceSheet {

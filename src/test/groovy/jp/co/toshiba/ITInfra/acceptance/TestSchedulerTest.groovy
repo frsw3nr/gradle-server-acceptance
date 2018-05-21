@@ -4,12 +4,13 @@ import static groovy.json.JsonOutput.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestSchedulerTest"
+// gradle --daemon test --tests "TestSchedulerTest.シナリオ実行"
 
 class TestSchedulerTest extends Specification {
     TestRunner test_runner
     TestScenario test_scenario
     PlatformTester platform_tester
+    ExcelParser excel_parser
 
     def setup() {
         String[] args = [
@@ -20,7 +21,7 @@ class TestSchedulerTest extends Specification {
         test_runner = new TestRunner()
         test_runner.parse(args)
 
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
@@ -67,8 +68,15 @@ class TestSchedulerTest extends Specification {
 
     def "シナリオ実行"() {
         when:
-        def test_scheduler = new TestScheduler(platform_tester: platform_tester)
+        def test_scheduler = new TestScheduler(platform_tester: platform_tester,
+                                               excel_parser: excel_parser)
         test_scenario.accept(test_scheduler)
+        def evidence_maker = new EvidenceMaker()
+        test_scenario.accept(evidence_maker)
+        def excel_sheet_maker = new ExcelSheetMaker(
+                                    excel_parser: excel_parser,
+                                    evidence_maker: evidence_maker)
+        excel_sheet_maker.output('build/check_sheet.xlsx')
 
         then:
         1 == 1

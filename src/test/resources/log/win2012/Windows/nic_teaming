@@ -1,0 +1,42 @@
+﻿
+
+ifAlias                  : Team_1
+InterfaceAlias           : Team_1
+TransmitLinkSpeed(Mbps)  : 2000
+TransmitLinkSpeed(Gbps)  : 2
+ReceiveLinkSpeed(Mbps)   : 2000
+ReceiveLinkSpeed(Gbps)   : 2
+PSComputerName           : 192.168.10.10
+Caption                  : 
+Description              : 
+ElementName              : 
+InstanceID               : {E424656B-A357-4A53-B760-684E4BA3D621}
+CommunicationStatus      : 
+DetailedStatus           : 
+HealthState              : 
+InstallDate              : 
+Name                     : Team_1
+OperatingStatus          : 
+OperationalStatus        : 
+PrimaryStatus            : 
+Status                   : 
+StatusDescriptions       : 
+AvailableRequestedStates : 
+EnabledDefault           : 2
+EnabledState             : 5
+OtherEnabledState        : 
+RequestedState           : 12
+TimeOfLastStateChange    : 
+TransitioningToState     : 12
+FailureReason            : 
+InterfaceDescription     : Microsoft Network Adapter Multiplexor Driver
+NumberOfFailures         : 
+ReceiveLinkSpeed         : 2000000000
+Team                     : Team_1
+TransmitLinkSpeed        : 2000000000
+Default                  : True
+Primary                  : True
+VlanID                   : 
+
+
+

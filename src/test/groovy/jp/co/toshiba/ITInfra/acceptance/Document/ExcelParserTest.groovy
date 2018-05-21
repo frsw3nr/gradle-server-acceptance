@@ -7,7 +7,12 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-// gradle --daemon test --tests "ExcelParserTest.検査対象パース"
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.usermodel.IndexedColors
+import org.apache.poi.xssf.usermodel.*
+// import org.apache.poi.hssf.usermodel.HSSFWorkbook
+
+// gradle --daemon test --tests "ExcelParserTest.デバイスシート更新"
 
 class ExcelParserTest extends Specification {
 
@@ -131,4 +136,247 @@ class ExcelParserTest extends Specification {
         result_platform_keys.size() > 0
     }
 
+    def "サマリシート更新"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        when:
+        // def workbook = excel_parser.workbook
+        excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
+            println "domain:$domain" 
+            sheet_design.sheet.with { sheet ->
+                BorderStyle thin = BorderStyle.THIN;
+                def black = IndexedColors.BLACK.getIndex();
+
+                // def sheet = wb.getSheet('CheckSheet(Linux)')
+                Row row = sheet.getRow(4)
+                Cell cell = row.createCell(6)
+
+                def workbook = cell.getRow().getSheet().getWorkbook();
+                cell.setCellValue('TEST1')
+                def style = workbook.createCellStyle();
+                // style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+                // style.setFillBackgroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+                style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+                // Set Boder line
+                style.setBorderRight(thin);
+                style.setRightBorderColor(black);
+                style.setBorderBottom(thin);
+                style.setBottomBorderColor(black);
+                style.setBorderTop(thin);
+                style.setTopBorderColor(black);
+
+                def font = workbook.createFont();
+                font.setBold(true);
+                // font.setColor(IndexedColors.LIGHT_GREEN.getIndex());
+                font.setColor(IndexedColors.ROYAL_BLUE.getIndex());
+                style.setFont(font);
+
+                cell.setCellStyle(style);
+
+                def fos = new FileOutputStream('build/check_sheet.xlsx')
+                workbook.write(fos)
+                fos.close()
+            }
+        }
+
+        then:
+        1 == 1
+    }
+
+    def "サマリシートセル更新"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+        def sheet_maker = new ExcelSheetMaker(excel_parser: excel_parser)
+
+        when:
+        // def workbook = excel_parser.workbook
+        excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
+            println "domain:$domain" 
+            sheet_design.sheet.with { sheet ->
+                def rownum = 0
+                ResultCellStyle.values().each { cell_style ->
+                    println "CELL_STYLE : ${cell_style}"
+                    Row row = sheet.getRow(3 + rownum)
+                    def cell = row.createCell(6)
+                    cell.setCellValue("${cell_style}")
+                    sheet_maker.set_test_result_cell_style(cell, cell_style)
+                    rownum ++
+                }
+
+                def fos = new FileOutputStream('build/check_sheet.xlsx')
+                workbook.write(fos)
+                fos.close()
+            }
+        }
+
+        then:
+        1 == 1
+    }
+
+    def "サマリシート再読み込み後更新"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        when:
+        new FileInputStream('src/test/resources/check_sheet.xlsx').withStream { ins ->
+            WorkbookFactory.create(ins).with { wb ->
+                println "Class wb: ${wb.getClass()}"
+                BorderStyle thin = BorderStyle.THIN;
+                def black = IndexedColors.BLACK.getIndex();
+
+                def sheet = wb.getSheet('CheckSheet(Linux)')
+                Row row = sheet.getRow(0)
+                // Cell cell = row.createCell(6)
+
+                // Aqua background
+                CellStyle style = wb.createCellStyle();
+                style.setFillBackgroundColor(IndexedColors.AQUA.getIndex());
+                style.setFillPattern(FillPatternType.BIG_SPOTS);
+                Cell cell = row.createCell(6);
+                cell.setCellValue("TEST1");
+                cell.setCellStyle(style);
+
+                def fos = new FileOutputStream('build/check_sheet.xlsx')
+                wb.write(fos)
+                fos.close()
+            }
+        }
+
+        then:
+        1 == 1
+    }
+
+    def "デバイスシート更新"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        def test_result_reader = new TestResultReader(
+                                         json_dir: 'src/test/resources/json')
+        test_result_reader.read_entire_scenario(test_scenario)
+
+        // evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+        def evidence_maker = new EvidenceMaker()
+        test_scenario.accept(evidence_maker)
+        
+        when:
+        def evidence_target = 'build/check_sheet.xlsx'
+        // def fos = new FileOutputStream(evidence_target)
+        // excel_parser.workbook.write(fos)
+        // fos.close()
+
+        evidence_maker.device_result_sheets.each { sheet_key, device_result_sheet ->
+            def platform = sheet_key[0]
+            def metric   = sheet_key[1]
+            def device_sheet_name = "${platform}_${metric}"
+            // def inp = new FileInputStream(evidence_target)
+            // def wb  = WorkbookFactory.create(inp)
+            // def is_exists = false
+            def device_sheet = excel_parser.workbook.createSheet(device_sheet_name)
+            // def device_sheet = wb.createSheet(device_sheet_name)
+
+            def rownum = 0
+            device_sheet.with { sheet ->
+                device_result_sheet.results.each { target, test_result ->
+                    // println "target : ${target}"
+                    def header = test_result?.devices?.header
+                    def csv    = test_result?.devices?.csv
+                    // println "header : ${header}"
+                    // println "csv : ${csv}"
+                    if (header == null || csv == null)
+                        return
+                    if (rownum == 0) {
+                        Row header_row = sheet.createRow(rownum)
+                        def colnum = 0
+                        header.each { header_name ->
+                            header_row.createCell(colnum).setCellValue(header_name)
+                            sheet.setColumnWidth(colnum, 6000)
+                            colnum ++
+                        }
+                        rownum ++
+                    }
+                    csv.each { csv_values ->
+                        // println "csv_values : ${csv_values}"
+                        Row row = sheet.createRow(rownum)
+                        def colnum = 0
+                        csv_values.each { csv_value ->
+                            row.createCell(colnum).setCellValue(csv_value)
+                            sheet.setColumnWidth(colnum, 6000)
+                            colnum ++
+                        }
+                        rownum ++
+                    }
+                }
+            }
+
+            println "sheet_key : ${sheet_key}"
+
+            // println "rows : ${device_result_sheet.rows}"
+            println "results : ${device_result_sheet.results}"
+            // fos = new FileOutputStream(evidence_target)
+            // wb.write(fos)
+            // fos.close()
+        }
+        def fos = new FileOutputStream(evidence_target)
+        excel_parser.workbook.write(fos)
+        fos.close()
+
+        // def workbook = excel_parser.workbook
+        // excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
+        //     println "domain:$domain" 
+        //     sheet_design.sheet.with { sheet ->
+        //         BorderStyle thin = BorderStyle.THIN;
+        //         def black = IndexedColors.BLACK.getIndex();
+
+        //         // def sheet = wb.getSheet('CheckSheet(Linux)')
+        //         Row row = sheet.getRow(4)
+        //         Cell cell = row.createCell(6)
+
+        //         def workbook = cell.getRow().getSheet().getWorkbook();
+        //         cell.setCellValue('TEST1')
+        //         def style = workbook.createCellStyle();
+        //         // style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+        //         // style.setFillBackgroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+        //         style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+        //         style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+        //         // Set Boder line
+        //         style.setBorderRight(thin);
+        //         style.setRightBorderColor(black);
+        //         style.setBorderBottom(thin);
+        //         style.setBottomBorderColor(black);
+        //         style.setBorderTop(thin);
+        //         style.setTopBorderColor(black);
+
+        //         def font = workbook.createFont();
+        //         font.setBold(true);
+        //         // font.setColor(IndexedColors.LIGHT_GREEN.getIndex());
+        //         font.setColor(IndexedColors.ROYAL_BLUE.getIndex());
+        //         style.setFont(font);
+
+        //         cell.setCellStyle(style);
+
+        //         def fos = new FileOutputStream('build/check_sheet.xlsx')
+        //         workbook.write(fos)
+        //         fos.close()
+        //     }
+        // }
+
+        then:
+        1 == 1
+    }
 }

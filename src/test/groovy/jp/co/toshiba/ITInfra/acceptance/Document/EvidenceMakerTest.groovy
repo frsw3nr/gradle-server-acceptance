@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "EvidenceMakerTest.実行結果変換"
+// gradle --daemon test --tests "EvidenceMakerTest.Excel 出力"
 
 class EvidenceMakerTest extends Specification {
 

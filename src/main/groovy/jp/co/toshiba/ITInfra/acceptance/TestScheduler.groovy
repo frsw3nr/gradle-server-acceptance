@@ -12,6 +12,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 class TestScheduler {
 
     TestRunner test_runner
+    ExcelParser excel_parser
     TestScenario test_scenario
     PlatformTester platform_tester
     String filter_server
@@ -27,7 +28,7 @@ class TestScheduler {
         // evidence:[source:./src/test/resources/check_sheet.xlsx
         def excel = config?.evidence?.source
         // def excel_parser = new ExcelParser(config?.evidence?.sourc)
-        def excel_parser = new ExcelParser(config?.evidence?.source)
+        excel_parser = new ExcelParser(config?.evidence?.source)
         excel_parser.scan_sheet()
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(excel_parser)
