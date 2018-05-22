@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "vCenterBaseTest.vCenter テスト仕様のロード"
+// gradle --daemon test --tests "vCenterBaseTest.vCenter テスト仕様 network"
 
 class vCenterBaseTest extends Specification {
 
@@ -65,4 +65,19 @@ class vCenterBaseTest extends Specification {
         test_platform.test_results['VMHost'].verify == ResultStatus.OK
      }
 
+    def "vCenter テスト仕様 VMNetwork"() {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('VMNetwork')
+        platform_tester.run()
+
+        then:
+        println test_platform.test_results
+        test_platform.test_results['VMNetwork'].status  == ResultStatus.NG
+        test_platform.test_results['VMNetwork'].error_msg  != null
+     }
 }

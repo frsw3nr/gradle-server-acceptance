@@ -106,76 +106,76 @@ class VerifyRuleGeneratorTest extends Specification {
         res == true
     }
 
-    def "Excelルール評価"() {
-        setup:
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-        excel_parser.scan_sheet()
-        def test_rule_set = new TestRuleSet(name: 'root')
-        test_rule_set.accept(excel_parser)
+    // def "Excelルール評価"() {
+    //     setup:
+    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+    //     excel_parser.scan_sheet()
+    //     def test_rule_set = new TestRuleSet(name: 'root')
+    //     test_rule_set.accept(excel_parser)
 
-        when:
-        verifier.set_verify_rule(test_rule_set)
-        def code = verifier.get_verify_rule_script(test_rule_set)
-        // println code
+    //     when:
+    //     verifier.set_verify_rule(test_rule_set)
+    //     def code = verifier.get_verify_rule_script(test_rule_set)
+    //     // println code
 
-        then:
-        code.size() > 0
-        // verifier.verify('RuleAP', 'vCenter', 'NumCpu', "1") == false
-        // verifier.verify('RuleAP', 'vCenter', 'NumCpu', "3") == true
-        // verifier.verify('RuleAP', 'vCenter', 'PowerState', "2") == null
-        // verifier.verify('RuleAP', 'vCenter', 'VMHost', "ostrich") == true
-        // verifier.verify('RuleAP', 'vCenter', 'VMHost', "hogehoge") == false
-        // verifier.verify('RuleAP', 'vCenter', 'Hoge', "hogehoge") == null
-        // verifier.verify('RuleAP', 'Linux', 'lsb', "CentOS6.6") == true
-        // verifier.verify('RuleAP', 'Linux', 'lsb', "Ubuntu14.2") == false
-    }
+    //     then:
+    //     code.size() > 0
+    //     // verifier.verify('RuleAP', 'vCenter', 'NumCpu', "1") == false
+    //     // verifier.verify('RuleAP', 'vCenter', 'NumCpu', "3") == true
+    //     // verifier.verify('RuleAP', 'vCenter', 'PowerState', "2") == null
+    //     // verifier.verify('RuleAP', 'vCenter', 'VMHost', "ostrich") == true
+    //     // verifier.verify('RuleAP', 'vCenter', 'VMHost', "hogehoge") == false
+    //     // verifier.verify('RuleAP', 'vCenter', 'Hoge', "hogehoge") == null
+    //     // verifier.verify('RuleAP', 'Linux', 'lsb', "CentOS6.6") == true
+    //     // verifier.verify('RuleAP', 'Linux', 'lsb', "Ubuntu14.2") == false
+    // }
 
-    def "Linux テスト結果の検証"() {
-        setup:
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-        excel_parser.scan_sheet()
-        def test_scenario = new TestScenario(name: 'root')
-        test_scenario.accept(excel_parser)
+    // def "Linux テスト結果の検証"() {
+    //     setup:
+    //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+    //     excel_parser.scan_sheet()
+    //     def test_scenario = new TestScenario(name: 'root')
+    //     test_scenario.accept(excel_parser)
 
-        def test_target = new TestTarget(
-            name              : 'ostrich',
-            ip                : '192.168.10.1',
-            domain            : 'Linux',
-            os_account_id     : 'Test',
-            remote_account_id : 'Test',
-            remote_alias      : 'ostrich',
-            NumCpu            : '1',
-            verify_id         : 'RuleAP',
-        )
-        def test_metrics = test_scenario.test_metrics.get('Linux').get('Linux').get_all()
-        def test_rule = test_scenario.test_rules.get('RuleAP')
+    //     def test_target = new TestTarget(
+    //         name              : 'ostrich',
+    //         ip                : '192.168.10.1',
+    //         domain            : 'Linux',
+    //         os_account_id     : 'Test',
+    //         remote_account_id : 'Test',
+    //         remote_alias      : 'ostrich',
+    //         NumCpu            : '1',
+    //         verify_id         : 'RuleAP',
+    //     )
+    //     def test_metrics = test_scenario.test_metrics.get('Linux').get('Linux').get_all()
+    //     def test_rule = test_scenario.test_rules.get('RuleAP')
 
-        test_platform = new TestPlatform(
-            name         : 'Linux',
-            test_target  : test_target,
-            test_metrics : test_metrics,
-            test_rule    : test_rule,
-            dry_run      : true,
-        )
+    //     test_platform = new TestPlatform(
+    //         name         : 'Linux',
+    //         test_target  : test_target,
+    //         test_metrics : test_metrics,
+    //         test_rule    : test_rule,
+    //         dry_run      : true,
+    //     )
 
-        def platform_tester = new PlatformTester(test_platform : test_platform,
-                                                 config_file : config_file)
+    //     def platform_tester = new PlatformTester(test_platform : test_platform,
+    //                                              config_file : config_file)
 
-        verifier.set_verify_rule(test_scenario.test_rules)
+    //     verifier.set_verify_rule(test_scenario.test_rules)
 
-        when:
-        platform_tester.init()
-        platform_tester.run()
+    //     when:
+    //     platform_tester.init()
+    //     platform_tester.run()
 
-        then:
-        test_rule.config['Linux'].each { metric, rule_test ->
-            def value = test_platform.test_results[metric].value
-            def target_info = test_target.asMap()
-            println "SERVER_INFO: ${target_info}"
-            def res = verifier.verify('RuleAP', 'Linux', metric, value, target_info)
-            println "VERIFY: ${metric}, ${value}, ${res}"
-            res == 1
-        }
-    }
+    //     then:
+    //     test_rule.config['Linux'].each { metric, rule_test ->
+    //         def value = test_platform.test_results[metric].value
+    //         def target_info = test_target.asMap()
+    //         println "SERVER_INFO: ${target_info}"
+    //         def res = verifier.verify('RuleAP', 'Linux', metric, value, target_info)
+    //         println "VERIFY: ${metric}, ${value}, ${res}"
+    //         res == 1
+    //     }
+    // }
 
 }

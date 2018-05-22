@@ -12,6 +12,7 @@ enum ResultStatus {
 class TestResult extends SpecModel {
     String name
     def value
+    String error_msg
     ResultStatus status
     ResultStatus verify
     TestResultLine devices

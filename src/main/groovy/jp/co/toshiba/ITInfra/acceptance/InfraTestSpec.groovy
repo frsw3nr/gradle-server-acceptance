@@ -1,6 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.io.FileUtils
 import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.*
@@ -131,7 +132,10 @@ class InfraTestSpec {
 
     def verify_data_match(Map infos) {
         Closure intermediate_match = { String a, String b ->
-            return (a =~ /$b/) as boolean
+            if (NumberUtils.isNumber(a) && NumberUtils.isNumber(b))
+                return (NumberUtils.toDouble(a) == NumberUtils.toDouble(b)) as boolean
+            else
+                return (a =~ /$b/) as boolean
         }
         return verify_data(infos, intermediate_match)
     }
@@ -250,8 +254,9 @@ class InfraTestSpec {
                         method.invoke(this, it)
                         // it.succeed = 1
                     } catch (Exception e) {
+                        log.warn "[${domain}Test] '${method.name}()' faild, skip.\n" + e
                         it.status(false)
-                        log.warn "[${domain}Test] Parser of '${method.name}()' faild, skip.\n" + e
+                        it.error_msg("${e}")
                     }
                 }
             }

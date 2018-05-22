@@ -74,6 +74,7 @@ class vCenterSpecBase extends InfraTestSpec {
                 }
             }
             test_item.results(res)
+            println "res:$res"
             // Verify 'NumCpu', 'MemoryGB' and 'VMHost' with intermediate match
             test_item.verify(verify_data_match(res))
         }
@@ -115,10 +116,10 @@ class vCenterSpecBase extends InfraTestSpec {
         }
     }
 
-    def network(test_item) {
+    def VMNetwork(test_item) {
         run_script("Get-NetworkAdapter -VM $vm | FL") {
-            def lines = exec('network') {
-                new File("${local_dir}/network")
+            def lines = exec('VMNetwork') {
+                new File("${local_dir}/VMNetwork")
             }
             def instance_number = 0
             def network_info = [:].withDefault{[:]}

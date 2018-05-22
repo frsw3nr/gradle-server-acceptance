@@ -1,18 +1,21 @@
 import spock.lang.Specification
+import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "InfraTestSpecTest.初期化"
+// gradle --daemon test --tests "InfraTestSpecTest.数値の比較"
 
 class InfraTestSpecTest extends Specification {
 
     String config_file = 'src/test/resources/config.groovy'
     TestPlatform test_platform
+    TestTarget test_target
+    TestScenario test_scenario
 
     def setup() {
-        def test_target = new TestTarget(
+        test_target = new TestTarget(
             name              : 'ostrich',
             ip                : '192.168.10.1',
             domain            : 'Linux',
@@ -22,13 +25,9 @@ class InfraTestSpecTest extends Specification {
             remote_alias      : 'ostrich',
         )
 
-        def test_rule = new TestRule(name : 'AP',
-                                 compare_rule : 'Actual',
-                                 compare_source : 'centos7')
-
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
-        def test_scenario = new TestScenario(name: 'root')
+        test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
         excel_parser.make_template_link(test_target, test_scenario)
         def test_metrics = test_scenario.test_metrics.get('Linux').get('Linux').get_all()
@@ -37,7 +36,6 @@ class InfraTestSpecTest extends Specification {
             name         : 'Linux',
             test_target  : test_target,
             test_metrics : test_metrics,
-            test_rule    : test_rule,
             dry_run      : true,
         )
     }
@@ -66,6 +64,30 @@ class InfraTestSpecTest extends Specification {
 
         then:
         test_value.size() > 0
+    }
+
+    def "数値の比較"() {
+        setup:
+        def test_metrics = test_scenario.test_metrics.get('Linux').get('vCenter').get_all()
+        def test_platform_vcenter = new TestPlatform(
+            name         : 'vCenter',
+            test_target  : test_target,
+            test_metrics : test_metrics,
+            dry_run      : true,
+        )
+
+        when:
+        def test_spec = new InfraTestSpec(test_platform_vcenter)
+        def results = test_spec.verify_data_match(['NumCpu': '2', 'MemoryGB': '2'])
+        def results2 = test_spec.verify_data_match(['MemoryGB': '2.0'])
+        def results3 = test_spec.verify_data_match(['MemoryGB': null])
+        def results4 = test_spec.verify_data_match(['NumCpu':'2', 'PowerState':'PoweredOn', 'MemoryGB':'2', 'VMHost':'esx19.local', 'Cluster':'PC001'])
+
+        then:
+        println "results4:$results4"
+        results['MemoryGB'] == true
+        results2['MemoryGB'] == true
+        results3['MemoryGB'] == false
     }
 
     // TargetServer test_server

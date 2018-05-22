@@ -19,6 +19,7 @@ class TestItem {
         test_result.status = ResultStatus.OK
         if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '')
             test_result.status = ResultStatus.WARNING
+            test_result.error_msg = 'Not found'
         this.test_results[metric_name] = test_result
     }
 
@@ -56,6 +57,14 @@ class TestItem {
         status_oks.each { metric_name, status_ok ->
             this.make_status(metric_name, status_ok)
         }
+    }
+
+    def error_msg(String error_msg) {
+        def metric_name = this.test_id
+        def test_result = this.test_results?."${metric_name}" ?:
+                          new TestResult(name: metric_name)
+        test_result.error_msg = error_msg
+        this.test_results[metric_name] = test_result
     }
 
     def verify(Boolean status_ok) {

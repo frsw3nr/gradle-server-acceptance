@@ -68,6 +68,7 @@ class ExcelSheetMaker {
                 set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
             } else if (test_result.status == ResultStatus.NG) {
                 set_test_result_cell_style(cell, ResultCellStyle.ERROR)
+                cell.setCellValue(test_result.error_msg)
             } else if (test_result.status == ResultStatus.MATCH) {
                 set_test_result_cell_style(cell, ResultCellStyle.SAME)
             } else if (test_result.verify == ResultStatus.OK) {
@@ -76,6 +77,7 @@ class ExcelSheetMaker {
                 set_test_result_cell_style(cell, ResultCellStyle.NG)
             } else if (test_result.status == ResultStatus.WARNING) {
                 set_test_result_cell_style(cell, ResultCellStyle.WARNING)
+                cell.setCellValue(test_result.error_msg)
             } else {
                 set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
             }
@@ -200,8 +202,7 @@ class ExcelSheetMaker {
             case ResultCellStyle.TITLE :
                 def font = wb.createFont();
                 font.setBold(true);
-                // font.setColor(IndexedColors.BLACK.getIndex());
-                font.setColor(IndexedColors.RED.getIndex());
+                font.setColor(IndexedColors.BLACK.getIndex());
                 style.setFont(font);
                 break
 
@@ -241,8 +242,11 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.ERROR :
                 def font = wb.createFont();
-                font.setBold(true);
                 font.setColor(IndexedColors.RED.getIndex());
+                def font_size = font.getFontHeightInPoints()
+                println "font_size:$font_size"
+                // font.setFontHeightInPoints((short)10)
+                font.setFontHeightInPoints((short)(font_size - 2))
                 style.setFont(font);
                 break
 
@@ -255,7 +259,6 @@ class ExcelSheetMaker {
                 break
         }
         style.setWrapText(true);
-        println "style:$style"
         cell.setCellStyle(style);
     }
 

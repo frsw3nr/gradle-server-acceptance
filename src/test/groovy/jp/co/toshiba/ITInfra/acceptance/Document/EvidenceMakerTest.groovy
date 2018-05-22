@@ -5,11 +5,15 @@ import groovy.sql.Sql
 import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.xssf.usermodel.*
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "EvidenceMakerTest.Excel 出力"
+// gradle --daemon test --tests "EvidenceMakerTest.セル配色"
 
 class EvidenceMakerTest extends Specification {
 
@@ -51,6 +55,33 @@ class EvidenceMakerTest extends Specification {
                                     excel_parser: excel_parser,
                                     evidence_maker: evidence_maker)
         excel_sheet_maker.output('build/check_sheet.xlsx')
+
+        then:
+        1 == 1
+    }
+
+    def "セル配色"() {
+        setup:
+        def sheet_maker = new ExcelSheetMaker()
+
+        when:
+        // def inp = new FileInputStream('src/test/resources/test1.xlsx')
+        def inp = new FileInputStream('src/test/resources/check_sheet.xlsx')
+        def wb  = WorkbookFactory.create(inp)
+        def sheet = wb.getSheet('CheckSheet(Linux)')
+
+        def rownum = 0
+        ResultCellStyle.values().each { cell_style ->
+            Row row = sheet.getRow(3 + rownum)
+            def cell = row.createCell(6)
+            cell.setCellValue("${cell_style}")
+            sheet_maker.set_test_result_cell_style(cell, cell_style)
+            rownum ++
+        }
+
+        def fos = new FileOutputStream('build/test.xlsx')
+        wb.write(fos)
+        fos.close()
 
         then:
         1 == 1

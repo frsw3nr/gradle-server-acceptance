@@ -4,7 +4,7 @@ import static groovy.json.JsonOutput.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestSchedulerTest.シナリオ実行"
+// gradle --daemon test --tests "TestSchedulerTest.シナリオ結合 2"
 
 class TestSchedulerTest extends Specification {
     TestRunner test_runner

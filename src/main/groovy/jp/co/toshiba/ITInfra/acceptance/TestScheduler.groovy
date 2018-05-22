@@ -46,7 +46,7 @@ class TestScheduler {
     def make_test_platform_tasks(test_scenario) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def targets = test_scenario.test_targets.search_all(this.filter_server)
-        def rules = test_scenario.test_rules.get_all()
+        // def rules = test_scenario.test_rules.get_all()
 
         targets.find { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
@@ -56,11 +56,11 @@ class TestScheduler {
                     def metrics = platform_metric.search_all(this.filter_metric)
                     if (metrics.size() == 0)
                         return
-                    def test_rule = rules[test_target.verify_id]
+                    // def test_rule = rules[test_target.verify_id]
                     def test_platform = new TestPlatform(name         : platform,
                                                          test_target  : test_target,
                                                          test_metrics : metrics,
-                                                         test_rule    : test_rule,
+                                                         // test_rule    : test_rule,
                                                          dry_run      : true)
                     test_target.test_platforms[platform] = test_platform
                     this.test_platform_tasks[platform][target_name] = test_platform
