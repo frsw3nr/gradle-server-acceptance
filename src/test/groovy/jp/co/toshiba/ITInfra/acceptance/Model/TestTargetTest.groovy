@@ -47,7 +47,7 @@ class TestTargetTest extends Specification {
 
         then:
         server_info['verify_id'] == 'RuleAP'
-        server_info['NumCpu'] == '4.0'
+        server_info['NumCpu'] == '2.0'
     }
 
     def "暗黙的なテンプレートセット"() {
@@ -67,7 +67,7 @@ class TestTargetTest extends Specification {
 
         then:
         server_info['verify_id'] == 'RuleAP'
-        server_info['NumCpu'] == '4.0'
+        server_info['NumCpu'] == '2.0'
         server_info['vCenter']['MemoryGB'] == '2.0'
         server_info['Linux']['filesystem'] == ['/:26.5G', '[SWAP]:3G']
     }
@@ -90,7 +90,7 @@ class TestTargetTest extends Specification {
 
         then:
         server_info['verify_id'] == 'RuleAP'
-        server_info['NumCpu'] == '4.0'
+        server_info['NumCpu'] == '2.0'
         server_info['vCenter']['MemoryGB'] == '2.0'
         server_info['Linux']['filesystem'] == ['/:26.5G', '[SWAP]:3G']
     }

@@ -151,6 +151,7 @@ class InfraTestSpec {
             double value_b = b as Double
             def max_value = Math.max(value_a, value_b)
             def differ = Math.abs(value_a - value_b)
+            println "verify_data_error_range:$value_a,$value_b,$differ"
             return ((1.0 * differ / max_value) < error_rate) as boolean
         }
         return verify_data(infos, error_range)

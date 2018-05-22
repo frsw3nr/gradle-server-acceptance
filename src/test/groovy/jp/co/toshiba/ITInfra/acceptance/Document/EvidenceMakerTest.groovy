@@ -60,19 +60,27 @@ class EvidenceMakerTest extends Specification {
         1 == 1
     }
 
+    // Excel シートに以下の行がある場合に、セルスタイルが効かなくなる問題再現テスト
+    // Y   ntp NTPサーバ名 Linux       NTPサーバの検索
+    // null_sheet_ng.xlsx が問題のあるシート
+
     def "セル配色"() {
         setup:
         def sheet_maker = new ExcelSheetMaker()
 
         when:
         // def inp = new FileInputStream('src/test/resources/test1.xlsx')
-        def inp = new FileInputStream('src/test/resources/check_sheet.xlsx')
+        // def inp = new FileInputStream('src/test/resources/check_sheet.xlsx')
+        def inp = new FileInputStream('src/test/resources/null_sheet.xlsx')
+        // def inp = new FileInputStream('src/test/resources/null_sheet_ng.xlsx')
         def wb  = WorkbookFactory.create(inp)
-        def sheet = wb.getSheet('CheckSheet(Linux)')
+        // def sheet = wb.getSheet('CheckSheet(Linux)')
+        def sheet = wb.getSheet('Sheet1')
 
         def rownum = 0
         ResultCellStyle.values().each { cell_style ->
-            Row row = sheet.getRow(3 + rownum)
+            // Row row = sheet.getRow(3 + rownum)
+            Row row = sheet.createRow(3 + rownum)
             def cell = row.createCell(6)
             cell.setCellValue("${cell_style}")
             sheet_maker.set_test_result_cell_style(cell, cell_style)

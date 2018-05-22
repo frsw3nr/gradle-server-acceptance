@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "LinuxBaseTest.Linux 複数テスト仕様のロード"
+// gradle --daemon test --tests "LinuxBaseTest.Linux ネットワーク"
 
 class LinuxBaseTest extends Specification {
 
@@ -103,7 +103,7 @@ class LinuxBaseTest extends Specification {
 
     def "Linux ネットワーク"() {
         setup:
-        test_platform.test_target.name = 'cent7'
+        test_platform.test_target.name = 'ostrich'
         def platform_tester = new PlatformTester(test_platform : test_platform,
                                                  config_file: config_file)
         platform_tester.init()
