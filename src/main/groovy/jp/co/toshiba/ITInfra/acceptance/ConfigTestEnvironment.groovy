@@ -95,7 +95,8 @@ class ConfigTestEnvironment extends SpecModel {
             throw new IllegalArgumentException(msg)
         }
         test_platform.with {
-            os_account = get_config_account(config_account, platform, test_target.account_id)
+            os_account = get_config_account(config_account, platform,
+                                            test_target.account_id)
             if (test_target.os_specific_password)
                 os_account.password = test_target.os_specific_password
         }
