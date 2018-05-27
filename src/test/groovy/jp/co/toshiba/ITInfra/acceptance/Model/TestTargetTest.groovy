@@ -46,8 +46,7 @@ class TestTargetTest extends Specification {
         def server_info = test_targets['ostrich']['Linux'].asMap()
 
         then:
-        server_info['verify_id'] == 'RuleAP'
-        server_info['NumCpu'] == '2.0'
+        server_info.containsKey('numcpu')
     }
 
     def "暗黙的なテンプレートセット"() {
@@ -62,14 +61,10 @@ class TestTargetTest extends Specification {
         def test_target = test_targets['ostrich']['Linux']
         def server_info = test_target.asMap()
 
-        println "SERVER:${test_target}"
-        println "INFOS:${server_info}"
-
         then:
-        server_info['verify_id'] == 'RuleAP'
-        server_info['NumCpu'] == '2.0'
-        server_info['vCenter']['MemoryGB'] == '2.0'
-        server_info['Linux']['filesystem'] == ['/:26.5G', '[SWAP]:3G']
+        server_info.containsKey('numcpu')
+        server_info['vCenter'].containsKey('memorygb')
+        server_info['Linux']['filesystem'].size() > 0
     }
 
     def "明示的なテンプレートセット"() {
@@ -85,14 +80,10 @@ class TestTargetTest extends Specification {
         excel_parser.make_template_link(test_target, test_scenario)
         def server_info = test_target.asMap()
 
-        println "SERVER:${test_target}"
-        println "INFOS:${server_info}"
-
         then:
-        server_info['verify_id'] == 'RuleAP'
-        server_info['NumCpu'] == '2.0'
-        server_info['vCenter']['MemoryGB'] == '2.0'
-        server_info['Linux']['filesystem'] == ['/:26.5G', '[SWAP]:3G']
+        server_info.containsKey('numcpu')
+        server_info['vCenter'].containsKey('memorygb')
+        server_info['Linux']['filesystem'].size() > 0
     }
 
     def "Windowsテンプレートセット"() {
@@ -107,12 +98,12 @@ class TestTargetTest extends Specification {
         def test_target = test_targets['win2012']['Windows']
         def server_info = test_target.asMap()
 
-        println "SERVER:${test_target}"
-        println "INFOS:${server_info}"
+        def json = new groovy.json.JsonBuilder()
+        json(server_info)
+        println json.toPrettyString()
 
         then:
-        server_info['verify_id'] == 'RuleAP'
-        server_info['vCenter']['MemoryGB'] == '2.0'
-        server_info['Windows']['net_ip'] == '192.168.0.14,192.168.0.254,255.255.255.0'
+        server_info['vCenter'].containsKey('memorygb')
+        server_info['Windows']['net_config'].size() > 0
     }
 }

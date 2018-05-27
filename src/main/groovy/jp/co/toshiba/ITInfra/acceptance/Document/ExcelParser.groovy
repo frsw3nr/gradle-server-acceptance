@@ -49,12 +49,12 @@ class ExcelParser {
         this.sheet_desings = [
             new SheetDesign(name: 'target', 
                             sheet_parser : new ExcelSheetParserHorizontal(
-                                header_pos: [1, 0], sheet_prefix: 'Target',
+                                header_pos: [2, 0], sheet_prefix: '検査対象',
                                 header_checks: ['#', 'domain'])),
             new SheetDesign(name: 'check_sheet',
                             sheet_parser : new ExcelSheetParserHorizontal(
-                                header_pos: [3, 0], sheet_prefix: 'CheckSheet',
-                                header_checks: ['Test', 'ID'],
+                                header_pos: [3, 0], sheet_prefix: 'チェックシート',
+                                header_checks: ['test', 'id'],
                                 result_pos: [3, 6])),
             // new SheetDesign(name: 'check_rule',
             //                 sheet_parser : new ExcelSheetParserVertical(
@@ -62,8 +62,8 @@ class ExcelParser {
             //                     header_checks: ['name', 'compare_server'])),
             new SheetDesign(name: 'template',
                             sheet_parser : new ExcelSheetParserVertical(
-                                header_pos: [0, 0], sheet_prefix: 'Template',
-                                header_checks: ['Platform'])),
+                                header_pos: [0, 0], sheet_prefix: 'テンプレート',
+                                header_checks: ['platform'])),
         ]
     }
 
@@ -161,14 +161,14 @@ class ExcelParser {
         def sheet_row = 0
         lines.find { line ->
             sheet_row ++
-            def id = line['ID']
+            def id = line['id']
             def platform = line['分類']
             sheet_design.sheet_row[[platform, id]] = sheet_row
             if (!id && !platform)
                 return
             def test_metric = new TestMetric(name: id, description: line['項目'], 
                                              platform: platform,
-                                             enabled: line['Test'], 
+                                             enabled: line['test'], 
                                              device_enabled: line['デバイス'])
             platform_tests[platform][id] = test_metric
             return
@@ -180,6 +180,11 @@ class ExcelParser {
                 platform_test_set.add(test_metric)
             }
         }
+        def json = new groovy.json.JsonBuilder()
+        json(test_metric_set)
+        println json.toPrettyString()
+        // println "test_metric_set:$test_metric_set"
+
         log.info "Read test spec(${domain_name}) : ${test_metric_set.count()} row"
     }
 
@@ -199,6 +204,10 @@ class ExcelParser {
         log.info "Read target : ${test_target_set.get_all().size()} row"
     }
 
+    def trim(String value) {
+        return value.replaceAll(/\A[\s　]+/,"").replaceAll(/[\s　]+\z/,"")
+    }
+
     def visit_test_template(test_template) {
         def template_name = test_template.name
         def source = this.sheet_sources.template."$template_name"
@@ -206,26 +215,57 @@ class ExcelParser {
 
         def template_values = new ConfigObject()
         def row_count = 0
+        def keys_index = new ConfigObject()
         lines.find { line ->
             def metric_name = line['#']
-            def platform = line['Platform']
+            if (!metric_name)
+                return
+            metric_name = metric_name.toLowerCase()
+            def metric_type = 'unit'
+            (metric_name =~ /(.+):(.+)/).each { m0, m1, m2 ->
+                metric_name = m1
+                metric_type = m2
+            }
+            def platform = line['platform']
             if (!metric_name && !platform)
                 return true
             def values = []
             line.each { row_id, value ->
                 if (!row_id.isDouble() || value == null)
                     return
-                values << value
+                def trim_value = trim(value)
+                values << trim_value
+            }
+            def rownum = 0
+            switch(metric_type) {
+                case 'unit':
+                template_values[platform][metric_name] = values[0]
+                break
+
+                case ['key','k']:
+                values.each { key_name ->
+                    template_values[platform][metric_name][key_name] = 1
+                    keys_index[platform][metric_name][rownum] = key_name
+                    rownum ++
+                }
+                break
+
+                case ['value','v']:
+                values.each { value ->
+                    def key_name = keys_index[platform][metric_name][rownum]
+                    template_values[platform][metric_name][key_name] = value
+                    rownum ++
+                }
+                break
+
+                default:
+                log.warn "Unkown template key type : $template_name, $metric_type"
+                break
             }
             row_count ++
-            if (values.size() == 1)
-                template_values[platform][metric_name] = values[0]
-            else if (values.size() >= 2)
-                template_values[platform][metric_name] = values
             return
         }
         test_template.values = template_values
-
         log.info "Read target template($template_name) : ${row_count} row"
     }
 

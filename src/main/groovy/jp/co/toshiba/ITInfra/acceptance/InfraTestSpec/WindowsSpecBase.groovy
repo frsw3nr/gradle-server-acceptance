@@ -335,17 +335,18 @@ class WindowsSpecBase extends InfraTestSpec {
                 def ip_address   = parse_ip(network_info[row]['IPAddress'])
                 def gateway      = parse_ip(network_info[row]['DefaultIPGateway'])
                 def subnet       = parse_ip(network_info[row]['IPSubnet'])
-                def ip_config = "${ip_address},${gateway},${subnet}"
-                ip_configs[ip_config] = 1
+                ip_configs[ip_address] = "${gateway},${subnet}"
             }
 
             test_item.devices(csv, headers)
             test_item.results(ip_configs.keySet().toString())
 
             // Verify targets include in the result of list
-            def target_checks = target_info('net_ip')
+            def target_checks = target_info('net_config')
+            println "target_checks:$target_checks"
+            println "ip_configs:$ip_configs"
             if (target_checks) {
-                test_item.verify(verify_list(target_checks, ip_configs))
+                test_item.verify(verify_map(target_checks, ip_configs))
             }
         }
     }

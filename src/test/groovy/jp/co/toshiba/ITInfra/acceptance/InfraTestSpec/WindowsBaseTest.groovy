@@ -67,11 +67,13 @@ class WindowsBaseTest extends Specification {
         platform_tester.run()
 
         then:
-        println test_platform.test_results
+        def json = new groovy.json.JsonBuilder()
+        json(test_platform.test_results)
+        println json.toPrettyString()
+
         test_platform.test_results['mhz'].value.size() > 0
         test_platform.test_results['model_name'].value.size() > 0
 
-        println test_platform.test_results['cpu_total']
         test_platform.test_results['cpu_total'].status  == ResultStatus.OK
         test_platform.test_results['cpu_total'].verify == ResultStatus.OK
      }
@@ -137,11 +139,13 @@ class WindowsBaseTest extends Specification {
         platform_tester.run()
 
         then:
+        def json = new groovy.json.JsonBuilder()
+        json(test_platform.test_results)
+        println json.toPrettyString()
+
         test_platform.test_results.size() > 0
-        println test_platform.test_results
         test_platform.test_results['network'].status == ResultStatus.OK
         test_platform.test_results['network'].verify == ResultStatus.OK
-         // test_platform.test_results['Domain'].value.size() > 0
     }
 
     def "Windows テスト仕様 filesystem"() {

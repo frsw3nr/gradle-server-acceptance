@@ -46,7 +46,7 @@ class PlatformTester {
         def test_env = ConfigTestEnvironment.instance
         test_env.read_config(this.config_file)
         test_env.set_account(this.test_platform)
-        test_env.set_test_environment(this.test_platform)
+        test_env.set_test_platform_environment(this.test_platform)
         this.init_test_script()
         def metric_names = this.test_platform.test_metrics.keySet() as String[]
         this.set_test_items(metric_names)

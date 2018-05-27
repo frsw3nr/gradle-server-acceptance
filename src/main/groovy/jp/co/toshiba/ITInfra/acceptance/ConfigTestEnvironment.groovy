@@ -58,18 +58,28 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @Slf4j
 @ToString(includePackage = false)
 @Singleton
-class ConfigTestEnvironment extends SpecModel {
+// class ConfigTestEnvironment extends SpecModel {
+class ConfigTestEnvironment {
     String config_file
     ConfigObject config
-    TestRunner test_runner
 
     def read_config(String config_file = 'config/config.groovy') {
         this.config_file = config_file
         this.config = Config.instance.read(config_file)
     }
 
-    def read_test_args(TestRunner test_runner) {
-        this.config << test_runner.getProperties()
+    def read_from_test_runner(TestRunner test_runner) {
+        def test_runner_config = test_runner.getProperties() as Map
+
+        this.config_file = test_runner.config_file ?: './config/config.groovy'
+        this.config = Config.instance.read(config_file)
+
+        test_runner.getProperties().findAll{ name, value ->
+            if (name == 'class')
+                return
+            this.config."$name" = value
+        }
+        def json = new groovy.json.JsonBuilder()
     }
 
     private get_config_account(Map config_account, String platform, String id) {
@@ -88,23 +98,38 @@ class ConfigTestEnvironment extends SpecModel {
     def set_account(TestPlatform test_platform) {
         def platform = test_platform.name
         def test_target = test_platform.test_target
-        def config_account = config['account']
+        def config_account = this.config['account']
         if (!config_account) {
             def msg = "Not found parameter 'account.{platform}.{id}' in ${config_file}"
             log.error(msg)
             throw new IllegalArgumentException(msg)
         }
         test_platform.with {
-            os_account = get_config_account(config_account, platform, test_target.account_id)
+            os_account = get_config_account(config_account, platform,
+                                            test_target.account_id)
             if (test_target.os_specific_password)
                 os_account.password = test_target.os_specific_password
         }
     }
 
-    def set_test_environment(TestPlatform test_platform) {
+    def print_test_configs() {
+        log.info "Parse Arguments : " + args.toString()
+        log.info "\thome          : " + this.project_home
+        // log.info "\ttest_resource : " + this.test_resource
+        log.info "\tconfig_file   : " + this.config_file
+        log.info "\tsheet_file    : " + this.sheet_file
+        log.info "\tdry_run       : " + this.dry_run
+        log.info "\tverify_test   : " + this.verify_test
+        log.info "\tuse_redmine   : " + this.use_redmine
+        log.info "\tfilter option : "
+        log.info "\t\ttarget servers : " + this.filter_server
+        log.info "\t\tmetrics        : " + this.filter_metric
+    }
+
+    def set_test_platform_environment(TestPlatform test_platform) {
         def config_test = config.test
         def platform    = test_platform.name
-        def target_name = test_platform.test_target.name
+        def target_name = test_platform.test_target?.name
         def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
         evidence_log_share_dir += '/' + platform
 
@@ -114,7 +139,7 @@ class ConfigTestEnvironment extends SpecModel {
             'timeout'                : config.timeout ?: config_platform.timeout ?: 0,
             'debug'                  : config.debug ?: config_platform.debug ?: false,
             'dry_run_staging_dir'    : config_test.dry_run_staging_dir ?:
-                                        './src/test/resources/log',
+                                       './src/test/resources/log',
             'evidence_log_share_dir' : evidence_log_share_dir,
             'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
         ]
@@ -123,6 +148,21 @@ class ConfigTestEnvironment extends SpecModel {
         test_platform_configs.each { key, test_platform_config ->
             if (!test_platform[key])
                 test_platform[key] = test_platform_config
+        }
+    }
+
+    def set_test_schedule_environment(TestScheduler test_scheduler) {
+        test_scheduler.with {
+            if (config.filter_server)
+                it.filter_server = config.filter_server
+            if (config.filter_metric)
+                it.filter_metric = config.filter_metric
+            if (config.parallel_degree)
+                it.parallel_degree = config.parallel_degree
+            it.excel_file      = config.excel_file      ?: config.evidence?.source ?:
+                                 './check_sheet.xlsx'
+            it.output_evidence = config.output_evidence ?: config.evidence?.target ?:
+                                 './check_sheet.xlsx'
         }
     }
 

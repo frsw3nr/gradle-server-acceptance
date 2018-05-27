@@ -1,7 +1,7 @@
 {
     "vCenter": {
-        "NumCpu": "2",
-        "MemoryGB": "2",
+        "NumCpu": "2.0",
+        "MemoryGB": "2.0",
         "VMHost": "esx"
     },
     "Linux": {
@@ -11,33 +11,41 @@
         "arch": "x86_64",
         "cpu_total": "1.0",
         "cpu_real": "1.0",
-        "mem_total": "2000000",
-        "net_onboot": [
-            "eth0:yes"
-        ],
-        "net_route": "192.168.0.254",
-        "filesystem": [
-            "/:26.5G",
-            "[SWAP]:3G"
-        ],
-        "user": "zabbix",
-        "service": [
-            "kdump:On",
-            "iptables:Off"
-        ],
+        "mem_total": "2000.0",
+        "net_if": {
+            "eth0": "192.168.10.1/24",
+            "eth0:1": "192.168.10.4/24"
+        },
+        "net_onboot": {
+            "eth0": 1
+        },
+        "net_route": {
+            "192.168.0.254": 1
+        },
+        "filesystem": {
+            "/": "26.5G",
+            "[SWAP]": "3G"
+        },
+        "user": {
+            "zabbix": 1
+        },
+        "service": {
+            "kdump": "On",
+            "iptables": "Off"
+        },
         "sestatus": "enabled",
-        "packages": [
-            "sysstat",
-            "dmidecode",
-            "strace",
-            "net-snmp-libs",
-            "net-snmp-utils",
-            "busybox-anaconda",
-            "alchemist",
-            "xinetd",
-            "tftp-server",
-            "system-config-netboot-cmd",
-            "system-config-netboot"
-        ]
+        "packages": {
+            "sysstat": 1,
+            "dmidecode": 1,
+            "strace": 1,
+            "net-snmp-libs": 1,
+            "net-snmp-utils": 1,
+            "busybox-anaconda": 1,
+            "alchemist": 1,
+            "xinetd": 1,
+            "tftp-server": 1,
+            "system-config-netboot-cmd": 1,
+            "system-config-netboot": 1
+        }
     }
 }

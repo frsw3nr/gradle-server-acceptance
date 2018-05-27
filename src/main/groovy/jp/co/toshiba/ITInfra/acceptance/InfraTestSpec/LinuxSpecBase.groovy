@@ -325,7 +325,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def csv        = []
         def network    = [:].withDefault{[:]}
-        def net_ip     = [:]
+        def net_if     = [:]
         def device     = ''
         def hw_address = []
         lines.eachLine {
@@ -348,11 +348,8 @@ class LinuxSpecBase extends InfraTestSpec {
             }
             // inet 127.0.0.1/8 scope host lo
             (it =~ /inet\s+(.+?)\s(.+)/).each {m0, m1, m2->
-                // println "$m0, $m1, $m2"
                 def comments = m2.split(" ")
-                // println "comments: $comments"
                 device = comments.last()
-                // println "device: $device"
                 network[device]['ip'] = m1
 
                 try {
@@ -376,21 +373,18 @@ class LinuxSpecBase extends InfraTestSpec {
                 columns.add(items[it] ?: 'NaN')
             }
             csv << columns
-            net_ip[device_id] = "${device_id}:${items['ip']}"
+            net_if[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
-        def network_infos = [:]
-        network_infos['network']    = net_ip.keySet().toString()
-        network_infos['net_ip']     = net_ip.toString()
-        network_infos['hw_address'] = hw_address.toString()
-        network_infos << net_ip
-        println "network_infos:$network_infos"
-        test_item.results(network_infos)
+        test_item.results(
+                'network' : net_if.keySet().toString(),
+                'hw_address' : hw_address.toString()
+        )
         // Verify targets include in the result of list
-        def target_checks = target_info('net_ip')
+        def target_checks = target_info('net_if')
         if (target_checks) {
-            test_item.verify(verify_list(target_checks, infos))
+            test_item.verify(verify_map(target_checks, net_if))
         }
     }
 
@@ -423,7 +417,7 @@ class LinuxSpecBase extends InfraTestSpec {
         // Verify targets include in the result of map
         def target_checks = target_info('net_onboot')
         if (target_checks) {
-            test_item.verify(verify_map(target_checks, infos))
+            test_item.verify(verify_list(target_checks, infos))
         }
     }
 

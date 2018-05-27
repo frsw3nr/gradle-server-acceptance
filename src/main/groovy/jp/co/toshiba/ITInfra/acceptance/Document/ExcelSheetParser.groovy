@@ -96,7 +96,7 @@ class ExcelSheetParserHorizontal extends ExcelSheetParser {
                 def cell = header_row.getCell(column)
                 if (!cell)
                     return
-                headers << this.getStringValue(cell)
+                headers << this.getStringValue(cell).toLowerCase()
             }
         }
         def length = header_checks.size()
@@ -134,7 +134,7 @@ class ExcelSheetParserVertical extends ExcelSheetParser {
             Row row = sheet.getRow(rownum)
             if (row == null)
                 return true
-            headers << this.getStringValue(row.getCell(header_pos[1]))
+            headers << this.getStringValue(row.getCell(header_pos[1])).toLowerCase()
         }
         def length = header_checks.size()
         if (length == 0)
@@ -157,8 +157,8 @@ class ExcelSheetParserVertical extends ExcelSheetParser {
             // println("ROW:$row")
             if (row == null)
                 return true
-            (header_pos[1] + 2 .. row.getLastCellNum()).each { colnum ->
-                def target_id = colnum - (header_pos[1] + 2)
+            (header_pos[1] + 1 .. row.getLastCellNum()).each { colnum ->
+                def target_id = colnum - (header_pos[1] + 1)
                 // lines[target_id][header_name] = "${row.getCell(colnum)}"
                 def cell = row.getCell(colnum)
                 lines[target_id][header_name] = this.getStringValue(cell)
