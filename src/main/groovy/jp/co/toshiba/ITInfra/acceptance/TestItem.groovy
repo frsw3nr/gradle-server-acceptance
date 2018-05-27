@@ -17,9 +17,10 @@ class TestItem {
         def value_str = "$value"
         test_result.value = value_str
         test_result.status = ResultStatus.OK
-        if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '')
+        if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '') {
             test_result.status = ResultStatus.WARNING
             test_result.error_msg = 'Not found'
+        }
         this.test_results[metric_name] = test_result
     }
 

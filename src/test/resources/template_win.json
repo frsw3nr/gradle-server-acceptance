@@ -1,20 +1,26 @@
 {
     "vCenter": {
-        "memory": "2.0"
+        "NumCpu": "2.0",
+        "MemoryGB": "4.0",
+        "VMHost": "esx"
     },
     "Windows": {
         "os_caption": "Windows Server 2012 R2 Standard",
-        "os_architecture": "64 ビット",
+        "os_architecture": "64 \u30d3\u30c3\u30c8",
         "cpu_total": "2.0",
         "pyhis_mem": "2096692.0",
-        "net_ip": "192.168.0.14,192.168.0.254,255.255.255.0",
-        "filesystem": [
-            "C:40"
-        ],
-        "users": "zabbix",
-        "service": [
-            "VMTools:Running",
-            "wuauserv:Stopped"
-        ]
+        "net_config": {
+            "192.168.0.14": "192.168.0.254,255.255.255.0"
+        },
+        "filesystem": {
+            "C": "40.0"
+        },
+        "users": {
+            "zabbix": 1
+        },
+        "service": {
+            "VMTools": "Running",
+            "wuauserv": "Stopped"
+        }
     }
 }

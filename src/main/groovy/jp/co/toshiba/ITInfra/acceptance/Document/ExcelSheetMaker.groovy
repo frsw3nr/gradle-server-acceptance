@@ -6,10 +6,39 @@ import groovy.util.logging.Slf4j
 import groovy.transform.ToString
 import static groovy.json.JsonOutput.*
 import groovy.json.*
-import org.apache.poi.ss.usermodel.*
-import org.apache.poi.xssf.usermodel.*
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.ss.usermodel.IndexedColors
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.PrintSetup;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellUtil;
+import org.apache.poi.ss.util.RegionUtil;
+
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+// // import org.apache.poi.ss.usermodel
+// import org.apache.poi.ss.usermodel.*
+// // import org.apache.poi.xssf.usermodel.*
+// import org.apache.poi.hpsf.*
+// import org.apache.poi.hssf.usermodel.*
+// import org.apache.poi.hssf.util.*
+// // import org.apache.poi.hssf.usermodel.HSSFWorkbook
+// // import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
@@ -194,10 +223,10 @@ class ExcelSheetMaker {
 
         // Set Text font and Foreground color
         switch (result_cell_type) {
-            case ResultCellStyle.NORMAL :
-                style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-                break
+            // case ResultCellStyle.NORMAL :
+            //     style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+            //     style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+            //     break
 
             case ResultCellStyle.TITLE :
                 def font = wb.createFont();
@@ -208,7 +237,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.OK :
                 style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
                 font.setColor(IndexedColors.BLACK.getIndex());
@@ -217,7 +246,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.SAME :
                 style.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setColor(IndexedColors.ROYAL_BLUE.getIndex());
                 style.setFont(font);
@@ -225,7 +254,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.WARNING :
                 style.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setColor(IndexedColors.CORAL.getIndex());
                 style.setFont(font);
@@ -233,7 +262,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.NG :
                 style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
                 font.setColor(IndexedColors.BLACK.getIndex());
@@ -252,7 +281,9 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.NOTEST :
                 style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                // style.setFillForegroundColor ( HSSFColor.BLACK.index );
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                // style.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 break
 
             default :

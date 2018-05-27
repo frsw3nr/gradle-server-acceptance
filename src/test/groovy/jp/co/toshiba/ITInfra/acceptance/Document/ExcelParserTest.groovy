@@ -7,12 +7,37 @@ import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 
-import org.apache.poi.ss.usermodel.*
-import org.apache.poi.ss.usermodel.IndexedColors
-import org.apache.poi.xssf.usermodel.*
+// import org.apache.poi.ss.usermodel.*
+// import org.apache.poi.ss.usermodel.IndexedColors
+// import org.apache.poi.xssf.usermodel.*
 // import org.apache.poi.hssf.usermodel.HSSFWorkbook
 
-// gradle --daemon test --tests "ExcelParserTest.デバイスシート更新"
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.PrintSetup;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellUtil;
+import org.apache.poi.ss.util.RegionUtil;
+
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+
+// gradle --daemon test --tests "ExcelParserTest.テンプレートパース"
 
 class ExcelParserTest extends Specification {
 
@@ -34,12 +59,12 @@ class ExcelParserTest extends Specification {
 
         then:
         excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 'template']
-        excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows', 'VMHost']
+        excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows']
     }
 
     def "チェックシートパース"() {
         setup:
-        def domains = ['Linux', 'Windows', 'VMHost']
+        def domains = ['Linux', 'Windows']
         def test_metric_sets = [:]
 
         when:
@@ -56,7 +81,6 @@ class ExcelParserTest extends Specification {
             test_metric_sets[domain].name == domain
             test_metric_sets[domain].count() > 0
 
-            println "DOMAIN:$domain"
             def metrics = test_metric_sets[domain].get_all()
             def json = new groovy.json.JsonBuilder()
             json(metrics)
@@ -71,8 +95,10 @@ class ExcelParserTest extends Specification {
         def target_set = new TestTargetSet(name: 'root')
         target_set.accept(excel_parser)
         def test_targets = target_set.get_all()
-        println test_targets
-        
+        def json = new groovy.json.JsonBuilder()
+        json(test_targets)
+        println json.toPrettyString()
+
         then:
         1 == 1
         // test_targets['ostrich'].Linux.verify_id   == 'RuleAP'
@@ -82,7 +108,7 @@ class ExcelParserTest extends Specification {
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
-        def template = new TestTemplate(name: 'Win')
+        def template = new TestTemplate(name: 'AP')
         template.accept(excel_parser)
         println template.values
         def json = new groovy.json.JsonBuilder()
@@ -161,7 +187,7 @@ class ExcelParserTest extends Specification {
                 // style.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
                 // style.setFillBackgroundColor(IndexedColors.LIGHT_GREEN.getIndex());
                 style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
-                style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
                 // Set Boder line
                 style.setBorderRight(thin);
@@ -236,7 +262,7 @@ class ExcelParserTest extends Specification {
                 BorderStyle thin = BorderStyle.THIN;
                 def black = IndexedColors.BLACK.getIndex();
 
-                def sheet = wb.getSheet('CheckSheet(Linux)')
+                def sheet = wb.getSheetAt(1)
                 Row row = sheet.getRow(0)
                 // Cell cell = row.createCell(6)
 

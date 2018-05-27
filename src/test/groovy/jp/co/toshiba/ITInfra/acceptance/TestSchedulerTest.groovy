@@ -71,7 +71,7 @@ class TestSchedulerTest extends Specification {
     def "シナリオ結合 1"() {
         when:
         def excel_file = 'src/test/resources/check_sheet.xlsx'
-        def output_evidence = 'build/check_sheet.xlsx'
+        def output_evidence = 'build/check_sheet1.xlsx'
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_parser : excel_parser,
                                                excel_file : excel_file,
@@ -91,7 +91,7 @@ class TestSchedulerTest extends Specification {
     def "シナリオ結合 2"() {
         when:
         def excel_file = 'src/test/resources/check_sheet.xlsx'
-        def output_evidence = 'build/check_sheet.xlsx'
+        def output_evidence = 'build/check_sheet2.xlsx'
 
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_file : excel_file,

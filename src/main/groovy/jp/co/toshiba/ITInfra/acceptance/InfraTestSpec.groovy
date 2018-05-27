@@ -109,11 +109,15 @@ class InfraTestSpec {
     def target_info(String item, String platform = null) {
         if (!platform)
             platform = this.platform
-        if (server_info.containsKey(item))
-            return server_info[item]
+        if (server_info.containsKey(item)) {
+            def value = server_info[item]
+            if (value.size() > 0)
+                return server_info[item]
+        }
         if (!server_info.containsKey(platform) ||
-            !server_info[platform].containsKey(item))
+            !server_info[platform].containsKey(item)) {
             return
+        }
         return server_info[platform][item]
     }
 
@@ -123,7 +127,7 @@ class InfraTestSpec {
             def test_value = target_info(info_name)
             if (test_value) {
                 def check = check_closure(info_value, test_value)
-                log.debug "CHECK:$info_name, $info_value, $test_value, $check"
+                log.info "CHECK:$info_name, $info_value, $test_value, $check"
                 checks[info_name] = check
             }
         }
@@ -151,34 +155,36 @@ class InfraTestSpec {
             double value_b = b as Double
             def max_value = Math.max(value_a, value_b)
             def differ = Math.abs(value_a - value_b)
+            println "verify_data_error_range:$value_a,$value_b,$differ"
             return ((1.0 * differ / max_value) < error_rate) as boolean
         }
         return verify_data(infos, error_range)
     }
 
     def convert_array(element) {
-        return (element.getClass() == String) ? [element] : element
+        return (element.getClass() == String) ? [element:1] : element
     }
 
-    def verify_map(Object target_checks, Map infos, String prefix = null) {
+    def verify_map(Map target_checks, Map infos, String prefix = null) {
         target_checks = convert_array(target_checks)
         def validate = true
-        target_checks.each { target_check ->
-            (target_check =~ /(.+):(.+)/).each {m0, device, check_value ->
-                if (prefix)
-                    device = prefix + '.' + device
-                def status = infos[device]
-                if (!status) {
+        target_checks.each { device, check_value ->
+            if (prefix)
+                device = prefix + '.' + device
+            def status = infos[device]
+            if (!status) {
+                validate = false
+            } else if (status.getClass() =~ /String/) {
+                if (status != check_value)
                     validate = false
-                } else if (status.getClass() == String) {
-                    if (status != check_value)
-                        validate = false
-                } else {
-                    if (status as Double != check_value as Double)
-                        validate = false
-                }
-                log.debug "CHECK: $status, $device, $check_value, $validate"
+            } else if (status instanceof Number) {
+                if (status as Double != check_value as Double)
+                    validate = false
+            } else {
+                log.warn "Unkown verify data : $status"
+                validate = false
             }
+            log.info "CHECK: $status, $device, $check_value, $validate"
         }
         return validate
     }
@@ -186,12 +192,12 @@ class InfraTestSpec {
     def verify_list(Object target_checks, Map infos, String prefix = null) {
         target_checks = convert_array(target_checks)
         def validate = true
-        target_checks.each { device ->
+        target_checks.each { device, check_value ->
             if (prefix)
                 device = prefix + '.' + device
             if (!infos.containsKey(device))
                 validate = false
-            log.debug "CHECK: $device, $validate"
+            log.info "CHECK: $device, $validate"
         }
         return validate
     }

@@ -3,6 +3,7 @@ package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
 import groovy.transform.InheritConstructors
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.io.FileUtils.*
 import static groovy.json.JsonOutput.*
 import org.hidetake.groovy.ssh.Ssh
@@ -291,12 +292,13 @@ class LinuxSpecBase extends InfraTestSpec {
             run_ssh_command(session, 'cat /proc/meminfo', 'meminfo')
         }
         Closure norm = { value, unit ->
+            def value_number = NumberUtils.toDouble(value)
             if (unit == 'kB') {
-                return value
+                return value_number / 1024
             } else if (unit == 'mB') {
-                return value * 1024
+                return value_number
             } else if (unit == 'gB') {
-                return value * 1024 * 1024
+                return value_number * 1024
             } else {
                 return "${value}${unit}"
             }
@@ -304,13 +306,13 @@ class LinuxSpecBase extends InfraTestSpec {
         def meminfo    = [:].withDefault{0}
         lines.eachLine {
             (it =~ /^MemTotal:\s+(\d+) (.+)$/).each {m0,m1,m2->
+                meminfo['meminfo'] = "${m1} ${m2}"
                 meminfo['mem_total'] = norm(m1, m2)
             }
             (it =~ /^MemFree:\s+(\d+) (.+)$/).each {m0,m1,m2->
                 meminfo['mem_free'] = norm(m1, m2)
             }
         }
-        meminfo['meminfo'] = meminfo['mem_total']
         test_item.results(meminfo)
 
         // Verify 'mem_total' with error range
@@ -323,7 +325,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def csv        = []
         def network    = [:].withDefault{[:]}
-        def infos      = [:]
+        def net_if     = [:]
         def device     = ''
         def hw_address = []
         lines.eachLine {
@@ -345,8 +347,11 @@ class LinuxSpecBase extends InfraTestSpec {
                 }
             }
             // inet 127.0.0.1/8 scope host lo
-            (it =~ /inet\s+(.*?)\s/).each {m0, m1->
+            (it =~ /inet\s+(.+?)\s(.+)/).each {m0, m1, m2->
+                def comments = m2.split(" ")
+                device = comments.last()
                 network[device]['ip'] = m1
+
                 try {
                     SubnetInfo subnet = new SubnetUtils(m1).getInfo()
                     network[device]['subnet'] = subnet.getNetmask()
@@ -368,15 +373,19 @@ class LinuxSpecBase extends InfraTestSpec {
                 columns.add(items[it] ?: 'NaN')
             }
             csv << columns
-            infos[device_id] = items['ip']
+            net_if[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
-
-        test_item.results([
-            'network'    : infos.toString(),
-            'hw_address' : hw_address.toString()
-            ])
+        test_item.results(
+                'network' : net_if.keySet().toString(),
+                'hw_address' : hw_address.toString()
+        )
+        // Verify targets include in the result of list
+        def target_checks = target_info('net_if')
+        if (target_checks) {
+            test_item.verify(verify_map(target_checks, net_if))
+        }
     }
 
     // def convert_array(element) {
@@ -408,7 +417,7 @@ class LinuxSpecBase extends InfraTestSpec {
         // Verify targets include in the result of map
         def target_checks = target_info('net_onboot')
         if (target_checks) {
-            test_item.verify(verify_map(target_checks, infos))
+            test_item.verify(verify_list(target_checks, infos))
         }
     }
 

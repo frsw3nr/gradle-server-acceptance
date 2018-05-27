@@ -164,26 +164,28 @@ class vCenterSpecBase extends InfraTestSpec {
                 new File("${local_dir}/vmwaretool")
             }
 
+            def infos = [:]
             def res = [:]
             lines.eachLine {
                 (it =~ /^vmware\.tools\.(.+?)\s+(\d+.)\s*$/).each { m0,m1,m2->
                     res[m1] = m2.trim()
                 }
             }
-            res['result'] = 'TestFaild'
+            infos['vmwaretool'] = 'TestFaild'
             try {
                 def internalversion = Integer.decode(res['internalversion'])
                 def requiredversion = Integer.decode(res['requiredversion'])
                 if (internalversion == 0)
-                    res['result'] = 'NotInstalled'
+                    infos['vmwaretool'] = 'NotInstalled'
                 else if (internalversion < requiredversion)
-                    res['result'] = 'UpdateRequired'
+                    infos['vmwaretool'] = 'UpdateRequired'
                 else
-                    res['result'] = 'OK'
+                    infos['vmwaretool'] = 'OK'
             } catch (NumberFormatException e) {
                 log.warn "Test failed : $e"
             }
-            test_item.results(res.toString())
+            infos['vmwaretool.version'] = res.toString()
+            test_item.results(infos)
         }
     }
 
