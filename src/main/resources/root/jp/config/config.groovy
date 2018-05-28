@@ -1,108 +1,83 @@
-// ŒŸ¸d—lƒV[ƒg’è‹`
+// æ¤œæŸ»ä»•æ§˜ã‚·ãƒ¼ãƒˆå®šç¾©
 
-evidence.source = './ƒT[ƒo[ƒ`ƒFƒbƒNƒV[ƒg.xlsx'
-evidence.sheet_name_server = 'ƒ`ƒFƒbƒN‘ÎÛ'
-evidence.sheet_name_rule = 'ŒŸ¸ƒ‹[ƒ‹'
-evidence.sheet_name_spec = [
-    'Linux':   'ƒQƒXƒgOSƒ`ƒFƒbƒNƒV[ƒg(Linux)',
-    'Windows': 'ƒQƒXƒgOSƒ`ƒFƒbƒNƒV[ƒg(Windows)',
-    'VMHost':  'ESXiƒzƒXƒgƒ`ƒFƒbƒNƒV[ƒg(VMHost)',
-]
+evidence.source = './src/test/resources/check_sheet.xlsx'
+// evidence.sheet_name_server = 'Target'
+// evidence.sheet_name_rule = 'Rule'
+// evidence.sheet_name_spec = [
+//     'Linux':   'CheckSheet(Linux)',
+//     'Windows': 'CheckSheet(Windows)',
+// ]
 
-// ŒŸ¸Œ‹‰Êƒtƒ@ƒCƒ‹o—Íæ
+// æ¤œæŸ»çµæœãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›å…ˆ
 
-evidence.target='./build/ƒ`ƒFƒbƒNƒV[ƒg_<date>.xlsx'
+evidence.target='./build/check_sheet_<date>.xlsx'
+//evidence.target='./build/check_sheet.xlsx'
 
-// ŒŸ¸Œ‹‰ÊƒƒOƒfƒBƒŒƒNƒgƒŠ
-
+// æ¤œæŸ»çµæœãƒ­ã‚°ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
 evidence.staging_dir='./build/log'
 
-// CSV•ÏŠ·ƒ}ƒbƒv
+// æ¤œæŸ»ã€æ¤œè¨¼çµæœãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+evidence.json_dir='./src/test/resources/json'
 
-evidence.csv_item_map = [
-    'ƒT[ƒo–¼' :            'server_name',
-    'IPƒAƒhƒŒƒX' :          'ip',
-    'Platform' :            'platform',
-    'OSƒAƒJƒEƒ“ƒgID' :      'os_account_id',
-    'vCenterƒAƒJƒEƒ“ƒgID' : 'remote_account_id',
-    'VMƒGƒCƒŠƒAƒX–¼' :      'remote_alias',
-    'ŒŸ¸ID' :              'verify_id',
-    '”äŠr‘ÎÛƒT[ƒo–¼' :    'compare_server',
-    'CPU”' :               'NumCpu',
-    'ƒƒ‚ƒŠ—Ê' :            'MemoryGB',
-    'ESXi–¼' :              'ESXiHost',
-    'HDD' :                 'HDDtype',
-]
+// CSVå¤‰æ›ãƒãƒƒãƒ—
 
-// •À—ñ‰»‚µ‚È‚¢ƒ^ƒXƒN
-// •À—ñ“x‚ğw’è‚ğ‚µ‚Ä‚àAw’è‚µ‚½ƒhƒƒCƒ“ƒ^ƒXƒN‚ÍƒVƒŠƒAƒ‹‚ÉÀs‚·‚é
+// evidence.csv_item_map = [
+//     'ã‚µãƒ¼ãƒå' :            'server_name',
+//     'IPã‚¢ãƒ‰ãƒ¬ã‚¹' :          'ip',
+//     'Platform' :            'platform',
+//     'OSã‚¢ã‚«ã‚¦ãƒ³ãƒˆID' :      'os_account_id',
+//     'vCenterã‚¢ã‚«ã‚¦ãƒ³ãƒˆID' : 'remote_account_id',
+//     'VMã‚¨ã‚¤ãƒªã‚¢ã‚¹å' :      'remote_alias',
+//     'æ¤œæŸ»ID' :              'verify_id',
+//     'CPUæ•°' :               'NumCpu',
+//     'ãƒ¡ãƒ¢ãƒªé‡' :            'MemoryGB',
+//     'ESXiå' :              'ESXiHost',
+//     'HDD' :                 'HDDtype',
+// ]
 
-test.serialization.tasks = ['vCenter', 'VMHost']
+// ä¸¦åˆ—åŒ–ã—ãªã„ã‚¿ã‚¹ã‚¯
 
-// DryRunƒ‚[ƒhƒƒO•Û‘¶æ
+test.serialization.tasks = ['vCenter']
+
+// DryRunãƒ¢ãƒ¼ãƒ‰ãƒ­ã‚°ä¿å­˜å…ˆ
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
-// ƒRƒ}ƒ“ƒhÌæ‚Ìƒ^ƒCƒ€ƒAƒEƒg
-// Windows,vCenter‚Ìê‡A‘SƒRƒ}ƒ“ƒh‚ğ‚Ü‚Æ‚ß‚½ƒoƒbƒ`ƒXƒNƒŠƒvƒg‚Ìƒ^ƒCƒ€ƒAƒEƒg’l
+// ã‚³ãƒãƒ³ãƒ‰æ¡å–ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆ
+// Windows,vCenterã®å ´åˆã€å…¨ã‚³ãƒãƒ³ãƒ‰ã‚’ã¾ã¨ã‚ãŸãƒãƒƒãƒã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆå€¤
 
-test.Linux.timeout   = 300
+test.Linux.timeout   = 30
 test.Windows.timeout = 300
-test.VMHost.timeout  = 300
+test.vCenter.timeout = 300
 
-// ƒRƒ}ƒ“ƒhÌæ‚ÌƒfƒoƒbƒOƒ‚[ƒh
+// ã‚³ãƒãƒ³ãƒ‰æ¡å–ã®ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰
 
-// test.Linux.debug   = false
-// test.Windows.debug = false
-// test.VMHost.debug  = false
+test.Linux.debug   = false
+test.Windows.debug = false
+test.vCenter.debug = false
 
-// vCenterÚ‘±î•ñ
+// vCenteræ¥ç¶šæƒ…å ±
 
-account.Remote.Test.server   = '192.168.10.100'
-account.Remote.Test.user     = 'test_user'
-account.Remote.Test.password = 'P@ssword'
+// account.Remote.Test.server   = '192.168.10.100'
+// account.Remote.Test.user     = 'test_user'
+// account.Remote.Test.password = 'P@ssword'
 
-// Linux Ú‘±î•ñ
+account.vCenter.Test.server   = '192.168.10.100'
+account.vCenter.Test.user     = 'test_user'
+account.vCenter.Test.password = 'P@ssword'
+
+// Linux æ¥ç¶šæƒ…å ±
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
-// account.Linux.Test.logon_test = [['user':'test1' , 'password':'test1'],
-//                                  ['user':'root'  , 'password':'P@ssw0rd']]
 
-// Windows Ú‘±î•ñ
+// Windows æ¥ç¶šæƒ…å ±
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
-// account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
-//                                    ['user':'test2' , 'password':'test2']]
 
-// VMHost Ú‘±î•ñ
+// VMHost æ¥ç¶šæƒ…å ±
 
-account.VMHost.Test.user      = 'root'
-account.VMHost.Test.password  = 'P@ssword'
-
-// Redmine Default filter options
-
-redmine.default_filter_options = [
-    'project': '\¬ŠÇ—ƒf[ƒ^ƒx[ƒX',
-    'status': '\’z‘O',
-    'version': '%',
-    'tracker': '%',
-]
-
-// Package requirements list
-
-package.requirements.oracle = [
-    'compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'
-    ]
-package.requirements.base   = [
-    'sysstat','dmidecode','strace','net-snmp-libs','net-snmp-utils','busybox-anaconda',
-    'alchemist','xinetd','tftp-server','system-config-netboot-cmd','system-config-netboot'
-    ]
-package.requirements.sophos = [
-    'glibc', 'nss-softokn-freebl', 'libXau', 'libxcb', 'libX11', 'libXpm'
-    ]
-package.requirements.msm    = [
-    'MegaRAID_Storage_Manager','Lib_Utils2','Lib_Utils','sas_snmp','sas_ir_snmp'
-    ]
+// account.VMHost.Test.user     = 'root'
+// account.VMHost.Test.password = 'P@ssword'

@@ -1,99 +1,83 @@
-// Check sheet definition.
+// 検査仕様シート定義
 
-evidence.source = './check_sheet.xlsx'
-evidence.sheet_name_server = 'Target'
-evidence.sheet_name_rule = 'Rule'
-evidence.sheet_name_spec = [
-    'Linux':   'CheckSheet(Linux)',
-    'Windows': 'CheckSheet(Windows)',
-    'VMHost':  'CheckSheet(VMHost)',
-]
+evidence.source = './src/test/resources/check_sheet.xlsx'
+// evidence.sheet_name_server = 'Target'
+// evidence.sheet_name_rule = 'Rule'
+// evidence.sheet_name_spec = [
+//     'Linux':   'CheckSheet(Linux)',
+//     'Windows': 'CheckSheet(Windows)',
+// ]
 
-// Check sheet output path.
+// 検査結果ファイル出力先
 
 evidence.target='./build/check_sheet_<date>.xlsx'
+//evidence.target='./build/check_sheet.xlsx'
 
-// CSV Export path.
-
-evidence.csv_export='./build/export/compare_<date>.csv'
-
-// Test result log directory.
-
+// 検査結果ログディレクトリ
 evidence.staging_dir='./build/log'
 
-// Tasks not parallelized
-// Even if the degree of parallelism is specified, the specified domain task is executed serially
+// 検査、検証結果ディレクトリ
+evidence.json_dir='./src/test/resources/json'
 
-test.serialization.tasks = ['vCenter', 'VMHost']
+// CSV変換マップ
 
-// DryRun mode log direcory.
+// evidence.csv_item_map = [
+//     'サーバ名' :            'server_name',
+//     'IPアドレス' :          'ip',
+//     'Platform' :            'platform',
+//     'OSアカウントID' :      'os_account_id',
+//     'vCenterアカウントID' : 'remote_account_id',
+//     'VMエイリアス名' :      'remote_alias',
+//     '検査ID' :              'verify_id',
+//     'CPU数' :               'NumCpu',
+//     'メモリ量' :            'MemoryGB',
+//     'ESXi名' :              'ESXiHost',
+//     'HDD' :                 'HDDtype',
+// ]
+
+// 並列化しないタスク
+
+test.serialization.tasks = ['vCenter']
+
+// DryRunモードログ保存先
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
-// Command timeout
-// In case of Windows,vCenter, it is a whole timeout value of PowerShell script.
+// コマンド採取のタイムアウト
+// Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
 
-test.Linux.timeout   = 300
+test.Linux.timeout   = 30
 test.Windows.timeout = 300
-test.VMHost.timeout  = 300
+test.vCenter.timeout = 300
 
-// Debug mode
+// コマンド採取のデバッグモード
 
-// test.Linux.debug   = false
-// test.Windows.debug = false
-// test.VMHost.debug  = false
+test.Linux.debug   = false
+test.Windows.debug = false
+test.vCenter.debug = false
 
-// vCenter session
+// vCenter接続情報
 
-account.Remote.Test.server   = '192.168.10.100'
-account.Remote.Test.user     = 'test_user'
-account.Remote.Test.password = 'P@ssword'
+// account.Remote.Test.server   = '192.168.10.100'
+// account.Remote.Test.user     = 'test_user'
+// account.Remote.Test.password = 'P@ssword'
 
 account.vCenter.Test.server   = '192.168.10.100'
 account.vCenter.Test.user     = 'test_user'
 account.vCenter.Test.password = 'P@ssword'
 
-// Linux session
+// Linux 接続情報
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
-// account.Linux.Test.logon_test = [['user':'test1' , 'password':'test1'],
-//                                  ['user':'root'  , 'password':'P@ssw0rd']]
 
-// Windows session
+// Windows 接続情報
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
-// account.Windows.Test.logon_test = [['user':'test1' , 'password':'test1'],
-//                                    ['user':'test2' , 'password':'test2']]
 
-// VMHost session
+// VMHost 接続情報
 
-account.VMHost.Test.user      = 'test_user'
-account.VMHost.Test.password  = 'P@ssword'
-
-// Redmine Default filter options
-
-redmine.default_filter_options = [
-    'project': '�\���Ǘ��f�[�^�x�[�X',
-    'status': '�\�z�O',
-    'version': '%',
-    'tracker': '%',
-]
-
-// Package requirements list
-
-package.requirements.oracle = [
-    'compat-libcap1','compat-libstdc++-33','libstdc++-devel', 'gcc-c++','ksh','libaio-devel'
-    ]
-package.requirements.base   = [
-    'sysstat','dmidecode','strace','net-snmp-libs','net-snmp-utils','busybox-anaconda',
-    'alchemist','xinetd','tftp-server','system-config-netboot-cmd','system-config-netboot'
-    ]
-package.requirements.sophos = [
-    'glibc', 'nss-softokn-freebl', 'libXau', 'libxcb', 'libX11', 'libXpm'
-    ]
-package.requirements.msm    = [
-    'MegaRAID_Storage_Manager','Lib_Utils2','Lib_Utils','sas_snmp','sas_ir_snmp'
-    ]
+// account.VMHost.Test.user     = 'root'
+// account.VMHost.Test.password = 'P@ssword'

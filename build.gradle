@@ -17,9 +17,9 @@ repositories {
     jcenter {
         url "http://jcenter.bintray.com/"
     }
-    jcenter {
-        url "http://amateras.sourceforge.jp/mvn/"
-    }
+    // jcenter {
+    //     url "http://amateras.sourceforge.jp/mvn/"
+    // }
 // jcenter()
 }
 
