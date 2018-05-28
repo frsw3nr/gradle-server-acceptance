@@ -1,12 +1,12 @@
 // 検査仕様シート定義
 
 evidence.source = './src/test/resources/check_sheet.xlsx'
-evidence.sheet_name_server = 'Target'
-evidence.sheet_name_rule = 'Rule'
-evidence.sheet_name_spec = [
-    'Linux':   'CheckSheet(Linux)',
-    'Windows': 'CheckSheet(Windows)',
-]
+// evidence.sheet_name_server = 'Target'
+// evidence.sheet_name_rule = 'Rule'
+// evidence.sheet_name_spec = [
+//     'Linux':   'CheckSheet(Linux)',
+//     'Windows': 'CheckSheet(Windows)',
+// ]
 
 // 検査結果ファイル出力先
 
@@ -21,19 +21,19 @@ evidence.json_dir='./src/test/resources/json'
 
 // CSV変換マップ
 
-evidence.csv_item_map = [
-    'サーバ名' :            'server_name',
-    'IPアドレス' :          'ip',
-    'Platform' :            'platform',
-    'OSアカウントID' :      'os_account_id',
-    'vCenterアカウントID' : 'remote_account_id',
-    'VMエイリアス名' :      'remote_alias',
-    '検査ID' :              'verify_id',
-    'CPU数' :               'NumCpu',
-    'メモリ量' :            'MemoryGB',
-    'ESXi名' :              'ESXiHost',
-    'HDD' :                 'HDDtype',
-]
+// evidence.csv_item_map = [
+//     'サーバ名' :            'server_name',
+//     'IPアドレス' :          'ip',
+//     'Platform' :            'platform',
+//     'OSアカウントID' :      'os_account_id',
+//     'vCenterアカウントID' : 'remote_account_id',
+//     'VMエイリアス名' :      'remote_alias',
+//     '検査ID' :              'verify_id',
+//     'CPU数' :               'NumCpu',
+//     'メモリ量' :            'MemoryGB',
+//     'ESXi名' :              'ESXiHost',
+//     'HDD' :                 'HDDtype',
+// ]
 
 // 並列化しないタスク
 
@@ -58,9 +58,9 @@ test.vCenter.debug = false
 
 // vCenter接続情報
 
-account.Remote.Test.server   = '192.168.10.100'
-account.Remote.Test.user     = 'test_user'
-account.Remote.Test.password = 'P@ssword'
+// account.Remote.Test.server   = '192.168.10.100'
+// account.Remote.Test.user     = 'test_user'
+// account.Remote.Test.password = 'P@ssword'
 
 account.vCenter.Test.server   = '192.168.10.100'
 account.vCenter.Test.user     = 'test_user'
@@ -79,5 +79,5 @@ account.Windows.Test.password = 'P@ssword'
 
 // VMHost 接続情報
 
-account.VMHost.Test.user     = 'root'
-account.VMHost.Test.password = 'P@ssword'
+// account.VMHost.Test.user     = 'root'
+// account.VMHost.Test.password = 'P@ssword'

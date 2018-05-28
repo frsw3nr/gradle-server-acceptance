@@ -143,7 +143,6 @@ class ConfigTestEnvironment {
             'evidence_log_share_dir' : evidence_log_share_dir,
             'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
         ]
-        println test_platform_configs
 
         test_platform_configs.each { key, test_platform_config ->
             if (!test_platform[key])

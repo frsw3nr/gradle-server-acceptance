@@ -229,6 +229,8 @@ class ExcelSheetMaker {
             //     break
 
             case ResultCellStyle.TITLE :
+                style.setFillForegroundColor(IndexedColors.TURQUOISE.getIndex());
+                style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
                 font.setColor(IndexedColors.BLACK.getIndex());
@@ -273,8 +275,6 @@ class ExcelSheetMaker {
                 def font = wb.createFont();
                 font.setColor(IndexedColors.RED.getIndex());
                 def font_size = font.getFontHeightInPoints()
-                println "font_size:$font_size"
-                // font.setFontHeightInPoints((short)10)
                 font.setFontHeightInPoints((short)(font_size - 2))
                 style.setFont(font);
                 break

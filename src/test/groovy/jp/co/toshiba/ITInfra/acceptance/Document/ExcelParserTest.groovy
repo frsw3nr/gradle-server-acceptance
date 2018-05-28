@@ -263,7 +263,7 @@ class ExcelParserTest extends Specification {
                 def black = IndexedColors.BLACK.getIndex();
 
                 def sheet = wb.getSheetAt(1)
-                Row row = sheet.getRow(0)
+                Row row = sheet.getRow(5)
                 // Cell cell = row.createCell(6)
 
                 // Aqua background

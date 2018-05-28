@@ -6,9 +6,7 @@ import org.apache.commons.lang.math.NumberUtils
 import groovy.util.CliBuilder
 import org.apache.commons.cli.Option
 
-// gradlew run -Pargs="ls -alt *.groovy"
-
-// gradlew shadowJar
+// gradle shadowJar
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
 @Slf4j
@@ -147,9 +145,14 @@ class TestRunner {
     static void main(String[] args) {
         def test_runner = new TestRunner()
         test_runner.parse(args)
+        def test_env = ConfigTestEnvironment.instance
+        test_env.read_from_test_runner(test_runner)
+        def test_scheduler = new TestScheduler()
+        test_env.set_test_schedule_environment(test_scheduler)
         try {
-            def test_scheduler = new TestScheduler(test_runner)
-            test_scheduler.runTest()
+            test_scheduler.init()
+            test_scheduler.run()
+            test_scheduler.finish()
         } catch (Exception e) {
             log.error "Fatal error : " + e
             e.printStackTrace()

@@ -1,12 +1,12 @@
 import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
-import static groovy.json.JsonOutput.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestSchedulerTest.シナリオ結合 2"
+// gradle --daemon test --tests "TestSchedulerTest.実行オプション"
 
 class TestSchedulerTest extends Specification {
+
     TestRunner test_runner
     TestScenario test_scenario
     PlatformTester platform_tester
@@ -16,7 +16,6 @@ class TestSchedulerTest extends Specification {
         String[] args = [
             '--dry-run',
             '-c', './src/test/resources/config.groovy',
-            '-resource', './src/test/resources/log',
         ]
         test_runner = new TestRunner()
         test_runner.parse(args)
@@ -114,6 +113,5 @@ class TestSchedulerTest extends Specification {
         then:
         1 == 1
     }
-
 
 }

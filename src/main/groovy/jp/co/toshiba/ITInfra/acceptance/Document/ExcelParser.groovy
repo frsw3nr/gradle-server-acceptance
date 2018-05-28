@@ -180,10 +180,6 @@ class ExcelParser {
                 platform_test_set.add(test_metric)
             }
         }
-        def json = new groovy.json.JsonBuilder()
-        json(test_metric_set)
-        println json.toPrettyString()
-        // println "test_metric_set:$test_metric_set"
 
         log.info "Read test spec(${domain_name}) : ${test_metric_set.count()} row"
     }
