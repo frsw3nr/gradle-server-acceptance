@@ -1068,7 +1068,6 @@ class LinuxSpecBase extends InfraTestSpec {
             def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
             try {
                 def result = session.executeSudo command, pty: true, timeoutSec: timeout
-                log.info result
                 session.get from: "${work_dir}/snmp_trap", into: local_dir
                 new File("${local_dir}/snmp_trap").text
             } catch (Exception e) {

@@ -106,7 +106,7 @@ class TestRunnerTest extends Specification {
         test_scheduler.parallel_degree == 0
     }
 
-    def "全体スルー"() {
+    def "スケジュール実行"() {
         setup:
         def test_runner = new TestRunner()
 

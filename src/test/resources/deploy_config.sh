@@ -11,5 +11,5 @@ cd "${GETCOFNG_BASE}"
 gradle zip
 
 cd "${GETCONFIG_HOME}"
-unzip -q "${GETCONFIG_BASE}/build/distributions/gradle-server-acceptance-0.1.17.zip"
+unzip -q -o "${GETCONFIG_BASE}/build/distributions/gradle-server-acceptance-0.1.17.zip"
 

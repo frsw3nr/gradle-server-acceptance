@@ -67,19 +67,24 @@ class ExcelSheetMaker {
         long start = System.currentTimeMillis()
 
         log.info "Write evidence : '${evidence_excel}'"
+        def count_summary_sheet_update = 0
         excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
             evidence_maker.summary_sheets[domain].each { summary_sheet ->
                 write_sheet_summary(summary_sheet, sheet_design)
+                count_summary_sheet_update ++
             }
         }
-        log.info "Summary sheet updated"
+        log.info "Summary sheet updated : ${count_summary_sheet_update}"
+
+        def count_device_sheet_update = 0
         evidence_maker.device_result_sheets.each { sheet_key, device_result_sheet ->
             def platform = sheet_key[0]
             def metric   = sheet_key[1]
             def device_sheet_name = "${platform}_${metric}"
             write_sheet_device_result(device_sheet_name, device_result_sheet)
-            log.info "Device sheet updated : '${device_sheet_name}'"
+            count_device_sheet_update ++
         }
+        log.info "Device sheet updated : ${count_device_sheet_update}"
 
         def fos = new FileOutputStream(evidence_excel)
         excel_parser.workbook.write(fos)

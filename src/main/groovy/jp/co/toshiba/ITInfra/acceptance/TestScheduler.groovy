@@ -58,9 +58,7 @@ class TestScheduler {
                     // def test_rule = rules[test_target.verify_id]
                     def test_platform = new TestPlatform(name         : platform,
                                                          test_target  : test_target,
-                                                         test_metrics : metrics,
-                                                         // test_rule    : test_rule,
-                                                         dry_run      : true)
+                                                         test_metrics : metrics)
                     test_target.test_platforms[platform] = test_platform
                     this.test_platform_tasks[platform][target_name] = test_platform
                 }
@@ -92,7 +90,7 @@ class TestScheduler {
 
     def visit_test_platform(test_platform) {
         def target_name = test_platform.test_target.name
-        def test_label = "${test_platform.name}(${target_name})"
+        def test_label = "${test_platform.name}:${target_name}"
         long start = System.currentTimeMillis()
         // log.info "Start  test $test_label"
         def platform_tester = new PlatformTester(test_platform : test_platform,

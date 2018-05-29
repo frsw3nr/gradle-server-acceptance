@@ -181,7 +181,7 @@ class ExcelParser {
             }
         }
 
-        log.info "Read test spec(${domain_name}) : ${test_metric_set.count()} row"
+        log.debug "Read test spec(${domain_name}) : ${test_metric_set.count()} row"
     }
 
     def visit_test_target_set(test_target_set) {
@@ -197,7 +197,7 @@ class ExcelParser {
             test_target_set.add(test_target)
             return
         }
-        log.info "Read target : ${test_target_set.get_all().size()} row"
+        log.debug "Read target : ${test_target_set.get_all().size()} row"
     }
 
     def trim(String value) {
@@ -262,7 +262,7 @@ class ExcelParser {
             return
         }
         test_template.values = template_values
-        log.info "Read target template($template_name) : ${row_count} row"
+        log.debug "Read target template($template_name) : ${row_count} row"
     }
 
     // def visit_test_rule_set(test_rule_set) {
@@ -292,6 +292,6 @@ class ExcelParser {
     //         test_rule_set.add(test_rule)
     //         return
     //     }
-    //     log.info "Read rule : ${test_rule_set.get_all().size()} row"
+    //     log.debug "Read rule : ${test_rule_set.get_all().size()} row"
     // }
 }

@@ -44,7 +44,8 @@ class PlatformTester {
 
     def init() {
         def test_env = ConfigTestEnvironment.instance
-        test_env.read_config(this.config_file)
+        if (!test_env.config_file)
+            test_env.read_config(this.config_file)
         test_env.set_account(this.test_platform)
         test_env.set_test_platform_environment(this.test_platform)
         this.init_test_script()

@@ -112,20 +112,6 @@ class ConfigTestEnvironment {
         }
     }
 
-    def print_test_configs() {
-        log.info "Parse Arguments : " + args.toString()
-        log.info "\thome          : " + this.project_home
-        // log.info "\ttest_resource : " + this.test_resource
-        log.info "\tconfig_file   : " + this.config_file
-        log.info "\tsheet_file    : " + this.sheet_file
-        log.info "\tdry_run       : " + this.dry_run
-        log.info "\tverify_test   : " + this.verify_test
-        log.info "\tuse_redmine   : " + this.use_redmine
-        log.info "\tfilter option : "
-        log.info "\t\ttarget servers : " + this.filter_server
-        log.info "\t\tmetrics        : " + this.filter_metric
-    }
-
     def set_test_platform_environment(TestPlatform test_platform) {
         def config_test = config.test
         def platform    = test_platform.name
@@ -147,21 +133,33 @@ class ConfigTestEnvironment {
         test_platform_configs.each { key, test_platform_config ->
             if (!test_platform[key])
                 test_platform[key] = test_platform_config
+            // test_platform[key] = test_platform_config
         }
+        def msg = "$target_name(DryRun=${test_platform.dry_run})"
+        log.info "Testing $platform:$msg"
     }
 
     def set_test_schedule_environment(TestScheduler test_scheduler) {
         test_scheduler.with {
-            if (config.filter_server)
-                it.filter_server = config.filter_server
-            if (config.filter_metric)
-                it.filter_metric = config.filter_metric
-            if (config.parallel_degree)
-                it.parallel_degree = config.parallel_degree
             it.excel_file      = config.excel_file      ?: config.evidence?.source ?:
                                  './check_sheet.xlsx'
             it.output_evidence = config.output_evidence ?: config.evidence?.target ?:
                                  './check_sheet.xlsx'
+            log.info "Schedule options : "
+            log.info "\texcel file    : " + it.excel_file
+            log.info "\toutput        : " + it.output_evidence
+            if (config.filter_server) {
+                it.filter_server = config.filter_server
+                log.info "\t\ttarget servers : " + it.filter_server
+            }
+            if (config.filter_metric) {
+                it.filter_metric = config.filter_metric
+                log.info "\t\tmetrics        : " + it.filter_metric
+            }
+            if (config.parallel_degree) {
+                it.parallel_degree = config.parallel_degree
+                log.info "\tparallel degree  : " + it.parallel_degree
+            }
         }
     }
 

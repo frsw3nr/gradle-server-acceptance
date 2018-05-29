@@ -53,7 +53,9 @@ class EvidenceMaker {
                 def metric_sets = domain_metrics[domain].get_all()
                 metric_sets.each { platform, metric_set ->
                     def test_platform = test_target.test_platforms[platform]
-                    def test_results = test_platform.test_results
+                    def test_results = test_platform?.test_results
+                    if (!test_results)
+                        return
                     metric_set.get_all().each { metric, test_metric ->
                         def test_result = test_results[metric]
                         if (test_result) {
