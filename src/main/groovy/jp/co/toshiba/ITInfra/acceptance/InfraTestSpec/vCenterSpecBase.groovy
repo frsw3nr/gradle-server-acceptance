@@ -30,11 +30,16 @@ class vCenterSpecBase extends InfraTestSpec {
         // vcenter_user     = remote_account['user']
         // vcenter_password = remote_account['password']
         // vm               = test_server.remote_alias
-        def remote_account = test_platform.os_account ?: init_error('os_account')
-        vcenter_ip       = remote_account['server']   ?: init_error('server')
-        vcenter_user     = remote_account['user']     ?: init_error('user')
-        vcenter_password = remote_account['password'] ?: init_error('password')
-        vm               = test_platform.test_target.remote_alias ?: init_error('vm')
+        def remote_account = test_platform.os_account
+        vcenter_ip       = remote_account?.server
+        vcenter_user     = remote_account?.user
+        vcenter_password = remote_account?.password
+        vm               = test_platform?.test_target?.remote_alias
+        // def remote_account = test_platform.os_account ?: init_error('os_account')
+        // vcenter_ip       = remote_account['server']   ?: init_error('server')
+        // vcenter_user     = remote_account['user']     ?: init_error('user')
+        // vcenter_password = remote_account['password'] ?: init_error('password')
+        // vm               = test_platform.test_target.remote_alias ?: init_error('vm')
         script_path      = local_dir + '/get_vCenter_spec.ps1'
         timeout          = test_platform.timeout
     }
@@ -48,7 +53,7 @@ class vCenterSpecBase extends InfraTestSpec {
             |-user '${vcenter_user}' -password '${vcenter_password}'
             |-vcenter '${vcenter_ip}'
         """.stripMargin()
-        // println "$vcenter_ip $vcenter_user $vcenter_password $vm"
+        println "VM : $vcenter_ip $vcenter_user $vcenter_password $vm"
         if (vcenter_ip && vcenter_user && vcenter_password && vm) {
             runPowerShellTest('lib/template', 'vCenter', cmd, test_items)
         } else {

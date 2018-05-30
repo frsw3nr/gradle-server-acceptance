@@ -190,9 +190,8 @@ class ExcelParser {
             if (!line['domain'])
                 return true
             line['name'] = line['server_name']
-            if (!line['remote_alias'])
-                line['remote_alias'] = line['server_name']
-            // line << [name: line['server_name']]
+            // if (!line['remote_alias'])
+            //     line['remote_alias'] = line['server_name']
             def test_target = new TestTarget(line)
             test_target_set.add(test_target)
             return

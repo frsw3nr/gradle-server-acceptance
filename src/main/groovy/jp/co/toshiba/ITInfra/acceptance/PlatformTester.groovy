@@ -66,12 +66,12 @@ class PlatformTester {
 
     def run() {
         test_spec.init()
-        // try {
+        try {
             test_spec.setup_exec(test_items)
             // log.debug "\tresults : " + summaryReport(test_items)
-        // } catch (Exception e) {
-        //     log.error "[Test] Failed to run ${test_spec.title}, skip.\n" + e
-        // }
+        } catch (Exception e) {
+            log.error "[Test] Failed to run ${test_spec.title}, skip.\n" + e
+        }
         test_spec.cleanup_exec()
 
         // test_platform.test_metrics.each { metric_name, metric ->
