@@ -144,6 +144,7 @@ class TestRunner {
 
     static void main(String[] args) {
         def test_runner = new TestRunner()
+        long start = System.currentTimeMillis()
         test_runner.parse(args)
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
@@ -155,8 +156,10 @@ class TestRunner {
             test_scheduler.finish()
         } catch (Exception e) {
             log.error "Fatal error : " + e
-            e.printStackTrace()
+            // e.printStackTrace()
         }
+        long elapsed = System.currentTimeMillis() - start
+        log.info "Total, Elapsed : ${elapsed} ms"
     }
 
     // String getconfig_home

@@ -117,8 +117,7 @@ class ConfigTestEnvironment {
         def platform    = test_platform.name
         def target_name = test_platform.test_target?.name
         def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
-        evidence_log_share_dir += '/' + platform
-
+        // evidence_log_share_dir += '/' + platform
         def config_platform = config_test[platform]
         def test_platform_configs = [
             'dry_run'                : config.dry_run ?: config_platform.dry_run ?: false,
@@ -146,15 +145,15 @@ class ConfigTestEnvironment {
             it.output_evidence = config.output_evidence ?: config.evidence?.target ?:
                                  './check_sheet.xlsx'
             log.info "Schedule options : "
-            log.info "\texcel file    : " + it.excel_file
-            log.info "\toutput        : " + it.output_evidence
+            log.info "excel file    : " + it.excel_file
+            log.info "output        : " + it.output_evidence
             if (config.filter_server) {
                 it.filter_server = config.filter_server
-                log.info "\t\ttarget servers : " + it.filter_server
+                log.info "filter servers : " + it.filter_server
             }
             if (config.filter_metric) {
                 it.filter_metric = config.filter_metric
-                log.info "\t\tmetrics        : " + it.filter_metric
+                log.info "filter metrics : " + it.filter_metric
             }
             if (config.parallel_degree) {
                 it.parallel_degree = config.parallel_degree

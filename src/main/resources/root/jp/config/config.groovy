@@ -1,6 +1,6 @@
-// æ¤œæŸ»ä»•æ§˜ã‚·ãƒ¼ãƒˆå®šç¾©
+// ŒŸ¸d—lƒV[ƒg’è‹`
 
-evidence.source = './src/test/resources/check_sheet.xlsx'
+evidence.source = './ƒT[ƒo[ƒ`ƒFƒbƒNƒV[ƒg.xlsx'
 // evidence.sheet_name_server = 'Target'
 // evidence.sheet_name_rule = 'Rule'
 // evidence.sheet_name_spec = [
@@ -8,55 +8,55 @@ evidence.source = './src/test/resources/check_sheet.xlsx'
 //     'Windows': 'CheckSheet(Windows)',
 // ]
 
-// æ¤œæŸ»çµæœãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›å…ˆ
+// ŒŸ¸Œ‹‰Êƒtƒ@ƒCƒ‹o—Íæ
 
 evidence.target='./build/check_sheet_<date>.xlsx'
 //evidence.target='./build/check_sheet.xlsx'
 
-// æ¤œæŸ»çµæœãƒ­ã‚°ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+// ŒŸ¸Œ‹‰ÊƒƒOƒfƒBƒŒƒNƒgƒŠ
 evidence.staging_dir='./build/log'
 
-// æ¤œæŸ»ã€æ¤œè¨¼çµæœãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+// ŒŸ¸AŒŸØŒ‹‰ÊƒfƒBƒŒƒNƒgƒŠ
 evidence.json_dir='./src/test/resources/json'
 
-// CSVå¤‰æ›ãƒãƒƒãƒ—
+// CSV•ÏŠ·ƒ}ƒbƒv
 
 // evidence.csv_item_map = [
-//     'ã‚µãƒ¼ãƒå' :            'server_name',
-//     'IPã‚¢ãƒ‰ãƒ¬ã‚¹' :          'ip',
+//     'ƒT[ƒo–¼' :            'server_name',
+//     'IPƒAƒhƒŒƒX' :          'ip',
 //     'Platform' :            'platform',
-//     'OSã‚¢ã‚«ã‚¦ãƒ³ãƒˆID' :      'os_account_id',
-//     'vCenterã‚¢ã‚«ã‚¦ãƒ³ãƒˆID' : 'remote_account_id',
-//     'VMã‚¨ã‚¤ãƒªã‚¢ã‚¹å' :      'remote_alias',
-//     'æ¤œæŸ»ID' :              'verify_id',
-//     'CPUæ•°' :               'NumCpu',
-//     'ãƒ¡ãƒ¢ãƒªé‡' :            'MemoryGB',
-//     'ESXiå' :              'ESXiHost',
+//     'OSƒAƒJƒEƒ“ƒgID' :      'os_account_id',
+//     'vCenterƒAƒJƒEƒ“ƒgID' : 'remote_account_id',
+//     'VMƒGƒCƒŠƒAƒX–¼' :      'remote_alias',
+//     'ŒŸ¸ID' :              'verify_id',
+//     'CPU”' :               'NumCpu',
+//     'ƒƒ‚ƒŠ—Ê' :            'MemoryGB',
+//     'ESXi–¼' :              'ESXiHost',
 //     'HDD' :                 'HDDtype',
 // ]
 
-// ä¸¦åˆ—åŒ–ã—ãªã„ã‚¿ã‚¹ã‚¯
+// •À—ñ‰»‚µ‚È‚¢ƒ^ƒXƒN
 
 test.serialization.tasks = ['vCenter']
 
-// DryRunãƒ¢ãƒ¼ãƒ‰ãƒ­ã‚°ä¿å­˜å…ˆ
+// DryRunƒ‚[ƒhƒƒO•Û‘¶æ
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
-// ã‚³ãƒãƒ³ãƒ‰æ¡å–ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆ
-// Windows,vCenterã®å ´åˆã€å…¨ã‚³ãƒãƒ³ãƒ‰ã‚’ã¾ã¨ã‚ãŸãƒãƒƒãƒã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆå€¤
+// ƒRƒ}ƒ“ƒhÌæ‚Ìƒ^ƒCƒ€ƒAƒEƒg
+// Windows,vCenter‚Ìê‡A‘SƒRƒ}ƒ“ƒh‚ğ‚Ü‚Æ‚ß‚½ƒoƒbƒ`ƒXƒNƒŠƒvƒg‚Ìƒ^ƒCƒ€ƒAƒEƒg’l
 
 test.Linux.timeout   = 30
 test.Windows.timeout = 300
 test.vCenter.timeout = 300
 
-// ã‚³ãƒãƒ³ãƒ‰æ¡å–ã®ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰
+// ƒRƒ}ƒ“ƒhÌæ‚ÌƒfƒoƒbƒOƒ‚[ƒh
 
 test.Linux.debug   = false
 test.Windows.debug = false
 test.vCenter.debug = false
 
-// vCenteræ¥ç¶šæƒ…å ±
+// vCenterÚ‘±î•ñ
 
 // account.Remote.Test.server   = '192.168.10.100'
 // account.Remote.Test.user     = 'test_user'
@@ -66,18 +66,18 @@ account.vCenter.Test.server   = '192.168.10.100'
 account.vCenter.Test.user     = 'test_user'
 account.vCenter.Test.password = 'P@ssword'
 
-// Linux æ¥ç¶šæƒ…å ±
+// Linux Ú‘±î•ñ
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
-// Windows æ¥ç¶šæƒ…å ±
+// Windows Ú‘±î•ñ
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
 
-// VMHost æ¥ç¶šæƒ…å ±
+// VMHost Ú‘±î•ñ
 
 // account.VMHost.Test.user     = 'root'
 // account.VMHost.Test.password = 'P@ssword'

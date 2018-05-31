@@ -5,7 +5,7 @@ export GETCONFIG_HOME="$HOME/work"
 cp "${GETCONFIG_BASE}/src/test/resources/check_sheet.xlsx" \
     "${GETCONFIG_BASE}/src/main/resources/root/jp/サーバーチェックシート.xlsx"
 cp "${GETCONFIG_BASE}/src/test/resources/config_jp.groovy" \
-    "${GETCONFIG_BASE}/src/main/resources/root/jp/config/config.groovy"
+    "${GETCONFIG_BASE}/src/main/resources/root/jp/config/config.jp"
 
 cd "${GETCOFNG_BASE}"
 gradle zip
