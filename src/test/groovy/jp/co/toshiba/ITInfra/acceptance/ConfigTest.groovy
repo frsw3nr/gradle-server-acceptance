@@ -41,7 +41,7 @@ class ConfigTest extends Specification {
         when:
         def config = Config.instance.read('src/test/resources/config_jp.groovy')
         then:
-        config['evidence']['source'] == './src/main/resources/root/jp/サーバーチェックシート.xlsx'
+        config['evidence']['source'] == './サーバーチェックシート.xlsx'
     }
 
     def "設定ファイルの暗号化"() {

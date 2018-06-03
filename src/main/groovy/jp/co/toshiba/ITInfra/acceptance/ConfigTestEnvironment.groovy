@@ -135,7 +135,7 @@ class ConfigTestEnvironment {
             // test_platform[key] = test_platform_config
         }
         def msg = "$target_name(DryRun=${test_platform.dry_run})"
-        log.info "Testing $platform:$msg"
+        log.debug "Set test $platform:$msg"
     }
 
     def set_test_schedule_environment(TestScheduler test_scheduler) {

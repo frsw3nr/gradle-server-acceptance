@@ -68,7 +68,7 @@ class ConfigTestEnvironmentTest extends Specification {
         println "ENV:${test_platform.evidence_log_dir}"
 
         then:
-        test_platform.evidence_log_dir == './build/log/Linux/ostrich'
+        test_platform.evidence_log_dir == './build/log/ostrich'
         test_platform.dry_run == false
     }
 
@@ -81,7 +81,7 @@ class ConfigTestEnvironmentTest extends Specification {
         println "ENV2:${test_platform.dry_run}"
 
         then:
-        test_platform.evidence_log_dir == './build/log/Linux/ostrich'
+        test_platform.evidence_log_dir == './build/log/ostrich'
         // test_platform.dry_run == true
     }
 
@@ -96,7 +96,7 @@ class ConfigTestEnvironmentTest extends Specification {
 
         then:
         test_platform.os_account.user == 'administrator'
-        test_platform.evidence_log_dir == './build/log/Windows/ostrich'
+        test_platform.evidence_log_dir == './build/log/ostrich'
     }
 
     // def "エビデンス環境設定"() {

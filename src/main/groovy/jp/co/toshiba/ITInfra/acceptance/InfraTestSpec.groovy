@@ -111,7 +111,7 @@ class InfraTestSpec {
             platform = this.platform
         if (server_info.containsKey(item)) {
             def value = server_info[item]
-            if (value.size() > 0)
+            if (value != null && !nullList.empty)
                 return server_info[item]
         }
         if (!server_info.containsKey(platform) ||
@@ -119,6 +119,15 @@ class InfraTestSpec {
             return
         }
         return server_info[platform][item]
+    }
+
+    def verify_text_search(String item_name, String value) {
+        println "server_info:$server_info"
+        def test_value = target_info(item_name)
+        if (test_value) {
+            def check = (value =~ /$test_value/) as boolean
+            log.info "Check ${item_name}, '${value}'' =~ /${test_value}/, OK : ${check}"
+        }
     }
 
     def verify_data(Map infos, Closure check_closure) {

@@ -2,13 +2,16 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
+import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
 @ToString(includePackage = false)
 class TestItem {
 
+    String platform
     String test_id
+    def server_info = [:]
     LinkedHashMap<String,TestResult> test_results = [:]
 
     TestResult make_test_result(String metric_name, Object value) {
@@ -91,4 +94,129 @@ class TestItem {
         this.test_results[this.test_id] = test_result
     }
 
+    def target_info(String item, String platform = null) {
+        if (!platform)
+            platform = this.platform
+        if (this.server_info.containsKey(item)) {
+            def value = this.server_info[item]
+            if (value != null && !nullList.empty)
+                return this.server_info[item]
+        }
+        if (!this.server_info.containsKey(platform) ||
+            !this.server_info[platform].containsKey(item)) {
+            return
+        }
+        return this.server_info[platform][item]
+    }
+
+    def verify_text_search(String item_name, String value) {
+        def test_value = this.target_info(item_name)
+        if (test_value) {
+            def check = (value =~ /$test_value/) as boolean
+            log.info "Check ${item_name}, '${value}' =~ /${test_value}/, OK : ${check}"
+            this.make_verify(item_name, check)
+        }
+    }
+
+    def to_number(Object value) {
+        def value_double
+        if (value instanceof Number)
+            value_double = value as Double
+        else if (NumberUtils.isNumber(value))
+            value_double = NumberUtils.toDouble(value)
+        return value_double
+    }
+
+    def is_difference(test_value, value, String item_name, double err_range = 0) {
+        def test_value_double = this.to_number(test_value)
+        if (!test_value_double) {
+            log.warn "Test value '$item_name' is not number : $test_value"
+            return
+        }
+        def value_double = this.to_number(value)
+        if (!value_double) {
+            log.warn "Value '$item_name' is not number : $value"
+            return
+        }
+        def max_value = Math.max(test_value_double, value_double)
+        def differ = Math.abs(test_value_double - value_double)
+        def check = ((1.0 * differ / max_value) <= err_range) as boolean
+        def err = (err_range == 0) ? '' : "(error range=${err_range})"
+        log.info "Check ${item_name}, '${value}' == '${test_value}'${err}, OK : ${check}"
+        return check
+    }
+
+    def verify_number_equal(String item_name, Object value, double err_range = 0) {
+        def test_value = this.target_info(item_name)
+        def check = this.is_difference(test_value, value, item_name, err_range)
+        if (check != null)
+            this.make_verify(item_name, check)
+    }
+
+    def verify_text_search_map(String item_name, Map values) {
+        def test_values = this.target_info(item_name)
+        if (test_values) {
+            if (!test_values instanceof Map) {
+                log.warn "Test value '$item_name' is not Map : $test_value"
+                return
+            }
+            def check = true
+            test_values.find { test_key, test_value ->
+                if (!values.containsKey(test_key)) {
+                    check = false
+                    return true
+                }
+                if (!(values[test_key] =~ /$test_value/)) {
+                    check = false
+                    return true
+                }
+            }
+            log.info "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            this.make_verify(item_name, check)
+        }
+    }
+
+    def verify_number_equal_map(String item_name, Map values, double err_range = 0) {
+        def test_values = this.target_info(item_name)
+        if (test_values) {
+            if (!test_values instanceof Map) {
+                log.warn "Test value '$item_name' is not Map : $test_value"
+                return
+            }
+            def check = true
+            test_values.find { test_key, test_value ->
+                if (!values.containsKey(test_key)) {
+                    check = false
+                    return true
+                }
+                def value = values[test_key]
+                def is_equal = this.is_difference(test_value, value, item_name, err_range)
+                if (is_equal == false) {
+                    check = false
+                    return true
+                }
+            }
+            log.info "Check ${item_name}, ${values} = ${test_values}, OK : ${check}"
+            this.make_verify(item_name, check)
+        }
+    }
+
+    def verify_text_search_list(String item_name, Map values) {
+        def test_values = this.target_info(item_name)
+        if (test_values) {
+            if (!test_values instanceof Map) {
+                log.warn "Test value '$item_name' is not Map : $test_value"
+                return
+            }
+            def check = true
+            test_values.find { test_key, test_value ->
+                if (!values.containsKey(test_key)) {
+                    check = false
+                    return true
+                }
+            }
+            log.info "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            this.make_verify(item_name, check)
+        }
+    }
 }

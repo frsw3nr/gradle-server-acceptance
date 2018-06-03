@@ -93,9 +93,7 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             cpuinfo["cpu_total"] = cpu_number
             test_item.results(cpuinfo)
-
-            // Verify 'cpu_total' with equal number
-            test_item.verify(verify_data_equal_number(cpuinfo))
+            test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
         }
     }
 
@@ -127,8 +125,8 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             osinfo['os'] = "${osinfo['os_caption']} ${osinfo['os_architecture']}"
             test_item.results(osinfo)
-            // Verify 'os_caption' and 'os_architecture' with intermediate match
-            test_item.verify(verify_data_match(osinfo))
+            test_item.verify_text_search('os_caption', osinfo['os_caption'])
+            test_item.verify_text_search('os_architecture', osinfo['os_architecture'])
         }
     }
 
@@ -163,8 +161,7 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             meminfo['pyhis_mem'] = meminfo['total_visible']
             test_item.results(meminfo)
-            // Verify 'mem_total' with error range
-            test_item.verify(verify_data_error_range(meminfo, 0.1))
+            test_item.verify_number_equal('pyhis_mem', meminfo['pyhis_mem'], 0.1)
         }
     }
 
@@ -253,12 +250,7 @@ class WindowsSpecBase extends InfraTestSpec {
             test_item.devices(csv, headers)
             filesystems['filesystem'] = infos.toString()
             test_item.results(filesystems)
-
-            // Verify targets include in the result of list
-            def target_checks = target_info('filesystem')
-            if (target_checks) {
-                test_item.verify(verify_map(target_checks, infos))
-            }
+            test_item.verify_number_equal_map('filesystem', infos)
         }
     }
 
@@ -340,14 +332,7 @@ class WindowsSpecBase extends InfraTestSpec {
 
             test_item.devices(csv, headers)
             test_item.results(ip_configs.keySet().toString())
-
-            // Verify targets include in the result of list
-            def target_checks = target_info('net_config')
-            println "target_checks:$target_checks"
-            println "ip_configs:$ip_configs"
-            if (target_checks) {
-                test_item.verify(verify_map(target_checks, ip_configs))
-            }
+            test_item.verify_text_search_map('net_config', ip_configs)
         }
     }
 
@@ -419,25 +404,21 @@ class WindowsSpecBase extends InfraTestSpec {
 
             def csv      = []
             def services = [:]
+            def infos = [:]
             (0..instance_number).each { row ->
                 def columns = []
                 headers.each { header ->
                     columns.add( service_info[row][header] ?: '')
                 }
-                def service_id = 'service.' + service_info[row]['Name']
-                services[service_id] = service_info[row]['Status']
+                def service_id = service_info[row]['Name']
+                infos[service_id] = service_info[row]['Status']
+                services['service.' + service_id] = service_info[row]['Status']
                 csv << columns
             }
             services['service'] = instance_number.toString()
             test_item.devices(csv, headers)
             test_item.results(services)
-
-            // Verify targets include in the result of map
-            def target_checks = target_info('service')
-            if (target_checks) {
-                test_item.verify(verify_map(target_checks, services, 'service'))
-            }
-
+            test_item.verify_text_search_map('service', infos)
         }
     }
 

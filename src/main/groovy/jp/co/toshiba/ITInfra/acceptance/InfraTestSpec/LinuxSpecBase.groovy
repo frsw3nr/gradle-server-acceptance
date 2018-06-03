@@ -76,6 +76,8 @@ class LinuxSpecBase extends InfraTestSpec {
                         } catch (Exception e) {
                             test_item.status(false)
                             log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
+                            if (this.debug)
+                                e.printStackTrace()
                         }
                     }
                 }
@@ -195,9 +197,8 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(infos)
-
-        // Verify 'kernel' and 'arch' with intermediate match
-        test_item.verify(verify_data_match(infos))
+        test_item.verify_text_search('kernel', infos['kernel'])
+        test_item.verify_text_search('arch', infos['arch'])
     }
 
     def lsb(session, test_item) {
@@ -221,9 +222,7 @@ class LinuxSpecBase extends InfraTestSpec {
             infos['os_release'] = os_release
         }
         test_item.results(infos)
-
-        // Verify 'os' and 'os_release' with intermediate match
-        test_item.verify(verify_data_match(infos))
+        test_item.verify_text_search('os', infos['os'])
    }
 
     def cpu(session, test_item) {
@@ -264,10 +263,10 @@ class LinuxSpecBase extends InfraTestSpec {
         else
             cpu_text += " ${cpu_number} CPU"
         cpuinfo["cpu"] = cpu_text
-        test_item.results(cpuinfo)
 
-        // Verify 'cpu_total' and 'cpu_real' with equal number
-        test_item.verify(verify_data_equal_number(cpuinfo))
+        test_item.results(cpuinfo)
+        test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
+        test_item.verify_number_equal('cpu_real', cpuinfo['cpu_real'])
     }
 
     def machineid(session, test_item) {
@@ -314,9 +313,7 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(meminfo)
-
-        // Verify 'mem_total' with error range
-        test_item.verify(verify_data_error_range(meminfo, 0.1))
+        test_item.verify_number_equal('mem_total', meminfo['mem_total'], 0.1)
     }
 
     def network(session, test_item) {
@@ -381,11 +378,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 'network' : net_if.keySet().toString(),
                 'hw_address' : hw_address.toString()
         )
-        // Verify targets include in the result of list
-        def target_checks = target_info('net_if')
-        if (target_checks) {
-            test_item.verify(verify_map(target_checks, net_if))
-        }
+        test_item.verify_text_search_map('net_if', net_if)
     }
 
     // def convert_array(element) {
@@ -413,12 +406,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def result = infos.toString()
         test_item.results(result)
-
-        // Verify targets include in the result of map
-        def target_checks = target_info('net_onboot')
-        if (target_checks) {
-            test_item.verify(verify_list(target_checks, infos))
-        }
+        test_item.verify_text_search_list('net_onboot', infos)
     }
 
     def net_route(session, test_item) {
@@ -433,12 +421,7 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(infos.toString())
-
-        // Verify targets include in the result of list
-        def target_checks = target_info('net_route')
-        if (target_checks) {
-            test_item.verify(verify_list(target_checks, infos))
-        }
+        test_item.verify_text_search_list('net_route', infos)
     }
 
     def net_bond(session, test_item) {
@@ -548,12 +531,7 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.devices(csv, headers)
         filesystems['filesystem'] = infos.toString()
         test_item.results(filesystems)
-
-        // Verify targets include in the result of map
-        def target_checks = target_info('filesystem')
-        if (target_checks) {
-            test_item.verify(verify_map(target_checks, infos))
-        }
+        test_item.verify_text_search_map('filesystem', infos)
     }
 
     def lvm(session, test_item) {
@@ -661,10 +639,7 @@ class LinuxSpecBase extends InfraTestSpec {
 
         test_item.devices(csv, headers)
         test_item.results(package_info)
-        def target_checks = target_info('packages')
-        if (target_checks) {
-            test_item.verify(verify_list(target_checks, package_info, 'packages'))
-        }
+        test_item.verify_text_search_list('packages', package_info)
     }
 
     def cron(session, test_item) {
@@ -751,6 +726,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def csv = []
         def general_users = [:]
         def users = [:].withDefault{'unkown'}
+        def infos = [:]
         lines.eachLine {
             def arr = it.split(/:/)
             if (arr.size() == 7) {
@@ -762,6 +738,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 def group    = groups[group_id] ?: 'Unkown'
 
                 csv << [username, user_id, group_id, group, home, shell]
+                infos[username] = 1
                 users['user.' + username] = 'OK'
                 (shell =~ /sh$/).each {
                     general_users[username] = 'OK'
@@ -772,12 +749,7 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.devices(csv, headers)
         users['user'] = general_users.keySet().toString()
         test_item.results(users)
-
-        // Verify targets include in the result of map
-        def target_checks = target_info('user')
-        if (target_checks) {
-            test_item.verify(verify_list(target_checks, users, 'user'))
-        }
+        test_item.verify_text_search_list('user', infos)
     }
 
     def crontab(session, test_item) {
@@ -818,6 +790,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
 
         def services = [:].withDefault{'unkown'}
+        def infos = [:]
         def csv = []
         def service_count = 0
         lines.eachLine {
@@ -827,6 +800,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 def service_name = 'service.' + m1
                 def status = m2 + '.' + m3
                 services[service_name] = status
+                infos[service_name] = status
                 def columns = [m1, status]
                 csv << columns
                 service_count ++
@@ -837,6 +811,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 def service_name = 'service.' + m1
                 def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
                 services[service_name] = status
+                infos[service_name] = status
                 def columns = [m1, status]
                 csv << columns
                 service_count ++
@@ -845,11 +820,7 @@ class LinuxSpecBase extends InfraTestSpec {
         services['service'] = service_count.toString()
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
-
-        def target_checks = target_info('service')
-        if (target_checks) {
-            test_item.verify(verify_map(target_checks, services, 'service'))
-        }
+        test_item.verify_text_search_map('service', infos)
     }
 
     def mount_iso(session, test_item) {
@@ -1100,9 +1071,7 @@ class LinuxSpecBase extends InfraTestSpec {
             }
         }
         test_item.results(se_status)
-
-        // Verify 'sestatus' with string match
-        test_item.verify(verify_data_match(se_status))
+        test_item.verify_text_search('sestatus', se_status['sestatus'])
     }
 
     def keyboard(session, test_item) {

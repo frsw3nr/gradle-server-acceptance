@@ -27,7 +27,7 @@ class LinuxNoTemplateTest extends Specification {
             os_account_id     : 'Test',
             remote_account_id : 'Test',
             remote_alias      : 'ostrich',
-            // test_templates    : ['AP': template]
+            test_templates    : ['AP': template]
         )
 
         test_platform = new TestPlatform(
@@ -194,8 +194,8 @@ class LinuxNoTemplateTest extends Specification {
         println test_platform.test_results['kernel']
         println test_platform.test_results['arch']
         test_platform.test_results['uname'].status  == ResultStatus.OK
-        // test_platform.test_results['kernel'].verify == ResultStatus.OK
-        // test_platform.test_results['arch'].verify   == ResultStatus.OK
+        test_platform.test_results['kernel'].verify == ResultStatus.OK
+        test_platform.test_results['arch'].verify   == ResultStatus.OK
     }
 
     // Linux   OS  CentOS      lsb
@@ -233,8 +233,8 @@ class LinuxNoTemplateTest extends Specification {
         then:
         println test_platform.test_results
         test_platform.test_results['cpu'].status  == ResultStatus.OK
-        // test_platform.test_results['cpu_total'].verify == ResultStatus.OK
-        // test_platform.test_results['cpu_real'].verify   == ResultStatus.OK
+        test_platform.test_results['cpu_total'].verify == ResultStatus.OK
+        test_platform.test_results['cpu_real'].verify   == ResultStatus.OK
     }
 
     // Linux   memory2 4GB     meminfo
@@ -249,7 +249,27 @@ class LinuxNoTemplateTest extends Specification {
         platform_tester.run()
 
         then:
+        1 == 1
+        println test_platform.test_results
         test_platform.test_results['meminfo'].status  == ResultStatus.OK
+        test_platform.test_results['mem_total'].verify == ResultStatus.OK
+    }
+
+    // Linux   network
+    def "Linux値検証 network" () {
+        setup:
+        def platform_tester = new PlatformTester(test_platform : test_platform,
+                                                 config_file: config_file)
+        platform_tester.init()
+
+        when:
+        platform_tester.set_test_items('network')
+        platform_tester.run()
+
+        then:
+        1 == 1
+        println test_platform.test_results
+        // test_platform.test_results['meminfo'].status  == ResultStatus.OK
         // test_platform.test_results['mem_total'].verify == ResultStatus.OK
     }
 

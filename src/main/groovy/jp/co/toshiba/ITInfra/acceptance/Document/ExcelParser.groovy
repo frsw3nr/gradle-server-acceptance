@@ -68,7 +68,9 @@ class ExcelParser {
     }
 
     def scan_sheet() throws IOException {
+        long start = System.currentTimeMillis()
         log.info "Open excel sheet : '${this.excel_file}'"
+        def attached_sheets = [:].withDefault{[]}
         new FileInputStream(this.excel_file).withStream { ins ->
             WorkbookFactory.create(ins).with { wb ->
                 this.workbook = wb
@@ -82,8 +84,10 @@ class ExcelParser {
                             def sheet_name = sheet_design.name
                             def domain_name = sheet_design.domain_name
                             this.sheet_sources."$sheet_name"."$domain_name" = sheet_design
+                            attached_sheets[sheet_design.name] << domain_name
                         } else {
                             this.sheet_sources."${sheet_design.name}" = sheet_design
+                            attached_sheets[sheet_design.name] << sheet.getSheetName()
                         }
                     } else {
                         log.warn "Unkown sheet name, skip : '${sheet.getSheetName()}'"
@@ -91,6 +95,11 @@ class ExcelParser {
                 }
             }
         }
+        attached_sheets.each { design_name, sheet_names ->
+            log.info "Attach[${design_name}] : ${sheet_names}"
+        }
+        long elapsed = System.currentTimeMillis() - start
+        log.info "Finish excel sheet scan, Elapsed : ${elapsed} ms"
     }
 
     SheetDesign make_sheet_design(Sheet sheet) {
@@ -105,7 +114,6 @@ class ExcelParser {
         this.sheet_desings.each { sheet_design ->
             if (sheet_prefix == sheet_design.sheet_parser.sheet_prefix) {
                 current_sheet = sheet_design.create(sheet, domain_name)
-                log.info "Attach sheet '${sheet_name}'"
                 return true
             }
         }
@@ -131,7 +139,7 @@ class ExcelParser {
     }
 
     def visit_test_scenario(test_scenario) {
-        log.info "Parse spec sheet"
+        log.debug "Parse spec sheet"
         test_scenario.with {
             test_targets = new TestTargetSet(name: 'root')
             test_targets.accept(this)

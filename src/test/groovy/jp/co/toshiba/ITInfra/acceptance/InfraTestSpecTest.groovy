@@ -60,15 +60,6 @@ class InfraTestSpecTest extends Specification {
         test_value.size() > 0
     }
 
-    def "基底サーバ情報"() {
-        when:
-        def test_spec = new InfraTestSpec(test_platform)
-        def test_value = test_spec.target_info('ip')
-
-        then:
-        test_value.size() > 0
-    }
-
     def "数値の比較"() {
         setup:
         def test_metrics = test_scenario.test_metrics.get('Linux').get('vCenter').get_all()

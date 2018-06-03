@@ -56,9 +56,13 @@ class PlatformTester {
 
     def set_test_items(String[] metric_names = null) {
         def test_items = []
+        def server_info = this.test_platform?.test_target?.asMap()
+
         metric_names.each { metric_name ->
-            def test_item = new TestItem(test_id : metric_name,
-                                         test_results : this.test_platform.test_results)
+            def test_item = new TestItem(platform: this.test_platform?.name,
+                                         test_id : metric_name,
+                                         server_info : server_info,
+                                         test_results : this.test_platform?.test_results)
             test_items << test_item
         }
         this.test_items = test_items

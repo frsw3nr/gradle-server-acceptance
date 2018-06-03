@@ -145,7 +145,7 @@ class WindowsBaseTest extends Specification {
 
         test_platform.test_results.size() > 0
         test_platform.test_results['network'].status == ResultStatus.OK
-        test_platform.test_results['network'].verify == ResultStatus.OK
+        test_platform.test_results['net_config'].verify == ResultStatus.OK
     }
 
     def "Windows テスト仕様 filesystem"() {
