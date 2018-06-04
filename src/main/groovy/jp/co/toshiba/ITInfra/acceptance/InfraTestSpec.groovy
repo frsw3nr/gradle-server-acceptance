@@ -244,7 +244,7 @@ class InfraTestSpec {
             def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
             if (method) {
                 def command = method.invoke(this, it)
-                log.debug "fetch command ${method.name} : ${command}"
+                log.info "fetch command ${method.name} : ${command}"
                 code.addCommand(it.test_id, command)
             }
         }
@@ -256,16 +256,16 @@ class InfraTestSpec {
                 execPowerShell(script_path, cmd)
             } catch (IOException e) {
                 log.error "[PowershellTest] Powershell script faild.\n" + e
-                return
+                // return
             }
             long elapsed = System.currentTimeMillis() - start
-            log.debug "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
-            log.debug "\ttest : " + code.test_ids.toString()
+            log.info "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
+            log.info "\ttest : " + code.test_ids.toString()
             mode = RunMode.run
             test_items.each {
                 def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
                 if (method) {
-                    log.debug "parse command ${method.name}"
+                    log.info "parse command ${method.name}"
                     try {
                         method.invoke(this, it)
                         // it.succeed = 1

@@ -80,7 +80,9 @@ class vCenterSpecBase extends InfraTestSpec {
             }
             test_item.results(res)
             // Verify 'NumCpu', 'MemoryGB' and 'VMHost' with intermediate match
-            test_item.verify(verify_data_match(res))
+            test_item.verify_number_equal('NumCpu', res['NumCpu'])
+            test_item.verify_number_equal('MemoryGB', res['MemoryGB'])
+            test_item.verify_text_search('VMHost', res['VMHost'])
         }
     }
 

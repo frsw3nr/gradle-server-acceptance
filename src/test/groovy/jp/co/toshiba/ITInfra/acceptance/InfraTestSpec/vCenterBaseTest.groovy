@@ -58,9 +58,10 @@ class vCenterBaseTest extends Specification {
         def json = new groovy.json.JsonBuilder()
         json(test_platform.test_results)
         println json.toPrettyString()
-
         test_platform.test_results['NumCpu'].status  == ResultStatus.OK
         test_platform.test_results['NumCpu'].verify == ResultStatus.OK
+        test_platform.test_results['MemoryGB'].status  == ResultStatus.OK
+        test_platform.test_results['MemoryGB'].verify == ResultStatus.OK
         test_platform.test_results['VMHost'].status  == ResultStatus.OK
         test_platform.test_results['VMHost'].verify == ResultStatus.OK
      }
