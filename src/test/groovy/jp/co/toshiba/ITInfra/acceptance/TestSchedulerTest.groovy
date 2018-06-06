@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestSchedulerTest.実行オプション"
+// gradle --daemon test --tests "TestSchedulerTest.比較対象の DryRun 実行とJSON結果保存"
 
 class TestSchedulerTest extends Specification {
 

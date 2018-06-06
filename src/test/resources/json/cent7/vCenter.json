@@ -1,0 +1,79 @@
+{
+    "vm": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm"
+    },
+    "datastore": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/datastore",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "datastore"
+    },
+    "VMNetwork": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/VMNetwork",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "VMNetwork"
+    },
+    "vmwaretool": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vmwaretool",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vmwaretool"
+    },
+    "vm_timesync": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm_timesync",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm_timesync"
+    },
+    "vm_iops_limit": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm_iops_limit",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm_iops_limit"
+    },
+    "vm_storage": {
+        "devices": null,
+        "value": null,
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm_storage",
+        "status": "NG",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vm_storage"
+    }
+}

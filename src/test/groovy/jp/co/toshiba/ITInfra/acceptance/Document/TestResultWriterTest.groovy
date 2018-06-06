@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestResultWriterTest.DryRun 実行結果JSON保存"
+// gradle --daemon test --tests "TestResultWriterTest.比較対象の DryRun 実行とJSON結果保存"
 
 class TestResultWriterTest extends Specification {
 
@@ -34,6 +34,62 @@ class TestResultWriterTest extends Specification {
 
         then:
         1 == 1
+    }
+
+    def "比較対象の DryRun 実行とJSON結果保存"() {
+        setup:
+        String[] args = [
+            '--dry-run',
+            '-c', './src/test/resources/config.groovy',
+            '-excel', 'src/test/resources/check_sheet_target.xlsx'
+        ]
+
+        when:
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        def test_env = ConfigTestEnvironment.instance
+        test_env.read_from_test_runner(test_runner)
+        def test_scheduler = new TestScheduler()
+        test_env.set_test_schedule_environment(test_scheduler)
+        test_scheduler.init()
+        test_scheduler.run()
+        def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
+        test_result_writer.write_entire_scenario(test_scheduler.test_scenario)
+
+        then:
+        1 == 1
+    }
+
+    // def "比較対象の DryRun 実行とJSON結果保存"() {
+    //     when:
+    //     excel_parser = new ExcelParser('src/test/resources/check_sheet_target.xlsx')
+    //     excel_parser.scan_sheet()
+    //     test_scenario = new TestScenario(name: 'root')
+    //     test_scenario.accept(excel_parser)
+    //     def test_scheduler = new TestScheduler()
+    //     test_scenario.accept(test_scheduler)
+    //     def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
+    //     test_result_writer.write_entire_scenario(test_scenario)
+
+    //     then:
+    //     1 == 1
+    // }
+
+    def "特定ターゲットのJSON 実行結果読み込み"() {
+        when:
+        def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
+        test_result_reader.read_test_target_scenario(test_scenario, 'cent7')
+
+        then:
+        def targets = test_scenario.test_targets.get_all()
+        targets.each { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                test_target.test_platforms.each { platform_name, test_platform ->
+                    println "$target_name, $domain, $platform_name"
+                    test_platform.test_results.size() > 0
+                }
+            }
+        }
     }
 
     def "JSON 実行結果読み込み"() {

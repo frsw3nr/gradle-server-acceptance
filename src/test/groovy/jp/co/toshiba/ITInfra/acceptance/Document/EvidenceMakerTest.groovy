@@ -95,5 +95,6 @@ class EvidenceMakerTest extends Specification {
         then:
         1 == 1
     }
+
 }
 

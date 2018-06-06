@@ -1,0 +1,52 @@
+# 比較機能実装
+
+# ToDo
+
+* テストシナリオ作成
+    * 差分パターン
+        * ソースをDryRunで検査、ターゲットと比較して結果登録
+            * shcheduler の finish で実行
+                * evidence_maker = new EvidenceMaker()
+                * test_scenario.accept(evidence_maker)
+        * ソース結果を DB から検索、ターゲットと比較
+* 単体テスト
+    * 差分ソースのDryRun検査
+        * TestResultWriterTest
+            * cent7 の log から検査、JSON 保存
+    * ターゲットとの比較
+        * EvidenceMakerTest
+            * ソース、ターゲットの検査結果 JSON 読込み、ターゲット
+    * スケジューラ連携
+        * TestSchedulerTest
+            * finish に比較機能追加
+* 結合テスト
+    * 検査実行
+
+# 単体テスト
+
+## 差分ソースのDryRun検査
+
+TestResultWriterTest
+cent7 の log から検査、JSON 保存
+
+cp check_sheet.xlsx check_sheet_target.xlsx
+
+gradle --daemon test --tests "TestResultWriterTest.比較対象の DryRun 実行とJSON結果保存"
+
+cent7 検証結果を、build/evidenceに保存。保存結果を src/test/resource にコピー
+
+cp -r build/evidence/cent7 src/test/resources/json
+
+結果読み込み
+
+gradle --daemon test --tests "TestResultWriterTest.特定ターゲットのJSON 実行結果読み込み"
+
+## ターゲットとの比較
+
+* EvidenceMakerTest
+* ソース、ターゲットの検査結果 JSON 読込み、ターゲット
+
+
+
+## スケジューラ連携
+
