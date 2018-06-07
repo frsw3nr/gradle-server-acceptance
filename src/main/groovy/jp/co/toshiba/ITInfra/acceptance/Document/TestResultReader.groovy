@@ -24,7 +24,7 @@ class TestResultReader {
         return(this.status_hash[status])
     }
 
-    def read_test_platform(String target_name, String platform_name) 
+    TestPlatform read_test_platform(String target_name, String platform_name) 
                                        throws IOException {
         def json_file = new File("${json_dir}/${target_name}/${platform_name}.json")
         if(!json_file.exists())

@@ -43,7 +43,13 @@ gradle --daemon test --tests "TestResultWriterTest.特定ターゲットのJSON 
 
 ## ターゲットとの比較
 
+* ExcelParser
+
+ターゲット読み込み時に、compare_server の指定があったら、
+該当ドメイン、ターゲットのオブジェクト作成する
+
 * EvidenceMakerTest
+
 * ソース、ターゲットの検査結果 JSON 読込み、ターゲット
 
 
