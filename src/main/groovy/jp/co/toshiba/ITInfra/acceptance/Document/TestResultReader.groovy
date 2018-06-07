@@ -42,6 +42,23 @@ class TestResultReader {
     def read_test_target_scenario(TestScenario test_scenario, String target) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def targets = test_scenario.test_targets.get_all()
+        println "targets:$targets"
+        def test_target2 = test_scenario.test_targets.get(target)
+        if (test_target2) {
+            def domain = test_target2.domain
+            def target_name = test_target2.name
+            // def platform_metrics = domain_metrics[domain].get_all()
+            // platform_metrics.each { platform_name, platform_metric ->
+            //     def test_platform = this.read_test_platform(target_name,
+            //                                                 platform_name)
+            //     if (test_platform) {
+            //         test_platform.test_target = test_target
+            //         test_target.test_platforms[platform_name] = test_platform
+            //     }
+            // }
+
+        }
+        println "test_target2:$test_target2"
 
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
