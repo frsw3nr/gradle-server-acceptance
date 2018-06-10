@@ -194,22 +194,27 @@ class ExcelParser {
 
     def visit_test_target_set(test_target_set) {
         def lines = this.sheet_sources.target.get()
+        def compare_targets = []
         lines.find { line ->
             if (!line['domain'])
                 return true
             line['name'] = line['server_name']
+            line['target_status'] = TargetStatuses.SETUP
             // if (!line['remote_alias'])
             //     line['remote_alias'] = line['server_name']
             def test_target = new TestTarget(line)
             test_target_set.add(test_target)
             if (test_target.compare_server) {
+                compare_targets << [name: test_target.compare_server,
+                                    domain: line['domain']
+                                   ]
                 println "compare_server: ${test_target.compare_server}"
-                def compare_target = new TestTarget(name: test_target.compare_server,
-                                                    domain: line['domain'])
-                test_target_set.add(compare_target)
             }
-
             return
+        }
+        compare_targets.each { compare_target ->
+            def target = new TestTarget(compare_target)
+            test_target_set.add(target)
         }
         log.debug "Read target : ${test_target_set.get_all().size()} row"
     }

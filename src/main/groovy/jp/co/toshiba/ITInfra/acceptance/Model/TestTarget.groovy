@@ -5,6 +5,10 @@ import groovy.transform.AutoClone
 import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
+enum TargetStatuses {
+  INIT, SETUP, EXEC, FINISH
+}
+
 @Slf4j
 @ToString(includePackage = false)
 @AutoClone
@@ -15,6 +19,8 @@ class TestTarget extends SpecModel {
     String template_id
     String account_id
     String verify_id
+    Boolean comparision
+    TargetStatuses target_status
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
     LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]
