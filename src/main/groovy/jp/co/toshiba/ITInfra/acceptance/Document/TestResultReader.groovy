@@ -39,28 +39,26 @@ class TestResultReader {
         return test_platform
     }
 
-    def read_test_target_scenario(TestScenario test_scenario, String target) {
+    def read_test_target_scenario(TestScenario test_scenario, String target_name) {
         def domain_metrics = test_scenario.test_metrics.get_all()
-        println "domain_metrics:$domain_metrics"
-        def targets = test_scenario.test_targets.get_all()
-        println "targets:$targets"
-        def test_target2 = test_scenario.test_targets.get(target)
-        if (test_target2) {
-            def domain = test_target2.domain
-            def target_name = test_target2.name
-            println "platform_metrics: ${domain_metrics[domain]}"
-            // def platform_metrics = domain_metrics[domain].get_all()
-            // platform_metrics.each { platform_name, platform_metric ->
-            //     def test_platform = this.read_test_platform(target_name,
-            //                                                 platform_name)
-            //     if (test_platform) {
-            //         test_platform.test_target = test_target
-            //         test_target.test_platforms[platform_name] = test_platform
-            //     }
-            // }
+        def target_domains = test_scenario.test_targets.get(target_name)
+        // println "test_target:$test_target"
+        target_domains.each { domain_name, test_target ->
+            println "name: ${test_target.name}"
+            println "domain_name: ${test_target.domain}"
+            println "comparision: ${test_target.comparision}"
+            println "target_status: ${test_target.target_status}"
 
+            def platform_metrics = domain_metrics[domain_name].get_all()
+            platform_metrics.each { platform_name, platform_metric ->
+                def test_platform = this.read_test_platform(target_name,
+                                                            platform_name)
+                if (test_platform) {
+                    test_platform.test_target = test_target
+                    test_target.test_platforms[platform_name] = test_platform
+                }
+            }
         }
-        println "test_target2:$test_target2"
 
         // targets.each { target_name, domain_targets ->
         //     domain_targets.each { domain, test_target ->

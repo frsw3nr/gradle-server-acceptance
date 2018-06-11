@@ -211,15 +211,17 @@ class ExcelParser {
             }
             return
         }
-        println "compare_targets: ${compare_targets}"
+        log.debug "Read target : ${test_target_set.get_all().size()} row"
         compare_targets.each { compare_target ->
-            if (!test_target_set.get(compare_target.name)) {
+            def target = test_target_set.get(compare_target.name)
+            if (!target) {
                 compare_target['target_status'] = TargetStatuses.INIT
-                def target = new TestTarget(compare_target)
-                test_target_set.add(target)
+                compare_target['comparision'] = true
+                test_target_set.add(new TestTarget(compare_target))
+            } else {
+                target.comparision = true
             }
         }
-        log.debug "Read target : ${test_target_set.get_all().size()} row"
     }
 
     def trim(String value) {
