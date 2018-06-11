@@ -6,7 +6,7 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 enum TargetStatuses {
-  INIT, SETUP, EXEC, FINISH
+  INIT, READY, RUN, FINISH, ERROR
 }
 
 @Slf4j

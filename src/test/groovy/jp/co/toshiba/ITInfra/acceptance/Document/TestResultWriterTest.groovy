@@ -78,14 +78,18 @@ class TestResultWriterTest extends Specification {
     def "特定ターゲットのJSON 実行結果読み込み"() {
         when:
         def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
-        test_result_reader.read_test_target_scenario(test_scenario, 'cent7')
+        // test_result_reader.read_test_target_scenario(test_scenario, 'cent7')
 
         then:
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
+            println "TARGET_NAME: $target_name"
             domain_targets.each { domain, test_target ->
+                println " DOMAIN_NAME: $domain"
+                println " STATUS: ${test_target.target_status}, TEST_PLATFORMS: ${test_target.test_platforms}"
                 test_target.test_platforms.each { platform_name, test_platform ->
-                    println "$target_name, $domain, $platform_name"
+                    println "  PLATFORM_NAME: $platform_name"
+                    // println "TARGET : $target_name, $domain, $platform_name"
                     test_platform.test_results.size() > 0
                 }
             }

@@ -199,7 +199,7 @@ class ExcelParser {
             if (!line['domain'])
                 return true
             line['name'] = line['server_name']
-            line['target_status'] = TargetStatuses.SETUP
+            line['target_status'] = TargetStatuses.READY
             // if (!line['remote_alias'])
             //     line['remote_alias'] = line['server_name']
             def test_target = new TestTarget(line)
@@ -208,13 +208,16 @@ class ExcelParser {
                 compare_targets << [name: test_target.compare_server,
                                     domain: line['domain']
                                    ]
-                println "compare_server: ${test_target.compare_server}"
             }
             return
         }
+        println "compare_targets: ${compare_targets}"
         compare_targets.each { compare_target ->
-            def target = new TestTarget(compare_target)
-            test_target_set.add(target)
+            if (!test_target_set.get(compare_target.name)) {
+                compare_target['target_status'] = TargetStatuses.INIT
+                def target = new TestTarget(compare_target)
+                test_target_set.add(target)
+            }
         }
         log.debug "Read target : ${test_target_set.get_all().size()} row"
     }
