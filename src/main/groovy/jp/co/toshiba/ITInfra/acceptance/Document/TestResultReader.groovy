@@ -24,7 +24,7 @@ class TestResultReader {
         return(this.status_hash[status])
     }
 
-    TestPlatform read_test_platform(String target_name, String platform_name) 
+    TestPlatform read_test_platform_result(String target_name, String platform_name) 
                                        throws IOException {
         def json_file = new File("${json_dir}/${target_name}/${platform_name}.json")
         if(!json_file.exists())
@@ -39,7 +39,7 @@ class TestResultReader {
         return test_platform
     }
 
-    def read_test_target_scenario(TestScenario test_scenario, String target) {
+    def read_test_target_result(TestScenario test_scenario, String target) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         println "domain_metrics:$domain_metrics"
         def targets = test_scenario.test_targets.get_all()
@@ -51,7 +51,7 @@ class TestResultReader {
             println "platform_metrics: ${domain_metrics[domain]}"
             // def platform_metrics = domain_metrics[domain].get_all()
             // platform_metrics.each { platform_name, platform_metric ->
-            //     def test_platform = this.read_test_platform(target_name,
+            //     def test_platform = this.read_test_platform_result(target_name,
             //                                                 platform_name)
             //     if (test_platform) {
             //         test_platform.test_target = test_target
@@ -66,7 +66,7 @@ class TestResultReader {
         //     domain_targets.each { domain, test_target ->
         //         def platform_metrics = domain_metrics[domain].get_all()
         //         platform_metrics.each { platform_name, platform_metric ->
-        //             def test_platform = this.read_test_platform(target_name,
+        //             def test_platform = this.read_test_platform_result(target_name,
         //                                                         platform_name)
         //             if (test_platform) {
         //                 test_platform.test_target = test_target
@@ -85,7 +85,7 @@ class TestResultReader {
             domain_targets.each { domain, test_target ->
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform_name, platform_metric ->
-                    def test_platform = this.read_test_platform(target_name,
+                    def test_platform = this.read_test_platform_result(target_name,
                                                                 platform_name)
                     if (test_platform) {
                         test_platform.test_target = test_target
