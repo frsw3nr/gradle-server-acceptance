@@ -14,11 +14,23 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 class TestResultWriterTest extends Specification {
 
     def config_file = 'src/test/resources/config.groovy'
+    def test_env
     def excel_parser
     def test_scenario
     def evidence_maker
 
     def setup() {
+        String[] args = [
+            '--dry-run',
+            '-c', './src/test/resources/config.groovy',
+            '-excel', 'src/test/resources/check_sheet_target.xlsx'
+        ]
+
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        test_env = ConfigTestEnvironment.instance
+        test_env.read_from_test_runner(test_runner)
+
         excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
@@ -28,6 +40,7 @@ class TestResultWriterTest extends Specification {
     def "DryRun 実行結果JSON保存"() {
         when:
         def test_scheduler = new TestScheduler()
+        test_env.set_test_schedule_environment(test_scheduler)
         test_scenario.accept(test_scheduler)
         def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
         test_result_writer.write_entire_scenario(test_scenario)
@@ -37,18 +50,7 @@ class TestResultWriterTest extends Specification {
     }
 
     def "比較対象の DryRun 実行とJSON結果保存"() {
-        setup:
-        String[] args = [
-            '--dry-run',
-            '-c', './src/test/resources/config.groovy',
-            '-excel', 'src/test/resources/check_sheet_target.xlsx'
-        ]
-
         when:
-        def test_runner = new TestRunner()
-        test_runner.parse(args)
-        def test_env = ConfigTestEnvironment.instance
-        test_env.read_from_test_runner(test_runner)
         def test_scheduler = new TestScheduler()
         test_env.set_test_schedule_environment(test_scheduler)
         test_scheduler.init()

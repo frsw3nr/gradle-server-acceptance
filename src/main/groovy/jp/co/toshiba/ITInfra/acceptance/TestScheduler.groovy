@@ -93,8 +93,7 @@ class TestScheduler {
         def test_label = "${test_platform.name}:${target_name}"
         long start = System.currentTimeMillis()
         log.info "Test $test_label"
-        def platform_tester = new PlatformTester(test_platform : test_platform,
-                                                 config_file: './src/test/resources/config.groovy')
+        def platform_tester = new PlatformTester(test_platform : test_platform)
         platform_tester.init()
         platform_tester.run()
 
