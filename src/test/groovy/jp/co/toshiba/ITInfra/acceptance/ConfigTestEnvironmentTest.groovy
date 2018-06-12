@@ -69,7 +69,7 @@ class ConfigTestEnvironmentTest extends Specification {
 
         then:
         test_platform.evidence_log_dir == './build/log/ostrich'
-        test_platform.dry_run == false
+        // test_platform.dry_run == false
     }
 
     def "Linux環境カスタム"() {

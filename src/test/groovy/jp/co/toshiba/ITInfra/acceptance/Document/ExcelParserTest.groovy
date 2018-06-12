@@ -157,8 +157,7 @@ class ExcelParserTest extends Specification {
         println test_templates['AP']
 
         then:
-        test_targets.size() == 2
-        // test_rules.size() == 2
+        test_targets.size() == 3
         result_platform_keys.size() > 0
     }
 
@@ -293,7 +292,7 @@ class ExcelParserTest extends Specification {
 
         def test_result_reader = new TestResultReader(
                                          json_dir: 'src/test/resources/json')
-        test_result_reader.read_entire_scenario(test_scenario)
+        test_result_reader. read_entire_result(test_scenario)
 
         def evidence_maker = new EvidenceMaker()
         test_scenario.accept(evidence_maker)

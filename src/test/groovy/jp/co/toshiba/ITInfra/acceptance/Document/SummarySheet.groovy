@@ -12,8 +12,12 @@ import com.github.k3286.dto.InvoiceDetail
 
 class SummarySheet extends Specification {
     TestScenario test_scenario
+    def test_env
 
     def setup() {
+        test_env = ConfigTestEnvironment.instance
+        test_env.read_config('src/test/resources/config.groovy')
+        test_env.config.dry_run = true
     }
 
     def 初期化() {
@@ -26,6 +30,7 @@ class SummarySheet extends Specification {
         def platform_tester = new PlatformTester()
 
         def test_scheduler = new TestScheduler(platform_tester: platform_tester)
+        test_env.set_test_schedule_environment(test_scheduler)
         test_scenario.accept(test_scheduler)
 
         when:

@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestResultWriterTest.比較対象の DryRun 実行とJSON結果保存"
+// gradle --daemon test --tests "TestResultWriterTest.全体の JSON 実行結果読み込み"
 
 class TestResultWriterTest extends Specification {
 
@@ -78,7 +78,7 @@ class TestResultWriterTest extends Specification {
     def "特定ターゲットのJSON 実行結果読み込み"() {
         when:
         def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
-        test_result_reader.read_test_target_scenario(test_scenario, 'cent7')
+        test_result_reader.read_test_target_result(test_scenario, 'cent7')
 
         then:
         def targets = test_scenario.test_targets.get_all()
@@ -99,7 +99,7 @@ class TestResultWriterTest extends Specification {
     def "JSON 実行結果読み込み"() {
         when:
         def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
-        test_result_reader.read_entire_scenario(test_scenario)
+        test_result_reader.read_entire_result(test_scenario)
 
         then:
         def targets = test_scenario.test_targets.get_all()
@@ -108,6 +108,26 @@ class TestResultWriterTest extends Specification {
                 test_target.test_platforms.each { platform_name, test_platform ->
                     println "$target_name, $domain, $platform_name"
                     test_platform.test_results.size() > 0
+                }
+            }
+        }
+    }
+
+    def "比較対象の JSON 実行結果読み込み"() {
+        when:
+        def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
+        test_result_reader.read_compare_target_result(test_scenario)
+
+        then:
+        1 == 1
+        def targets = test_scenario.test_targets.get_all()
+        targets.each { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                println " TARGET: $target_name, $domain"
+                println " STATUS: ${test_target.target_status}, COMPARE: ${test_target.comparision}"
+                test_target.test_platforms.each { platform_name, test_platform ->
+                    println "  PLATFORM_NAME: $platform_name"
+                    println "  RESULTS: ${test_platform.test_results}"
                 }
             }
         }

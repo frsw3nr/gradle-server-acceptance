@@ -31,7 +31,7 @@ class EvidenceMakerTest extends Specification {
         test_scenario.accept(excel_parser)
 
         def test_result_reader = new TestResultReader(json_dir: json_dir)
-        test_result_reader.read_entire_scenario(test_scenario)
+        test_result_reader. read_entire_result(test_scenario)
 
         // evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
         evidence_maker = new EvidenceMaker()

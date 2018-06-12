@@ -29,11 +29,11 @@ class LinuxSpecBase extends InfraTestSpec {
     def init() {
         super.init()
 
-        this.ip           = test_platform.test_target.ip
+        this.ip           = test_platform.test_target.ip ?: 'unkown'
         def os_account    = test_platform.os_account
-        this.os_user      = os_account['user']
-        this.os_password  = os_account['password']
-        this.work_dir     = os_account['work_dir']
+        this.os_user      = os_account['user'] ?: 'unkown'
+        this.os_password  = os_account['password'] ?: 'unkown'
+        this.work_dir     = os_account['work_dir'] ?: '/tmp'
         this.timeout      = test_platform.timeout
     }
 
@@ -43,11 +43,11 @@ class LinuxSpecBase extends InfraTestSpec {
         def ssh = Ssh.newService()
         ssh.remotes {
             ssh_host {
-                host       = this.ip
-                port       = 22
-                user       = this.os_user
-                password   = this.os_password
-                knownHosts = allowAnyHosts
+                host        = this.ip
+                port        = 22
+                user        = this.os_user
+                password    = this.os_password
+                knownHosts  = allowAnyHosts
             }
         }
         ssh.settings {
