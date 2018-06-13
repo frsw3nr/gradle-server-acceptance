@@ -45,6 +45,10 @@ class SpecCompositeModel {
         return this.children?."$key"
     }
 
+    def get(String key, String domain) {
+        return this.children?."$key"?."$domain"
+    }
+
     def check_filter(name, keyword) {
         def matched = false
         if (!keyword) {

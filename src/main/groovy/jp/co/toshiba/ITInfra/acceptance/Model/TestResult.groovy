@@ -15,5 +15,6 @@ class TestResult extends SpecModel {
     String error_msg
     ResultStatus status
     ResultStatus verify
+    ResultStatus comparision
     TestResultLine devices
 }

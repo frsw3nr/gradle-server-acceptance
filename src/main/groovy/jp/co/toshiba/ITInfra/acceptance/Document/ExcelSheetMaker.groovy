@@ -103,8 +103,9 @@ class ExcelSheetMaker {
             } else if (test_result.status == ResultStatus.NG) {
                 set_test_result_cell_style(cell, ResultCellStyle.ERROR)
                 cell.setCellValue(test_result.error_msg)
-            } else if (test_result.status == ResultStatus.MATCH) {
+            } else if (test_result.comparision == ResultStatus.MATCH) {
                 set_test_result_cell_style(cell, ResultCellStyle.SAME)
+                cell.setCellValue('Same as target')
             } else if (test_result.verify == ResultStatus.OK) {
                 set_test_result_cell_style(cell, ResultCellStyle.OK)
             } else if (test_result.verify == ResultStatus.NG) {
@@ -117,7 +118,6 @@ class ExcelSheetMaker {
             }
         } else {
             set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
-
         }
     }
 

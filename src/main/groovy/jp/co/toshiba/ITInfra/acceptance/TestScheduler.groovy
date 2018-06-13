@@ -35,6 +35,8 @@ class TestScheduler {
     }
 
     def finish() {
+        def data_comparator = new DataComparator()
+        data_comparator.verify(this.test_scenario)
         def evidence_maker = new EvidenceMaker()
         this.test_scenario.accept(evidence_maker)
         def excel_sheet_maker = new ExcelSheetMaker(

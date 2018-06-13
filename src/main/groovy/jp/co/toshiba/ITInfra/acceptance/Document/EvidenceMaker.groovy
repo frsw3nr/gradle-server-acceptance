@@ -29,7 +29,7 @@ class EvidenceMaker {
     def add_summary_result(domain, target, platform, metric, test_result) {
         def sheet = this.summary_sheets[domain] ?: new SheetSummary()
         sheet.rows[[platform, metric]] = 1
-        sheet.cols[target] = 1
+        sheet.cols[target] = sheet.cols.size()
         sheet.results[platform][metric][target] = test_result
         this.summary_sheets[domain] = sheet
     }
@@ -48,28 +48,32 @@ class EvidenceMaker {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()
 
-        domain_targets.each { domain, domain_target ->
-            domain_target.each { target, test_target ->
-                def metric_sets = domain_metrics[domain].get_all()
-                metric_sets.each { platform, metric_set ->
-                    def test_platform = test_target.test_platforms[platform]
-                    def test_results = test_platform?.test_results
-                    if (!test_results)
-                        return
-                    metric_set.get_all().each { metric, test_metric ->
-                        def test_result = test_results[metric]
-                        if (test_result) {
-                            add_summary_result(domain, target, platform, metric,
-                                               test_result)
-                            if (test_metric.device_enabled) {
-                                add_device_result(target, platform, metric, test_result)
+        def comparision_sequences = [true, false]
+        comparision_sequences.each { comparision_sequence ->
+            domain_targets.each { domain, domain_target ->
+                domain_target.each { target, test_target ->
+                    def comparision = test_target.comparision
+                    def metric_sets = domain_metrics[domain].get_all()
+                    metric_sets.each { platform, metric_set ->
+                        def test_platform = test_target.test_platforms[platform]
+                        def test_results = test_platform?.test_results
+                        if (!test_results)
+                            return
+                        metric_set.get_all().each { metric, test_metric ->
+                            def test_result = test_results[metric]
+                            if (test_result && comparision == comparision_sequence) {
+                                // println "SHEET: $domain, $target, $comparision, $platform, $metric"
+                                add_summary_result(domain, target, platform, metric,
+                                                   test_result)
+                                if (test_metric.device_enabled) {
+                                    add_device_result(target, platform, metric, test_result)
+                                }
                             }
                         }
                     }
                 }
             }
         }
-
         long elapse = System.currentTimeMillis() - start
         log.info "Finish evidence maker, Elapse : ${elapse} ms"
     }

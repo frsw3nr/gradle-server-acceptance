@@ -20,6 +20,14 @@ class TestResultReader {
         'UNKOWN'  : ResultStatus.UNKOWN,
     ]
 
+    TestResultReader(Map params) {
+        this.json_dir = params['json_dir']
+        println "this.json_dir: ${this.json_dir}"
+        if(!(new File(this.json_dir)).exists()){
+            throw new IOException("JSON results directory not found : ${this.json_dir}")
+        }
+    }
+
     def convert_to_result_status(String status) {
         return(this.status_hash[status])
     }
@@ -27,7 +35,6 @@ class TestResultReader {
     TestPlatform read_test_platform_result(String target_name, String platform_name) 
                                        throws IOException {
         def json_file = new File("${json_dir}/${target_name}/${platform_name}.json")
-        println "JSON:$json_file"
         if(!json_file.exists())
             return
         def results_json = new JsonSlurper().parseText(json_file.text)
@@ -37,7 +44,6 @@ class TestResultReader {
             test_result.status = convert_to_result_status(test_result.status)
             test_result.verify = convert_to_result_status(test_result.verify)
         }
-        println "JSON2:$test_platform"
         return test_platform
     }
 

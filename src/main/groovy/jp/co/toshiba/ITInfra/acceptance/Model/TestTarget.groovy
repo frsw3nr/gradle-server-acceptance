@@ -19,6 +19,7 @@ class TestTarget extends SpecModel {
     String template_id
     String account_id
     String verify_id
+    String compare_server
     Boolean comparision = false
     TargetStatuses target_status
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
