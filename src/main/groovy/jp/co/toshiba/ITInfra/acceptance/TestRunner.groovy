@@ -9,10 +9,15 @@ import org.apache.commons.cli.Option
 // gradle shadowJar
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
+enum RunnerCommand {
+  SCHEDULER, EXPORT, ARCHIVE, GENERATE
+}
+
 @Slf4j
 @ToString(includePackage = false)
 class TestRunner {
 
+    RunnerCommand command = RunnerCommand.SCHEDULER
     String getconfig_home
     String project_home
     String config_file
@@ -20,6 +25,7 @@ class TestRunner {
     String output_evidence
     String filter_server
     String filter_metric
+    String export_type
     int parallel_degree
     Boolean dry_run
     Boolean verify_test
@@ -60,18 +66,17 @@ class TestRunner {
             _ longOpt: 'silent', 'Silent mode'
         }
         def options = cli.parse(args)
-        if (options.h || ! options.arguments().isEmpty()) {
-            cli.usage()
+        if (!options || options?.h) {
             System.exit(0)
-        }
-        if (!options) {
-            cli.usage()
-            throw new IllegalArgumentException('Parse error')
         }
         if (options.g) {
             def site_home = options.g
             new ProjectBuilder(getconfig_home, site_home).generate()
             System.exit(0)
+        }
+        if (options.u) {
+            this.export_type = options.u
+            this.command = RunnerCommand.EXPORT
         }
         if (options.archive) {
             def xport_file = options.archive
@@ -148,15 +153,22 @@ class TestRunner {
         test_runner.parse(args)
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
-        def test_scheduler = new TestScheduler()
-        test_env.set_test_schedule_environment(test_scheduler)
-        try {
-            test_scheduler.init()
-            test_scheduler.run()
-            test_scheduler.finish()
-        } catch (Exception e) {
-            log.error "Fatal error : " + e
-            // e.printStackTrace()
+        if (test_runner.command == RunnerCommand.SCHEDULER) {
+            def test_scheduler = new TestScheduler()
+            test_env.accept(test_scheduler)
+            // try {
+            //     test_scheduler.init()
+            //     test_scheduler.run()
+            //     test_scheduler.finish()
+            // } catch (Exception e) {
+            //     log.error "Fatal error : " + e
+            //      e.printStackTrace()
+            // }
+        } else if (test_runner.command == RunnerCommand.EXPORT) {
+            def evidence_manager = new EvidenceManager()
+            // test_env.set_evidence_manager_environment(test_scheduler)
+            test_env.accept(evidence_manager)
+            println "EXPORT: ${test_runner.export_type}"
         }
         long elapsed = System.currentTimeMillis() - start
         log.info "Total, Elapsed : ${elapsed} ms"

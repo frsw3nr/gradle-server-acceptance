@@ -64,7 +64,8 @@ class ConfigTestEnvironmentTest extends Specification {
     def "Linux環境セット"() {
         when:
         test_env.read_config(config_file)
-        test_env.set_test_platform_environment(test_platform)
+        // test_env.accept(test_platform)
+        test_env.accept(test_platform)
         println "ENV:${test_platform.evidence_log_dir}"
 
         then:
@@ -76,7 +77,7 @@ class ConfigTestEnvironmentTest extends Specification {
         when:
         test_env.read_config(config_file)
         test_env.config.dry_run = true
-        test_env.set_test_platform_environment(test_platform)
+        test_env.accept(test_platform)
         println "ENV1:${test_platform.evidence_log_dir}"
         println "ENV2:${test_platform.dry_run}"
 
@@ -92,7 +93,7 @@ class ConfigTestEnvironmentTest extends Specification {
         when:
         test_env.read_config(config_file)
         test_env.set_account(test_platform)
-        test_env.set_test_platform_environment(test_platform)
+        test_env.accept(test_platform)
 
         then:
         test_platform.os_account.user == 'administrator'

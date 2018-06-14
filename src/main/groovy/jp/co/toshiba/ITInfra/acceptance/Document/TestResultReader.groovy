@@ -22,10 +22,14 @@ class TestResultReader {
 
     TestResultReader(Map params) {
         this.json_dir = params['json_dir']
-        println "this.json_dir: ${this.json_dir}"
-        if(!(new File(this.json_dir)).exists()){
+        if(this.json_dir && !(new File(this.json_dir)).exists()){
             throw new IOException("JSON results directory not found : ${this.json_dir}")
         }
+    }
+
+    def set_environment(ConfigTestEnvironment test_environment) {
+        def config = test_environment.config
+        this.json_dir = config?.evidence?.json_dir ?: './build/json/'
     }
 
     def convert_to_result_status(String status) {
@@ -103,5 +107,9 @@ class TestResultReader {
                 }
             }
         }
+    }
+
+    def visit_test_scenario(test_scenario) {
+        this.read_entire_result(test_scenario)
     }
 }

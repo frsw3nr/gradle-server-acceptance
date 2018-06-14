@@ -25,7 +25,7 @@ class DataComparator {
         }
     }
 
-    def verify(TestScenario test_scenario) {
+    def visit_test_scenario(TestScenario test_scenario) {
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->

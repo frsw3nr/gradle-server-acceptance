@@ -36,10 +36,9 @@ class DataComparatorTest extends Specification {
         def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
         def data_comparator = new DataComparator()
-        data_comparator.verify(test_scenario)
+        test_scenario.accept(data_comparator)
 
         then:
-        1 == 1
         def comparitions = [:].withDefault{0}
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
@@ -61,7 +60,7 @@ class DataComparatorTest extends Specification {
         def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
         def data_comparator = new DataComparator()
-        data_comparator.verify(test_scenario)
+        test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()
         test_scenario.accept(evidence_maker)
         def excel_sheet_maker = new ExcelSheetMaker(

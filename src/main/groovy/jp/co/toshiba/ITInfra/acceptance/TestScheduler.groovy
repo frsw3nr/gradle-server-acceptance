@@ -18,6 +18,7 @@ class TestScheduler {
     String output_evidence
     String filter_server
     String filter_metric
+    String json_dir
     Boolean verify_test
     def serialize_platforms = [:]
     int parallel_degree = 0
@@ -28,6 +29,33 @@ class TestScheduler {
         this.excel_parser.scan_sheet()
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
+        def test_result_reader = new TestResultReader('json_dir': this.json_dir)
+        this.test_scenario.accept(test_result_reader)
+    }
+
+    def set_environment(ConfigTestEnvironment test_environment) {
+        def config = test_environment.config
+        this.excel_file = config.excel_file ?: config.evidence?.source ?:
+                          './check_sheet.xlsx'
+        this.output_evidence = config.output_evidence ?: config.evidence?.target ?:
+                               './check_sheet.xlsx'
+        this.json_dir = config?.evidence?.json_dir ?: './build/json/'
+
+        log.info "Schedule options : "
+        log.info "excel file    : " + this.excel_file
+        log.info "output        : " + this.output_evidence
+        if (config.filter_server) {
+            this.filter_server = config.filter_server
+            log.info "filter servers : " + this.filter_server
+        }
+        if (config.filter_metric) {
+            this.filter_metric = config.filter_metric
+            log.info "filter metrics : " + this.filter_metric
+        }
+        if (config.parallel_degree) {
+            this.parallel_degree = config.parallel_degree
+            log.info "\tparallel degree  : " + this.parallel_degree
+        }
     }
 
     def run() {
@@ -36,7 +64,7 @@ class TestScheduler {
 
     def finish() {
         def data_comparator = new DataComparator()
-        data_comparator.verify(this.test_scenario)
+        this.test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()
         this.test_scenario.accept(evidence_maker)
         def excel_sheet_maker = new ExcelSheetMaker(

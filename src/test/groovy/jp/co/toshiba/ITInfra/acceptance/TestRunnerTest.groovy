@@ -24,7 +24,7 @@ class TestRunnerTest extends Specification {
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
         def test_platform = new TestPlatform(name : 'Linux')
-        test_env.set_test_platform_environment(test_platform)
+        test_env.accept(test_platform)
 
         then:
         def json = new groovy.json.JsonBuilder()
@@ -44,7 +44,7 @@ class TestRunnerTest extends Specification {
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
         def test_platform = new TestPlatform(name : 'Linux')
-        test_env.set_test_platform_environment(test_platform)
+        test_env.accept(test_platform)
 
         then:
         def json = new groovy.json.JsonBuilder()
@@ -68,7 +68,7 @@ class TestRunnerTest extends Specification {
         test_env.read_from_test_runner(test_runner)
 
         def test_scheduler = new TestScheduler()
-        test_env.set_test_schedule_environment(test_scheduler)
+        test_env.accept(test_scheduler)
 
         then:
         def json = new groovy.json.JsonBuilder()
@@ -94,7 +94,7 @@ class TestRunnerTest extends Specification {
         test_env.read_from_test_runner(test_runner)
 
         def test_scheduler = new TestScheduler()
-        test_env.set_test_schedule_environment(test_scheduler)
+        test_env.accept(test_scheduler)
 
         then:
         def json = new groovy.json.JsonBuilder()
@@ -119,7 +119,7 @@ class TestRunnerTest extends Specification {
         test_env.read_from_test_runner(test_runner)
 
         def test_scheduler = new TestScheduler()
-        test_env.set_test_schedule_environment(test_scheduler)
+        test_env.accept(test_scheduler)
         test_scheduler.init()
         test_scheduler.run()
         test_scheduler.finish()

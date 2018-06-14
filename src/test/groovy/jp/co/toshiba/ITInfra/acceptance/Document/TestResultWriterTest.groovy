@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestResultWriterTest.全体の JSON 実行結果読み込み"
+// gradle --daemon test --tests "TestResultWriterTest.JSON 実行結果読み込み"
 
 class TestResultWriterTest extends Specification {
 
@@ -40,7 +40,7 @@ class TestResultWriterTest extends Specification {
     def "DryRun 実行結果JSON保存"() {
         when:
         def test_scheduler = new TestScheduler()
-        test_env.set_test_schedule_environment(test_scheduler)
+        test_env.accept(test_scheduler)
         test_scenario.accept(test_scheduler)
         def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
         test_result_writer.write_entire_scenario(test_scenario)
@@ -52,7 +52,7 @@ class TestResultWriterTest extends Specification {
     def "比較対象の DryRun 実行とJSON結果保存"() {
         when:
         def test_scheduler = new TestScheduler()
-        test_env.set_test_schedule_environment(test_scheduler)
+        test_env.accept(test_scheduler)
         test_scheduler.init()
         test_scheduler.run()
         def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
@@ -101,7 +101,9 @@ class TestResultWriterTest extends Specification {
     def "JSON 実行結果読み込み"() {
         when:
         def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
-        test_result_reader.read_entire_result(test_scenario)
+        // test_env.set_test_result_reader(test_result_reader)
+        // test_result_reader.read_entire_result(test_scenario)
+        test_scenario.accept(test_result_reader)
 
         then:
         def targets = test_scenario.test_targets.get_all()

@@ -130,7 +130,6 @@ class TestItem {
     def is_difference(test_value, value, String item_name, double err_range = 0) {
         def test_value_double = this.to_number(test_value)
         if (!test_value_double) {
-            log.warn "Test value '$item_name' is not number : $test_value"
             return
         }
         def value_double = this.to_number(value)

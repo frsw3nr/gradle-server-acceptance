@@ -41,6 +41,8 @@ cp -r build/evidence/cent7 src/test/resources/json
 
 gradle --daemon test --tests "TestResultWriterTest.特定ターゲットのJSON 実行結果読み込み"
 
+
+
 ## ターゲットとの比較
 
 * ExcelParser

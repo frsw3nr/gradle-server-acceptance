@@ -30,7 +30,7 @@ class SummarySheet extends Specification {
         def platform_tester = new PlatformTester()
 
         def test_scheduler = new TestScheduler(platform_tester: platform_tester)
-        test_env.set_test_schedule_environment(test_scheduler)
+        test_env.accept(test_scheduler)
         test_scenario.accept(test_scheduler)
 
         when:

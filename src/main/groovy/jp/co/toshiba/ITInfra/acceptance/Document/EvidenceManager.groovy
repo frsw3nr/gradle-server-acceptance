@@ -23,17 +23,56 @@ class EvidenceManager {
     String test_resource
     Boolean silent
 
-    EvidenceManager(Map params) {
-        assert params.project_home
-        this.getconfig_home  = params.getconfig_home
-        this.project_home    = params.project_home
+    EvidenceManager(Map params = null) {
+        // assert params.project_home
+        // this.getconfig_home  = params.getconfig_home
+        // this.project_home    = params.project_home
+        // this.project_name    = new File(this.project_home).getName()
+        // this.tenant_name     = '_Default'
+        // this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
+        // this.db_config       = params.db_config ?: "${params.getconfig_home}/config/cmdb.groovy"
+        // this.node_dir        = params.node_dir ?: this.project_home + '/node'
+        // this.test_resource   = params.test_resource ?: './src/test/resources/log'
+        // this.silent          = params.silent
+    }
+
+    def set_environment(ConfigTestEnvironment test_environment) {
+        def config = test_environment.config
+        // println "config:$config"
+        this.getconfig_home  = config?.getconfig_home
+        this.project_home    = config?.project_home
         this.project_name    = new File(this.project_home).getName()
         this.tenant_name     = '_Default'
-        this.last_run_config = params.last_run_config ?: "${params.project_home}/build/.last_run"
-        this.db_config       = params.db_config ?: "${params.getconfig_home}/config/cmdb.groovy"
-        this.node_dir        = params.node_dir ?: this.project_home + '/node'
-        this.test_resource   = params.test_resource ?: './src/test/resources/log'
-        this.silent          = params.silent
+        this.last_run_config = config?.last_run_config ?: "${this.project_home}/build/.last_run"
+        this.db_config       = config?.db_config ?: "${this.getconfig_home}/config/cmdb.groovy"
+        this.node_dir        = config?.node_dir ?: this.project_home + '/node'
+        this.test_resource   = config?.test_resource ?: './src/test/resources/log'
+        this.silent          = config?.silent
+
+        def json = new groovy.json.JsonBuilder()
+        json(this)
+        println json.toPrettyString()
+        // this.excel_file = config.excel_file ?: config.evidence?.source ?:
+        //                   './check_sheet.xlsx'
+        // this.output_evidence = config.output_evidence ?: config.evidence?.target ?:
+        //                        './check_sheet.xlsx'
+        // this.json_dir = config?.evidence?.json_dir ?: './build/json/'
+
+        // log.info "Schedule options : "
+        // log.info "excel file    : " + this.excel_file
+        // log.info "output        : " + this.output_evidence
+        // if (config.filter_server) {
+        //     this.filter_server = config.filter_server
+        //     log.info "filter servers : " + this.filter_server
+        // }
+        // if (config.filter_metric) {
+        //     this.filter_metric = config.filter_metric
+        //     log.info "filter metrics : " + this.filter_metric
+        // }
+        // if (config.parallel_degree) {
+        //     this.parallel_degree = config.parallel_degree
+        //     log.info "\tparallel degree  : " + this.parallel_degree
+        // }
     }
 
     def getNodeDirSource() throws IOException {
