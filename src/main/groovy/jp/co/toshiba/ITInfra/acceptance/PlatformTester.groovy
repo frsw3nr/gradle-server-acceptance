@@ -32,26 +32,16 @@ class PlatformTester {
         test_spec = clazz.newInstance(this.test_platform)
     }
 
-    // TestItem[] make_test_items() {
-    //     def test_items = []
-    //     this.test_platform.test_metrics.each { metric_name, test_metric ->
-    //         def test_item = new TestItem(test_id : metric_name,
-    //                                      test_results : this.test_platform.test_results)
-    //         test_items << test_item
-    //     }
-    //     return test_items
-    // }
-
     def init() {
         def test_env = ConfigTestEnvironment.instance
-        if (!test_env.config_file)
-            test_env.read_config(this.config_file)
+        println "CONFIG: ${test_env.config_file}, ${this.config_file}"
+        // if (!test_env.config_file)
+        //     test_env.read_config(this.config_file)
         test_env.set_account(this.test_platform)
         test_env.accept(this.test_platform)
         this.init_test_script()
         def metric_names = this.test_platform.test_metrics.keySet() as String[]
         this.set_test_items(metric_names)
-        // this.test_items = this.make_test_items()
     }
 
     def set_test_items(String[] metric_names = null) {

@@ -24,14 +24,9 @@ class EvidenceManagerTest extends Specification {
 
         test_env = ConfigTestEnvironment.instance
         def test_runner = new TestRunner()
-        println "TEST_RUNNER1"
         test_runner.parse(args)
-        def json = new groovy.json.JsonBuilder()
-        json(test_runner)
-        println json.toPrettyString()
         test_env.read_from_test_runner(test_runner)
         test_env.read_config('src/test/resources/config.groovy')
-
     }
 
     def 初期化() {
@@ -43,4 +38,11 @@ class EvidenceManagerTest extends Specification {
         1 == 1
     }
 
+    def エクスポート() {
+        when:
+        
+
+        then:
+        1 == 1
+    }
 }

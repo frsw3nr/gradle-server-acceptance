@@ -2,6 +2,7 @@
     "vm": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm",
         "status": "NG",
         "custom_fields": {
@@ -13,6 +14,7 @@
     "datastore": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/datastore",
         "status": "NG",
         "custom_fields": {
@@ -24,6 +26,7 @@
     "VMNetwork": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/VMNetwork",
         "status": "NG",
         "custom_fields": {
@@ -35,6 +38,7 @@
     "vmwaretool": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vmwaretool",
         "status": "NG",
         "custom_fields": {
@@ -46,6 +50,7 @@
     "vm_timesync": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm_timesync",
         "status": "NG",
         "custom_fields": {
@@ -57,6 +62,7 @@
     "vm_iops_limit": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm_iops_limit",
         "status": "NG",
         "custom_fields": {
@@ -68,6 +74,7 @@
     "vm_storage": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//cent7/vCenter/vm_storage",
         "status": "NG",
         "custom_fields": {

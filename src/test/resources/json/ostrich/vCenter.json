@@ -2,16 +2,20 @@
     "NumCpu": {
         "devices": null,
         "value": "2",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "NumCpu"
     },
     "PowerState": {
         "devices": null,
         "value": "PoweredOn",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
@@ -22,26 +26,32 @@
     "MemoryGB": {
         "devices": null,
         "value": "2",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "MemoryGB"
     },
     "VMHost": {
         "devices": null,
         "value": "esx19.local",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "VMHost"
     },
     "Cluster": {
         "devices": null,
         "value": "PC001",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
@@ -52,6 +62,7 @@
     "datastore": {
         "devices": {
             "header": [
+                "target",
                 "Name",
                 "DatastoreBrowserPath",
                 "Type",
@@ -65,6 +76,8 @@
             }
         },
         "value": "[]",
+        "comparision": "UNMATCH",
+        "error_msg": "Not found",
         "status": "WARNING",
         "custom_fields": {
             
@@ -72,19 +85,23 @@
         "verify": null,
         "name": "datastore"
     },
-    "network": {
+    "VMNetwork": {
         "devices": null,
         "value": null,
+        "comparision": "MATCH",
+        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//ostrich/vCenter/VMNetwork",
         "status": "NG",
         "custom_fields": {
             
         },
         "verify": null,
-        "name": "network"
+        "name": "VMNetwork"
     },
     "vmwaretool": {
         "devices": null,
-        "value": "[internalversion:9344, requiredversion:9344, result:OK]",
+        "value": "OK",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
@@ -92,9 +109,23 @@
         "verify": null,
         "name": "vmwaretool"
     },
+    "vmwaretool.version": {
+        "devices": null,
+        "value": "[internalversion:9344, requiredversion:9344]",
+        "comparision": "UNMATCH",
+        "error_msg": null,
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "vmwaretool.version"
+    },
     "vm_timesync": {
         "devices": null,
         "value": "[TimeSync:False]",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
@@ -105,6 +136,8 @@
     "vm_iops_limit": {
         "devices": null,
         "value": "[IOLimit1:-1]",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
@@ -115,6 +148,7 @@
     "vm_storage": {
         "devices": {
             "header": [
+                "target",
                 "Filename",
                 "StorageFormat",
                 "CapacityGB"
@@ -131,6 +165,8 @@
             }
         },
         "value": "[Thin:30]",
+        "comparision": "UNMATCH",
+        "error_msg": null,
         "status": "OK",
         "custom_fields": {
             

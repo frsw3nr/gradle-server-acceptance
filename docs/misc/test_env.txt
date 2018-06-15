@@ -1,0 +1,140 @@
+# ConfigTestEnvironment 検討
+
+## 仕様
+
+* config.groovy からパラメータを読み込む
+* TestRunner の実行オプションを読み込んで上書き追加
+* 手動パラメータ設定で上書き(テストスクリプト内)
+
+* ビジターモデルで Config を設定
+* 呼ぶ側：test_env.accept(設定するオブジェクト)
+* 呼ばれる側： def set_environment(ConfigTestEnvironment test_environment)
+
+## TestRunner 構成(基底)
+
+config.test_runner に設定
+    RunnerCommand command = RunnerCommand.SCHEDULER
+    String getconfig_home (環境変数)
+    String project_home (環境変数)
+    String config_file  (オプション)
+    String excel_file   (オプション)
+    String output_evidence (オプション)
+    String filter_server (オプション)
+    String filter_metric (オプション)
+    String export_type   (エクスポート用個別)
+    int parallel_degree (オプション)
+    Boolean dry_run     (オプション)
+    Boolean verify_test (オプション)
+    Boolean silent      (オプション)
+
+### Config構成
+
+config.* に設定
+
+evidence.source = './src/test/resources/check_sheet.xlsx'
+evidence.target = './build/check_sheet_<date>.xlsx'
+evidence.staging_dir = './build/log'
+evidence.json_dir='./src/test/resources/json'
+
+test.serialization.tasks = ['vCenter']
+test.dry_run_staging_dir = './src/test/resources/log/'
+
+test.Linux.timeout   = 30
+test.Windows.timeout = 300
+test.vCenter.timeout = 300
+
+test.Linux.debug   = false
+test.Windows.debug = false
+test.vCenter.debug = false
+
+account.vCenter.Test.server   = '192.168.10.100'
+account.vCenter.Test.user     = 'test_user'
+account.vCenter.Test.password = 'P@ssword'
+account.Linux.Test.user      = 'someuser'
+account.Linux.Test.password  = 'P@ssword'
+account.Linux.Test.work_dir  = '/tmp/gradle_test'
+account.Windows.Test.user     = 'administrator'
+account.Windows.Test.password = 'P@ssword'
+
+### TestScheduler
+
+    def set_environment(ConfigTestEnvironment test_environment) {
+        def config = test_environment.config
+        this.excel_file = config.excel_file ?: config.evidence?.source ?:
+                          './check_sheet.xlsx'
+        this.output_evidence = config.output_evidence ?: config.evidence?.target ?:
+                               './check_sheet.xlsx'
+        this.json_dir = config?.evidence?.json_dir ?: './build/json/'
+
+        log.info "Schedule options : "
+        log.info "excel file    : " + this.excel_file
+        log.info "output        : " + this.output_evidence
+        if (config.filter_server) {
+            this.filter_server = config.filter_server
+            log.info "filter servers : " + this.filter_server
+        }
+        if (config.filter_metric) {
+            this.filter_metric = config.filter_metric
+            log.info "filter metrics : " + this.filter_metric
+        }
+        if (config.parallel_degree) {
+            this.parallel_degree = config.parallel_degree
+            log.info "\tparallel degree  : " + this.parallel_degree
+        }
+    }
+
+### PratformTestter
+
+    def set_environment(ConfigTestEnvironment test_environment) {
+        def config = test_environment.config
+        def config_test = config.test
+        def platform    = this.name
+        def target_name = this.test_target?.name
+        def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
+        // evidence_log_share_dir += '/' + platform
+        def config_platform = config_test[platform]
+        def test_platform_configs = [
+            'dry_run'                : config.dry_run ?: config_platform.dry_run ?: false,
+            'timeout'                : config.timeout ?: config_platform.timeout ?: 0,
+            'debug'                  : config.debug ?: config_platform.debug ?: false,
+            'dry_run_staging_dir'    : config_test.dry_run_staging_dir ?:
+                                       './src/test/resources/log',
+            'evidence_log_share_dir' : evidence_log_share_dir,
+            'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
+        ]
+
+        test_platform_configs.each { key, test_platform_config ->
+            if (!this?."$key")
+                this."$key" = test_platform_config
+            // test_platform[key] = test_platform_config
+        }
+        def msg = "$target_name(DryRun=${this.dry_run})"
+        log.debug "Set test $platform:$msg"
+    }
+
+### Getter/Setter 設定
+
+getconfig_home
+project_home
+project_name
+tenant_name
+last_run_config
+db_config
+node_dir
+test_resource
+silent
+excel_file
+output_evidence
+json_dir
+filter_server
+filter_metric
+parallel_degree
+
+## テスト
+
+ConfigTestEnvironmentTest.groovy
+
+設定ファイル読み込みパターン
+TestRunner + 設定ファイル読み込みパターン
+
+

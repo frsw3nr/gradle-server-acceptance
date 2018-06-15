@@ -2,6 +2,7 @@
     "hostname": {
         "devices": null,
         "value": "localhost",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -13,6 +14,7 @@
     "hostname_fqdn": {
         "devices": null,
         "value": "[NotConfigured]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -24,6 +26,7 @@
     "uname": {
         "devices": null,
         "value": "Linux localhost.localdomain 3.10.0-327.el7.x86_64 ",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -35,28 +38,31 @@
     "kernel": {
         "devices": null,
         "value": "Linux localhost.localdomain 3.10.0-327.el7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "kernel"
     },
     "arch": {
         "devices": null,
         "value": "x86_64 ",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "arch"
     },
     "lsb": {
         "devices": null,
         "value": "[CentOS Linux release 7.2.1511 (Core) ]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -68,17 +74,19 @@
     "os": {
         "devices": null,
         "value": "CentOS Linux release",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "os"
     },
     "os_release": {
         "devices": null,
         "value": "7.2.1511",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -90,6 +98,7 @@
     "model_name": {
         "devices": null,
         "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -101,6 +110,7 @@
     "mhz": {
         "devices": null,
         "value": "3192.607",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -112,6 +122,7 @@
     "cache_size": {
         "devices": null,
         "value": "6144 KB",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -123,6 +134,7 @@
     "cores": {
         "devices": null,
         "value": "1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -134,28 +146,31 @@
     "cpu_total": {
         "devices": null,
         "value": "1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "cpu_total"
     },
     "cpu_real": {
         "devices": null,
         "value": "1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "cpu_real"
     },
     "cpu_core": {
         "devices": null,
         "value": "1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -167,6 +182,7 @@
     "cpu": {
         "devices": null,
         "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz 1 Socket 1 Core",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -178,6 +194,7 @@
     "machineid": {
         "devices": null,
         "value": "514418b8a20e4a08a75f5c9fd86360cb",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -189,6 +206,7 @@
     "meminfo": {
         "devices": null,
         "value": "1884508 kB",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -200,17 +218,19 @@
     "mem_total": {
         "devices": null,
         "value": "1840.33984375",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "mem_total"
     },
     "mem_free": {
         "devices": null,
         "value": "405.45703125",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -222,6 +242,7 @@
     "network": {
         "devices": {
             "header": [
+                "target",
                 "device",
                 "ip",
                 "mtu",
@@ -260,6 +281,7 @@
             }
         },
         "value": "[lo, ens160, docker0]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -271,6 +293,7 @@
     "hw_address": {
         "devices": null,
         "value": "[00:0c:29:5a:f4:b8, 02:42:c0:82:4e:cf]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -279,42 +302,34 @@
         "verify": null,
         "name": "hw_address"
     },
-    "net_if": {
-        "devices": null,
-        "value": null,
-        "error_msg": null,
-        "status": null,
-        "custom_fields": {
-            
-        },
-        "verify": "NG",
-        "name": "net_if"
-    },
     "net_onboot": {
         "devices": null,
         "value": "[ens160:\"yes\", lo:yes]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "net_onboot"
     },
     "net_route": {
         "devices": null,
         "value": "[192.168.0.254:ens160]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "net_route"
     },
     "net_bond": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -326,6 +341,7 @@
     "block_device": {
         "devices": null,
         "value": "[sda:[timeout:30, queue_depth:32], sr0:[timeout:30, queue_depth:1]]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -337,6 +353,7 @@
     "mdadb": {
         "devices": null,
         "value": "Personalities : unused devices: <none>",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -348,6 +365,7 @@
     "filesystem": {
         "devices": {
             "header": [
+                "target",
                 "name",
                 "maj:min",
                 "rm",
@@ -462,17 +480,19 @@
             }
         },
         "value": "[/boot:500M, /:13.9G, [SWAP]:1.6G]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "filesystem"
     },
     "filesystem./boot": {
         "devices": null,
         "value": "500M",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -484,6 +504,7 @@
     "filesystem./": {
         "devices": null,
         "value": "13.9G",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -495,6 +516,7 @@
     "filesystem.[SWAP]": {
         "devices": null,
         "value": "1.6G",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -506,6 +528,7 @@
     "fstab": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -517,6 +540,7 @@
     "lvm": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -528,6 +552,7 @@
     "user": {
         "devices": {
             "header": [
+                "target",
                 "UserName",
                 "UserID",
                 "GroupID",
@@ -1102,17 +1127,19 @@
             }
         },
         "value": "[root, commonstyle, postgres, pscommon, mysql, esx, himeji, nexco, payok04, pcoit01, pskag01, pskg01, psoit01, psoit02, psyok04, psyok05, tmeic, psyok02, rstudio-server, pbyok01, mitaka, psadmin, db2fenc1, myinst, git, psyok03, pboit01, nagios, peyok04, influxdb, oracle]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "user"
     },
     "user.root": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1124,6 +1151,7 @@
     "user.bin": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1135,6 +1163,7 @@
     "user.daemon": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1146,6 +1175,7 @@
     "user.adm": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1157,6 +1187,7 @@
     "user.lp": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1168,6 +1199,7 @@
     "user.sync": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1179,6 +1211,7 @@
     "user.shutdown": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1190,6 +1223,7 @@
     "user.halt": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1201,6 +1235,7 @@
     "user.mail": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1212,6 +1247,7 @@
     "user.uucp": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1223,6 +1259,7 @@
     "user.operator": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1234,6 +1271,7 @@
     "user.games": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1245,6 +1283,7 @@
     "user.gopher": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1256,6 +1295,7 @@
     "user.ftp": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1267,6 +1307,7 @@
     "user.nobody": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1278,6 +1319,7 @@
     "user.dbus": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1289,6 +1331,7 @@
     "user.avahi-autoipd": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1300,6 +1343,7 @@
     "user.vcsa": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1311,6 +1355,7 @@
     "user.rpc": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1322,6 +1367,7 @@
     "user.rtkit": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1333,6 +1379,7 @@
     "user.abrt": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1344,6 +1391,7 @@
     "user.haldaemon": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1355,6 +1403,7 @@
     "user.ntp": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1366,6 +1415,7 @@
     "user.saslauth": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1377,6 +1427,7 @@
     "user.postfix": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1388,6 +1439,7 @@
     "user.avahi": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1399,6 +1451,7 @@
     "user.rpcuser": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1410,6 +1463,7 @@
     "user.nfsnobody": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1421,6 +1475,7 @@
     "user.pulse": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1432,6 +1487,7 @@
     "user.gdm": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1443,6 +1499,7 @@
     "user.sshd": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1454,6 +1511,7 @@
     "user.tcpdump": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1465,6 +1523,7 @@
     "user.commonstyle": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1476,6 +1535,7 @@
     "user.postgres": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1487,6 +1547,7 @@
     "user.pscommon": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1498,6 +1559,7 @@
     "user.apache": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1509,6 +1571,7 @@
     "user.mysql": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1520,6 +1583,7 @@
     "user.esx": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1531,6 +1595,7 @@
     "user.himeji": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1542,6 +1607,7 @@
     "user.nexco": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1553,6 +1619,7 @@
     "user.payok04": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1564,6 +1631,7 @@
     "user.pcoit01": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1575,6 +1643,7 @@
     "user.pskag01": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1586,6 +1655,7 @@
     "user.pskg01": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1597,6 +1667,7 @@
     "user.psoit01": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1608,6 +1679,7 @@
     "user.psoit02": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1619,6 +1691,7 @@
     "user.psyok04": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1630,6 +1703,7 @@
     "user.psyok05": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1641,6 +1715,7 @@
     "user.tmeic": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1652,6 +1727,7 @@
     "user.psyok02": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1663,6 +1739,7 @@
     "user.rstudio-server": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1674,6 +1751,7 @@
     "user.pbyok01": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1685,6 +1763,7 @@
     "user.mitaka": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1696,6 +1775,7 @@
     "user.psadmin": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1707,6 +1787,7 @@
     "user.db2fenc1": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1718,6 +1799,7 @@
     "user.myinst": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1729,6 +1811,7 @@
     "user.mongod": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1740,6 +1823,7 @@
     "user.git": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1751,6 +1835,7 @@
     "user.redis": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1762,6 +1847,7 @@
     "user.psyok03": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1773,6 +1859,7 @@
     "user.pboit01": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1784,6 +1871,7 @@
     "user.nagios": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1795,6 +1883,7 @@
     "user.nails": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1806,6 +1895,7 @@
     "user.peyok04": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1817,6 +1907,7 @@
     "user.zabbix": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1828,6 +1919,7 @@
     "user.snmptt": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1839,6 +1931,7 @@
     "user.carbon": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1850,6 +1943,7 @@
     "user.influxdb": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1861,6 +1955,7 @@
     "user.grafana": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1872,6 +1967,7 @@
     "user.oracle": {
         "devices": null,
         "value": "OK",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1883,6 +1979,7 @@
     "fips": {
         "devices": null,
         "value": "False",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1894,6 +1991,7 @@
     "virturization": {
         "devices": null,
         "value": "no KVM",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -1905,6 +2003,7 @@
     "service": {
         "devices": {
             "header": [
+                "target",
                 "Name",
                 "Status"
             ],
@@ -2251,17 +2350,19 @@
             }
         },
         "value": "84",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "service"
     },
     "service.NetworkManager": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2273,6 +2374,7 @@
     "service.abrt-ccpp": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2284,6 +2386,7 @@
     "service.abrt-oops": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2295,6 +2398,7 @@
     "service.abrtd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2306,6 +2410,7 @@
     "service.acpid": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2317,6 +2422,7 @@
     "service.atd": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2328,6 +2434,7 @@
     "service.auditd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2339,6 +2446,7 @@
     "service.autofs": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2350,6 +2458,7 @@
     "service.avahi-daemon": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2361,6 +2470,7 @@
     "service.carbon-aggregator": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2372,6 +2482,7 @@
     "service.carbon-cache": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2383,6 +2494,7 @@
     "service.carbon-relay": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2394,6 +2506,7 @@
     "service.certmonger": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2405,6 +2518,7 @@
     "service.cgconfig": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2416,6 +2530,7 @@
     "service.cgred": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2427,6 +2542,7 @@
     "service.collectl": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2438,6 +2554,7 @@
     "service.cpuspeed": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2449,6 +2566,7 @@
     "service.crond": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2460,6 +2578,7 @@
     "service.cups": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2471,6 +2590,7 @@
     "service.dnsmasq": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2482,6 +2602,7 @@
     "service.firstboot": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2493,6 +2614,7 @@
     "service.getperfagent": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2504,6 +2626,7 @@
     "service.haldaemon": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2515,6 +2638,7 @@
     "service.htcacheclean": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2526,6 +2650,7 @@
     "service.httpd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2537,6 +2662,7 @@
     "service.influxdb": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2548,6 +2674,7 @@
     "service.ip6tables": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2559,6 +2686,7 @@
     "service.iptables": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2570,6 +2698,7 @@
     "service.irqbalance": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2581,6 +2710,7 @@
     "service.jexec": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2592,6 +2722,7 @@
     "service.kdump": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2603,6 +2734,7 @@
     "service.lvm2-monitor": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2614,6 +2746,7 @@
     "service.mdmonitor": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2625,6 +2758,7 @@
     "service.messagebus": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2636,6 +2770,7 @@
     "service.mongod": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2647,6 +2782,7 @@
     "service.mysqld": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2658,6 +2794,7 @@
     "service.netconsole": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2669,6 +2806,7 @@
     "service.netfs": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2680,6 +2818,7 @@
     "service.network": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2691,6 +2830,7 @@
     "service.nfs": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2702,6 +2842,7 @@
     "service.nfslock": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2713,6 +2854,7 @@
     "service.nmb": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2724,6 +2866,7 @@
     "service.ntpd": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2735,6 +2878,7 @@
     "service.ntpdate": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2746,6 +2890,7 @@
     "service.oddjobd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2757,6 +2902,7 @@
     "service.pfstatctl": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2768,6 +2914,7 @@
     "service.portreserve": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2779,6 +2926,7 @@
     "service.postfix": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2790,6 +2938,7 @@
     "service.postgresql-9.1": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2801,6 +2950,7 @@
     "service.postgresql-9.2": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2812,6 +2962,7 @@
     "service.psacct": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2823,6 +2974,7 @@
     "service.quota_nld": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2834,6 +2986,7 @@
     "service.rdisc": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2845,6 +2998,7 @@
     "service.redis": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2856,6 +3010,7 @@
     "service.restorecond": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2867,6 +3022,7 @@
     "service.rngd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2878,6 +3034,7 @@
     "service.rpcbind": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2889,6 +3046,7 @@
     "service.rpcgssd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2900,6 +3058,7 @@
     "service.rpcidmapd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2911,6 +3070,7 @@
     "service.rpcsvcgssd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2922,6 +3082,7 @@
     "service.rstudio-server": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2933,6 +3094,7 @@
     "service.rsyslog": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2944,6 +3106,7 @@
     "service.saslauthd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2955,6 +3118,7 @@
     "service.smartd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2966,6 +3130,7 @@
     "service.smb": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2977,6 +3142,7 @@
     "service.snmpd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2988,6 +3154,7 @@
     "service.snmptrapd": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -2999,6 +3166,7 @@
     "service.snmptt": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3010,6 +3178,7 @@
     "service.spice-vdagentd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3021,6 +3190,7 @@
     "service.sshd": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3032,6 +3202,7 @@
     "service.sssd": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3043,6 +3214,7 @@
     "service.svnserve": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3054,6 +3226,7 @@
     "service.sysstat": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3065,6 +3238,7 @@
     "service.tomcat": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3076,6 +3250,7 @@
     "service.udev-post": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3087,6 +3262,7 @@
     "service.vncserver": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3098,6 +3274,7 @@
     "service.vsftpd": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3109,6 +3286,7 @@
     "service.wdaemon": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3120,6 +3298,7 @@
     "service.winbind": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3131,6 +3310,7 @@
     "service.wpa_supplicant": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3142,6 +3322,7 @@
     "service.ypbind": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3153,6 +3334,7 @@
     "service.zabbix-agent": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3164,6 +3346,7 @@
     "service.zabbix-server": {
         "devices": null,
         "value": "Off",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3175,6 +3358,7 @@
     "service.zabbixagent": {
         "devices": null,
         "value": "On",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -3186,6 +3370,7 @@
     "packages": {
         "devices": {
             "header": [
+                "target",
                 "name",
                 "epoch",
                 "version",
@@ -6336,17 +6521,19 @@
             }
         },
         "value": "[RHEL7:391, COMMON:1]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "NG",
+        "verify": null,
         "name": "packages"
     },
     "packages.audit": {
         "devices": null,
         "value": "2.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6358,6 +6545,7 @@
     "packages.filesystem": {
         "devices": null,
         "value": "3.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6369,6 +6557,7 @@
     "packages.microcode_ctl": {
         "devices": null,
         "value": "2.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6380,6 +6569,7 @@
     "packages.linux-firmware": {
         "devices": null,
         "value": "20150904",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6391,6 +6581,7 @@
     "packages.parted": {
         "devices": null,
         "value": "3.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6402,6 +6593,7 @@
     "packages.glibc": {
         "devices": null,
         "value": "2.17",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6413,6 +6605,7 @@
     "packages.authconfig": {
         "devices": null,
         "value": "6.2.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6424,6 +6617,7 @@
     "packages.bash": {
         "devices": null,
         "value": "4.2.46",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6435,6 +6629,7 @@
     "packages.btrfs-progs": {
         "devices": null,
         "value": "3.19.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6446,6 +6641,7 @@
     "packages.zlib": {
         "devices": null,
         "value": "1.2.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6457,6 +6653,7 @@
     "packages.rootfiles": {
         "devices": null,
         "value": "8.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6468,6 +6665,7 @@
     "packages.libuuid": {
         "devices": null,
         "value": "2.23.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6479,6 +6677,7 @@
     "packages.iwl4965-firmware": {
         "devices": null,
         "value": "228.61.2.24",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6490,6 +6689,7 @@
     "packages.chkconfig": {
         "devices": null,
         "value": "1.3.61",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6501,6 +6701,7 @@
     "packages.iwl6000g2b-firmware": {
         "devices": null,
         "value": "17.168.5.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6512,6 +6713,7 @@
     "packages.bzip2-libs": {
         "devices": null,
         "value": "1.0.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6523,6 +6725,7 @@
     "packages.iwl135-firmware": {
         "devices": null,
         "value": "18.168.6.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6534,6 +6737,7 @@
     "packages.elfutils-libelf": {
         "devices": null,
         "value": "0.163",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6545,6 +6749,7 @@
     "packages.iwl7260-firmware": {
         "devices": null,
         "value": "22.0.7.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6556,6 +6761,7 @@
     "packages.libacl": {
         "devices": null,
         "value": "2.2.51",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6567,6 +6773,7 @@
     "packages.libsemanage-python": {
         "devices": null,
         "value": "2.1.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6578,6 +6785,7 @@
     "packages.libxml2": {
         "devices": null,
         "value": "2.9.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6589,6 +6797,7 @@
     "packages.oci-register-machine": {
         "devices": null,
         "value": "0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6600,6 +6809,7 @@
     "packages.elfutils-libs": {
         "devices": null,
         "value": "0.163",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6611,6 +6821,7 @@
     "packages.libcgroup": {
         "devices": null,
         "value": "0.41",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6622,6 +6833,7 @@
     "packages.findutils": {
         "devices": null,
         "value": "4.5.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6633,6 +6845,7 @@
     "packages.docker-selinux": {
         "devices": null,
         "value": "1.10.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6644,6 +6857,7 @@
     "packages.gmp": {
         "devices": null,
         "value": "6.0.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6655,6 +6869,7 @@
     "packages.perl-podlators": {
         "devices": null,
         "value": "2.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6666,6 +6881,7 @@
     "packages.libassuan": {
         "devices": null,
         "value": "2.1.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6677,6 +6893,7 @@
     "packages.perl-Encode": {
         "devices": null,
         "value": "2.51",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6688,6 +6905,7 @@
     "packages.which": {
         "devices": null,
         "value": "2.20",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6699,6 +6917,7 @@
     "packages.perl-Storable": {
         "devices": null,
         "value": "2.45",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6710,6 +6929,7 @@
     "packages.libnfnetlink": {
         "devices": null,
         "value": "1.0.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6721,6 +6941,7 @@
     "packages.perl-Carp": {
         "devices": null,
         "value": "1.26",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6732,6 +6953,7 @@
     "packages.lzo": {
         "devices": null,
         "value": "2.06",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6743,6 +6965,7 @@
     "packages.perl-File-Temp": {
         "devices": null,
         "value": "0.23.01",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6754,6 +6977,7 @@
     "packages.hostname": {
         "devices": null,
         "value": "3.13",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6765,6 +6989,7 @@
     "packages.perl-Socket": {
         "devices": null,
         "value": "2.010",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6776,6 +7001,7 @@
     "packages.p11-kit-trust": {
         "devices": null,
         "value": "0.20.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6787,6 +7013,7 @@
     "packages.perl": {
         "devices": null,
         "value": "5.16.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6798,6 +7025,7 @@
     "packages.nettle": {
         "devices": null,
         "value": "2.7.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6809,6 +7037,7 @@
     "packages.libgnome-keyring": {
         "devices": null,
         "value": "3.8.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6820,6 +7049,7 @@
     "packages.dbus-glib": {
         "devices": null,
         "value": "0.100",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6831,6 +7061,7 @@
     "packages.apr-util": {
         "devices": null,
         "value": "1.5.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6842,6 +7073,7 @@
     "packages.gsettings-desktop-schemas": {
         "devices": null,
         "value": "3.14.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6853,6 +7085,7 @@
     "packages.konkretcmpi": {
         "devices": null,
         "value": "0.9.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6864,6 +7097,7 @@
     "packages.libdb-utils": {
         "devices": null,
         "value": "5.3.21",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6875,6 +7109,7 @@
     "packages.kpartx": {
         "devices": null,
         "value": "0.4.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6886,6 +7121,7 @@
     "packages.make": {
         "devices": null,
         "value": "3.82",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6897,6 +7133,7 @@
     "packages.python-setuptools": {
         "devices": null,
         "value": "0.9.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6908,6 +7145,7 @@
     "packages.libedit": {
         "devices": null,
         "value": "3.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6919,6 +7157,7 @@
     "packages.cryptsetup-python": {
         "devices": null,
         "value": "1.6.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6930,6 +7169,7 @@
     "packages.snappy": {
         "devices": null,
         "value": "1.1.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6941,6 +7181,7 @@
     "packages.cim-schema": {
         "devices": null,
         "value": "2.33.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6952,6 +7193,7 @@
     "packages.libverto": {
         "devices": null,
         "value": "0.2.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6963,6 +7205,7 @@
     "packages.tog-pegasus-libs": {
         "devices": null,
         "value": "2.14.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6974,6 +7217,7 @@
     "packages.ca-certificates": {
         "devices": null,
         "value": "2015.2.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6985,6 +7229,7 @@
     "packages.cmpi-bindings-pywbem": {
         "devices": null,
         "value": "0.9.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -6996,6 +7241,7 @@
     "packages.python": {
         "devices": null,
         "value": "2.7.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7007,6 +7253,7 @@
     "packages.openlmi-indicationmanager-libs": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7018,6 +7265,7 @@
     "packages.dbus-python": {
         "devices": null,
         "value": "1.1.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7029,6 +7277,7 @@
     "packages.openlmi-hardware": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7040,6 +7289,7 @@
     "packages.systemd-libs": {
         "devices": null,
         "value": "219",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7051,6 +7301,7 @@
     "packages.sgpio": {
         "devices": null,
         "value": "1.2.0.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7062,6 +7313,7 @@
     "packages.pygobject3-base": {
         "devices": null,
         "value": "3.14.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7073,6 +7325,7 @@
     "packages.python-blivet": {
         "devices": null,
         "value": "0.61.15.37",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7084,6 +7337,7 @@
     "packages.libselinux-python": {
         "devices": null,
         "value": "2.2.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7095,6 +7349,7 @@
     "packages.python-pyudev": {
         "devices": null,
         "value": "0.15",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7106,6 +7361,7 @@
     "packages.pyliblzma": {
         "devices": null,
         "value": "0.5.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7117,6 +7373,7 @@
     "packages.avahi-autoipd": {
         "devices": null,
         "value": "0.6.31",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7128,6 +7385,7 @@
     "packages.NetworkManager-libnm": {
         "devices": null,
         "value": "1.0.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7139,6 +7397,7 @@
     "packages.alsa-lib": {
         "devices": null,
         "value": "1.0.28",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7150,6 +7409,7 @@
     "packages.fipscheck": {
         "devices": null,
         "value": "1.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7161,6 +7421,7 @@
     "packages.rpm-libs": {
         "devices": null,
         "value": "4.11.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7172,6 +7433,7 @@
     "packages.util-linux": {
         "devices": null,
         "value": "2.23.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7183,6 +7445,7 @@
     "packages.dhcp-common": {
         "devices": null,
         "value": "4.2.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7194,6 +7457,7 @@
     "packages.lsscsi": {
         "devices": null,
         "value": "0.27",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7205,6 +7469,7 @@
     "packages.gpgme": {
         "devices": null,
         "value": "1.3.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7216,6 +7481,7 @@
     "packages.yum-plugin-fastestmirror": {
         "devices": null,
         "value": "1.1.31",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7227,6 +7493,7 @@
     "packages.iptables": {
         "devices": null,
         "value": "1.4.21",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7238,6 +7505,7 @@
     "packages.device-mapper": {
         "devices": null,
         "value": "1.02.107",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7249,6 +7517,7 @@
     "packages.kmod": {
         "devices": null,
         "value": "20",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7260,6 +7529,7 @@
     "packages.iputils": {
         "devices": null,
         "value": "20121221",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7271,6 +7541,7 @@
     "packages.polkit-pkla-compat": {
         "devices": null,
         "value": "0.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7282,6 +7553,7 @@
     "packages.os-prober": {
         "devices": null,
         "value": "1.58",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7293,6 +7565,7 @@
     "packages.dnsmasq": {
         "devices": null,
         "value": "2.66",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7304,6 +7577,7 @@
     "packages.libpciaccess": {
         "devices": null,
         "value": "0.13.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7315,6 +7589,7 @@
     "packages.trousers": {
         "devices": null,
         "value": "0.3.13",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7326,6 +7601,7 @@
     "packages.fxload": {
         "devices": null,
         "value": "2002_04_11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7337,6 +7613,7 @@
     "packages.kernel-tools-libs": {
         "devices": null,
         "value": "3.10.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7348,6 +7625,7 @@
     "packages.libndp": {
         "devices": null,
         "value": "1.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7359,6 +7637,7 @@
     "packages.dmidecode": {
         "devices": null,
         "value": "2.12",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7370,6 +7649,7 @@
     "packages.bind-license": {
         "devices": null,
         "value": "9.9.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7381,6 +7661,7 @@
     "packages.dracut-network": {
         "devices": null,
         "value": "033",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7392,6 +7673,7 @@
     "packages.NetworkManager-tui": {
         "devices": null,
         "value": "1.0.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7403,6 +7685,7 @@
     "packages.tuned": {
         "devices": null,
         "value": "2.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7414,6 +7697,7 @@
     "packages.firewalld": {
         "devices": null,
         "value": "0.3.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7425,6 +7709,7 @@
     "packages.libgcc": {
         "devices": null,
         "value": "4.8.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7436,6 +7721,7 @@
     "packages.kernel": {
         "devices": null,
         "value": "3.10.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7447,6 +7733,7 @@
     "packages.setup": {
         "devices": null,
         "value": "2.8.71",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7458,6 +7745,7 @@
     "packages.postfix": {
         "devices": null,
         "value": "2.10.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7469,6 +7757,7 @@
     "packages.basesystem": {
         "devices": null,
         "value": "10.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7480,6 +7769,7 @@
     "packages.biosdevname": {
         "devices": null,
         "value": "0.6.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7491,6 +7781,7 @@
     "packages.ncurses-base": {
         "devices": null,
         "value": "5.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7502,6 +7793,7 @@
     "packages.aic94xx-firmware": {
         "devices": null,
         "value": "30",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7513,6 +7805,7 @@
     "packages.tzdata": {
         "devices": null,
         "value": "2015g",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7524,6 +7817,7 @@
     "packages.dracut-config-rescue": {
         "devices": null,
         "value": "033",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7535,6 +7829,7 @@
     "packages.glibc-common": {
         "devices": null,
         "value": "2.17",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7546,6 +7841,7 @@
     "packages.iprutils": {
         "devices": null,
         "value": "2.4.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7557,6 +7853,7 @@
     "packages.xz-libs": {
         "devices": null,
         "value": "5.1.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7568,6 +7865,7 @@
     "packages.openssh-clients": {
         "devices": null,
         "value": "6.6.1p1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7579,6 +7877,7 @@
     "packages.ncurses-libs": {
         "devices": null,
         "value": "5.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7590,6 +7889,7 @@
     "packages.passwd": {
         "devices": null,
         "value": "0.79",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7601,6 +7901,7 @@
     "packages.libsepol": {
         "devices": null,
         "value": "2.1.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7612,6 +7913,7 @@
     "packages.xfsprogs": {
         "devices": null,
         "value": "3.2.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7623,6 +7925,7 @@
     "packages.libselinux": {
         "devices": null,
         "value": "2.2.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7634,6 +7937,7 @@
     "packages.e2fsprogs": {
         "devices": null,
         "value": "1.42.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7645,6 +7949,7 @@
     "packages.info": {
         "devices": null,
         "value": "5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7656,6 +7961,7 @@
     "packages.libsysfs": {
         "devices": null,
         "value": "2.1.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7667,6 +7973,7 @@
     "packages.sed": {
         "devices": null,
         "value": "4.2.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7678,6 +7985,7 @@
     "packages.iwl3945-firmware": {
         "devices": null,
         "value": "15.32.2.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7689,6 +7997,7 @@
     "packages.nspr": {
         "devices": null,
         "value": "4.10.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7700,6 +8009,7 @@
     "packages.iwl3160-firmware": {
         "devices": null,
         "value": "22.0.7.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7711,6 +8021,7 @@
     "packages.popt": {
         "devices": null,
         "value": "1.13",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7722,6 +8033,7 @@
     "packages.iwl5000-firmware": {
         "devices": null,
         "value": "8.83.5.1_1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7733,6 +8045,7 @@
     "packages.nss-util": {
         "devices": null,
         "value": "3.19.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7744,6 +8057,7 @@
     "packages.iwl7265-firmware": {
         "devices": null,
         "value": "22.0.7.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7755,6 +8069,7 @@
     "packages.grep": {
         "devices": null,
         "value": "2.20",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7766,6 +8081,7 @@
     "packages.ivtv-firmware": {
         "devices": null,
         "value": "20080701",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7777,6 +8093,7 @@
     "packages.dbus-libs": {
         "devices": null,
         "value": "1.6.12",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7788,6 +8105,7 @@
     "packages.iwl2030-firmware": {
         "devices": null,
         "value": "18.168.6.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7799,6 +8117,7 @@
     "packages.gawk": {
         "devices": null,
         "value": "4.0.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7810,6 +8129,7 @@
     "packages.iwl2000-firmware": {
         "devices": null,
         "value": "18.168.6.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7821,6 +8141,7 @@
     "packages.libgpg-error": {
         "devices": null,
         "value": "1.12",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7832,6 +8153,7 @@
     "packages.iwl1000-firmware": {
         "devices": null,
         "value": "39.31.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7843,6 +8165,7 @@
     "packages.libattr": {
         "devices": null,
         "value": "2.4.46",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7854,6 +8177,7 @@
     "packages.iwl5150-firmware": {
         "devices": null,
         "value": "8.24.2.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7865,6 +8189,7 @@
     "packages.libcap": {
         "devices": null,
         "value": "2.22",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7876,6 +8201,7 @@
     "packages.gpg-pubkey": {
         "devices": null,
         "value": "f4a80eb5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7887,6 +8213,7 @@
     "packages.cpio": {
         "devices": null,
         "value": "2.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7898,6 +8225,7 @@
     "packages.audit-libs-python": {
         "devices": null,
         "value": "2.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7909,6 +8237,7 @@
     "packages.libnl3": {
         "devices": null,
         "value": "3.2.21",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7920,6 +8249,7 @@
     "packages.oci-systemd-hook": {
         "devices": null,
         "value": "0.1.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7931,6 +8261,7 @@
     "packages.p11-kit": {
         "devices": null,
         "value": "0.20.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7942,6 +8273,7 @@
     "packages.libseccomp": {
         "devices": null,
         "value": "2.2.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7953,6 +8285,7 @@
     "packages.sqlite": {
         "devices": null,
         "value": "3.7.17",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7964,6 +8297,7 @@
     "packages.checkpolicy": {
         "devices": null,
         "value": "2.1.12",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7975,6 +8309,7 @@
     "packages.diffutils": {
         "devices": null,
         "value": "3.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7986,6 +8321,7 @@
     "packages.docker-common": {
         "devices": null,
         "value": "1.10.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -7997,6 +8333,7 @@
     "packages.libcap-ng": {
         "devices": null,
         "value": "0.7.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8008,6 +8345,7 @@
     "packages.policycoreutils-python": {
         "devices": null,
         "value": "2.2.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8019,6 +8357,7 @@
     "packages.file-libs": {
         "devices": null,
         "value": "5.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8030,6 +8369,7 @@
     "packages.docker": {
         "devices": null,
         "value": "1.10.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8041,6 +8381,7 @@
     "packages.file": {
         "devices": null,
         "value": "5.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8052,6 +8393,7 @@
     "packages.perl-HTTP-Tiny": {
         "devices": null,
         "value": "0.033",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8063,6 +8405,7 @@
     "packages.libnl3-cli": {
         "devices": null,
         "value": "3.2.21",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8074,6 +8417,7 @@
     "packages.perl-Pod-Perldoc": {
         "devices": null,
         "value": "3.20",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8085,6 +8429,7 @@
     "packages.cyrus-sasl-lib": {
         "devices": null,
         "value": "2.1.26",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8096,6 +8441,7 @@
     "packages.perl-Text-ParseWords": {
         "devices": null,
         "value": "3.29",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8107,6 +8453,7 @@
     "packages.groff-base": {
         "devices": null,
         "value": "1.22.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8118,6 +8465,7 @@
     "packages.perl-Pod-Usage": {
         "devices": null,
         "value": "1.63",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8129,6 +8477,7 @@
     "packages.libgomp": {
         "devices": null,
         "value": "4.8.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8140,6 +8489,7 @@
     "packages.perl-macros": {
         "devices": null,
         "value": "5.16.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8151,6 +8501,7 @@
     "packages.xz": {
         "devices": null,
         "value": "5.1.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8162,6 +8513,7 @@
     "packages.perl-Exporter": {
         "devices": null,
         "value": "5.68",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8173,6 +8525,7 @@
     "packages.slang": {
         "devices": null,
         "value": "2.2.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8184,6 +8537,7 @@
     "packages.perl-Time-Local": {
         "devices": null,
         "value": "1.2300",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8195,6 +8549,7 @@
     "packages.sysvinit-tools": {
         "devices": null,
         "value": "2.88",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8206,6 +8561,7 @@
     "packages.perl-Time-HiRes": {
         "devices": null,
         "value": "1.9725",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8217,6 +8573,7 @@
     "packages.tcp_wrappers-libs": {
         "devices": null,
         "value": "7.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8228,6 +8585,7 @@
     "packages.perl-Scalar-List-Utils": {
         "devices": null,
         "value": "1.27",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8239,6 +8597,7 @@
     "packages.ethtool": {
         "devices": null,
         "value": "3.15",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8250,6 +8609,7 @@
     "packages.perl-File-Path": {
         "devices": null,
         "value": "2.09",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8261,6 +8621,7 @@
     "packages.pciutils-libs": {
         "devices": null,
         "value": "3.2.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8272,6 +8633,7 @@
     "packages.perl-threads": {
         "devices": null,
         "value": "1.87",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8283,6 +8645,7 @@
     "packages.libtasn1": {
         "devices": null,
         "value": "3.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8294,6 +8657,7 @@
     "packages.perl-Filter": {
         "devices": null,
         "value": "1.49",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8305,6 +8669,7 @@
     "packages.gdbm": {
         "devices": null,
         "value": "1.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8316,6 +8681,7 @@
     "packages.perl-Getopt-Long": {
         "devices": null,
         "value": "2.40",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8327,6 +8693,7 @@
     "packages.libteam": {
         "devices": null,
         "value": "1.17",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8338,6 +8705,7 @@
     "packages.perl-Error": {
         "devices": null,
         "value": "0.17020",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8349,6 +8717,7 @@
     "packages.glib2": {
         "devices": null,
         "value": "2.42.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8360,6 +8729,7 @@
     "packages.rsync": {
         "devices": null,
         "value": "3.0.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8371,6 +8741,7 @@
     "packages.shared-mime-info": {
         "devices": null,
         "value": "1.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8382,6 +8753,7 @@
     "packages.perl-Git": {
         "devices": null,
         "value": "1.8.3.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8393,6 +8765,7 @@
     "packages.libcroco": {
         "devices": null,
         "value": "0.6.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8404,6 +8777,7 @@
     "packages.apr": {
         "devices": null,
         "value": "1.4.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8415,6 +8789,7 @@
     "packages.gobject-introspection": {
         "devices": null,
         "value": "1.42.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8426,6 +8801,7 @@
     "packages.httpd-tools": {
         "devices": null,
         "value": "2.4.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8437,6 +8813,7 @@
     "packages.vim-minimal": {
         "devices": null,
         "value": "7.4.160",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8448,6 +8825,7 @@
     "packages.httpd": {
         "devices": null,
         "value": "2.4.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8459,6 +8837,7 @@
     "packages.avahi-libs": {
         "devices": null,
         "value": "0.6.31",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8470,6 +8849,7 @@
     "packages.pyparted": {
         "devices": null,
         "value": "3.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8481,6 +8861,7 @@
     "packages.pinentry": {
         "devices": null,
         "value": "0.8.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8492,6 +8873,7 @@
     "packages.dosfstools": {
         "devices": null,
         "value": "3.0.20",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8503,6 +8885,7 @@
     "packages.mozjs17": {
         "devices": null,
         "value": "17.0.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8514,6 +8897,7 @@
     "packages.lsof": {
         "devices": null,
         "value": "4.87",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8525,6 +8909,7 @@
     "packages.kmod-libs": {
         "devices": null,
         "value": "20",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8536,6 +8921,7 @@
     "packages.python-backports-ssl_match_hostname": {
         "devices": null,
         "value": "3.4.0.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8547,6 +8933,7 @@
     "packages.freetype": {
         "devices": null,
         "value": "2.4.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8558,6 +8945,7 @@
     "packages.pykickstart": {
         "devices": null,
         "value": "1.99.66.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8569,6 +8957,7 @@
     "packages.ncurses": {
         "devices": null,
         "value": "5.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8580,6 +8969,7 @@
     "packages.sg3_utils": {
         "devices": null,
         "value": "1.37",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8591,6 +8981,7 @@
     "packages.libproxy": {
         "devices": null,
         "value": "0.4.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8602,6 +8993,7 @@
     "packages.libreport-filesystem": {
         "devices": null,
         "value": "2.1.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8613,6 +9005,7 @@
     "packages.libpcap": {
         "devices": null,
         "value": "1.5.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8624,6 +9017,7 @@
     "packages.cryptsetup": {
         "devices": null,
         "value": "1.6.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8635,6 +9029,7 @@
     "packages.libsemanage": {
         "devices": null,
         "value": "2.1.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8646,6 +9041,7 @@
     "packages.device-mapper-multipath-libs": {
         "devices": null,
         "value": "0.4.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8657,6 +9053,7 @@
     "packages.krb5-libs": {
         "devices": null,
         "value": "1.13.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8668,6 +9065,7 @@
     "packages.openslp": {
         "devices": null,
         "value": "2.0.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8679,6 +9077,7 @@
     "packages.coreutils": {
         "devices": null,
         "value": "8.22",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8690,6 +9089,7 @@
     "packages.tog-pegasus": {
         "devices": null,
         "value": "2.14.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8701,6 +9101,7 @@
     "packages.shadow-utils": {
         "devices": null,
         "value": "4.1.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8712,6 +9113,7 @@
     "packages.pywbem": {
         "devices": null,
         "value": "0.7.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8723,6 +9125,7 @@
     "packages.python-libs": {
         "devices": null,
         "value": "2.7.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8734,6 +9137,7 @@
     "packages.openlmi-python-base": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8745,6 +9149,7 @@
     "packages.gzip": {
         "devices": null,
         "value": "1.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8756,6 +9161,7 @@
     "packages.openlmi-python-providers": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8767,6 +9173,7 @@
     "packages.python-decorator": {
         "devices": null,
         "value": "3.4.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8778,6 +9185,7 @@
     "packages.openlmi-service": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8789,6 +9197,7 @@
     "packages.cracklib-dicts": {
         "devices": null,
         "value": "2.9.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8800,6 +9209,7 @@
     "packages.openlmi-software": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8811,6 +9221,7 @@
     "packages.libpwquality": {
         "devices": null,
         "value": "1.2.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8822,6 +9233,7 @@
     "packages.openlmi-logicalfile": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8833,6 +9245,7 @@
     "packages.libgudev1": {
         "devices": null,
         "value": "219",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8844,6 +9257,7 @@
     "packages.gettext": {
         "devices": null,
         "value": "0.18.2.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8855,6 +9269,7 @@
     "packages.libmount": {
         "devices": null,
         "value": "2.23.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8866,6 +9281,7 @@
     "packages.plymouth-core-libs": {
         "devices": null,
         "value": "0.8.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8877,6 +9293,7 @@
     "packages.python-slip": {
         "devices": null,
         "value": "0.4.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8888,6 +9305,7 @@
     "packages.python-iniparse": {
         "devices": null,
         "value": "0.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8899,6 +9317,7 @@
     "packages.python-configobj": {
         "devices": null,
         "value": "4.7.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8910,6 +9329,7 @@
     "packages.yum-metadata-parser": {
         "devices": null,
         "value": "1.1.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8921,6 +9341,7 @@
     "packages.pyxattr": {
         "devices": null,
         "value": "0.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8932,6 +9353,7 @@
     "packages.grubby": {
         "devices": null,
         "value": "8.28",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8943,6 +9365,7 @@
     "packages.libutempter": {
         "devices": null,
         "value": "1.1.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8954,6 +9377,7 @@
     "packages.nss": {
         "devices": null,
         "value": "3.19.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8965,6 +9389,7 @@
     "packages.nss-tools": {
         "devices": null,
         "value": "3.19.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8976,6 +9401,7 @@
     "packages.logrotate": {
         "devices": null,
         "value": "3.8.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8987,6 +9413,7 @@
     "packages.binutils": {
         "devices": null,
         "value": "2.23.52.0.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -8998,6 +9425,7 @@
     "packages.fipscheck-lib": {
         "devices": null,
         "value": "1.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9009,6 +9437,7 @@
     "packages.libssh2": {
         "devices": null,
         "value": "1.4.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9020,6 +9449,7 @@
     "packages.curl": {
         "devices": null,
         "value": "7.29.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9031,6 +9461,7 @@
     "packages.rpm": {
         "devices": null,
         "value": "4.11.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9042,6 +9473,7 @@
     "packages.libuser": {
         "devices": null,
         "value": "0.60",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9053,6 +9485,7 @@
     "packages.policycoreutils": {
         "devices": null,
         "value": "2.2.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9064,6 +9497,7 @@
     "packages.dhcp-libs": {
         "devices": null,
         "value": "4.2.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9075,6 +9509,7 @@
     "packages.selinux-policy": {
         "devices": null,
         "value": "3.13.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9086,6 +9521,7 @@
     "packages.python-urlgrabber": {
         "devices": null,
         "value": "3.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9097,6 +9533,7 @@
     "packages.hardlink": {
         "devices": null,
         "value": "1.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9108,6 +9545,7 @@
     "packages.gnupg2": {
         "devices": null,
         "value": "2.0.22",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9119,6 +9557,7 @@
     "packages.pygpgme": {
         "devices": null,
         "value": "0.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9130,6 +9569,7 @@
     "packages.rpm-python": {
         "devices": null,
         "value": "4.11.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9141,6 +9581,7 @@
     "packages.yum": {
         "devices": null,
         "value": "3.4.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9152,6 +9593,7 @@
     "packages.libnetfilter_conntrack": {
         "devices": null,
         "value": "1.0.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9163,6 +9605,7 @@
     "packages.iproute": {
         "devices": null,
         "value": "3.10.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9174,6 +9617,7 @@
     "packages.device-mapper-libs": {
         "devices": null,
         "value": "1.02.107",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9185,6 +9629,7 @@
     "packages.dracut": {
         "devices": null,
         "value": "033",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9196,6 +9641,7 @@
     "packages.systemd": {
         "devices": null,
         "value": "219",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9207,6 +9653,7 @@
     "packages.systemd-sysv": {
         "devices": null,
         "value": "219",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9218,6 +9665,7 @@
     "packages.initscripts": {
         "devices": null,
         "value": "9.49.30",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9229,6 +9677,7 @@
     "packages.polkit": {
         "devices": null,
         "value": "0.112",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9240,6 +9689,7 @@
     "packages.cronie-anacron": {
         "devices": null,
         "value": "1.4.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9251,6 +9701,7 @@
     "packages.crontabs": {
         "devices": null,
         "value": "1.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9262,6 +9713,7 @@
     "packages.grub2-tools": {
         "devices": null,
         "value": "2.02",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9273,6 +9725,7 @@
     "packages.lvm2-libs": {
         "devices": null,
         "value": "2.02.130",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9284,6 +9737,7 @@
     "packages.wpa_supplicant": {
         "devices": null,
         "value": "2.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9295,6 +9749,7 @@
     "packages.hwdata": {
         "devices": null,
         "value": "0.252",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9306,6 +9761,7 @@
     "packages.libdrm": {
         "devices": null,
         "value": "2.4.60",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9317,6 +9773,7 @@
     "packages.plymouth": {
         "devices": null,
         "value": "0.8.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9328,6 +9785,7 @@
     "packages.gnutls": {
         "devices": null,
         "value": "3.3.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9339,6 +9797,7 @@
     "packages.libsoup": {
         "devices": null,
         "value": "2.48.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9350,6 +9809,7 @@
     "packages.alsa-firmware": {
         "devices": null,
         "value": "1.0.28",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9361,6 +9821,7 @@
     "packages.ebtables": {
         "devices": null,
         "value": "2.0.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9372,6 +9833,7 @@
     "packages.libpipeline": {
         "devices": null,
         "value": "1.2.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9383,6 +9845,7 @@
     "packages.device-mapper-persistent-data": {
         "devices": null,
         "value": "0.5.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9394,6 +9857,7 @@
     "packages.json-c": {
         "devices": null,
         "value": "0.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9405,6 +9869,7 @@
     "packages.teamd": {
         "devices": null,
         "value": "1.17",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9416,6 +9881,7 @@
     "packages.virt-what": {
         "devices": null,
         "value": "1.13",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9427,6 +9893,7 @@
     "packages.numactl-libs": {
         "devices": null,
         "value": "2.0.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9438,6 +9905,7 @@
     "packages.bind-libs-lite": {
         "devices": null,
         "value": "9.9.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9449,6 +9917,7 @@
     "packages.NetworkManager": {
         "devices": null,
         "value": "1.0.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9460,6 +9929,7 @@
     "packages.kbd-legacy": {
         "devices": null,
         "value": "1.15.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9471,6 +9941,7 @@
     "packages.kexec-tools": {
         "devices": null,
         "value": "2.0.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9482,6 +9953,7 @@
     "packages.NetworkManager-team": {
         "devices": null,
         "value": "1.0.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9493,6 +9965,7 @@
     "packages.rsyslog": {
         "devices": null,
         "value": "7.4.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9504,6 +9977,7 @@
     "packages.lvm2": {
         "devices": null,
         "value": "2.02.130",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9515,6 +9989,7 @@
     "packages.kernel-tools": {
         "devices": null,
         "value": "3.10.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9526,6 +10001,7 @@
     "packages.openlmi-networking": {
         "devices": null,
         "value": "0.3.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9537,6 +10013,7 @@
     "packages.dmraid": {
         "devices": null,
         "value": "1.0.0.rc16",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9548,6 +10025,7 @@
     "packages.python-pyblock": {
         "devices": null,
         "value": "0.53",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9559,6 +10037,7 @@
     "packages.openlmi-storage": {
         "devices": null,
         "value": "0.8.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9570,6 +10049,7 @@
     "packages.grub2": {
         "devices": null,
         "value": "2.02",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9581,6 +10061,7 @@
     "packages.centos-release": {
         "devices": null,
         "value": "7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9592,6 +10073,7 @@
     "packages.rdma": {
         "devices": null,
         "value": "7.2_4.1_rc6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9603,6 +10085,7 @@
     "packages.kbd-misc": {
         "devices": null,
         "value": "1.15.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9614,6 +10097,7 @@
     "packages.openssh-server": {
         "devices": null,
         "value": "6.6.1p1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9625,6 +10109,7 @@
     "packages.nss-softokn-freebl": {
         "devices": null,
         "value": "3.16.2.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9636,6 +10121,7 @@
     "packages.selinux-policy-targeted": {
         "devices": null,
         "value": "3.13.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9647,6 +10133,7 @@
     "packages.libstdc++": {
         "devices": null,
         "value": "4.8.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9658,6 +10145,7 @@
     "packages.sudo": {
         "devices": null,
         "value": "1.8.6p7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9669,6 +10157,7 @@
     "packages.pcre": {
         "devices": null,
         "value": "8.32",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9680,6 +10169,7 @@
     "packages.tar": {
         "devices": null,
         "value": "1.26",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9691,6 +10181,7 @@
     "packages.audit-libs": {
         "devices": null,
         "value": "2.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9702,6 +10193,7 @@
     "packages.iwl6050-firmware": {
         "devices": null,
         "value": "41.28.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9713,6 +10205,7 @@
     "packages.libcom_err": {
         "devices": null,
         "value": "1.42.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9724,6 +10217,7 @@
     "packages.iwl6000g2a-firmware": {
         "devices": null,
         "value": "17.168.5.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9735,6 +10229,7 @@
     "packages.libdb": {
         "devices": null,
         "value": "5.3.21",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9746,6 +10241,7 @@
     "packages.iwl105-firmware": {
         "devices": null,
         "value": "18.168.6.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9757,6 +10253,7 @@
     "packages.readline": {
         "devices": null,
         "value": "6.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9768,6 +10265,7 @@
     "packages.iwl6000-firmware": {
         "devices": null,
         "value": "9.221.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9779,6 +10277,7 @@
     "packages.libffi": {
         "devices": null,
         "value": "3.0.13",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9790,6 +10289,7 @@
     "packages.iwl100-firmware": {
         "devices": null,
         "value": "39.31.5.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9801,6 +10301,7 @@
     "packages.libgcrypt": {
         "devices": null,
         "value": "1.5.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9812,6 +10313,7 @@
     "packages.yajl": {
         "devices": null,
         "value": "2.0.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9823,6 +10325,7 @@
     "packages.expat": {
         "devices": null,
         "value": "2.1.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9834,6 +10337,7 @@
     "packages.python-IPy": {
         "devices": null,
         "value": "0.75",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9845,6 +10349,7 @@
     "packages.lua": {
         "devices": null,
         "value": "5.1.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9856,6 +10361,7 @@
     "packages.setools-libs": {
         "devices": null,
         "value": "3.3.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9867,6 +10373,7 @@
     "packages.libidn": {
         "devices": null,
         "value": "1.28",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9878,6 +10385,7 @@
     "packages.perl-parent": {
         "devices": null,
         "value": "0.225",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9889,6 +10397,7 @@
     "packages.nss-softokn": {
         "devices": null,
         "value": "3.16.2.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9900,6 +10409,7 @@
     "packages.perl-Pod-Escapes": {
         "devices": null,
         "value": "1.04",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9911,6 +10421,7 @@
     "packages.e2fsprogs-libs": {
         "devices": null,
         "value": "1.42.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9922,6 +10433,7 @@
     "packages.perl-libs": {
         "devices": null,
         "value": "5.16.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9933,6 +10445,7 @@
     "packages.libunistring": {
         "devices": null,
         "value": "0.9.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9944,6 +10457,7 @@
     "packages.perl-constant": {
         "devices": null,
         "value": "1.27",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9955,6 +10469,7 @@
     "packages.newt": {
         "devices": null,
         "value": "0.52.15",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9966,6 +10481,7 @@
     "packages.perl-PathTools": {
         "devices": null,
         "value": "3.40",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9977,6 +10493,7 @@
     "packages.libdaemon": {
         "devices": null,
         "value": "0.14",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9988,6 +10505,7 @@
     "packages.perl-threads-shared": {
         "devices": null,
         "value": "1.43",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -9999,6 +10517,7 @@
     "packages.keyutils-libs": {
         "devices": null,
         "value": "1.5.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10010,6 +10529,7 @@
     "packages.perl-Pod-Simple": {
         "devices": null,
         "value": "3.28",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10021,6 +10541,7 @@
     "packages.less": {
         "devices": null,
         "value": "458",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10032,6 +10553,7 @@
     "packages.perl-TermReadKey": {
         "devices": null,
         "value": "2.30",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10043,6 +10565,7 @@
     "packages.pkgconfig": {
         "devices": null,
         "value": "0.27.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10054,6 +10577,7 @@
     "packages.git": {
         "devices": null,
         "value": "1.8.3.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10065,6 +10589,7 @@
     "packages.gettext-libs": {
         "devices": null,
         "value": "0.18.2.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10076,6 +10601,7 @@
     "packages.mailcap": {
         "devices": null,
         "value": "2.1.41",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10087,6 +10613,7 @@
     "packages.acl": {
         "devices": null,
         "value": "2.2.51",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10098,6 +10625,7 @@
     "packages.net-snmp-libs": {
         "devices": null,
         "value": "5.7.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10109,6 +10637,7 @@
     "packages.libss": {
         "devices": null,
         "value": "1.42.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10120,6 +10649,7 @@
     "packages.python-backports": {
         "devices": null,
         "value": "1.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10131,6 +10661,7 @@
     "packages.libselinux-utils": {
         "devices": null,
         "value": "2.2.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10142,6 +10673,7 @@
     "packages.sg3_utils-libs": {
         "devices": null,
         "value": "1.37",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10153,6 +10685,7 @@
     "packages.libmodman": {
         "devices": null,
         "value": "2.0.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10164,6 +10697,7 @@
     "packages.mdadm": {
         "devices": null,
         "value": "3.3.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10175,6 +10709,7 @@
     "packages.ustr": {
         "devices": null,
         "value": "1.0.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10186,6 +10721,7 @@
     "packages.device-mapper-multipath": {
         "devices": null,
         "value": "0.4.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10197,6 +10733,7 @@
     "packages.openssl-libs": {
         "devices": null,
         "value": "1.0.1e",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10208,6 +10745,7 @@
     "packages.m2crypto": {
         "devices": null,
         "value": "0.21.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10219,6 +10757,7 @@
     "packages.libblkid": {
         "devices": null,
         "value": "2.23.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10230,6 +10769,7 @@
     "packages.openlmi-providers": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10241,6 +10781,7 @@
     "packages.cracklib": {
         "devices": null,
         "value": "2.9.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10252,6 +10793,7 @@
     "packages.openlmi-account": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10263,6 +10805,7 @@
     "packages.pam": {
         "devices": null,
         "value": "1.1.8",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10274,6 +10817,7 @@
     "packages.openlmi-powermanagement": {
         "devices": null,
         "value": "0.5.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10285,6 +10829,7 @@
     "packages.procps-ng": {
         "devices": null,
         "value": "3.3.10",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10296,6 +10841,7 @@
     "packages.dmraid-events": {
         "devices": null,
         "value": "1.0.0.rc16",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10307,6 +10853,7 @@
     "packages.centos-logos": {
         "devices": null,
         "value": "70.0.6",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10318,6 +10865,7 @@
     "packages.openlmi": {
         "devices": null,
         "value": "1.0.2",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10329,6 +10877,7 @@
     "packages.python-slip-dbus": {
         "devices": null,
         "value": "0.4.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10340,6 +10889,7 @@
     "packages.newt-python": {
         "devices": null,
         "value": "0.52.15",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10351,6 +10901,7 @@
     "packages.python-perf": {
         "devices": null,
         "value": "3.10.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10362,6 +10913,7 @@
     "packages.nss-sysinit": {
         "devices": null,
         "value": "3.19.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10373,6 +10925,7 @@
     "packages.openssl": {
         "devices": null,
         "value": "1.0.1e",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10384,6 +10937,7 @@
     "packages.mariadb-libs": {
         "devices": null,
         "value": "5.5.44",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10395,6 +10949,7 @@
     "packages.libcurl": {
         "devices": null,
         "value": "7.29.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10406,6 +10961,7 @@
     "packages.openldap": {
         "devices": null,
         "value": "2.4.40",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10417,6 +10973,7 @@
     "packages.openssh": {
         "devices": null,
         "value": "6.6.1p1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10428,6 +10985,7 @@
     "packages.python-pycurl": {
         "devices": null,
         "value": "7.19.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10439,6 +10997,7 @@
     "packages.pth": {
         "devices": null,
         "value": "2.0.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10450,6 +11009,7 @@
     "packages.rpm-build-libs": {
         "devices": null,
         "value": "4.11.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10461,6 +11021,7 @@
     "packages.libmnl": {
         "devices": null,
         "value": "1.0.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10472,6 +11033,7 @@
     "packages.qrencode-libs": {
         "devices": null,
         "value": "3.4.1",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10483,6 +11045,7 @@
     "packages.cryptsetup-libs": {
         "devices": null,
         "value": "1.6.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10494,6 +11057,7 @@
     "packages.dbus": {
         "devices": null,
         "value": "1.6.12",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10505,6 +11069,7 @@
     "packages.device-mapper-event-libs": {
         "devices": null,
         "value": "1.02.107",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10516,6 +11081,7 @@
     "packages.cronie": {
         "devices": null,
         "value": "1.4.11",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10527,6 +11093,7 @@
     "packages.device-mapper-event": {
         "devices": null,
         "value": "1.02.107",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10538,6 +11105,7 @@
     "packages.ppp": {
         "devices": null,
         "value": "2.4.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10549,6 +11117,7 @@
     "packages.plymouth-scripts": {
         "devices": null,
         "value": "0.8.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10560,6 +11129,7 @@
     "packages.glib-networking": {
         "devices": null,
         "value": "2.42.0",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10571,6 +11141,7 @@
     "packages.alsa-tools-firmware": {
         "devices": null,
         "value": "1.0.28",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10582,6 +11153,7 @@
     "packages.libaio": {
         "devices": null,
         "value": "0.3.109",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10593,6 +11165,7 @@
     "packages.jansson": {
         "devices": null,
         "value": "2.4",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10604,6 +11177,7 @@
     "packages.libestr": {
         "devices": null,
         "value": "0.1.9",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10615,6 +11189,7 @@
     "packages.dhclient": {
         "devices": null,
         "value": "4.2.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10626,6 +11201,7 @@
     "packages.kbd": {
         "devices": null,
         "value": "1.15.5",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10637,6 +11213,7 @@
     "packages.irqbalance": {
         "devices": null,
         "value": "1.0.7",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10648,6 +11225,7 @@
     "packages.man-db": {
         "devices": null,
         "value": "2.6.3",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10659,6 +11237,7 @@
     "mount_iso": {
         "devices": null,
         "value": "no mount",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10670,6 +11249,7 @@
     "proxy_global": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10681,6 +11261,7 @@
     "crash_size": {
         "devices": null,
         "value": "168820736",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10692,6 +11273,7 @@
     "kdump_path": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10703,6 +11285,7 @@
     "runlevel": {
         "devices": null,
         "value": "multi-user.target\n",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10714,6 +11297,7 @@
     "resolve_conf": {
         "devices": null,
         "value": "on",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10725,6 +11309,7 @@
     "nameservers": {
         "devices": null,
         "value": "[nameserver1:192.168.0.254]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10736,6 +11321,7 @@
     "keyboard": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10747,6 +11333,7 @@
     "language": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10758,6 +11345,7 @@
     "timezone": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10769,6 +11357,7 @@
     "ntp": {
         "devices": null,
         "value": "[ntp:Configured, server:[133.119.128.59]]",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10780,6 +11369,7 @@
     "ntp_slew": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10791,6 +11381,7 @@
     "snmp_trap": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10802,17 +11393,19 @@
     "sestatus": {
         "devices": null,
         "value": "enabled",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": null,
         "name": "sestatus"
     },
     "se_mode": {
         "devices": null,
         "value": "enforcing",
+        "comparision": null,
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -10824,6 +11417,7 @@
     "error_messages": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10835,6 +11429,7 @@
     "oracle_module": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {
@@ -10846,6 +11441,7 @@
     "oracle": {
         "devices": null,
         "value": null,
+        "comparision": null,
         "error_msg": null,
         "status": "NG",
         "custom_fields": {

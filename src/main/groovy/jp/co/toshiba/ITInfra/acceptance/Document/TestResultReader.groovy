@@ -27,9 +27,8 @@ class TestResultReader {
         }
     }
 
-    def set_environment(ConfigTestEnvironment test_environment) {
-        def config = test_environment.config
-        this.json_dir = config?.evidence?.json_dir ?: './build/json/'
+    def set_environment(ConfigTestEnvironment env) {
+        this.json_dir = env.get_json_dir()
     }
 
     def convert_to_result_status(String status) {

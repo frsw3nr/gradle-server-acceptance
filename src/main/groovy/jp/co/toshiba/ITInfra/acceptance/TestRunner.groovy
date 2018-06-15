@@ -29,7 +29,6 @@ class TestRunner {
     int parallel_degree
     Boolean dry_run
     Boolean verify_test
-    Boolean use_redmine
     Boolean silent
 
     def parse(String[] args) {
@@ -156,14 +155,14 @@ class TestRunner {
         if (test_runner.command == RunnerCommand.SCHEDULER) {
             def test_scheduler = new TestScheduler()
             test_env.accept(test_scheduler)
-            // try {
-            //     test_scheduler.init()
-            //     test_scheduler.run()
-            //     test_scheduler.finish()
-            // } catch (Exception e) {
-            //     log.error "Fatal error : " + e
-            //      e.printStackTrace()
-            // }
+            try {
+                test_scheduler.init()
+                test_scheduler.run()
+                test_scheduler.finish()
+            } catch (Exception e) {
+                log.error "Fatal error : " + e
+                 e.printStackTrace()
+            }
         } else if (test_runner.command == RunnerCommand.EXPORT) {
             def evidence_manager = new EvidenceManager()
             // test_env.set_evidence_manager_environment(test_scheduler)

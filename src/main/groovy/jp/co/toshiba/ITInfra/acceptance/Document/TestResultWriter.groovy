@@ -33,4 +33,22 @@ class TestResultWriter {
             }
         }
     }
+
+    def write(test_scenario) {
+        def targets = test_scenario.test_targets.get_all()
+
+        targets.each { target, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                test_target.test_platforms.each { platform, test_platform ->
+                    this.write_test_platform(target, platform, test_platform)
+                }
+            }
+        }
+    }
+
+
+    def visit_test_scenario(test_scenario) {
+        println "JSON_DIR : $json_dir"
+        this.write_entire_scenario(test_scenario)
+    }
 }

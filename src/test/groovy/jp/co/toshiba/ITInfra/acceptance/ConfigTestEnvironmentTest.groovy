@@ -67,6 +67,7 @@ class ConfigTestEnvironmentTest extends Specification {
         // test_env.accept(test_platform)
         test_env.accept(test_platform)
         println "ENV:${test_platform.evidence_log_dir}"
+        test_env.print_config()
 
         then:
         test_platform.evidence_log_dir == './build/log/ostrich'

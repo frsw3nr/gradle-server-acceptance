@@ -79,10 +79,6 @@ class ConfigTestEnvironment {
                 return
             this.config."$name" = value
         }
-        println "TEST_RUNNER2"
-        def json = new groovy.json.JsonBuilder()
-        json(this.config)
-        println json.toPrettyString()
     }
 
     private get_config_account(Map config_account, String platform, String id) {
@@ -115,72 +111,119 @@ class ConfigTestEnvironment {
         }
     }
 
+    def get_getconfig_home() {
+        return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
+    }
+
+    def get_project_home() {
+        return this.config?.project_home ?: System.getProperty("user.dir")
+    }
+
+    def get_project_name() {
+        def project_home = this.get_project_home()
+        return new File(project_home).getName()
+    }
+
+    def get_tenant_name() {
+        return '_Default'
+    }
+
+    def get_last_run_config() {
+        def project_home = this.get_project_home()
+        return this.config?.last_run_config ?: "${project_home}/build/.last_run"
+    }
+
+    def get_db_config() {
+        def getconfig_home = this.get_getconfig_home()
+        return this.config?.db_config ?: "${getconfig_home}/config/cmdb.groovy"
+    }
+
+    def get_node_dir() {
+        def project_home = this.get_project_home()
+        return this.config?.node_dir ?: "${project_home}/node"
+    }
+
+    def get_test_resource() {
+        return this.config?.test_resource ?: './src/test/resources/log'
+    }
+
+    def get_silent() {
+        return this.config?.silent
+    }
+
+    def get_excel_file() {
+        return this.config?.excel_file ?: this.config?.evidence?.source ?:
+                          './check_sheet.xlsx'
+    }
+
+    def get_output_evidence() {
+        return this.config?.output_evidence ?: config?.evidence?.target ?:
+                               './check_sheet.xlsx'
+    }
+
+    def get_json_dir() {
+        return this.config?.evidence?.json_dir ?: './build/json/'
+    }
+
+    def get_filter_server() {
+        return this.config?.filter_server
+    }
+
+    def get_filter_metric() {
+        return this.config?.filter_metric
+    }
+
+    def get_parallel_degree() {
+        return this.config?.parallel_degree ?: 0
+    }
+
+    def get_dry_run(String platform) {
+        def config_platform = this.config?.test?."${platform}"
+        return this.config?.dry_run ?: config_platform?.dry_run ?: false
+    }
+
+    def get_timeout(String platform) {
+        def config_platform = this.config?.test?."${platform}"
+        return this.config?.timeout ?: config_platform?.timeout ?: 0
+    }
+
+    def get_debug(String platform) {
+        def config_platform = this.config?.test?."${platform}"
+        return this.config?.debug ?: config_platform?.debug ?: false
+    }
+
+    def get_dry_run_staging_dir(String platform) {
+        return this.config?.test?.dry_run_staging_dir ?: './src/test/resources/log'
+    }
+
+    def get_evidence_log_share_dir(String platform) {
+        return this.config?.evidence?.staging_dir ?: './build/log/'
+    }
+
+    def get_evidence_log_dir(String platform, String target) {
+        def evidence_log_share_dir = this.get_evidence_log_share_dir(platform)
+        return "${evidence_log_share_dir}/${target}"
+    }
+
+    def print_config() {
+        println "getconfig_home :  ${get_getconfig_home()}"
+        println "project_home :    ${get_project_home()}"
+        println "project_name :    ${get_project_name()}"
+        println "tenant_name :     ${get_tenant_name()}"
+        println "last_run_config : ${get_last_run_config()}"
+        println "db_config :       ${get_db_config()}"
+        println "node_dir :        ${get_node_dir()}"
+        println "test_resource :   ${get_test_resource()}"
+        println "silent :          ${get_silent()}"
+        println "excel_file :      ${get_excel_file()}"
+        println "output_evidence : ${get_output_evidence()}"
+        println "json_dir :        ${get_json_dir()}"
+        println "filter_server :   ${get_filter_server()}"
+        println "filter_metric :   ${get_filter_metric()}"
+        println "parallel_degree : ${get_parallel_degree()}"
+    }
+
     def accept(visitor) {
         visitor.set_environment(this)
     }
-
-    // def set_test_platform_environment(TestPlatform test_platform) {
-    //     def config_test = config.test
-    //     def platform    = test_platform.name
-    //     def target_name = test_platform.test_target?.name
-    //     def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
-    //     // evidence_log_share_dir += '/' + platform
-    //     def config_platform = config_test[platform]
-    //     def test_platform_configs = [
-    //         'dry_run'                : config.dry_run ?: config_platform.dry_run ?: false,
-    //         'timeout'                : config.timeout ?: config_platform.timeout ?: 0,
-    //         'debug'                  : config.debug ?: config_platform.debug ?: false,
-    //         'dry_run_staging_dir'    : config_test.dry_run_staging_dir ?:
-    //                                    './src/test/resources/log',
-    //         'evidence_log_share_dir' : evidence_log_share_dir,
-    //         'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
-    //     ]
-
-    //     test_platform_configs.each { key, test_platform_config ->
-    //         if (!test_platform[key])
-    //             test_platform[key] = test_platform_config
-    //         // test_platform[key] = test_platform_config
-    //     }
-    //     def msg = "$target_name(DryRun=${test_platform.dry_run})"
-    //     log.debug "Set test $platform:$msg"
-    // }
-
-    // def set_test_schedule_environment(TestScheduler test_scheduler) {
-    //     test_scheduler.with {
-    //         it.excel_file      = config.excel_file      ?: config.evidence?.source ?:
-    //                              './check_sheet.xlsx'
-    //         it.output_evidence = config.output_evidence ?: config.evidence?.target ?:
-    //                              './check_sheet.xlsx'
-    //         it.json_dir = config?.evidence?.json_dir ?: './build/json/'
-
-    //         log.info "Schedule options : "
-    //         log.info "excel file    : " + it.excel_file
-    //         log.info "output        : " + it.output_evidence
-    //         if (config.filter_server) {
-    //             it.filter_server = config.filter_server
-    //             log.info "filter servers : " + it.filter_server
-    //         }
-    //         if (config.filter_metric) {
-    //             it.filter_metric = config.filter_metric
-    //             log.info "filter metrics : " + it.filter_metric
-    //         }
-    //         if (config.parallel_degree) {
-    //             it.parallel_degree = config.parallel_degree
-    //             log.info "\tparallel degree  : " + it.parallel_degree
-    //         }
-    //     }
-    // }
-
-    // def set_test_result_reader(TestResultReader test_result_reader) {
-    //     test_result_reader.with {
-    //         it.json_dir = config?.evidence?.json_dir ?: './build/json/'
-    //     }
-    // }
-
-    // def set_evidence_environment(EvidenceMaker evidence_maker) {
-    //     def config_test = config.test
-    //     evidence_maker.json_dir        = config?.evidence?.json_dir ?: './build/json/'
-    //     evidence_maker.evidence_target = config?.evidence?.target ?: './build/check_sheet.xlsx'
-    //     evidence_maker.evidence_source = config?.evidence?.source ?: './check_sheet.xlsx'
-    // }
 }

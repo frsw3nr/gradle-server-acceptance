@@ -24,6 +24,15 @@ class TestScheduler {
     int parallel_degree = 0
     def test_platform_tasks = [:].withDefault{[:]}
 
+    def set_environment(ConfigTestEnvironment env) {
+        this.excel_file      = env.get_excel_file()
+        this.output_evidence = env.get_output_evidence()
+        this.json_dir        = env.get_json_dir()
+        this.filter_server   = env.get_filter_server()
+        this.filter_metric   = env.get_filter_metric()
+        this.parallel_degree = env.get_parallel_degree()
+    }
+
     def init() {
         this.excel_parser = new ExcelParser(this.excel_file)
         this.excel_parser.scan_sheet()
@@ -31,31 +40,6 @@ class TestScheduler {
         this.test_scenario.accept(this.excel_parser)
         def test_result_reader = new TestResultReader('json_dir': this.json_dir)
         this.test_scenario.accept(test_result_reader)
-    }
-
-    def set_environment(ConfigTestEnvironment test_environment) {
-        def config = test_environment.config
-        this.excel_file = config.excel_file ?: config.evidence?.source ?:
-                          './check_sheet.xlsx'
-        this.output_evidence = config.output_evidence ?: config.evidence?.target ?:
-                               './check_sheet.xlsx'
-        this.json_dir = config?.evidence?.json_dir ?: './build/json/'
-
-        log.info "Schedule options : "
-        log.info "excel file    : " + this.excel_file
-        log.info "output        : " + this.output_evidence
-        if (config.filter_server) {
-            this.filter_server = config.filter_server
-            log.info "filter servers : " + this.filter_server
-        }
-        if (config.filter_metric) {
-            this.filter_metric = config.filter_metric
-            log.info "filter metrics : " + this.filter_metric
-        }
-        if (config.parallel_degree) {
-            this.parallel_degree = config.parallel_degree
-            log.info "\tparallel degree  : " + this.parallel_degree
-        }
     }
 
     def run() {
@@ -71,6 +55,9 @@ class TestScheduler {
                                     excel_parser: this.excel_parser,
                                     evidence_maker: evidence_maker)
         excel_sheet_maker.output(this.output_evidence)
+        def test_result_writer = new TestResultWriter('json_dir': this.json_dir)
+        // test_result_writer.write_entire_scenario(this.test_scenario)
+        this.test_scenario.accept(test_result_writer)
     }
 
     def make_test_platform_tasks(test_scenario) {
