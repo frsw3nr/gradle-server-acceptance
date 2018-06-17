@@ -34,7 +34,7 @@ class PlatformTester {
 
     def init() {
         def test_env = ConfigTestEnvironment.instance
-        println "CONFIG: ${test_env.config_file}, ${this.config_file}"
+        // println "CONFIG: ${test_env.config_file}, ${this.config_file}"
         // if (!test_env.config_file)
         //     test_env.read_config(this.config_file)
         test_env.set_account(this.test_platform)

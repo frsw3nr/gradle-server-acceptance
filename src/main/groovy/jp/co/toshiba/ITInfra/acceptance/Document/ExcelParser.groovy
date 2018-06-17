@@ -133,6 +133,7 @@ class ExcelParser {
         def all_targets = test_scenario.test_targets.get_all()
         all_targets.each { target_name, domain_targets ->
             domain_targets.each { domain_name, target ->
+                println "make_template_links: ${target_name}, ${domain_name}"
                 this.make_template_link(target, test_scenario)
             }
         }
@@ -213,7 +214,8 @@ class ExcelParser {
         }
         log.debug "Read target : ${test_target_set.get_all().size()} row"
         compare_targets.each { compare_target ->
-            def target = test_target_set.get(compare_target.name)
+            def target = test_target_set.get(compare_target.name,
+                                             compare_target.domain)
             if (!target) {
                 compare_target['target_status'] = TargetStatuses.INIT
                 compare_target['comparision'] = true

@@ -7,6 +7,9 @@ import groovy.json.*
 import org.apache.commons.io.FileUtils
 import groovy.sql.Sql
 import java.sql.*
+import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 @Slf4j
 class EvidenceManager {
@@ -19,6 +22,7 @@ class EvidenceManager {
     String tenant_name
     String last_run_config
     String db_config
+    String result_dir
     String node_dir
     String test_resource
     Boolean silent
@@ -43,6 +47,7 @@ class EvidenceManager {
         this.tenant_name     = env.get_tenant_name()
         this.last_run_config = env.get_last_run_config()
         this.db_config       = env.get_db_config()
+        this.result_dir      = env.get_result_dir()
         this.node_dir        = env.get_node_dir()
         this.test_resource   = env.get_test_resource()
         this.silent          = env.get_silent()
@@ -100,5 +105,17 @@ class EvidenceManager {
     def exportCMDBAll() throws IOException, SQLException {
         CMDBModel.instance.initialize(this)
         CMDBModel.instance.export(new File(this.node_dir).getAbsolutePath())
+    }
+
+    def export_json(TestScenario test_scenario) throws IOException, SQLException {
+        def result_writer = new TestResultWriter(result_dir: this.result_dir)
+        test_scenario.accept(result_writer)
+    }
+
+    def archive_json() throws IOException {
+        assert(this.node_dir)
+        println "node_dir: ${this.node_dir}"
+        def node_path = new File(this.node_dir).getAbsolutePath()
+        FileUtils.copyDirectory(new File(this.result_dir), new File(node_path))
     }
 }

@@ -10,7 +10,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @Slf4j
 @ToString(includePackage = false)
 class TestResultReader {
-    String json_dir
+    String result_dir
     def status_hash = [
         'OK'      : ResultStatus.OK,
         'NG'      : ResultStatus.NG,
@@ -21,14 +21,14 @@ class TestResultReader {
     ]
 
     TestResultReader(Map params) {
-        this.json_dir = params['json_dir']
-        if(this.json_dir && !(new File(this.json_dir)).exists()){
-            throw new IOException("JSON results directory not found : ${this.json_dir}")
+        this.result_dir = params['result_dir']
+        if(this.result_dir && !(new File(this.result_dir)).exists()){
+            throw new IOException("JSON results directory not found : ${this.result_dir}")
         }
     }
 
     def set_environment(ConfigTestEnvironment env) {
-        this.json_dir = env.get_json_dir()
+        this.result_dir = env.get_result_dir()
     }
 
     def convert_to_result_status(String status) {
@@ -37,7 +37,7 @@ class TestResultReader {
 
     TestPlatform read_test_platform_result(String target_name, String platform_name) 
                                        throws IOException {
-        def json_file = new File("${json_dir}/${target_name}/${platform_name}.json")
+        def json_file = new File("${result_dir}/${target_name}/${platform_name}.json")
         if(!json_file.exists())
             return
         def results_json = new JsonSlurper().parseText(json_file.text)
@@ -97,6 +97,7 @@ class TestResultReader {
             domain_targets.each { domain, test_target ->
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform_name, platform_metric ->
+                    println "READ: ${target_name}, ${domain}, ${platform_name}"
                     def test_platform = this.read_test_platform_result(target_name,
                                                                 platform_name)
                     if (test_platform) {

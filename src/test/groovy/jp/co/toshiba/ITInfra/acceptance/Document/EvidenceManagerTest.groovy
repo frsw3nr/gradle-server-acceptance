@@ -8,12 +8,13 @@ import com.github.k3286.dto.Invoice
 import com.github.k3286.dto.InvoiceDetail
 // import com.github.k3286.report.ReportMaker
 
-// gradle --daemon test --tests "EvidenceManagerTest.初期化"
+// gradle --daemon test --tests "EvidenceManagerTest.エクスポート"
 
 class EvidenceManagerTest extends Specification {
     TestScenario test_scenario
     ConfigTestEnvironment test_env
-    // def 
+    PlatformTester platform_tester
+    ExcelParser excel_parser
 
     def setup() {
         String[] args = [
@@ -26,7 +27,12 @@ class EvidenceManagerTest extends Specification {
         def test_runner = new TestRunner()
         test_runner.parse(args)
         test_env.read_from_test_runner(test_runner)
-        test_env.read_config('src/test/resources/config.groovy')
+        test_env.config.evidence.result_dir = './build/json'
+
+        excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
     }
 
     def 初期化() {
@@ -39,9 +45,16 @@ class EvidenceManagerTest extends Specification {
     }
 
     def エクスポート() {
-        when:
-        
+        setup:
+        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
+        test_scenario.accept(test_result_reader)
 
+        when:
+        def evidence_manager = new EvidenceManager()
+        test_env.accept(evidence_manager)
+        evidence_manager.export_json(test_scenario)
+        evidence_manager.archive_json()
+        
         then:
         1 == 1
     }

@@ -53,11 +53,10 @@ class vCenterSpecBase extends InfraTestSpec {
             |-user '${vcenter_user}' -password '${vcenter_password}'
             |-vcenter '${vcenter_ip}'
         """.stripMargin()
-        println "VM : $dry_run, $vcenter_ip $vcenter_user $vcenter_password $vm"
         if (dry_run || (vcenter_ip && vcenter_user && vcenter_password && vm)) {
             runPowerShellTest('lib/template', 'vCenter', cmd, test_items)
         } else {
-            log.info "Skip vCenter test because the target information is unknown"
+            log.info "Skip test because the target is not expected to be VM."
         }
     }
 

@@ -42,7 +42,7 @@ class TestResultWriterTest extends Specification {
         def test_scheduler = new TestScheduler()
         test_env.accept(test_scheduler)
         test_scenario.accept(test_scheduler)
-        def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
+        def test_result_writer = new TestResultWriter(result_dir: 'build/evidence')
         test_result_writer.write_entire_scenario(test_scenario)
 
         then:
@@ -55,7 +55,7 @@ class TestResultWriterTest extends Specification {
         test_env.accept(test_scheduler)
         test_scheduler.init()
         test_scheduler.run()
-        def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
+        def test_result_writer = new TestResultWriter(result_dir: 'build/evidence')
         test_result_writer.write_entire_scenario(test_scheduler.test_scenario)
 
         then:
@@ -70,7 +70,7 @@ class TestResultWriterTest extends Specification {
     //     test_scenario.accept(excel_parser)
     //     def test_scheduler = new TestScheduler()
     //     test_scenario.accept(test_scheduler)
-    //     def test_result_writer = new TestResultWriter(json_dir: 'build/evidence')
+    //     def test_result_writer = new TestResultWriter(result_dir: 'build/evidence')
     //     test_result_writer.write_entire_scenario(test_scenario)
 
     //     then:
@@ -79,7 +79,7 @@ class TestResultWriterTest extends Specification {
 
     def "特定ターゲットのJSON 実行結果読み込み"() {
         when:
-        def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
         test_result_reader.read_test_target_result(test_scenario, 'cent7')
 
         then:
@@ -100,7 +100,7 @@ class TestResultWriterTest extends Specification {
 
     def "JSON 実行結果読み込み"() {
         when:
-        def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
         // test_env.set_test_result_reader(test_result_reader)
         // test_result_reader.read_entire_result(test_scenario)
         test_scenario.accept(test_result_reader)
@@ -119,7 +119,7 @@ class TestResultWriterTest extends Specification {
 
     def "比較対象の JSON 実行結果読み込み"() {
         when:
-        def test_result_reader = new TestResultReader(json_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
         test_result_reader.read_compare_target_result(test_scenario)
 
         then:

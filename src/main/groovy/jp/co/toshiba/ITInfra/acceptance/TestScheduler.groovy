@@ -18,7 +18,7 @@ class TestScheduler {
     String output_evidence
     String filter_server
     String filter_metric
-    String json_dir
+    String result_dir
     Boolean verify_test
     def serialize_platforms = [:]
     int parallel_degree = 0
@@ -27,7 +27,7 @@ class TestScheduler {
     def set_environment(ConfigTestEnvironment env) {
         this.excel_file      = env.get_excel_file()
         this.output_evidence = env.get_output_evidence()
-        this.json_dir        = env.get_json_dir()
+        this.result_dir      = env.get_result_dir()
         this.filter_server   = env.get_filter_server()
         this.filter_metric   = env.get_filter_metric()
         this.parallel_degree = env.get_parallel_degree()
@@ -38,8 +38,12 @@ class TestScheduler {
         this.excel_parser.scan_sheet()
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
-        def test_result_reader = new TestResultReader('json_dir': this.json_dir)
-        this.test_scenario.accept(test_result_reader)
+        try {
+            def result_reader = new TestResultReader('result_dir': this.result_dir)
+            this.test_scenario.accept(result_reader)
+        } catch (Exception e) {
+            log.warn "Faild read test results : " + e
+        }
     }
 
     def run() {
@@ -55,7 +59,7 @@ class TestScheduler {
                                     excel_parser: this.excel_parser,
                                     evidence_maker: evidence_maker)
         excel_sheet_maker.output(this.output_evidence)
-        def test_result_writer = new TestResultWriter('json_dir': this.json_dir)
+        def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
         // test_result_writer.write_entire_scenario(this.test_scenario)
         this.test_scenario.accept(test_result_writer)
     }

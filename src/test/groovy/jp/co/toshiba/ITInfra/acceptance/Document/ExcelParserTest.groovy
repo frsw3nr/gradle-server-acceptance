@@ -291,7 +291,7 @@ class ExcelParserTest extends Specification {
         test_scenario.accept(excel_parser)
 
         def test_result_reader = new TestResultReader(
-                                         json_dir: 'src/test/resources/json')
+                                         result_dir: 'src/test/resources/json')
         test_result_reader. read_entire_result(test_scenario)
 
         def evidence_maker = new EvidenceMaker()

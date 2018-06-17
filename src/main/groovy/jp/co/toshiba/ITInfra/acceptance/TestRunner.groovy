@@ -66,6 +66,7 @@ class TestRunner {
         }
         def options = cli.parse(args)
         if (!options || options?.h) {
+            cli.usage()
             System.exit(0)
         }
         if (options.g) {

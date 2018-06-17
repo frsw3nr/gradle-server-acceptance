@@ -4,7 +4,7 @@ export GETCONFIG_HOME="$HOME/work"
 
 cp "${GETCONFIG_BASE}/src/test/resources/check_sheet.xlsx" \
     "${GETCONFIG_BASE}/src/main/resources/root/jp/サーバーチェックシート.xlsx"
-cp "${GETCONFIG_BASE}/src/test/resources/config_jp.groovy" \
+cp "${GETCONFIG_BASE}/src/test/resources/config_jp_prod.groovy" \
     "${GETCONFIG_BASE}/src/main/resources/root/jp/config/config.groovy"
 
 cd "${GETCOFNG_BASE}"

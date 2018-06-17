@@ -25,7 +25,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // エビデンス出力用変数
 
-// json_dir
+// result_dir
 // evidence_target
 // evidence_source
 
@@ -35,7 +35,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 //         def test_env = ConfigTestEnvironment.instance
 //         test_env.read_config('config/config.groovy')
-//         test_env.json_dir = 'src/test/resources/json'
+//         test_env.result_dir = 'src/test/resources/json'
 //         test_env.evidence_source = 'src/test/resources/check_sheet.xlsx'
 //         test_env.evidence_target = 'build/check_sheet.xlsx'
 //         後から設定された変数が優先される
@@ -161,8 +161,8 @@ class ConfigTestEnvironment {
                                './check_sheet.xlsx'
     }
 
-    def get_json_dir() {
-        return this.config?.evidence?.json_dir ?: './build/json/'
+    def get_result_dir() {
+        return this.config?.evidence?.result_dir ?: './build/json/'
     }
 
     def get_filter_server() {
@@ -217,7 +217,7 @@ class ConfigTestEnvironment {
         println "silent :          ${get_silent()}"
         println "excel_file :      ${get_excel_file()}"
         println "output_evidence : ${get_output_evidence()}"
-        println "json_dir :        ${get_json_dir()}"
+        println "result_dir :      ${get_result_dir()}"
         println "filter_server :   ${get_filter_server()}"
         println "filter_metric :   ${get_filter_metric()}"
         println "parallel_degree : ${get_parallel_degree()}"

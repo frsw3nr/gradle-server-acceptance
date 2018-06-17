@@ -19,7 +19,7 @@ class EvidenceMakerTest extends Specification {
 
     def config_file = 'src/test/resources/config.groovy'
     def excel_file = 'src/test/resources/check_sheet.xlsx'
-    def json_dir = 'src/test/resources/json'
+    def result_dir = 'src/test/resources/json'
     def excel_parser
     def test_scenario
     def evidence_maker
@@ -30,7 +30,7 @@ class EvidenceMakerTest extends Specification {
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
 
-        def test_result_reader = new TestResultReader(json_dir: json_dir)
+        def test_result_reader = new TestResultReader(result_dir: result_dir)
         test_result_reader. read_entire_result(test_scenario)
 
         // evidence_maker = new EvidenceMaker(excel_parser: excel_parser)

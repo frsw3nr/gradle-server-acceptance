@@ -113,7 +113,7 @@ class TestItem {
         def test_value = this.target_info(item_name)
         if (test_value) {
             def check = (value =~ /$test_value/) as boolean
-            log.info "Check ${item_name}, '${value}' =~ /${test_value}/, OK : ${check}"
+            log.debug "Check ${item_name}, '${value}' =~ /${test_value}/, OK : ${check}"
             this.make_verify(item_name, check)
         }
     }
@@ -141,7 +141,7 @@ class TestItem {
         def differ = Math.abs(test_value_double - value_double)
         def check = ((1.0 * differ / max_value) <= err_range) as boolean
         def err = (err_range == 0) ? '' : "(error range=${err_range})"
-        log.info "Check ${item_name}, '${value}' == '${test_value}'${err}, OK : ${check}"
+        log.debug "Check ${item_name}, '${value}' == '${test_value}'${err}, OK : ${check}"
         return check
     }
 
@@ -170,7 +170,7 @@ class TestItem {
                     return true
                 }
             }
-            log.info "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            log.debug "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
             this.make_verify(item_name, check)
         }
     }
@@ -195,7 +195,7 @@ class TestItem {
                     return true
                 }
             }
-            log.info "Check ${item_name}, ${values} = ${test_values}, OK : ${check}"
+            log.debug "Check ${item_name}, ${values} = ${test_values}, OK : ${check}"
             this.make_verify(item_name, check)
         }
     }
@@ -214,7 +214,7 @@ class TestItem {
                     return true
                 }
             }
-            log.info "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            log.debug "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
             this.make_verify(item_name, check)
         }
     }

@@ -234,7 +234,7 @@ class ExcelSheetMaker {
             //     break
 
             case ResultCellStyle.TITLE :
-                style.setFillForegroundColor(IndexedColors.TURQUOISE.getIndex());
+                style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
