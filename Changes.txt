@@ -1,11 +1,40 @@
 Changes for 0.1.19 (2018-6-25)
 --------------------------------------------------------------------------------
 New features:
+* レポート機能
 
 ToDo:
-* ReportMaker仕様ライブラリ比較 JETT,XlsMapper [x]
-    * 数千行登録時間計測 [x]
-    * グルーピング [ ]
+
+結合共通シナリオ
+    コマンドオプション
+        プロジェクトの作成
+        エクスポート機能
+    メイン処理
+        テンプレートとの比較(Linux,Windows)
+        比較対象との比較
+例外シナリオ
+    TestRunner
+        実行オプションエラー
+    TestSceduler
+        init Excel解析エラー
+        exec 検査実行(接続エラー、シナリオエラー)
+        finish(比較 Excelエビデンス)
+        finish(比較 JSONエビデンス)
+レポート機能(新規)
+    仕様検討
+        実行オプション(-r <テンプレートID>)
+    単体
+        TestResultWriter
+            JSON に TestTarget シート属性を追加<先行対応>
+        SummaryReporter
+            JSON 読み込み、Excelシート生成
+    結合
+        SummaryReporter
+            TestResultReader nodeファイル読み込み
+            Excelシート生成 JETT連携
+その他
+    他テンプレートインポート(Zabbix)
+    データベースへのエクスポート Redmine連携<α版対応>
 
 Changes for 0.1.18 (2018-6-10)
 --------------------------------------------------------------------------------

@@ -19,6 +19,7 @@ class TestScheduler {
     String filter_server
     String filter_metric
     String result_dir
+    String node_dir
     Boolean verify_test
     def serialize_platforms = [:]
     int parallel_degree = 0
@@ -28,6 +29,7 @@ class TestScheduler {
         this.excel_file      = env.get_excel_file()
         this.output_evidence = env.get_output_evidence()
         this.result_dir      = env.get_result_dir()
+        this.node_dir        = env.get_node_dir()
         this.filter_server   = env.get_filter_server()
         this.filter_metric   = env.get_filter_metric()
         this.parallel_degree = env.get_parallel_degree()
@@ -39,7 +41,8 @@ class TestScheduler {
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
         try {
-            def result_reader = new TestResultReader('result_dir': this.result_dir)
+            println "NODE_DIR: ${this.node_dir}"
+            def result_reader = new TestResultReader('result_dir': this.node_dir)
             this.test_scenario.accept(result_reader)
         } catch (Exception e) {
             log.warn "Faild read test results : " + e
