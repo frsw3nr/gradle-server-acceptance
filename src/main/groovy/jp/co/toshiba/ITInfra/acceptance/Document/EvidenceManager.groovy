@@ -25,6 +25,7 @@ class EvidenceManager {
     String result_dir
     String node_dir
     String test_resource
+    String evidence_log_share_dir
     Boolean silent
 
     // EvidenceManager(Map params = null) {
@@ -41,16 +42,17 @@ class EvidenceManager {
     // }
 
     def set_environment(ConfigTestEnvironment env) {
-        this.getconfig_home  = env.get_getconfig_home()
-        this.project_home    = env.get_project_home()
-        this.project_name    = env.get_project_name()
-        this.tenant_name     = env.get_tenant_name()
-        this.last_run_config = env.get_last_run_config()
-        this.db_config       = env.get_db_config()
-        this.result_dir      = env.get_result_dir()
-        this.node_dir        = env.get_node_dir()
-        this.test_resource   = env.get_test_resource()
-        this.silent          = env.get_silent()
+        this.getconfig_home         = env.get_getconfig_home()
+        this.project_home           = env.get_project_home()
+        this.project_name           = env.get_project_name()
+        this.tenant_name            = env.get_tenant_name()
+        this.last_run_config        = env.get_last_run_config()
+        this.db_config              = env.get_db_config()
+        this.result_dir             = env.get_result_dir()
+        this.node_dir               = env.get_node_dir()
+        this.test_resource          = env.get_test_resource()
+        this.silent                 = env.get_silent()
+        this.evidence_log_share_dir = env.get_evidence_log_share_dir()
     }
 
     def getNodeDirSource() throws IOException {
@@ -112,10 +114,56 @@ class EvidenceManager {
         test_scenario.accept(result_writer)
     }
 
-    def archive_json() throws IOException {
-        assert(this.node_dir)
-        println "node_dir: ${this.node_dir}"
-        def node_path = new File(this.node_dir).getAbsolutePath()
-        FileUtils.copyDirectory(new File(this.result_dir), new File(node_path))
+    def copy_directory(String source_dir, String target_dir) throws IOException {
+        assert(source_dir)
+        assert(target_dir)
+        def target_path = new File(target_dir).getAbsolutePath()
+        FileUtils.copyDirectory(new File(source_dir), new File(target_path))
+    }
+
+    def archive_json() {
+        copy_directory(this.result_dir, this.node_dir)
+    }
+
+    def update_evidence_log() {
+        log.info "Copy test evidence to '${this.test_resource}'"
+        copy_directory(this.evidence_log_share_dir, this.test_resource)
+    }
+
+    def update_db(TestScenario test_scenario) throws SQLException {
+        def targets = test_scenario.test_targets.get_all()
+        targets.each { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                test_target.test_platforms.each { platform_name, test_platform ->
+                    println "(TBD)Export DB : $target_name, $domain, $platform_name"
+                }
+            }
+        }
+    }
+
+    def update(String export_type) {
+        switch (export_type) {
+            case 'local' :
+                update_evidence_log()
+                archive_json()
+                break
+
+            case 'db' :
+                def test_env = ConfigTestEnvironment.instance
+                def test_scheduler = new TestScheduler()
+                test_env.accept(test_scheduler)
+                test_scheduler.init()
+                def test_scenario = test_scheduler.test_scenario
+                def test_result_reader = new TestResultReader(
+                                             result_dir: this.result_dir)
+                test_scenario.accept(test_result_reader)
+                this.update_db(test_scenario)
+                break
+
+            default :
+                def msg = "Unkown export type : ${export_type}"
+                throw new IllegalArgumentException(msg)
+                break
+        }
     }
 }

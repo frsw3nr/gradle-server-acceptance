@@ -53,7 +53,6 @@ class TestResultReader {
     def read_test_target_result(TestScenario test_scenario, String target_name) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def target_domains = test_scenario.test_targets.get(target_name)
-        // println "test_target:$test_target"
         target_domains.each { domain_name, test_target ->
             def platform_metrics = domain_metrics[domain_name].get_all()
             platform_metrics.each { platform_name, platform_metric ->
@@ -72,8 +71,7 @@ class TestResultReader {
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
-                println "CHECK: ${target_name}, ${test_target.target_status} , ${test_target.comparision}"
-                if (test_target.target_status != TargetStatuses.INIT ||
+                if (test_target.target_status != RunStatus.INIT ||
                     test_target.comparision == false)
                     return
                 def platform_metrics = domain_metrics[domain].get_all()
@@ -97,7 +95,6 @@ class TestResultReader {
             domain_targets.each { domain, test_target ->
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform_name, platform_metric ->
-                    println "READ: ${target_name}, ${domain}, ${platform_name}"
                     def test_platform = this.read_test_platform_result(target_name,
                                                                 platform_name)
                     if (test_platform) {

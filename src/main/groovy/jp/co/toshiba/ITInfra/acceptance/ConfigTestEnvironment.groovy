@@ -151,6 +151,10 @@ class ConfigTestEnvironment {
         return this.config?.silent
     }
 
+    def get_verify_test() {
+        return this.config?.verify_test
+    }
+
     def get_excel_file() {
         return this.config?.excel_file ?: this.config?.evidence?.source ?:
                           './check_sheet.xlsx'
@@ -196,12 +200,12 @@ class ConfigTestEnvironment {
         return this.config?.test?.dry_run_staging_dir ?: './src/test/resources/log'
     }
 
-    def get_evidence_log_share_dir(String platform) {
+    def get_evidence_log_share_dir() {
         return this.config?.evidence?.staging_dir ?: './build/log/'
     }
 
     def get_evidence_log_dir(String platform, String target) {
-        def evidence_log_share_dir = this.get_evidence_log_share_dir(platform)
+        def evidence_log_share_dir = this.get_evidence_log_share_dir()
         return "${evidence_log_share_dir}/${target}"
     }
 

@@ -50,7 +50,7 @@ class TestRunner {
             s longOpt: 'server',   args: 1, 'Keyword of target server'
             t longOpt: 'test',     args: 1, 'Keyword of test metric'
             u longOpt: 'update',   args: 1, 'Update node config',
-                argName:'local|db|db-all'
+                argName:'local|db'
             _ longOpt: 'parallel', args: 1, 'Degree of test runner processes'
                 argName:'n'
             _ longOpt: 'encode',   args: 1, 'Encode config file',
@@ -60,12 +60,15 @@ class TestRunner {
             p longOpt: 'password',  args: 1, 'Config file password',
                 argName : 'password'
             d longOpt: 'dry-run', 'Enable Dry run test'
-            x longOpt: 'exclude-verify',  'Exclude value verification'
+            v longOpt: 'verify-disable', 'Disable value verification'
             h longOpt: 'help',    'Print usage'
             _ longOpt: 'silent', 'Silent mode'
         }
         def options = cli.parse(args)
-        if (!options || options?.h) {
+        if (!options) {
+            System.exit(1)
+        }
+        if (options?.h) {
             cli.usage()
             System.exit(0)
         }
@@ -79,8 +82,8 @@ class TestRunner {
             this.command = RunnerCommand.EXPORT
         }
         if (options.archive) {
-            def xport_file = options.archive
-            new ProjectBuilder(project_home).xport(xport_file)
+            def archive_file = options.archive
+            new ProjectBuilder(project_home).xport(archive_file)
             System.exit(0)
         }
 
@@ -103,8 +106,8 @@ class TestRunner {
         if (options.d)
             this.dry_run       = options.d
 
-        if (options.x)
-            this.verify_test   = !options.x
+        if (options.v)
+            this.verify_test   = !options.v
 
         if (options.silent)
             this.silent        = options.silent
@@ -148,11 +151,16 @@ class TestRunner {
     }
 
     static void main(String[] args) {
-        def test_runner = new TestRunner()
         long start = System.currentTimeMillis()
-        test_runner.parse(args)
+        def test_runner = new TestRunner()
         def test_env = ConfigTestEnvironment.instance
-        test_env.read_from_test_runner(test_runner)
+        try {
+            test_runner.parse(args)
+            test_env.read_from_test_runner(test_runner)
+        } catch (Exception e) {
+            log.error "Fatal error : " + e
+            System.exit(0)
+        }
         if (test_runner.command == RunnerCommand.SCHEDULER) {
             def test_scheduler = new TestScheduler()
             test_env.accept(test_scheduler)
@@ -168,7 +176,12 @@ class TestRunner {
             def evidence_manager = new EvidenceManager()
             // test_env.set_evidence_manager_environment(test_scheduler)
             test_env.accept(evidence_manager)
-            println "EXPORT: ${test_runner.export_type}"
+            try {
+                evidence_manager.update(test_runner.export_type)
+            } catch (Exception e) {
+                log.error "Fatal error : " + e
+                System.exit(0)
+            }
         }
         long elapsed = System.currentTimeMillis() - start
         log.info "Total, Elapsed : ${elapsed} ms"

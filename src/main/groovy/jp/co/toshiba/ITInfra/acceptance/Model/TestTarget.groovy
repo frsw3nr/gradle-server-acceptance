@@ -5,12 +5,12 @@ import groovy.transform.AutoClone
 import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
-enum TargetStatuses {
+enum RunStatus {
   INIT, READY, RUN, FINISH, ERROR
 }
 
 @Slf4j
-@ToString(includePackage = false)
+@ToString(includePackage = false, excludes="test_platforms")
 @AutoClone
 class TestTarget extends SpecModel {
     String name
@@ -21,7 +21,7 @@ class TestTarget extends SpecModel {
     String verify_id
     String compare_server
     Boolean comparision = false
-    TargetStatuses target_status
+    RunStatus target_status
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
     LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]

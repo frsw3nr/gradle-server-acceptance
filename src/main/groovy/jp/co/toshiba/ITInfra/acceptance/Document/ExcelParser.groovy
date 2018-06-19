@@ -133,7 +133,6 @@ class ExcelParser {
         def all_targets = test_scenario.test_targets.get_all()
         all_targets.each { target_name, domain_targets ->
             domain_targets.each { domain_name, target ->
-                println "make_template_links: ${target_name}, ${domain_name}"
                 this.make_template_link(target, test_scenario)
             }
         }
@@ -200,7 +199,7 @@ class ExcelParser {
             if (!line['domain'])
                 return true
             line['name'] = line['server_name']
-            line['target_status'] = TargetStatuses.READY
+            line['target_status'] = RunStatus.READY
             // if (!line['remote_alias'])
             //     line['remote_alias'] = line['server_name']
             def test_target = new TestTarget(line)
@@ -217,7 +216,7 @@ class ExcelParser {
             def target = test_target_set.get(compare_target.name,
                                              compare_target.domain)
             if (!target) {
-                compare_target['target_status'] = TargetStatuses.INIT
+                compare_target['target_status'] = RunStatus.INIT
                 compare_target['comparision'] = true
                 test_target_set.add(new TestTarget(compare_target))
             } else {

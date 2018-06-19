@@ -62,7 +62,7 @@ class LinuxSpec extends LinuxSpecBase {
             def command = "ls /root/package/* >> ${work_dir}/oracle_module; echo \$?"
             try {
                 def result = session.executeSudo command, pty: true, timeoutSec: timeout
-                log.info result
+                log.debug result
                 session.get from: "${work_dir}/oracle_module", into: local_dir
                 new File("${local_dir}/oracle_module").text
             } catch (Exception e) {

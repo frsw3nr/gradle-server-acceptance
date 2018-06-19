@@ -96,7 +96,8 @@ class TestSchedulerTest extends Specification {
         println "config_file:${platform_tester.config_file}"
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_file : excel_file,
-                                               output_evidence: output_evidence)
+                                               output_evidence: output_evidence,
+                                               result_dir : 'build/json')
         test_scheduler.init()
         test_scheduler.run()
         test_scheduler.finish()

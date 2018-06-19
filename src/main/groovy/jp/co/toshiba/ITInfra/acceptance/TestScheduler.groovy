@@ -33,6 +33,7 @@ class TestScheduler {
         this.filter_server   = env.get_filter_server()
         this.filter_metric   = env.get_filter_metric()
         this.parallel_degree = env.get_parallel_degree()
+        this.verify_test     = env.get_verify_test()
     }
 
     def init() {
@@ -41,7 +42,6 @@ class TestScheduler {
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
         try {
-            println "NODE_DIR: ${this.node_dir}"
             def result_reader = new TestResultReader('result_dir': this.node_dir)
             this.test_scenario.accept(result_reader)
         } catch (Exception e) {
@@ -84,6 +84,7 @@ class TestScheduler {
                                                          test_target  : test_target,
                                                          test_metrics : metrics)
                     test_target.test_platforms[platform] = test_platform
+                    test_target.target_status = RunStatus.RUN
                     this.test_platform_tasks[platform][target_name] = test_platform
                 }
             }

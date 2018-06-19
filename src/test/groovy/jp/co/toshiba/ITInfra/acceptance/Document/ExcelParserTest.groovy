@@ -157,7 +157,7 @@ class ExcelParserTest extends Specification {
         println test_templates['AP']
 
         then:
-        test_targets.size() == 3
+        test_targets.size() == 4
         result_platform_keys.size() > 0
     }
 

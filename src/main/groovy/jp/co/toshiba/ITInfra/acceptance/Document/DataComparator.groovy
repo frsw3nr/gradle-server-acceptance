@@ -14,7 +14,6 @@ class DataComparator {
     def compare_server(TestTarget test_target, TestTarget compare_target) {
         test_target.test_platforms.each { platform_name, test_platform ->
             def compare_platform = compare_target?.test_platforms[platform_name]
-            println "COMPARE2: platform_name:${platform_name}"
             if (!compare_platform?.test_results)
                 return
             test_platform?.test_results.each { metric_name, test_result ->
@@ -24,7 +23,6 @@ class DataComparator {
                 } else {
                     test_result.comparision = ResultStatus.UNMATCH
                 }
-                println "COMAPRE ${metric_name} : ${test_result.comparision}"
             }
         }
     }
@@ -34,7 +32,6 @@ class DataComparator {
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
                 def compare_server = test_target.compare_server
-                println "COMPARE: ${target_name}, ${domain}, ${compare_server}"
                 if (!compare_server)
                     return
                 def compare_target = test_scenario.test_targets.get(compare_server,

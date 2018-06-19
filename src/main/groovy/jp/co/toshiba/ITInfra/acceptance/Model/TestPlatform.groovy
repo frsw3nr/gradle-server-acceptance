@@ -5,10 +5,11 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 @Slf4j
-@ToString(includePackage = false)
+@ToString(includePackage = false, excludes="test_target")
 class TestPlatform extends SpecModel {
     String name
     TestTarget test_target
+    RunStatus platform_status = RunStatus.INIT
     LinkedHashMap<String,TestResult> test_results  = [:]
     LinkedHashMap<String,TestMetric> test_metrics  = [:]
     TestRule test_rule
@@ -29,11 +30,12 @@ class TestPlatform extends SpecModel {
         def platform    = this.name
         def target_name = this.test_target?.name
 
+        this.verify_test            = env.get_verify_test()
         this.dry_run                = env.get_dry_run(platform)
         this.timeout                = env.get_timeout(platform)
         this.debug                  = env.get_debug(platform)
         this.dry_run_staging_dir    = env.get_dry_run_staging_dir(platform)
-        this.evidence_log_share_dir = env.get_evidence_log_share_dir(platform)
+        this.evidence_log_share_dir = env.get_evidence_log_share_dir()
         this.evidence_log_dir       = env.get_evidence_log_dir(platform, target_name)
 
         def msg = "$target_name(DryRun=${this.dry_run})"

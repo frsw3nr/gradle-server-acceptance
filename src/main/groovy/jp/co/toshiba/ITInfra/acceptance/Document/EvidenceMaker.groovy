@@ -52,17 +52,21 @@ class EvidenceMaker {
         comparision_sequences.each { comparision_sequence ->
             domain_targets.each { domain, domain_target ->
                 domain_target.each { target, test_target ->
+                    if (test_target.target_status == RunStatus.READY)
+                        return
                     def comparision = test_target.comparision
                     def metric_sets = domain_metrics[domain].get_all()
+                    def run_status = RunStatus.FINISH
                     metric_sets.each { platform, metric_set ->
                         def test_platform = test_target.test_platforms[platform]
                         def test_results = test_platform?.test_results
+                        if (test_platform?.platform_status == RunStatus.ERROR)
+                            run_status = RunStatus.ERROR
                         if (!test_results)
                             return
                         metric_set.get_all().each { metric, test_metric ->
                             def test_result = test_results[metric]
                             if (test_result && comparision == comparision_sequence) {
-                                // println "SHEET: $domain, $target, $comparision, $platform, $metric"
                                 add_summary_result(domain, target, platform, metric,
                                                    test_result)
                                 if (test_metric.device_enabled) {
@@ -71,10 +75,12 @@ class EvidenceMaker {
                             }
                         }
                     }
+                    if (test_target.target_status == RunStatus.RUN)
+                        test_target.target_status = run_status
                 }
             }
         }
         long elapse = System.currentTimeMillis() - start
-        log.info "Finish evidence maker, Elapse : ${elapse} ms"
+        log.debug "Finish evidence maker, Elapse : ${elapse} ms"
     }
 }

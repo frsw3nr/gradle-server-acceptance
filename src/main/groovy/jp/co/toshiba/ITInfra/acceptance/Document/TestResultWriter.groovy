@@ -22,11 +22,31 @@ class TestResultWriter {
         }
     }
 
+    def write_test_target(String target_name, TestTarget test_target)
+        throws IOException {
+        new File(result_dir).mkdirs()
+        def domain = test_target.domain
+        def target_info = [:]
+        test_target.with {
+            target_info['name']           = it.name
+            target_info['ip']             = it.ip
+            target_info['template_id']    = it.template_id
+            target_info['compare_server'] = it.compare_server
+            target_info['target_status']  = it.target_status
+            target_info['platforms']      = it.test_platforms.keySet()
+        }
+        def json = JsonOutput.toJson(target_info)
+        new File("${result_dir}/${target_name}__${domain}.json").with {
+            it.text = JsonOutput.prettyPrint(json)
+        }
+    }
+
     def write_entire_scenario(test_scenario) {
         def targets = test_scenario.test_targets.get_all()
 
         targets.each { target, domain_targets ->
             domain_targets.each { domain, test_target ->
+                this.write_test_target(target, test_target)
                 test_target.test_platforms.each { platform, test_platform ->
                     this.write_test_platform(target, platform, test_platform)
                 }
@@ -48,7 +68,6 @@ class TestResultWriter {
 
 
     def visit_test_scenario(test_scenario) {
-        println "result_dir : $result_dir"
         def resultDir = new File(this.result_dir)
         if (resultDir.exists())
             resultDir.deleteDir()

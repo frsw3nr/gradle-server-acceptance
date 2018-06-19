@@ -31,9 +31,11 @@ class InfraTestSpec {
     int timeout
     Boolean debug
     Boolean dry_run
+    Boolean verify_test
     Boolean skip_exec
     RunMode mode
     def server_info = [:]
+    def dry_run_file_not_founds = []
 
     def InfraTestSpec(TestPlatform test_platform) {
         this.test_platform          = test_platform
@@ -45,6 +47,7 @@ class InfraTestSpec {
         this.evidence_log_share_dir = test_platform.evidence_log_share_dir
         this.local_dir              = "${evidence_log_dir}/${platform}"
         this.dry_run                = test_platform.dry_run
+        this.verify_test            = test_platform.verify_test
         this.dry_run_staging_dir    = test_platform.dry_run_staging_dir
         this.timeout                = test_platform.timeout ?: 0
         this.debug                  = test_platform.debug
@@ -92,9 +95,10 @@ class InfraTestSpec {
                     FileUtils.copyFile(source_log, target_log)
                 return (encode) ? source_log.getText(encode) : source_log.text
             } catch (FileNotFoundException e) {
-                def message = "[DryRun] Not found : ${log_path}"
-                // log.warn(message)
-                throw new FileNotFoundException(message)
+                dry_run_file_not_founds << test_id
+                // def message = "[DryRun] Not found : ${log_path}"
+                // // log.warn(message)
+                // throw new FileNotFoundException(message)
             }
         } else {
             def target_log = new File(target_path)
@@ -122,7 +126,6 @@ class InfraTestSpec {
     }
 
     def verify_text_search(String item_name, String value) {
-        println "server_info:$server_info"
         def test_value = target_info(item_name)
         if (test_value) {
             def check = (value =~ /$test_value/) as boolean
@@ -244,7 +247,7 @@ class InfraTestSpec {
             def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
             if (method) {
                 def command = method.invoke(this, it)
-                log.info "fetch command ${method.name} : ${command}"
+                log.debug "fetch command ${method.name} : ${command}"
                 code.addCommand(it.test_id, command)
             }
         }
@@ -256,16 +259,18 @@ class InfraTestSpec {
                 execPowerShell(script_path, cmd)
             } catch (IOException e) {
                 log.error "[PowershellTest] Powershell script faild.\n" + e
-                // return
+                // Detect WinRM connection error from message
+                if (e =~/WinRM/)
+                    return
             }
             long elapsed = System.currentTimeMillis() - start
-            log.info "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
-            log.info "\ttest : " + code.test_ids.toString()
+            log.debug "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
+            log.debug "\ttest : " + code.test_ids.toString()
             mode = RunMode.run
             test_items.each {
                 def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
                 if (method) {
-                    log.info "parse command ${method.name}"
+                    log.debug "parse command ${method.name}"
                     try {
                         method.invoke(this, it)
                         // it.succeed = 1

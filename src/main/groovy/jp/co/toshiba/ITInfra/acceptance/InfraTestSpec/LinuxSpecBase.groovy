@@ -73,6 +73,8 @@ class LinuxSpecBase extends InfraTestSpec {
                             long elapsed = System.currentTimeMillis() - start
                             log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
                             // test_item.succeed = 1
+                        } catch (FileNotFoundException e) {
+                            log.info e
                         } catch (Exception e) {
                             test_item.status(false)
                             log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
@@ -322,7 +324,7 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def csv        = []
         def network    = [:].withDefault{[:]}
-        def net_if     = [:]
+        def net_ip     = [:]
         def device     = ''
         def hw_address = []
         lines.eachLine {
@@ -370,15 +372,17 @@ class LinuxSpecBase extends InfraTestSpec {
                 columns.add(items[it] ?: 'NaN')
             }
             csv << columns
-            net_if[device_id] = items['ip']
+            net_ip[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
         test_item.results(
-                'network' : net_if.keySet().toString(),
+                'network' : net_ip.keySet().toString(),
+                'net_ip': net_ip.toString(),
                 'hw_address' : hw_address.toString()
         )
-        test_item.verify_text_search_map('net_if', net_if)
+        println "NETWORK:${net_ip}"
+        test_item.verify_text_search_map('net_ip', net_ip)
     }
 
     // def convert_array(element) {

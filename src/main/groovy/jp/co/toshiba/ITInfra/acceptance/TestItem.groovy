@@ -11,6 +11,7 @@ class TestItem {
 
     String platform
     String test_id
+    Boolean verify_test
     def server_info = [:]
     LinkedHashMap<String,TestResult> test_results = [:]
 
@@ -97,10 +98,11 @@ class TestItem {
     def target_info(String item, String platform = null) {
         if (!platform)
             platform = this.platform
+        item = item.toLowerCase()
         if (this.server_info.containsKey(item)) {
             def value = this.server_info[item]
-            if (value != null && !nullList.empty)
-                return this.server_info[item]
+            if (value != null && !value.empty)
+                return value
         }
         if (!this.server_info.containsKey(platform) ||
             !this.server_info[platform].containsKey(item)) {
@@ -111,7 +113,7 @@ class TestItem {
 
     def verify_text_search(String item_name, String value) {
         def test_value = this.target_info(item_name)
-        if (test_value) {
+        if (this.verify_test && test_value) {
             def check = (value =~ /$test_value/) as boolean
             log.debug "Check ${item_name}, '${value}' =~ /${test_value}/, OK : ${check}"
             this.make_verify(item_name, check)
@@ -146,6 +148,8 @@ class TestItem {
     }
 
     def verify_number_equal(String item_name, Object value, double err_range = 0) {
+        if (!this.verify_test)
+            return
         def test_value = this.target_info(item_name)
         def check = this.is_difference(test_value, value, item_name, err_range)
         if (check != null)
@@ -153,7 +157,10 @@ class TestItem {
     }
 
     def verify_text_search_map(String item_name, Map values) {
+        if (!this.verify_test)
+            return
         def test_values = this.target_info(item_name)
+        println "TEST_SEARCH: $item_name, $test_values"
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.warn "Test value '$item_name' is not Map : $test_value"
@@ -170,12 +177,14 @@ class TestItem {
                     return true
                 }
             }
-            log.debug "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            log.info "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
             this.make_verify(item_name, check)
         }
     }
 
     def verify_number_equal_map(String item_name, Map values, double err_range = 0) {
+        if (!this.verify_test)
+            return
         def test_values = this.target_info(item_name)
         if (test_values) {
             if (!test_values instanceof Map) {
@@ -201,6 +210,8 @@ class TestItem {
     }
 
     def verify_text_search_list(String item_name, Map values) {
+        if (!this.verify_test)
+            return
         def test_values = this.target_info(item_name)
         if (test_values) {
             if (!test_values instanceof Map) {
