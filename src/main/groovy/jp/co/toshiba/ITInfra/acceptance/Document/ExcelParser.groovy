@@ -39,30 +39,36 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @Slf4j
 class ExcelParser {
     String excel_file
-    def sheet_desings = []
+    def sheet_desings = [:]
     ConfigObject sheet_sources
     Workbook workbook
 
-    ExcelParser(excel_file) {
+    ExcelParser(excel_file, Map sheet_prefixes = [:]) {
         this.sheet_sources = new ConfigObject()
         this.excel_file = excel_file
         this.sheet_desings = [
-            new SheetDesign(name: 'target', 
-                            sheet_parser : new ExcelSheetParserHorizontal(
-                                header_pos: [2, 0], sheet_prefix: '検査対象',
+            'target' : new SheetDesign(name: 'target', 
+                                sheet_parser : new ExcelSheetParserHorizontal(
+                                header_pos: [2, 0],
+                                // sheet_prefix: '検査対象',
+                                sheet_prefix: sheet_prefixes?.target ?: '検査対象',
                                 header_checks: ['#', 'domain'])),
-            new SheetDesign(name: 'check_sheet',
+            'check_sheet' : new SheetDesign(name: 'check_sheet',
                             sheet_parser : new ExcelSheetParserHorizontal(
-                                header_pos: [3, 0], sheet_prefix: 'チェックシート',
+                                header_pos: [3, 0],
+                                // sheet_prefix: 'チェックシート',
+                                sheet_prefix: sheet_prefixes?.check_sheet ?: 'チェックシート',
                                 header_checks: ['test', 'id'],
                                 result_pos: [3, 6])),
             // new SheetDesign(name: 'check_rule',
             //                 sheet_parser : new ExcelSheetParserVertical(
             //                     header_pos: [4, 1], sheet_prefix: 'Rule',
             //                     header_checks: ['name', 'compare_server'])),
-            new SheetDesign(name: 'template',
+            'template' : new SheetDesign(name: 'template',
                             sheet_parser : new ExcelSheetParserVertical(
-                                header_pos: [0, 0], sheet_prefix: 'テンプレート',
+                                header_pos: [0, 0],
+                                // sheet_prefix: 'テンプレート',
+                                sheet_prefix: sheet_prefixes?.template ?: 'テンプレート',
                                 header_checks: ['platform'])),
         ]
     }
@@ -95,6 +101,11 @@ class ExcelParser {
                 }
             }
         }
+        if (attached_sheets.size() == 0) {
+            def msg = "Can't parse excle sheet"
+            log.error(msg)
+            throw new IllegalArgumentException(msg)
+        }
         attached_sheets.each { design_name, sheet_names ->
             log.info "Attach[${design_name}] : ${sheet_names}"
         }
@@ -111,7 +122,7 @@ class ExcelParser {
             domain_name = suffix
         }
         SheetDesign current_sheet = null
-        this.sheet_desings.each { sheet_design ->
+        this.sheet_desings.each { design_name, sheet_design ->
             if (sheet_prefix == sheet_design.sheet_parser.sheet_prefix) {
                 current_sheet = sheet_design.create(sheet, domain_name)
                 return true

@@ -1819,7 +1819,7 @@
                 
             }
         },
-        "value": "144",
+        "value": "144 services",
         "comparision": null,
         "error_msg": null,
         "status": "OK",
@@ -4015,17 +4015,41 @@
         "verify": null,
         "name": "network"
     },
-    "net_config": {
+    "network.ip": {
         "devices": null,
-        "value": null,
+        "value": "[192.168.0.14]",
         "comparision": null,
         "error_msg": null,
-        "status": null,
+        "status": "OK",
         "custom_fields": {
             
         },
-        "verify": "OK",
-        "name": "net_config"
+        "verify": null,
+        "name": "network.ip"
+    },
+    "network.gw": {
+        "devices": null,
+        "value": "[192.168.0.254]",
+        "comparision": null,
+        "error_msg": null,
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "network.gw"
+    },
+    "network.subnet": {
+        "devices": null,
+        "value": "[255.255.255.0]",
+        "comparision": null,
+        "error_msg": null,
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "network.subnet"
     },
     "nic_teaming": {
         "devices": null,

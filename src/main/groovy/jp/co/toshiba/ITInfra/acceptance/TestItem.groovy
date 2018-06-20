@@ -135,7 +135,7 @@ class TestItem {
             return
         }
         def value_double = this.to_number(value)
-        if (!value_double) {
+        if (value_double == null) {
             log.warn "Value '$item_name' is not number : $value"
             return
         }
@@ -160,7 +160,7 @@ class TestItem {
         if (!this.verify_test)
             return
         def test_values = this.target_info(item_name)
-        println "TEST_SEARCH: $item_name, $test_values"
+        // println "TEST_SEARCH: $item_name, $test_values"
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.warn "Test value '$item_name' is not Map : $test_value"
@@ -177,7 +177,7 @@ class TestItem {
                     return true
                 }
             }
-            log.info "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            log.debug "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
             this.make_verify(item_name, check)
         }
     }

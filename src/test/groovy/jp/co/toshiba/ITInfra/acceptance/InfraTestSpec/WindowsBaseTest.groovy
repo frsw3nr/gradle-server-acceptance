@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "WindowsBaseTest.Windows テスト仕様のロード"
+// gradle --daemon test --tests "WindowsBaseTest.Windows テスト仕様 memory"
 
 class WindowsBaseTest extends Specification {
 
@@ -90,11 +90,11 @@ class WindowsBaseTest extends Specification {
 
         then:
         test_platform.test_results.size() > 0
-        test_platform.test_results['total_virtual'].value.size() > 0
+        test_platform.test_results['virtual_memory'].value.size() > 0
         println test_platform.test_results
-        println test_platform.test_results['pyhis_mem']
-        test_platform.test_results['pyhis_mem'].status  == ResultStatus.OK
-        test_platform.test_results['pyhis_mem'].verify == ResultStatus.OK
+        println test_platform.test_results['visible_memory']
+        test_platform.test_results['visible_memory'].status  == ResultStatus.OK
+        // test_platform.test_results['visible_memory'].verify == ResultStatus.OK
     }
 
     def "Windows テスト仕様 system"() {
@@ -145,7 +145,7 @@ class WindowsBaseTest extends Specification {
 
         test_platform.test_results.size() > 0
         test_platform.test_results['network'].status == ResultStatus.OK
-        test_platform.test_results['net_config'].verify == ResultStatus.OK
+        // test_platform.test_results['net_config'].verify == ResultStatus.OK
     }
 
     def "Windows テスト仕様 filesystem"() {
@@ -264,7 +264,7 @@ class WindowsBaseTest extends Specification {
         test_platform.test_results.size() > 0
         println test_platform.test_results
         test_platform.test_results['mhz'].value.size() > 0
-        test_platform.test_results['total_virtual'].value.size() > 0
+        test_platform.test_results['virtual_memory'].value.size() > 0
     }
 
     def "Windows 全テスト仕様のロード"() {

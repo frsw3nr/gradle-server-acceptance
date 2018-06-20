@@ -61,11 +61,15 @@ class SpecCompositeModel {
         return matched
     }
 
-    def search_all(String keyworkd) {
+    def search_all(String search_keywords) {
         def filterd = new ConfigObject()
-        children.each { name, test_metric ->
-            if (this.check_filter(name, keyworkd)) {
-                filterd[name] = test_metric
+        // println "KEYWORDS: ${search_keywords}, ${keywords}"
+        def keywords = (search_keywords) ? search_keywords.split(",") : [null]
+        keywords.each { keyword ->
+            children.each { name, test_metric ->
+                if (this.check_filter(name, keyword)) {
+                    filterd[name] = test_metric
+                }
             }
         }
         return filterd

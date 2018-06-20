@@ -1,0 +1,11 @@
+{
+    "name": "ostrich",
+    "ip": "ostrich",
+    "template_id": "Linux",
+    "compare_server": "cent7",
+    "target_status": "FINISH",
+    "platforms": [
+        "vCenter",
+        "Linux"
+    ]
+}

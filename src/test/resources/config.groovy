@@ -56,6 +56,12 @@ test.Linux.debug   = false
 test.Windows.debug = false
 test.vCenter.debug = false
 
+// ドライラン(予行演習)モード
+
+test.Linux.dry_run   = true
+test.Windows.dry_run = true
+test.vCenter.dry_run = true
+
 // vCenter接続情報
 
 // account.Remote.Test.server   = '192.168.10.100'

@@ -71,16 +71,16 @@ class TestResultReader {
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
-                if (test_target.target_status != RunStatus.INIT ||
-                    test_target.comparision == false)
-                    return
-                def platform_metrics = domain_metrics[domain].get_all()
-                platform_metrics.each { platform_name, platform_metric ->
-                    def test_platform = this.read_test_platform_result(target_name,
-                                                                       platform_name)
-                    if (test_platform) {
-                        test_platform.test_target = test_target
-                        test_target.test_platforms[platform_name] = test_platform
+                if (test_target.target_status == RunStatus.INIT &&
+                    test_target.comparision == true) {
+                    def platform_metrics = domain_metrics[domain].get_all()
+                    platform_metrics.each { platform_name, platform_metric ->
+                        def test_platform = this.read_test_platform_result(target_name,
+                                                                           platform_name)
+                        if (test_platform) {
+                            test_platform.test_target = test_target
+                            test_target.test_platforms[platform_name] = test_platform
+                        }
                     }
                 }
             }
@@ -107,6 +107,6 @@ class TestResultReader {
     }
 
     def visit_test_scenario(test_scenario) {
-        this.read_entire_result(test_scenario)
+        this.read_compare_target_result(test_scenario)
     }
 }

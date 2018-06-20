@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "LinuxBaseTest.Linux ネットワーク"
+// gradle --daemon test --tests "LinuxBaseTest.Linux値検証 Kernel"
 
 class LinuxBaseTest extends Specification {
 

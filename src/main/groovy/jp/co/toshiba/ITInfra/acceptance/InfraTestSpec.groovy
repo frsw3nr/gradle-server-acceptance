@@ -65,7 +65,7 @@ class InfraTestSpec {
             command = command.replaceAll(/(\s|\r|\n)*$/, "")
             log.debug "Invoke WMI command : ${command}"
             return command
-        } else {
+        } else if (mode == RunMode.run) {
             return closure.call()
         }
     }
@@ -76,29 +76,50 @@ class InfraTestSpec {
         }
     }
 
-    def exec = { HashMap settings = [:], String test_id, Closure closure ->
+    def get_log_path(String test_id, Boolean shared = false) {
         def log_path = dry_run_staging_dir
-        Boolean shared = settings['shared'] ?: false
-        String  encode = settings['encode'] ?: null
         if (shared == false) {
             log_path += "/${server_name}/${platform}"
         }
         log_path += '/' + test_id
+        return log_path
+    }
+
+    def get_target_path(String test_id, Boolean shared = false) {
         def target_path = (shared) ? evidence_log_share_dir : local_dir
         target_path += '/' + test_id
+        return target_path
+    }
+
+    def exec = { HashMap settings = [:], String test_id, Closure closure ->
+        Boolean shared = settings['shared'] ?: false
+        String  encode = settings['encode'] ?: null
+        def log_path = get_log_path(test_id, shared)
+        def target_path = get_target_path(test_id, shared)
+        // def log_path = dry_run_staging_dir
+        // if (shared == false) {
+        //     log_path += "/${server_name}/${platform}"
+        // }
+        // log_path += '/' + test_id
+        // def target_path = (shared) ? evidence_log_share_dir : local_dir
+        // target_path += '/' + test_id
         if (dry_run) {
             log.debug "[DryRun] Read dummy log '${log_path}'"
             try {
                 def source_log = new File(log_path)
+                if (!source_log.exists()) {
+                    println "NOT FOUND: ${log_path}"
+                    return '{}'
+                }
                 def target_log = new File(target_path)
                 if (!target_log.exists())
                     FileUtils.copyFile(source_log, target_log)
                 return (encode) ? source_log.getText(encode) : source_log.text
             } catch (FileNotFoundException e) {
                 dry_run_file_not_founds << test_id
-                // def message = "[DryRun] Not found : ${log_path}"
-                // // log.warn(message)
-                // throw new FileNotFoundException(message)
+                def message = "[DryRun] Not found : ${log_path}"
+                // log.warn(message)
+                throw new FileNotFoundException(message)
             }
         } else {
             def target_log = new File(target_path)
@@ -264,10 +285,17 @@ class InfraTestSpec {
                     return
             }
             long elapsed = System.currentTimeMillis() - start
-            log.debug "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
+            log.info "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
             log.debug "\ttest : " + code.test_ids.toString()
             mode = RunMode.run
+            def log_not_founds = []
             test_items.each {
+                def log_path = get_log_path(it.test_id)
+                if (!new File(log_path).exists()) {
+                    log_not_founds << it.test_id
+                    // log.info "Log not found, skip : ${it.test_id}"
+                    return
+                }
                 def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
                 if (method) {
                     log.debug "parse command ${method.name}"
@@ -276,10 +304,14 @@ class InfraTestSpec {
                         // it.succeed = 1
                     } catch (Exception e) {
                         log.warn "[${domain}Test] '${method.name}()' faild, skip.\n" + e
+                        e.printStackTrace()
                         it.status(false)
                         it.error_msg("${e}")
                     }
                 }
+            }
+            if (log_not_founds.size() > 0) {
+                log.info "Log not found, skip : ${log_not_founds}"
             }
         } else {
             log.warn "Test command is empty, skip domain test '${this.title}'."

@@ -17,6 +17,7 @@ enum RunnerCommand {
 @ToString(includePackage = false)
 class TestRunner {
 
+    static final String main_version = '0.1.19'
     RunnerCommand command = RunnerCommand.SCHEDULER
     String getconfig_home
     String project_home
@@ -30,6 +31,10 @@ class TestRunner {
     Boolean dry_run
     Boolean verify_test
     Boolean silent
+
+    def get_application_title() {
+        return "Getconfig Inventory collector v${main_version}"
+    }
 
     def parse(String[] args) {
         getconfig_home = System.getProperty("getconfig_home") ?: '.'
@@ -69,6 +74,7 @@ class TestRunner {
             System.exit(1)
         }
         if (options?.h) {
+            println get_application_title()
             cli.usage()
             System.exit(0)
         }

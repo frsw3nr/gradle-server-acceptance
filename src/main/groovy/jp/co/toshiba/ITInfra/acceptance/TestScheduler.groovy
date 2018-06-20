@@ -22,6 +22,7 @@ class TestScheduler {
     String node_dir
     Boolean verify_test
     def serialize_platforms = [:]
+    def sheet_prefixes = [:]
     int parallel_degree = 0
     def test_platform_tasks = [:].withDefault{[:]}
 
@@ -34,16 +35,18 @@ class TestScheduler {
         this.filter_metric   = env.get_filter_metric()
         this.parallel_degree = env.get_parallel_degree()
         this.verify_test     = env.get_verify_test()
+        this.sheet_prefixes  = env.get_sheet_prefixes()
     }
 
     def init() {
-        this.excel_parser = new ExcelParser(this.excel_file)
+        this.excel_parser = new ExcelParser(this.excel_file, this.sheet_prefixes)
         this.excel_parser.scan_sheet()
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
         try {
             def result_reader = new TestResultReader('result_dir': this.node_dir)
-            this.test_scenario.accept(result_reader)
+            // this.test_scenario.accept(result_reader)
+            result_reader.read_compare_target_result(this.test_scenario)
         } catch (Exception e) {
             log.warn "Faild read test results : " + e
         }
@@ -74,6 +77,8 @@ class TestScheduler {
 
         targets.find { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
+                if (test_target.target_status == RunStatus.INIT)
+                    return
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform, platform_metric ->
                     def metrics = platform_metric.search_all(this.filter_metric)

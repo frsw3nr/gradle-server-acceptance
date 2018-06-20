@@ -289,6 +289,18 @@
         "verify": null,
         "name": "network"
     },
+    "net_ip": {
+        "devices": null,
+        "value": "[lo:127.0.0.1/8, eth0:192.168.10.1/24, eth0:1:192.168.10.4/24]",
+        "comparision": "UNMATCH",
+        "error_msg": null,
+        "status": "OK",
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "net_ip"
+    },
     "hw_address": {
         "devices": null,
         "value": "[00:0c:29:ca:44:db]",
@@ -300,18 +312,6 @@
         },
         "verify": null,
         "name": "hw_address"
-    },
-    "net_if": {
-        "devices": null,
-        "value": null,
-        "comparision": "MATCH",
-        "error_msg": null,
-        "status": null,
-        "custom_fields": {
-            
-        },
-        "verify": "OK",
-        "name": "net_if"
     },
     "net_onboot": {
         "devices": null,
@@ -340,7 +340,7 @@
     "net_bond": {
         "devices": null,
         "value": "[bonding:NotConfigured, devices:[], options:[]]",
-        "comparision": "UNMATCH",
+        "comparision": "MATCH",
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -502,7 +502,6 @@
     "lvm": {
         "devices": {
             "header": [
-                "target",
                 "vg_name",
                 "lv_name",
                 "mountpoint"
@@ -23809,7 +23808,7 @@
     "snmp_trap": {
         "devices": null,
         "value": "[snmp_trap:NotConfigured, trapsink:[]]",
-        "comparision": "UNMATCH",
+        "comparision": "MATCH",
         "error_msg": null,
         "status": "OK",
         "custom_fields": {
@@ -23845,7 +23844,6 @@
     "error_messages": {
         "devices": {
             "header": [
-                "target",
                 "message"
             ],
             "csv": [
@@ -23858,7 +23856,7 @@
             }
         },
         "value": "Message found",
-        "comparision": "UNMATCH",
+        "comparision": "MATCH",
         "error_msg": null,
         "status": "OK",
         "custom_fields": {

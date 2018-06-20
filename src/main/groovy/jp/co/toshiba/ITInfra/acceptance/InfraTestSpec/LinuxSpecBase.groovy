@@ -381,7 +381,6 @@ class LinuxSpecBase extends InfraTestSpec {
                 'net_ip': net_ip.toString(),
                 'hw_address' : hw_address.toString()
         )
-        println "NETWORK:${net_ip}"
         test_item.verify_text_search_map('net_ip', net_ip)
     }
 

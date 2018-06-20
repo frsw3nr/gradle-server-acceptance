@@ -8,7 +8,7 @@
         "custom_fields": {
             
         },
-        "verify": null,
+        "verify": "OK",
         "name": "NumCpu"
     },
     "PowerState": {
@@ -32,7 +32,7 @@
         "custom_fields": {
             
         },
-        "verify": null,
+        "verify": "NG",
         "name": "MemoryGB"
     },
     "VMHost": {
@@ -44,7 +44,7 @@
         "custom_fields": {
             
         },
-        "verify": null,
+        "verify": "OK",
         "name": "VMHost"
     },
     "Cluster": {
@@ -83,18 +83,6 @@
         },
         "verify": null,
         "name": "datastore"
-    },
-    "VMNetwork": {
-        "devices": null,
-        "value": null,
-        "comparision": null,
-        "error_msg": "java.io.FileNotFoundException: [DryRun] Not found : ./src/test/resources/log//win2012/vCenter/VMNetwork",
-        "status": "NG",
-        "custom_fields": {
-            
-        },
-        "verify": null,
-        "name": "VMNetwork"
     },
     "vmwaretool": {
         "devices": null,

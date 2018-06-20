@@ -152,7 +152,7 @@ class ConfigTestEnvironment {
     }
 
     def get_verify_test() {
-        return this.config?.verify_test
+        return this.config?.verify_test ?: true
     }
 
     def get_excel_file() {
@@ -163,6 +163,10 @@ class ConfigTestEnvironment {
     def get_output_evidence() {
         return this.config?.output_evidence ?: config?.evidence?.target ?:
                                './check_sheet.xlsx'
+    }
+
+    def get_sheet_prefixes() {
+        return this.config?.evidence?.sheet_prefix
     }
 
     def get_result_dir() {

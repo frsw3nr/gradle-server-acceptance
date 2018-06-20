@@ -144,13 +144,13 @@ class WindowsSpecBase extends InfraTestSpec {
             def meminfo    = [:].withDefault{0}
             lines.eachLine {
                 (it =~ /^TotalVirtualMemorySize\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['total_virtual'] = m1
+                    meminfo['virtual_memory'] = m1
                 }
                 (it =~ /^TotalVisibleMemorySize\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['total_visible'] = m1
+                    meminfo['visible_memory'] = m1
                 }
                 (it =~ /^FreePhysicalMemory\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['free_physical'] = m1
+                    meminfo['free_memory'] = m1
                 }
                 (it =~ /^FreeVirtualMemory\s*:\s+(\d+)$/).each {m0,m1->
                     meminfo['free_virtual'] = m1
@@ -159,9 +159,10 @@ class WindowsSpecBase extends InfraTestSpec {
                     meminfo['free_space'] = m1
                 }
             }
-            meminfo['pyhis_mem'] = meminfo['total_visible']
             test_item.results(meminfo)
-            test_item.verify_number_equal('pyhis_mem', meminfo['pyhis_mem'], 0.1)
+            test_item.verify_number_equal('visible_memory',
+                                          meminfo['visible_memory'],
+                                          0.1)
         }
     }
 
@@ -318,6 +319,9 @@ class WindowsSpecBase extends InfraTestSpec {
                            'DefaultIPGateway', 'Description', 'IPSubnet']
             def csv          = []
             def ip_configs   = [:]
+            def ip_addresses = []
+            def gateways     = []
+            def subnets      = []
             (0..device_number).each { row ->
                 def columns = []
                 headers.each { header ->
@@ -328,11 +332,20 @@ class WindowsSpecBase extends InfraTestSpec {
                 def gateway      = parse_ip(network_info[row]['DefaultIPGateway'])
                 def subnet       = parse_ip(network_info[row]['IPSubnet'])
                 ip_configs[ip_address] = "${gateway},${subnet}"
+                ip_addresses << ip_address
+                gateways     << gateway
+                subnets      << subnet
             }
 
             test_item.devices(csv, headers)
-            test_item.results(ip_configs.keySet().toString())
-            test_item.verify_text_search_map('net_config', ip_configs)
+            def infos = [
+                'network'        : ip_configs.keySet().toString(),
+                'network.ip'     : ip_addresses.toString(),
+                'network.gw'     : gateways.toString(),
+                'network.subnet' : subnets.toString(),
+            ]
+            test_item.results(infos)
+            test_item.verify_text_search_map('network', ip_configs)
         }
     }
 
@@ -415,7 +428,7 @@ class WindowsSpecBase extends InfraTestSpec {
                 services['service.' + service_id] = service_info[row]['Status']
                 csv << columns
             }
-            services['service'] = instance_number.toString()
+            services['service'] = "${instance_number} services"
             test_item.devices(csv, headers)
             test_item.results(services)
             test_item.verify_text_search_map('service', infos)
@@ -625,7 +638,7 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             def headers = ['task_name', 'last_result', 'missed_runs', 'task_path']
             test_item.devices(csv, headers)
-            schedule_info['task_scheduler'] = (schedule_count == 0) ? 'Not found' : "${schedule_count} schedule found."
+            schedule_info['task_scheduler'] = (schedule_count == 0) ? 'Not found' : "${schedule_count} task found."
             test_item.results(schedule_info)
         }
     }
