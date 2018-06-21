@@ -61,9 +61,13 @@ class TestScheduler {
         this.test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()
         this.test_scenario.accept(evidence_maker)
+        def report_maker = new ReportMaker()
+        ConfigTestEnvironment.instance.accept(report_maker)
+        this.test_scenario.accept(report_maker)
         def excel_sheet_maker = new ExcelSheetMaker(
                                     excel_parser: this.excel_parser,
-                                    evidence_maker: evidence_maker)
+                                    evidence_maker: evidence_maker,
+                                    report_maker: report_maker)
         excel_sheet_maker.output(this.output_evidence)
         def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
         // test_result_writer.write_entire_scenario(this.test_scenario)

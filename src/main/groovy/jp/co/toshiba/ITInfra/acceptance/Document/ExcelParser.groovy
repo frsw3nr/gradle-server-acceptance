@@ -50,20 +50,20 @@ class ExcelParser {
             'target' : new SheetDesign(name: 'target', 
                                 sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [2, 0],
-                                // sheet_prefix: '検査対象',
                                 sheet_prefix: sheet_prefixes?.target ?: '検査対象',
                                 header_checks: ['#', 'domain'])),
             'check_sheet' : new SheetDesign(name: 'check_sheet',
                             sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [3, 0],
-                                // sheet_prefix: 'チェックシート',
                                 sheet_prefix: sheet_prefixes?.check_sheet ?: 'チェックシート',
                                 header_checks: ['test', 'id'],
                                 result_pos: [3, 6])),
-            // new SheetDesign(name: 'check_rule',
-            //                 sheet_parser : new ExcelSheetParserVertical(
-            //                     header_pos: [4, 1], sheet_prefix: 'Rule',
-            //                     header_checks: ['name', 'compare_server'])),
+            'report' : new SheetDesign(name: 'report',
+                            sheet_parser : new ExcelSheetParserHorizontal(
+                                header_pos: [3, 1],
+                                sheet_prefix: sheet_prefixes?.report ?: '検査レポート',
+                                header_checks: ['server', 'domain'],
+                                result_pos: [4, 0])),
             'template' : new SheetDesign(name: 'template',
                             sheet_parser : new ExcelSheetParserVertical(
                                 header_pos: [0, 0],
@@ -154,8 +154,8 @@ class ExcelParser {
         test_scenario.with {
             test_targets = new TestTargetSet(name: 'root')
             test_targets.accept(this)
-            // test_rules = new TestRuleSet(name: 'root')
-            // test_rules.accept(this)
+            test_reports = new TestReportSet(name: 'root')
+            test_reports.accept(this)
             test_metrics = new TestMetricSet(name: 'root')
             this.sheet_sources.check_sheet.each { domain_name, check_sheet ->
                 def check_sheet_metrics = new TestMetricSet(name: domain_name)
@@ -181,14 +181,14 @@ class ExcelParser {
         lines.find { line ->
             sheet_row ++
             def id = line['id']
-            def platform = line['分類']
+            def platform = line['platform']
             sheet_design.sheet_row[[platform, id]] = sheet_row
             if (!id && !platform)
                 return
-            def test_metric = new TestMetric(name: id, description: line['項目'], 
+            def test_metric = new TestMetric(name: id, description: line['metric'], 
                                              platform: platform,
                                              enabled: line['test'], 
-                                             device_enabled: line['デバイス'])
+                                             device_enabled: line['device'])
             platform_tests[platform][id] = test_metric
             return
         }
@@ -299,6 +299,16 @@ class ExcelParser {
         }
         test_template.values = template_values
         log.debug "Read target template($template_name) : ${row_count} row"
+    }
+
+    def visit_test_report_set(test_report_set) {
+        def sheet_design = this.sheet_sources.report
+        def lines = sheet_design.get()
+        lines[0].each { header, value ->
+            def test_report = new TestReport(name: header)
+            test_report_set.add(test_report)
+        }
+        log.info "Read test report : ${test_report_set.count()} col"
     }
 
     // def visit_test_rule_set(test_rule_set) {

@@ -6,7 +6,7 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 enum RunStatus {
-  INIT, READY, RUN, FINISH, ERROR
+  INIT, READY, RUN, FINISH, ERROR, COMPARED
 }
 
 @Slf4j

@@ -37,7 +37,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 
-// gradle --daemon test --tests "ExcelParserTest.テンプレートパース"
+// gradle --daemon test --tests "ExcelParserTest.レポートパース"
 
 class ExcelParserTest extends Specification {
 
@@ -58,7 +58,8 @@ class ExcelParserTest extends Specification {
         }
 
         then:
-        excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 'template']
+        excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 
+                                                        'report', 'template']
         excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows']
     }
 
@@ -120,6 +121,22 @@ class ExcelParserTest extends Specification {
         // test_targets['ostrich'].Linux.verify_id   == 'RuleAP'
     }
 
+    def "レポートパース"() {
+        when:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet_rep.xlsx')
+        excel_parser.scan_sheet()
+        def report_set = new TestReportSet(name: 'root')
+        report_set.accept(excel_parser)
+        // println report_set.values
+        def json = new groovy.json.JsonBuilder()
+        json(report_set)
+        println json.toPrettyString()
+        
+        then:
+        1 == 1
+        // test_targets['ostrich'].Linux.verify_id   == 'RuleAP'
+    }
+
     // def "ルール定義パース"() {
     //     when:
     //     def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
@@ -143,7 +160,7 @@ class ExcelParserTest extends Specification {
         test_scenario.accept(excel_parser)
         def test_domains   = test_scenario.test_metrics.get_all()
         def test_targets   = test_scenario.test_targets.get_all()
-        // def test_rules     = test_scenario.test_rules.get_all()
+        def test_reports   = test_scenario.test_reports.get_all()
         def test_templates = test_scenario.test_templates.get_all()
 
         def result_platform_keys = [:]
@@ -155,6 +172,7 @@ class ExcelParserTest extends Specification {
         }
         // println result_platform_keys
         println test_templates['AP']
+        println test_reports
 
         then:
         test_targets.size() == 4

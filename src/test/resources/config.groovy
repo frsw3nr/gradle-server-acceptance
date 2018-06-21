@@ -19,21 +19,32 @@ evidence.staging_dir='./build/log'
 // 検査、検証結果ディレクトリ
 evidence.result_dir='./src/test/resources/json'
 
-// CSV変換マップ
+// レポート変換マップ
 
-// evidence.csv_item_map = [
-//     'サーバ名' :            'server_name',
-//     'IPアドレス' :          'ip',
-//     'Platform' :            'platform',
-//     'OSアカウントID' :      'os_account_id',
-//     'vCenterアカウントID' : 'remote_account_id',
-//     'VMエイリアス名' :      'remote_alias',
-//     '検査ID' :              'verify_id',
-//     'CPU数' :               'NumCpu',
-//     'メモリ量' :            'MemoryGB',
-//     'ESXi名' :              'ESXiHost',
-//     'HDD' :                 'HDDtype',
-// ]
+report.item_map.target = [
+    'server'        : 'name',
+    'domain'        : 'domain',
+    'successrate'   : 'success_rate',
+    'verifycomment' : 'verify_comment',
+]
+
+report.item_map.platform.Linux = [
+    'os'   : 'os',
+    'os2'  : 'arch',
+    'cpu'  : 'cpu_total',
+    'mem'  : 'mem_total',
+    'disk' : 'filesystem',
+    'net'  : 'net_ip',
+]
+
+report.item_map.platform.Windows = [
+    'os'   : 'os_caption',
+    'os2'  : 'os_architecture',
+    'cpu'  : 'cpu_total',
+    'mem'  : 'visible_memory',
+    'disk' : 'filesystem',
+    'net'  : 'network',
+]
 
 // 並列化しないタスク
 

@@ -52,7 +52,8 @@ class EvidenceMaker {
         comparision_sequences.each { comparision_sequence ->
             domain_targets.each { domain, domain_target ->
                 domain_target.each { target, test_target ->
-                    if (test_target.target_status == RunStatus.READY)
+                    if (test_target.target_status == RunStatus.INIT ||
+                        test_target.target_status == RunStatus.READY)
                         return
                     def comparision = test_target.comparision
                     def metric_sets = domain_metrics[domain].get_all()

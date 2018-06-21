@@ -185,6 +185,10 @@ class ConfigTestEnvironment {
         return this.config?.parallel_degree ?: 0
     }
 
+    def get_item_map() {
+        return this.config?.report?.item_map
+    }
+
     def get_dry_run(String platform) {
         def config_platform = this.config?.test?."${platform}"
         return this.config?.dry_run ?: config_platform?.dry_run ?: false

@@ -62,6 +62,7 @@ class ExcelSheetMaker {
 
     ExcelParser excel_parser
     EvidenceMaker evidence_maker
+    ReportMaker report_maker
 
     def output(String evidence_excel) {
         long start = System.currentTimeMillis()
@@ -75,6 +76,17 @@ class ExcelSheetMaker {
             }
         }
         log.info "Summary sheet updated : ${count_summary_sheet_update}"
+
+        println "SHEET_SOURCES: ${excel_parser.sheet_sources}"
+        excel_parser.sheet_sources['report'].with { sheet_design ->
+            println "REPORT_DESIGN: ${sheet_design}"
+            def report_sheet = this.report_maker?.report_sheet
+            println "REPORT_SHEET2: ${report_sheet}"
+            if (report_sheet) {
+                write_sheet_report(report_sheet, sheet_design)
+                log.info "Report sheet updated"
+            }
+        }
 
         def count_device_sheet_update = 0
         evidence_maker.device_result_sheets.each { sheet_key, device_result_sheet ->
@@ -105,7 +117,8 @@ class ExcelSheetMaker {
                 cell.setCellValue(test_result.error_msg)
             } else if (test_result.comparision == ResultStatus.MATCH) {
                 set_test_result_cell_style(cell, ResultCellStyle.SAME)
-                cell.setCellValue('Same as target')
+                def compare_server = test_result?.compare_server ?: 'target'
+                cell.setCellValue("Same as '${compare_server}'")
             } else if (test_result.verify == ResultStatus.OK) {
                 set_test_result_cell_style(cell, ResultCellStyle.OK)
             } else if (test_result.verify == ResultStatus.NG) {
@@ -164,6 +177,36 @@ class ExcelSheetMaker {
                         write_cell_summary(cell, test_result)
                     } catch (NullPointerException e) {
                         log.debug "Not found row ${platform},${metric}"
+                    }
+                }
+            }
+        }
+    }
+
+    def write_sheet_report(SheetSummary sheet_summary, SheetDesign sheet_design) {
+        def workbook = excel_parser.workbook
+        def result_position = sheet_design.sheet_parser.result_pos
+        println "ROW:$result_position"
+        def row_style  = workbook.createCellStyle().setWrapText(false)
+        sheet_design.sheet.with { sheet ->
+            def summary_results = sheet_summary.results
+
+            sheet_summary.rows.each { target, rownum ->
+                def row_position = rownum + result_position[0]
+                Row row = sheet.getRow(row_position)
+                if (row == null)
+                    row = sheet.createRow(row_position)
+                row.setRowStyle(row_style)
+                sheet_summary.cols.each { metric, column_index ->
+                    def colnum = column_index + result_position[1] - 1
+                    sheet.setColumnWidth(colnum, evidence_cell_width)
+                    Cell cell = row.createCell(colnum)
+                    def test_result = summary_results[target][metric] as TestResult
+                    println "CELL: $target, $metric, ${test_result}"
+                    try {
+                        write_cell_summary(cell, test_result)
+                    } catch (NullPointerException e) {
+                        log.debug "Not found row ${target},${metric}"
                     }
                 }
             }

@@ -3,7 +3,7 @@
     "ip": null,
     "template_id": null,
     "compare_server": null,
-    "target_status": "INIT",
+    "target_status": "COMPARED",
     "platforms": [
         "vCenter",
         "Linux"

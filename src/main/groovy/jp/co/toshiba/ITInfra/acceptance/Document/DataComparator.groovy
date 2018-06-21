@@ -16,8 +16,10 @@ class DataComparator {
             def compare_platform = compare_target?.test_platforms[platform_name]
             if (!compare_platform?.test_results)
                 return
+            compare_target.target_status = RunStatus.COMPARED
             test_platform?.test_results.each { metric_name, test_result ->
                 def compare_result = compare_platform.test_results[metric_name]
+                test_result.compare_server = compare_target.name
                 if (test_result?.value == compare_result?.value) {
                     test_result.comparision = ResultStatus.MATCH
                 } else {

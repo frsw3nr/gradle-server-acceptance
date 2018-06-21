@@ -13,6 +13,7 @@ class TestResult extends SpecModel {
     String name
     def value
     String error_msg
+    String compare_server
     ResultStatus status
     ResultStatus verify
     ResultStatus comparision
