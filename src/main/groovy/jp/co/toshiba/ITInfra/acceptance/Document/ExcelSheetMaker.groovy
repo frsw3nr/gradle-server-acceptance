@@ -107,8 +107,13 @@ class ExcelSheetMaker {
     }
 
     // def write_cell_summary(Cell cell, TestResult test_result) {
-    def write_cell_summary(Cell cell, TestResult test_result) {
-        if (test_result) {
+    def write_cell_summary(Cell cell, TestResult test_result,
+                           Boolean disable_cell_style = false) {
+        if (disable_cell_style) {
+            if (test_result.value != null)
+                cell.setCellValue(test_result.value)
+            set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
+        } else if (test_result) {
             cell.setCellValue(test_result.value)
             if (test_result.status == null) {
                 set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
@@ -191,20 +196,22 @@ class ExcelSheetMaker {
         sheet_design.sheet.with { sheet ->
             def summary_results = sheet_summary.results
 
-            sheet_summary.rows.each { target, rownum ->
-                def row_position = rownum + result_position[0]
-                Row row = sheet.getRow(row_position)
+            sheet_summary.rows.each { target, row_index ->
+                def rownum = row_index + result_position[0] - 1
+                Row row = sheet.getRow(rownum)
                 if (row == null)
-                    row = sheet.createRow(row_position)
+                    row = sheet.createRow(rownum)
                 row.setRowStyle(row_style)
+                Cell cell0 = row.createCell(0)
+                write_cell_summary(cell0, new TestResult(value: row_index), false)
                 sheet_summary.cols.each { metric, column_index ->
-                    def colnum = column_index + result_position[1] - 1
-                    sheet.setColumnWidth(colnum, evidence_cell_width)
+                    def colnum = column_index + result_position[1]
+                    // sheet.setColumnWidth(colnum, evidence_cell_width)
                     Cell cell = row.createCell(colnum)
                     def test_result = summary_results[target][metric] as TestResult
                     println "CELL: $target, $metric, ${test_result}"
                     try {
-                        write_cell_summary(cell, test_result)
+                        write_cell_summary(cell, test_result, false)
                     } catch (NullPointerException e) {
                         log.debug "Not found row ${target},${metric}"
                     }

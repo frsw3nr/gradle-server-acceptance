@@ -154,6 +154,7 @@ class ExcelParser {
         test_scenario.with {
             test_targets = new TestTargetSet(name: 'root')
             test_targets.accept(this)
+            println "TEST_TARGETS:${test_targets}"
             test_reports = new TestReportSet(name: 'root')
             test_reports.accept(this)
             test_metrics = new TestMetricSet(name: 'root')
