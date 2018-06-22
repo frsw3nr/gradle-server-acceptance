@@ -5,56 +5,6 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// 見直し案
-
-// 共通変数
-
-// * config_test
-// * platform
-// * target_name
-// * evidence_log_share_dir
-
-// テストプラットフォーム用変数
-
-// * dry_run
-// * timeout
-// * debug
-// * dry_run_staging_dir
-// * evidence_log_share_dir
-// * evidence_log_dir
-
-// エビデンス出力用変数
-
-// result_dir
-// evidence_target
-// evidence_source
-
-// 目的に合わせて環境変数設定ポリシーを変える
-
-// テストコード内で環境変数設定
-
-//         def test_env = ConfigTestEnvironment.instance
-//         test_env.read_config('config/config.groovy')
-//         test_env.result_dir = 'src/test/resources/json'
-//         test_env.evidence_source = 'src/test/resources/check_sheet.xlsx'
-//         test_env.evidence_target = 'build/check_sheet.xlsx'
-//         後から設定された変数が優先される
-
-// 実行オプション設定
-
-//         def test_env = ConfigTestEnvironment.instance
-//         test_env.read_test_runner_config(test_runner)
-//             test_env.read_config(config_file)
-//         test_runner で設定された変数が優先される
-//         set_test_runner_config()内で、config_file を先に読み込む
-
-// 以下、メソッドで必要な変数をセットする
-
-// set_test_environment(platform_tester)
-// set_evidence_environment(evidence_maker),
-// set_test_environment(object)
-
-
 @Slf4j
 @ToString(includePackage = false)
 @Singleton

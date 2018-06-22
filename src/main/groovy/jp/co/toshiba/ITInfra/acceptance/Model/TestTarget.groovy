@@ -22,6 +22,7 @@ class TestTarget extends SpecModel {
     String compare_server
     Boolean comparision = false
     RunStatus target_status
+    String success_rate
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
     LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]

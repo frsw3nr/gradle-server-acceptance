@@ -38,37 +38,38 @@ public class ReportMaker {
 
     def add_summary_result(String target, String metric, TestResult test_result) {
         def sheet = this.report_sheet ?: new SheetSummary()
-        sheet.rows[target] = sheet.rows[metric] ?: sheet.rows.size() + 1
+        sheet.rows[target] = sheet.rows[target] ?: sheet.rows.size() + 1
         sheet.cols[metric] = sheet.cols[metric] ?: sheet.cols.size() + 1
         sheet.results[target][metric] = test_result
         this.report_sheet = sheet
     }
 
     TestResult get_test_result(TestReport test_report, TestTarget test_target) {
-        TestResult test_result
         def report_name = test_report.name
+        TestResult test_result = new TestResult(name: report_name, value: "TEST")
         def metric = this.metrics?."${report_name}"
-        if (!metric)
+        if (!metric) {
+            println "NOTFOUND METRIC: $metric"
             return
+        }
         if (metric.report_type == 'target') {
             def result_name = metric.result_name
             test_result = new TestResult(name: result_name, 
                                          value: test_target?."${result_name}")
         } else if (metric.report_type == 'platform') {
             def test_platforms = test_target?.test_platforms
-            if (!test_platforms)
-                return
-            def platform_metric = this.platform_metrics?."${report_name}"
-            test_platforms.find { platform_name, test_platform ->
-                if (platform_metric.containsKey(platform_name)) {
-                    def result_name = platform_metric[platform_name]
-                    if (test_platform.test_results.containsKey(result_name)) {
-                        test_result = test_platform.test_results[result_name] as TestResult
-                        return true
+            if (test_platforms) {
+                def platform_metric = this.platform_metrics?."${report_name}"
+                test_platforms.find { platform_name, test_platform ->
+                    if (platform_metric.containsKey(platform_name)) {
+                        def result_name = platform_metric[platform_name]
+                        if (test_platform.test_results.containsKey(result_name)) {
+                            test_result = test_platform.test_results[result_name] as TestResult
+                            return true
+                        }
                     }
                 }
             }
-            def test_platform_keys = test_platforms.keySet()
         }
         log.debug "TEST_RESULT:${test_target.name}, ${report_name}, ${test_result}"
         return test_result
@@ -94,6 +95,7 @@ public class ReportMaker {
                 }
             }
         }
+        println "ROWS:${report_sheet.rows}"
         long elapse = System.currentTimeMillis() - start
         log.info "Finish report maker, Elapse : ${elapse} ms"
     }

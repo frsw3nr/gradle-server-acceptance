@@ -52,6 +52,7 @@ class EvidenceMaker {
         comparision_sequences.each { comparision_sequence ->
             domain_targets.each { domain, domain_target ->
                 domain_target.each { target, test_target ->
+                    test_target.success_rate = "Test"
                     if (test_target.target_status == RunStatus.INIT ||
                         test_target.target_status == RunStatus.READY)
                         return

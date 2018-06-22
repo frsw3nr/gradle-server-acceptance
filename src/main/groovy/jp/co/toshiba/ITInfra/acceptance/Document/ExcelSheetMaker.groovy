@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.ss.util.RegionUtil;
@@ -110,8 +111,12 @@ class ExcelSheetMaker {
     def write_cell_summary(Cell cell, TestResult test_result,
                            Boolean disable_cell_style = false) {
         if (disable_cell_style) {
-            if (test_result.value != null)
-                cell.setCellValue(test_result.value)
+            // if (test_result.value != null) {
+            //     cell.setCellValue(test_result.value)
+            // }
+            def value = test_result?.value ?: " "
+            println "TestResult : ${test_result}"
+            cell.setCellValue(value)
             set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
         } else if (test_result) {
             cell.setCellValue(test_result.value)
@@ -203,7 +208,7 @@ class ExcelSheetMaker {
                     row = sheet.createRow(rownum)
                 row.setRowStyle(row_style)
                 Cell cell0 = row.createCell(0)
-                write_cell_summary(cell0, new TestResult(value: row_index), false)
+                write_cell_summary(cell0, new TestResult(value: row_index), true)
                 sheet_summary.cols.each { metric, column_index ->
                     def colnum = column_index + result_position[1]
                     // sheet.setColumnWidth(colnum, evidence_cell_width)
@@ -211,7 +216,7 @@ class ExcelSheetMaker {
                     def test_result = summary_results[target][metric] as TestResult
                     println "CELL: $target, $metric, ${test_result}"
                     try {
-                        write_cell_summary(cell, test_result, false)
+                        write_cell_summary(cell, test_result, true)
                     } catch (NullPointerException e) {
                         log.debug "Not found row ${target},${metric}"
                     }
@@ -275,6 +280,9 @@ class ExcelSheetMaker {
         style.setBottomBorderColor(black);
         style.setBorderTop(thin);
         style.setTopBorderColor(black);
+
+        // Set Center vertical
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
 
         // Set Text font and Foreground color
         switch (result_cell_type) {
