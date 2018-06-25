@@ -1,62 +1,79 @@
-// æ¤œæŸ»ä»•æ§˜ã‚·ãƒ¼ãƒˆå®šç¾©
+// ŒŸ¸d—lƒV[ƒg’è‹`
 
-evidence.source = './src/test/resources/check_sheet.xlsx'
-// evidence.sheet_name_server = 'Target'
-// evidence.sheet_name_rule = 'Rule'
-// evidence.sheet_name_spec = [
-//     'Linux':   'CheckSheet(Linux)',
-//     'Windows': 'CheckSheet(Windows)',
-// ]
+evidence.source = './ƒT[ƒoƒ`ƒFƒbƒNƒV[ƒg.xlsx'
 
-// æ¤œæŸ»çµæœãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›å…ˆ
+// ŒŸ¸Œ‹‰Êƒtƒ@ƒCƒ‹o—Íæ
 
-evidence.target='./build/check_sheet_<date>.xlsx'
-//evidence.target='./build/check_sheet.xlsx'
+//evidence.target='./build/ƒT[ƒoƒ`ƒFƒbƒNƒV[ƒg_<date>.xlsx'
+evidence.target='./build/check_sheet.xlsx'
 
-// æ¤œæŸ»çµæœãƒ­ã‚°ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+// ŒŸ¸Œ‹‰ÊƒƒOƒfƒBƒŒƒNƒgƒŠ
 evidence.staging_dir='./build/log'
 
-// æ¤œæŸ»ã€æ¤œè¨¼çµæœãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+// ŒŸ¸AŒŸØŒ‹‰ÊƒfƒBƒŒƒNƒgƒŠ
 evidence.json_dir='./src/test/resources/json'
 
-// CSVå¤‰æ›ãƒãƒƒãƒ—
+// ƒŒƒ|[ƒg•ÏŠ·ƒ}ƒbƒv
+report.item_map.target = [
+    'server'        : 'name',
+    'domain'        : 'domain',
+    'ip'            : 'ip',
+    'successrate'   : 'success_rate',
+    'verifycomment' : 'verify_comment',
+]
 
-// evidence.csv_item_map = [
-//     'ã‚µãƒ¼ãƒå' :            'server_name',
-//     'IPã‚¢ãƒ‰ãƒ¬ã‚¹' :          'ip',
-//     'Platform' :            'platform',
-//     'OSã‚¢ã‚«ã‚¦ãƒ³ãƒˆID' :      'os_account_id',
-//     'vCenterã‚¢ã‚«ã‚¦ãƒ³ãƒˆID' : 'remote_account_id',
-//     'VMã‚¨ã‚¤ãƒªã‚¢ã‚¹å' :      'remote_alias',
-//     'æ¤œæŸ»ID' :              'verify_id',
-//     'CPUæ•°' :               'NumCpu',
-//     'ãƒ¡ãƒ¢ãƒªé‡' :            'MemoryGB',
-//     'ESXiå' :              'ESXiHost',
-//     'HDD' :                 'HDDtype',
-// ]
+report.item_map.platform.Linux = [
+    'os'   : 'os',
+    'os2'  : 'arch',
+    'cpu'  : 'cpu_total',
+    'mem'  : 'mem_total',
+    'disk' : 'filesystem',
+    'net'  : 'net_ip',
+]
 
-// ä¸¦åˆ—åŒ–ã—ãªã„ã‚¿ã‚¹ã‚¯
+report.item_map.platform.Windows = [
+    'os'   : 'os_caption',
+    'os2'  : 'os_architecture',
+    'cpu'  : 'cpu_total',
+    'mem'  : 'visible_memory',
+    'disk' : 'filesystem',
+    'net'  : 'network',
+]
+
+report.item_map.platform.iLO = [
+    'net_mng' : 'Nic',
+]
+
+report.item_map.platform.PRIMERGY = [
+    'net_mng' : 'nic',
+]
+
+// •À—ñ‰»‚µ‚È‚¢ƒ^ƒXƒN
 
 test.serialization.tasks = ['vCenter']
 
-// DryRunãƒ¢ãƒ¼ãƒ‰ãƒ­ã‚°ä¿å­˜å…ˆ
+// DryRunƒ‚[ƒhƒƒO•Û‘¶æ
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
-// ã‚³ãƒãƒ³ãƒ‰æ¡å–ã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆ
-// Windows,vCenterã®å ´åˆã€å…¨ã‚³ãƒãƒ³ãƒ‰ã‚’ã¾ã¨ã‚ãŸãƒãƒƒãƒã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆå€¤
+// ƒRƒ}ƒ“ƒhÌæ‚Ìƒ^ƒCƒ€ƒAƒEƒg
+// Windows,vCenter‚Ìê‡A‘SƒRƒ}ƒ“ƒh‚ğ‚Ü‚Æ‚ß‚½ƒoƒbƒ`ƒXƒNƒŠƒvƒg‚Ìƒ^ƒCƒ€ƒAƒEƒg’l
 
 test.Linux.timeout   = 30
 test.Windows.timeout = 300
 test.vCenter.timeout = 300
 
-// ã‚³ãƒãƒ³ãƒ‰æ¡å–ã®ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰
+// ƒRƒ}ƒ“ƒhÌæ‚ÌƒfƒoƒbƒOƒ‚[ƒh
 
 test.Linux.debug   = false
 test.Windows.debug = false
 test.vCenter.debug = false
 
-// vCenteræ¥ç¶šæƒ…å ±
+test.Linux.dry_run   = false
+test.Windows.dry_run = false
+test.vCenter.dry_run = false
+
+// vCenterÚ‘±î•ñ
 
 // account.Remote.Test.server   = '192.168.10.100'
 // account.Remote.Test.user     = 'test_user'
@@ -66,18 +83,14 @@ account.vCenter.Test.server   = '192.168.10.100'
 account.vCenter.Test.user     = 'test_user'
 account.vCenter.Test.password = 'P@ssword'
 
-// Linux æ¥ç¶šæƒ…å ±
+// Linux Ú‘±î•ñ
 
 account.Linux.Test.user      = 'someuser'
 account.Linux.Test.password  = 'P@ssword'
 account.Linux.Test.work_dir  = '/tmp/gradle_test'
 
-// Windows æ¥ç¶šæƒ…å ±
+// Windows Ú‘±î•ñ
 
 account.Windows.Test.user     = 'administrator'
 account.Windows.Test.password = 'P@ssword'
 
-// VMHost æ¥ç¶šæƒ…å ±
-
-// account.VMHost.Test.user     = 'root'
-// account.VMHost.Test.password = 'P@ssword'

@@ -115,7 +115,11 @@ class TestItem {
         def test_value = this.target_info(item_name)
         if (this.verify_test && test_value) {
             def check = (value =~ /$test_value/) as boolean
-            log.debug "Check ${item_name}, '${value}' =~ /${test_value}/, OK : ${check}"
+            def isok = (check)?'OK':'NG'
+            log.debug "Check ${item_name}, ${isok}"
+            if (!check) {
+                log.warn "Check ${item_name}, ${isok}, '${value}' !=~ /${test_value}/"
+            }
             this.make_verify(item_name, check)
         }
     }
@@ -129,7 +133,8 @@ class TestItem {
         return value_double
     }
 
-    def is_difference(test_value, value, String item_name, double err_range = 0) {
+    def is_difference(test_value, value, String item_name, double err_range = 0,
+                      Boolean show_massage = true) {
         def test_value_double = this.to_number(test_value)
         if (!test_value_double) {
             return
@@ -142,8 +147,14 @@ class TestItem {
         def max_value = Math.max(test_value_double, value_double)
         def differ = Math.abs(test_value_double - value_double)
         def check = ((1.0 * differ / max_value) <= err_range) as boolean
-        def err = (err_range == 0) ? '' : "(error range=${err_range})"
-        log.debug "Check ${item_name}, '${value}' == '${test_value}'${err}, OK : ${check}"
+        def isok = (check)?'OK':'NG'
+        if (show_massage) {
+            log.debug "Check ${item_name}, ${isok}"
+            def err = (err_range == 0) ? '' : "(error range=${err_range})"
+            if (!check) {
+                log.warn "Check ${item_name}, ${isok}, ${value} != ${test_value}${err}"
+            }
+        }
         return check
     }
 
@@ -166,18 +177,25 @@ class TestItem {
                 log.warn "Test value '$item_name' is not Map : $test_value"
                 return
             }
+            def ng_msg
             def check = true
             test_values.find { test_key, test_value ->
                 if (!values.containsKey(test_key)) {
                     check = false
+                    ng_msg = "'${test_key}' not in '${trim_values_text(values)}'"
                     return true
                 }
                 if (!(values[test_key] =~ /$test_value/)) {
                     check = false
+                    ng_msg = "'${values[test_key]}'(${test_key}) !=~ /${test_value}/ in '${trim_values_text(values)}'"
                     return true
                 }
             }
-            log.debug "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            def isok = (check)?'OK':'NG'
+            log.debug "Check ${item_name}, ${isok}"
+            if (!check) {
+                log.warn "Check ${item_name}, ${isok}, ${ng_msg}"
+            }
             this.make_verify(item_name, check)
         }
     }
@@ -191,41 +209,66 @@ class TestItem {
                 log.warn "Test value '$item_name' is not Map : $test_value"
                 return
             }
+            def ng_msg
             def check = true
             test_values.find { test_key, test_value ->
                 if (!values.containsKey(test_key)) {
                     check = false
+                    ng_msg = "'${test_key}' not in '${values}'"
                     return true
                 }
                 def value = values[test_key]
-                def is_equal = this.is_difference(test_value, value, item_name, err_range)
+                def is_equal = this.is_difference(test_value, value, item_name,
+                                                  err_range, false)
                 if (is_equal == false) {
                     check = false
+                    ng_msg = "${value}(${test_key}) != ${test_value} in '${trim_values_text(values)}'"
                     return true
                 }
             }
-            log.debug "Check ${item_name}, ${values} = ${test_values}, OK : ${check}"
+            def isok = (check)?'OK':'NG'
+            log.debug "Check ${item_name}, ${isok}"
+            if (!check) {
+                log.warn "Check ${item_name}, ${isok}, ${ng_msg}"
+            }
             this.make_verify(item_name, check)
         }
     }
 
-    def verify_text_search_list(String item_name, Map values) {
+    def trim_values_text(Object values) {
+        def values_text = values.toString()
+        if (values_text.size() > 100)
+            values_text = values_text.substring(0, 100) + ' ...'
+        return values_text
+    }
+
+    def verify_text_search_list(String item_name, Object values) {
+        // println "TEST: $item_name, $values"
         if (!this.verify_test)
             return
         def test_values = this.target_info(item_name)
+        // println "TESTVALUE: ${test_values}"
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.warn "Test value '$item_name' is not Map : $test_value"
                 return
             }
+            def ng_msg
             def check = true
+            def text_search_values = values.toString()
             test_values.find { test_key, test_value ->
-                if (!values.containsKey(test_key)) {
+                def included = (text_search_values =~ /$test_key/) as boolean
+                if (!included) {
                     check = false
+                    ng_msg = "'${test_key}' not in '${trim_values_text(values)}'"
                     return true
                 }
             }
-            log.debug "Check ${item_name}, ${values} in ${test_values}, OK : ${check}"
+            def isok = (check)?'OK':'NG'
+            log.debug "Check ${item_name}, ${isok}"
+            if (!check) {
+                log.warn "Check ${item_name}, ${isok}, ${ng_msg}"
+            }
             this.make_verify(item_name, check)
         }
     }

@@ -43,7 +43,7 @@ class ProjectBuilder {
             new File("${target_path}/.gitkeep").createNewFile()
         }
         // Copy Config file under home
-        ['config.groovy', 'test_servers.groovy', 'issues.csv'].each {base ->
+        ['config.groovy'].each {base ->
             FileUtils.copyFile(new File("${home}/config/${base}"),
                                new File("${target_dir}/config/${base}"))
         }
@@ -66,6 +66,7 @@ class ProjectBuilder {
     def xport(String xport_file) {
         assert(home)
         assert(xport_file)
+        long start = System.currentTimeMillis()
 
         // Drop and create working directory
         def target_path = new File("${home}/build/xport_tmp").getAbsolutePath()
@@ -107,6 +108,11 @@ class ProjectBuilder {
                 }
             }
         }
+        // Copy all files under the directory
+        ['src', 'node'].each { base ->
+            FileUtils.copyDirectory(new File("${home}/${base}"),
+                                    new File("${target_dir}/${base}"))
+        }
         // Copy '{home}/*.xlsx'
         new File(home).eachFileMatch(~/.*.xlsx/) { file ->
             def file_name = file.getName()
@@ -117,5 +123,7 @@ class ProjectBuilder {
         // Archive working directory.
         println "Archive ${xport_file}"
         new AntBuilder().zip(destfile: xport_file, basedir: target_path)
+        long elapse = System.currentTimeMillis() - start
+        println "Finish archive, Elapse : ${elapse} ms"
     }
 }

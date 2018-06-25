@@ -42,17 +42,68 @@ class EvidenceMaker {
         this.device_result_sheets[sheet_key] = sheet
     }
 
-    def visit_test_scenario(test_scenario) {
-        long start = System.currentTimeMillis()
+    def make_aggrigate_result(TestTarget test_target, Map verify_summaries,
+                              List failed_metrics) {
+        def test_ok  = verify_summaries[ResultStatus.OK] ?: 0
+        def test_ng  = verify_summaries[ResultStatus.NG] ?: 0
+        def test_all = test_ok + test_ng
+        def success_rate = 'No test'
+        def comment = ''
+        if (test_all > 0) {
+            success_rate = sprintf('%.1f %%', (double) 100 * test_ok / test_all)
+            if (test_ng > 0) {
+                comment += "${test_ng} / ${test_all} Failed : ${failed_metrics}"
+            }
+        } else {
+            success_rate = 'Not test'
+        }
+        test_target.success_rate = success_rate
+        test_target.verify_comment = comment
+    }
 
+    def aggrigate_test_result(test_scenario) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()
 
+        domain_targets.each { domain, domain_target ->
+            domain_target.each { target, test_target ->
+                test_target.success_rate = "No test"
+                def verify_summaries = [:].withDefault{0}
+                def failed_metrics = []
+                if (test_target.target_status == RunStatus.INIT ||
+                    test_target.target_status == RunStatus.READY)
+                    return
+                def metric_sets = domain_metrics[domain].get_all()
+                metric_sets.each { platform, metric_set ->
+                    def test_platform = test_target.test_platforms[platform]
+                    def test_results = test_platform?.test_results
+                    if (!test_results)
+                        return
+                    metric_set.get_all().each { metric, test_metric ->
+                        def test_result = test_results[metric]
+                        if (test_result) {
+                            verify_summaries[test_result.verify] ++
+                            if (test_result.verify == ResultStatus.NG) {
+                                failed_metrics << metric
+                            }
+                        }
+                    }
+                }
+                this.make_aggrigate_result(test_target, verify_summaries, failed_metrics)
+            }
+        }
+    }
+
+    def visit_test_scenario(test_scenario) {
+        long start = System.currentTimeMillis()
+
+        this.aggrigate_test_result(test_scenario)
+        def domain_metrics = test_scenario.test_metrics.get_all()
+        def domain_targets = test_scenario.get_domain_targets()
         def comparision_sequences = [true, false]
         comparision_sequences.each { comparision_sequence ->
             domain_targets.each { domain, domain_target ->
                 domain_target.each { target, test_target ->
-                    test_target.success_rate = "Test"
                     if (test_target.target_status == RunStatus.INIT ||
                         test_target.target_status == RunStatus.READY)
                         return
@@ -68,11 +119,13 @@ class EvidenceMaker {
                             return
                         metric_set.get_all().each { metric, test_metric ->
                             def test_result = test_results[metric]
-                            if (test_result && comparision == comparision_sequence) {
-                                add_summary_result(domain, target, platform, metric,
-                                                   test_result)
-                                if (test_metric.device_enabled) {
-                                    add_device_result(target, platform, metric, test_result)
+                            if (test_result) {
+                                if (comparision == comparision_sequence) {
+                                    add_summary_result(domain, target, platform, metric,
+                                                       test_result)
+                                    if (test_metric.device_enabled) {
+                                        add_device_result(target, platform, metric, test_result)
+                                    }
                                 }
                             }
                         }

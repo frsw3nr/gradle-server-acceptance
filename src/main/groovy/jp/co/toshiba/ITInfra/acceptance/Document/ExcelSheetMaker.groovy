@@ -60,6 +60,7 @@ public enum ResultCellStyle {
 class ExcelSheetMaker {
     final device_cell_width   = 5760
     final evidence_cell_width = 11520
+    final report_cell_height  = 1190
 
     ExcelParser excel_parser
     EvidenceMaker evidence_maker
@@ -78,11 +79,8 @@ class ExcelSheetMaker {
         }
         log.info "Summary sheet updated : ${count_summary_sheet_update}"
 
-        println "SHEET_SOURCES: ${excel_parser.sheet_sources}"
         excel_parser.sheet_sources['report'].with { sheet_design ->
-            println "REPORT_DESIGN: ${sheet_design}"
             def report_sheet = this.report_maker?.report_sheet
-            println "REPORT_SHEET2: ${report_sheet}"
             if (report_sheet) {
                 write_sheet_report(report_sheet, sheet_design)
                 log.info "Report sheet updated"
@@ -115,7 +113,6 @@ class ExcelSheetMaker {
             //     cell.setCellValue(test_result.value)
             // }
             def value = test_result?.value ?: " "
-            println "TestResult : ${test_result}"
             cell.setCellValue(value)
             set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
         } else if (test_result) {
@@ -196,7 +193,6 @@ class ExcelSheetMaker {
     def write_sheet_report(SheetSummary sheet_summary, SheetDesign sheet_design) {
         def workbook = excel_parser.workbook
         def result_position = sheet_design.sheet_parser.result_pos
-        println "ROW:$result_position"
         def row_style  = workbook.createCellStyle().setWrapText(false)
         sheet_design.sheet.with { sheet ->
             def summary_results = sheet_summary.results
@@ -207,14 +203,17 @@ class ExcelSheetMaker {
                 if (row == null)
                     row = sheet.createRow(rownum)
                 row.setRowStyle(row_style)
+                row.setHeight((short)report_cell_height)
                 Cell cell0 = row.createCell(0)
                 write_cell_summary(cell0, new TestResult(value: row_index), true)
                 sheet_summary.cols.each { metric, column_index ->
                     def colnum = column_index + result_position[1]
                     // sheet.setColumnWidth(colnum, evidence_cell_width)
+                    // if (metric == 'verifycomment')
+                    //     sheet.setColumnWidth(colnum, evidence_cell_width)
                     Cell cell = row.createCell(colnum)
                     def test_result = summary_results[target][metric] as TestResult
-                    println "CELL: $target, $metric, ${test_result}"
+                    // println "CELL: $target, $metric, ${test_result}"
                     try {
                         write_cell_summary(cell, test_result, true)
                     } catch (NullPointerException e) {

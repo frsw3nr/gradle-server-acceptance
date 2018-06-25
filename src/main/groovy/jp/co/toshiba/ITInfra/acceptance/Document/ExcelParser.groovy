@@ -154,7 +154,6 @@ class ExcelParser {
         test_scenario.with {
             test_targets = new TestTargetSet(name: 'root')
             test_targets.accept(this)
-            println "TEST_TARGETS:${test_targets}"
             test_reports = new TestReportSet(name: 'root')
             test_reports.accept(this)
             test_metrics = new TestMetricSet(name: 'root')
@@ -309,7 +308,7 @@ class ExcelParser {
             def test_report = new TestReport(name: header)
             test_report_set.add(test_report)
         }
-        log.info "Read test report : ${test_report_set.count()} col"
+        log.debug "Read test report : ${test_report_set.count()} col"
     }
 
     // def visit_test_rule_set(test_rule_set) {

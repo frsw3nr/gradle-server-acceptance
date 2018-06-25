@@ -46,16 +46,17 @@ public class ReportMaker {
 
     TestResult get_test_result(TestReport test_report, TestTarget test_target) {
         def report_name = test_report.name
-        TestResult test_result = new TestResult(name: report_name, value: "TEST")
+        TestResult test_result
+        // TestResult test_result = new TestResult(name: report_name, value: "TEST")
         def metric = this.metrics?."${report_name}"
         if (!metric) {
-            println "NOTFOUND METRIC: $metric"
+            log.error "Not found report.item_map.platform in config.groovy: $metric"
             return
         }
         if (metric.report_type == 'target') {
             def result_name = metric.result_name
-            test_result = new TestResult(name: result_name, 
-                                         value: test_target?."${result_name}")
+            def value = test_target?."${result_name}"
+            test_result = new TestResult(name: result_name, value: value)
         } else if (metric.report_type == 'platform') {
             def test_platforms = test_target?.test_platforms
             if (test_platforms) {
@@ -75,17 +76,38 @@ public class ReportMaker {
         return test_result
     }
 
+    // def aggrigate_test_results(TestScenario test_scenario) {
+    //     def domain_targets = test_scenario.get_domain_targets()
+    //     def domain_metrics = test_scenario.test_metrics.get_all()
+
+    //     domain_targets.each { domain, domain_target ->
+    //         domain_target.each { target, test_target ->
+    //         def metric_sets = domain_metrics[domain].get_all()
+    //         def run_status = RunStatus.FINISH
+    //         metric_sets.each { platform, metric_set ->
+
+    //     domain_targets.each { domain, domain_target ->
+    //         domain_target.each { target, test_target ->
+    //             // if (test_target.target_status == RunStatus.INIT ||
+    //             //     test_target.target_status == RunStatus.READY)
+    //             //     return
+    //             test_reports.each {report_name, test_report ->
+    //                 def test_result = get_test_result(test_report, test_target)
+    //                 add_summary_result(target, report_name, test_result)
+    //             }
+    //         }
+    //     }
+    // }
+
     def visit_test_scenario(TestScenario test_scenario) {
         long start = System.currentTimeMillis()
 
         this.convert_test_item()
-        println "METRICS: ${this.metrics}"
         def test_reports = test_scenario.test_reports.get_all()
         def domain_targets = test_scenario.get_domain_targets()
 
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
-                println "TEST_TARGET: ${test_target.name}, ${test_target.target_status}"
                 // if (test_target.target_status == RunStatus.INIT ||
                 //     test_target.target_status == RunStatus.READY)
                 //     return
@@ -95,7 +117,6 @@ public class ReportMaker {
                 }
             }
         }
-        println "ROWS:${report_sheet.rows}"
         long elapse = System.currentTimeMillis() - start
         log.info "Finish report maker, Elapse : ${elapse} ms"
     }

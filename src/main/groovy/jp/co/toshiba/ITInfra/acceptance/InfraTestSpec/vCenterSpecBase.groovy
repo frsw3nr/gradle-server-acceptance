@@ -164,6 +164,7 @@ class vCenterSpecBase extends InfraTestSpec {
             | Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion | `
             | Select Name, Value
         '''.stripMargin()
+
         run_script(command) {
             def lines = exec('vmwaretool') {
                 new File("${local_dir}/vmwaretool")

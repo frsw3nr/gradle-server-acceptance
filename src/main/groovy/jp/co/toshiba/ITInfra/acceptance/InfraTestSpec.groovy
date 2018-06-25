@@ -281,7 +281,7 @@ class InfraTestSpec {
             } catch (IOException e) {
                 log.error "[PowershellTest] Powershell script faild.\n" + e
                 // Detect WinRM connection error from message
-                if (e =~/WinRM/)
+                if (e =~/(WinRM|Core_OutputHelper_WriteNotFoundError)/)
                     return
             }
             long elapsed = System.currentTimeMillis() - start
@@ -291,7 +291,21 @@ class InfraTestSpec {
             def log_not_founds = []
             test_items.each {
                 def log_path = get_log_path(it.test_id)
-                if (!new File(log_path).exists()) {
+                def target_path = get_target_path(it.test_id)
+                if (dry_run) {
+                    try {
+                        def source_log = new File(log_path)
+                        if (!source_log.exists()) {
+                            log_not_founds << it.test_id
+                        }
+                        def target_log = new File(target_path)
+                        if (!target_log.exists())
+                            FileUtils.copyFile(source_log, target_log)
+                    } catch (FileNotFoundException e) {
+                        log_not_founds << it.test_id
+                    }
+                }
+                if (!new File(target_path).exists()) {
                     log_not_founds << it.test_id
                     // log.info "Log not found, skip : ${it.test_id}"
                     return

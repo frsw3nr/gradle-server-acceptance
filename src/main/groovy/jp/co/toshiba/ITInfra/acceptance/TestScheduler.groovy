@@ -106,7 +106,7 @@ class TestScheduler {
         def test_platform_tasks = this.make_test_platform_tasks(test_scenario)
         test_platform_tasks.each { platform, test_platforms ->
             def n_test_platforms = test_platforms.size()
-            log.info "Prepare platform test(${platform}) : ${n_test_platforms} targets"
+            log.info "Start platform test(${platform}) : ${n_test_platforms} targets"
             if (this.parallel_degree > 1 && !this.serialize_platforms[platform]) {
                 log.info "Parallel execute : ${this.parallel_degree}"
                 GParsPool.withPool(this.parallel_degree) { ForkJoinPool pool ->

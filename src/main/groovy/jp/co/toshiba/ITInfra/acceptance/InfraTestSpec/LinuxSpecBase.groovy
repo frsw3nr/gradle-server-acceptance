@@ -381,7 +381,8 @@ class LinuxSpecBase extends InfraTestSpec {
                 'net_ip': net_ip.toString(),
                 'hw_address' : hw_address.toString()
         )
-        test_item.verify_text_search_map('net_ip', net_ip)
+        test_item.verify_text_search_list('net_ip', net_ip)
+        // test_item.verify_text_search_map('net_ip', net_ip)
     }
 
     // def convert_array(element) {
@@ -616,6 +617,7 @@ class LinuxSpecBase extends InfraTestSpec {
             run_ssh_command(session, "${command} ${argument}", 'packages')
         }
         def package_info = [:].withDefault{'unkown'}
+        def infos = [:].withDefault{'unkown'}
         def distributions = [:].withDefault{0}
         def csv = []
         lines.eachLine {
@@ -636,6 +638,7 @@ class LinuxSpecBase extends InfraTestSpec {
             def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
             distributions[release_label] ++
             package_info['packages.' + packagename] = arr[2]
+            infos[packagename] = arr[2]
         }
         def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
         package_info['packages'] = distributions.toString()
@@ -800,9 +803,9 @@ class LinuxSpecBase extends InfraTestSpec {
             // For RHEL7
             // abrt-ccpp.service     loaded    active   exited  Install ABRT coredump hook
             ( it =~ /^\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
-                def service_name = 'service.' + m1
+                def service_name = m1
                 def status = m2 + '.' + m3
-                services[service_name] = status
+                services["service.${service_name}"] = status
                 infos[service_name] = status
                 def columns = [m1, status]
                 csv << columns
@@ -811,9 +814,9 @@ class LinuxSpecBase extends InfraTestSpec {
             // For RHEL6
             // ypbind          0:off   1:off   2:off   3:off   4:off   5:off   6:off
             ( it =~ /^(.+?)\s.*\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3,m4->
-                def service_name = 'service.' + m1
+                def service_name = m1
                 def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
-                services[service_name] = status
+                services["service.${service_name}"] = status
                 infos[service_name] = status
                 def columns = [m1, status]
                 csv << columns

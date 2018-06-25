@@ -345,7 +345,8 @@ class WindowsSpecBase extends InfraTestSpec {
                 'network.subnet' : subnets.toString(),
             ]
             test_item.results(infos)
-            test_item.verify_text_search_map('network', ip_configs)
+            test_item.verify_text_search_list('network', ip_addresses)
+            // test_item.verify_text_search_map('network', ip_configs)
         }
     }
 
