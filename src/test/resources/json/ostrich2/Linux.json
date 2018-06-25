@@ -29,7 +29,7 @@
         "devices": null,
         "value": null,
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check kernel, NG, 'null' !=~ /2.6/",
         "status": null,
         "compare_server": "cent7",
         "custom_fields": {
@@ -42,7 +42,7 @@
         "devices": null,
         "value": null,
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check arch, NG, 'null' !=~ /x86_64/",
         "status": null,
         "compare_server": "cent7",
         "custom_fields": {
@@ -68,7 +68,7 @@
         "devices": null,
         "value": null,
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check os, NG, 'null' !=~ /CentOS/",
         "status": null,
         "compare_server": "cent7",
         "custom_fields": {
@@ -81,7 +81,7 @@
         "devices": null,
         "value": "0",
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check cpu_total, NG, 0 != 1.0",
         "status": "OK",
         "compare_server": "cent7",
         "custom_fields": {
@@ -94,7 +94,7 @@
         "devices": null,
         "value": "0",
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check cpu_real, NG, 0 != 1.0",
         "status": "OK",
         "compare_server": "cent7",
         "custom_fields": {
@@ -172,7 +172,7 @@
         "devices": null,
         "value": null,
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check mem_total, NG, 0 != 2000.0(error range=0.1)",
         "status": null,
         "compare_server": "cent7",
         "custom_fields": {
@@ -226,7 +226,7 @@
         "devices": null,
         "value": "[:]",
         "comparision": "UNMATCH",
-        "error_msg": "Not found",
+        "error_msg": "Check net_onboot, NG, 'eth0' not in '[:]'",
         "status": "WARNING",
         "compare_server": "cent7",
         "custom_fields": {
@@ -239,7 +239,7 @@
         "devices": null,
         "value": "[:]",
         "comparision": "UNMATCH",
-        "error_msg": "Not found",
+        "error_msg": "Check net_route, NG, '192.168.0.254' not in '[:]'",
         "status": "WARNING",
         "compare_server": "cent7",
         "custom_fields": {
@@ -307,7 +307,7 @@
         },
         "value": null,
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check filesystem, NG, '/' not in '[:]'",
         "status": "OK",
         "compare_server": "cent7",
         "custom_fields": {
@@ -373,7 +373,7 @@
         },
         "value": "[]",
         "comparision": "UNMATCH",
-        "error_msg": "Not found",
+        "error_msg": "Check user, NG, 'zabbix' not in '[:]'",
         "status": "WARNING",
         "compare_server": "cent7",
         "custom_fields": {
@@ -423,7 +423,7 @@
         },
         "value": "0",
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check service, NG, 'kdump' not in '[:]'",
         "status": "OK",
         "compare_server": "cent7",
         "custom_fields": {
@@ -592,7 +592,7 @@
         "devices": null,
         "value": null,
         "comparision": "UNMATCH",
-        "error_msg": null,
+        "error_msg": "Check sestatus, NG, 'null' !=~ /enabled/",
         "status": null,
         "compare_server": "cent7",
         "custom_fields": {

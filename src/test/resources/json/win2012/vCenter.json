@@ -1,15 +1,15 @@
 {
     "NumCpu": {
         "devices": null,
-        "value": "2",
+        "value": "1",
         "comparision": null,
-        "error_msg": null,
+        "error_msg": "Check NumCpu, NG, 1 != 2.0",
         "status": "OK",
         "compare_server": null,
         "custom_fields": {
             
         },
-        "verify": "OK",
+        "verify": "NG",
         "name": "NumCpu"
     },
     "PowerState": {
@@ -27,20 +27,7 @@
     },
     "MemoryGB": {
         "devices": null,
-        "value": "2",
-        "comparision": null,
-        "error_msg": null,
-        "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
-        "verify": "NG",
-        "name": "MemoryGB"
-    },
-    "VMHost": {
-        "devices": null,
-        "value": "esx19.local",
+        "value": "4",
         "comparision": null,
         "error_msg": null,
         "status": "OK",
@@ -49,20 +36,20 @@
             
         },
         "verify": "OK",
-        "name": "VMHost"
+        "name": "MemoryGB"
     },
-    "Cluster": {
+    "VMHost": {
         "devices": null,
-        "value": "PC001",
+        "value": "192.168.10.100",
         "comparision": null,
-        "error_msg": null,
+        "error_msg": "Check VMHost, NG, '192.168.10.100' !=~ /esx/",
         "status": "OK",
         "compare_server": null,
         "custom_fields": {
             
         },
-        "verify": null,
-        "name": "Cluster"
+        "verify": "NG",
+        "name": "VMHost"
     },
     "datastore": {
         "devices": {
@@ -73,16 +60,21 @@
                 "State"
             ],
             "csv": [
-                
+                [
+                    "datastore2",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
+                    "VMFS",
+                    "Available"
+                ]
             ],
             "custom_fields": {
                 
             }
         },
-        "value": "[]",
+        "value": "[datastore2]",
         "comparision": null,
-        "error_msg": "Not found",
-        "status": "WARNING",
+        "error_msg": null,
+        "status": "OK",
         "compare_server": null,
         "custom_fields": {
             
@@ -90,9 +82,38 @@
         "verify": null,
         "name": "datastore"
     },
+    "VMNetwork": {
+        "devices": {
+            "header": [
+                "NetworkName",
+                "Type",
+                "ConnectionState"
+            ],
+            "csv": [
+                [
+                    "LIVING-LAN",
+                    "e1000e",
+                    "Connected, GuestControl, StartConnected"
+                ]
+            ],
+            "custom_fields": {
+                
+            }
+        },
+        "value": "[StartConnected]",
+        "comparision": null,
+        "error_msg": null,
+        "status": "OK",
+        "compare_server": null,
+        "custom_fields": {
+            
+        },
+        "verify": null,
+        "name": "VMNetwork"
+    },
     "vmwaretool": {
         "devices": null,
-        "value": "OK",
+        "value": "NotInstalled",
         "comparision": null,
         "error_msg": null,
         "status": "OK",
@@ -105,7 +126,7 @@
     },
     "vmwaretool.version": {
         "devices": null,
-        "value": "[internalversion:9344, requiredversion:9344]",
+        "value": "[internalversion:0, requiredversion:9344]",
         "comparision": null,
         "error_msg": null,
         "status": "OK",
@@ -151,8 +172,8 @@
             ],
             "csv": [
                 [
-                    "[living-data1] win2012.ostrich/win2012.ostrich.vmdk",
-                    "Thick",
+                    "[datastore2] w2012/w2012.vmdk",
+                    "Thin",
                     "40"
                 ]
             ],
@@ -160,7 +181,7 @@
                 
             }
         },
-        "value": "[Thick:40]",
+        "value": "[Thin:40]",
         "comparision": null,
         "error_msg": null,
         "status": "OK",

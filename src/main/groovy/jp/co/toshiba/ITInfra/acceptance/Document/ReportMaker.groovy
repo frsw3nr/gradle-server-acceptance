@@ -11,6 +11,7 @@ public class ReportMaker {
 
     ConfigObject item_map
     SheetSummary report_sheet
+    SheetDeviceResult error_report_sheet
     def metrics = [:].withDefault{[:]}
     def platform_metrics = [:].withDefault{[:]}
 
@@ -44,6 +45,15 @@ public class ReportMaker {
         this.report_sheet = sheet
     }
 
+    def add_test_error_result(target, platform, metric, test_result) {
+        def sheet_key = [target, platform, metric]
+        def sheet = this.error_report_sheet ?: new SheetDeviceResult()
+        sheet.rows[sheet_key] = 1
+        sheet.results[sheet_key] = test_result
+        this.error_report_sheet = sheet
+    }
+
+
     TestResult get_test_result(TestReport test_report, TestTarget test_target) {
         def report_name = test_report.name
         TestResult test_result
@@ -74,6 +84,34 @@ public class ReportMaker {
         }
         log.debug "TEST_RESULT:${test_target.name}, ${report_name}, ${test_result}"
         return test_result
+    }
+
+    def extract_error_test(TestScenario test_scenario) {
+        def domain_metrics = test_scenario.test_metrics.get_all()
+        def domain_targets = test_scenario.get_domain_targets()
+        domain_targets.each { domain, domain_target ->
+            domain_target.each { target, test_target ->
+                if (test_target.target_status == RunStatus.INIT ||
+                    test_target.target_status == RunStatus.READY)
+                    return
+                def metric_sets = domain_metrics[domain].get_all()
+                metric_sets.each { platform, metric_set ->
+                    def test_platform = test_target.test_platforms[platform]
+                    def test_results = test_platform?.test_results
+                    if (test_platform?.platform_status == RunStatus.ERROR)
+                        run_status = RunStatus.ERROR
+                    if (!test_results)
+                        return
+                    metric_set.get_all().each { metric, test_metric ->
+                        def test_result = test_results[metric]
+                        if (test_result && test_result?.verify == ResultStatus.NG) {
+                            this.add_test_error_result(target, platform, metric, test_result)
+                        }
+                    }
+                }
+            }
+        }
+        println "ERROR_REPORT_SHEET: ${error_report_sheet?.rows}"
     }
 
     // def aggrigate_test_results(TestScenario test_scenario) {
@@ -117,8 +155,9 @@ public class ReportMaker {
                 }
             }
         }
+        this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start
-        log.info "Finish report maker, Elapse : ${elapse} ms"
+        log.info "Finish report maker2, Elapse : ${elapse} ms"
     }
 
 }

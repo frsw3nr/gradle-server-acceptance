@@ -70,6 +70,19 @@ class ExcelSheetMaker {
         long start = System.currentTimeMillis()
 
         log.info "Write evidence : '${evidence_excel}'"
+
+        excel_parser.sheet_sources['report'].with { sheet_design ->
+            def report_sheet = this.report_maker?.report_sheet
+            if (report_sheet) {
+                write_sheet_report(report_sheet, sheet_design)
+            }
+            def error_report_sheet = this.report_maker?.error_report_sheet
+            if (error_report_sheet) {
+                write_sheet_error_report(error_report_sheet)
+                // println "ERROR_REPORT_SHEET2: ${error_report_sheet?.rows}"
+            }
+        }
+
         def count_summary_sheet_update = 0
         excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
             evidence_maker.summary_sheets[domain].each { summary_sheet ->
@@ -78,14 +91,6 @@ class ExcelSheetMaker {
             }
         }
         log.info "Summary sheet updated : ${count_summary_sheet_update}"
-
-        excel_parser.sheet_sources['report'].with { sheet_design ->
-            def report_sheet = this.report_maker?.report_sheet
-            if (report_sheet) {
-                write_sheet_report(report_sheet, sheet_design)
-                log.info "Report sheet updated"
-            }
-        }
 
         def count_device_sheet_update = 0
         evidence_maker.device_result_sheets.each { sheet_key, device_result_sheet ->
@@ -221,6 +226,47 @@ class ExcelSheetMaker {
                     }
                 }
             }
+        }
+    }
+
+    def write_sheet_error_report(SheetDeviceResult error_report_sheet) {
+        def sheet = excel_parser.workbook.createSheet("検査レポート(エラー)")
+        def rownum = 0
+        Row header_row = sheet.createRow(rownum)
+        def colnum = 0
+        ['host', 'platform', 'metric'].each { header_name ->
+            header_row.createCell(colnum).setCellValue(header_name)
+            sheet.setColumnWidth(colnum, device_cell_width)
+            colnum ++
+        }
+        rownum ++
+
+        error_report_sheet?.results?.each { error_report_keys, test_result ->
+            println "ERROR_REPORT_KEYS: ${error_report_keys}"
+            println "ERROR_REPORT_MESG: ${test_result.error_msg}"
+            Row header_body = sheet.createRow(rownum)
+            colnum = 0
+
+            def host     = error_report_keys[0]
+            header_body.createCell(colnum).setCellValue(host)
+            sheet.setColumnWidth(colnum, device_cell_width)
+            colnum ++
+
+            def platform = error_report_keys[1]
+            header_body.createCell(colnum).setCellValue(platform)
+            sheet.setColumnWidth(colnum, device_cell_width)
+            colnum ++
+
+            def metric   = error_report_keys[2]
+            header_body.createCell(colnum).setCellValue(metric)
+            sheet.setColumnWidth(colnum, device_cell_width)
+            colnum ++
+
+            header_body.createCell(colnum).setCellValue(test_result.error_msg)
+            sheet.setColumnWidth(colnum, device_cell_width)
+            colnum ++
+
+            rownum ++
         }
     }
 

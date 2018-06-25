@@ -15,6 +15,12 @@ class TestItem {
     def server_info = [:]
     LinkedHashMap<String,TestResult> test_results = [:]
 
+    @ToString(includePackage = false)
+    class CheckResult {
+        Boolean check
+        String error_msg
+    }
+
     TestResult make_test_result(String metric_name, Object value) {
         def test_result = this.test_results?."${metric_name}" ?:
                           new TestResult(name: metric_name)
@@ -35,10 +41,11 @@ class TestItem {
         this.test_results[metric_name] = test_result
     }
 
-    TestResult make_verify(String metric_name, Boolean verify_ok) {
+    TestResult make_verify(String metric_name, Boolean verify_ok, String error_msg = null) {
         def test_result = this.test_results?."${metric_name}" ?:
                           new TestResult(name: metric_name)
         test_result.verify = (verify_ok) ? ResultStatus.OK : ResultStatus.NG
+        test_result.error_msg = error_msg
         this.test_results[metric_name] = test_result
     }
 
@@ -117,10 +124,12 @@ class TestItem {
             def check = (value =~ /$test_value/) as boolean
             def isok = (check)?'OK':'NG'
             log.debug "Check ${item_name}, ${isok}"
+            def error_msg
             if (!check) {
-                log.warn "Check ${item_name}, ${isok}, '${value}' !=~ /${test_value}/"
+                error_msg = "Check ${item_name}, ${isok}, '${value}' !=~ /${test_value}/"
+                log.warn error_msg
             }
-            this.make_verify(item_name, check)
+            this.make_verify(item_name, check, error_msg)
         }
     }
 
@@ -133,8 +142,7 @@ class TestItem {
         return value_double
     }
 
-    def is_difference(test_value, value, String item_name, double err_range = 0,
-                      Boolean show_massage = true) {
+    CheckResult is_difference(test_value, value, String item_name, double err_range = 0) {
         def test_value_double = this.to_number(test_value)
         if (!test_value_double) {
             return
@@ -148,23 +156,23 @@ class TestItem {
         def differ = Math.abs(test_value_double - value_double)
         def check = ((1.0 * differ / max_value) <= err_range) as boolean
         def isok = (check)?'OK':'NG'
-        if (show_massage) {
-            log.debug "Check ${item_name}, ${isok}"
-            def err = (err_range == 0) ? '' : "(error range=${err_range})"
-            if (!check) {
-                log.warn "Check ${item_name}, ${isok}, ${value} != ${test_value}${err}"
-            }
+        log.debug "Check ${item_name}, ${isok}"
+        def error_msg
+        def err = (err_range == 0) ? '' : "(error range=${err_range})"
+        if (!check) {
+            error_msg = "Check ${item_name}, ${isok}, ${value} != ${test_value}${err}"
         }
-        return check
+        return new CheckResult(check: check, error_msg: error_msg)
     }
 
     def verify_number_equal(String item_name, Object value, double err_range = 0) {
         if (!this.verify_test)
             return
         def test_value = this.target_info(item_name)
-        def check = this.is_difference(test_value, value, item_name, err_range)
-        if (check != null)
-            this.make_verify(item_name, check)
+        String error_msg
+        def check_result = this.is_difference(test_value, value, item_name, err_range)
+        if (check_result != null)
+            this.make_verify(item_name, check_result.check, check_result.error_msg)
     }
 
     def verify_text_search_map(String item_name, Map values) {
@@ -193,10 +201,12 @@ class TestItem {
             }
             def isok = (check)?'OK':'NG'
             log.debug "Check ${item_name}, ${isok}"
+            def error_msg
             if (!check) {
-                log.warn "Check ${item_name}, ${isok}, ${ng_msg}"
+                error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
+                log.warn error_msg
             }
-            this.make_verify(item_name, check)
+            this.make_verify(item_name, check, error_msg)
         }
     }
 
@@ -218,20 +228,19 @@ class TestItem {
                     return true
                 }
                 def value = values[test_key]
-                def is_equal = this.is_difference(test_value, value, item_name,
-                                                  err_range, false)
-                if (is_equal == false) {
+                def check_result = this.is_difference(test_value, value, item_name,
+                                                      err_range)
+                if (check_result && check_result.check == false) {
                     check = false
-                    ng_msg = "${value}(${test_key}) != ${test_value} in '${trim_values_text(values)}'"
+                    ng_msg = check_result.error_msg
                     return true
                 }
             }
-            def isok = (check)?'OK':'NG'
             log.debug "Check ${item_name}, ${isok}"
             if (!check) {
-                log.warn "Check ${item_name}, ${isok}, ${ng_msg}"
+                log.warn ng_msg
             }
-            this.make_verify(item_name, check)
+            this.make_verify(item_name, check, ng_msg)
         }
     }
 
@@ -266,10 +275,12 @@ class TestItem {
             }
             def isok = (check)?'OK':'NG'
             log.debug "Check ${item_name}, ${isok}"
+            def error_msg
             if (!check) {
-                log.warn "Check ${item_name}, ${isok}, ${ng_msg}"
+                error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
+                log.warn error_msg
             }
-            this.make_verify(item_name, check)
+            this.make_verify(item_name, check, error_msg)
         }
     }
 }
