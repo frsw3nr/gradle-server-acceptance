@@ -1,84 +1,113 @@
-NetworkManager 	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-abrt-ccpp      	0:off	1:off	2:off	3:on	4:off	5:on	6:off
-abrt-oops      	0:off	1:off	2:off	3:on	4:off	5:on	6:off
-abrtd          	0:off	1:off	2:off	3:on	4:off	5:on	6:off
-acpid          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-atd            	0:off	1:off	2:off	3:on	4:on	5:on	6:off
-auditd         	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-autofs         	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-avahi-daemon   	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-carbon-aggregator	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-carbon-cache   	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-carbon-relay   	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-certmonger     	0:off	1:off	2:off	3:on	4:on	5:on	6:off
-cgconfig       	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-cgred          	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-collectl       	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-cpuspeed       	0:off	1:on	2:on	3:on	4:on	5:on	6:off
-crond          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-cups           	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-dnsmasq        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-firstboot      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-getperfagent   	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-haldaemon      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-htcacheclean   	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-httpd          	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-influxdb       	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-ip6tables      	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-iptables       	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-irqbalance     	0:off	1:off	2:off	3:on	4:on	5:on	6:off
-jexec          	0:on	1:on	2:on	3:on	4:on	5:on	6:on
-kdump          	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-lvm2-monitor   	0:off	1:on	2:off	3:off	4:off	5:off	6:off
-mdmonitor      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-messagebus     	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-mongod         	0:off	1:off	2:off	3:on	4:off	5:on	6:off
-mysqld         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-netconsole     	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-netfs          	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-network        	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-nfs            	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-nfslock        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-nmb            	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-ntpd           	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-ntpdate        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-oddjobd        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-pfstatctl      	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-portreserve    	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-postfix        	0:off	1:off	2:on	3:on	4:on	5:off	6:off
-postgresql-9.1 	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-postgresql-9.2 	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-psacct         	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-quota_nld      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-rdisc          	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-redis          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-restorecond    	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-rngd           	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-rpcbind        	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-rpcgssd        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-rpcidmapd      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-rpcsvcgssd     	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-rstudio-server 	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-rsyslog        	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-saslauthd      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-smartd         	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-smb            	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-snmpd          	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-snmptrapd      	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-snmptt         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-spice-vdagentd 	0:off	1:off	2:off	3:off	4:off	5:on	6:off
-sshd           	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-sssd           	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-svnserve       	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-sysstat        	0:off	1:on	2:on	3:on	4:on	5:on	6:off
-tomcat         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-udev-post      	0:off	1:on	2:on	3:on	4:on	5:on	6:off
-vncserver      	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-vsftpd         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
-wdaemon        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-winbind        	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-wpa_supplicant 	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-ypbind         	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-zabbix-agent   	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-zabbix-server  	0:off	1:off	2:off	3:off	4:off	5:off	6:off
-zabbixagent    	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+  UNIT                                                  LOAD      ACTIVE   SUB     DESCRIPTION
+  auditd.service                                        loaded    active   running Security Auditing Service
+  blk-availability.service                              loaded    active   exited  Availability of block devices
+  brandbot.service                                      loaded    inactive dead    Flexible Branding Service
+Åú cloud-final.service                                   not-found inactive dead    cloud-final.service
+  cpupower.service                                      loaded    inactive dead    Configure CPU power related settings
+  crond.service                                         loaded    active   running Command Scheduler
+  dbus.service                                          loaded    active   running D-Bus System Message Bus
+Åú display-manager.service                               not-found inactive dead    display-manager.service
+  dm-event.service                                      loaded    inactive dead    Device-mapper event daemon
+  dmraid-activation.service                             loaded    inactive dead    Activation of DM RAID sets
+Åú docker-storage-setup.service                          loaded    failed   failed  Docker Storage Setup
+  docker.service                                        loaded    active   running Docker Application Container Engine
+  dracut-shutdown.service                               loaded    inactive dead    Restore /run/initramfs
+  ebtables.service                                      loaded    inactive dead    Ethernet Bridge Filtering tables
+  elasticsearch.service                                 loaded    active   running Elasticsearch
+  emergency.service                                     loaded    inactive dead    Emergency Shell
+Åú exim.service                                          not-found inactive dead    exim.service
+Åú fcoe.service                                          not-found inactive dead    fcoe.service
+  firewalld.service                                     loaded    active   running firewalld - dynamic firewall daemon
+  getty@tty1.service                                    loaded    active   running Getty on tty1
+  httpd.service                                         loaded    active   running The Apache HTTP Server
+Åú ip6tables.service                                     not-found inactive dead    ip6tables.service
+Åú ipset.service                                         not-found inactive dead    ipset.service
+Åú iptables.service                                      not-found inactive dead    iptables.service
+  irqbalance.service                                    loaded    inactive dead    irqbalance daemon
+Åú iscsi-shutdown.service                                not-found inactive dead    iscsi-shutdown.service
+Åú iscsi.service                                         not-found inactive dead    iscsi.service
+Åú iscsid.service                                        not-found inactive dead    iscsid.service
+  kdump.service                                         loaded    active   exited  Crash recovery kernel arming
+  kmod-static-nodes.service                             loaded    active   exited  Create list of required static device nodes for the current kernel
+Åú libvirtd.service                                      not-found inactive dead    libvirtd.service
+Åú lvm2-activation-early.service                         not-found inactive dead    lvm2-activation-early.service
+Åú lvm2-activation.service                               not-found inactive dead    lvm2-activation.service
+  lvm2-lvmetad.service                                  loaded    active   running LVM2 metadata daemon
+  lvm2-lvmpolld.service                                 loaded    inactive dead    LVM2 poll daemon
+  lvm2-monitor.service                                  loaded    active   exited  Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling
+  lvm2-pvscan@8:2.service                               loaded    active   exited  LVM2 PV scan on device 8:2
+  mdmonitor.service                                     loaded    inactive dead    Software RAID monitoring and management
+  microcode.service                                     loaded    inactive dead    Load CPU microcode update
+  multipathd.service                                    loaded    inactive dead    Device-Mapper Multipath Device Controller
+  mysqld.service                                        loaded    active   running MySQL Server
+  network.service                                       loaded    active   exited  LSB: Bring up/down networking
+  NetworkManager-wait-online.service                    loaded    active   exited  Network Manager Wait Online
+  NetworkManager.service                                loaded    active   running Network Manager
+  plymouth-quit-wait.service                            loaded    inactive dead    Wait for Plymouth Boot Screen to Quit
+  plymouth-quit.service                                 loaded    inactive dead    Terminate Plymouth Boot Screen
+  plymouth-read-write.service                           loaded    inactive dead    Tell Plymouth To Write Out Runtime Data
+  plymouth-start.service                                loaded    inactive dead    Show Plymouth Boot Screen
+  polkit.service                                        loaded    active   running Authorization Manager
+  postfix.service                                       loaded    active   running Postfix Mail Transport Agent
+  rc-local.service                                      loaded    inactive dead    /etc/rc.d/rc.local Compatibility
+  rescue.service                                        loaded    inactive dead    Rescue Shell
+  rhel-autorelabel-mark.service                         loaded    inactive dead    Mark the need to relabel after reboot
+  rhel-autorelabel.service                              loaded    inactive dead    Relabel all filesystems, if necessary
+  rhel-configure.service                                loaded    inactive dead    Reconfigure the system on administrator request
+  rhel-dmesg.service                                    loaded    active   exited  Dump dmesg to /var/log/dmesg
+  rhel-import-state.service                             loaded    active   exited  Import network configuration from initramfs
+  rhel-loadmodules.service                              loaded    inactive dead    Load legacy module configuration
+  rhel-readonly.service                                 loaded    active   exited  Configure read-only root support
+  rsyslog.service                                       loaded    active   running System Logging Service
+  selinux-policy-migrate-local-changes@targeted.service loaded    inactive dead    Migrate local SELinux policy changes from the old store structure to the new structure
+Åú sendmail.service                                      not-found inactive dead    sendmail.service
+Åú slpd.service                                          not-found inactive dead    slpd.service
+  sshd-keygen.service                                   loaded    inactive dead    OpenSSH Server Key Generation
+  sshd.service                                          loaded    active   running OpenSSH server daemon
+Åú syslog.service                                        not-found inactive dead    syslog.service
+  systemd-ask-password-console.service                  loaded    inactive dead    Dispatch Password Requests to Console
+  systemd-ask-password-plymouth.service                 loaded    inactive dead    Forward Password Requests to Plymouth
+  systemd-ask-password-wall.service                     loaded    inactive dead    Forward Password Requests to Wall
+  systemd-binfmt.service                                loaded    inactive dead    Set Up Additional Binary Formats
+  systemd-firstboot.service                             loaded    inactive dead    First Boot Wizard
+  systemd-fsck-root.service                             loaded    inactive dead    File System Check on Root Device
+  systemd-hwdb-update.service                           loaded    inactive dead    Rebuild Hardware Database
+  systemd-initctl.service                               loaded    inactive dead    /dev/initctl Compatibility Daemon
+  systemd-journal-catalog-update.service                loaded    inactive dead    Rebuild Journal Catalog
+  systemd-journal-flush.service                         loaded    active   exited  Flush Journal to Persistent Storage
+  systemd-journald.service                              loaded    active   running Journal Service
+  systemd-logind.service                                loaded    active   running Login Service
+  systemd-machine-id-commit.service                     loaded    inactive dead    Commit a transient machine-id on disk
+  systemd-modules-load.service                          loaded    inactive dead    Load Kernel Modules
+Åú systemd-random-seed-load.service                      not-found inactive dead    systemd-random-seed-load.service
+  systemd-random-seed.service                           loaded    active   exited  Load/Save Random Seed
+  systemd-readahead-collect.service                     loaded    inactive dead    Collect Read-Ahead Data
+  systemd-readahead-done.service                        loaded    inactive dead    Stop Read-Ahead Data Collection
+  systemd-readahead-replay.service                      loaded    inactive dead    Replay Read-Ahead Data
+  systemd-reboot.service                                loaded    inactive dead    Reboot
+  systemd-remount-fs.service                            loaded    active   exited  Remount Root and Kernel File Systems
+  systemd-shutdownd.service                             loaded    inactive dead    Delayed Shutdown Service
+  systemd-sysctl.service                                loaded    active   exited  Apply Kernel Variables
+Åú systemd-sysusers.service                              not-found inactive dead    systemd-sysusers.service
+  systemd-tmpfiles-clean.service                        loaded    inactive dead    Cleanup of Temporary Directories
+  systemd-tmpfiles-setup-dev.service                    loaded    active   exited  Create Static Device Nodes in /dev
+  systemd-tmpfiles-setup.service                        loaded    active   exited  Create Volatile Files and Directories
+  systemd-udev-settle.service                           loaded    active   exited  udev Wait for Complete Device Initialization
+  systemd-udev-trigger.service                          loaded    active   exited  udev Coldplug all Devices
+  systemd-udevd.service                                 loaded    active   running udev Kernel Device Manager
+  systemd-update-done.service                           loaded    inactive dead    Update is Completed
+  systemd-update-utmp-runlevel.service                  loaded    inactive dead    Update UTMP about System Runlevel Changes
+  systemd-update-utmp.service                           loaded    active   exited  Update UTMP about System Boot/Shutdown
+  systemd-user-sessions.service                         loaded    active   exited  Permit User Sessions
+  systemd-vconsole-setup.service                        loaded    active   exited  Setup Virtual Console
+  tog-pegasus.service                                   loaded    active   running OpenPegasus CIM Server
+  tomcat.service                                        loaded    active   running Apache Tomcat Web Application Container
+  tuned.service                                         loaded    active   running Dynamic System Tuning Daemon
+  vmware-tools.service                                  loaded    active   running SYSV: Manages the services needed to run VMware software
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+
+105 loaded units listed.
+To show all installed unit files use 'systemctl list-unit-files'.

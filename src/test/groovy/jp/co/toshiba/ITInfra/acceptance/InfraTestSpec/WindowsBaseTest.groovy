@@ -75,7 +75,7 @@ class WindowsBaseTest extends Specification {
         test_platform.test_results['model_name'].value.size() > 0
 
         test_platform.test_results['cpu_total'].status  == ResultStatus.OK
-        test_platform.test_results['cpu_total'].verify == ResultStatus.OK
+        test_platform.test_results['cpu_total'].verify == ResultStatus.NG
      }
 
     def "Windows テスト仕様 memory"() {
@@ -247,7 +247,7 @@ class WindowsBaseTest extends Specification {
         // test_platform.test_results['service'].value.size() > 0
         test_platform.test_results['service'].devices.csv.size() > 0
         test_platform.test_results['service'].status == ResultStatus.OK
-        test_platform.test_results['service'].verify == ResultStatus.OK
+        test_platform.test_results['service'].verify == ResultStatus.NG
      }
 
     def "Windows 複数テスト仕様のロード"() {

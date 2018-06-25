@@ -6,7 +6,8 @@ sda                            8:0    0   16G  0 disk
   |-centos-root              253:0    0 13.9G  0 lvm  /
   |-centos-swap              253:1    0  1.6G  0 lvm  [SWAP]
   `-centos-docker--poolmeta  253:2    0   16M  0 lvm  
-sr0                           11:0    1    4G  0 rom  
+sdb                            8:16   0   16G  0 disk 
+sr0                           11:0    1 1024M  0 rom  
 loop0                          7:0    0  100G  0 loop 
 `-docker-253:0-51028406-pool 253:3    0  100G  0 dm   
 loop1                          7:1    0    2G  0 loop 

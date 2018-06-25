@@ -20,26 +20,6 @@ CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32OwnProcess
 
-Name                : Apache2.2
-DisplayName         : Apache2.2
-Status              : Running
-DependentServices   : {}
-ServicesDependedOn  : {Afd, Tcpip}
-CanPauseAndContinue : False
-CanShutdown         : False
-CanStop             : True
-ServiceType         : Win32OwnProcess
-
-Name                : AppHostSvc
-DisplayName         : Application Host Helper Service
-Status              : Running
-DependentServices   : {}
-ServicesDependedOn  : {}
-CanPauseAndContinue : True
-CanShutdown         : True
-CanStop             : True
-ServiceType         : Win32ShareProcess
-
 Name                : AppIDSvc
 DisplayName         : Application Identity
 Status              : Stopped
@@ -122,12 +102,12 @@ ServiceType         : Win32ShareProcess
 
 Name                : BITS
 DisplayName         : Background Intelligent Transfer Service
-Status              : Stopped
+Status              : Running
 DependentServices   : {}
 ServicesDependedOn  : {RpcSs, EventSystem}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : False
+CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : BrokerInfrastructure
@@ -229,16 +209,6 @@ CanPauseAndContinue : False
 CanShutdown         : True
 CanStop             : True
 ServiceType         : Win32ShareProcess
-
-Name                : DiagTrack
-DisplayName         : Diagnostics Tracking Service
-Status              : Running
-DependentServices   : {}
-ServicesDependedOn  : {RpcSs}
-CanPauseAndContinue : False
-CanShutdown         : True
-CanStop             : True
-ServiceType         : Win32OwnProcess
 
 Name                : Dnscache
 DisplayName         : DNS Client
@@ -350,14 +320,24 @@ CanShutdown         : True
 CanStop             : True
 ServiceType         : Win32ShareProcess
 
-Name                : GETPERF Agent
-DisplayName         : GETPERF Agent
-Status              : Running
+Name                : FontCache3.0.0.0
+DisplayName         : Windows Presentation Foundation Font Cache 3.0.0.0
+Status              : Stopped
 DependentServices   : {}
 ServicesDependedOn  : {}
 CanPauseAndContinue : False
-CanShutdown         : True
-CanStop             : True
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : fussvc
+DisplayName         : Windows App Certification Kit Fast User Switching Utility Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
 ServiceType         : Win32OwnProcess
 
 Name                : gpsvc
@@ -369,6 +349,26 @@ CanPauseAndContinue : False
 CanShutdown         : False
 CanStop             : True
 ServiceType         : Win32ShareProcess
+
+Name                : gupdate
+DisplayName         : Google Update サービス (gupdate)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : gupdatem
+DisplayName         : Google Update サービス (gupdatem)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RPCSS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
 
 Name                : hidserv
 DisplayName         : Human Interface Device Service
@@ -419,6 +419,16 @@ CanPauseAndContinue : False
 CanShutdown         : False
 CanStop             : True
 ServiceType         : Win32ShareProcess
+
+Name                : Jenkins
+DisplayName         : Jenkins
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
 
 Name                : KeyIso
 DisplayName         : CNG Key Isolation
@@ -510,16 +520,6 @@ CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32ShareProcess
 
-Name                : MozillaMaintenance
-DisplayName         : Mozilla Maintenance Service
-Status              : Stopped
-DependentServices   : {}
-ServicesDependedOn  : {}
-CanPauseAndContinue : False
-CanShutdown         : False
-CanStop             : False
-ServiceType         : Win32OwnProcess
-
 Name                : MpsSvc
 DisplayName         : Windows Firewall
 Status              : Running
@@ -560,6 +560,16 @@ CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32OwnProcess
 
+Name                : MSSQL$SQLEXPRESS
+DisplayName         : SQL Server (SQLEXPRESS)
+Status              : Running
+DependentServices   : {SQLAgent$SQLEXPRESS}
+ServicesDependedOn  : {}
+CanPauseAndContinue : True
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
 Name                : napagent
 DisplayName         : Network Access Protection Agent
 Status              : Stopped
@@ -592,12 +602,12 @@ ServiceType         : Win32ShareProcess
 
 Name                : Netman
 DisplayName         : Network Connections
-Status              : Stopped
+Status              : Running
 DependentServices   : {SharedAccess}
 ServicesDependedOn  : {RpcSs, nsi}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : False
+CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : netprofm
@@ -611,7 +621,7 @@ CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : NetTcpPortSharing
-DisplayName         : Net.Tcp Port Sharing Service
+DisplayName         : NetTcpPortSharing
 Status              : Stopped
 DependentServices   : {}
 ServicesDependedOn  : {}
@@ -853,7 +863,7 @@ ServiceType         : Win32ShareProcess
 Name                : seclogon
 DisplayName         : Secondary Logon
 Status              : Stopped
-DependentServices   : {}
+DependentServices   : {Te.Service}
 ServicesDependedOn  : {}
 CanPauseAndContinue : False
 CanShutdown         : False
@@ -932,9 +942,49 @@ ServiceType         : Win32OwnProcess, InteractiveProcess
 
 Name                : sppsvc
 DisplayName         : Software Protection
-Status              : Running
+Status              : Stopped
 DependentServices   : {}
 ServicesDependedOn  : {RpcSs}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : SQLAgent$SQLEXPRESS
+DisplayName         : SQL Server Agent (SQLEXPRESS)
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {MSSQL$SQLEXPRESS}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : SQLBrowser
+DisplayName         : SQL Server Browser
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32OwnProcess
+
+Name                : SQLTELEMETRY$SQLEXPRESS
+DisplayName         : SQL Server CEIP service (SQLEXPRESS)
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
+
+Name                : SQLWriter
+DisplayName         : SQL Server VSS Writer
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
 CanPauseAndContinue : False
 CanShutdown         : True
 CanStop             : True
@@ -1010,6 +1060,16 @@ CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32OwnProcess
 
+Name                : Te.Service
+DisplayName         : Te.Service
+Status              : Stopped
+DependentServices   : {}
+ServicesDependedOn  : {RpcSs, SecLogon}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+ServiceType         : Win32ShareProcess
+
 Name                : TermService
 DisplayName         : Remote Desktop Services
 Status              : Running
@@ -1049,16 +1109,6 @@ CanPauseAndContinue : False
 CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32OwnProcess
-
-Name                : Tomcat8
-DisplayName         : Apache Tomcat 8.0 Tomcat8
-Status              : Running
-DependentServices   : {}
-ServicesDependedOn  : {Afd, Tcpip}
-CanPauseAndContinue : False
-CanShutdown         : True
-CanStop             : True
-ServiceType         : Win32OwnProcess, InteractiveProcess
 
 Name                : TrkWks
 DisplayName         : Distributed Link Tracking Client
@@ -1210,24 +1260,14 @@ CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32ShareProcess
 
-Name                : VMTools
-DisplayName         : VMware Tools
+Name                : VMUSBArbService
+DisplayName         : VMware USB Arbitration Service
 Status              : Running
 DependentServices   : {}
-ServicesDependedOn  : {}
-CanPauseAndContinue : True
-CanShutdown         : True
-CanStop             : True
-ServiceType         : Win32OwnProcess
-
-Name                : vmvss
-DisplayName         : VMware スナップショット プロバイダ
-Status              : Stopped
-DependentServices   : {}
-ServicesDependedOn  : {rpcss}
+ServicesDependedOn  : {winmgmt}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : False
+CanStop             : True
 ServiceType         : Win32OwnProcess
 
 Name                : VSS
@@ -1245,36 +1285,6 @@ DisplayName         : Windows Time
 Status              : Stopped
 DependentServices   : {}
 ServicesDependedOn  : {}
-CanPauseAndContinue : False
-CanShutdown         : False
-CanStop             : False
-ServiceType         : Win32ShareProcess
-
-Name                : w3logsvc
-DisplayName         : W3C Logging Service
-Status              : Stopped
-DependentServices   : {}
-ServicesDependedOn  : {HTTP, W3SVC}
-CanPauseAndContinue : False
-CanShutdown         : False
-CanStop             : False
-ServiceType         : Win32ShareProcess
-
-Name                : W3SVC
-DisplayName         : World Wide Web Publishing Service
-Status              : Stopped
-DependentServices   : {w3logsvc}
-ServicesDependedOn  : {WAS, HTTP}
-CanPauseAndContinue : False
-CanShutdown         : False
-CanStop             : False
-ServiceType         : Win32ShareProcess
-
-Name                : WAS
-DisplayName         : Windows Process Activation Service
-Status              : Stopped
-DependentServices   : {w3logsvc, W3SVC}
-ServicesDependedOn  : {RPCSS}
 CanPauseAndContinue : False
 CanShutdown         : False
 CanStop             : False
@@ -1362,18 +1372,18 @@ ServiceType         : Win32OwnProcess
 
 Name                : WinHttpAutoProxySvc
 DisplayName         : WinHTTP Web Proxy Auto-Discovery Service
-Status              : Running
+Status              : Stopped
 DependentServices   : {NcaSvc, iphlpsvc}
 ServicesDependedOn  : {Dhcp}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : True
+CanStop             : False
 ServiceType         : Win32ShareProcess
 
 Name                : Winmgmt
 DisplayName         : Windows Management Instrumentation
 Status              : Running
-DependentServices   : {UALSVC, SharedAccess, NcaSvc, iphlpsvc}
+DependentServices   : {VMUSBArbService, UALSVC, SharedAccess, NcaSvc...}
 ServicesDependedOn  : {RPCSS}
 CanPauseAndContinue : True
 CanShutdown         : True

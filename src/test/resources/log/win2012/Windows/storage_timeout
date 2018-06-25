@@ -8,13 +8,14 @@ DisplayName          : @disk.inf,%disk_ServiceDesc%;Disk Driver
 Owners               : {disk.inf}
 AutoRunAlwaysDisable : {Brother RemovableDisk(U)}
 TimeoutValue         : 60
+Group                : 
 PSPath               : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\disk
 PSParentPath         : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
 PSChildName          : disk
 PSDrive              : HKLM
 PSProvider           : Microsoft.PowerShell.Core\Registry
-PSComputerName       : win2012
-RunspaceId           : 52478109-07b0-40ef-a22b-72dfb752d21b
+PSComputerName       : 192.168.0.24
+RunspaceId           : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
 
 
 

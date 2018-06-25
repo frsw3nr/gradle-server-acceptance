@@ -2,8 +2,7 @@
 
 Name                      : FileAndStorage-Services
 DisplayName               : ファイル サービスと記憶域サービス
-Description               : ファイル サービスおよび記憶域サービスには、常にインストールされるサービスと、ファイル サーバーおよび
-                            記憶域の管理に役立てるためにインストールできる機能が含まれています。
+Description               : ファイル サービスおよび記憶域サービスには、常にインストールされるサービスと、ファイル サーバーおよび記憶域の管理に役立てるためにインストールできる機能が含まれています。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Role
@@ -18,8 +17,7 @@ Notification              : {}
 BestPracticesModelId      : Microsoft/Windows/FileServices
 EventQuery                : FileServer.Events.xml
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : Storage-Services
 DisplayName               : 記憶域サービス
@@ -38,15 +36,12 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : NET-Framework-Features
 DisplayName               : .NET Framework 3.5 Features
-Description               : .NET Framework 3.5 は、魅力的なユーザー インターフェイスや、ユーザーの個人情報の保
-                            護、シームレスで安全な通信、幅広いビジネス プロセスをモデリングする機能を提供するアプリケーションを構
-                            築できる新しいテクノロジと、.NET Framework 2.0 API の強力な機能とを組み合わせま
-                            す。
+Description               : .NET Framework 3.5 は、魅力的なユーザー インターフェイスや、ユーザーの個人情報の保護、シームレスで安全な通信、幅広いビジネス プロセスをモデリングする機能を提供す
+                            るアプリケーションを構築できる新しいテクノロジと、.NET Framework 2.0 API の強力な機能とを組み合わせます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -55,27 +50,22 @@ Depth                     : 1
 DependsOn                 : {}
 Parent                    : 
 ServerComponentDescriptor : ServerComponent_NET_Framework_Features
-SubFeatures               : {NET-Framework-Core, NET-HTTP-Activation, NET-Non-H
-                            TTP-Activ}
+SubFeatures               : {NET-Framework-Core, NET-HTTP-Activation, NET-Non-HTTP-Activ}
 SystemService             : {}
 Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : NET-Framework-Core
 DisplayName               : .NET Framework 3.5 (.NET 2.0 および 3.0 を含む)
-Description               : .NET Framework 3.5 は、魅力的なユーザー インターフェイスや、ユーザーの個人情報の保
-                            護、シームレスで安全な通信、幅広いビジネス プロセスをモデリングする機能を提供するアプリケーションを構
-                            築できる新しいテクノロジと、.NET Framework 2.0 API の強力な機能とを組み合わせま
-                            す。
+Description               : .NET Framework 3.5 は、魅力的なユーザー インターフェイスや、ユーザーの個人情報の保護、シームレスで安全な通信、幅広いビジネス プロセスをモデリングする機能を提供す
+                            るアプリケーションを構築できる新しいテクノロジと、.NET Framework 2.0 API の強力な機能とを組み合わせます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
-Path                      : .NET Framework 3.5 Features\.NET Framework 3.5 (.NE
-                            T 2.0 および 3.0 を含む)
+Path                      : .NET Framework 3.5 Features\.NET Framework 3.5 (.NET 2.0 および 3.0 を含む)
 Depth                     : 2
 DependsOn                 : {}
 Parent                    : NET-Framework-Features
@@ -86,14 +76,12 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : NET-Framework-45-Features
 DisplayName               : .NET Framework 4.5 Features
-Description               : .NET Framework 4.5 は、デスクトップ PC、サーバー、スマートフォン、パブリックおよ
-                            びプライベート クラウドなど、さまざまなプラットフォーム向けに作成されたアプリケーションを迅速かつ簡単
-                            に作成、実行するための広範で一貫したプログラミング モデルを提供します。
+Description               : .NET Framework 4.5 は、デスクトップ PC、サーバー、スマートフォン、パブリックおよびプライベート クラウドなど、さまざまなプラットフォーム向けに作成されたアプリケ
+                            ーションを迅速かつ簡単に作成、実行するための広範で一貫したプログラミング モデルを提供します。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -102,21 +90,18 @@ Depth                     : 1
 DependsOn                 : {}
 Parent                    : 
 ServerComponentDescriptor : ServerComponent_NET_Framework_45_Features
-SubFeatures               : {NET-Framework-45-Core, NET-Framework-45-ASPNET, NE
-                            T-WCF-Services45}
+SubFeatures               : {NET-Framework-45-Core, NET-Framework-45-ASPNET, NET-WCF-Services45}
 SystemService             : {}
 Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : NET-Framework-45-Core
 DisplayName               : .NET Framework 4.5
-Description               : .NET Framework 4.5 は、デスクトップ PC、サーバー、スマートフォン、パブリックおよ
-                            びプライベート クラウドなど、さまざまなプラットフォーム向けに作成されたアプリケーションを迅速かつ簡単
-                            に作成、実行するための広範で一貫したプログラミング モデルを提供します。
+Description               : .NET Framework 4.5 は、デスクトップ PC、サーバー、スマートフォン、パブリックおよびプライベート クラウドなど、さまざまなプラットフォーム向けに作成されたアプリケ
+                            ーションを迅速かつ簡単に作成、実行するための広範で一貫したプログラミング モデルを提供します。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -131,16 +116,13 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : NET-WCF-Services45
 DisplayName               : WCF サービス
-Description               : Windows Communication Foundation (WCF) アクティブ化では、Win
-                            dows プロセス アクティブ化サービスを使用し、HTTP、メッセージ キュー、TCP、および名前付き
-                            パイプなどのプロトコルを利用してネットワークを介してアプリケーションをリモートに起動します。この結果、
-                            アプリケーションは着信した作業項目に応答して動的に開始および停止でき、アプリケーションのホスティングは
-                            より堅牢で、管理しやすく、効率が良くなります。
+Description               : Windows Communication Foundation (WCF) アクティブ化では、Windows プロセス アクティブ化サービスを使用し、HTTP、メッセージ キュー、
+                            TCP、および名前付きパイプなどのプロトコルを利用してネットワークを介してアプリケーションをリモートに起動します。この結果、アプリケーションは着信した作業項目に応答して動的に開始およ
+                            び停止でき、アプリケーションのホスティングはより堅牢で、管理しやすく、効率が良くなります。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -149,23 +131,19 @@ Depth                     : 2
 DependsOn                 : {NET-Framework-45-Core}
 Parent                    : NET-Framework-45-Features
 ServerComponentDescriptor : ServerComponent_NET_WCF_Services45
-SubFeatures               : {NET-WCF-HTTP-Activation45, NET-WCF-TCP-Activation4
-                            5, NET-WCF-TCP-PortSharing45, NET-WCF-MSMQ-Activati
-                            on45...}
+SubFeatures               : {NET-WCF-HTTP-Activation45, NET-WCF-TCP-Activation45, NET-WCF-TCP-PortSharing45, NET-WCF-MS
+                            MQ-Activation45...}
 SystemService             : {}
 Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : NET-WCF-TCP-PortSharing45
 DisplayName               : TCP ポート共有
-Description               : TCP ポート共有を使用すると、複数の net.tcp アプリケーションが 1 つの TCP ポートを
-                            共有できます。この結果、これらのアプリケーションは、ポート 808 などの TCP ポートを介してトラ
-                            フィックを送受信するために必要なネットワーク インフラストラクチャを共有しつつ、個別に独立したプロセス
-                            として同一の物理的なコンピューター上で共存できます。
+Description               : TCP ポート共有を使用すると、複数の net.tcp アプリケーションが 1 つの TCP ポートを共有できます。この結果、これらのアプリケーションは、ポート 808 などの TC
+                            P ポートを介してトラフィックを送受信するために必要なネットワーク インフラストラクチャを共有しつつ、個別に独立したプロセスとして同一の物理的なコンピューター上で共存できます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -180,8 +158,7 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : FS-SMB1
 DisplayName               : SMB 1.0/CIFS ファイル共有のサポート
@@ -200,36 +177,12 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
-
-Name                      : SNMP-Service
-DisplayName               : SNMP サービス
-Description               : 簡易ネットワーク管理プロトコル (SNMP) サービスには、ネットワーク デバイスのアクティビティを監
-                            視し、ネットワーク コンソール ワークステーションに報告するエージェントが含まれています。
-Installed                 : True
-InstallState              : Installed
-FeatureType               : Feature
-Path                      : SNMP サービス
-Depth                     : 1
-DependsOn                 : {}
-Parent                    : 
-ServerComponentDescriptor : ServerComponent_SNMP_Service
-SubFeatures               : {SNMP-WMI-Provider}
-SystemService             : {}
-Notification              : {}
-BestPracticesModelId      : 
-EventQuery                : 
-PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : PowerShellRoot
 DisplayName               : Windows PowerShell
-Description               : Windows PowerShell を使用すると、ローカルおよびリモートの Windows 管理を自
-                            動化できます。このタスク ベースのコマンドライン シェルとスクリプト言語は、Microsoft .NE
-                            T Framework の上に構築されています。数多くの組み込みのコマンドが用意されており、独自のコマ
-                            ンドおよびスクリプトを記述して配布できます。
+Description               : Windows PowerShell を使用すると、ローカルおよびリモートの Windows 管理を自動化できます。このタスク ベースのコマンドライン シェルとスクリプト言語は、Mi
+                            crosoft .NET Framework の上に構築されています。数多くの組み込みのコマンドが用意されており、独自のコマンドおよびスクリプトを記述して配布できます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -238,22 +191,18 @@ Depth                     : 1
 DependsOn                 : {}
 Parent                    : 
 ServerComponentDescriptor : ServerComponent_PowerShellRoot
-SubFeatures               : {PowerShell, PowerShell-V2, DSC-Service, PowerShell
-                            -ISE...}
+SubFeatures               : {PowerShell, PowerShell-V2, DSC-Service, PowerShell-ISE...}
 SystemService             : {}
 Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : PowerShell
 DisplayName               : Windows PowerShell 4.0
-Description               : Windows PowerShell を使用すると、ローカルおよびリモートの Windows 管理を自
-                            動化できます。このタスク ベースのコマンドライン シェルとスクリプト言語は、Microsoft .NE
-                            T Framework の上に構築されています。数多くの組み込みのコマンドが用意されており、独自のコマ
-                            ンドおよびスクリプトを記述して配布できます。
+Description               : Windows PowerShell を使用すると、ローカルおよびリモートの Windows 管理を自動化できます。このタスク ベースのコマンドライン シェルとスクリプト言語は、Mi
+                            crosoft .NET Framework の上に構築されています。数多くの組み込みのコマンドが用意されており、独自のコマンドおよびスクリプトを記述して配布できます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -268,14 +217,12 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : PowerShell-V2
 DisplayName               : Windows PowerShell 2.0 エンジン
-Description               : Windows PowerShell 2.0 エンジンには、既存の Windows PowerShel
-                            l ホスト アプリケーションとの下位互換性のために、Windows PowerShell 2.0 のコ
-                            ア コンポーネントが含まれています。
+Description               : Windows PowerShell 2.0 エンジンには、既存の Windows PowerShell ホスト アプリケーションとの下位互換性のために、Windows PowerS
+                            hell 2.0 のコア コンポーネントが含まれています。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -290,23 +237,19 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : PowerShell-ISE
 DisplayName               : Windows PowerShell ISE
-Description               : Windows PowerShell Integrated Scripting Environment
-                             (ISE) では、グラフィカルな環境でスクリプトを構成、編集、およびデバッグし、複数行の対話型のコマ
-                            ンドを実行できます。機能としては、IntelliSense、タブ補完、スニペット、色付き構文、行の番号
-                            設定、選択的な実行、グラフィカルなデバッグ、右から左方向の言語と Unicode のサポートがあります
-                            。
+Description               : Windows PowerShell Integrated Scripting Environment (ISE) では、グラフィカルな環境でスクリプトを構成、編集、およびデバッグし
+                            、複数行の対話型のコマンドを実行できます。機能としては、IntelliSense、タブ補完、スニペット、色付き構文、行の番号設定、選択的な実行、グラフィカルなデバッグ、右から左方向の
+                            言語と Unicode のサポートがあります。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
 Path                      : Windows PowerShell\Windows PowerShell ISE
 Depth                     : 2
-DependsOn                 : {PowerShell, NET-Framework-45-Core, Server-Gui-Mgmt
-                            -Infra}
+DependsOn                 : {PowerShell, NET-Framework-45-Core, Server-Gui-Mgmt-Infra}
 Parent                    : PowerShellRoot
 ServerComponentDescriptor : ServerComponent_PowerShell_ISE
 SubFeatures               : {}
@@ -315,15 +258,12 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : WoW64-Support
 DisplayName               : WoW64 サポート
-Description               : Server Core インストール上での 32 ビット アプリケーションの実行をサポートするために、
-                            WoW64 のすべてが含まれています。この機能は、Server の完全インストールには必須です。WoW
-                            64 サポートをアンインストールすると、Server の完全インストールは Server Core イ
-                            ンストールに変換されます。
+Description               : Server Core インストール上での 32 ビット アプリケーションの実行をサポートするために、WoW64 のすべてが含まれています。この機能は、Server の完全インストー
+                            ルには必須です。WoW64 サポートをアンインストールすると、Server の完全インストールは Server Core インストールに変換されます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -338,30 +278,7 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
-
-Name                      : Multipath-IO
-DisplayName               : マルチパス I/O
-Description               : マルチパス I/O と、Microsoft Device Specific Module (DSM) 
-                            またはサードパーティ製 DSM により、Windows 上で記憶装置への複数データ パスを使用できるよ
-                            うになります。
-Installed                 : True
-InstallState              : Installed
-FeatureType               : Feature
-Path                      : マルチパス I/O
-Depth                     : 1
-DependsOn                 : {}
-Parent                    : 
-ServerComponentDescriptor : ServerComponent_Multipath_IO
-SubFeatures               : {}
-SystemService             : {}
-Notification              : {}
-BestPracticesModelId      : 
-EventQuery                : 
-PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : User-Interfaces-Infra
 DisplayName               : ユーザー インターフェイスとインフラストラクチャ
@@ -374,20 +291,17 @@ Depth                     : 1
 DependsOn                 : {}
 Parent                    : 
 ServerComponentDescriptor : ServerComponent_User_Interfaces_Infra
-SubFeatures               : {Server-Gui-Mgmt-Infra, Server-Gui-Shell, Desktop-E
-                            xperience}
+SubFeatures               : {Server-Gui-Mgmt-Infra, Server-Gui-Shell, Desktop-Experience}
 SystemService             : {}
 Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : Server-Gui-Mgmt-Infra
 DisplayName               : グラフィック管理ツールとインフラストラクチャ
-Description               : グラフィック管理ツールとインフラストラクチャには、インフラストラクチャと、GUI 管理ツールをサポート
-                            する最小限のサーバー インターフェイスが含まれています。
+Description               : グラフィック管理ツールとインフラストラクチャには、インフラストラクチャと、GUI 管理ツールをサポートする最小限のサーバー インターフェイスが含まれています。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
@@ -402,22 +316,19 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 Name                      : Server-Gui-Shell
 DisplayName               : サーバー グラフィック シェル
-Description               : サーバー グラフィック シェルは、エクスプローラー、Internet Explorer など、サーバー
-                            用のすべての Windows グラフィカル ユーザー インターフェイスを提供します。このシェルをアンイ
-                            ンストールすると、インストールのサービス実行のフットプリントは減少しますが、最小限のサーバー インター
-                            フェイスの一部としてローカルの GUI 管理ツールを引き続き実行できます。
+Description               : サーバー グラフィック シェルは、エクスプローラー、Internet Explorer など、サーバー用のすべての Windows グラフィカル ユーザー インターフェイスを提供しま
+                            す。このシェルをアンインストールすると、インストールのサービス実行のフットプリントは減少しますが、最小限のサーバー インターフェイスの一部としてローカルの GUI 管理ツールを引き続
+                            き実行できます。
 Installed                 : True
 InstallState              : Installed
 FeatureType               : Feature
 Path                      : ユーザー インターフェイスとインフラストラクチャ\サーバー グラフィック シェル
 Depth                     : 2
-DependsOn                 : {NET-Framework-45-Core, PowerShell, Server-Gui-Mgmt
-                            -Infra}
+DependsOn                 : {NET-Framework-45-Core, PowerShell, Server-Gui-Mgmt-Infra}
 Parent                    : User-Interfaces-Infra
 ServerComponentDescriptor : ServerComponent_Server_Gui_Shell
 SubFeatures               : {}
@@ -426,72 +337,7 @@ Notification              : {}
 BestPracticesModelId      : 
 EventQuery                : 
 PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
-
-Name                      : RSAT
-DisplayName               : リモート サーバー管理ツール
-Description               : リモート サーバー管理ツールには、役割と機能のリモート管理に使用するスナップインおよびコマンドライン 
-                            ツールが含まれています。
-Installed                 : True
-InstallState              : Installed
-FeatureType               : Feature
-Path                      : リモート サーバー管理ツール
-Depth                     : 1
-DependsOn                 : {}
-Parent                    : 
-ServerComponentDescriptor : ServerComponent_RSAT
-SubFeatures               : {RSAT-Feature-Tools, RSAT-Role-Tools}
-SystemService             : {}
-Notification              : {}
-BestPracticesModelId      : 
-EventQuery                : 
-PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
-
-Name                      : RSAT-Feature-Tools
-DisplayName               : 機能管理ツール
-Description               : 機能管理ツールには、機能のリモート管理に使用するスナップインおよびコマンドライン ツールが含まれていま
-                            す。
-Installed                 : True
-InstallState              : Installed
-FeatureType               : Feature
-Path                      : リモート サーバー管理ツール\機能管理ツール
-Depth                     : 2
-DependsOn                 : {}
-Parent                    : RSAT
-ServerComponentDescriptor : ServerComponent_RSAT_Feature_Tools
-SubFeatures               : {RSAT-SMTP, RSAT-Feature-Tools-BitLocker, RSAT-Bits
-                            -Server, IPAM-Client-Feature...}
-SystemService             : {}
-Notification              : {}
-BestPracticesModelId      : 
-EventQuery                : 
-PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
-
-Name                      : RSAT-SNMP
-DisplayName               : SNMP ツール
-Description               : 簡易ネットワーク管理プロトコル (SNMP) ツールには、SNMP を管理するためのツールが含まれてい
-                            ます。
-Installed                 : True
-InstallState              : Installed
-FeatureType               : Feature
-Path                      : リモート サーバー管理ツール\機能管理ツール\SNMP ツール
-Depth                     : 3
-DependsOn                 : {Server-Gui-Mgmt-Infra}
-Parent                    : RSAT-Feature-Tools
-ServerComponentDescriptor : ServerComponent_RSAT_SNMP
-SubFeatures               : {}
-SystemService             : {}
-Notification              : {}
-BestPracticesModelId      : 
-EventQuery                : 
-PostConfigurationNeeded   : False
-AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName
-                            }
+AdditionalInfo            : {MajorVersion, MinorVersion, NumericId, InstallName}
 
 
 

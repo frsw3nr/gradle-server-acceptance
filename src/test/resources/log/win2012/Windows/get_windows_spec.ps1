@@ -102,6 +102,10 @@ $log_path = Join-Path $log_dir "nic_teaming"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-NetLbfoTeamNic `
 } | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "network_profile"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-NetConnectionProfile `
+} | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "remote_desktop"
 Invoke-Command -Session $session -ScriptBlock { `
     (Get-Item "HKLM:System\CurrentControlSet\Control\Terminal Server").GetValue("fDenyTSConnections") `
@@ -114,14 +118,6 @@ $log_path = Join-Path $log_dir "dns"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-DnsClientServerAddress|FL `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "etc_hosts"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-Content "$($env:windir)\system32\Drivers\etc\hosts" `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "net_accounts"
-Invoke-Command -Session $session -ScriptBlock { `
-    net accounts `
-} | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "virturalization"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL `
@@ -129,6 +125,10 @@ Invoke-Command -Session $session -ScriptBlock { `
 $log_path = Join-Path $log_dir "storage_timeout"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\disk" `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "ntp"
+Invoke-Command -Session $session -ScriptBlock { `
+    (Get-Item "HKLM:System\CurrentControlSet\Services\W32Time\Parameters").GetValue("NtpServer") `
 } | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "task_scheduler"
 Invoke-Command -Session $session -ScriptBlock { `
@@ -138,13 +138,17 @@ Invoke-Command -Session $session -ScriptBlock { `
  ? {$_.NextRunTime -ne $null}| `
  Format-List `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "patch_lists"
+$log_path = Join-Path $log_dir "etc_hosts"
 Invoke-Command -Session $session -ScriptBlock { `
-    wmic qfe `
+    Get-Content "$($env:windir)\system32\Drivers\etc\hosts" `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "ntp"
+$log_path = Join-Path $log_dir "ie_version"
 Invoke-Command -Session $session -ScriptBlock { `
-    (Get-Item "HKLM:System\CurrentControlSet\Services\W32Time\Parameters").GetValue("NtpServer") `
+    Get-ItemProperty "HKLM:SOFTWARE\Microsoft\Internet Explorer" `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "feature"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WindowsFeature | ?{$_.InstallState -eq [Microsoft.Windows.ServerManager.Commands.InstallState]::Installed} | FL `
 } | Out-File $log_path -Encoding UTF8
 
 Remove-PSSession $session

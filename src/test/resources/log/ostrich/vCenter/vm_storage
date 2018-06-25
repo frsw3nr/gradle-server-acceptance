@@ -2,7 +2,7 @@
 
 Parent        : ostrich
 Filename      : [datastore1] ostrich/ostrich.vmdk
-CapacityGB    : 30
+CapacityGB    : 56
 StorageFormat : Thin
 DiskType      : Flat
 

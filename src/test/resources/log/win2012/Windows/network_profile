@@ -1,30 +1,17 @@
 ﻿
 
-PSComputerName   : 192.168.10.12
-RunspaceId       : 8403e8c4-c5e4-4cd9-bdad-ed296c04b8d6
+PSComputerName   : 192.168.0.24
+RunspaceId       : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
 Caption          : 
 Description      : 
 ElementName      : 
-InstanceID       : {20749D25-81D3-4F6E-8577-35BA95779DEB}
-InterfaceAlias   : Slot 3 ポート 2
-InterfaceIndex   : 17
-IPv4Connectivity : 3
-IPv6Connectivity : 3
-Name             : 識別されていないネットワーク
-NetworkCategory  : 0
-
-PSComputerName   : 192.168.10.12
-RunspaceId       : 8403e8c4-c5e4-4cd9-bdad-ed296c04b8d6
-Caption          : 
-Description      : 
-ElementName      : 
-InstanceID       : {7F97D6CF-377F-4726-B176-AF889DFA2E2E}
-InterfaceAlias   : Team_1
-InterfaceIndex   : 28
-IPv4Connectivity : 3
-IPv6Connectivity : 3
-Name             : 識別されていないネットワーク
-NetworkCategory  : 0
+InstanceID       : {45138F8A-E3D8-43BE-A7DB-F9E74F300FBE}
+InterfaceAlias   : イーサネット
+InterfaceIndex   : 12
+IPv4Connectivity : 4
+IPv6Connectivity : 1
+Name             : ネットワーク
+NetworkCategory  : 1
 
 
 

@@ -1,25 +1,14 @@
 ﻿
 
-AccountType : 512
-Caption     : WIN2012\Administrator
-Domain      : WIN2012
-SID         : S-1-5-21-2445938759-3679242898-2052698735-500
-FullName    : 
-Name        : Administrator
+UserName         : Administrator
+DontExpirePasswd : False
+AccountDisable   : False
+SID              : S-1-5-21-4135677964-1891288057-405563398-500
 
-AccountType : 512
-Caption     : WIN2012\Guest
-Domain      : WIN2012
-SID         : S-1-5-21-2445938759-3679242898-2052698735-501
-FullName    : 
-Name        : Guest
-
-AccountType : 512
-Caption     : WIN2012\test_user
-Domain      : WIN2012
-SID         : S-1-5-21-2445938759-3679242898-2052698735-1001
-FullName    : test_user
-Name        : test_user
+UserName         : Guest
+DontExpirePasswd : True
+AccountDisable   : True
+SID              : S-1-5-21-4135677964-1891288057-405563398-501
 
 
 

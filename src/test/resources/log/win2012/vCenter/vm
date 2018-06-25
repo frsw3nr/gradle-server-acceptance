@@ -1,10 +1,10 @@
 ﻿
 
-NumCpu     : 2
+NumCpu     : 1
 PowerState : PoweredOn
-MemoryGB   : 2
-VMHost     : esx19.local
-Cluster    : PC001
+MemoryGB   : 4
+VMHost     : 192.168.10.100
+Cluster    : 
 
 
 

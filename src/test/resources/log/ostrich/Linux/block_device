@@ -1,4 +1,4 @@
-/sys/block/dm-0/size:55590912
+/sys/block/dm-0/size:97533952
 /sys/block/dm-1/size:6291456
 /sys/block/loop0/size:0
 /sys/block/loop1/size:0
@@ -24,7 +24,7 @@
 /sys/block/ram7/size:32768
 /sys/block/ram8/size:32768
 /sys/block/ram9/size:32768
-/sys/block/sda/size:62914560
+/sys/block/sda/size:117440512
 /sys/block/sr0/size:2097151
 /sys/block/dm-0/removable:0
 /sys/block/dm-1/removable:0

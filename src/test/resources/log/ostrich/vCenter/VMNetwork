@@ -1,0 +1,17 @@
+﻿
+
+MacAddress       : 00:0c:29:ca:44:db
+WakeOnLanEnabled : True
+NetworkName      : VM Network
+Type             : Vmxnet3
+ParentId         : VirtualMachine-18
+Parent           : ostrich
+Uid              : /VIServer=test_user@192.168.10.100:443/VirtualMachine=VirtualMachine-18/NetworkAdapter=4000/
+ConnectionState  : Connected, GuestControl, StartConnected
+ExtensionData    : VMware.Vim.VirtualVmxnet3
+Id               : VirtualMachine-18/4000
+Name             : Network adapter 1
+Client           : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+
+

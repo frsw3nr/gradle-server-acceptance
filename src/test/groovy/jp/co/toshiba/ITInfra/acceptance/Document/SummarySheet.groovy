@@ -4,9 +4,6 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 import org.apache.poi.ss.usermodel.Workbook
-import com.github.k3286.dto.Invoice
-import com.github.k3286.dto.InvoiceDetail
-// import com.github.k3286.report.ReportMaker
 
 // gradle --daemon test --tests "SummarySheet.初期化"
 

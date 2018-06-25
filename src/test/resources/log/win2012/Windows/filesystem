@@ -6,15 +6,15 @@ ProviderName   :
 FreeSpace      : 
 Size           : 
 VolumeName     : 
-PSComputerName : win2012
+PSComputerName : 192.168.0.24
 
 DeviceID       : C:
 DriveType      : 3
 ProviderName   : 
-FreeSpace      : 30079119360
+FreeSpace      : 13915357184
 Size           : 42580570112
 VolumeName     : 
-PSComputerName : win2012
+PSComputerName : 192.168.0.24
 
 DeviceID       : D:
 DriveType      : 5
@@ -22,7 +22,7 @@ ProviderName   :
 FreeSpace      : 
 Size           : 
 VolumeName     : 
-PSComputerName : win2012
+PSComputerName : 192.168.0.24
 
 
 

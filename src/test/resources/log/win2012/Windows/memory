@@ -1,12 +1,12 @@
 ﻿
 
-TotalVirtualMemorySize : 2489908
-TotalVisibleMemorySize : 2096692
-FreePhysicalMemory     : 1494480
-FreeVirtualMemory      : 1733712
-FreeSpaceInPagingFiles : 393216
-PSComputerName         : win2012
-RunspaceId             : 52478109-07b0-40ef-a22b-72dfb752d21b
+TotalVirtualMemorySize : 4914744
+TotalVisibleMemorySize : 4193848
+FreePhysicalMemory     : 2700588
+FreeVirtualMemory      : 3382580
+FreeSpaceInPagingFiles : 664856
+PSComputerName         : 192.168.0.24
+RunspaceId             : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
 
 
 

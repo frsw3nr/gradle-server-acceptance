@@ -3,10 +3,10 @@
 Domain              : WORKGROUP
 Manufacturer        : VMware, Inc.
 Model               : VMware Virtual Platform
-Name                : WIN2012
+Name                : WIN-1CF89L6IEBI
 PrimaryOwnerName    : Windows ユーザー
-TotalPhysicalMemory : 2147012608
-PSComputerName      : win2012
+TotalPhysicalMemory : 4294500352
+PSComputerName      : 192.168.0.24
 
 
 
