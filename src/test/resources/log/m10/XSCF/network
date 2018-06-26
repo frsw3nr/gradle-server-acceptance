@@ -1,0 +1,21 @@
+shownetwork -a
+bb#00-lan#0
+          Link encap:Ethernet  HWaddr B0:99:28:9B:D2:1C  
+          inet addr:10.20.129.20  Bcast:10.20.255.255  Mask:255.255.0.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1848361 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:24335 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:141836400 (135.2 MiB)  TX bytes:2422552 (2.3 MiB)
+          Base address:0xe000 
+
+bb#00-lan#1
+          Link encap:Ethernet  HWaddr B0:99:28:9B:D2:1D  
+          BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+          Base address:0x6000 
+
+XSCF> 

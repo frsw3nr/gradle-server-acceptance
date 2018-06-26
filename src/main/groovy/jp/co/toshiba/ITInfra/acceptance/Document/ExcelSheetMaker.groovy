@@ -71,17 +71,17 @@ class ExcelSheetMaker {
 
         log.info "Write evidence : '${evidence_excel}'"
 
-        excel_parser.sheet_sources['report'].with { sheet_design ->
-            def report_sheet = this.report_maker?.report_sheet
-            if (report_sheet) {
-                write_sheet_report(report_sheet, sheet_design)
-            }
-            def error_report_sheet = this.report_maker?.error_report_sheet
-            if (error_report_sheet) {
-                write_sheet_error_report(error_report_sheet)
-                // println "ERROR_REPORT_SHEET2: ${error_report_sheet?.rows}"
-            }
-        }
+        // excel_parser.sheet_sources['report'].with { sheet_design ->
+        //     def report_sheet = this.report_maker?.report_sheet
+        //     if (report_sheet) {
+        //         write_sheet_report(report_sheet, sheet_design)
+        //     }
+        //     def error_report_sheet = this.report_maker?.error_report_sheet
+        //     if (error_report_sheet) {
+        //         write_sheet_error_report(error_report_sheet)
+        //         // println "ERROR_REPORT_SHEET2: ${error_report_sheet?.rows}"
+        //     }
+        // }
 
         def count_summary_sheet_update = 0
         excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
@@ -275,6 +275,7 @@ class ExcelSheetMaker {
         def device_sheet = excel_parser.workbook.createSheet(device_sheet_name)
 
         def rownum = 0
+        // println "DEVICE_RESULT_SHEET:${device_result_sheet}"
         device_sheet.with { sheet ->
             device_result_sheet.results.each { target, test_result ->
                 // println "target : ${target}"
@@ -303,7 +304,8 @@ class ExcelSheetMaker {
                     row.createCell(colnum).setCellValue(target)
                     colnum ++
                     csv_values.each { csv_value ->
-                        row.createCell(colnum).setCellValue(csv_value)
+                        // println "CSV_VALUE:${rownum},${colnum},${csv_value.toString()}"
+                        row.createCell(colnum).setCellValue("${csv_value}")
                         colnum ++
                     }
                     rownum ++

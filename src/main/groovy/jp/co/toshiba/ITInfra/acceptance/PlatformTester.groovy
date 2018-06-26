@@ -67,6 +67,7 @@ class PlatformTester {
         } catch (Exception e) {
             this.test_platform.platform_status = RunStatus.ERROR
             log.error "[Test] Failed to run ${test_spec.title}, skip.\n" + e
+            // e.printStackTrace()
         }
         test_spec.cleanup_exec()
         this.test_platform.platform_status = RunStatus.FINISH

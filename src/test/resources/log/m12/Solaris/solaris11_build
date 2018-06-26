@@ -1,0 +1,17 @@
+             Name: entire
+          Summary: entire incorporation including Support Repository Update (Oracle Solaris 11.3.29.5.0).
+      Description: This package constrains system package versions to the same
+                   build.  WARNING: Proper system update and correct package
+                   selection depend on the presence of this incorporation.
+                   Removing this package will result in an unsupported system.
+                   For more information see:
+                   https://support.oracle.com/rs?type=doc&id=2045311.1
+         Category: Meta Packages/Incorporations
+            State: Installed
+        Publisher: solaris
+          Version: 0.5.11 (Oracle Solaris 11.3.29.5.0)
+    Build Release: 5.11
+           Branch: 0.175.3.29.0.5.0
+   Packaging Date: Wed Feb 14 01:36:11 2018
+             Size: 5.46 kB
+             FMRI: pkg://solaris/entire@0.5.11,5.11-0.175.3.29.0.5.0:20180214T013611Z

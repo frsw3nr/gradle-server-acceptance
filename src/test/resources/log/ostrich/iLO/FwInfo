@@ -1,0 +1,40 @@
+﻿
+
+FIRMWARE_NAME    : iLO
+FIRMWARE_VERSION : 2.50 Sep 23 2016
+
+FIRMWARE_NAME    : System ROM
+FIRMWARE_VERSION : U20 v2.40 (02/17/2017)
+
+FIRMWARE_NAME    : Redundant System ROM
+FIRMWARE_VERSION : U20 v2.40 (02/17/2017)
+
+FIRMWARE_NAME    : Intelligent Provisioning
+FIRMWARE_VERSION : 2.50.164
+
+FIRMWARE_NAME    : Intelligent Platform Abstraction Data
+FIRMWARE_VERSION : 24.01
+
+FIRMWARE_NAME    : Power Management Controller Firmware
+FIRMWARE_VERSION : 1.0.9
+
+FIRMWARE_NAME    : Power Management Controller FW Bootloader
+FIRMWARE_VERSION : 1.0
+
+FIRMWARE_NAME    : System Programmable Logic Device
+FIRMWARE_VERSION : Version 0x14
+
+FIRMWARE_NAME    : Server Platform Services (SPS) Firmware
+FIRMWARE_VERSION : 3.1.3.21.0
+
+FIRMWARE_NAME    : HPE Smart Storage Battery 1 Firmware
+FIRMWARE_VERSION : 2.1
+
+FIRMWARE_NAME    : Smart Array P440 Controller
+FIRMWARE_VERSION : 5.04
+
+FIRMWARE_NAME    : HP Ethernet 1Gb 4-port 366T Adapter
+FIRMWARE_VERSION : 1.1446.0
+
+
+

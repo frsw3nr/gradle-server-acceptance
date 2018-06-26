@@ -17,6 +17,7 @@ class TestResultWriter {
         def output_dir = "${result_dir}/${target_name}"
         new File(output_dir).mkdirs()
         new File("${output_dir}/${platform_name}.json").with {
+            println "TEST_RESULTS:${test_platform.test_results}"
             def json = JsonOutput.toJson(test_platform.test_results)
             it.text = JsonOutput.prettyPrint(json)
         }
