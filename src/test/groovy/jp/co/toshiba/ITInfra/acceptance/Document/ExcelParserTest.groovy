@@ -37,7 +37,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 
-// gradle --daemon test --tests "ExcelParserTest.レポートパース"
+// gradle --daemon test --tests "ExcelParserTest.テンプレートパース"
 
 class ExcelParserTest extends Specification {
 
@@ -58,8 +58,8 @@ class ExcelParserTest extends Specification {
         }
 
         then:
-        excel_parser.sheet_sources.keySet() as List == ['target', 'check_sheet', 
-                                                        'report', 'template']
+        excel_parser.sheet_sources.keySet() as List == ['target', 'report', 'error_report',
+                                                        'check_sheet', 'template']
         excel_parser.sheet_sources.check_sheet.keySet() as List == ['Linux', 'Windows']
     }
 
@@ -109,7 +109,7 @@ class ExcelParserTest extends Specification {
         when:
         def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
         excel_parser.scan_sheet()
-        def template = new TestTemplate(name: 'AP')
+        def template = new TestTemplate(name: 'Linux')
         template.accept(excel_parser)
         println template.values
         def json = new groovy.json.JsonBuilder()
@@ -130,6 +130,22 @@ class ExcelParserTest extends Specification {
         // println report_set.values
         def json = new groovy.json.JsonBuilder()
         json(report_set)
+        println json.toPrettyString()
+        
+        then:
+        1 == 1
+        // test_targets['ostrich'].Linux.verify_id   == 'RuleAP'
+    }
+
+    def "エラーレポートパース"() {
+        when:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet_rep.xlsx')
+        excel_parser.scan_sheet()
+        def error_report_set = new TestErrorReportSet(name: 'root')
+        error_report_set.accept(excel_parser)
+        // println report_set.values
+        def json = new groovy.json.JsonBuilder()
+        json(error_report_set)
         println json.toPrettyString()
         
         then:
@@ -175,7 +191,7 @@ class ExcelParserTest extends Specification {
         println test_reports
 
         then:
-        test_targets.size() == 4
+        test_targets.size() >= 3
         result_platform_keys.size() > 0
     }
 

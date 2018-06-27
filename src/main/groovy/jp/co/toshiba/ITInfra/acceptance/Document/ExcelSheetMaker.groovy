@@ -71,18 +71,19 @@ class ExcelSheetMaker {
 
         log.info "Write evidence : '${evidence_excel}'"
 
-        // excel_parser.sheet_sources['report'].with { sheet_design ->
-        //     def report_sheet = this.report_maker?.report_sheet
-        //     if (report_sheet) {
-        //         write_sheet_report(report_sheet, sheet_design)
-        //     }
-        //     def error_report_sheet = this.report_maker?.error_report_sheet
-        //     if (error_report_sheet) {
-        //         write_sheet_error_report(error_report_sheet)
-        //         // println "ERROR_REPORT_SHEET2: ${error_report_sheet?.rows}"
-        //     }
-        // }
-
+        excel_parser.sheet_sources['report'].with { sheet_design ->
+            def report_sheet = this.report_maker?.report_sheet
+            if (report_sheet) {
+                write_sheet_report(report_sheet, sheet_design)
+            }
+        }
+        excel_parser.sheet_sources['error_report'].with { sheet_design ->
+            def error_report_sheet = this.report_maker?.error_report_sheet
+            if (error_report_sheet) {
+                write_sheet_error_report(error_report_sheet, sheet_design)
+                // println "ERROR_REPORT_SHEET2: ${error_report_sheet?.rows}"
+            }
+        }
         def count_summary_sheet_update = 0
         excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
             evidence_maker.summary_sheets[domain].each { summary_sheet ->
@@ -209,64 +210,54 @@ class ExcelSheetMaker {
                     row = sheet.createRow(rownum)
                 row.setRowStyle(row_style)
                 row.setHeight((short)report_cell_height)
-                Cell cell0 = row.createCell(0)
-                write_cell_summary(cell0, new TestResult(value: row_index), true)
+                Cell cell_no = row.createCell(0)
+                write_cell_summary(cell_no, new TestResult(value: row_index), true)
+                def colnum
                 sheet_summary.cols.each { metric, column_index ->
-                    def colnum = column_index + result_position[1]
+                    colnum = column_index + result_position[1]
                     // sheet.setColumnWidth(colnum, evidence_cell_width)
                     // if (metric == 'verifycomment')
                     //     sheet.setColumnWidth(colnum, evidence_cell_width)
                     Cell cell = row.createCell(colnum)
                     def test_result = summary_results[target][metric] as TestResult
-                    // println "CELL: $target, $metric, ${test_result}"
                     try {
                         write_cell_summary(cell, test_result, true)
                     } catch (NullPointerException e) {
                         log.debug "Not found row ${target},${metric}"
                     }
                 }
+                Cell cell_misc = row.createCell(colnum + 1)
+                write_cell_summary(cell_misc, new TestResult(value: ''), true)
             }
         }
     }
 
-    def write_sheet_error_report(SheetDeviceResult error_report_sheet) {
-        def sheet = excel_parser.workbook.createSheet("検査レポート(エラー)")
-        def rownum = 0
-        Row header_row = sheet.createRow(rownum)
-        def colnum = 0
-        ['host', 'platform', 'metric'].each { header_name ->
-            header_row.createCell(colnum).setCellValue(header_name)
-            sheet.setColumnWidth(colnum, device_cell_width)
-            colnum ++
-        }
-        rownum ++
-
-        error_report_sheet?.results?.each { error_report_keys, test_result ->
-            println "ERROR_REPORT_KEYS: ${error_report_keys}"
-            println "ERROR_REPORT_MESG: ${test_result.error_msg}"
-            Row header_body = sheet.createRow(rownum)
-            colnum = 0
-
-            def host     = error_report_keys[0]
-            header_body.createCell(colnum).setCellValue(host)
-            sheet.setColumnWidth(colnum, device_cell_width)
-            colnum ++
-
-            def platform = error_report_keys[1]
-            header_body.createCell(colnum).setCellValue(platform)
-            sheet.setColumnWidth(colnum, device_cell_width)
-            colnum ++
-
-            def metric   = error_report_keys[2]
-            header_body.createCell(colnum).setCellValue(metric)
-            sheet.setColumnWidth(colnum, device_cell_width)
-            colnum ++
-
-            header_body.createCell(colnum).setCellValue(test_result.error_msg)
-            sheet.setColumnWidth(colnum, device_cell_width)
-            colnum ++
-
-            rownum ++
+    def write_sheet_error_report(SheetDeviceResult sheet_error_report, 
+                                 SheetDesign sheet_design) {
+        def workbook = excel_parser.workbook
+        def result_position = sheet_design.sheet_parser.result_pos
+        def row_style  = workbook.createCellStyle().setWrapText(false)
+        sheet_design.sheet.with { sheet ->
+            // def error_reports = sheet_error_report.results
+            sheet_error_report.rows.each { target, row_index ->
+                def rownum = row_index + result_position[0] - 1
+                Row row = sheet.getRow(rownum)
+                if (row == null)
+                    row = sheet.createRow(rownum)
+                row.setRowStyle(row_style)
+                Cell cell_no = row.createCell(0)
+                write_cell_summary(cell_no, new TestResult(value: row_index), true)
+                def colnum = 1
+                ['target', 'platform', 'id'].each { metric ->
+                    def report_key = target?."${metric}" ?: ''
+                    Cell cell = row.createCell(colnum)
+                    write_cell_summary(cell, new TestResult(value: report_key), true)
+                    colnum ++
+                }
+                Cell cell = row.createCell(colnum)
+                def error_msg = sheet_error_report?.results[target]?.error_msg
+                write_cell_summary(cell, new TestResult(value: error_msg), true)
+            }
         }
     }
 

@@ -104,6 +104,6 @@ class TestTargetTest extends Specification {
 
         then:
         server_info['vCenter'].containsKey('memorygb')
-        server_info['Windows']['net_config'].size() > 0
+        server_info['Windows']['network'].size() > 0
     }
 }

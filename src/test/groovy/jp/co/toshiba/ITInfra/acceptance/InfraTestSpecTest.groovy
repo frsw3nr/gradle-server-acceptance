@@ -51,42 +51,42 @@ class InfraTestSpecTest extends Specification {
         test_spec != null
     }
 
-    def "サーバ情報"() {
-        when:
-        def test_spec = new InfraTestSpec(test_platform)
-        def test_value = test_spec.target_info('kernel')
+    // def "サーバ情報"() {
+    //     when:
+    //     def test_spec = new InfraTestSpec(test_platform)
+    //     def test_value = test_spec.target_info('kernel')
 
-        then:
-        test_value.size() > 0
-    }
+    //     then:
+    //     test_value.size() > 0
+    // }
 
-    def "数値の比較"() {
-        setup:
-        def test_metrics = test_scenario.test_metrics.get('Linux').get('vCenter').get_all()
-        // def json = new groovy.json.JsonBuilder()
-        // json(test_metrics)
-        // println json.toPrettyString()
-        def test_platform_vcenter = new TestPlatform(
-            name         : 'vCenter',
-            test_target  : test_target,
-            test_metrics : test_metrics,
-            dry_run      : true,
-        )
+    // def "数値の比較"() {
+    //     setup:
+    //     def test_metrics = test_scenario.test_metrics.get('Linux').get('vCenter').get_all()
+    //     // def json = new groovy.json.JsonBuilder()
+    //     // json(test_metrics)
+    //     // println json.toPrettyString()
+    //     def test_platform_vcenter = new TestPlatform(
+    //         name         : 'vCenter',
+    //         test_target  : test_target,
+    //         test_metrics : test_metrics,
+    //         dry_run      : true,
+    //     )
 
-        when:
-        def test_spec = new InfraTestSpec(test_platform_vcenter)
-        def results = test_spec.verify_data_match(['NumCpu': '2', 'MemoryGB': '2'])
-        def results2 = test_spec.verify_data_match(['MemoryGB': '2.0'])
-        def results3 = test_spec.verify_data_match(['MemoryGB': null])
-        def results4 = test_spec.verify_data_match(['NumCpu':'2', 'PowerState':'PoweredOn', 'MemoryGB':'2', 'VMHost':'esx19.local', 'Cluster':'PC001'])
+    //     when:
+    //     def test_spec = new InfraTestSpec(test_platform_vcenter)
+    //     def results = test_spec.verify_data_match(['NumCpu': '2', 'MemoryGB': '2'])
+    //     def results2 = test_spec.verify_data_match(['MemoryGB': '2.0'])
+    //     def results3 = test_spec.verify_data_match(['MemoryGB': null])
+    //     def results4 = test_spec.verify_data_match(['NumCpu':'2', 'PowerState':'PoweredOn', 'MemoryGB':'2', 'VMHost':'esx19.local', 'Cluster':'PC001'])
 
-        then:
-        println "results4:$results4"
-        1 == 1
-        // results['MemoryGB'] == true
-        // results2['MemoryGB'] == true
-        // results3['MemoryGB'] == false
-    }
+    //     then:
+    //     println "results4:$results4"
+    //     1 == 1
+    //     // results['MemoryGB'] == true
+    //     // results2['MemoryGB'] == true
+    //     // results3['MemoryGB'] == false
+    // }
 
     // TargetServer test_server
     // TestTarget test_target

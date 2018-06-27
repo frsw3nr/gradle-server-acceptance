@@ -60,10 +60,16 @@ class ExcelParser {
                                 result_pos: [3, 6])),
             'report' : new SheetDesign(name: 'report',
                             sheet_parser : new ExcelSheetParserHorizontal(
-                                header_pos: [3, 1],
+                                header_pos: [2, 0],
                                 sheet_prefix: sheet_prefixes?.report ?: '検査レポート',
-                                header_checks: ['server', 'domain'],
-                                result_pos: [4, 0])),
+                                header_checks: ['no'],
+                                result_pos: [11, 0])),
+            'error_report' : new SheetDesign(name: 'error_report',
+                            sheet_parser : new ExcelSheetParserHorizontal(
+                                header_pos: [1, 0],
+                                sheet_prefix: sheet_prefixes?.report ?: 'エラーレポート',
+                                header_checks: ['no'],
+                                result_pos: [2, 0])),
             'template' : new SheetDesign(name: 'template',
                             sheet_parser : new ExcelSheetParserVertical(
                                 header_pos: [0, 0],
@@ -156,6 +162,8 @@ class ExcelParser {
             test_targets.accept(this)
             test_reports = new TestReportSet(name: 'root')
             test_reports.accept(this)
+            test_error_reports = new TestErrorReportSet(name: 'root')
+            test_error_reports.accept(this)
             test_metrics = new TestMetricSet(name: 'root')
             this.sheet_sources.check_sheet.each { domain_name, check_sheet ->
                 def check_sheet_metrics = new TestMetricSet(name: domain_name)
@@ -304,11 +312,59 @@ class ExcelParser {
     def visit_test_report_set(test_report_set) {
         def sheet_design = this.sheet_sources.report
         def lines = sheet_design.get()
-        lines[0].each { header, value ->
-            def test_report = new TestReport(name: header)
-            test_report_set.add(test_report)
+
+        def map_info = [:].withDefault{[:]}
+        def platform_metrics = [:].withDefault{[:]}
+        def header_names = [:]
+        lines.each { line ->
+            if (line['no'] == 'map') {
+                def platform    = (line['備考'] == '_base') ? 'common' : line['備考']
+                def metric_type = (line['備考'] == '_base') ? 'target' : 'platform'
+                line.each { header_name, value ->
+                    header_names[header_name] = 1
+                    if (!value || header_name == 'no' || header_name == '備考')
+                        return
+                    // if (header_name == 'no' || header_name == '備考')
+                        // return
+                    map_info[header_name]['name']         = header_name
+                    map_info[header_name]['metric_type']  = metric_type
+                    map_info[header_name]['default_name'] = value
+                    if (metric_type == 'platform')
+                        platform_metrics[header_name][platform] = value
+                }
+            }
+        }
+        header_names.each {header_name, value ->
+            if (map_info.containsKey(header_name)) {
+                def info = map_info[header_name]
+                def test_report = new TestReport(info)
+                if (platform_metrics.containsKey(header_name))
+                    test_report.platform_metrics = platform_metrics[header_name]
+                test_report_set.add(test_report)
+            }
         }
         log.debug "Read test report : ${test_report_set.count()} col"
+    }
+
+    def visit_test_error_report_set(test_error_report_set) {
+        def sheet_design = this.sheet_sources.error_report
+        def lines = sheet_design.get()
+
+        // def map_info = [:].withDefault{[:]}
+        // def platform_metrics = [:].withDefault{[:]}
+        def header_names = [:]
+        lines.each { line ->
+            def colnum = 0
+            line.each { header_name, value ->
+                header_names[header_name] = colnum
+                colnum ++
+            }
+        }
+        header_names.each {header_name, colnum ->
+            def test_error_report = new TestErrorReport(name: header_name, colnum: colnum)
+            test_error_report_set.add(test_error_report)
+        }
+        log.debug "Read test report : ${test_error_report_set.count()} col"
     }
 
     // def visit_test_rule_set(test_rule_set) {

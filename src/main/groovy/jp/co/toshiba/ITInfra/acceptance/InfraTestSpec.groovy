@@ -131,109 +131,109 @@ class InfraTestSpec {
         }
     }
 
-    def target_info(String item, String platform = null) {
-        if (!platform)
-            platform = this.platform
-        if (server_info.containsKey(item)) {
-            def value = server_info[item]
-            if (value != null && !nullList.empty)
-                return server_info[item]
-        }
-        if (!server_info.containsKey(platform) ||
-            !server_info[platform].containsKey(item)) {
-            return
-        }
-        return server_info[platform][item]
-    }
+    // def target_info(String item, String platform = null) {
+    //     if (!platform)
+    //         platform = this.platform
+    //     if (server_info.containsKey(item)) {
+    //         def value = server_info[item]
+    //         if (value != null && !nullList.empty)
+    //             return server_info[item]
+    //     }
+    //     if (!server_info.containsKey(platform) ||
+    //         !server_info[platform].containsKey(item)) {
+    //         return
+    //     }
+    //     return server_info[platform][item]
+    // }
 
-    def verify_text_search(String item_name, String value) {
-        def test_value = target_info(item_name)
-        if (test_value) {
-            def check = (value =~ /$test_value/) as boolean
-            log.info "Check ${item_name}, '${value}'' =~ /${test_value}/, OK : ${check}"
-        }
-    }
+    // def verify_text_search(String item_name, String value) {
+    //     def test_value = target_info(item_name)
+    //     if (test_value) {
+    //         def check = (value =~ /$test_value/) as boolean
+    //         log.info "Check ${item_name}, '${value}'' =~ /${test_value}/, OK : ${check}"
+    //     }
+    // }
 
-    def verify_data(Map infos, Closure check_closure) {
-        def checks = [:]
-        infos.each { info_name, info_value ->
-            def test_value = target_info(info_name)
-            if (test_value) {
-                def check = check_closure(info_value, test_value)
-                log.info "CHECK:$info_name, $info_value, $test_value, $check"
-                checks[info_name] = check
-            }
-        }
-        return checks
-    }
+    // def verify_data(Map infos, Closure check_closure) {
+    //     def checks = [:]
+    //     infos.each { info_name, info_value ->
+    //         def test_value = target_info(info_name)
+    //         if (test_value) {
+    //             def check = check_closure(info_value, test_value)
+    //             log.info "CHECK:$info_name, $info_value, $test_value, $check"
+    //             checks[info_name] = check
+    //         }
+    //     }
+    //     return checks
+    // }
 
-    def verify_data_match(Map infos) {
-        Closure intermediate_match = { String a, String b ->
-            if (NumberUtils.isNumber(a) && NumberUtils.isNumber(b))
-                return (NumberUtils.toDouble(a) == NumberUtils.toDouble(b)) as boolean
-            else
-                return (a =~ /$b/) as boolean
-        }
-        return verify_data(infos, intermediate_match)
-    }
+    // def verify_data_match(Map infos) {
+    //     Closure intermediate_match = { String a, String b ->
+    //         if (NumberUtils.isNumber(a) && NumberUtils.isNumber(b))
+    //             return (NumberUtils.toDouble(a) == NumberUtils.toDouble(b)) as boolean
+    //         else
+    //             return (a =~ /$b/) as boolean
+    //     }
+    //     return verify_data(infos, intermediate_match)
+    // }
 
-    def verify_data_equal_number(Map infos) {
-        Closure  equal_number = { a, b -> ("${a * 1.0}" == "${b * 1.0}") }
-        return verify_data(infos, equal_number)
-    }
+    // def verify_data_equal_number(Map infos) {
+    //     Closure  equal_number = { a, b -> ("${a * 1.0}" == "${b * 1.0}") }
+    //     return verify_data(infos, equal_number)
+    // }
 
-    def verify_data_error_range(Map infos, double error_rate = 0.1) {
-        Closure  error_range = { a, b ->
-            double value_a = a as Double
-            double value_b = b as Double
-            def max_value = Math.max(value_a, value_b)
-            def differ = Math.abs(value_a - value_b)
-            println "verify_data_error_range:$value_a,$value_b,$differ"
-            return ((1.0 * differ / max_value) < error_rate) as boolean
-        }
-        return verify_data(infos, error_range)
-    }
+    // def verify_data_error_range(Map infos, double error_rate = 0.1) {
+    //     Closure  error_range = { a, b ->
+    //         double value_a = a as Double
+    //         double value_b = b as Double
+    //         def max_value = Math.max(value_a, value_b)
+    //         def differ = Math.abs(value_a - value_b)
+    //         println "verify_data_error_range:$value_a,$value_b,$differ"
+    //         return ((1.0 * differ / max_value) < error_rate) as boolean
+    //     }
+    //     return verify_data(infos, error_range)
+    // }
 
-    def convert_array(element) {
-        return (element.getClass() == String) ? [element:1] : element
-    }
+    // def convert_array(element) {
+    //     return (element.getClass() == String) ? [element:1] : element
+    // }
 
-    def verify_map(Map target_checks, Map infos, String prefix = null) {
-        target_checks = convert_array(target_checks)
-        def validate = true
-        target_checks.each { device, check_value ->
-            if (prefix)
-                device = prefix + '.' + device
-            def status = infos[device]
-            if (!status) {
-                validate = false
-            } else if (status.getClass() =~ /String/) {
-                if (status != check_value)
-                    validate = false
-            } else if (status instanceof Number) {
-                if (status as Double != check_value as Double)
-                    validate = false
-            } else {
-                log.warn "Unkown verify data : $status"
-                validate = false
-            }
-            log.info "CHECK: $status, $device, $check_value, $validate"
-        }
-        return validate
-    }
+    // def verify_map(Map target_checks, Map infos, String prefix = null) {
+    //     target_checks = convert_array(target_checks)
+    //     def validate = true
+    //     target_checks.each { device, check_value ->
+    //         if (prefix)
+    //             device = prefix + '.' + device
+    //         def status = infos[device]
+    //         if (!status) {
+    //             validate = false
+    //         } else if (status.getClass() =~ /String/) {
+    //             if (status != check_value)
+    //                 validate = false
+    //         } else if (status instanceof Number) {
+    //             if (status as Double != check_value as Double)
+    //                 validate = false
+    //         } else {
+    //             log.warn "Unkown verify data : $status"
+    //             validate = false
+    //         }
+    //         log.info "CHECK: $status, $device, $check_value, $validate"
+    //     }
+    //     return validate
+    // }
 
-    def verify_list(Object target_checks, Map infos, String prefix = null) {
-        target_checks = convert_array(target_checks)
-        def validate = true
-        target_checks.each { device, check_value ->
-            if (prefix)
-                device = prefix + '.' + device
-            if (!infos.containsKey(device))
-                validate = false
-            log.info "CHECK: $device, $validate"
-        }
-        return validate
-    }
+    // def verify_list(Object target_checks, Map infos, String prefix = null) {
+    //     target_checks = convert_array(target_checks)
+    //     def validate = true
+    //     target_checks.each { device, check_value ->
+    //         if (prefix)
+    //             device = prefix + '.' + device
+    //         if (!infos.containsKey(device))
+    //             validate = false
+    //         log.info "CHECK: $device, $validate"
+    //     }
+    //     return validate
+    // }
 
     def execPowerShell(String script_path, String cmd) throws IOException {
         if (!dry_run) {

@@ -46,49 +46,55 @@ public class ReportMaker {
     }
 
     def add_test_error_result(target, platform, metric, test_result) {
-        def sheet_key = [target, platform, metric]
+        def sheet_key = ['target': target, 'platform': platform, 'id': metric]
         def sheet = this.error_report_sheet ?: new SheetDeviceResult()
-        sheet.rows[sheet_key] = 1
+        sheet.rows[sheet_key] = sheet.rows[sheet_key] ?: sheet.rows.size() + 1
         sheet.results[sheet_key] = test_result
         this.error_report_sheet = sheet
     }
 
+    TestResult get_test_result_from_json(TestReport test_report, TestTarget test_target) {
+        def test_result = new TestResult(value: "Need JSON", status : ResultStatus.UNKOWN)
+        return test_result
+    }
 
     TestResult get_test_result(TestReport test_report, TestTarget test_target) {
-        def report_name = test_report.name
+        def report_name = test_report?.name
         TestResult test_result
-        // TestResult test_result = new TestResult(name: report_name, value: "TEST")
-        def metric = this.metrics?."${report_name}"
-        if (!metric) {
-            log.error "Not found report.item_map.platform in config.groovy: $metric"
-            return
-        }
-        if (metric.report_type == 'target') {
-            def result_name = metric.result_name
-            def value = test_target?."${result_name}"
-            test_result = new TestResult(name: result_name, value: value)
-        } else if (metric.report_type == 'platform') {
+        if (!report_name)
+            return test_result
+        if (test_report?.metric_type == 'target') {
+            def result_name = test_report?.default_name
+            if (result_name) {
+                def value = test_target?."${result_name}"
+                test_result = new TestResult(name: result_name, value: value)
+            }
+        } else if (test_report.metric_type == 'platform') {
             def test_platforms = test_target?.test_platforms
             if (test_platforms) {
-                def platform_metric = this.platform_metrics?."${report_name}"
+                def platform_metrics = test_report.platform_metrics
                 test_platforms.find { platform_name, test_platform ->
-                    if (platform_metric.containsKey(platform_name)) {
-                        def result_name = platform_metric[platform_name]
+                    if (platform_metrics.containsKey(platform_name)) {
+                        def result_name = platform_metrics[platform_name]
                         if (test_platform.test_results.containsKey(result_name)) {
                             test_result = test_platform.test_results[result_name] as TestResult
                             return true
                         }
                     }
                 }
+                if (!test_result) {
+                    test_result = get_test_result_from_json(test_report, test_target)
+                }
             }
         }
         log.debug "TEST_RESULT:${test_target.name}, ${report_name}, ${test_result}"
-        return test_result
+        return test_result ?: new TestResult(value: "", status : ResultStatus.UNKOWN)
     }
 
     def extract_error_test(TestScenario test_scenario) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()
+        def test_error_reports = test_scenario.test_error_reports.get_all()
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
                 if (test_target.target_status == RunStatus.INIT ||
@@ -111,7 +117,6 @@ public class ReportMaker {
                 }
             }
         }
-        println "ERROR_REPORT_SHEET: ${error_report_sheet?.rows}"
     }
 
     // def aggrigate_test_results(TestScenario test_scenario) {
@@ -140,7 +145,7 @@ public class ReportMaker {
     def visit_test_scenario(TestScenario test_scenario) {
         long start = System.currentTimeMillis()
 
-        this.convert_test_item()
+        // this.convert_test_item()
         def test_reports = test_scenario.test_reports.get_all()
         def domain_targets = test_scenario.get_domain_targets()
 
@@ -157,7 +162,6 @@ public class ReportMaker {
         }
         this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start
-        log.info "Finish report maker2, Elapse : ${elapse} ms"
+        log.info "Finish report maker, Elapse : ${elapse} ms"
     }
-
 }

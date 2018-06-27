@@ -5,21 +5,19 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 @Slf4j
 @ToString(includePackage = false)
-class TestReport extends SpecModel {
+class TestErrorReport extends SpecModel {
     String name
-    String metric_type
-    String default_name
-    Map platform_metrics
+    int colnum
 
     def count() { return 1 }
 }
 
 @Slf4j
 @ToString(includePackage = false)
-class TestReportSet extends SpecCompositeModel {
+class TestErrorReportSet extends SpecCompositeModel {
     String name
 
     def accept(visitor) {
-        visitor.visit_test_report_set(this)
+        visitor.visit_test_error_report_set(this)
     }
 }
