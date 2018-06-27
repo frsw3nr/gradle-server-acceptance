@@ -1,7 +1,7 @@
 // 検査仕様シート定義
 
 //evidence.source = './サーバチェックシート.xlsx'
-evidence.source = './build/サーバチェックシート.xls'
+evidence.source = './サーバチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
