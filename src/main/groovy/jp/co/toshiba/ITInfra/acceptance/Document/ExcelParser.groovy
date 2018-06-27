@@ -108,9 +108,16 @@ class ExcelParser {
             }
         }
         if (attached_sheets.size() == 0) {
-            def msg = "Can't parse excle sheet"
+            def msg = "Can't parse excel sheet"
             log.error(msg)
             throw new IllegalArgumentException(msg)
+        }
+        ['target', 'report', 'error_report', 'check_sheet'].each { design_name ->
+            if (!attached_sheets.containsKey(design_name)) {
+                def msg = "Not found excel sheet [${design_name}]"
+                log.error(msg)
+                throw new IllegalArgumentException(msg)
+            }
         }
         attached_sheets.each { design_name, sheet_names ->
             log.info "Attach[${design_name}] : ${sheet_names}"

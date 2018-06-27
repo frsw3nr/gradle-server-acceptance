@@ -13,17 +13,17 @@ evidence.staging_dir='./build/log'
 // 検査、検証結果ディレクトリ
 evidence.json_dir='./src/test/resources/json'
 
-// レポート変換マップ
-report.item_map.target = [
-    'server'        : 'name',
-    'domain'        : 'domain',
-    'ip'            : 'ip',
-    'successrate'   : 'success_rate',
-    'verifycomment' : 'verify_comment',
-]
+// // レポート変換マップ
+// report.item_map.target = [
+//     'server'        : 'name',
+//     'domain'        : 'domain',
+//     'ip'            : 'ip',
+//     'successrate'   : 'success_rate',
+//     'verifycomment' : 'verify_comment',
+// ]
 
-report.item_map.platform.iLO = [
-]
+// report.item_map.platform.iLO = [
+// ]
 
 // 並列化しないタスク
 // 並列度を指定をしても、指定したドメインタスクはシリアルに実行する

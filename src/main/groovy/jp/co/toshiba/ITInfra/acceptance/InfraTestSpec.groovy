@@ -285,7 +285,7 @@ class InfraTestSpec {
                     return
             }
             long elapsed = System.currentTimeMillis() - start
-            log.info "Finish PowerShell script '${this.server_name}', Command : ${ncommand}, Elapsed : ${elapsed} ms"
+            log.info "Finish PowerShell script '${this.server_name}', Elapse : ${elapsed} ms"
             log.debug "\ttest : " + code.test_ids.toString()
             mode = RunMode.run
             def log_not_founds = []
