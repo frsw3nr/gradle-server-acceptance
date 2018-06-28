@@ -18,4 +18,18 @@ class TestResult extends SpecModel {
     ResultStatus verify
     ResultStatus comparision
     TestResultLine devices
+
+    public Map asMap() {
+        def map = [name : name, value : value, error_msg : error_msg,
+                   compare_server : compare_server, status : status,
+                   verify : verify, comparision : comparision]
+        map << this.custom_fields
+
+        // map['devices'] = [
+        //     'header' : devices?.header,
+        //     'csv' : devices?.csv,
+        // ]
+        return map
+    }
+
 }

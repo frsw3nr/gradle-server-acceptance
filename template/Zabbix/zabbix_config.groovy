@@ -1,6 +1,6 @@
 // 検査仕様シート定義
 
-evidence.source = './Zabbix監視設定チェックシート.xlsx'
+evidence.source = './template/Zabbix/Zabbix監視設定チェックシート.xlsx'
 
 // 検査結果ファイル出力先
 

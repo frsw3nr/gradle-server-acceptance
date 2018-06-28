@@ -1,195 +1,101 @@
 {
     "NumCpu": {
-        "devices": null,
+        "name": "NumCpu",
         "value": "1",
-        "comparision": null,
-        "error_msg": "Check NumCpu, NG, 1 != 2.0",
-        "status": "OK",
+        "error_msg": "1 != 2.0",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": "NG",
-        "name": "NumCpu"
+        "comparision": null
     },
     "PowerState": {
-        "devices": null,
+        "name": "PowerState",
         "value": "PoweredOn",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "PowerState"
+        "comparision": null
     },
     "MemoryGB": {
-        "devices": null,
+        "name": "MemoryGB",
         "value": "4",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": "OK",
-        "name": "MemoryGB"
+        "comparision": null
     },
     "VMHost": {
-        "devices": null,
+        "name": "VMHost",
         "value": "192.168.10.100",
-        "comparision": null,
-        "error_msg": "Check VMHost, NG, '192.168.10.100' !=~ /esx/",
-        "status": "OK",
+        "error_msg": "'192.168.10.100' !=~ /esx/",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": "NG",
-        "name": "VMHost"
+        "comparision": null
     },
     "datastore": {
-        "devices": {
-            "header": [
-                "Name",
-                "DatastoreBrowserPath",
-                "Type",
-                "State"
-            ],
-            "csv": [
-                [
-                    "datastore2",
-                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
-                    "VMFS",
-                    "Available"
-                ]
-            ],
-            "custom_fields": {
-                
-            }
-        },
+        "name": "datastore",
         "value": "[datastore2]",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "datastore"
+        "comparision": null
     },
     "VMNetwork": {
-        "devices": {
-            "header": [
-                "NetworkName",
-                "Type",
-                "ConnectionState"
-            ],
-            "csv": [
-                [
-                    "LIVING-LAN",
-                    "e1000e",
-                    "Connected, GuestControl, StartConnected"
-                ]
-            ],
-            "custom_fields": {
-                
-            }
-        },
+        "name": "VMNetwork",
         "value": "[StartConnected]",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "VMNetwork"
+        "comparision": null
     },
     "vmwaretool": {
-        "devices": null,
+        "name": "vmwaretool",
         "value": "NotInstalled",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "vmwaretool"
+        "comparision": null
     },
     "vmwaretool.version": {
-        "devices": null,
+        "name": "vmwaretool.version",
         "value": "[internalversion:0, requiredversion:9344]",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "vmwaretool.version"
+        "comparision": null
     },
     "vm_timesync": {
-        "devices": null,
+        "name": "vm_timesync",
         "value": "[TimeSync:False]",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "vm_timesync"
+        "comparision": null
     },
     "vm_iops_limit": {
-        "devices": null,
+        "name": "vm_iops_limit",
         "value": "[IOLimit1:-1]",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "vm_iops_limit"
+        "comparision": null
     },
     "vm_storage": {
-        "devices": {
-            "header": [
-                "Filename",
-                "StorageFormat",
-                "CapacityGB"
-            ],
-            "csv": [
-                [
-                    "[datastore2] w2012/w2012.vmdk",
-                    "Thin",
-                    "40"
-                ]
-            ],
-            "custom_fields": {
-                
-            }
-        },
+        "name": "vm_storage",
         "value": "[Thin:40]",
-        "comparision": null,
         "error_msg": null,
-        "status": "OK",
         "compare_server": null,
-        "custom_fields": {
-            
-        },
+        "status": "OK",
         "verify": null,
-        "name": "vm_storage"
+        "comparision": null
     }
 }

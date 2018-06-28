@@ -10,6 +10,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 public class ReportMaker {
 
     ConfigObject item_map
+    String result_dir
     SheetSummary report_sheet
     SheetDeviceResult error_report_sheet
     def metrics = [:].withDefault{[:]}
@@ -17,6 +18,7 @@ public class ReportMaker {
 
     def set_environment(ConfigTestEnvironment env) {
         this.item_map = env.get_item_map()
+        this.result_dir = env.get_node_dir()
     }
 
     def convert_test_item() {
@@ -54,8 +56,23 @@ public class ReportMaker {
     }
 
     TestResult get_test_result_from_json(TestReport test_report, TestTarget test_target) {
-        def test_result = new TestResult(value: "Need JSON", status : ResultStatus.UNKOWN)
-        return test_result
+        def result_reader = new TestResultReader('result_dir': this.result_dir)
+        def target_name = test_target?.name
+        TestResult test_result
+        test_report?.platform_metrics.find { platform, metric ->
+            def test_platform = result_reader.read_test_platform_result(target_name,
+                                                                        platform)
+            if (test_platform) {
+                def test_results = test_platform?.test_results
+                if (test_results.containsKey(metric)) {
+                    test_result = test_results[metric]
+                    return true
+                }
+            }
+        }
+        return (test_result) ? test_result : 
+                               new TestResult(value: "Need json",
+                                              status : ResultStatus.UNKOWN)
     }
 
     TestResult get_test_result(TestReport test_report, TestTarget test_target) {

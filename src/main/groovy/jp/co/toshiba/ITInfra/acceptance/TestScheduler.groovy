@@ -69,8 +69,8 @@ class TestScheduler {
                                     evidence_maker: evidence_maker,
                                     report_maker: report_maker)
         excel_sheet_maker.output(this.output_evidence)
-        // def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
-        // this.test_scenario.accept(test_result_writer)
+        def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
+        this.test_scenario.accept(test_result_writer)
     }
 
     def make_test_platform_tasks(test_scenario) {

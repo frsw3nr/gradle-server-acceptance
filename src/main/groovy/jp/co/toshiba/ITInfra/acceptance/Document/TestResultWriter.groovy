@@ -17,9 +17,23 @@ class TestResultWriter {
         def output_dir = "${result_dir}/${target_name}"
         new File(output_dir).mkdirs()
         new File("${output_dir}/${platform_name}.json").with {
-            println "TEST_RESULTS:${test_platform.test_results}"
-            def json = JsonOutput.toJson(test_platform.test_results)
+            // ワークアラウンド対応:
+            // ネストしたオブジェクトをJSON変換すると、スタックオーバフロー
+            // が発生する。
+            // 回避策として、 TestResultクラスの devices メンバーを除外して
+            // 変換するように変更
+            // 関連記事：
+            // https://stackoverflow.com/questions/26664953/caught-java-lang-stackoverflowerror-jsonbuilder-closure
+            // https://issues-test.apache.org/jira/browse/GROOVY-7682
+            def result_info = [:]
+            test_platform?.test_results.each { metric, test_result ->
+                result_info[metric] = test_result.asMap()
+            }
+            def json = JsonOutput.toJson(result_info)
             it.text = JsonOutput.prettyPrint(json)
+
+            // def json = new JsonBuilder(test_platform.test_results)
+            // it.text = json.toString()
         }
     }
 

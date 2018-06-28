@@ -1,198 +1,101 @@
 {
     "NumCpu": {
-        "devices": null,
+        "name": "NumCpu",
         "value": "1",
-        "comparision": null,
-        "error_msg": "Check NumCpu, NG, 1 != 2.0",
+        "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
-        "verify": "NG",
-        "name": "NumCpu"
+        "verify": "OK",
+        "comparision": "MATCH"
     },
     "PowerState": {
-        "devices": null,
+        "name": "PowerState",
         "value": "PoweredOn",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "PowerState"
+        "comparision": "MATCH"
     },
     "MemoryGB": {
-        "devices": null,
+        "name": "MemoryGB",
         "value": "2",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": "OK",
-        "name": "MemoryGB"
+        "comparision": "MATCH"
     },
     "VMHost": {
-        "devices": null,
+        "name": "VMHost",
         "value": "192.168.10.100",
-        "comparision": null,
-        "error_msg": "Check VMHost, NG, '192.168.10.100' !=~ /esx/",
+        "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
-        "verify": "NG",
-        "name": "VMHost"
+        "verify": null,
+        "comparision": "MATCH"
     },
     "datastore": {
-        "devices": {
-            "header": [
-                "target",
-                "Name",
-                "DatastoreBrowserPath",
-                "Type",
-                "State"
-            ],
-            "csv": [
-                [
-                    "datastore1",
-                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore1",
-                    "VMFS",
-                    "Available"
-                ]
-            ],
-            "custom_fields": {
-                
-            }
-        },
+        "name": "datastore",
         "value": "[datastore1]",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "datastore"
+        "comparision": "UNMATCH"
     },
     "VMNetwork": {
-        "devices": {
-            "header": [
-                "target",
-                "NetworkName",
-                "Type",
-                "ConnectionState"
-            ],
-            "csv": [
-                [
-                    "VM Network",
-                    "Vmxnet3",
-                    "Connected, GuestControl, StartConnected"
-                ]
-            ],
-            "custom_fields": {
-                
-            }
-        },
+        "name": "VMNetwork",
         "value": "[StartConnected]",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "VMNetwork"
+        "comparision": "MATCH"
     },
     "vmwaretool": {
-        "devices": null,
+        "name": "vmwaretool",
         "value": "OK",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "vmwaretool"
+        "comparision": "MATCH"
     },
     "vmwaretool.version": {
-        "devices": null,
+        "name": "vmwaretool.version",
         "value": "[internalversion:9344, requiredversion:9344]",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "vmwaretool.version"
+        "comparision": "MATCH"
     },
     "vm_timesync": {
-        "devices": null,
+        "name": "vm_timesync",
         "value": "[TimeSync:False]",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "vm_timesync"
+        "comparision": "UNMATCH"
     },
     "vm_iops_limit": {
-        "devices": null,
+        "name": "vm_iops_limit",
         "value": "[IOLimit1:-1]",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "vm_iops_limit"
+        "comparision": "UNMATCH"
     },
     "vm_storage": {
-        "devices": {
-            "header": [
-                "target",
-                "Filename",
-                "StorageFormat",
-                "CapacityGB"
-            ],
-            "csv": [
-                [
-                    "[datastore1] ostrich/ostrich.vmdk",
-                    "Thin",
-                    "56"
-                ]
-            ],
-            "custom_fields": {
-                
-            }
-        },
+        "name": "vm_storage",
         "value": "[Thin:56]",
-        "comparision": null,
         "error_msg": null,
+        "compare_server": "cent7",
         "status": "OK",
-        "compare_server": null,
-        "custom_fields": {
-            
-        },
         "verify": null,
-        "name": "vm_storage"
+        "comparision": "UNMATCH"
     }
 }

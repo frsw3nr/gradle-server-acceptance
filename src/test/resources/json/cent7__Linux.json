@@ -1,7 +1,7 @@
 {
     "name": "cent7",
-    "ip": null,
-    "template_id": null,
+    "ip": "192.168.0.20",
+    "template_id": "RH7",
     "compare_server": null,
     "target_status": "COMPARED",
     "platforms": [

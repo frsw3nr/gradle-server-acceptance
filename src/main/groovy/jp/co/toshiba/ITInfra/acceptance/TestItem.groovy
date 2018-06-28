@@ -127,7 +127,7 @@ class TestItem {
             def error_msg
             if (!check) {
                 error_msg = "'${value}' !=~ /${test_value}/"
-                log.warn "Check ${item_name}, ${isok}, ${error_msg}"
+                log.debug "Check ${item_name}, ${isok}, ${error_msg}"
             }
             this.make_verify(item_name, check, error_msg)
         }
@@ -149,7 +149,7 @@ class TestItem {
         }
         def value_double = this.to_number(value)
         if (value_double == null) {
-            log.warn "Value '$item_name' is not number : $value"
+            log.debug "Value '$item_name' is not number : $value"
             return
         }
         def max_value = Math.max(test_value_double, value_double)
@@ -172,7 +172,7 @@ class TestItem {
         def check_result = this.is_difference(test_value, value, item_name, err_range)
         if (check_result != null) {
             if (!check_result.check) {
-                log.warn "Check ${item_name}, NG, ${check_result.error_msg}"
+                log.debug "Check ${item_name}, NG, ${check_result.error_msg}"
             }
             this.make_verify(item_name, check_result.check, check_result.error_msg)
         }
@@ -185,7 +185,7 @@ class TestItem {
         // println "TEST_SEARCH: $item_name, $test_values"
         if (test_values) {
             if (!test_values instanceof Map) {
-                log.warn "Test value '$item_name' is not Map : $test_value"
+                log.debug "Test value '$item_name' is not Map : $test_value"
                 return
             }
             def error_msg
@@ -205,7 +205,7 @@ class TestItem {
             def isok = (check)?'OK':'NG'
             log.debug "Check ${item_name}, ${isok}"
             if (!check) {
-                log.warn "Check ${item_name}, ${isok}, ${error_msg}"
+                log.debug "Check ${item_name}, ${isok}, ${error_msg}"
             }
             this.make_verify(item_name, check, error_msg)
         }
@@ -217,7 +217,7 @@ class TestItem {
         def test_values = this.target_info(item_name)
         if (test_values) {
             if (!test_values instanceof Map) {
-                log.warn "Test value '$item_name' is not Map : $test_value"
+                log.debug "Test value '$item_name' is not Map : $test_value"
                 return
             }
             def ng_msg
@@ -239,7 +239,7 @@ class TestItem {
             }
             log.debug "Check ${item_name}, ${isok}"
             if (!check) {
-                log.warn "Check ${item_name}, NG, ${ng_msg}"
+                log.debug "Check ${item_name}, NG, ${ng_msg}"
             }
             this.make_verify(item_name, check, ng_msg)
         }
@@ -260,7 +260,7 @@ class TestItem {
         // println "TESTVALUE: ${test_values}"
         if (test_values) {
             if (!test_values instanceof Map) {
-                log.warn "Test value '$item_name' is not Map : $test_value"
+                log.debug "Test value '$item_name' is not Map : $test_value"
                 return
             }
             def ng_msg
@@ -279,7 +279,7 @@ class TestItem {
             def error_msg
             if (!check) {
                 error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
-                log.warn error_msg
+                log.debug error_msg
             }
             this.make_verify(item_name, check, ng_msg)
         }

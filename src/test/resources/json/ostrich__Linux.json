@@ -1,6 +1,6 @@
 {
     "name": "ostrich",
-    "ip": "ostrich",
+    "ip": "192.168.10.1",
     "template_id": "Linux",
     "compare_server": "cent7",
     "target_status": "FINISH",

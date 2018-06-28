@@ -1,7 +1,7 @@
 {
     "name": "win2012",
     "ip": "192.168.0.24",
-    "template_id": "Win",
+    "template_id": "Windows",
     "compare_server": null,
     "target_status": "FINISH",
     "platforms": [

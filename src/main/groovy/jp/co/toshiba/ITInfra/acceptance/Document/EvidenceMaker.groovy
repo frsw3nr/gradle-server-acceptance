@@ -53,6 +53,9 @@ class EvidenceMaker {
             success_rate = sprintf('%.1f %%', (double) 100 * test_ok / test_all)
             if (test_ng > 0) {
                 comment += "${test_ng} / ${test_all} Failed : ${failed_metrics}"
+                log.info "Finish verify : ${test_target.name}, ${comment}"
+            } else {
+                log.info "Finish verify : ${test_target.name}, OK"
             }
         } else {
             success_rate = 'Not test'

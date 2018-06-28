@@ -1,10 +1,10 @@
 // 検査仕様シート定義
 
-evidence.source = './Solarisチェックシート.xlsx'
+evidence.source = './template/Solaris/XSCFチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/Solarisチェックシート.xlsx'
+// evidence.target='./build/XSCFチェックシート.xlsx'
 evidence.target='./build/check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
@@ -44,10 +44,6 @@ report.item_map.platform.iLO = [
     'net_mng' : 'Nic',
 ]
 
-report.item_map.platform.PRIMERGY = [
-    'net_mng' : 'nic',
-]
-
 // 並列化しないタスク
 // 並列度を指定をしても、指定したドメインタスクはシリアルに実行する
 
@@ -60,7 +56,7 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // コマンド採取のタイムアウト
 // Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
 
-test.Solaris.timeout = 300
+test.XSCF.timeout = 30
 
 // コマンド採取のデバッグモード
 
@@ -70,9 +66,9 @@ test.Solaris.timeout = 300
 
 // account.Solaris.Test.user      = 'root'
 // account.Solaris.Test.password  = 'root0000'
-account.Solaris.Test.user      = 'guest'
-account.Solaris.Test.password  = 'guest000'
-account.Solaris.Test.work_dir  = '/tmp/gradle_test'
+account.XSCF.Test.user      = 'console'
+account.XSCF.Test.password  = 'console0'
+account.XSCF.Test.work_dir  = '/tmp/gradle_test'
 //account.Solaris.Test.logon_test = [['user':'someuser', 'password':'P@ssword'],
 //                                   ['user':'root'  , 'password':'P@ssw0rd']]
 

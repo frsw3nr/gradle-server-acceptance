@@ -1,6 +1,6 @@
 // 検査仕様シート定義
 
-evidence.source = './PRIMERGYチェックシート.xlsx'
+evidence.source = './template/FJ_Primergy/PRIMERGYチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
