@@ -47,6 +47,10 @@ class iLOSpecBase extends InfraTestSpec {
         runPowerShellTest('lib/template', 'iLO', cmd, test_items)
     }
 
+    def trim(String value) {
+        return value.replaceAll(/\A[\s　]+/,"").replaceAll(/[\s　]+\z/,"")
+    }
+
     def FwVersion(TestItem test_item) {
         def command = '''
             |\$xml = @"
@@ -438,14 +442,46 @@ class iLOSpecBase extends InfraTestSpec {
             }
 
             def csv = []
+            def trap_info = [:].withDefault{[]}
+            def snmp_info = [:]
+
+            snmp_info['SNMP']       = 'No data'
+            snmp_info['SNMPStatus'] = 'OK'
             lines.eachLine {
                 if (it.size() > 0) {
+                    // SNMP_ADDRESS_1                       : 192.168.125.120
+                    // SNMP_ADDRESS_1_ROCOMMUNITY           : public1
+                    // SNMP_ADDRESS_1_TRAPCOMMUNITY         : trapcomm1
+                    // SNMP_ADDRESS_1_TRAPCOMMUNITY_VERSION : v1
+                    (it=~/^SNMP_ADDRESS_(\d.+?)\s+:\s(.+?)$/).each { m0, m1, m2 ->
+                        List metrics = m1.split(/_/)
+                        def metric = 'etc'
+                        if (metrics.size() == 1) {
+                            metric = 'ip'
+                        } else if (metrics.size() >= 2) {
+                            metric = metrics.pop().toLowerCase()
+                        }
+                        def value = trim(m2)
+                        trap_info[metric] << value
+                    }
+                    // STATUS_TYPE                          : OK
+                    // STATUS_MESSAGE                       : OK
+                    (it=~/^STATUS_(.+?)\s+:\s(.+?)$/).each { m0, m1, m2 ->
+                        if (m2 != 'OK')
+                            snmp_info['SNMPStatus'] = m2
+                    }
                     csv << [it]
+                    snmp_info['SNMP'] = 'SNMP Info found'
                 }
             }
             def headers = ['snmp_info']
             test_item.devices(csv, headers)
-            test_item.results((csv.size() > 0) ? 'SNMP Info found' : 'No data')
+            test_item.verify_text_search('snmp_status', snmp_info['SNMPStatus'])
+            test_item.verify_text_search_list('snmp_address', trap_info['ip'])
+            test_item.verify_text_search_list('snmp_community', trap_info['trapcommunity'])
+            test_item.verify_text_search_list('snmp_version', trap_info['version'])
+            // test_item.results((csv.size() > 0) ? 'SNMP Info found' : 'No data')
+            test_item.results(trap_info)
         }
     }
 }

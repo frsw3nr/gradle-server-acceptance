@@ -106,7 +106,7 @@ class ZabbixSpec extends InfraTestSpec {
                     log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
                     it.succeed = 1
                 } catch (Exception e) {
-                    it.verify_status(false)
+                    it.verify(false)
                     log.error "[Zabbix Test] Test method '${method.name}()' faild, skip.\n" + e
                 }
             }
@@ -460,6 +460,7 @@ class ZabbixSpec extends InfraTestSpec {
             csv << columns
         }
         def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
+        println "RESULTS:${results}"
         test_item.results(res)
         test_item.devices(csv, headers)
     }
