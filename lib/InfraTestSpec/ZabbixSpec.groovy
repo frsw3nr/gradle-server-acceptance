@@ -97,7 +97,6 @@ class ZabbixSpec extends InfraTestSpec {
         )
 
         Webb webb = Webb.create()
-        println "DryRun : $dry_run"
         if (!dry_run) {
             url = "http://${this.zabbix_ip}/zabbix/api_jsonrpc.php"
             JSONObject result = webb.post(url)
@@ -107,7 +106,7 @@ class ZabbixSpec extends InfraTestSpec {
                                         .ensureSuccess()
                                         .asJsonObject()
                                         .getBody();
-            token = result.getString("result") 
+            token = result.getString("result")
         }
 
         test_items.each {
@@ -119,7 +118,7 @@ class ZabbixSpec extends InfraTestSpec {
                     method.invoke(this, it)
                     long elapsed = System.currentTimeMillis() - start
                     log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-                    it.succeed = 1
+                    // it.succeed = 1
                 } catch (Exception e) {
                     it.verify(false)
                     log.error "[Zabbix Test] Test method '${method.name}()' faild, skip.\n" + e
@@ -248,6 +247,7 @@ class ZabbixSpec extends InfraTestSpec {
                 output: "extend",
                 selectInterfaces: "extend",
                 selectGroups: "extend",
+                selectMacros: "extend",
                 selectParentTemplates: "extend",
             ]
             if (target_server) {
@@ -282,7 +282,7 @@ class ZabbixSpec extends InfraTestSpec {
         def jsonSlurper = new JsonSlurper()
         def hosts = jsonSlurper.parseText(lines)
 
-        def headers = ['hostid', 'groups', 'parentTemplates', 'host', 'name',
+        def headers = ['hostid', 'groups', 'macros', 'parentTemplates', 'host', 'name',
                        'interfaces', 'status', 'available', 'error']
         def csv = []
         def host_info = [:]
@@ -296,6 +296,18 @@ class ZabbixSpec extends InfraTestSpec {
                         groups.add(group['name'])
                     }
                     value = groups.toString()
+
+                } else if (it == 'macros') {
+                    def macros = [:]
+                    host[it].each { macro ->
+                        def new_test_id = 'Host.' + macro['macro']
+                        // addAdditionalTestItem(test_item, new_test_id, 'ƒ}ƒNƒ’è‹`')
+                        this.test_platform.add_test_metric(new_test_id,
+                                                           'ƒ}ƒNƒ’è‹`')
+                        host_info[new_test_id] = macro['value']
+                        macros[macro['macro']] = macro['value']
+                    }
+                    value = macros.size()
 
                 } else if (it == 'parentTemplates') {
                     def templates = []
@@ -342,9 +354,9 @@ class ZabbixSpec extends InfraTestSpec {
             def params = [
                 output: "extend",
                 selectHosts: "extend",
-                // search: [
-                //     name: "log",
-                // ],
+                search: [
+                    name: "log",
+                ],
             ]
             if (target_server) {
                 params['hostids'] = [
@@ -384,7 +396,6 @@ class ZabbixSpec extends InfraTestSpec {
                 def hostid   = result['hostid']
                 def hostname = hostnames[hostid] ?: null
                 def itemname = result['name']
-                println "[${hostname}, ${itemname}]"
                 if (hostname && result['value_type'] == '2') {
                     if (result['status'])
                         message = zabbix_labels['status'][result['status']]
@@ -444,26 +455,46 @@ class ZabbixSpec extends InfraTestSpec {
         def headers = ['priority', 'description', 'expression', 'flags', 'state', 'status']
         def csv   = []
         def results = [:].withDefault{0}
+        def zabbix_info = [:]
         jsons.each { json ->
             def columns = []
+            def label_statuses = [:]
+            def description = 'NaN'
             headers.each { item_name ->
                 def value = json[item_name]
                 if (item_name == 'state' || item_name == 'status') {
+                    label_statuses[item_name] = value
                     if (value != '0') {
                         def id = "${item_name}."
                         id += zabbix_labels["trigger.${item_name}"][value]
                         results[id] += 1
                     }
-                }
-                if (item_name == 'priority' || item_name == 'status') {
+
+                } else if (item_name == 'priority' || item_name == 'status') {
                     value = zabbix_labels["trigger.${item_name}"][value]
+
+                } else if (item_name == 'description') {
+                    description = value
                 }
                 columns.add(value)
             }
+            def label_status = (label_statuses['status'] == '0') ? 'Enabled' : 'Disabled'
+            if (label_statuses['state'] != '0') {
+                label_status = 'Error'
+            }
+            def new_test_id = 'trigger.' + description
+            // addAdditionalTestItem(test_item, new_test_id, 'ƒgƒŠƒK[')
+            this.test_platform.add_test_metric(new_test_id,
+                                               'ƒgƒŠƒK[')
+            zabbix_info[new_test_id] = label_status
             csv << columns
         }
         def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
+        println "RESULTS:${results}"
         test_item.results(res)
+        zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
+        test_item.results(zabbix_info)
         test_item.devices(csv, headers)
     }
+
 }

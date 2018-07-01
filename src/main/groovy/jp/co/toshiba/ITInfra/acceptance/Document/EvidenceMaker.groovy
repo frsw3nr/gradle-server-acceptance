@@ -97,9 +97,27 @@ class EvidenceMaker {
         }
     }
 
+    def extract_added_test_metric(TestScenario test_scenario) {
+        println "EXTRACT_ADDED_TEST_METRIC:"
+        def domain_targets = test_scenario.get_domain_targets()
+        domain_targets.each { domain, domain_target ->
+            domain_target.each { target, test_target ->
+                if (test_target.target_status == RunStatus.INIT ||
+                    test_target.target_status == RunStatus.READY)
+                    return
+                test_target.test_platforms.each { platform, test_platform ->
+                    test_platform.added_test_metrics.each { metric, test_metric ->
+                        println "ADDED_METRIC: ${domain},${target},${metric}"
+                    }
+                }
+            }
+        }
+    }
+
     def visit_test_scenario(test_scenario) {
         long start = System.currentTimeMillis()
 
+        this.extract_added_test_metric(test_scenario)
         this.aggrigate_test_result(test_scenario)
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()

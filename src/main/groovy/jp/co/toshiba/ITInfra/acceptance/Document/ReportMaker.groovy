@@ -109,6 +109,7 @@ public class ReportMaker {
     }
 
     def extract_error_test(TestScenario test_scenario) {
+        println "extract_error_test:"
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()
         def test_error_reports = test_scenario.test_error_reports.get_all()
@@ -125,8 +126,7 @@ public class ReportMaker {
                         run_status = RunStatus.ERROR
                     if (!test_results)
                         return
-                    metric_set.get_all().each { metric, test_metric ->
-                        def test_result = test_results[metric]
+                    test_results.each { metric, test_result ->
                         if (test_result && test_result?.verify == ResultStatus.NG) {
                             this.add_test_error_result(target, platform, metric, test_result)
                         }

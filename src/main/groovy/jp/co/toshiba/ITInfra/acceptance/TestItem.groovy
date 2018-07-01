@@ -237,6 +237,7 @@ class TestItem {
                     return true
                 }
             }
+            def isok = (check)?'OK':'NG'
             log.info "Check ${item_name}, ${isok}"
             if (!check) {
                 log.info "Check ${item_name}, NG, ${ng_msg}"

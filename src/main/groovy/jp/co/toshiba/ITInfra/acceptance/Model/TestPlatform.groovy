@@ -12,6 +12,7 @@ class TestPlatform extends SpecModel {
     RunStatus platform_status = RunStatus.INIT
     LinkedHashMap<String,TestResult> test_results  = [:]
     LinkedHashMap<String,TestMetric> test_metrics  = [:]
+    LinkedHashMap<String,TestMetric> added_test_metrics  = [:]
     TestRule test_rule
 
     def accept(visitor){
@@ -40,30 +41,19 @@ class TestPlatform extends SpecModel {
 
         def msg = "$target_name(DryRun=${this.dry_run})"
         log.debug "Set test $platform:$msg"
-        // def config = test_environment.config
-        // def config_test = config.test
-        // def platform    = this.name
-        // def target_name = this.test_target?.name
-        // def evidence_log_share_dir = config?.evidence?.staging_dir ?: './build/log/'
-        // // evidence_log_share_dir += '/' + platform
-        // def config_platform = config_test[platform]
-        // def test_platform_configs = [
-        //     'dry_run'                : config.dry_run ?: config_platform.dry_run ?: false,
-        //     'timeout'                : config.timeout ?: config_platform.timeout ?: 0,
-        //     'debug'                  : config.debug ?: config_platform.debug ?: false,
-        //     'dry_run_staging_dir'    : config_test.dry_run_staging_dir ?:
-        //                                './src/test/resources/log',
-        //     'evidence_log_share_dir' : evidence_log_share_dir,
-        //     'evidence_log_dir'       : evidence_log_share_dir + '/' + target_name,
-        // ]
+    }
 
-        // test_platform_configs.each { key, test_platform_config ->
-        //     if (!this?."$key")
-        //         this."$key" = test_platform_config
-        //     // test_platform[key] = test_platform_config
-        // }
-        // def msg = "$target_name(DryRun=${this.dry_run})"
-        // log.debug "Set test $platform:$msg"
+    def add_test_metric(String metric, String description) {
+        def test_metric
+        if (this.added_test_metrics.containsKey(metric)) {
+            test_metric = added_test_metrics[metric]
+        } else {
+            test_metric = new TestMetric(name: metric, description: description,
+                                         platform: this.name,
+                                         enabled: true)
+        }
+        println "ADD_TEST_METRIC: ${name}"
+        this.added_test_metrics[metric] = test_metric
     }
 }
 
