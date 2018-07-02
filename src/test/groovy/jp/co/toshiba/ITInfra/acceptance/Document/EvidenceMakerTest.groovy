@@ -75,10 +75,13 @@ class EvidenceMakerTest extends Specification {
         when:
         // def inp = new FileInputStream('src/test/resources/test1.xlsx')
         // def inp = new FileInputStream('src/test/resources/check_sheet.xlsx')
-        def inp = new FileInputStream('src/test/resources/check_sheet_ng.xlsx')
+        // def inp = new FileInputStream('src/test/resources/check_sheet_ng.xlsx')
         // def inp = new FileInputStream('src/test/resources/null_sheet.xlsx')
         // def inp = new FileInputStream('src/test/resources/null_sheet_ng.xlsx')
+        def inp = new FileInputStream('./サーバチェックシート.xlsx')
+
         def wb  = WorkbookFactory.create(inp)
+
         // def sheet = wb.getSheet('CheckSheet(Linux)')
         def sheet = wb.getSheetAt(1)
 

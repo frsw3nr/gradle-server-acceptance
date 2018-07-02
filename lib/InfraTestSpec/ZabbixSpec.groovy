@@ -65,11 +65,11 @@ class ZabbixSpec extends InfraTestSpec {
         this.target_server   = test_platform.test_target.name
         this.timeout         = test_platform.timeout
 
-        println "ZABBIX_IP : ${this.zabbix_ip}"
-        println "ZABBIX_USER : ${this.zabbix_user}"
-        println "ZABBIX_PASSWORD : ${this.zabbix_password}"
-        println "TARGET_SERVER : ${this.target_server}"
-        println "TIMEOUT : ${this.timeout}"
+        // println "ZABBIX_IP : ${this.zabbix_ip}"
+        // println "ZABBIX_USER : ${this.zabbix_user}"
+        // println "ZABBIX_PASSWORD : ${this.zabbix_password}"
+        // println "TARGET_SERVER : ${this.target_server}"
+        // println "TIMEOUT : ${this.timeout}"
         // def remote_account = test_server.remote_account
         // this.zabbix_ip       = remote_account['server']
         // this.zabbix_user     = remote_account['user']
@@ -342,6 +342,9 @@ class ZabbixSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         host_info['Host'] = (hosts.size() == 1) ? hosts[0]['host'] : ''
         test_item.results(host_info)
+        println "ZABBIX_STATUS: ${host_info['status']}"
+        test_item.verify_text_search('status', host_info['status'])
+        test_item.verify_text_search('available', host_info['available'])
     }
 
     def syslog(test_item) {
@@ -407,6 +410,7 @@ class ZabbixSpec extends InfraTestSpec {
             def headers = ['Hostname', 'ItemName', 'LastLogSize']
             test_item.devices(csv, headers)
             test_item.results(message)
+            test_item.verify_text_search('syslog', message)
         }
     }
 
@@ -494,6 +498,7 @@ class ZabbixSpec extends InfraTestSpec {
         test_item.results(res)
         zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
         test_item.results(zabbix_info)
+        test_item.verify_text_search('trigger', res)
         test_item.devices(csv, headers)
     }
 

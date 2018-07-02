@@ -52,7 +52,6 @@ class TestPlatform extends SpecModel {
                                          platform: this.name,
                                          enabled: true)
         }
-        println "ADD_TEST_METRIC: ${name}"
         this.added_test_metrics[metric] = test_metric
     }
 }
