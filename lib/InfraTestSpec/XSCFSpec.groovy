@@ -281,12 +281,14 @@ class XSCFSpec extends InfraTestSpec {
         }
         def sequence = 0
         def infos = [:].withDefault{[:]}
+        def ip_addresses = [:]
         lines.eachLine {
             ( it =~ /Link/).each {
                 sequence ++
             }
             ( it =~ /inet addr:(.+?)\s/).each {m0, value->
                 infos[sequence]['ip'] = value
+                ip_addresses[value] = 1
             }
             ( it =~ /HWaddr (.+?)$/).each {m0, value->
                 infos[sequence]['mac'] = value
@@ -307,7 +309,8 @@ class XSCFSpec extends InfraTestSpec {
         }
         def headers = ['device', 'ip', 'mac', 'subnet']
         test_item.devices(csv, headers)
-        test_item.results(infos.toString())
+        test_item.results(ip_addresses.toString())
+        test_item.verify_text_search('network', ip_addresses.toString())
     }
 
     def snmp(test_item) {
@@ -372,5 +375,9 @@ class XSCFSpec extends InfraTestSpec {
         def headers = ['status', 'version', 'agent_port', 'host', 'host_port', 'community']
         test_item.devices(csv, headers)
         test_item.results(infos['snmp_agent_status'] ?: 'Not found')
+        test_item.verify_text_search('snmp_status', infos['snmp_agent_status'])
+        test_item.verify_text_search_list('snmp_address',   infos['snmp_trap_host'])
+        test_item.verify_text_search_list('snmp_community', infos['snmp_community'])
+        test_item.verify_text_search_list('snmp_version',   infos['snmp_version'])
     }
 }

@@ -7,6 +7,8 @@ New features:
 
 ToDo:
 * SPARC Solaris検査テンプレートの追加
+* [bug] テストIDが1件の場合の実行結果で、サマリシート結果の値が1列左にずれる問題対処
+* 検査IDで複数の検証項目がある場合に、一つでもNGならNG、すべてOKならOKにする処理追加
 * セットアップ手順書 docs/jp/tutorial_test_pc.pptx の見直し
 * プロジェクト作成コマンドで共通テンプレートライブラリをコピー対象に追加
 * Zabbix 監視設定収集シナリオで新規検査アイテムをサマリシートに追加
@@ -16,6 +18,8 @@ Bug reports:
   セルスタイルが効かなくなる問題が発生する。シート内値の編集のみの場合は問題ないが、
   行追加やセルスタイル変更をすると発生する。
   https://stackoverflow.com/questions/42020088/xssfcellstyle-not-working-in-libreoffice-calc-ubuntu
+
+Bug fixes:
 
 Changes for 0.1.19 (2018-6-30)
 --------------------------------------------------------------------------------

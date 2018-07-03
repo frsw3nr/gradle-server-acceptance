@@ -154,6 +154,8 @@ class SolarisSpec extends InfraTestSpec {
         // println prettyPrint(toJson(info))
 
         test_item.results(info)
+        test_item.verify_text_search('System', info['System'])
+        test_item.verify_text_search('Release', info['Release'])
     }
 
     def cpu(session, test_item) {
@@ -195,6 +197,9 @@ class SolarisSpec extends InfraTestSpec {
         cpuinfo["cpu"] = "${cpuinfo["model_name"]} ${cpuinfo["cpu_core"]} core"
         // println prettyPrint(toJson(cpuinfo))
         test_item.results(cpuinfo)
+        test_item.verify_number_equal('cpu_real',  cpuinfo['cpu_real'])
+        test_item.verify_number_equal('cpu_core',  cpuinfo['cpu_core'])
+        test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
     }
 
     def machineid(session, test_item) {
@@ -217,6 +222,7 @@ class SolarisSpec extends InfraTestSpec {
             }
         }
         test_item.results(memory.toString())
+        test_item.verify_number_equal('memory', memory, 0.1)
     }
 
     def swap(session, test_item) {
@@ -247,6 +253,7 @@ class SolarisSpec extends InfraTestSpec {
         def network = [:].withDefault{[:]}
         def device = ''
         def hw_address = []
+        def device_ip = [:]
         lines.eachLine {
             // println it
             // e1000g0: flags=1000843<UP,BROADCAST,RUNNING,MULTICAST,IPv4> mtu 1500 index 2
@@ -270,6 +277,7 @@ class SolarisSpec extends InfraTestSpec {
             // inet 127.0.0.1/8 scope host lo
             (it =~ /inet\s+(.*?)\s/).each {m0, m1->
                 network[device]['ip'] = m1
+                device_ip[device] = m1
             }
             (it =~ /netmask\s+(.+?)[\s|]/).each {m0, m1->
                 network[device]['subnet'] = m1
@@ -298,6 +306,7 @@ class SolarisSpec extends InfraTestSpec {
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
         test_item.results(infos.toString())
+        test_item.verify_text_search_map('network', device_ip)
     }
 
     // def net_onboot(session, test_item) {
@@ -340,6 +349,7 @@ class SolarisSpec extends InfraTestSpec {
         }
         net_route['mac'] = mac_address.toString()
         test_item.results(net_route)
+        test_item.verify_text_search_list('net_route', net_route)
     }
 
     def trim(str){
@@ -451,6 +461,7 @@ class SolarisSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         filesystems['filesystem'] = infos.toString()
         test_item.results(filesystems)
+        test_item.verify_text_search_map('filesystem', infos)
     }
 
     def zpool(session, test_item) {
@@ -559,6 +570,7 @@ class SolarisSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         package_infos['packages'] = "${csv.size()} packages"
         test_item.results(package_infos)
+        test_item.verify_text_search_list('packages', package_infos)
     }
 
     def user(session, test_item) {
@@ -599,6 +611,7 @@ class SolarisSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         users['user'] = homes.toString()
         test_item.results(users)
+        test_item.verify_text_search_list('user', users)
     }
 
     def service(session, test_item) {
@@ -606,12 +619,14 @@ class SolarisSpec extends InfraTestSpec {
             run_ssh_command(session, '/usr/bin/svcs -a | grep online', 'service')
         }
         def services = [:].withDefault{'unkown'}
+        def service_names = [:].withDefault{'unkown'}
         def csv = []
         def service_count = 0
         lines.eachLine {
             ( it =~ /svc:(.+?):/).each {m0,m1->
                 def service_name = 'service.' + m1
                 services[service_name] = 'On'
+                service_names[m1] = 'On'
                 def columns = [m1, 'On']
                 csv << columns
                 service_count ++
@@ -620,6 +635,7 @@ class SolarisSpec extends InfraTestSpec {
         services['service'] = "${service_count} services"
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
+        test_item.verify_text_search_map('service', service_names)
     }
 
 
