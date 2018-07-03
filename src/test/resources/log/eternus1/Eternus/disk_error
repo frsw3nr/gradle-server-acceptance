@@ -1,0 +1,54 @@
+
+CLI> show disk-error
+E Disk            Status                         Port   Media   Drive   Drive-Recovered SMART   I/O     Link    Check-Code
+  Location                                              Error   Error   Error           Error   Timeout Error   Error     
+- --------------- ------------------------------ ------ ------- ------- --------------- ------- ------- ------- ----------
+  CE-Disk#0       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#1       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#2       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#3       Available                      Port#0       0       0               0       0       1       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#4       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#5       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#6       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#7       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#8       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#9       Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#10      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#11      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#12      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#13      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#14      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#15      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       1       0          0
+* CE-Disk#16      Available                      Port#0       0       0               0       0       1       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+  CE-Disk#17      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#18      Available                      Port#0       0       0               0       0       0       2          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#19      Available                      Port#0       0       0               0       0       0       2          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#20      Available                      Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       1       3          0
+* CE-Disk#21      Available                      Port#0       0       0               0       0       0       2          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#22      Available                      Port#0       0       0               0       0       0       2          0
+                                                 Port#1       0       0               0       0       0       0          0
+* CE-Disk#23      Spare                          Port#0       0       0               0       0       0       0          0
+                                                 Port#1       0       0               0       0       0       3          0
+CLI> 

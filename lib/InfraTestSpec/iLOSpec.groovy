@@ -331,7 +331,12 @@ class iLOSpecBase extends InfraTestSpec {
             }
             def headers = ['type', 'port', 'desc', 'location', 'mac', 'ip', 'status']
             test_item.devices(csv, headers)
-            test_item.results(nic_ips.toString())
+            println "NIC:${nic_ips}"
+            def info = [:]
+            info['Nic']    = nic_ips.toString()
+            info['ip_mng'] = nic_ips.toString()
+            test_item.results(info)
+            test_item.verify_text_search('ip_mng', nic_ips.toString())
         }
     }
 
@@ -476,12 +481,13 @@ class iLOSpecBase extends InfraTestSpec {
             }
             def headers = ['snmp_info']
             test_item.devices(csv, headers)
-            test_item.verify_text_search('snmp_status', snmp_info['SNMPStatus'])
+            // test_item.results((csv.size() > 0) ? 'SNMP Info found' : 'No data')
+            test_item.results(trap_info)
+            test_item.results(snmp_info)
+            test_item.verify_text_search('SNMPStatus', snmp_info['SNMPStatus'])
             test_item.verify_text_search_list('snmp_address', trap_info['ip'])
             test_item.verify_text_search_list('snmp_community', trap_info['trapcommunity'])
             test_item.verify_text_search_list('snmp_version', trap_info['version'])
-            // test_item.results((csv.size() > 0) ? 'SNMP Info found' : 'No data')
-            test_item.results(trap_info)
         }
     }
 }

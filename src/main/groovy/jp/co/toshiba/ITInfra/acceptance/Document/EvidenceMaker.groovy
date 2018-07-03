@@ -100,39 +100,21 @@ class EvidenceMaker {
     def extract_added_test_metric(TestScenario test_scenario) {
         def domain_metrics = test_scenario.test_metrics
         println "EXTRACT_ADDED_TEST_METRIC:${domain_metrics.count()}"
-        println "EXTRACT_ADDED_TEST_METRIC:${domain_metrics.get_keys()}"
-        println "EXTRACT_ADDED_TEST_METRIC:${domain_metrics['Zabbix'].get_keys()}"
         def domain_targets = test_scenario.get_domain_targets()
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
                 if (test_target.target_status == RunStatus.INIT ||
                     test_target.target_status == RunStatus.READY)
                     return
-                println "GET1: $domain, $target"
                 test_target.test_platforms.each { platform, test_platform ->
-                    println "GET: $domain, $platform"
                     def metric_set = domain_metrics[domain][platform]
-                    println "METRIC_SET: ${metric_set}"
-                    println "METRIC_SET: ${metric_set.count()}"
-                    // def metric_set = domain_metrics?."${domain}"?."${platform}"
-                    // println "METRIC_SET:${metric_set}"
-                    // metric_set.each {metric, test_metric ->
-                    //     println "ADDED_METRIC2: ${metric}"
-                    // }
-                    test_platform?.added_test_metrics.each { metric, test_metric ->
-                        // println "ADDED_METRIC: ${metric}"
-                        metric_set.add(test_metric)
+                    if (metric_set.count() > 0) {
+                        test_platform?.added_test_metrics.each { metric, test_metric ->
+                            metric_set.add(test_metric)
+                        }
                     }
-                    println "METRIC_SET: ${metric_set.get_all()}"
+                    // println "METRIC_SET: ${metric_set.get_all()}"
                 }
-                // def metric_sets = domain_metrics[domain].get_all()
-                // metric_sets.each { platform, metric_set ->
-                //     test_target.test_platforms.each { platform, test_platform ->
-                //     }
-                //     metric_set.get_all().each { metric, test_metric ->
-                //         println "METRIC:${metric}, ${test_metric}"
-                //     }
-                // }
             }
         }
     }
@@ -167,6 +149,7 @@ class EvidenceMaker {
                                 if (comparision == comparision_sequence) {
                                     add_summary_result(domain, target, platform, metric,
                                                        test_result)
+                                    // println "METRIC: $domain, $target, $platform, $metric"
                                     if (test_metric.device_enabled) {
                                         add_device_result(target, platform, metric, test_result)
                                     }

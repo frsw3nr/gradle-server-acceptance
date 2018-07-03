@@ -1,0 +1,70 @@
+
+CLI> show network
+MNT Port
+<IPv4 Information>
+IPv4                [Enable]
+Master IP Address   [10.20.2.52]
+Slave IP Address    [0.0.0.0]
+Subnet Mask         [255.255.0.0]
+Gateway             [10.20.254.200]
+Primary DNS         [0.0.0.0]
+Secondary DNS       [0.0.0.0]
+Speed and Duplex    [Auto Negotiation]
+Wake on LAN         [Disable]
+<Allowable IP Address List>
+  No. IP Address      Subnet Mask    
+  --- --------------- ---------------
+    1 172.21.0.0      255.255.0.0    
+    2 10.40.0.0       255.255.255.0  
+
+<IPv6 Information>
+IPv6                         [Enable]
+Master Link Local IP Address [fe80::200:e50:da1a:2200]
+Master Connect IP Address    [::]
+Slave Link Local IP Address  [::]
+Slave Connect IP Address     [::]
+Length of Subnet Prefix      [0]
+Gateway                      [::]
+Primary DNS                  [::]
+Secondary DNS                [::]
+<Allowable IP Address List>
+  No. Connect IP Address
+  --- -------------------------------------------
+
+<MAC Address>
+CM#0                [B0:AC:FA:A0:81:D4]
+CM#1                [B0:AC:FA:A0:81:CE]
+
+RMT Port
+<IPv4 Information>
+IPv4                [Enable]
+Master IP Address   [192.168.1.52]
+Slave IP Address    [0.0.0.0]
+Subnet Mask         [255.255.255.0]
+Gateway             [0.0.0.0]
+Primary DNS         [0.0.0.0]
+Secondary DNS       [0.0.0.0]
+Speed and Duplex    [Auto Negotiation]
+Wake on LAN         [Disable]
+<Allowable IP Address List>
+  No. IP Address      Subnet Mask    
+  --- --------------- ---------------
+
+<IPv6 Information>
+IPv6                         [Disable]
+Master Link Local IP Address [::]
+Master Connect IP Address    [::]
+Slave Link Local IP Address  [::]
+Slave Connect IP Address     [::]
+Length of Subnet Prefix      [0]
+Gateway                      [::]
+Primary DNS                  [::]
+Secondary DNS                [::]
+<Allowable IP Address List>
+  No. Connect IP Address
+  --- -------------------------------------------
+
+<MAC Address>
+CM#0                [B0:AC:FA:A0:81:D5]
+CM#1                [B0:AC:FA:A0:81:CF]
+CLI> 

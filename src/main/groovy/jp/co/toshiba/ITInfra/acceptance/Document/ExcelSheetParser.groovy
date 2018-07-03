@@ -96,6 +96,11 @@ class ExcelSheetParserHorizontal extends ExcelSheetParser {
                 def cell = header_row.getCell(column)
                 if (!cell)
                     return
+                def value = this.getStringValue(cell)
+                if (value == null) {
+                    def msg = "Invalid Sheet header '${sheet.getSheetName()}'${header_pos}"
+                    throw new IllegalArgumentException(msg)
+                }
                 headers << this.getStringValue(cell).toLowerCase()
             }
         }

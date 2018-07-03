@@ -1,0 +1,11 @@
+
+CLI> show raid-groups
+RAID  Group           RAID     Assigned  Status                          Total        Free
+No.  Name             Level    CM                                        Capacity(MB) Capacity(MB)
+---- ---------------- -------- --------- ------------------------------- ------------ ------------
+   0 LUN_R#000        RAID5    CM#0      Available                            2236416         4096
+   1 LUN_R#001        RAID5    CM#1      Available                            2236416         4096
+   2 LUN_R#002        RAID5    CM#0      Available                            2236416         4096
+   3 LUN_R#003        RAID5    CM#1      Available                            2236416         4096
+   4 LUN_R#004        RAID5    CM#0      Available                            1118208         2048
+CLI> 

@@ -5,6 +5,12 @@ New features:
 * テンプレート共通化。検査スクリプト追加
     * HP iLO/富士通 PRIMERGY/富士通 SPARC/Zabbix 監視/
 
+ToDo:
+* SPARC Solaris検査テンプレートの追加
+* セットアップ手順書 docs/jp/tutorial_test_pc.pptx の見直し
+* プロジェクト作成コマンドで共通テンプレートライブラリをコピー対象に追加
+* Zabbix 監視設定収集シナリオで新規検査アイテムをサマリシートに追加
+
 Bug reports:
 * LibreOfficeの場合、検査シートのレイアウトを変更すると、検査結果シートの出力行の
   セルスタイルが効かなくなる問題が発生する。シート内値の編集のみの場合は問題ないが、

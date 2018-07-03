@@ -286,6 +286,13 @@ class PrimergySpec extends LinuxSpecBase {
         infos['Text'].each { item,value ->
             results["net.${item}"] = "$value"
         }
+        def json_results = JsonOutput.toJson(results)
+        println "results:${JsonOutput.prettyPrint(json_results)}"
         test_item.results(results)
+        test_item.verify_text_search('Snmp.Enabled',           results['Snmp.Enabled'])
+        test_item.verify_text_search('Snmp.CommunityName',     results['Snmp.CommunityName'])
+        test_item.verify_text_search('Snmp.TrapCommunityName', results['Snmp.TrapCommunityName'])
+        test_item.verify_text_search('Snmp.ServicePort',       results['Snmp.ServicePort'])
+        test_item.verify_text_search('snmp_dest',              results['snmp_dest'])
     }
 }

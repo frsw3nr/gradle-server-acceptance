@@ -1,0 +1,14 @@
+
+CLI> show hardware-information
+Enclosure             Serial No.           Other Information
+Controller Enclosure  4601451439                       
+Drive Enclosure#01    -                    -           
+Drive Enclosure#02    -                    -           
+Drive Enclosure#03    -                    -           
+
+Component             Part No.             Serial No.           Version
+CM#0                  CA07781-D103         PP150700BH           AA      
+CM#1                  CA07781-D103         PP150700BE           AA      
+PSU#0                 CA05967-1651         BBZT1448032610       04A/00F 
+PSU#1                 CA05967-1651         BBZT1448032611       04A/00F 
+CLI> 

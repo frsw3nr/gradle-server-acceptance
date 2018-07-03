@@ -1,0 +1,21 @@
+
+CLI> show email-notification
+Send E-Mail             Disable
+Port                    MNT
+SMTP Server             
+SMTP Port No            25
+SMTP over SSL           Disable
+Authentication Method   None
+User Name               
+From                    
+To1                     
+To2                     
+To3                     
+To4                     
+To5                     
+Text1                   
+Connection Timeout(sec) 5
+Response Timeout(sec)   5
+Maximum Retries         0
+Retry Interval(sec)     1
+CLI> 

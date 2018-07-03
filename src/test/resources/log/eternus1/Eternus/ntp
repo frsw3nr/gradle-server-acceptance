@@ -1,0 +1,9 @@
+
+CLI> show ntp
+NTP                    [Enable]
+Primary NTP Server     [10.20.5.1]
+Primary NTP LAN Port   [MNT]
+Secondary NTP Server   []
+Secondary NTP LAN Port [MNT]
+Access Status          [2017-07-06 07:12:41 failed SYNC]
+CLI> 
