@@ -7,6 +7,14 @@ import groovy.transform.ToString
 import static groovy.json.JsonOutput.*
 import groovy.json.*
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -307,7 +315,8 @@ class ExcelSheetMaker {
 
     def set_test_result_cell_style(cell, ResultCellStyle result_cell_type) {
         BorderStyle thin = BorderStyle.THIN;
-        short black = IndexedColors.BLACK.getIndex();
+        // short black = IndexedColors.BLACK.getIndex();
+        def black = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
         def wb = cell.getRow().getSheet().getWorkbook();
         CellStyle style = wb.createCellStyle();
 
@@ -330,58 +339,72 @@ class ExcelSheetMaker {
             //     break
 
             case ResultCellStyle.TITLE :
-                style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+                // style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF)));
+
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
-                font.setColor(IndexedColors.BLACK.getIndex());
+                // font.setColor(IndexedColors.BLACK.getIndex());
+                font.setColor(black);
+
                 style.setFont(font);
                 break
 
             case ResultCellStyle.OK :
-                style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+                // style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0x80,0xFF,0x80)));
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
-                font.setColor(IndexedColors.BLACK.getIndex());
+                // font.setColor(IndexedColors.BLACK.getIndex());
+                font.setColor(black);
                 style.setFont(font);
                 break
 
             case ResultCellStyle.SAME :
-                style.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
+                // style.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xCC, 0xFF, 0xFF)));
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
-                font.setColor(IndexedColors.ROYAL_BLUE.getIndex());
+                // font.setColor(IndexedColors.BLACK.getIndex());
+                font.setColor(black);
                 style.setFont(font);
                 break
 
             case ResultCellStyle.WARNING :
-                style.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
+                // style.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0x99)));
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
-                font.setColor(IndexedColors.CORAL.getIndex());
+                // font.setColor(IndexedColors.BLACK.getIndex());
+                font.setColor(black);
                 style.setFont(font);
                 break
 
             case ResultCellStyle.NG :
-                style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
+                // style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0x99, 0xCC)));
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
-                font.setColor(IndexedColors.BLACK.getIndex());
+                // font.setColor(IndexedColors.BLACK.getIndex());
+                font.setColor(black);
                 style.setFont(font);
                 break
 
             case ResultCellStyle.ERROR :
                 def font = wb.createFont();
-                font.setColor(IndexedColors.RED.getIndex());
+                // font.setColor(IndexedColors.RED.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0x00, 0x00)));
                 def font_size = font.getFontHeightInPoints()
                 font.setFontHeightInPoints((short)(font_size - 2))
                 style.setFont(font);
                 break
 
             case ResultCellStyle.NOTEST :
-                style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                // style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xC0, 0xC0, 0xC0)));
                 // style.setFillForegroundColor ( HSSFColor.BLACK.index );
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 // style.setFillPattern(CellStyle.SOLID_FOREGROUND);
