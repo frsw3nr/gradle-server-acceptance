@@ -278,9 +278,11 @@ class TestItem {
             def isok = (check)?'OK':'NG'
             log.info "Check ${item_name}, ${isok}"
             def error_msg
+            println "TEST_ID: ${this.test_id}"
             if (!check) {
                 error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
                 log.info error_msg
+                this.make_verify(this.test_id, check)
             }
             this.make_verify(item_name, check, ng_msg)
         }
