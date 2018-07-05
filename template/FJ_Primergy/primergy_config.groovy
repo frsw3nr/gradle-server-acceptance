@@ -26,7 +26,7 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // コマンド採取のタイムアウト
 test.Primergy.timeout = 300
 
-// Zabbix接続情報
+// Primergy接続情報
 
 account.Primergy.Test.user     = 'admin'
 account.Primergy.Test.password = 'admin'
