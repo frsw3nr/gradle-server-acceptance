@@ -4,8 +4,8 @@ evidence.source = './template/FJ_Primergy/PRIMERGYチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/PRIMERGYチェックシート_<date>.xlsx'
-evidence.target='./build/primergy_check_sheet.xlsx'
+evidence.target='./build/PRIMERGYチェックシート_<date>.xlsx'
+// evidence.target='./build/primergy_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 
@@ -26,8 +26,15 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // コマンド採取のタイムアウト
 test.Primergy.timeout = 300
 
+// コマンド採取のデバッグモード
+
+test.Primergy.debug  = false
+
+// DryRun 予行演習モード
+
+test.Primergy.dry_run   = false
+
 // Primergy接続情報
 
 account.Primergy.Test.user     = 'admin'
 account.Primergy.Test.password = 'admin'
-
