@@ -41,7 +41,19 @@ class TestItem {
         this.test_results[metric_name] = test_result
     }
 
+    def set_base_verify(Boolean verify_ok) {
+        def base_result = this.test_results?."${this.test_id}"
+        if (!base_result) {
+            base_result = new TestResult(name: this.test_id, verify: ResultStatus.OK)
+            this.test_results."${this.test_id}" = base_result
+        }
+        if (!verify_ok) {
+            base_result.verify = ResultStatus.NG
+        }
+    } 
+
     TestResult make_verify(String metric_name, Boolean verify_ok, String error_msg = null) {
+        this.set_base_verify(verify_ok)
         def test_result = this.test_results?."${metric_name}" ?:
                           new TestResult(name: metric_name)
         test_result.verify = (verify_ok) ? ResultStatus.OK : ResultStatus.NG
@@ -182,7 +194,6 @@ class TestItem {
         if (!this.verify_test)
             return
         def test_values = this.target_info(item_name)
-        // println "TEST_SEARCH: $item_name, $test_values"
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.info "Test value '$item_name' is not Map : $test_value"
@@ -254,11 +265,9 @@ class TestItem {
     }
 
     def verify_text_search_list(String item_name, Object values) {
-        // println "TEST: $item_name, $values"
         if (!this.verify_test)
             return
         def test_values = this.target_info(item_name)
-        // println "TESTVALUE: ${test_values}"
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.info "Test value '$item_name' is not Map : $test_value"
@@ -278,7 +287,6 @@ class TestItem {
             def isok = (check)?'OK':'NG'
             log.info "Check ${item_name}, ${isok}"
             def error_msg
-            println "TEST_ID: ${this.test_id}"
             if (!check) {
                 error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
                 log.info error_msg

@@ -9,6 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @ToString(includePackage = false)
 class SheetSummary {
     def rows = [:]
+    def added_rows = [:]
     def cols = [:]
     def results = [:].withDefault{[:].withDefault{[:]}}
 }
@@ -26,10 +27,21 @@ class EvidenceMaker {
     LinkedHashMap<String,SheetSummary> summary_sheets = [:]
     LinkedHashMap<String,SheetDeviceResult> device_result_sheets = [:]
 
+    def add_added_test_metric(domain, platform, metric, test_metric) {
+        println "ADD_ADDED_TEST_METRIC: $domain, $platform, $metric"
+        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
+        sheet.added_rows[[platform, metric]] = test_metric
+        this.summary_sheets[domain] = sheet
+    }
+
     def add_summary_result(domain, target, platform, metric, test_result) {
         def sheet = this.summary_sheets[domain] ?: new SheetSummary()
         sheet.rows[[platform, metric]] = 1
-        sheet.cols[target] = sheet.cols.size()
+        if (sheet.cols.containsKey(target)) {
+            sheet.cols[target] = sheet.cols.size()
+        } else {
+            sheet.cols[target] = sheet.cols.size() + 1
+        }
         sheet.results[platform][metric][target] = test_result
         this.summary_sheets[domain] = sheet
     }
@@ -111,6 +123,7 @@ class EvidenceMaker {
                     if (metric_set.count() > 0) {
                         test_platform?.added_test_metrics.each { metric, test_metric ->
                             metric_set.add(test_metric)
+                            add_added_test_metric(domain, platform, metric, test_metric)
                         }
                     }
                     // println "METRIC_SET: ${metric_set.get_all()}"

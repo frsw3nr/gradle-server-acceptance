@@ -182,17 +182,24 @@ class ExcelSheetMaker {
             def targets = sheet_summary.cols.keySet() as String[]
             write_sheet_header(sheet, result_position, targets)
 
-            sheet_design.sheet_row.each { platform_metric_key, rownum ->
-                Row row = sheet.getRow(rownum + result_position[0])
+            def rownum = 0
+            def last_rownum = 0
+            sheet_design.sheet_row.each { platform_metric_key, metric_seq ->
+                rownum = metric_seq + result_position[0]
+                Row row = sheet.getRow(rownum)
                 if (row == null)
                     return
+                def platform = platform_metric_key[0]
+                def metric   = platform_metric_key[1]
+                if (!platform && !metric)
+                    return
+                println "SUMMARY: $rownum, $platform, $metric"
+                last_rownum = rownum
                 row.setRowStyle(row_style)
                 sheet_summary.cols.each { target, column_index ->
                     def colnum = column_index + result_position[1] - 1
                     sheet.setColumnWidth(colnum, evidence_cell_width)
                     Cell cell = row.createCell(colnum)
-                    def platform = platform_metric_key[0]
-                    def metric = platform_metric_key[1]
                     def test_result = summary_results[platform][metric][target] as TestResult
                     try {
                         write_cell_summary(cell, test_result)
@@ -201,6 +208,53 @@ class ExcelSheetMaker {
                     }
                 }
             }
+            rownum = last_rownum + 1
+            sheet_summary.added_rows.each { platform_metric_key, test_metric ->
+                def platform = platform_metric_key[0]
+                def metric = platform_metric_key[1]
+                println "ADDED_METRIC: $rownum, $platform, $metric, ${test_metric.description}"
+                Row row = sheet.getRow(rownum)
+                if (row == null)
+                    row = sheet.createRow(rownum)
+                Cell cell_metric = row.createCell(1)
+                write_cell_summary(cell_metric, new TestResult(value: metric), true)
+                Cell cell_platform = row.createCell(3)
+                write_cell_summary(cell_platform, new TestResult(value: platform), true)
+                Cell cell_description = row.createCell(5)
+                write_cell_summary(cell_description, new TestResult(value: test_metric.description), true)
+                row.setRowStyle(row_style)
+                sheet_summary.cols.each { target, column_index ->
+                    def colnum = column_index + result_position[1] - 1
+                    sheet.setColumnWidth(colnum, evidence_cell_width)
+                    Cell cell = row.createCell(colnum)
+                    def test_result = summary_results[platform][metric][target] as TestResult
+                    try {
+                        write_cell_summary(cell, test_result)
+                    } catch (NullPointerException e) {
+                        log.debug "Not found row ${platform},${metric}"
+                    }
+                }
+                rownum ++
+            }
+            // sheet_design.sheet_row.each { platform_metric_key, rownum ->
+            //     Row row = sheet.getRow(rownum + result_position[0])
+            //     if (row == null)
+            //         return
+            //     row.setRowStyle(row_style)
+            //     sheet_summary.cols.each { target, column_index ->
+            //         def colnum = column_index + result_position[1] - 1
+            //         sheet.setColumnWidth(colnum, evidence_cell_width)
+            //         Cell cell = row.createCell(colnum)
+            //         def platform = platform_metric_key[0]
+            //         def metric = platform_metric_key[1]
+            //         def test_result = summary_results[platform][metric][target] as TestResult
+            //         try {
+            //             write_cell_summary(cell, test_result)
+            //         } catch (NullPointerException e) {
+            //             log.debug "Not found row ${platform},${metric}"
+            //         }
+            //     }
+            // }
         }
     }
 

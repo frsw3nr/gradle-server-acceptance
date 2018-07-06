@@ -44,6 +44,7 @@ class PrimergySpec extends LinuxSpecBase {
     def size_info(arr = [:]) {
         (arr['#text'] && arr['@Unit']) ? "${arr['#text']}${arr['@Unit']}" : 'Unkown'
     }
+
     def setup_exec(TestItem[] test_items) {
 
         def credentials = os_user + ":" + os_password
@@ -145,8 +146,11 @@ class PrimergySpec extends LinuxSpecBase {
             csv << columns
             mac_infos[port['ModuleName']] << port['MacAddress']
         }
+        def ip = test_item.target_info('ip')
+        // println "IP:${ip}"
         test_item.devices(csv, headers)
-        test_item.results(mac_infos.toString())
+        test_item.results(['nic': mac_infos.toString(), 'nic_ip': ip])
+        test_item.verify_text_search('nic_ip', ip)
     }
 
     def disk(test_item) {
@@ -287,7 +291,7 @@ class PrimergySpec extends LinuxSpecBase {
             results["net.${item}"] = "$value"
         }
         def json_results = JsonOutput.toJson(results)
-        println "results:${JsonOutput.prettyPrint(json_results)}"
+        // println "results:${JsonOutput.prettyPrint(json_results)}"
         test_item.results(results)
         test_item.verify_text_search('Snmp.Enabled',           results['Snmp.Enabled'])
         test_item.verify_text_search('Snmp.CommunityName',     results['Snmp.CommunityName'])

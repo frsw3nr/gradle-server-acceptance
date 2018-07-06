@@ -158,7 +158,7 @@
         "error_msg": null,
         "compare_server": "cent7",
         "status": "OK",
-        "verify": null,
+        "verify": "NG",
         "comparision": "UNMATCH"
     },
     "mem_total": {
@@ -185,7 +185,7 @@
         "error_msg": null,
         "compare_server": "cent7",
         "status": "OK",
-        "verify": null,
+        "verify": "NG",
         "comparision": "UNMATCH"
     },
     "net_ip": {

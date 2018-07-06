@@ -26,6 +26,15 @@
         "verify": "OK",
         "comparision": null
     },
+    "cpu": {
+        "name": "cpu",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
+        "comparision": null
+    },
     "virtual_memory": {
         "name": "virtual_memory",
         "value": "4914744",
@@ -69,6 +78,15 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
+        "comparision": null
+    },
+    "memory": {
+        "name": "memory",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
         "comparision": null
     },
     "Domain": {

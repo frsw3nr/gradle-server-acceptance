@@ -35,6 +35,15 @@
         "verify": null,
         "comparision": null
     },
+    "vm": {
+        "name": "vm",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
+        "comparision": null
+    },
     "datastore": {
         "name": "datastore",
         "value": "[living-data1, datastore1]",

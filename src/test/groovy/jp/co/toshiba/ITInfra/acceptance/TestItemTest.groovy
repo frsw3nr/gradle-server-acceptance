@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestItemTest"
+// gradle --daemon test --tests "TestItemTest.検証結果サマリ"
 
 class TestItemTest extends Specification {
 
@@ -73,6 +73,27 @@ class TestItemTest extends Specification {
         then:
         test_item.test_results['cpu'].verify == ResultStatus.NG
         test_item.test_results['lsb'].verify == ResultStatus.OK
+    }
+
+    def "検証結果サマリ"() {
+        when:
+        test_item.test_id = 'os'
+        test_item.verify(['cpu' : true, 'lsb' : true])
+
+        then:
+        test_item.test_results['os'].verify == ResultStatus.OK
+
+    }
+
+    def "検証結果サマリ NG"() {
+        when:
+        test_item.test_id = 'os'
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        test_item.verify(['cpu' : false, 'lsb' : true])
+
+        then:
+        test_item.test_results['os'].verify == ResultStatus.NG
+
     }
 
     def "デバイス登録"() {

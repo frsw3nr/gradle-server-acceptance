@@ -35,6 +35,15 @@
         "verify": null,
         "comparision": "MATCH"
     },
+    "vm": {
+        "name": "vm",
+        "value": null,
+        "error_msg": null,
+        "compare_server": "cent7",
+        "status": null,
+        "verify": "OK",
+        "comparision": "MATCH"
+    },
     "datastore": {
         "name": "datastore",
         "value": "[datastore1]",

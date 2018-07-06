@@ -35,6 +35,15 @@
         "verify": "NG",
         "comparision": null
     },
+    "vm": {
+        "name": "vm",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
+        "comparision": null
+    },
     "datastore": {
         "name": "datastore",
         "value": "[datastore2]",
