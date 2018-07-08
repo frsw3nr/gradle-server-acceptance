@@ -90,7 +90,7 @@ class EvidenceMakerTest extends Specification {
             // Row row = sheet.getRow(3 + rownum)
             Row row = sheet.createRow(3 + rownum)
             def cell = row.createCell(6)
-            cell.setCellValue("${cell_style}")
+            cell.setCellValue("日本語${cell_style}")
             sheet_maker.set_test_result_cell_style(cell, cell_style)
             rownum ++
         }

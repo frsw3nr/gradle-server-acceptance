@@ -193,7 +193,6 @@ class ExcelSheetMaker {
                 def metric   = platform_metric_key[1]
                 if (!platform && !metric)
                     return
-                println "SUMMARY: $rownum, $platform, $metric"
                 last_rownum = rownum
                 row.setRowStyle(row_style)
                 sheet_summary.cols.each { target, column_index ->
@@ -212,19 +211,18 @@ class ExcelSheetMaker {
             sheet_summary.added_rows.each { platform_metric_key, test_metric ->
                 def platform = platform_metric_key[0]
                 def metric = platform_metric_key[1]
-                println "ADDED_METRIC: $rownum, $platform, $metric, ${test_metric.description}"
                 Row row = sheet.getRow(rownum)
                 if (row == null)
                     row = sheet.createRow(rownum)
-                Cell cell_metric = row.createCell(1)
-                write_cell_summary(cell_metric, new TestResult(value: metric), true)
-                Cell cell_platform = row.createCell(3)
-                write_cell_summary(cell_platform, new TestResult(value: platform), true)
-                Cell cell_description = row.createCell(5)
-                write_cell_summary(cell_description, new TestResult(value: test_metric.description), true)
+                def colnum = 0
+                ['', metric, '', platform, '', test_metric.description].each { label ->
+                    Cell cell_metric = row.createCell(colnum)
+                    write_cell_summary(cell_metric, new TestResult(value: label), true)
+                    colnum ++
+                }
                 row.setRowStyle(row_style)
                 sheet_summary.cols.each { target, column_index ->
-                    def colnum = column_index + result_position[1] - 1
+                    colnum = column_index + result_position[1] - 1
                     sheet.setColumnWidth(colnum, evidence_cell_width)
                     Cell cell = row.createCell(colnum)
                     def test_result = summary_results[platform][metric][target] as TestResult

@@ -301,9 +301,7 @@ class ZabbixSpec extends InfraTestSpec {
                     def macros = [:]
                     host[it].each { macro ->
                         def new_test_id = 'Host.' + macro['macro']
-                        // addAdditionalTestItem(test_item, new_test_id, 'ƒ}ƒNƒ’è‹`')
-                        this.test_platform.add_test_metric(new_test_id,
-                                                           'ƒ}ƒNƒ’è‹`')
+                        this.test_platform.add_test_metric(new_test_id, 'マクロ')
                         host_info[new_test_id] = macro['value']
                         macros[macro['macro']] = macro['value']
                     }
@@ -488,13 +486,11 @@ class ZabbixSpec extends InfraTestSpec {
             }
             def new_test_id = 'trigger.' + description
             // addAdditionalTestItem(test_item, new_test_id, 'ƒgƒŠƒK[')
-            this.test_platform.add_test_metric(new_test_id,
-                                               'ƒgƒŠƒK[')
+            this.test_platform.add_test_metric(new_test_id, 'トリガー')
             zabbix_info[new_test_id] = label_status
             csv << columns
         }
         def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
-        println "RESULTS:${results}"
         test_item.results(res)
         zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
         test_item.results(zabbix_info)

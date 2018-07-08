@@ -89,6 +89,7 @@ public class ReportMaker {
         } else if (test_report.metric_type == 'platform') {
             def test_platforms = test_target?.test_platforms
             if (test_platforms) {
+                // println "GET_TEST_RESULT:${test_platforms}"
                 def platform_metrics = test_report.platform_metrics
                 test_platforms.find { platform_name, test_platform ->
                     if (platform_metrics.containsKey(platform_name)) {
@@ -109,7 +110,6 @@ public class ReportMaker {
     }
 
     def extract_error_test(TestScenario test_scenario) {
-        println "extract_error_test:"
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()
         def test_error_reports = test_scenario.test_error_reports.get_all()
