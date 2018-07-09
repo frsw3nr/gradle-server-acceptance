@@ -11,6 +11,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // gradle --daemon test --tests "TestTargetTest.Excelパース"
+// gradle --daemon test --tests "TestTargetTest.テンプレートの遅延評価2"
 
 class TestTargetTest extends Specification {
     def test_target
@@ -23,6 +24,7 @@ class TestTargetTest extends Specification {
             os_account_id     : 'Test',
             remote_account_id : 'Test',
             remote_alias      : 'ostrich',
+            template_id       : 'Linux',
         )
     }
 
@@ -46,7 +48,41 @@ class TestTargetTest extends Specification {
         def server_info = test_targets['ostrich']['Linux'].asMap()
 
         then:
+        println "SERVER_INFO:$server_info"
         server_info.containsKey('numcpu')
+    }
+
+    def "テンプレートの遅延評価"() {
+        setup:
+        def template_config = new ConfigObject()
+        template_config.mng_ip = "${test_target.ip}"
+        def test_template = new TestTemplate(name: 'Linux', values: template_config)
+
+        when:
+        test_target.test_templates['Linux'] = test_template
+        def server_info = test_target.asMap()
+
+        then:
+        println "SERVER_INFO : $server_info"
+        server_info['mng_ip'] == '192.168.10.1'
+    }
+
+    def "テンプレートの遅延評価2"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet_t1.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        when:
+        def test_targets = test_scenario.test_targets.get_all()
+        def server_info = test_targets['ostrich']['Linux'].asMap()
+
+        then:
+        println "SERVER_INFO 1 : ${server_info}"
+        println "SERVER_INFO 2 : ${server_info['Linux']['net_ip']}"
+        1==1
+        // server_info['mng_ip'] == '192.168.10.1'
     }
 
     def "暗黙的なテンプレートセット"() {

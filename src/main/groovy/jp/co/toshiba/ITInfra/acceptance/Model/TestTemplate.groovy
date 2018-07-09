@@ -21,24 +21,6 @@ class TestTemplate extends SpecModel {
 @ToString(includePackage = false)
 class TestTemplateSet extends SpecCompositeModel {
     String name
-    // def children = new ConfigObject()
-
-    // def add(test_target) {
-    //     test_target.with {
-    //         this.children[name] = it
-    //     }
-    // }
-
-    // def copy(source_name, target_name) {
-    //     def source_domains = this.children[source_name]
-    //     def target_domains = [:]
-    //     source_domains.each { domain_name, test_source ->
-    //         def test_target = test_source.clone()
-    //         test_target.name = target_name
-    //         target_domains[domain_name] = test_target
-    //     }
-    //     this.children[target_name] = target_domains
-    // }
 
     def accept(visitor){
         visitor.visit_test_template_set(this)
