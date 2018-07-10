@@ -1,5 +1,6 @@
 package jp.co.toshiba.ITInfra.acceptance.Model
 
+import groovy.json.*
 import groovy.util.logging.Slf4j
 import groovy.transform.AutoClone
 import groovy.transform.ToString
@@ -27,50 +28,17 @@ class TestTarget extends SpecModel {
     LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]
 
-    def walk( map, Map target_config, root=true ) {
-        map.each { key, value ->
-            if( value instanceof Map ) {
-                // println "$key (${root?'root':'subroot'})"
-                // walk( value, false )
-                // def engine = new groovy.text.SimpleTemplateEngine()
-                // def binding = ["ip":"10.10.10.10"]
-                // def text = engine.createTemplate($key).make(binding)
-                println "MAP($root) : $key "
-                walk( value, target_config, false )
-            }
-            else {
-                println "  NODE: $key, $value"
-                key = text
-            }
-        }
-    }
-
-    def convert_key( map, Map target_config, root=true ) {
-        map.each { key, value ->
-            if( value instanceof Map ) {
-                // println "$key (${root?'root':'subroot'})"
-                // walk( value, false )
-                // def engine = new groovy.text.SimpleTemplateEngine()
-                // def binding = ["ip":"10.10.10.10"]
-                // def text = engine.createTemplate($key).make(binding)
-                println "MAP($root) : $key "
-                convert_key( value, target_config, false )
-            }
-            else {
-                def engine = new groovy.text.SimpleTemplateEngine()
-                def new_key = engine.createTemplate(key).make(target_config)
-                println "  NODE: $key, $text, $value"
-            }
-        }
-    }
-
     def make_template_config(Map template_config, Map target_config) {
-        def target_template_config = template_config.clone()
-        println "CONVERT:"
-        this.convert_key(target_template_config, target_config)
-        println "WALK:"
-        this.walk(target_template_config, target_config)
-        return target_template_config
+        // Parse the JSON conversion result with the template engine
+        // and return the result of JSON decode
+        def json = new JsonBuilder()
+        json(template_config)
+        def template_config_json = json.toPrettyString()
+        def engine = new groovy.text.SimpleTemplateEngine()
+        def template = engine.createTemplate(template_config_json).make(target_config)
+
+        def parsed_template_config = new JsonSlurper().parseText(template.toString())
+        return parsed_template_config
     }
 
     public Map asMap() {
@@ -82,10 +50,8 @@ class TestTarget extends SpecModel {
         def template_config = test_templates[template_id]?.values
         if (template_config && template_config.size() > 0) {
             // this.walk(template_config)
-            println "template_config:$template_config"
-            def target_template_config = this.make_template_config(template_config,
-                                                                   map)
-            map << target_template_config
+            def parsed_config = this.make_template_config(template_config, map)
+            map << parsed_config
         }
         return map
     }

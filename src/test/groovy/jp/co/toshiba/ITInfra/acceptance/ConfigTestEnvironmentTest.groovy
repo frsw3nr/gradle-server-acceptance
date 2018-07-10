@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "ConfigTestEnvironmentTest.エビデンス環境設定"
+// gradle --daemon test --tests "ConfigTestEnvironmentTest.Linux特定パスワード設定"
 
 class ConfigTestEnvironmentTest extends Specification {
 
@@ -51,7 +51,7 @@ class ConfigTestEnvironmentTest extends Specification {
 
     def "Linux特定パスワード設定"() {
         setup:
-        test_target.os_specific_password = 'P@ssword2'
+        test_target.specific_password = 'P@ssword2'
 
         when:
         test_env.read_config(config_file)
