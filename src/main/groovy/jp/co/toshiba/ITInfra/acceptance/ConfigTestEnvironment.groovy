@@ -34,6 +34,7 @@ class ConfigTestEnvironment {
     private get_config_account(Map config_account, String platform, String id) {
         def account = [:]
         if (id) {
+            println "GET_CONFIG_ACCOUNT: $platform, $id"
             account = config_account[platform][id]
             if (!account) {
                 def msg = "Not found parameter 'account.${platform}.${id}' in ${config_file}"

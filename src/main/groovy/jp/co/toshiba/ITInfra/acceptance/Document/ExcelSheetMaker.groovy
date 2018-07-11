@@ -40,17 +40,8 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-// // import org.apache.poi.ss.usermodel
-// import org.apache.poi.ss.usermodel.*
-// // import org.apache.poi.xssf.usermodel.*
-// import org.apache.poi.hpsf.*
-// import org.apache.poi.hssf.usermodel.*
-// import org.apache.poi.hssf.util.*
-// // import org.apache.poi.hssf.usermodel.HSSFWorkbook
-// // import org.apache.poi.ss.usermodel.IndexedColors
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
-
 
 public enum ResultCellStyle {
     NORMAL,
@@ -63,6 +54,20 @@ public enum ResultCellStyle {
     NOTEST,
 }
 
+        // // short black = IndexedColors.BLACK.getIndex();
+        // def black = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
+
+// public enum CellColor {
+//     BLACK(0),
+//     WHITE(1),
+//     LIGHT_GREEN(2),
+//     LIGHT_TURQUOISE(3),
+//     LEMON_CHIFFON(4),
+//     ROSE(5),
+//     RED(6),
+//     GREY_25_PERCENT(7),
+// }
+
 @Slf4j
 @ToString(includePackage = false)
 class ExcelSheetMaker {
@@ -73,12 +78,33 @@ class ExcelSheetMaker {
     ExcelParser excel_parser
     EvidenceMaker evidence_maker
     ReportMaker report_maker
+    def colors = [:]
+
+    final COLOR_BLACK           = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
+    final COLOR_WHITE           = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF))
+    final COLOR_LIGHT_GREEN     = new XSSFColor(new java.awt.Color(0x80, 0xFF, 0x80))
+    final COLOR_LIGHT_TURQUOISE = new XSSFColor(new java.awt.Color(0xCC, 0xFF, 0xFF))
+    final COLOR_LEMON_CHIFFON   = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0x99))
+    final COLOR_ROSE            = new XSSFColor(new java.awt.Color(0xFF, 0x99, 0xCC))
+    final COLOR_RED             = new XSSFColor(new java.awt.Color(0xFF, 0x00, 0x00))
+    final COLOR_GREY_25_PERCENT = new XSSFColor(new java.awt.Color(0xC0, 0xC0, 0xC0))
+
+    // def init_cell_colors() {
+    //     colors[CellColor.BLACK]           = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00));
+    //     colors[CellColor.WHITE]           = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF));
+    //     colors[CellColor.LIGHT_GREEN]     = new XSSFColor(new java.awt.Color(0x80, 0xFF, 0x80));
+    //     colors[CellColor.LIGHT_TURQUOISE] = new XSSFColor(new java.awt.Color(0xCC, 0xFF, 0xFF));
+    //     colors[CellColor.LEMON_CHIFFON]   = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0x99));
+    //     colors[CellColor.ROSE]            = new XSSFColor(new java.awt.Color(0xFF, 0x99, 0xCC));
+    //     colors[CellColor.RED]             = new XSSFColor(new java.awt.Color(0xFF, 0x00, 0x00));
+    //     colors[CellColor.GREY_25_PERCENT] = new XSSFColor(new java.awt.Color(0xC0, 0xC0, 0xC0));
+    // }
 
     def output(String evidence_excel) {
         long start = System.currentTimeMillis()
 
         log.info "Write evidence : '${evidence_excel}'"
-
+        // this.init_cell_colors()
         excel_parser.sheet_sources['report'].with { sheet_design ->
             def report_sheet = this.report_maker?.report_sheet
             if (report_sheet) {
@@ -173,6 +199,8 @@ class ExcelSheetMaker {
 
     def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
         def workbook = excel_parser.workbook
+        // Font font = workbook.createFont();
+        // font.setFontName("ＭＳ Ｐゴシック");
         def result_position = sheet_design.sheet_parser.result_pos
         // println "ROW:$sheet_design.sheet_row"
         def row_style  = workbook.createCellStyle().setWrapText(false)
@@ -368,7 +396,8 @@ class ExcelSheetMaker {
     def set_test_result_cell_style(cell, ResultCellStyle result_cell_type) {
         BorderStyle thin = BorderStyle.THIN;
         // short black = IndexedColors.BLACK.getIndex();
-        def black = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
+        // def black = colors[CellColor.BLACK.value] // new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
+        def black = COLOR_BLACK
         def wb = cell.getRow().getSheet().getWorkbook();
         CellStyle style = wb.createCellStyle();
 
@@ -392,7 +421,8 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.TITLE :
                 // style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF)));
+                // style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF)));
+                style.setFillForegroundColor(COLOR_WHITE)
 
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
@@ -405,7 +435,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.OK :
                 // style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0x80,0xFF,0x80)));
+                style.setFillForegroundColor(COLOR_LIGHT_GREEN)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
@@ -416,7 +446,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.SAME :
                 // style.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xCC, 0xFF, 0xFF)));
+                style.setFillForegroundColor(COLOR_LIGHT_TURQUOISE)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 // font.setColor(IndexedColors.BLACK.getIndex());
@@ -426,7 +456,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.WARNING :
                 // style.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0x99)));
+                style.setFillForegroundColor(COLOR_LEMON_CHIFFON)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 // font.setColor(IndexedColors.BLACK.getIndex());
@@ -436,7 +466,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.NG :
                 // style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0x99, 0xCC)));
+                style.setFillForegroundColor(COLOR_ROSE)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
                 font.setBold(true);
@@ -448,7 +478,7 @@ class ExcelSheetMaker {
             case ResultCellStyle.ERROR :
                 def font = wb.createFont();
                 // font.setColor(IndexedColors.RED.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xFF, 0x00, 0x00)));
+                style.setFillForegroundColor(COLOR_RED)
                 def font_size = font.getFontHeightInPoints()
                 font.setFontHeightInPoints((short)(font_size - 2))
                 style.setFont(font);
@@ -456,7 +486,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.NOTEST :
                 // style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-                style.setFillForegroundColor(new XSSFColor(new java.awt.Color(0xC0, 0xC0, 0xC0)));
+                style.setFillForegroundColor(COLOR_GREY_25_PERCENT)
                 // style.setFillForegroundColor ( HSSFColor.BLACK.index );
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 // style.setFillPattern(CellStyle.SOLID_FOREGROUND);

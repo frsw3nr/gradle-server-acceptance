@@ -110,7 +110,7 @@ class EvidenceMaker {
 
     def extract_added_test_metric(TestScenario test_scenario) {
         def domain_metrics = test_scenario.test_metrics
-        println "EXTRACT_ADDED_TEST_METRIC:${domain_metrics.count()}"
+        // println "EXTRACT_ADDED_TEST_METRIC:${domain_metrics.count()}"
         def domain_targets = test_scenario.get_domain_targets()
         domain_targets.each { domain, test_targets ->
             test_targets.each { target, test_target ->

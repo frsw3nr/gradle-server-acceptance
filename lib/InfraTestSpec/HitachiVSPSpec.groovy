@@ -14,15 +14,16 @@ import com.xlson.groovycsv.CsvParser
 @InheritConstructors
 class HitachiVSPSpec extends WindowsSpecBase {
 
+    String ip
     String report_dir
     final tar_buffer_size = 64 * 1024
 
     def init() {
         super.init()
 
-        def os_account   = test_server.os_account
+        this.ip           = test_platform.test_target.ip ?: 'unkown'
+        def os_account    = test_platform.os_account
         this.report_dir  = os_account['report_dir']
-        this.timeout     = test_server.timeout
     }
 
     def finish() {
@@ -77,7 +78,7 @@ class HitachiVSPSpec extends WindowsSpecBase {
         execPowerShell(script_path, cmd)
         def report_tar = 'hitachi_vsp_raidinf_report.tgz'
         def report_dir = (dry_run) ?
-            "${dry_run_staging_dir}/${platform}/${server_name}/${domain}" :
+            "${dry_run_staging_dir}/${server_name}/${platform}" :
             local_dir
         extract_config_report_tgz("${report_dir}/${report_tar}", local_dir)
         test_items.each {
@@ -89,9 +90,9 @@ class HitachiVSPSpec extends WindowsSpecBase {
                     method.invoke(this, it)
                     long elapsed = System.currentTimeMillis() - start
                     log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-                    it.succeed = 1
+                    // it.succeed = 1
                 } catch (Exception e) {
-                    it.verify_status(false)
+                    it.status(false)
                     log.error "[Test] Test method '${method.name}()' faild, skip.\n" + e
                 }
             }
@@ -128,11 +129,16 @@ class HitachiVSPSpec extends WindowsSpecBase {
     def DkcInfo(TestItem test_item) {
         def headers = ['Storage System Type', 'Serial Number#', 'IP Address', 'Subnet Mask', 'Number of CUs', 'Number of DKBs', 'Configuration Type', 'Model']
         def csv = parse_csv(test_item, 'DkcInfo', headers)
-        def infos = []
+        def infos = [:].withDefault{[]}
         csv.each { row ->
-            infos << ['Type' : row[0], 'Serial' : row[1], 'IP' : row[2], 'Subnet' : row[3]]
+            def colnum = 0
+            ['Type', 'Serial', 'IP', 'Subnet'].each { metric ->
+                infos[metric] << row[colnum]
+                colnum ++
+            }
         }
         test_item.results(infos.toString())
+        test_item.results(infos)
     }
 
     def LdevInfo(TestItem test_item) {

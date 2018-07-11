@@ -301,7 +301,8 @@ class ZabbixSpec extends InfraTestSpec {
                     def macros = [:]
                     host[it].each { macro ->
                         def new_test_id = 'Host.' + macro['macro']
-                        this.test_platform.add_test_metric(new_test_id, 'マクロ')
+                    def desc = test_platform?.test_metrics['Host']?.description
+                        this.test_platform.add_test_metric(new_test_id, desc)
                         host_info[new_test_id] = macro['value']
                         macros[macro['macro']] = macro['value']
                     }
@@ -340,7 +341,7 @@ class ZabbixSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         host_info['Host'] = (hosts.size() == 1) ? hosts[0]['host'] : ''
         test_item.results(host_info)
-        println "ZABBIX_STATUS: ${host_info['status']}"
+        // println "ZABBIX_STATUS: ${host_info['status']}"
         test_item.verify_text_search('status', host_info['status'])
         test_item.verify_text_search('available', host_info['available'])
     }
@@ -458,6 +459,7 @@ class ZabbixSpec extends InfraTestSpec {
         def csv   = []
         def results = [:].withDefault{0}
         def zabbix_info = [:]
+        def result = 'NotFoundError'
         jsons.each { json ->
             def columns = []
             def label_statuses = [:]
@@ -483,18 +485,22 @@ class ZabbixSpec extends InfraTestSpec {
             def label_status = (label_statuses['status'] == '0') ? 'Enabled' : 'Disabled'
             if (label_statuses['state'] != '0') {
                 label_status = 'Error'
+                result = 'ErrorFound'
             }
             def new_test_id = 'trigger.' + description
-            // addAdditionalTestItem(test_item, new_test_id, 'ƒgƒŠƒK[')
-            this.test_platform.add_test_metric(new_test_id, 'トリガー')
+
+            // If the Excel comment set multibyte, garbled characters will occur,
+            // so set the metric's description
+            def desc = test_platform?.test_metrics['trigger']?.description
+            this.test_platform.add_test_metric(new_test_id, desc)
             zabbix_info[new_test_id] = label_status
             csv << columns
         }
-        def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
-        test_item.results(res)
-        zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
+        // def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
+        test_item.results(result)
+        // zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
         test_item.results(zabbix_info)
-        test_item.verify_text_search('trigger', res)
+        test_item.verify_text_search('trigger', result)
         test_item.devices(csv, headers)
     }
 

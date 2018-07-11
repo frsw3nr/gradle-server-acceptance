@@ -1397,7 +1397,7 @@
     "packages": {
         "name": "packages",
         "value": "[RHEL6:1064, COMMON:21]",
-        "error_msg": "'sysstat' not in '[packages.perl-Log-Message-Simple:0.04, packages.alsa-lib:1.0.22, packages.pixman-devel:0.32.4, pack ...'",
+        "error_msg": "'alchemist' not in '[packages.perl-Log-Message-Simple:0.04, packages.alsa-lib:1.0.22, packages.pixman-devel:0.32.4, pack ...'",
         "compare_server": "cent7",
         "status": "OK",
         "verify": "NG",
