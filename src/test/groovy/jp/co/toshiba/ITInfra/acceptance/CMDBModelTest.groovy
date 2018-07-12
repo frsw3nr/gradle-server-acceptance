@@ -17,12 +17,17 @@ class CMDBModelTest extends Specification {
         1 == 1
     }
 
-    // def params = [:]
-    // def config
-    // def evidence_manager
-    // def cmdb_model
+    def params = [:]
+    def config
+    def evidence_manager
+    def cmdb_model
+    ConfigTestEnvironment test_env
 
-    // def setup() {
+    def setup() {
+        config_file = 'src/test/resources/config.groovy'
+        test_env = ConfigTestEnvironment.instance
+        test_env.read_config(config_file)
+
     //     params = [
     //         getconfig_home: System.getProperty("user.dir"),
     //         project_home: 'src/test/resources',
@@ -31,7 +36,7 @@ class CMDBModelTest extends Specification {
     //     evidence_manager = new EvidenceManager(params)
     //     cmdb_model = CMDBModel.instance
     //     cmdb_model.initialize(evidence_manager)
-    // }
+    }
 
     // def "DB登録"() {
     //     when:
