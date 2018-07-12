@@ -28,6 +28,32 @@ class TestTarget extends SpecModel {
     LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]
 
+    def trim_template_config_with_null(Map template_config) {
+        template_config.find { platform, sub_config ->
+            // Remove the element whose value is "null" in the platform setting 
+            // of the second hierarchy
+            if (!(sub_config instanceof Map))
+                return
+            while(sub_config.values().remove("null"));
+
+            // If the platform setting is a map, search for the third hierarchy,
+            // and remove elements with key or value null
+            sub_config.each { key, map ->
+                if (map instanceof Map) {
+                    while(map.values().remove(null));
+                    while(map.values().remove("null"));
+                    while(map.keySet().remove("null"));
+                }
+            }
+        }
+    }
+
+    def print_json(Map map) {
+        def json = new JsonBuilder()
+        json(map)
+        println json.toPrettyString()
+    }
+
     def make_template_config(Map template_config, Map target_config) {
         // Parse the JSON conversion result with the template engine
         // and return the result of JSON decode
@@ -36,8 +62,9 @@ class TestTarget extends SpecModel {
         def template_config_json = json.toPrettyString()
         def engine = new groovy.text.SimpleTemplateEngine()
         def template = engine.createTemplate(template_config_json).make(target_config)
-
         def parsed_template_config = new JsonSlurper().parseText(template.toString())
+        trim_template_config_with_null(parsed_template_config)
+        // print_json(parsed_template_config)
         return parsed_template_config
     }
 
@@ -49,7 +76,6 @@ class TestTarget extends SpecModel {
 
         def template_config = test_templates[template_id]?.values
         if (template_config && template_config.size() > 0) {
-            // this.walk(template_config)
             def parsed_config = this.make_template_config(template_config, map)
             map << parsed_config
         }
