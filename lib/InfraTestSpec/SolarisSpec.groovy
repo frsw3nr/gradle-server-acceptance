@@ -305,8 +305,9 @@ class SolarisSpec extends InfraTestSpec {
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
-        test_item.results(infos.toString())
-        test_item.verify_text_search_map('network', device_ip)
+        test_item.results(['network': "$infos", 'net_ip': "$device_ip"])
+        // test_item.verify_text_search_map('network', device_ip)
+        test_item.verify_text_search_list('net_ip', device_ip)
     }
 
     // def net_onboot(session, test_item) {

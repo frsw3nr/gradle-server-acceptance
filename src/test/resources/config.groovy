@@ -1,12 +1,6 @@
 // 検査仕様シート定義
 
 evidence.source = './src/test/resources/check_sheet.xlsx'
-// evidence.sheet_name_server = 'Target'
-// evidence.sheet_name_rule = 'Rule'
-// evidence.sheet_name_spec = [
-//     'Linux':   'CheckSheet(Linux)',
-//     'Windows': 'CheckSheet(Windows)',
-// ]
 
 // 検査結果ファイル出力先
 
@@ -18,33 +12,6 @@ evidence.staging_dir='./build/log'
 
 // 検査、検証結果ディレクトリ
 evidence.result_dir='./src/test/resources/json'
-
-// レポート変換マップ
-
-report.item_map.target = [
-    'server'        : 'name',
-    'domain'        : 'domain',
-    'successrate'   : 'success_rate',
-    'verifycomment' : 'verify_comment',
-]
-
-report.item_map.platform.Linux = [
-    'os'   : 'os',
-    'os2'  : 'arch',
-    'cpu'  : 'cpu_total',
-    'mem'  : 'mem_total',
-    'disk' : 'filesystem',
-    'net'  : 'net_ip',
-]
-
-report.item_map.platform.Windows = [
-    'os'   : 'os_caption',
-    'os2'  : 'os_architecture',
-    'cpu'  : 'cpu_total',
-    'mem'  : 'visible_memory',
-    'disk' : 'filesystem',
-    'net'  : 'network',
-]
 
 // 並列化しないタスク
 
