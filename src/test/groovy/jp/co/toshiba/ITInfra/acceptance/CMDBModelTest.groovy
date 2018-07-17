@@ -5,26 +5,19 @@ import groovy.json.*
 import groovy.sql.Sql
 import java.sql.*
 
-// gradle --daemon test --tests "CMDBModelTest"
+// gradle --daemon test --tests "CMDBModelTest.設定読み込み"
 
 class CMDBModelTest extends Specification {
-
-    def ダミーテスト() {
-        when:
-        println 'Test'
-
-        then:
-        1 == 1
-    }
 
     def params = [:]
     def config
     def evidence_manager
+    def cmdb_config
     def cmdb_model
     ConfigTestEnvironment test_env
 
     def setup() {
-        config_file = 'src/test/resources/config.groovy'
+        def config_file = 'src/test/resources/config.groovy'
         test_env = ConfigTestEnvironment.instance
         test_env.read_config(config_file)
 
@@ -36,6 +29,18 @@ class CMDBModelTest extends Specification {
     //     evidence_manager = new EvidenceManager(params)
     //     cmdb_model = CMDBModel.instance
     //     cmdb_model.initialize(evidence_manager)
+    }
+
+    def 設定読み込み() {
+        when:
+        cmdb_config = test_env.read_cmdb_config()
+        def json = new groovy.json.JsonBuilder()
+        json(cmdb_config)
+        println json.toPrettyString()
+        // println "CMDB_CONFIG: $cmdb_config"
+
+        then:
+        1 == 1
     }
 
     // def "DB登録"() {

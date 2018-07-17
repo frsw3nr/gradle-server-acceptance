@@ -12,10 +12,22 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 class ConfigTestEnvironment {
     String config_file
     ConfigObject config
+    ConfigObject cmdb_config
 
     def read_config(String config_file = 'config/config.groovy') {
         this.config_file = config_file
         this.config = Config.instance.read(config_file)
+    }
+
+    def read_cmdb_config() {
+        if (! this.cmdb_config) {
+            def cmdb_config_path = this.get_cmdb_config_path()
+            if(!(new File(cmdb_config_path)).exists()){
+                throw new IOException("Not found CMDB config file : ${cmdb_config_path}")
+            }
+            this.cmdb_config =  Config.instance.read(cmdb_config_path)
+        }
+        return this.cmdb_config
     }
 
     def read_from_test_runner(TestRunner test_runner) {
@@ -77,6 +89,11 @@ class ConfigTestEnvironment {
 
     def get_tenant_name() {
         return '_Default'
+    }
+
+    def get_cmdb_config_path() {
+        def project_home = this.get_project_home()
+        return "${project_home}/config/cmdb.groovy"
     }
 
     def get_last_run_config() {
