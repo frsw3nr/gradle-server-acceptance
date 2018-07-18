@@ -19,17 +19,6 @@ class ConfigTestEnvironment {
         this.config = Config.instance.read(config_file)
     }
 
-    def read_cmdb_config() {
-        if (! this.cmdb_config) {
-            def cmdb_config_path = this.get_cmdb_config_path()
-            if(!(new File(cmdb_config_path)).exists()){
-                throw new IOException("Not found CMDB config file : ${cmdb_config_path}")
-            }
-            this.cmdb_config =  Config.instance.read(cmdb_config_path)
-        }
-        return this.cmdb_config
-    }
-
     def read_from_test_runner(TestRunner test_runner) {
         def test_runner_config = test_runner.getProperties() as Map
 
@@ -41,6 +30,19 @@ class ConfigTestEnvironment {
                 return
             this.config."$name" = value
         }
+    }
+
+    def get_cmdb_config(String cmdb_config_path = null) {
+        if (! this.cmdb_config) {
+            if (!cmdb_config_path) {
+                cmdb_config_path = this.get_cmdb_config_path()
+            }
+            if(!(new File(cmdb_config_path)).exists()){
+                throw new IOException("Not found CMDB config file : ${cmdb_config_path}")
+            }
+            this.cmdb_config =  Config.instance.read(cmdb_config_path)
+        }
+        return this.cmdb_config
     }
 
     private get_config_account(Map config_account, String platform, String id) {
@@ -92,8 +94,13 @@ class ConfigTestEnvironment {
     }
 
     def get_cmdb_config_path() {
-        def project_home = this.get_project_home()
+        def project_home = this.get_getconfig_home()
         return "${project_home}/config/cmdb.groovy"
+    }
+
+    def get_create_db_sql() {
+        def project_home = this.get_project_home()
+        return "${project_home}/lib/script/cmdb/create_db.sql"
     }
 
     def get_last_run_config() {

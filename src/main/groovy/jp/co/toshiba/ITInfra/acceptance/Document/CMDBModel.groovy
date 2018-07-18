@@ -2,6 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.io.FileType
 import groovy.util.logging.Slf4j
+import groovy.transform.ToString
 import static groovy.json.JsonOutput.*
 import groovy.json.*
 import org.apache.commons.io.FileUtils
@@ -10,12 +11,47 @@ import java.sql.*
 
 @Slf4j
 @Singleton
+@ToString(includePackage = false)
 class CMDBModel {
 
     final static def current_build = 1
-    EvidenceManager evidence_manager
+    ConfigObject cmdb_config
+    def create_db_sql
     def cmdb
     def cmdb_cache = [:]
+
+    def set_environment(ConfigTestEnvironment env) {
+        this.cmdb_config   = env.get_cmdb_config()
+        this.create_db_sql = env.get_create_db_sql()
+    }
+
+    def initialize() throws IOException, SQLException {
+        if (!this.cmdb) {
+            def config_ds = this.cmdb_config?.cmdb?.dataSource
+            if (!config_ds) {
+                def msg = "Config not found cmdb.dataSource in 'cmdb.config'"
+                throw new IllegalArgumentException(msg)
+            }
+            this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
+                                  config_ds['password'], config_ds['driver'])
+        }
+
+        // Confirm existence of Version table. If not, execute db create script
+        def cmdb_exists = false
+        try {
+            List rows = this.cmdb.rows('select * from tenants')
+            if (rows.size()) {
+                cmdb_exists = true
+            }
+        } catch (SQLException e) {
+            log.warn "VERSION table not found in CMDB, Create tables"
+        }
+        if (!cmdb_exists) {
+            def create_sqls = new File(this.create_db_sql).text.split(/;\s*\n/).each {
+                this.cmdb.execute it
+            }
+        }
+    }
 
     def registMaster(table_name, columns) throws SQLException {
         def cache_key = table_name + columns.toString()
@@ -163,38 +199,4 @@ class CMDBModel {
 
         cmdb.rows(sql, server_name)
     }
-
-    def initialize(EvidenceManager evidence_manager) throws IOException, SQLException {
-        if (!this.cmdb) {
-            this.evidence_manager = evidence_manager
-            def db_config = evidence_manager.db_config
-            def config_db = Config.instance.read(db_config)
-            def config_ds = config_db?.cmdb?.dataSource
-            if (!config_ds) {
-                def msg = "Config not found cmdb.dataSource: ${db_config}"
-                throw new IllegalArgumentException(msg)
-            }
-            this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
-                                  config_ds['password'], config_ds['driver'])
-        }
-
-        // Confirm existence of Version table. If not, execute db create script
-        def cmdb_exists = false
-        try {
-            List rows = this.cmdb.rows('select * from tenants')
-            if (rows.size()) {
-                cmdb_exists = true
-            }
-        } catch (SQLException e) {
-            log.warn "VERSION table not found in CMDB, Create tables"
-        }
-        if (!cmdb_exists) {
-            def getconfig_home = evidence_manager.getconfig_home
-            def create_db_script = "${getconfig_home}/lib/script/cmdb/create_db.sql"
-            def create_sqls = new File(create_db_script).text.split(/;\s*\n/).each {
-                this.cmdb.execute it
-            }
-        }
-    }
-
 }
