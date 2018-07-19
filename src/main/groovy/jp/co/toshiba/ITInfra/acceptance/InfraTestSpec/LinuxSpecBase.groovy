@@ -322,6 +322,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def lines = exec('network') {
             run_ssh_command(session, '/sbin/ip addr', 'network')
         }
+        println "NETWORK!!NETWORK!!NETWORK!!"
         def csv        = []
         def network    = [:].withDefault{[:]}
         def net_ip     = [:]
@@ -375,12 +376,13 @@ class LinuxSpecBase extends InfraTestSpec {
             net_ip[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
-        test_item.devices(csv, headers)
+        println "HEADERS:$headers, CSV:$csv"
         test_item.results(
                 'network' : net_ip.keySet().toString(),
                 'net_ip': net_ip.toString(),
                 'hw_address' : hw_address.toString()
         )
+        test_item.devices(csv, headers)
         test_item.verify_text_search_list('net_ip', net_ip)
         // test_item.verify_text_search_map('net_ip', net_ip)
     }

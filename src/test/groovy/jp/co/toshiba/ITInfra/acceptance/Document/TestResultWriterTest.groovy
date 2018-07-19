@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TestResultWriterTest.比較対象の DryRun 実行とJSON結果保存"
+// gradle --daemon test --tests "TestResultWriterTest.DryRun 実行結果JSON保存"
 
 class TestResultWriterTest extends Specification {
 

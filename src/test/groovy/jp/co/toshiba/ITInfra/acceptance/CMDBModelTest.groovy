@@ -164,17 +164,22 @@ class CMDBModelTest extends Specification {
     //     1 == 1
     // }
 
-    // def "ノード定義のエクスポート"() {
-    //     when:
-    //     cmdb_model.export(new File('src/test/resources/node/').getAbsolutePath())
-    //     def node = cmdb_model.cmdb.rows("select * from nodes")
-    //     def result = cmdb_model.cmdb.rows("select * from test_results where node_id = 1")
+    def "ノード定義のエクスポート"() {
+        when:
+        cmdb_model.export(new File('src/test/resources/node/').getAbsolutePath())
+        def node = cmdb_model.cmdb.rows("select * from nodes")
+        def result = cmdb_model.cmdb.rows("select * from test_results where node_id = 1")
+        def metric = cmdb_model.cmdb.rows("select * from metrics")
 
-    //     then:
-    //     node[0]['node_name'].size() > 0
-    //     node[1]['node_name'].size() > 0
-    //     result.size() > 0
-    // }
+        then:
+        def json = new groovy.json.JsonBuilder()
+        json(metric)
+        println json.toPrettyString()
+        node[0]['node_name'].size() > 0
+        node[1]['node_name'].size() > 0
+        result.size() > 0
+        // 1 == 1
+    }
 
     // def "CMDBメトリック検索"() {
     //     when:

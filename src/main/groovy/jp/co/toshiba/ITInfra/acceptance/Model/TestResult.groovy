@@ -25,10 +25,10 @@ class TestResult extends SpecModel {
                    verify : verify, comparision : comparision]
         map << this.custom_fields
 
-        // map['devices'] = [
-        //     'header' : devices?.header,
-        //     'csv' : devices?.csv,
-        // ]
+        if (this.devices) {
+            map['devices'] = this.devices.asMap()
+        }
+
         return map
     }
 
