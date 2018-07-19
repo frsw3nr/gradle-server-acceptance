@@ -109,7 +109,7 @@ class CMDBModel {
         def rownum = 1
         def header = device_info.header
         def csv = device_info.csv
-        println "REGISTDEVICE: ${node_id}, ${metric_id}, ${header}, ${csv}"
+        log.debug "Regist device: ${node_id}, ${metric_id}, ${header}"
         csv.each { line ->
             def keys = [node_id: node_id, metric_id: metric_id, seq: rownum]
             def colnum = 0
@@ -117,21 +117,12 @@ class CMDBModel {
             line.each { value ->
                 def item_name = header[colnum]
                 def columns = keys + [item_name: item_name, value: value]
-                println "COLUMNS:$columns"
+                log.debug "Set device_results: $columns"
                 cmdb.dataSet('device_results').add(columns)
                 colnum ++
             }
-            println "LINE: ${header.size()}, ${line.size()}"
             rownum ++
         }
-        // devices.each { device ->
-        //     def keys = [node_id: node_id, metric_id: metric_id, seq: seq]
-        //     device.each { item_name, value ->
-        //         def columns = keys + [item_name: item_name, value: value]
-        //         cmdb.dataSet('device_results').add(columns)
-        //     }
-        //     seq ++
-        // }
     }
 
     def export(String node_config_source) throws IOException, SQLException,
@@ -142,9 +133,8 @@ class CMDBModel {
         def site_id   = registMaster("sites", [site_name: this.project_name])
         def tenant_id = registMaster("tenants", [tenant_name: this.tenant_name])
 
-        new File(node_config_source).eachDir {
-            println "CHECK : ${it.name}"
-            def node_name = it.name
+        new File(node_config_source).eachDir { node_dir ->
+            def node_name = node_dir.name
             log.info "Regist node ${node_name}"
             def node_id = registMaster("nodes",
                                        [node_name: node_name,
@@ -152,18 +142,16 @@ class CMDBModel {
             registMaster("site_nodes", [site_id: site_id, node_id: node_id])
             def device_metric = [:]
             def set_flag_sql = 'update metrics set device_flag = true where id = ?'
-            it.eachFile { 
+            node_dir.eachFile { 
                 ( it.name =~ /(.+).json/ ).each { json_file, domain_name ->
                     def domain_id = registMaster("domains", [domain_name: domain_name])
                     def metrics = new JsonSlurper().parseText(it.text)
-                    // def json = new groovy.json.JsonBuilder()
-                    // json(metrics)
-                    // println json.toPrettyString()
                     metrics.each { metric_name, metric ->
                         def metric_value = metric.value
                         if (metric.devices) {
+                            // Regist device
                             device_metric[metric_name] = true
-                            println "DEVICE: $node_name, $domain_name, $metric_name"
+                            log.debug "Regist device ${metric_name}"
                             def metric_id = registMaster("metrics",
                                                          [metric_name: metric_name,
                                                           domain_id: domain_id])
@@ -175,6 +163,8 @@ class CMDBModel {
                             }
 
                         } else {
+                            // Regist metric
+                            // Skip if postfix is ​​device name
                             def is_device_metric = false
                             (metric_name =~ /^(.+?)\./).each { check_metric, postfix ->
                                 if (device_metric.containsKey(postfix))
@@ -191,58 +181,6 @@ class CMDBModel {
                     }
                 }
             }
-
-            // def domain_name = it.name
-            // log.info "Regist domain ${domain_name}"
-            // def domain_id = registMaster("domains", [domain_name: domain_name])
-            // def domain_dir = "${node_config_source}/${domain_name}"
-
-            // // Regist Metrics
-            // new File(domain_dir).eachFile {
-            //     ( it.name =~ /(.+).json/ ).each { json_file, node_name ->
-            //         def metric_text = new File("${domain_dir}/${json_file}").text
-            //         def metrics = new JsonSlurper().parseText(metric_text)
-
-            //         def json = new groovy.json.JsonBuilder()
-            //         json(metrics)
-            //         println json.toPrettyString()
-
-            //         // log.info "Regist node ${node_name}"
-            //         // def node_id = registMaster("nodes", [node_name: node_name,
-            //         //                            tenant_id: tenant_id])
-            //         // registMaster("site_nodes", [site_id: site_id, node_id: node_id])
-            //         // metrics.each { metric ->
-            //         //     log.debug "Regist metric ${metric}"
-            //         //     def metric_id = registMaster("metrics",
-            //         //                                 [metric_name: metric?.test_id,
-            //         //                                  domain_id: domain_id])
-            //         //     registMetric(node_id, metric_id, metric)
-            //         // }
-            //     }
-            // }
-
-            // // Regist Devices
-            // new File(domain_dir).eachDir {
-            //     def node_name = it.name
-            //     def node_id = registMaster("nodes", [node_name: node_name,
-            //                                tenant_id: tenant_id])
-            //     registMaster("site_nodes", [site_id: site_id, node_id: node_id])
-            //     def device_dir = "${domain_dir}/${node_name}"
-                // def set_flag_sql = 'update metrics set device_flag = true where id = ?'
-            //     new File(device_dir).eachFile {
-            //         ( it.name =~/(.+).json/).each { json_file, metric_name->
-            //             def device_text = new File("${device_dir}/${json_file}").text
-            //             def devices = new JsonSlurper().parseText(device_text)
-            //             log.info "Regist device ${node_name} ${metric_name}"
-            //             def metric_id = registMaster("metrics",
-            //                                         [metric_name: metric_name,
-            //                                          domain_id: domain_id])
-            //             registDevice(node_id, metric_id, devices)
-            //             cmdb.execute(set_flag_sql, metric_id)
-
-            //         }
-            //     }
-            // }
         }
         long elapsed = System.currentTimeMillis() - start
         log.info "Export, Elapsed : ${elapsed} ms"

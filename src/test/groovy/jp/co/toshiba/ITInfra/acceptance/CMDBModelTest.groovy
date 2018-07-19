@@ -5,7 +5,7 @@ import groovy.json.*
 import groovy.sql.Sql
 import java.sql.*
 
-// gradle --daemon test --tests "CMDBModelTest.設定読み込み"
+// gradle --daemon test --tests "CMDBModelTest.ノード定義のエクスポート"
 
 class CMDBModelTest extends Specification {
 
