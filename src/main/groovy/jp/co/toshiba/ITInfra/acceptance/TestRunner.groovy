@@ -55,7 +55,7 @@ class TestRunner {
             s longOpt: 'server',   args: 1, 'Keyword of target server'
             t longOpt: 'test',     args: 1, 'Keyword of test metric'
             u longOpt: 'update',   args: 1, 'Update node config',
-                argName:'local|db'
+                argName:'local|db|db-all'
             _ longOpt: 'parallel', args: 1, 'Degree of test runner processes'
                 argName:'n'
             _ longOpt: 'encode',   args: 1, 'Encode config file',
@@ -165,7 +165,7 @@ class TestRunner {
             test_env.read_from_test_runner(test_runner)
         } catch (Exception e) {
             log.error "Fatal error : " + e
-            System.exit(0)
+            System.exit(1)
         }
         if (test_runner.command == RunnerCommand.SCHEDULER) {
             def test_scheduler = new TestScheduler()
@@ -180,13 +180,16 @@ class TestRunner {
             }
         } else if (test_runner.command == RunnerCommand.EXPORT) {
             def evidence_manager = new EvidenceManager()
-            // test_env.set_evidence_manager_environment(test_scheduler)
+            test_env.get_cmdb_config()
             test_env.accept(evidence_manager)
             try {
+                if (test_runner.export_type =~ /db/) {
+                    test_env.accept(CMDBModel.instance)
+                }
                 evidence_manager.update(test_runner.export_type)
             } catch (Exception e) {
                 log.error "Fatal error : " + e
-                System.exit(0)
+                System.exit(1)
             }
         }
         long elapsed = System.currentTimeMillis() - start

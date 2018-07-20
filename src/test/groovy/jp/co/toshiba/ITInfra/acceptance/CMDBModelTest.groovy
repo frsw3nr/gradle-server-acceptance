@@ -1,11 +1,12 @@
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
 import static groovy.json.JsonOutput.*
 import groovy.json.*
 import groovy.sql.Sql
 import java.sql.*
+import jp.co.toshiba.ITInfra.acceptance.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "CMDBModelTest.ノード定義のエクスポート"
+// gradle --daemon test --tests "CMDBModelTest.メトリック登録"
 
 class CMDBModelTest extends Specification {
 
@@ -114,9 +115,9 @@ class CMDBModelTest extends Specification {
 
     def "メトリック登録"() {
         when:
-        def metric = ["value": "value01", "verify": true]
+        def metric = ["value": "value01", "verify": ResultStatus.OK]
         cmdb_model.registMetric(1, 1, metric)
-        def metric2 = ["value": "value02", "verify": false]
+        def metric2 = ["value": "value02", "verify": ResultStatus.NG]
         cmdb_model.registMetric(1, 2, metric2)
         def metric3 = ["value": "value03"]
         cmdb_model.registMetric(1, 3, metric3)
@@ -138,9 +139,12 @@ class CMDBModelTest extends Specification {
                                     [metric_name: 'metric1',
                                      domain_id: 1])
         def devices = [
-            ["value": "value01", "verify": true],
-            ["value": "value02", "verify": false],
-            ["value": "value03"],
+            header: ['value', 'verify'],
+            csv: [
+                ["value01", true],
+                ["value02", false],
+                ["value03"],
+            ]
         ]
         cmdb_model.registDevice(1, metric_id, devices)
 

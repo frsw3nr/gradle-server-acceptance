@@ -34,7 +34,7 @@ class CMDBModel {
         if (!this.cmdb) {
             def config_ds = this.cmdb_config?.cmdb?.dataSource
             if (!config_ds) {
-                def msg = "Config not found cmdb.dataSource in 'cmdb.config'"
+                def msg = "Config not found cmdb.dataSource in 'config/cmdb.groovy'"
                 throw new IllegalArgumentException(msg)
             }
             this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],

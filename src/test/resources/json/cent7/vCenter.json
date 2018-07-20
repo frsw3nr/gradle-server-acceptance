@@ -51,7 +51,30 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "living-data1",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\living-data1",
+                    "VMFS",
+                    "Available"
+                ],
+                [
+                    "datastore1",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore1",
+                    "VMFS",
+                    "Available"
+                ]
+            ],
+            "header": [
+                "target",
+                "Name",
+                "DatastoreBrowserPath",
+                "Type",
+                "State"
+            ]
+        }
     },
     "VMNetwork": {
         "name": "VMNetwork",
@@ -60,7 +83,22 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "LIVING-LAN",
+                    "Vmxnet3",
+                    "Connected, GuestControl, StartConnected"
+                ]
+            ],
+            "header": [
+                "target",
+                "NetworkName",
+                "Type",
+                "ConnectionState"
+            ]
+        }
     },
     "vmwaretool": {
         "name": "vmwaretool",
@@ -105,6 +143,26 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "[datastore1] cent7/cent7.vmdk",
+                    "Thick",
+                    "16"
+                ],
+                [
+                    "[living-data1] cent7/cent7_1.vmdk",
+                    "Thin",
+                    "16"
+                ]
+            ],
+            "header": [
+                "target",
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
+            ]
+        }
     }
 }

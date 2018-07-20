@@ -186,7 +186,44 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "lo",
+                    "127.0.0.1/8",
+                    "NaN",
+                    "NaN",
+                    "NaN",
+                    "255.0.0.0"
+                ],
+                [
+                    "ens160",
+                    "192.168.0.20/24",
+                    "1500",
+                    "UP",
+                    "00:0c:29:5a:f4:b8",
+                    "255.255.255.0"
+                ],
+                [
+                    "docker0",
+                    "172.17.0.1/16",
+                    "1500",
+                    "DOWN",
+                    "02:42:72:5e:b6:ae",
+                    "255.255.0.0"
+                ]
+            ],
+            "header": [
+                "target",
+                "device",
+                "ip",
+                "mtu",
+                "state",
+                "mac",
+                "subnet"
+            ]
+        }
     },
     "net_ip": {
         "name": "net_ip",
@@ -258,7 +295,128 @@
         "compare_server": null,
         "status": "OK",
         "verify": "OK",
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "fd0",
+                    "2:0",
+                    "1",
+                    "4K",
+                    "0",
+                    "disk"
+                ],
+                [
+                    "sda",
+                    "8:0",
+                    "0",
+                    "16G",
+                    "0",
+                    "disk"
+                ],
+                [
+                    "|-sda1",
+                    "8:1",
+                    "0",
+                    "500M",
+                    "0",
+                    "part",
+                    "/boot"
+                ],
+                [
+                    "`-sda2",
+                    "8:2",
+                    "0",
+                    "15.5G",
+                    "0",
+                    "part"
+                ],
+                [
+                    "  |-centos-root",
+                    "253:0",
+                    "0",
+                    "13.9G",
+                    "0",
+                    "lvm",
+                    "/"
+                ],
+                [
+                    "  |-centos-swap",
+                    "253:1",
+                    "0",
+                    "1.6G",
+                    "0",
+                    "lvm",
+                    "[SWAP]"
+                ],
+                [
+                    "  `-centos-docker--poolmeta",
+                    "253:2",
+                    "0",
+                    "16M",
+                    "0",
+                    "lvm"
+                ],
+                [
+                    "sdb",
+                    "8:16",
+                    "0",
+                    "16G",
+                    "0",
+                    "disk"
+                ],
+                [
+                    "sr0",
+                    "11:0",
+                    "1",
+                    "1024M",
+                    "0",
+                    "rom"
+                ],
+                [
+                    "loop0",
+                    "7:0",
+                    "0",
+                    "100G",
+                    "0",
+                    "loop"
+                ],
+                [
+                    "`-docker-253:0-51028406-pool",
+                    "253:3",
+                    "0",
+                    "100G",
+                    "0",
+                    "dm"
+                ],
+                [
+                    "loop1",
+                    "7:1",
+                    "0",
+                    "2G",
+                    "0",
+                    "loop"
+                ],
+                [
+                    "`-docker-253:0-51028406-pool",
+                    "253:3",
+                    "0",
+                    "100G",
+                    "0",
+                    "dm"
+                ]
+            ],
+            "header": [
+                "target",
+                "name",
+                "maj:min",
+                "rm",
+                "size",
+                "ro",
+                "type",
+                "mountpoint"
+            ]
+        }
     },
     "filesystem./boot": {
         "name": "filesystem./boot",
@@ -303,7 +461,22 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "centos",
+                    "root",
+                    "/"
+                ]
+            ],
+            "header": [
+                "target",
+                "vg_name",
+                "lv_name",
+                "mountpoint"
+            ]
+        }
     },
     "user": {
         "name": "user",
@@ -312,7 +485,268 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "root",
+                    "0",
+                    "0",
+                    "root",
+                    "/root",
+                    "/bin/bash"
+                ],
+                [
+                    "bin",
+                    "1",
+                    "1",
+                    "bin",
+                    "/bin",
+                    "/sbin/nologin"
+                ],
+                [
+                    "daemon",
+                    "2",
+                    "2",
+                    "daemon",
+                    "/sbin",
+                    "/sbin/nologin"
+                ],
+                [
+                    "adm",
+                    "3",
+                    "4",
+                    "adm",
+                    "/var/adm",
+                    "/sbin/nologin"
+                ],
+                [
+                    "lp",
+                    "4",
+                    "7",
+                    "lp",
+                    "/var/spool/lpd",
+                    "/sbin/nologin"
+                ],
+                [
+                    "sync",
+                    "5",
+                    "0",
+                    "root",
+                    "/sbin",
+                    "/bin/sync"
+                ],
+                [
+                    "shutdown",
+                    "6",
+                    "0",
+                    "root",
+                    "/sbin",
+                    "/sbin/shutdown"
+                ],
+                [
+                    "halt",
+                    "7",
+                    "0",
+                    "root",
+                    "/sbin",
+                    "/sbin/halt"
+                ],
+                [
+                    "mail",
+                    "8",
+                    "12",
+                    "mail",
+                    "/var/spool/mail",
+                    "/sbin/nologin"
+                ],
+                [
+                    "operator",
+                    "11",
+                    "0",
+                    "root",
+                    "/root",
+                    "/sbin/nologin"
+                ],
+                [
+                    "games",
+                    "12",
+                    "100",
+                    "users",
+                    "/usr/games",
+                    "/sbin/nologin"
+                ],
+                [
+                    "ftp",
+                    "14",
+                    "50",
+                    "ftp",
+                    "/var/ftp",
+                    "/sbin/nologin"
+                ],
+                [
+                    "nobody",
+                    "99",
+                    "99",
+                    "nobody",
+                    "/",
+                    "/sbin/nologin"
+                ],
+                [
+                    "avahi-autoipd",
+                    "170",
+                    "170",
+                    "avahi-autoipd",
+                    "/var/lib/avahi-autoipd",
+                    "/sbin/nologin"
+                ],
+                [
+                    "systemd-bus-proxy",
+                    "999",
+                    "997",
+                    "systemd-bus-proxy",
+                    "/",
+                    "/sbin/nologin"
+                ],
+                [
+                    "systemd-network",
+                    "998",
+                    "996",
+                    "systemd-network",
+                    "/",
+                    "/sbin/nologin"
+                ],
+                [
+                    "dbus",
+                    "81",
+                    "81",
+                    "dbus",
+                    "/",
+                    "/sbin/nologin"
+                ],
+                [
+                    "polkitd",
+                    "997",
+                    "995",
+                    "polkitd",
+                    "/",
+                    "/sbin/nologin"
+                ],
+                [
+                    "tss",
+                    "59",
+                    "59",
+                    "tss",
+                    "/dev/null",
+                    "/sbin/nologin"
+                ],
+                [
+                    "postfix",
+                    "89",
+                    "89",
+                    "postfix",
+                    "/var/spool/postfix",
+                    "/sbin/nologin"
+                ],
+                [
+                    "sshd",
+                    "74",
+                    "74",
+                    "sshd",
+                    "/var/empty/sshd",
+                    "/sbin/nologin"
+                ],
+                [
+                    "psadmin",
+                    "1000",
+                    "1000",
+                    "psadmin",
+                    "/home/psadmin",
+                    "/bin/bash"
+                ],
+                [
+                    "dockerroot",
+                    "996",
+                    "993",
+                    "dockerroot",
+                    "/var/lib/docker",
+                    "/sbin/nologin"
+                ],
+                [
+                    "apache",
+                    "48",
+                    "48",
+                    "apache",
+                    "/usr/share/httpd",
+                    "/sbin/nologin"
+                ],
+                [
+                    "pegasus",
+                    "66",
+                    "65",
+                    "pegasus",
+                    "/var/lib/Pegasus",
+                    "/sbin/nologin"
+                ],
+                [
+                    "saslauth",
+                    "995",
+                    "76",
+                    "saslauth",
+                    "/run/saslauthd",
+                    "/sbin/nologin"
+                ],
+                [
+                    "tomcat",
+                    "91",
+                    "91",
+                    "tomcat",
+                    "/usr/share/tomcat",
+                    "/sbin/nologin"
+                ],
+                [
+                    "mysql",
+                    "27",
+                    "27",
+                    "mysql",
+                    "/var/lib/mysql",
+                    "/sbin/nologin"
+                ],
+                [
+                    "elasticsearch",
+                    "994",
+                    "992",
+                    "elasticsearch",
+                    "/usr/share/elasticsearch",
+                    "/sbin/nologin"
+                ],
+                [
+                    "fess",
+                    "993",
+                    "991",
+                    "fess",
+                    "/var/lib/fess",
+                    "/sbin/nologin"
+                ],
+                [
+                    "someuser",
+                    "1001",
+                    "1001",
+                    "someuser",
+                    "/home/someuser",
+                    "/bin/bash"
+                ]
+            ],
+            "header": [
+                "target",
+                "UserName",
+                "UserID",
+                "GroupID",
+                "Group",
+                "Home",
+                "Shell"
+            ]
+        }
     },
     "user.root": {
         "name": "user.root",
@@ -618,7 +1052,360 @@
         "compare_server": null,
         "status": "OK",
         "verify": "OK",
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "auditd",
+                    "active.running"
+                ],
+                [
+                    "blk-availability",
+                    "active.exited"
+                ],
+                [
+                    "brandbot",
+                    "inactive.dead"
+                ],
+                [
+                    "cpupower",
+                    "inactive.dead"
+                ],
+                [
+                    "crond",
+                    "active.running"
+                ],
+                [
+                    "dbus",
+                    "active.running"
+                ],
+                [
+                    "dm-event",
+                    "inactive.dead"
+                ],
+                [
+                    "dmraid-activation",
+                    "inactive.dead"
+                ],
+                [
+                    "docker",
+                    "active.running"
+                ],
+                [
+                    "dracut-shutdown",
+                    "inactive.dead"
+                ],
+                [
+                    "ebtables",
+                    "inactive.dead"
+                ],
+                [
+                    "elasticsearch",
+                    "active.running"
+                ],
+                [
+                    "emergency",
+                    "inactive.dead"
+                ],
+                [
+                    "firewalld",
+                    "active.running"
+                ],
+                [
+                    "getty@tty1",
+                    "active.running"
+                ],
+                [
+                    "httpd",
+                    "active.running"
+                ],
+                [
+                    "irqbalance",
+                    "inactive.dead"
+                ],
+                [
+                    "kdump",
+                    "active.exited"
+                ],
+                [
+                    "kmod-static-nodes",
+                    "active.exited"
+                ],
+                [
+                    "lvm2-lvmetad",
+                    "active.running"
+                ],
+                [
+                    "lvm2-lvmpolld",
+                    "inactive.dead"
+                ],
+                [
+                    "lvm2-monitor",
+                    "active.exited"
+                ],
+                [
+                    "lvm2-pvscan@8:2",
+                    "active.exited"
+                ],
+                [
+                    "mdmonitor",
+                    "inactive.dead"
+                ],
+                [
+                    "microcode",
+                    "inactive.dead"
+                ],
+                [
+                    "multipathd",
+                    "inactive.dead"
+                ],
+                [
+                    "mysqld",
+                    "active.running"
+                ],
+                [
+                    "network",
+                    "active.exited"
+                ],
+                [
+                    "NetworkManager-wait-online",
+                    "active.exited"
+                ],
+                [
+                    "NetworkManager",
+                    "active.running"
+                ],
+                [
+                    "plymouth-quit-wait",
+                    "inactive.dead"
+                ],
+                [
+                    "plymouth-quit",
+                    "inactive.dead"
+                ],
+                [
+                    "plymouth-read-write",
+                    "inactive.dead"
+                ],
+                [
+                    "plymouth-start",
+                    "inactive.dead"
+                ],
+                [
+                    "polkit",
+                    "active.running"
+                ],
+                [
+                    "postfix",
+                    "active.running"
+                ],
+                [
+                    "rc-local",
+                    "inactive.dead"
+                ],
+                [
+                    "rescue",
+                    "inactive.dead"
+                ],
+                [
+                    "rhel-autorelabel-mark",
+                    "inactive.dead"
+                ],
+                [
+                    "rhel-autorelabel",
+                    "inactive.dead"
+                ],
+                [
+                    "rhel-configure",
+                    "inactive.dead"
+                ],
+                [
+                    "rhel-dmesg",
+                    "active.exited"
+                ],
+                [
+                    "rhel-import-state",
+                    "active.exited"
+                ],
+                [
+                    "rhel-loadmodules",
+                    "inactive.dead"
+                ],
+                [
+                    "rhel-readonly",
+                    "active.exited"
+                ],
+                [
+                    "rsyslog",
+                    "active.running"
+                ],
+                [
+                    "selinux-policy-migrate-local-changes@targeted",
+                    "inactive.dead"
+                ],
+                [
+                    "sshd-keygen",
+                    "inactive.dead"
+                ],
+                [
+                    "sshd",
+                    "active.running"
+                ],
+                [
+                    "systemd-ask-password-console",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-ask-password-plymouth",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-ask-password-wall",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-binfmt",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-firstboot",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-fsck-root",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-hwdb-update",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-initctl",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-journal-catalog-update",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-journal-flush",
+                    "active.exited"
+                ],
+                [
+                    "systemd-journald",
+                    "active.running"
+                ],
+                [
+                    "systemd-logind",
+                    "active.running"
+                ],
+                [
+                    "systemd-machine-id-commit",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-modules-load",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-random-seed",
+                    "active.exited"
+                ],
+                [
+                    "systemd-readahead-collect",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-readahead-done",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-readahead-replay",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-reboot",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-remount-fs",
+                    "active.exited"
+                ],
+                [
+                    "systemd-shutdownd",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-sysctl",
+                    "active.exited"
+                ],
+                [
+                    "systemd-tmpfiles-clean",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-tmpfiles-setup-dev",
+                    "active.exited"
+                ],
+                [
+                    "systemd-tmpfiles-setup",
+                    "active.exited"
+                ],
+                [
+                    "systemd-udev-settle",
+                    "active.exited"
+                ],
+                [
+                    "systemd-udev-trigger",
+                    "active.exited"
+                ],
+                [
+                    "systemd-udevd",
+                    "active.running"
+                ],
+                [
+                    "systemd-update-done",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-update-utmp-runlevel",
+                    "inactive.dead"
+                ],
+                [
+                    "systemd-update-utmp",
+                    "active.exited"
+                ],
+                [
+                    "systemd-user-sessions",
+                    "active.exited"
+                ],
+                [
+                    "systemd-vconsole-setup",
+                    "active.exited"
+                ],
+                [
+                    "tog-pegasus",
+                    "active.running"
+                ],
+                [
+                    "tomcat",
+                    "active.running"
+                ],
+                [
+                    "tuned",
+                    "active.running"
+                ],
+                [
+                    "vmware-tools",
+                    "active.running"
+                ]
+            ],
+            "header": [
+                "target",
+                "Name",
+                "Status"
+            ]
+        }
     },
     "service.auditd": {
         "name": "service.auditd",
@@ -1401,7 +2188,4884 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "geronimo-jta",
+                    "0",
+                    "1.1.1",
+                    "17.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "cyrus-sasl-lib",
+                    "0",
+                    "2.1.26",
+                    "20.el7_2",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "libwmf-lite",
+                    "0",
+                    "0.2.8.4",
+                    "41.el7_1",
+                    "2016/12/13 05:19:29",
+                    "x86_64"
+                ],
+                [
+                    "rpm",
+                    "0",
+                    "4.11.3",
+                    "21.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "php-devel",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:30",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper-libs",
+                    "7",
+                    "1.02.135",
+                    "1.el7_3.1",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "php-gd",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:32",
+                    "x86_64"
+                ],
+                [
+                    "systemd",
+                    "0",
+                    "219",
+                    "30.el7_3.6",
+                    "2016/12/13 05:15:25",
+                    "x86_64"
+                ],
+                [
+                    "php-pear",
+                    "1",
+                    "1.10.1",
+                    "8.el7.remi",
+                    "2016/12/13 05:19:34",
+                    "noarch"
+                ],
+                [
+                    "policycoreutils",
+                    "0",
+                    "2.5",
+                    "9.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "wget",
+                    "0",
+                    "1.14",
+                    "13.el7",
+                    "2016/12/13 05:19:35",
+                    "x86_64"
+                ],
+                [
+                    "polkit",
+                    "0",
+                    "0.112",
+                    "9.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "rootfiles",
+                    "0",
+                    "8.1",
+                    "11.el7",
+                    "2016/11/05 06:01:13",
+                    "noarch"
+                ],
+                [
+                    "mysql57-community-release",
+                    "0",
+                    "el7",
+                    "7",
+                    "2016/12/30 09:26:25",
+                    "noarch"
+                ],
+                [
+                    "dhcp-common",
+                    "12",
+                    "4.2.5",
+                    "47.el7.centos",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "mysql-community-client",
+                    "0",
+                    "5.7.17",
+                    "1.el7",
+                    "2016/12/30 09:28:45",
+                    "x86_64"
+                ],
+                [
+                    "dmraid",
+                    "0",
+                    "1.0.0.rc16",
+                    "28.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "bzip2-libs",
+                    "0",
+                    "1.0.6",
+                    "13.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "mysql-community-devel",
+                    "0",
+                    "5.7.17",
+                    "1.el7",
+                    "2016/12/30 09:29:10",
+                    "x86_64"
+                ],
+                [
+                    "dnsmasq",
+                    "0",
+                    "2.66",
+                    "21.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "kernel-headers",
+                    "0",
+                    "3.10.0",
+                    "514.2.2.el7",
+                    "2016/12/30 09:38:20",
+                    "x86_64"
+                ],
+                [
+                    "pciutils",
+                    "0",
+                    "3.5.1",
+                    "1.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "libacl",
+                    "0",
+                    "2.2.51",
+                    "12.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "libsepol-devel",
+                    "0",
+                    "2.5",
+                    "6.el7",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "plymouth-scripts",
+                    "0",
+                    "0.8.9",
+                    "0.26.20140113.el7.centos",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "ncurses-devel",
+                    "0",
+                    "5.9",
+                    "13.20130511.el7",
+                    "2016/12/30 09:38:22",
+                    "x86_64"
+                ],
+                [
+                    "parted",
+                    "0",
+                    "3.1",
+                    "28.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "oci-register-machine",
+                    "1",
+                    "0",
+                    "1.8.gitaf6c129.el7",
+                    "2016/11/05 06:05:20",
+                    "x86_64"
+                ],
+                [
+                    "openssl-devel",
+                    "1",
+                    "1.0.1e",
+                    "60.el7",
+                    "2016/12/30 09:38:22",
+                    "x86_64"
+                ],
+                [
+                    "rpm-build-libs",
+                    "0",
+                    "4.11.3",
+                    "21.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "findutils",
+                    "1",
+                    "4.5.11",
+                    "5.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "xorg-x11-proto-devel",
+                    "0",
+                    "7.7",
+                    "13.el7",
+                    "2016/12/30 09:44:14",
+                    "noarch"
+                ],
+                [
+                    "yum-plugin-fastestmirror",
+                    "0",
+                    "1.1.31",
+                    "40.el7",
+                    "2016/12/13 05:15:29",
+                    "noarch"
+                ],
+                [
+                    "docker-selinux",
+                    "0",
+                    "1.10.3",
+                    "46.el7.centos.14",
+                    "2016/11/05 06:05:21",
+                    "x86_64"
+                ],
+                [
+                    "libSM-devel",
+                    "0",
+                    "1.2.2",
+                    "2.el7",
+                    "2016/12/30 09:44:14",
+                    "x86_64"
+                ],
+                [
+                    "checkpolicy",
+                    "0",
+                    "2.5",
+                    "4.el7",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "perl-podlators",
+                    "0",
+                    "2.5.1",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "libassuan",
+                    "0",
+                    "2.1.0",
+                    "3.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "libXext-devel",
+                    "0",
+                    "1.3.3",
+                    "3.el7",
+                    "2016/12/30 09:44:16",
+                    "x86_64"
+                ],
+                [
+                    "bind-libs-lite",
+                    "32",
+                    "9.9.4",
+                    "38.el7_3",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "perl-Encode",
+                    "0",
+                    "2.51",
+                    "7.el7",
+                    "2016/11/05 06:07:21",
+                    "x86_64"
+                ],
+                [
+                    "which",
+                    "0",
+                    "2.20",
+                    "7.el7",
+                    "2016/11/05 06:00:11",
+                    "x86_64"
+                ],
+                [
+                    "ghostscript-devel",
+                    "0",
+                    "9.07",
+                    "20.el7",
+                    "2016/12/30 09:44:16",
+                    "x86_64"
+                ],
+                [
+                    "linux-firmware",
+                    "0",
+                    "20160830",
+                    "49.git7534e19.el7",
+                    "2016/12/13 05:15:38",
+                    "noarch"
+                ],
+                [
+                    "perl-Storable",
+                    "0",
+                    "2.45",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "x86_64"
+                ],
+                [
+                    "libnfnetlink",
+                    "0",
+                    "1.0.1",
+                    "4.el7",
+                    "2016/11/05 06:00:11",
+                    "x86_64"
+                ],
+                [
+                    "ImageMagick-devel",
+                    "0",
+                    "6.7.8.9",
+                    "15.el7_2",
+                    "2016/12/30 09:44:17",
+                    "x86_64"
+                ],
+                [
+                    "firewalld-filesystem",
+                    "0",
+                    "0.4.3.2",
+                    "8.el7",
+                    "2016/12/13 05:15:38",
+                    "noarch"
+                ],
+                [
+                    "perl-Carp",
+                    "0",
+                    "1.26",
+                    "244.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "lzo",
+                    "0",
+                    "2.06",
+                    "8.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "gpg-pubkey",
+                    "0",
+                    "d88e42b4",
+                    "52371eca",
+                    "2017/01/04 07:05:51",
+                    "(none)"
+                ],
+                [
+                    "kernel",
+                    "0",
+                    "3.10.0",
+                    "514.2.2.el7",
+                    "2016/12/13 05:15:44",
+                    "x86_64"
+                ],
+                [
+                    "perl-File-Temp",
+                    "0",
+                    "0.23.01",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "hostname",
+                    "0",
+                    "3.13",
+                    "3.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "unzip",
+                    "0",
+                    "6.0",
+                    "16.el7",
+                    "2017/01/04 08:13:18",
+                    "x86_64"
+                ],
+                [
+                    "kernel-tools",
+                    "0",
+                    "3.10.0",
+                    "514.2.2.el7",
+                    "2016/12/13 05:15:45",
+                    "x86_64"
+                ],
+                [
+                    "p11-kit-trust",
+                    "0",
+                    "0.20.7",
+                    "3.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "rdma",
+                    "0",
+                    "7.3_4.7_rc2",
+                    "5.el7",
+                    "2016/12/13 05:15:45",
+                    "noarch"
+                ],
+                [
+                    "openssh-server",
+                    "0",
+                    "6.6.1p1",
+                    "31.el7",
+                    "2016/12/13 05:15:53",
+                    "x86_64"
+                ],
+                [
+                    "libgnome-keyring",
+                    "0",
+                    "3.8.0",
+                    "3.el7",
+                    "2016/11/05 06:07:24",
+                    "x86_64"
+                ],
+                [
+                    "dbus-glib",
+                    "0",
+                    "0.100",
+                    "7.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "irqbalance",
+                    "3",
+                    "1.0.7",
+                    "6.el7",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "apr-util",
+                    "0",
+                    "1.5.2",
+                    "6.el7",
+                    "2016/11/05 08:41:47",
+                    "x86_64"
+                ],
+                [
+                    "gsettings-desktop-schemas",
+                    "0",
+                    "3.14.2",
+                    "1.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "microcode_ctl",
+                    "2",
+                    "2.1",
+                    "16.el7",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "konkretcmpi",
+                    "0",
+                    "0.9.1",
+                    "5.el7",
+                    "2016/11/05 16:08:26",
+                    "x86_64"
+                ],
+                [
+                    "libdb-utils",
+                    "0",
+                    "5.3.21",
+                    "19.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "iprutils",
+                    "0",
+                    "2.4.13.1",
+                    "1.el7",
+                    "2016/12/13 05:16:14",
+                    "x86_64"
+                ],
+                [
+                    "xfsprogs",
+                    "0",
+                    "4.5.0",
+                    "8.el7",
+                    "2016/12/13 05:16:16",
+                    "x86_64"
+                ],
+                [
+                    "python-setuptools",
+                    "0",
+                    "0.9.8",
+                    "4.el7",
+                    "2016/11/05 16:08:27",
+                    "noarch"
+                ],
+                [
+                    "libedit",
+                    "0",
+                    "3.0",
+                    "12.20121213cvs.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "libproxy",
+                    "0",
+                    "0.4.11",
+                    "10.el7",
+                    "2016/12/13 05:16:16",
+                    "x86_64"
+                ],
+                [
+                    "snappy",
+                    "0",
+                    "1.1.0",
+                    "3.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "iwl2000-firmware",
+                    "0",
+                    "18.168.6.1",
+                    "49.el7",
+                    "2016/12/13 05:16:16",
+                    "noarch"
+                ],
+                [
+                    "cim-schema",
+                    "0",
+                    "2.33.0",
+                    "6.el7",
+                    "2016/11/05 16:08:28",
+                    "noarch"
+                ],
+                [
+                    "libverto",
+                    "0",
+                    "0.2.5",
+                    "4.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "iwl3160-firmware",
+                    "0",
+                    "22.0.7.0",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "tog-pegasus-libs",
+                    "2",
+                    "2.14.1",
+                    "3.el7",
+                    "2016/11/05 16:08:29",
+                    "x86_64"
+                ],
+                [
+                    "iwl6050-firmware",
+                    "0",
+                    "41.28.5.1",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "cmpi-bindings-pywbem",
+                    "0",
+                    "0.9.5",
+                    "6.el7",
+                    "2016/11/05 16:08:31",
+                    "x86_64"
+                ],
+                [
+                    "iwl2030-firmware",
+                    "0",
+                    "18.168.6.1",
+                    "49.el7",
+                    "2016/12/13 05:16:18",
+                    "noarch"
+                ],
+                [
+                    "dbus-python",
+                    "0",
+                    "1.1.1",
+                    "9.el7",
+                    "2016/11/05 06:00:19",
+                    "x86_64"
+                ],
+                [
+                    "iwl105-firmware",
+                    "0",
+                    "18.168.6.1",
+                    "49.el7",
+                    "2016/12/13 05:16:18",
+                    "noarch"
+                ],
+                [
+                    "libICE",
+                    "0",
+                    "1.0.9",
+                    "2.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "sgpio",
+                    "0",
+                    "1.2.0.10",
+                    "13.el7",
+                    "2016/11/05 16:08:34",
+                    "x86_64"
+                ],
+                [
+                    "pygobject3-base",
+                    "0",
+                    "3.14.0",
+                    "3.el7",
+                    "2016/11/05 06:00:20",
+                    "x86_64"
+                ],
+                [
+                    "perl-Data-Dumper",
+                    "0",
+                    "2.145",
+                    "3.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "jbigkit-libs",
+                    "0",
+                    "2.0",
+                    "11.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "remi-release",
+                    "0",
+                    "7.2",
+                    "1.el7.remi",
+                    "2016/12/13 05:12:59",
+                    "noarch"
+                ],
+                [
+                    "mesa-libglapi",
+                    "0",
+                    "11.2.2",
+                    "2.20160614.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "setup",
+                    "0",
+                    "2.8.71",
+                    "7.el7",
+                    "2016/12/13 05:14:35",
+                    "noarch"
+                ],
+                [
+                    "pyliblzma",
+                    "0",
+                    "0.5.3",
+                    "11.el7",
+                    "2016/11/05 06:00:24",
+                    "x86_64"
+                ],
+                [
+                    "OpenEXR-libs",
+                    "0",
+                    "1.7.1",
+                    "7.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "nss-softokn-freebl",
+                    "0",
+                    "3.16.2.3",
+                    "14.4.el7",
+                    "2016/12/13 05:14:36",
+                    "x86_64"
+                ],
+                [
+                    "libvorbis",
+                    "1",
+                    "1.3.3",
+                    "8.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "libsepol",
+                    "0",
+                    "2.5",
+                    "6.el7",
+                    "2016/12/13 05:14:42",
+                    "x86_64"
+                ],
+                [
+                    "javapackages-tools",
+                    "0",
+                    "3.4.1",
+                    "11.el7",
+                    "2016/12/13 05:19:09",
+                    "noarch"
+                ],
+                [
+                    "zlib",
+                    "0",
+                    "1.2.7",
+                    "17.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "tomcat-el-2.2-api",
+                    "0",
+                    "7.0.69",
+                    "10.el7",
+                    "2016/12/13 05:19:09",
+                    "noarch"
+                ],
+                [
+                    "libuuid",
+                    "0",
+                    "2.23.2",
+                    "33.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "fipscheck",
+                    "0",
+                    "1.4.1",
+                    "5.el7",
+                    "2016/11/05 06:00:26",
+                    "x86_64"
+                ],
+                [
+                    "openldap-devel",
+                    "0",
+                    "2.4.40",
+                    "13.el7",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "elfutils-libelf",
+                    "0",
+                    "0.166",
+                    "2.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "php-common",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "libgcrypt",
+                    "0",
+                    "1.5.3",
+                    "13.el7_3.1",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "php-xml",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "perl-libs",
+                    "4",
+                    "5.16.3",
+                    "291.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "perl-Net-Daemon",
+                    "0",
+                    "0.48",
+                    "5.el7",
+                    "2016/12/13 05:19:11",
+                    "noarch"
+                ],
+                [
+                    "pciutils-libs",
+                    "0",
+                    "3.5.1",
+                    "1.el7",
+                    "2016/12/13 05:15:04",
+                    "x86_64"
+                ],
+                [
+                    "pcsc-lite-libs",
+                    "0",
+                    "1.8.8",
+                    "6.el7",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "iptables",
+                    "0",
+                    "1.4.21",
+                    "17.el7",
+                    "2016/12/13 05:15:04",
+                    "x86_64"
+                ],
+                [
+                    "gpgme",
+                    "0",
+                    "1.3.2",
+                    "5.el7",
+                    "2016/11/05 06:00:28",
+                    "x86_64"
+                ],
+                [
+                    "vim-filesystem",
+                    "2",
+                    "7.4.160",
+                    "1.el7",
+                    "2016/12/13 05:19:13",
+                    "x86_64"
+                ],
+                [
+                    "e2fsprogs-libs",
+                    "0",
+                    "1.42.9",
+                    "9.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "fontpackages-filesystem",
+                    "0",
+                    "1.44",
+                    "8.el7",
+                    "2016/12/13 05:19:14",
+                    "noarch"
+                ],
+                [
+                    "boost-system",
+                    "0",
+                    "1.53.0",
+                    "26.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "perl-Compress-Raw-Bzip2",
+                    "0",
+                    "2.061",
+                    "3.el7",
+                    "2016/12/13 05:19:18",
+                    "x86_64"
+                ],
+                [
+                    "ethtool",
+                    "2",
+                    "4.5",
+                    "3.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "perl-DBD-MySQL",
+                    "0",
+                    "4.023",
+                    "5.el7",
+                    "2016/12/13 05:19:18",
+                    "x86_64"
+                ],
+                [
+                    "teamd",
+                    "0",
+                    "1.25",
+                    "4.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "libwebp",
+                    "0",
+                    "0.3.0",
+                    "3.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper-persistent-data",
+                    "0",
+                    "0.6.3",
+                    "1.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "psmisc",
+                    "0",
+                    "22.20",
+                    "11.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "GeoIP",
+                    "0",
+                    "1.5.0",
+                    "11.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "polkit-pkla-compat",
+                    "0",
+                    "0.1",
+                    "4.el7",
+                    "2016/11/05 06:00:32",
+                    "x86_64"
+                ],
+                [
+                    "libsndfile",
+                    "0",
+                    "1.0.25",
+                    "10.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "ca-certificates",
+                    "0",
+                    "2015.2.6",
+                    "73.el7",
+                    "2016/12/13 05:15:06",
+                    "noarch"
+                ],
+                [
+                    "libxcb",
+                    "0",
+                    "1.11",
+                    "4.el7",
+                    "2016/12/13 05:19:20",
+                    "x86_64"
+                ],
+                [
+                    "libblkid",
+                    "0",
+                    "2.23.2",
+                    "33.el7",
+                    "2016/12/13 05:15:08",
+                    "x86_64"
+                ],
+                [
+                    "libXt",
+                    "0",
+                    "1.1.4",
+                    "6.1.el7",
+                    "2016/12/13 05:19:20",
+                    "x86_64"
+                ],
+                [
+                    "python-libs",
+                    "0",
+                    "2.7.5",
+                    "48.el7",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "libpciaccess",
+                    "0",
+                    "0.13.4",
+                    "2.el7",
+                    "2016/11/05 06:00:35",
+                    "x86_64"
+                ],
+                [
+                    "libXi",
+                    "0",
+                    "1.7.4",
+                    "2.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-providers",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "trousers",
+                    "0",
+                    "0.3.13",
+                    "1.el7",
+                    "2016/11/05 06:00:35",
+                    "x86_64"
+                ],
+                [
+                    "ghostscript",
+                    "0",
+                    "9.07",
+                    "20.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "libmount",
+                    "0",
+                    "2.23.2",
+                    "33.el7",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "fxload",
+                    "0",
+                    "2002_04_11",
+                    "16.el7",
+                    "2016/11/05 06:00:35",
+                    "x86_64"
+                ],
+                [
+                    "libXcursor",
+                    "0",
+                    "1.1.14",
+                    "2.1.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-account",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:19",
+                    "x86_64"
+                ],
+                [
+                    "libXxf86vm",
+                    "0",
+                    "1.1.3",
+                    "2.1.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "python-perf",
+                    "0",
+                    "3.10.0",
+                    "514.2.2.el7",
+                    "2016/12/13 05:15:21",
+                    "x86_64"
+                ],
+                [
+                    "t1lib",
+                    "0",
+                    "5.1.2",
+                    "14.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "python-firewall",
+                    "0",
+                    "0.4.3.2",
+                    "8.el7",
+                    "2016/12/13 05:15:21",
+                    "noarch"
+                ],
+                [
+                    "librsvg2",
+                    "0",
+                    "2.39.0",
+                    "1.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "e2fsprogs",
+                    "0",
+                    "1.42.9",
+                    "9.el7",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "lksctp-tools",
+                    "0",
+                    "1.0.17",
+                    "2.el7",
+                    "2016/12/13 05:19:24",
+                    "x86_64"
+                ],
+                [
+                    "binutils",
+                    "0",
+                    "2.25.1",
+                    "22.base.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "geronimo-jms",
+                    "0",
+                    "1.1.1",
+                    "19.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "nss",
+                    "0",
+                    "3.21.3",
+                    "2.el7_3",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "xalan-j2",
+                    "0",
+                    "2.7.1",
+                    "23.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "freetype",
+                    "0",
+                    "2.4.11",
+                    "12.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "avalon-logkit",
+                    "0",
+                    "2.1",
+                    "14.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "ipset",
+                    "0",
+                    "6.19",
+                    "6.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "avalon-framework",
+                    "0",
+                    "4.3",
+                    "10.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "kernel",
+                    "0",
+                    "3.10.0",
+                    "327.el7",
+                    "2016/11/05 06:00:50",
+                    "x86_64"
+                ],
+                [
+                    "apache-commons-dbcp",
+                    "0",
+                    "1.4",
+                    "17.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "postfix",
+                    "2",
+                    "2.10.1",
+                    "6.el7",
+                    "2016/11/05 06:00:51",
+                    "x86_64"
+                ],
+                [
+                    "apache-commons-daemon",
+                    "0",
+                    "1.0.13",
+                    "6.el7",
+                    "2016/12/13 05:19:29",
+                    "x86_64"
+                ],
+                [
+                    "basesystem",
+                    "0",
+                    "10.0",
+                    "7.el7.centos",
+                    "2016/11/05 05:59:54",
+                    "noarch"
+                ],
+                [
+                    "fftw-libs-double",
+                    "0",
+                    "3.3.3",
+                    "8.el7",
+                    "2016/12/13 05:19:29",
+                    "x86_64"
+                ],
+                [
+                    "ncurses-base",
+                    "0",
+                    "5.9",
+                    "13.20130511.el7",
+                    "2016/11/05 05:59:55",
+                    "noarch"
+                ],
+                [
+                    "aic94xx-firmware",
+                    "0",
+                    "30",
+                    "6.el7",
+                    "2016/11/05 06:01:10",
+                    "noarch"
+                ],
+                [
+                    "pcre-devel",
+                    "0",
+                    "8.32",
+                    "15.el7_2.1",
+                    "2016/12/13 05:19:29",
+                    "x86_64"
+                ],
+                [
+                    "php-pecl-imagick",
+                    "0",
+                    "3.4.3",
+                    "0.4.RC1.el7.remi.5.4",
+                    "2016/12/13 05:19:30",
+                    "x86_64"
+                ],
+                [
+                    "java-1.7.0-openjdk-devel",
+                    "1",
+                    "1.7.0.121",
+                    "2.6.8.0.el7_3",
+                    "2016/12/13 05:19:32",
+                    "x86_64"
+                ],
+                [
+                    "ncurses-libs",
+                    "0",
+                    "5.9",
+                    "13.20130511.el7",
+                    "2016/11/05 06:00:08",
+                    "x86_64"
+                ],
+                [
+                    "passwd",
+                    "0",
+                    "0.79",
+                    "4.el7",
+                    "2016/11/05 06:01:12",
+                    "x86_64"
+                ],
+                [
+                    "httpd-devel",
+                    "0",
+                    "2.4.6",
+                    "45.el7.centos",
+                    "2016/12/13 05:19:34",
+                    "x86_64"
+                ],
+                [
+                    "php-mysql",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:34",
+                    "x86_64"
+                ],
+                [
+                    "php-mbstring",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:34",
+                    "x86_64"
+                ],
+                [
+                    "info",
+                    "0",
+                    "5.1",
+                    "4.el7",
+                    "2016/11/05 06:00:08",
+                    "x86_64"
+                ],
+                [
+                    "libsysfs",
+                    "0",
+                    "2.1.0",
+                    "16.el7",
+                    "2016/11/05 06:01:13",
+                    "x86_64"
+                ],
+                [
+                    "java-1.8.0-openjdk",
+                    "1",
+                    "1.8.0.111",
+                    "2.b15.el7_3",
+                    "2016/12/13 06:10:29",
+                    "x86_64"
+                ],
+                [
+                    "sed",
+                    "0",
+                    "4.2.2",
+                    "5.el7",
+                    "2016/11/05 06:00:08",
+                    "x86_64"
+                ],
+                [
+                    "java-1.8.0-openjdk-devel",
+                    "1",
+                    "1.8.0.111",
+                    "2.b15.el7_3",
+                    "2016/12/13 06:10:34",
+                    "x86_64"
+                ],
+                [
+                    "gpg-pubkey",
+                    "0",
+                    "5072e1f5",
+                    "5301d466",
+                    "2016/12/30 09:27:41",
+                    "(none)"
+                ],
+                [
+                    "popt",
+                    "0",
+                    "1.13",
+                    "16.el7",
+                    "2016/11/05 06:00:08",
+                    "x86_64"
+                ],
+                [
+                    "mysql-community-libs",
+                    "0",
+                    "5.7.17",
+                    "1.el7",
+                    "2016/12/30 09:28:42",
+                    "x86_64"
+                ],
+                [
+                    "net-tools",
+                    "0",
+                    "2.0",
+                    "0.17.20131004git.el7",
+                    "2016/12/30 09:28:45",
+                    "x86_64"
+                ],
+                [
+                    "grep",
+                    "0",
+                    "2.20",
+                    "2.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "ivtv-firmware",
+                    "2",
+                    "20080701",
+                    "26.el7",
+                    "2016/11/05 06:01:14",
+                    "noarch"
+                ],
+                [
+                    "mysql-community-libs-compat",
+                    "0",
+                    "5.7.17",
+                    "1.el7",
+                    "2016/12/30 09:29:09",
+                    "x86_64"
+                ],
+                [
+                    "mpfr",
+                    "0",
+                    "3.1.1",
+                    "4.el7",
+                    "2016/12/30 09:38:19",
+                    "x86_64"
+                ],
+                [
+                    "gawk",
+                    "0",
+                    "4.0.2",
+                    "4.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "cpp",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/30 09:38:20",
+                    "x86_64"
+                ],
+                [
+                    "libgpg-error",
+                    "0",
+                    "1.12",
+                    "3.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "glibc-headers",
+                    "0",
+                    "2.17",
+                    "157.el7_3.1",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "libattr",
+                    "0",
+                    "2.4.46",
+                    "12.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "zlib-devel",
+                    "0",
+                    "1.2.7",
+                    "17.el7",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "libcap",
+                    "0",
+                    "2.22",
+                    "8.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "gpg-pubkey",
+                    "0",
+                    "f4a80eb5",
+                    "53a7ff4b",
+                    "2016/11/05 06:05:18",
+                    "(none)"
+                ],
+                [
+                    "libselinux-devel",
+                    "0",
+                    "2.5",
+                    "6.el7",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "cpio",
+                    "0",
+                    "2.11",
+                    "24.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "libcom_err-devel",
+                    "0",
+                    "1.42.9",
+                    "9.el7",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "oci-systemd-hook",
+                    "1",
+                    "0.1.4",
+                    "4.git41491a3.el7",
+                    "2016/11/05 06:05:20",
+                    "x86_64"
+                ],
+                [
+                    "libkadm5",
+                    "0",
+                    "1.14.1",
+                    "27.el7_3",
+                    "2016/12/30 09:38:22",
+                    "x86_64"
+                ],
+                [
+                    "p11-kit",
+                    "0",
+                    "0.20.7",
+                    "3.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "krb5-devel",
+                    "0",
+                    "1.14.1",
+                    "27.el7_3",
+                    "2016/12/30 09:38:22",
+                    "x86_64"
+                ],
+                [
+                    "sqlite",
+                    "0",
+                    "3.7.17",
+                    "8.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "readline-devel",
+                    "0",
+                    "6.2",
+                    "9.el7",
+                    "2016/12/30 09:38:22",
+                    "x86_64"
+                ],
+                [
+                    "diffutils",
+                    "0",
+                    "3.3",
+                    "4.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "docker-common",
+                    "0",
+                    "1.10.3",
+                    "46.el7.centos.14",
+                    "2016/11/05 06:05:20",
+                    "x86_64"
+                ],
+                [
+                    "bzip2",
+                    "0",
+                    "1.0.6",
+                    "13.el7",
+                    "2016/12/30 09:38:51",
+                    "x86_64"
+                ],
+                [
+                    "libcap-ng",
+                    "0",
+                    "0.7.5",
+                    "4.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "libICE-devel",
+                    "0",
+                    "1.0.9",
+                    "2.el7",
+                    "2016/12/30 09:44:14",
+                    "x86_64"
+                ],
+                [
+                    "docker",
+                    "0",
+                    "1.10.3",
+                    "46.el7.centos.14",
+                    "2016/11/05 06:05:33",
+                    "x86_64"
+                ],
+                [
+                    "jasper-devel",
+                    "0",
+                    "1.900.1",
+                    "29.el7",
+                    "2016/12/30 09:44:14",
+                    "x86_64"
+                ],
+                [
+                    "perl-HTTP-Tiny",
+                    "0",
+                    "0.033",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "libXau-devel",
+                    "0",
+                    "1.0.8",
+                    "2.1.el7",
+                    "2016/12/30 09:44:14",
+                    "x86_64"
+                ],
+                [
+                    "perl-Pod-Perldoc",
+                    "0",
+                    "3.20",
+                    "4.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "libX11-devel",
+                    "0",
+                    "1.6.3",
+                    "3.el7",
+                    "2016/12/30 09:44:16",
+                    "x86_64"
+                ],
+                [
+                    "perl-Text-ParseWords",
+                    "0",
+                    "3.29",
+                    "4.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "libXt-devel",
+                    "0",
+                    "1.1.4",
+                    "6.1.el7",
+                    "2016/12/30 09:44:16",
+                    "x86_64"
+                ],
+                [
+                    "groff-base",
+                    "0",
+                    "1.22.2",
+                    "8.el7",
+                    "2016/11/05 06:00:11",
+                    "x86_64"
+                ],
+                [
+                    "perl-Pod-Usage",
+                    "0",
+                    "1.63",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "freetype-devel",
+                    "0",
+                    "2.4.11",
+                    "12.el7",
+                    "2016/12/30 09:44:16",
+                    "x86_64"
+                ],
+                [
+                    "ImageMagick",
+                    "0",
+                    "6.7.8.9",
+                    "15.el7_2",
+                    "2016/12/30 09:44:17",
+                    "x86_64"
+                ],
+                [
+                    "perl-Exporter",
+                    "0",
+                    "5.68",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "bzip2-devel",
+                    "0",
+                    "1.0.6",
+                    "13.el7",
+                    "2016/12/30 09:44:17",
+                    "x86_64"
+                ],
+                [
+                    "slang",
+                    "0",
+                    "2.2.4",
+                    "11.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "perl-Time-Local",
+                    "0",
+                    "1.2300",
+                    "2.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "gcc-c++",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/30 09:44:18",
+                    "x86_64"
+                ],
+                [
+                    "sysvinit-tools",
+                    "0",
+                    "2.88",
+                    "14.dsf.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "perl-Time-HiRes",
+                    "4",
+                    "1.9725",
+                    "3.el7",
+                    "2016/11/05 06:07:21",
+                    "x86_64"
+                ],
+                [
+                    "ipa-pgothic-fonts",
+                    "0",
+                    "003.03",
+                    "5.el7",
+                    "2016/12/30 09:54:29",
+                    "noarch"
+                ],
+                [
+                    "tcp_wrappers-libs",
+                    "0",
+                    "7.6",
+                    "77.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "perl-Scalar-List-Utils",
+                    "0",
+                    "1.27",
+                    "248.el7",
+                    "2016/11/05 06:07:21",
+                    "x86_64"
+                ],
+                [
+                    "perl-File-Path",
+                    "0",
+                    "2.09",
+                    "2.el7",
+                    "2016/11/05 06:07:22",
+                    "noarch"
+                ],
+                [
+                    "fess",
+                    "0",
+                    "10.3.1",
+                    "1",
+                    "2017/01/04 08:08:05",
+                    "noarch"
+                ],
+                [
+                    "perl-threads",
+                    "0",
+                    "1.87",
+                    "4.el7",
+                    "2016/11/05 06:07:22",
+                    "x86_64"
+                ],
+                [
+                    "perl-Filter",
+                    "0",
+                    "1.49",
+                    "3.el7",
+                    "2016/11/05 06:07:22",
+                    "x86_64"
+                ],
+                [
+                    "gdbm",
+                    "0",
+                    "1.10",
+                    "8.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "perl-Getopt-Long",
+                    "0",
+                    "2.40",
+                    "2.el7",
+                    "2016/11/05 06:07:22",
+                    "noarch"
+                ],
+                [
+                    "perl-Error",
+                    "1",
+                    "0.17020",
+                    "2.el7",
+                    "2016/11/05 06:07:23",
+                    "noarch"
+                ],
+                [
+                    "rsync",
+                    "0",
+                    "3.0.9",
+                    "17.el7",
+                    "2016/11/05 06:07:23",
+                    "x86_64"
+                ],
+                [
+                    "shared-mime-info",
+                    "0",
+                    "1.1",
+                    "9.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "perl-Git",
+                    "0",
+                    "1.8.3.1",
+                    "6.el7_2.1",
+                    "2016/11/05 06:07:24",
+                    "noarch"
+                ],
+                [
+                    "libcroco",
+                    "0",
+                    "0.6.8",
+                    "5.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "apr",
+                    "0",
+                    "1.4.8",
+                    "3.el7",
+                    "2016/11/05 08:41:47",
+                    "x86_64"
+                ],
+                [
+                    "gobject-introspection",
+                    "0",
+                    "1.42.0",
+                    "1.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "vim-minimal",
+                    "2",
+                    "7.4.160",
+                    "1.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "pyparted",
+                    "1",
+                    "3.9",
+                    "13.el7",
+                    "2016/11/05 16:08:27",
+                    "x86_64"
+                ],
+                [
+                    "dosfstools",
+                    "0",
+                    "3.0.20",
+                    "9.el7",
+                    "2016/11/05 16:08:27",
+                    "x86_64"
+                ],
+                [
+                    "lsof",
+                    "0",
+                    "4.87",
+                    "4.el7",
+                    "2016/11/05 16:08:27",
+                    "x86_64"
+                ],
+                [
+                    "python-backports-ssl_match_hostname",
+                    "0",
+                    "3.4.0.2",
+                    "4.el7",
+                    "2016/11/05 16:08:27",
+                    "noarch"
+                ],
+                [
+                    "ncurses",
+                    "0",
+                    "5.9",
+                    "13.20130511.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "libpcap",
+                    "14",
+                    "1.5.3",
+                    "8.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "tog-pegasus",
+                    "2",
+                    "2.14.1",
+                    "3.el7",
+                    "2016/11/05 16:08:30",
+                    "x86_64"
+                ],
+                [
+                    "pywbem",
+                    "0",
+                    "0.7.0",
+                    "25.20130827svn625.el7",
+                    "2016/11/05 16:08:31",
+                    "noarch"
+                ],
+                [
+                    "gzip",
+                    "0",
+                    "1.5",
+                    "8.el7",
+                    "2016/11/05 06:00:19",
+                    "x86_64"
+                ],
+                [
+                    "python-decorator",
+                    "0",
+                    "3.4.0",
+                    "3.el7",
+                    "2016/11/05 06:00:19",
+                    "noarch"
+                ],
+                [
+                    "cracklib-dicts",
+                    "0",
+                    "2.9.0",
+                    "11.el7",
+                    "2016/11/05 06:00:20",
+                    "x86_64"
+                ],
+                [
+                    "libpwquality",
+                    "0",
+                    "1.2.3",
+                    "4.el7",
+                    "2016/11/05 06:00:20",
+                    "x86_64"
+                ],
+                [
+                    "gpg-pubkey",
+                    "0",
+                    "00f97f56",
+                    "467e318a",
+                    "2016/12/13 05:18:51",
+                    "(none)"
+                ],
+                [
+                    "libpng",
+                    "2",
+                    "1.5.13",
+                    "7.el7_2",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "gettext",
+                    "0",
+                    "0.18.2.1",
+                    "4.el7",
+                    "2016/11/05 06:00:20",
+                    "x86_64"
+                ],
+                [
+                    "libSM",
+                    "0",
+                    "1.2.2",
+                    "2.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "libxslt",
+                    "0",
+                    "1.1.28",
+                    "5.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "atk",
+                    "0",
+                    "2.14.0",
+                    "1.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "python-slip",
+                    "0",
+                    "0.4.0",
+                    "2.el7",
+                    "2016/11/05 06:00:23",
+                    "noarch"
+                ],
+                [
+                    "lcms2",
+                    "0",
+                    "2.6",
+                    "3.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "python-iniparse",
+                    "0",
+                    "0.4",
+                    "9.el7",
+                    "2016/11/05 06:00:24",
+                    "noarch"
+                ],
+                [
+                    "libtiff",
+                    "0",
+                    "4.0.3",
+                    "25.el7_2",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "python-configobj",
+                    "0",
+                    "4.7.2",
+                    "7.el7",
+                    "2016/11/05 06:00:24",
+                    "noarch"
+                ],
+                [
+                    "libtool-ltdl",
+                    "0",
+                    "2.4.2",
+                    "21.el7_2",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "yum-metadata-parser",
+                    "0",
+                    "1.1.4",
+                    "10.el7",
+                    "2016/11/05 06:00:24",
+                    "x86_64"
+                ],
+                [
+                    "apr-devel",
+                    "0",
+                    "1.4.8",
+                    "3.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "pyxattr",
+                    "0",
+                    "0.5.1",
+                    "5.el7",
+                    "2016/11/05 06:00:24",
+                    "x86_64"
+                ],
+                [
+                    "ilmbase",
+                    "0",
+                    "1.0.3",
+                    "7.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "libXfont",
+                    "0",
+                    "1.5.1",
+                    "2.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "libutempter",
+                    "0",
+                    "1.1.6",
+                    "4.el7",
+                    "2016/11/05 06:00:24",
+                    "x86_64"
+                ],
+                [
+                    "mesa-libgbm",
+                    "0",
+                    "11.2.2",
+                    "2.20160614.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "flac-libs",
+                    "0",
+                    "1.3.0",
+                    "5.el7_1",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "python-javapackages",
+                    "0",
+                    "3.4.1",
+                    "11.el7",
+                    "2016/12/13 05:19:09",
+                    "noarch"
+                ],
+                [
+                    "tomcat-servlet-3.0-api",
+                    "0",
+                    "7.0.69",
+                    "10.el7",
+                    "2016/12/13 05:19:09",
+                    "noarch"
+                ],
+                [
+                    "ecj",
+                    "1",
+                    "4.2.1",
+                    "8.el7",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "fipscheck-lib",
+                    "0",
+                    "1.4.1",
+                    "5.el7",
+                    "2016/11/05 06:00:26",
+                    "x86_64"
+                ],
+                [
+                    "jasper-libs",
+                    "0",
+                    "1.900.1",
+                    "29.el7",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "cyrus-sasl-devel",
+                    "0",
+                    "2.1.26",
+                    "20.el7_2",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "perl-Compress-Raw-Zlib",
+                    "1",
+                    "2.061",
+                    "4.el7",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "libzip",
+                    "0",
+                    "0.10.1",
+                    "8.el7",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "libuser",
+                    "0",
+                    "0.60",
+                    "7.el7_1",
+                    "2016/11/05 06:00:27",
+                    "x86_64"
+                ],
+                [
+                    "php-cli",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:10",
+                    "x86_64"
+                ],
+                [
+                    "php-pdo",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "libdb-devel",
+                    "0",
+                    "5.3.21",
+                    "19.el7",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "perl-Thread-Queue",
+                    "0",
+                    "3.02",
+                    "2.el7",
+                    "2016/12/13 05:19:11",
+                    "noarch"
+                ],
+                [
+                    "libasyncns",
+                    "0",
+                    "0.8",
+                    "7.el7",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "hardlink",
+                    "1",
+                    "1.0",
+                    "19.el7",
+                    "2016/11/05 06:00:28",
+                    "x86_64"
+                ],
+                [
+                    "apr-util-devel",
+                    "0",
+                    "1.5.2",
+                    "6.el7",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "poppler-data",
+                    "0",
+                    "0.4.6",
+                    "3.el7",
+                    "2016/12/13 05:19:12",
+                    "noarch"
+                ],
+                [
+                    "pygpgme",
+                    "0",
+                    "0.3",
+                    "9.el7",
+                    "2016/11/05 06:00:28",
+                    "x86_64"
+                ],
+                [
+                    "vim-common",
+                    "2",
+                    "7.4.160",
+                    "1.el7",
+                    "2016/12/13 05:19:14",
+                    "x86_64"
+                ],
+                [
+                    "hicolor-icon-theme",
+                    "0",
+                    "0.12",
+                    "7.el7",
+                    "2016/12/13 05:19:14",
+                    "noarch"
+                ],
+                [
+                    "libnetfilter_conntrack",
+                    "0",
+                    "1.0.4",
+                    "2.el7",
+                    "2016/11/05 06:00:29",
+                    "x86_64"
+                ],
+                [
+                    "fontconfig",
+                    "0",
+                    "2.10.95",
+                    "10.el7",
+                    "2016/12/13 05:19:15",
+                    "x86_64"
+                ],
+                [
+                    "ghostscript-fonts",
+                    "0",
+                    "5.50",
+                    "32.el7",
+                    "2016/12/13 05:19:17",
+                    "noarch"
+                ],
+                [
+                    "perl-IO-Compress",
+                    "0",
+                    "2.061",
+                    "2.el7",
+                    "2016/12/13 05:19:18",
+                    "noarch"
+                ],
+                [
+                    "perl-DBI",
+                    "0",
+                    "1.627",
+                    "4.el7",
+                    "2016/12/13 05:19:18",
+                    "x86_64"
+                ],
+                [
+                    "m4",
+                    "0",
+                    "1.4.16",
+                    "10.el7",
+                    "2016/12/13 05:19:18",
+                    "x86_64"
+                ],
+                [
+                    "automake",
+                    "0",
+                    "1.13.4",
+                    "3.el7",
+                    "2016/12/13 05:19:19",
+                    "noarch"
+                ],
+                [
+                    "libX11-common",
+                    "0",
+                    "1.6.3",
+                    "3.el7",
+                    "2016/12/13 05:19:19",
+                    "noarch"
+                ],
+                [
+                    "harfbuzz",
+                    "0",
+                    "0.9.36",
+                    "1.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "GConf2",
+                    "0",
+                    "3.2.6",
+                    "8.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "gsm",
+                    "0",
+                    "1.0.13",
+                    "11.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "crontabs",
+                    "0",
+                    "1.11",
+                    "6.20121102git.el7",
+                    "2016/11/05 06:00:32",
+                    "noarch"
+                ],
+                [
+                    "ttmkfdir",
+                    "0",
+                    "3.0.9",
+                    "42.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "libXau",
+                    "0",
+                    "1.0.8",
+                    "2.1.el7",
+                    "2016/12/13 05:19:20",
+                    "x86_64"
+                ],
+                [
+                    "libX11",
+                    "0",
+                    "1.6.3",
+                    "3.el7",
+                    "2016/12/13 05:19:20",
+                    "x86_64"
+                ],
+                [
+                    "libXrender",
+                    "0",
+                    "0.9.8",
+                    "2.1.el7",
+                    "2016/12/13 05:19:20",
+                    "x86_64"
+                ],
+                [
+                    "gdk-pixbuf2",
+                    "0",
+                    "2.31.6",
+                    "3.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "libXfixes",
+                    "0",
+                    "5.0.1",
+                    "2.1.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "libXtst",
+                    "0",
+                    "1.2.2",
+                    "2.1.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "libXmu",
+                    "0",
+                    "1.1.2",
+                    "2.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "libXcomposite",
+                    "0",
+                    "0.4.4",
+                    "4.1.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "alsa-firmware",
+                    "0",
+                    "1.0.28",
+                    "2.el7",
+                    "2016/11/05 06:00:36",
+                    "noarch"
+                ],
+                [
+                    "pulseaudio-libs",
+                    "0",
+                    "6.0",
+                    "8.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "gd",
+                    "0",
+                    "2.0.35",
+                    "26.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "libpipeline",
+                    "0",
+                    "1.2.3",
+                    "3.el7",
+                    "2016/11/05 06:00:36",
+                    "x86_64"
+                ],
+                [
+                    "libXrandr",
+                    "0",
+                    "1.4.2",
+                    "2.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "mesa-libGL",
+                    "0",
+                    "11.2.2",
+                    "2.20160614.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "json-c",
+                    "0",
+                    "0.11",
+                    "4.el7_0",
+                    "2016/11/05 06:00:36",
+                    "x86_64"
+                ],
+                [
+                    "giflib",
+                    "0",
+                    "4.1.6",
+                    "9.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "mesa-libEGL",
+                    "0",
+                    "11.2.2",
+                    "2.20160614.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "pango",
+                    "0",
+                    "1.36.8",
+                    "2.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "gtk2",
+                    "0",
+                    "2.24.28",
+                    "8.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "tzdata-java",
+                    "0",
+                    "2016j",
+                    "1.el7",
+                    "2016/12/13 05:19:24",
+                    "noarch"
+                ],
+                [
+                    "java-1.7.0-openjdk-headless",
+                    "1",
+                    "1.7.0.121",
+                    "2.6.8.0.el7_3",
+                    "2016/12/13 05:19:27",
+                    "x86_64"
+                ],
+                [
+                    "apache-commons-pool",
+                    "0",
+                    "1.6",
+                    "9.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "apache-commons-collections",
+                    "0",
+                    "3.2.1",
+                    "22.el7_2",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "xml-commons-resolver",
+                    "0",
+                    "1.2",
+                    "15.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "xerces-j2",
+                    "0",
+                    "2.11.0",
+                    "17.el7_0",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "log4j",
+                    "0",
+                    "1.2.17",
+                    "15.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "apache-commons-logging",
+                    "0",
+                    "1.1.2",
+                    "7.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "libndp",
+                    "0",
+                    "1.2",
+                    "7.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "libcurl",
+                    "0",
+                    "7.29.0",
+                    "35.el7.centos",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "rpm-libs",
+                    "0",
+                    "4.11.3",
+                    "21.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "openldap",
+                    "0",
+                    "2.4.40",
+                    "13.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper",
+                    "7",
+                    "1.02.135",
+                    "1.el7_3.1",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "cryptsetup-libs",
+                    "0",
+                    "1.7.2",
+                    "1.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "kmod",
+                    "0",
+                    "20",
+                    "9.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "dbus",
+                    "1",
+                    "1.6.12",
+                    "17.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "systemd-sysv",
+                    "0",
+                    "219",
+                    "30.el7_3.6",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "iputils",
+                    "0",
+                    "20160308",
+                    "8.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper-event",
+                    "7",
+                    "1.02.135",
+                    "1.el7_3.1",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "os-prober",
+                    "0",
+                    "1.58",
+                    "9.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "openssh",
+                    "0",
+                    "6.6.1p1",
+                    "31.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "grub2-tools",
+                    "1",
+                    "2.02",
+                    "0.44.el7.centos",
+                    "2016/12/13 05:15:27",
+                    "x86_64"
+                ],
+                [
+                    "lvm2",
+                    "7",
+                    "2.02.166",
+                    "1.el7_3.1",
+                    "2016/12/13 05:15:27",
+                    "x86_64"
+                ],
+                [
+                    "dmraid-events",
+                    "0",
+                    "1.0.0.rc16",
+                    "28.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "wpa_supplicant",
+                    "1",
+                    "2.0",
+                    "20.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "ebtables",
+                    "0",
+                    "2.0.10",
+                    "15.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "hwdata",
+                    "0",
+                    "0.252",
+                    "8.4.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "cronie-anacron",
+                    "0",
+                    "1.4.11",
+                    "14.el7_2.1",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "libdrm",
+                    "0",
+                    "2.4.67",
+                    "3.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "plymouth",
+                    "0",
+                    "0.8.9",
+                    "0.26.20140113.el7.centos",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "cryptsetup",
+                    "0",
+                    "1.7.2",
+                    "1.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper-multipath-libs",
+                    "0",
+                    "0.4.9",
+                    "99.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "gnupg2",
+                    "0",
+                    "2.0.22",
+                    "4.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "rpm-python",
+                    "0",
+                    "4.11.3",
+                    "21.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "python-urlgrabber",
+                    "0",
+                    "3.10",
+                    "8.el7",
+                    "2016/12/13 05:15:29",
+                    "noarch"
+                ],
+                [
+                    "yum",
+                    "0",
+                    "3.4.3",
+                    "150.el7.centos",
+                    "2016/12/13 05:15:30",
+                    "noarch"
+                ],
+                [
+                    "pykickstart",
+                    "0",
+                    "1.99.66.10",
+                    "1.el7",
+                    "2016/12/13 05:15:33",
+                    "noarch"
+                ],
+                [
+                    "sg3_utils-libs",
+                    "0",
+                    "1.37",
+                    "9.el7",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "bind-license",
+                    "32",
+                    "9.9.4",
+                    "38.el7_3",
+                    "2016/12/13 05:15:33",
+                    "noarch"
+                ],
+                [
+                    "dhclient",
+                    "12",
+                    "4.2.5",
+                    "47.el7.centos",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "dracut-network",
+                    "0",
+                    "033",
+                    "463.el7",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "kbd-misc",
+                    "0",
+                    "1.15.5",
+                    "12.el7",
+                    "2016/12/13 05:15:38",
+                    "noarch"
+                ],
+                [
+                    "mdadm",
+                    "0",
+                    "3.4",
+                    "14.el7",
+                    "2016/12/13 05:15:38",
+                    "x86_64"
+                ],
+                [
+                    "firewalld",
+                    "0",
+                    "0.4.3.2",
+                    "8.el7",
+                    "2016/12/13 05:15:38",
+                    "noarch"
+                ],
+                [
+                    "kbd",
+                    "0",
+                    "1.15.5",
+                    "12.el7",
+                    "2016/12/13 05:15:39",
+                    "x86_64"
+                ],
+                [
+                    "kexec-tools",
+                    "0",
+                    "2.0.7",
+                    "50.el7",
+                    "2016/12/13 05:15:44",
+                    "x86_64"
+                ],
+                [
+                    "NetworkManager-team",
+                    "1",
+                    "1.4.0",
+                    "13.el7_3",
+                    "2016/12/13 05:15:44",
+                    "x86_64"
+                ],
+                [
+                    "sg3_utils",
+                    "0",
+                    "1.37",
+                    "9.el7",
+                    "2016/12/13 05:15:45",
+                    "x86_64"
+                ],
+                [
+                    "openlmi",
+                    "0",
+                    "1.0.2",
+                    "4.el7",
+                    "2016/12/13 05:15:45",
+                    "noarch"
+                ],
+                [
+                    "selinux-policy-targeted",
+                    "0",
+                    "3.13.1",
+                    "102.el7_3.7",
+                    "2016/12/13 05:15:46",
+                    "noarch"
+                ],
+                [
+                    "openssh-clients",
+                    "0",
+                    "6.6.1p1",
+                    "31.el7",
+                    "2016/12/13 05:15:53",
+                    "x86_64"
+                ],
+                [
+                    "tuned",
+                    "0",
+                    "2.7.1",
+                    "3.el7_3.1",
+                    "2016/12/13 05:15:53",
+                    "noarch"
+                ],
+                [
+                    "audit",
+                    "0",
+                    "2.6.5",
+                    "3.el7",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "alsa-tools-firmware",
+                    "0",
+                    "1.1.0",
+                    "1.el7",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "biosdevname",
+                    "0",
+                    "0.7.2",
+                    "1.el7",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "rsyslog",
+                    "0",
+                    "7.4.7",
+                    "16.el7",
+                    "2016/12/13 05:16:14",
+                    "x86_64"
+                ],
+                [
+                    "sudo",
+                    "0",
+                    "1.8.6p7",
+                    "21.el7_3",
+                    "2016/12/13 05:16:14",
+                    "x86_64"
+                ],
+                [
+                    "gnutls",
+                    "0",
+                    "3.3.24",
+                    "1.el7",
+                    "2016/12/13 05:16:15",
+                    "x86_64"
+                ],
+                [
+                    "avahi-autoipd",
+                    "0",
+                    "0.6.31",
+                    "17.el7",
+                    "2016/12/13 05:16:16",
+                    "x86_64"
+                ],
+                [
+                    "openslp",
+                    "1",
+                    "2.0.0",
+                    "6.el7",
+                    "2016/12/13 05:16:16",
+                    "x86_64"
+                ],
+                [
+                    "perl-Pod-Escapes",
+                    "1",
+                    "1.04",
+                    "291.el7",
+                    "2016/12/13 05:16:16",
+                    "noarch"
+                ],
+                [
+                    "libgomp",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/13 05:16:16",
+                    "x86_64"
+                ],
+                [
+                    "epel-release",
+                    "0",
+                    "7",
+                    "8",
+                    "2016/12/13 05:16:16",
+                    "noarch"
+                ],
+                [
+                    "iwl1000-firmware",
+                    "1",
+                    "39.31.5.1",
+                    "49.el7",
+                    "2016/12/13 05:16:16",
+                    "noarch"
+                ],
+                [
+                    "iwl6000-firmware",
+                    "0",
+                    "9.221.4.1",
+                    "49.el7",
+                    "2016/12/13 05:16:16",
+                    "noarch"
+                ],
+                [
+                    "iwl135-firmware",
+                    "0",
+                    "18.168.6.1",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "iwl3945-firmware",
+                    "0",
+                    "15.32.2.9",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "iwl100-firmware",
+                    "0",
+                    "39.31.5.1",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "iwl6000g2b-firmware",
+                    "0",
+                    "17.168.5.2",
+                    "49.el7",
+                    "2016/12/13 05:16:18",
+                    "noarch"
+                ],
+                [
+                    "iwl6000g2a-firmware",
+                    "0",
+                    "17.168.5.3",
+                    "49.el7",
+                    "2016/12/13 05:16:18",
+                    "noarch"
+                ],
+                [
+                    "iwl4965-firmware",
+                    "0",
+                    "228.61.2.24",
+                    "49.el7",
+                    "2016/12/13 05:16:18",
+                    "noarch"
+                ],
+                [
+                    "openlmi-networking",
+                    "0",
+                    "0.3.0",
+                    "3.el7",
+                    "2016/11/05 16:08:33",
+                    "x86_64"
+                ],
+                [
+                    "python-pyblock",
+                    "0",
+                    "0.53",
+                    "6.el7",
+                    "2016/11/05 16:08:34",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-storage",
+                    "0",
+                    "0.8.0",
+                    "2.el7",
+                    "2016/11/05 16:08:34",
+                    "noarch"
+                ],
+                [
+                    "gpg-pubkey",
+                    "0",
+                    "352c64e5",
+                    "52ae6884",
+                    "2016/12/13 05:14:00",
+                    "(none)"
+                ],
+                [
+                    "centos-release",
+                    "0",
+                    "7",
+                    "3.1611.el7.centos",
+                    "2016/12/13 05:14:35",
+                    "x86_64"
+                ],
+                [
+                    "filesystem",
+                    "0",
+                    "3.2",
+                    "21.el7",
+                    "2016/12/13 05:14:35",
+                    "x86_64"
+                ],
+                [
+                    "tzdata",
+                    "0",
+                    "2016j",
+                    "1.el7",
+                    "2016/12/13 05:14:36",
+                    "noarch"
+                ],
+                [
+                    "glibc-common",
+                    "0",
+                    "2.17",
+                    "157.el7_3.1",
+                    "2016/12/13 05:14:39",
+                    "x86_64"
+                ],
+                [
+                    "bash",
+                    "0",
+                    "4.2.46",
+                    "21.el7_3",
+                    "2016/12/13 05:14:42",
+                    "x86_64"
+                ],
+                [
+                    "libstdc++",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/13 05:14:42",
+                    "x86_64"
+                ],
+                [
+                    "libselinux",
+                    "0",
+                    "2.5",
+                    "6.el7",
+                    "2016/12/13 05:15:01",
+                    "x86_64"
+                ],
+                [
+                    "audit-libs",
+                    "0",
+                    "2.6.5",
+                    "3.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "nspr",
+                    "0",
+                    "4.11.0",
+                    "1.el7_2",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "nss-util",
+                    "0",
+                    "3.21.3",
+                    "1.1.el7_3",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "chkconfig",
+                    "0",
+                    "1.7.2",
+                    "1.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "expat",
+                    "0",
+                    "2.1.0",
+                    "10.el7_3",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "libnl3",
+                    "0",
+                    "3.2.28",
+                    "2.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "lua",
+                    "0",
+                    "5.1.4",
+                    "15.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "libsemanage",
+                    "0",
+                    "2.5",
+                    "4.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "perl-Socket",
+                    "0",
+                    "2.010",
+                    "4.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "perl",
+                    "4",
+                    "5.16.3",
+                    "291.el7",
+                    "2016/12/13 05:15:04",
+                    "x86_64"
+                ],
+                [
+                    "libxml2",
+                    "0",
+                    "2.9.1",
+                    "6.el7_2.3",
+                    "2016/12/13 05:15:04",
+                    "x86_64"
+                ],
+                [
+                    "gmp",
+                    "1",
+                    "6.0.0",
+                    "12.el7_1",
+                    "2016/12/13 05:15:04",
+                    "x86_64"
+                ],
+                [
+                    "iproute",
+                    "0",
+                    "3.10.0",
+                    "74.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "libnl3-cli",
+                    "0",
+                    "3.2.28",
+                    "2.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "nss-softokn",
+                    "0",
+                    "3.16.2.3",
+                    "14.4.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "xz",
+                    "0",
+                    "5.2.2",
+                    "1.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "libffi",
+                    "0",
+                    "3.0.13",
+                    "18.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "dmidecode",
+                    "1",
+                    "3.0",
+                    "2.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "libsoup",
+                    "0",
+                    "2.48.1",
+                    "6.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "libteam",
+                    "0",
+                    "1.25",
+                    "4.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "nettle",
+                    "0",
+                    "2.7.1",
+                    "8.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "avahi-libs",
+                    "0",
+                    "0.6.31",
+                    "17.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "pinentry",
+                    "0",
+                    "0.8.1",
+                    "17.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "mozjs17",
+                    "0",
+                    "17.0.0",
+                    "19.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "libselinux-utils",
+                    "0",
+                    "2.5",
+                    "6.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "make",
+                    "1",
+                    "3.82",
+                    "23.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "coreutils",
+                    "0",
+                    "8.22",
+                    "18.el7",
+                    "2016/12/13 05:15:08",
+                    "x86_64"
+                ],
+                [
+                    "krb5-libs",
+                    "0",
+                    "1.14.1",
+                    "27.el7_3",
+                    "2016/12/13 05:15:08",
+                    "x86_64"
+                ],
+                [
+                    "pam",
+                    "0",
+                    "1.1.8",
+                    "18.el7",
+                    "2016/12/13 05:15:08",
+                    "x86_64"
+                ],
+                [
+                    "shadow-utils",
+                    "2",
+                    "4.1.5.1",
+                    "24.el7",
+                    "2016/12/13 05:15:09",
+                    "x86_64"
+                ],
+                [
+                    "python",
+                    "0",
+                    "2.7.5",
+                    "48.el7",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-python-base",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:11",
+                    "noarch"
+                ],
+                [
+                    "openlmi-indicationmanager-libs",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "procps-ng",
+                    "0",
+                    "3.3.10",
+                    "10.el7",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "util-linux",
+                    "0",
+                    "2.23.2",
+                    "33.el7",
+                    "2016/12/13 05:15:12",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-hardware",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:16",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-service",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:20",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-powermanagement",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:21",
+                    "x86_64"
+                ],
+                [
+                    "libsemanage-python",
+                    "0",
+                    "2.5",
+                    "4.el7",
+                    "2016/12/13 05:15:21",
+                    "x86_64"
+                ],
+                [
+                    "libselinux-python",
+                    "0",
+                    "2.5",
+                    "6.el7",
+                    "2016/12/13 05:15:21",
+                    "x86_64"
+                ],
+                [
+                    "plymouth-core-libs",
+                    "0",
+                    "0.8.9",
+                    "0.26.20140113.el7.centos",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "grubby",
+                    "0",
+                    "8.28",
+                    "18.el7",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "openssl",
+                    "1",
+                    "1.0.1e",
+                    "60.el7",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "libssh2",
+                    "0",
+                    "1.4.3",
+                    "10.el7_2.1",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "logrotate",
+                    "0",
+                    "3.8.6",
+                    "12.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "nss-sysinit",
+                    "0",
+                    "3.21.3",
+                    "2.el7_3",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "NetworkManager-libnm",
+                    "1",
+                    "1.4.0",
+                    "13.el7_3",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "librados2",
+                    "1",
+                    "0.94.5",
+                    "1.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "libtasn1",
+                    "0",
+                    "3.8",
+                    "3.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "ipset-libs",
+                    "0",
+                    "6.19",
+                    "6.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "numactl-libs",
+                    "0",
+                    "2.0.9",
+                    "6.el7_2",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "tomcat-lib",
+                    "0",
+                    "7.0.69",
+                    "10.el7",
+                    "2016/12/13 05:19:29",
+                    "noarch"
+                ],
+                [
+                    "curl",
+                    "0",
+                    "7.29.0",
+                    "35.el7.centos",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "ImageMagick6-libs",
+                    "0",
+                    "6.9.6.8",
+                    "1.el7.remi",
+                    "2016/12/13 05:19:29",
+                    "x86_64"
+                ],
+                [
+                    "kpartx",
+                    "0",
+                    "0.4.9",
+                    "99.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "tomcat",
+                    "0",
+                    "7.0.69",
+                    "10.el7",
+                    "2016/12/13 05:19:30",
+                    "noarch"
+                ],
+                [
+                    "dracut",
+                    "0",
+                    "033",
+                    "463.el7",
+                    "2016/12/13 05:15:24",
+                    "x86_64"
+                ],
+                [
+                    "vim-enhanced",
+                    "2",
+                    "7.4.160",
+                    "1.el7",
+                    "2016/12/13 05:19:34",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper-event-libs",
+                    "7",
+                    "1.02.135",
+                    "1.el7_3.1",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "php",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:34",
+                    "x86_64"
+                ],
+                [
+                    "initscripts",
+                    "0",
+                    "9.49.37",
+                    "1.el7",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "java-1.8.0-openjdk-headless",
+                    "1",
+                    "1.8.0.111",
+                    "2.b15.el7_3",
+                    "2016/12/13 06:10:32",
+                    "x86_64"
+                ],
+                [
+                    "dhcp-libs",
+                    "12",
+                    "4.2.5",
+                    "47.el7.centos",
+                    "2016/12/13 05:15:26",
+                    "x86_64"
+                ],
+                [
+                    "mysql-community-common",
+                    "0",
+                    "5.7.17",
+                    "1.el7",
+                    "2016/12/30 09:28:41",
+                    "x86_64"
+                ],
+                [
+                    "lvm2-libs",
+                    "7",
+                    "2.02.166",
+                    "1.el7_3.1",
+                    "2016/12/13 05:15:27",
+                    "x86_64"
+                ],
+                [
+                    "libdb",
+                    "0",
+                    "5.3.21",
+                    "19.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "mysql-community-server",
+                    "0",
+                    "5.7.17",
+                    "1.el7",
+                    "2016/12/30 09:29:08",
+                    "x86_64"
+                ],
+                [
+                    "selinux-policy",
+                    "0",
+                    "3.13.1",
+                    "102.el7_3.7",
+                    "2016/12/13 05:15:28",
+                    "noarch"
+                ],
+                [
+                    "readline",
+                    "0",
+                    "6.2",
+                    "9.el7",
+                    "2016/11/05 06:00:09",
+                    "x86_64"
+                ],
+                [
+                    "libmpc",
+                    "0",
+                    "1.0.1",
+                    "3.el7",
+                    "2016/12/30 09:38:19",
+                    "x86_64"
+                ],
+                [
+                    "libcgroup",
+                    "0",
+                    "0.41",
+                    "11.el7",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "glibc-devel",
+                    "0",
+                    "2.17",
+                    "157.el7_3.1",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "cronie",
+                    "0",
+                    "1.4.11",
+                    "14.el7_2.1",
+                    "2016/12/13 05:15:28",
+                    "x86_64"
+                ],
+                [
+                    "keyutils-libs-devel",
+                    "0",
+                    "1.5.8",
+                    "3.el7",
+                    "2016/12/30 09:38:21",
+                    "x86_64"
+                ],
+                [
+                    "cryptsetup-python",
+                    "0",
+                    "1.7.2",
+                    "1.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "yajl",
+                    "0",
+                    "2.0.4",
+                    "4.el7",
+                    "2016/11/05 06:05:20",
+                    "x86_64"
+                ],
+                [
+                    "libverto-devel",
+                    "0",
+                    "0.2.5",
+                    "4.el7",
+                    "2016/12/30 09:38:22",
+                    "x86_64"
+                ],
+                [
+                    "device-mapper-multipath",
+                    "0",
+                    "0.4.9",
+                    "99.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "python-IPy",
+                    "0",
+                    "0.75",
+                    "6.el7",
+                    "2016/11/05 06:05:20",
+                    "noarch"
+                ],
+                [
+                    "gcc",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/30 09:38:24",
+                    "x86_64"
+                ],
+                [
+                    "python-pycurl",
+                    "0",
+                    "7.19.0",
+                    "19.el7",
+                    "2016/12/13 05:15:29",
+                    "x86_64"
+                ],
+                [
+                    "libidn",
+                    "0",
+                    "1.28",
+                    "4.el7",
+                    "2016/11/05 06:00:10",
+                    "x86_64"
+                ],
+                [
+                    "libjpeg-turbo-devel",
+                    "0",
+                    "1.2.90",
+                    "5.el7",
+                    "2016/12/30 09:44:14",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-software",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:31",
+                    "noarch"
+                ],
+                [
+                    "perl-parent",
+                    "1",
+                    "0.225",
+                    "244.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "libxcb-devel",
+                    "0",
+                    "1.11",
+                    "4.el7",
+                    "2016/12/30 09:44:15",
+                    "x86_64"
+                ],
+                [
+                    "kernel-tools-libs",
+                    "0",
+                    "3.10.0",
+                    "514.2.2.el7",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "libtiff-devel",
+                    "0",
+                    "4.0.3",
+                    "25.el7_2",
+                    "2016/12/30 09:44:16",
+                    "x86_64"
+                ],
+                [
+                    "NetworkManager",
+                    "1",
+                    "1.4.0",
+                    "13.el7_3",
+                    "2016/12/13 05:15:33",
+                    "x86_64"
+                ],
+                [
+                    "libunistring",
+                    "0",
+                    "0.9.3",
+                    "9.el7",
+                    "2016/11/05 06:00:11",
+                    "x86_64"
+                ],
+                [
+                    "libstdc++-devel",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/30 09:44:17",
+                    "x86_64"
+                ],
+                [
+                    "libreport-filesystem",
+                    "0",
+                    "2.1.11",
+                    "35.el7.centos",
+                    "2016/12/13 05:15:38",
+                    "x86_64"
+                ],
+                [
+                    "perl-constant",
+                    "0",
+                    "1.27",
+                    "2.el7",
+                    "2016/11/05 06:07:21",
+                    "noarch"
+                ],
+                [
+                    "newt",
+                    "0",
+                    "0.52.15",
+                    "4.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "libcurl-devel",
+                    "0",
+                    "7.29.0",
+                    "35.el7.centos",
+                    "2016/12/30 09:44:18",
+                    "x86_64"
+                ],
+                [
+                    "python-blivet",
+                    "1",
+                    "0.61.15.59",
+                    "1.el7",
+                    "2016/12/13 05:15:39",
+                    "noarch"
+                ],
+                [
+                    "perl-PathTools",
+                    "0",
+                    "3.40",
+                    "5.el7",
+                    "2016/11/05 06:07:21",
+                    "x86_64"
+                ],
+                [
+                    "libdaemon",
+                    "0",
+                    "0.14",
+                    "7.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "elasticsearch",
+                    "0",
+                    "5.1.1",
+                    "1",
+                    "2017/01/04 08:01:30",
+                    "noarch"
+                ],
+                [
+                    "NetworkManager-tui",
+                    "1",
+                    "1.4.0",
+                    "13.el7_3",
+                    "2016/12/13 05:15:44",
+                    "x86_64"
+                ],
+                [
+                    "perl-threads-shared",
+                    "0",
+                    "1.43",
+                    "6.el7",
+                    "2016/11/05 06:07:22",
+                    "x86_64"
+                ],
+                [
+                    "keyutils-libs",
+                    "0",
+                    "1.5.8",
+                    "3.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "policycoreutils-python",
+                    "0",
+                    "2.5",
+                    "9.el7",
+                    "2016/12/13 05:15:45",
+                    "x86_64"
+                ],
+                [
+                    "perl-Pod-Simple",
+                    "1",
+                    "3.28",
+                    "4.el7",
+                    "2016/11/05 06:07:22",
+                    "noarch"
+                ],
+                [
+                    "less",
+                    "0",
+                    "458",
+                    "9.el7",
+                    "2016/11/05 06:00:12",
+                    "x86_64"
+                ],
+                [
+                    "grub2",
+                    "1",
+                    "2.02",
+                    "0.44.el7.centos",
+                    "2016/12/13 05:15:53",
+                    "x86_64"
+                ],
+                [
+                    "perl-TermReadKey",
+                    "0",
+                    "2.30",
+                    "20.el7",
+                    "2016/11/05 06:07:23",
+                    "x86_64"
+                ],
+                [
+                    "pkgconfig",
+                    "1",
+                    "0.27.1",
+                    "4.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "authconfig",
+                    "0",
+                    "6.2.8",
+                    "14.el7",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "git",
+                    "0",
+                    "1.8.3.1",
+                    "6.el7_2.1",
+                    "2016/11/05 06:07:25",
+                    "x86_64"
+                ],
+                [
+                    "gettext-libs",
+                    "0",
+                    "0.18.2.1",
+                    "4.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "httpd",
+                    "0",
+                    "2.4.6",
+                    "45.el7.centos",
+                    "2016/12/13 05:15:54",
+                    "x86_64"
+                ],
+                [
+                    "mailcap",
+                    "0",
+                    "2.1.41",
+                    "2.el7",
+                    "2016/11/05 08:41:47",
+                    "noarch"
+                ],
+                [
+                    "acl",
+                    "0",
+                    "2.2.51",
+                    "12.el7",
+                    "2016/11/05 06:00:13",
+                    "x86_64"
+                ],
+                [
+                    "dracut-config-rescue",
+                    "0",
+                    "033",
+                    "463.el7",
+                    "2016/12/13 05:16:14",
+                    "x86_64"
+                ],
+                [
+                    "net-snmp-libs",
+                    "1",
+                    "5.7.2",
+                    "24.el7_2.1",
+                    "2016/11/05 16:08:27",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-logicalfile",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:16:15",
+                    "x86_64"
+                ],
+                [
+                    "python-backports",
+                    "0",
+                    "1.0",
+                    "8.el7",
+                    "2016/11/05 16:08:27",
+                    "x86_64"
+                ],
+                [
+                    "libmodman",
+                    "0",
+                    "2.0.1",
+                    "8.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "libseccomp",
+                    "0",
+                    "2.3.1",
+                    "2.el7",
+                    "2016/12/13 05:16:16",
+                    "x86_64"
+                ],
+                [
+                    "ustr",
+                    "0",
+                    "1.0.4",
+                    "16.el7",
+                    "2016/11/05 06:00:14",
+                    "x86_64"
+                ],
+                [
+                    "iwl5150-firmware",
+                    "0",
+                    "8.24.2.2",
+                    "49.el7",
+                    "2016/12/13 05:16:16",
+                    "noarch"
+                ],
+                [
+                    "iwl7260-firmware",
+                    "0",
+                    "22.0.7.0",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "m2crypto",
+                    "0",
+                    "0.21.1",
+                    "17.el7",
+                    "2016/11/05 16:08:31",
+                    "x86_64"
+                ],
+                [
+                    "iwl7265-firmware",
+                    "0",
+                    "22.0.7.0",
+                    "49.el7",
+                    "2016/12/13 05:16:17",
+                    "noarch"
+                ],
+                [
+                    "cracklib",
+                    "0",
+                    "2.9.0",
+                    "11.el7",
+                    "2016/11/05 06:00:19",
+                    "x86_64"
+                ],
+                [
+                    "iwl5000-firmware",
+                    "0",
+                    "8.83.5.1_1",
+                    "49.el7",
+                    "2016/12/13 05:16:18",
+                    "noarch"
+                ],
+                [
+                    "libjpeg-turbo",
+                    "0",
+                    "1.2.90",
+                    "5.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "cups-libs",
+                    "1",
+                    "1.6.3",
+                    "26.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "centos-logos",
+                    "0",
+                    "70.0.6",
+                    "3.el7.centos",
+                    "2016/11/05 06:00:23",
+                    "noarch"
+                ],
+                [
+                    "libogg",
+                    "2",
+                    "1.3.0",
+                    "7.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "python-slip-dbus",
+                    "0",
+                    "0.4.0",
+                    "2.el7",
+                    "2016/11/05 06:00:24",
+                    "noarch"
+                ],
+                [
+                    "libxshmfence",
+                    "0",
+                    "1.2",
+                    "1.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "libgcc",
+                    "0",
+                    "4.8.5",
+                    "11.el7",
+                    "2016/12/13 05:14:35",
+                    "x86_64"
+                ],
+                [
+                    "newt-python",
+                    "0",
+                    "0.52.15",
+                    "4.el7",
+                    "2016/11/05 06:00:24",
+                    "x86_64"
+                ],
+                [
+                    "libfontenc",
+                    "0",
+                    "1.1.2",
+                    "3.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "kbd-legacy",
+                    "0",
+                    "1.15.5",
+                    "12.el7",
+                    "2016/12/13 05:14:35",
+                    "noarch"
+                ],
+                [
+                    "xorg-x11-font-utils",
+                    "1",
+                    "7.5",
+                    "20.el7",
+                    "2016/12/13 05:19:08",
+                    "x86_64"
+                ],
+                [
+                    "glibc",
+                    "0",
+                    "2.17",
+                    "157.el7_3.1",
+                    "2016/12/13 05:14:41",
+                    "x86_64"
+                ],
+                [
+                    "python-lxml",
+                    "0",
+                    "3.2.1",
+                    "4.el7",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "pcre",
+                    "0",
+                    "8.32",
+                    "15.el7_2.1",
+                    "2016/12/13 05:14:42",
+                    "x86_64"
+                ],
+                [
+                    "tomcat-jsp-2.2-api",
+                    "0",
+                    "7.0.69",
+                    "10.el7",
+                    "2016/12/13 05:19:09",
+                    "noarch"
+                ],
+                [
+                    "xz-libs",
+                    "0",
+                    "5.2.2",
+                    "1.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "cyrus-sasl",
+                    "0",
+                    "2.1.26",
+                    "20.el7_2",
+                    "2016/12/13 05:19:09",
+                    "x86_64"
+                ],
+                [
+                    "libcom_err",
+                    "0",
+                    "1.42.9",
+                    "9.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "copy-jdk-configs",
+                    "0",
+                    "1.2",
+                    "1.el7",
+                    "2016/12/13 05:19:09",
+                    "noarch"
+                ],
+                [
+                    "dbus-libs",
+                    "1",
+                    "1.6.12",
+                    "17.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "php-process",
+                    "0",
+                    "5.4.45",
+                    "12.el7.remi",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "elfutils-libs",
+                    "0",
+                    "0.166",
+                    "2.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "libthai",
+                    "0",
+                    "0.1.14",
+                    "9.el7",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "perl-macros",
+                    "4",
+                    "5.16.3",
+                    "291.el7",
+                    "2016/12/13 05:15:02",
+                    "x86_64"
+                ],
+                [
+                    "expat-devel",
+                    "0",
+                    "2.1.0",
+                    "10.el7_3",
+                    "2016/12/13 05:19:11",
+                    "x86_64"
+                ],
+                [
+                    "file-libs",
+                    "0",
+                    "5.11",
+                    "33.el7",
+                    "2016/12/13 05:15:04",
+                    "x86_64"
+                ],
+                [
+                    "pth",
+                    "0",
+                    "2.0.7",
+                    "23.el7",
+                    "2016/11/05 06:00:28",
+                    "x86_64"
+                ],
+                [
+                    "gpm-libs",
+                    "0",
+                    "1.20.7",
+                    "5.el7",
+                    "2016/12/13 05:19:12",
+                    "x86_64"
+                ],
+                [
+                    "file",
+                    "0",
+                    "5.11",
+                    "33.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "perl-Test-Harness",
+                    "0",
+                    "3.28",
+                    "3.el7",
+                    "2016/12/13 05:19:14",
+                    "noarch"
+                ],
+                [
+                    "kmod-libs",
+                    "0",
+                    "20",
+                    "9.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "libmnl",
+                    "0",
+                    "1.0.3",
+                    "7.el7",
+                    "2016/11/05 06:00:29",
+                    "x86_64"
+                ],
+                [
+                    "urw-fonts",
+                    "0",
+                    "2.4",
+                    "16.el7",
+                    "2016/12/13 05:19:16",
+                    "noarch"
+                ],
+                [
+                    "glib2",
+                    "0",
+                    "2.46.2",
+                    "4.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "qrencode-libs",
+                    "0",
+                    "3.4.1",
+                    "3.el7",
+                    "2016/11/05 06:00:29",
+                    "x86_64"
+                ],
+                [
+                    "perl-PlRPC",
+                    "0",
+                    "0.2020",
+                    "14.el7",
+                    "2016/12/13 05:19:18",
+                    "noarch"
+                ],
+                [
+                    "boost-thread",
+                    "0",
+                    "1.53.0",
+                    "26.el7",
+                    "2016/12/13 05:15:05",
+                    "x86_64"
+                ],
+                [
+                    "autoconf",
+                    "0",
+                    "2.69",
+                    "11.el7",
+                    "2016/12/13 05:19:18",
+                    "noarch"
+                ],
+                [
+                    "setools-libs",
+                    "0",
+                    "3.3.8",
+                    "1.1.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "graphite2",
+                    "0",
+                    "1.3.6",
+                    "1.el7_2",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "libss",
+                    "0",
+                    "1.42.9",
+                    "9.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "pixman",
+                    "0",
+                    "0.34.0",
+                    "1.el7",
+                    "2016/12/13 05:19:19",
+                    "x86_64"
+                ],
+                [
+                    "tar",
+                    "2",
+                    "1.26",
+                    "31.el7",
+                    "2016/12/13 05:15:06",
+                    "x86_64"
+                ],
+                [
+                    "xorg-x11-fonts-Type1",
+                    "0",
+                    "7.5",
+                    "9.el7",
+                    "2016/12/13 05:19:19",
+                    "noarch"
+                ],
+                [
+                    "openssl-libs",
+                    "1",
+                    "1.0.1e",
+                    "60.el7",
+                    "2016/12/13 05:15:08",
+                    "x86_64"
+                ],
+                [
+                    "libXext",
+                    "0",
+                    "1.3.3",
+                    "3.el7",
+                    "2016/12/13 05:19:20",
+                    "x86_64"
+                ],
+                [
+                    "systemd-libs",
+                    "0",
+                    "219",
+                    "30.el7_3.6",
+                    "2016/12/13 05:15:08",
+                    "x86_64"
+                ],
+                [
+                    "ppp",
+                    "0",
+                    "2.4.5",
+                    "33.el7",
+                    "2016/11/05 06:00:34",
+                    "x86_64"
+                ],
+                [
+                    "libXpm",
+                    "0",
+                    "3.5.11",
+                    "3.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "libgudev1",
+                    "0",
+                    "219",
+                    "30.el7_3.6",
+                    "2016/12/13 05:15:11",
+                    "x86_64"
+                ],
+                [
+                    "libXdamage",
+                    "0",
+                    "1.1.4",
+                    "4.1.el7",
+                    "2016/12/13 05:19:21",
+                    "x86_64"
+                ],
+                [
+                    "python-pyudev",
+                    "0",
+                    "0.15",
+                    "7.el7_2.1",
+                    "2016/12/13 05:15:11",
+                    "noarch"
+                ],
+                [
+                    "glib-networking",
+                    "0",
+                    "2.42.0",
+                    "1.el7",
+                    "2016/11/05 06:00:35",
+                    "x86_64"
+                ],
+                [
+                    "libXaw",
+                    "0",
+                    "1.0.12",
+                    "5.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "virt-what",
+                    "0",
+                    "1.13",
+                    "8.el7",
+                    "2016/12/13 05:15:12",
+                    "x86_64"
+                ],
+                [
+                    "libXft",
+                    "0",
+                    "2.3.2",
+                    "2.el7",
+                    "2016/12/13 05:19:22",
+                    "x86_64"
+                ],
+                [
+                    "openlmi-python-providers",
+                    "0",
+                    "0.5.0",
+                    "4.el7",
+                    "2016/12/13 05:15:20",
+                    "noarch"
+                ],
+                [
+                    "libaio",
+                    "0",
+                    "0.3.109",
+                    "13.el7",
+                    "2016/11/05 06:00:36",
+                    "x86_64"
+                ],
+                [
+                    "libXinerama",
+                    "0",
+                    "1.1.3",
+                    "2.1.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "audit-libs-python",
+                    "0",
+                    "2.6.5",
+                    "3.el7",
+                    "2016/12/13 05:15:21",
+                    "x86_64"
+                ],
+                [
+                    "jansson",
+                    "0",
+                    "2.4",
+                    "6.el7",
+                    "2016/11/05 06:00:36",
+                    "x86_64"
+                ],
+                [
+                    "cairo",
+                    "0",
+                    "1.14.2",
+                    "1.el7",
+                    "2016/12/13 05:19:23",
+                    "x86_64"
+                ],
+                [
+                    "btrfs-progs",
+                    "0",
+                    "4.4.1",
+                    "1.el7",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "libestr",
+                    "0",
+                    "0.1.9",
+                    "2.el7",
+                    "2016/11/05 06:00:36",
+                    "x86_64"
+                ],
+                [
+                    "graphviz",
+                    "0",
+                    "2.30.1",
+                    "19.el7",
+                    "2016/12/13 05:19:24",
+                    "x86_64"
+                ],
+                [
+                    "httpd-tools",
+                    "0",
+                    "2.4.6",
+                    "45.el7.centos",
+                    "2016/12/13 05:15:22",
+                    "x86_64"
+                ],
+                [
+                    "java-1.7.0-openjdk",
+                    "1",
+                    "1.7.0.121",
+                    "2.6.8.0.el7_3",
+                    "2016/12/13 05:19:28",
+                    "x86_64"
+                ],
+                [
+                    "alsa-lib",
+                    "0",
+                    "1.1.1",
+                    "1.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "xml-commons-apis",
+                    "0",
+                    "1.4.01",
+                    "16.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "nss-tools",
+                    "0",
+                    "3.21.3",
+                    "2.el7_3",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "javamail",
+                    "0",
+                    "1.4.6",
+                    "8.el7",
+                    "2016/12/13 05:19:28",
+                    "noarch"
+                ],
+                [
+                    "lsscsi",
+                    "0",
+                    "0.27",
+                    "4.el7",
+                    "2016/12/13 05:15:23",
+                    "x86_64"
+                ],
+                [
+                    "man-db",
+                    "0",
+                    "2.6.3",
+                    "9.el7",
+                    "2016/11/05 06:00:39",
+                    "x86_64"
+                ]
+            ],
+            "header": [
+                "target",
+                "name",
+                "epoch",
+                "version",
+                "release",
+                "installtime",
+                "arch"
+            ]
+        }
     },
     "packages.geronimo-jta": {
         "name": "packages.geronimo-jta",
@@ -6972,7 +12636,18 @@
         "compare_server": null,
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "someuser \ufffd\ufffd sudoers \ufffdt\ufffd@\ufffdC\ufffd\ufffd\ufffd\ufffd\ufffd\u0242\ufffd\ufffd\ufffd\u0702\ufffd\ufffd\ufffdB\ufffd\ufffd\ufffd\u030e\ufffd\ufffd\u06c2\u034bL\ufffd^\ufffdE\ufffd\ud8f5\udc02\ufffd\ufffd\ufffd\u0702\ufffd\ufffdB"
+                ]
+            ],
+            "header": [
+                "target",
+                "message"
+            ]
+        }
     },
     "oracle_module": {
         "name": "oracle_module",

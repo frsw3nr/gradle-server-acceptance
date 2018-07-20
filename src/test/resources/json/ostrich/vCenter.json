@@ -51,7 +51,23 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "UNMATCH",
+        "devices": {
+            "csv": [
+                [
+                    "datastore1",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore1",
+                    "VMFS",
+                    "Available"
+                ]
+            ],
+            "header": [
+                "Name",
+                "DatastoreBrowserPath",
+                "Type",
+                "State"
+            ]
+        }
     },
     "VMNetwork": {
         "name": "VMNetwork",
@@ -60,7 +76,21 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "MATCH",
+        "devices": {
+            "csv": [
+                [
+                    "VM Network",
+                    "Vmxnet3",
+                    "Connected, GuestControl, StartConnected"
+                ]
+            ],
+            "header": [
+                "NetworkName",
+                "Type",
+                "ConnectionState"
+            ]
+        }
     },
     "vmwaretool": {
         "name": "vmwaretool",
@@ -105,6 +135,20 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "UNMATCH",
+        "devices": {
+            "csv": [
+                [
+                    "[datastore1] ostrich/ostrich.vmdk",
+                    "Thin",
+                    "56"
+                ]
+            ],
+            "header": [
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
+            ]
+        }
     }
 }
