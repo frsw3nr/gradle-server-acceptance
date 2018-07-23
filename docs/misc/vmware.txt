@@ -1,3 +1,5 @@
+https://docs.ansible.com/ansible/latest/modules/vmware_guest_module.html#vmware-guest-module
+
 Pyvmomi
 =======
 
