@@ -1,0 +1,759 @@
+Oracle テンプレート
+===================
+
+connect / as sysdba
+
+CREATE USER ZABBIX IDENTIFIED BY zabbix DEFAULT TABLESPACE SYSTEM TEMPORARY TABLESPACE TEMP PROFILE DEFAULT ACCOUNT UNLOCK;
+GRANT CONNECT TO ZABBIX;
+GRANT RESOURCE TO ZABBIX;
+ALTER USER ZABBIX DEFAULT ROLE ALL;
+GRANT SELECT ANY TABLE TO ZABBIX;
+GRANT CREATE SESSION TO ZABBIX;
+GRANT SELECT ANY DICTIONARY TO ZABBIX;
+GRANT UNLIMITED TABLESPACE TO ZABBIX;
+GRANT SELECT ANY DICTIONARY TO ZABBIX;
+GRANT SELECT ON V_$SESSION TO ZABBIX;
+GRANT SELECT ON V_$SYSTEM_EVENT TO ZABBIX;
+GRANT SELECT ON V_$EVENT_NAME TO ZABBIX;
+GRANT SELECT ON V_$RECOVERY_FILE_DEST TO ZABBIX;
+
+ORA-03113: end-of-file on communication channel
+Process ID: 10525
+Session ID: 1 Serial number: 9904
+
+018-07-22T08:55:51.655697+09:00
+Errors in file /u01/app/oracle/diag/rdbms/orcl/orcl/trace/orcl_arc0_10718.trc:
+ORA-19809: リカバリ・ファイルの制限を超えています
+ORA-19804: 86667264バイトのディスク領域を7461666816バイト制限から再利用できませ ん
+ARC0: Error 19809 Creating archive log file to '/u01/fra/ORCL/archivelog/2018_07_22/o1_mf_1_93_%u_.arc'
+
+RMAN の DELETE コマンドを使用してフラッシュ・リカバリ領域にある不要なファイルを削除
+
+select * from v$recovery_file_dest;
+
+NAME
+--------------------------------------------------------------------------------
+SPACE_LIMIT SPACE_USED SPACE_RECLAIMABLE NUMBER_OF_FILES     CON_ID
+----------- ---------- ----------------- --------------- ----------
+/u01/fra/
+ 7461666816 7390583808                 0              86          0
+
+
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE = 7461666816;
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE = 9000000000 scope=both;
+
+rman target /
+
+delete backup of database;
+
+select * from v$recovery_file_dest;
+ crosscheck archivelog all;
+
+pip install cx_Oracle
+
+Errors in file /u01/app/oracle/diag/rdbms/orcl/orcl/trace/orcl_tt00_10929.trc:
+ORA-19815: 警告: db_recovery_file_dest_size(7461666816バイト)は100.00%バイトが使用され、残り0バイトが使用可能です。
+
+python pyora.py --username pyora --password secret --address 127.0.0.1 --database DATABASE version
+
+DPI-1047: 64-bit Oracle Client library cannot be loaded: 
+"libclntsh.so: cannot open shared object file: No such file or directory". 
+See https://oracle.github.io/odpi/doc/installation.html#linux for help
+
+sudo pip install cx_Oracle
+
+import cx_Oracle
+cx_Oracle.clientversion()
+
+git clone https://github.com/bicofino/Pyora.git
+
+python pyora.py --username zabbix --password zabbix --address 192.168.0.16 --database ORCL version
+
+python pyora.py --username zabbix --password zabbix --address getperf --database ORCL version
+ORA-12545: Connect failed because target host or object does not exist
+
+https://github.com/dallasdba/dbascripts.git
+
+./cdbstorage
+
+
+ID   Cont. Name      Tablespace         Free Space MB   Alloc Space MB
+---- --------------- --------------- ---------------- ----------------
+   0 orcl            SYSAUX                       237            1,160
+                     SYSTEM                         5              850
+                     TEMP                                          132
+                     UNDOTBS1                      62              250
+                     USERS                          4                5
+**** *************** *************** ---------------- ----------------
+sum                                               308            2,397
+
+./dbattrs
+
+Name                                     Value
+---------------------------------------- --------------------------------------------------
+ACTIVATION#                              1500504221
+ARCHIVELOG_CHANGE#                       14068662
+ARCHIVELOG_COMPRESSION                   DISABLED
+ARCHIVE_CHANGE#                          14083471
+CDB                                      NO
+CHECKPOINT_CHANGE#                       14083759
+CONTROLFILE_CHANGE#                      14139875
+CONTROLFILE_CONVERTED                    NO
+CONTROLFILE_CREATED                      2018-04-06 07:24:13
+CONTROLFILE_SEQUENCE#                    3440245089
+CONTROLFILE_TIME                         2018-07-22 15:54:04
+CONTROLFILE_TYPE                         CURRENT
+CON_DBID                                 1500498589
+CON_ID                                   0
+CREATED                                  2018-04-06 07:24:13
+CURRENT_SCN                              14139915
+DATABASE_ROLE                            PRIMARY
+DATAGUARD_BROKER                         DISABLED
+DBID                                     1500498589
+DB_UNIQUE_NAME                           orcl
+FLASHBACK_ON                             NO
+FORCE_FULL_DB_CACHING                    NO
+FORCE_LOGGING                            NO
+FS_FAILOVER_CURRENT_TARGET
+FS_FAILOVER_OBSERVER_HOST
+FS_FAILOVER_OBSERVER_PRESENT
+FS_FAILOVER_STATUS                       DISABLED
+FS_FAILOVER_THRESHOLD                    0
+GUARD_STATUS                             NONE
+LAST_OPEN_INCARNATION#                   2
+LOG_MODE                                 NOARCHIVELOG
+MIN_REQUIRED_CAPTURE_CHANGE#
+NAME                                     ORCL
+OPEN_MODE                                READ WRITE
+OPEN_RESETLOGS                           NOT ALLOWED
+PENDING_ROLE_CHANGE_TASKS                NOT APPLICABLE
+PLATFORM_ID                              13
+PLATFORM_NAME                            Linux x86 64-bit
+PRIMARY_DB_UNIQUE_NAME
+PRIOR_RESETLOGS_CHANGE#                  1
+PRIOR_RESETLOGS_TIME                     2017-01-26 13:52:29
+PROTECTION_LEVEL                         UNPROTECTED
+PROTECTION_MODE                          MAXIMUM PERFORMANCE
+RECOVERY_TARGET_INCARNATION#             2
+REMOTE_ARCHIVE                           ENABLED
+RESETLOGS_CHANGE#                        1408558
+RESETLOGS_TIME                           2018-04-06 07:24:14
+STANDBY_BECAME_PRIMARY_SCN               0
+SUPPLEMENTAL_LOG_DATA_ALL                NO
+SUPPLEMENTAL_LOG_DATA_FK                 NO
+SUPPLEMENTAL_LOG_DATA_MIN                YES
+SUPPLEMENTAL_LOG_DATA_PK                 YES
+SUPPLEMENTAL_LOG_DATA_PL                 NO
+SUPPLEMENTAL_LOG_DATA_UI                 YES
+SWITCHOVER#                              1500504221
+SWITCHOVER_STATUS                        NOT ALLOWED
+VERSION_TIME                             2018-04-06 07:24:13
+
+./dbcomps
+
+
+Name                                          Version         Status
+--------------------------------------------- --------------- -------------------------
+JServer JAVA Virtual Machine                  12.2.0.1.0      VALID
+OLAP Analytic Workspace                       12.2.0.1.0      VALID
+Oracle Database Catalog Views                 12.2.0.1.0      VALID
+Oracle Database Java Packages                 12.2.0.1.0      VALID
+Oracle Database Packages and Types            12.2.0.1.0      VALID
+Oracle Database Vault                         12.2.0.1.0      VALID
+Oracle Label Security                         12.2.0.1.0      VALID
+Oracle Multimedia                             12.2.0.1.0      VALID
+Oracle OLAP API                               12.2.0.1.0      VALID
+Oracle Real Application Clusters              12.2.0.1.0      OPTION OFF
+Oracle Text                                   12.2.0.1.0      VALID
+Oracle Workspace Manager                      12.2.0.1.0      VALID
+Oracle XDK                                    12.2.0.1.0      VALID
+Oracle XML Database                           12.2.0.1.0      VALID
+Spatial                                       12.2.0.1.0      VALID
+
+./dbfeatusage
+
+
+Name                                                              Usage Count Currently Used Version
+------------------------------------------------------------ ---------------- -------------- ------------
+Adaptive Plans                                                              4 True           12.2.0.1.0
+Automatic Maintenance - Optimizer Statistics Gathering                      4 True           12.2.0.1.0
+Automatic Maintenance - SQL Tuning Advisor                                  4 True           12.2.0.1.0
+Automatic Maintenance - Space Advisor                                       4 True           12.2.0.1.0
+Automatic Reoptimization                                                    4 True           12.2.0.1.0
+Automatic SGA Tuning                                                        4 True           12.2.0.1.0
+Automatic SQL Execution Memory                                              4 True           12.2.0.1.0
+Automatic SQL Tuning Advisor                                                3 True           12.2.0.1.0
+Automatic Segment Space Management (system)                                 4 True           12.2.0.1.0
+Automatic Undo Management                                                   4 True           12.2.0.1.0
+Character Set                                                               4 True           12.2.0.1.0
+DBMS_STATS Incremental Maintenance                                          4 True           12.2.0.1.0
+Deferred Segment Creation                                                   4 True           12.2.0.1.0
+Locally Managed Tablespaces (system)                                        4 True           12.2.0.1.0
+Locally Managed Tablespaces (user)                                          4 True           12.2.0.1.0
+Oracle Java Virtual Machine (system)                                        4 True           12.2.0.1.0
+Oracle Utility External Table (ORACLE_LOADER)                               3 True           12.2.0.1.0
+Partitioning (system)                                                       4 True           12.2.0.1.0
+Real Application Security                                                   4 True           12.2.0.1.0
+Real-Time SQL Monitoring                                                    3 True           12.2.0.1.0
+Recovery Area                                                               4 True           12.2.0.1.0
+Result Cache                                                                2 False          12.2.0.1.0
+SQL Plan Directive                                                          4 True           12.2.0.1.0
+SecureFiles (system)                                                        4 True           12.2.0.1.0
+SecureFiles (user)                                                          4 True           12.2.0.1.0
+Server Parameter File                                                       4 True           12.2.0.1.0
+Traditional Audit                                                           4 True           12.2.0.1.0
+Unified Audit                                                               4 True           12.2.0.1.0
+
+./dbinfo
+
+===========================================================================================
+Database Info.                                                             2018-07-22 15:57
+===========================================================================================
+ General Information:
+ ----------------------------  ------------------------------------------------------------
+ instance_name                 orcl
+ db_name                       orcl
+ db_unique_name                orcl
+ db_domain
+ db_block_size                 8192
+ db_id                         1500498589
+ db_version                    12.2.0.1.0
+ compatible                    12.2.0
+ cluster_database              FALSE
+ cluster_database_instances    1
+ current_scn                   14140310
+ db_open_mode                  READ WRITE
+ force_logging                 NO
+ last_open_incarnation#        2
+ log_mode                      NOARCHIVELOG
+ archiver                      STOPPED
+ logins                        ALLOWED
+ service_names                 orcl
+
+ Host Configuration:
+ ----------------------------  ------------------------------------------------------------
+ host_num_cpu_cores            1
+ host_num_cpu_sockets          1
+ host_num_cpus                 1
+ host_physical_memory_bytes    1,968,394,240
+ endian_format                 Little
+ platform_name                 Linux x86 64-bit
+
+ NLS Configuration:
+ ----------------------------  ------------------------------------------------------------
+ nls_territory                 AMERICA
+ nls_language                  AMERICAN
+ nls_characterset              AL32UTF8
+ nls_nchar_characterset        AL16UTF16
+ nls_length_semantics          BYTE
+
+ Memory Configuration:
+ ----------------------------  ------------------------------------------------------------
+ memory_management             ASMM
+ statistics_level              TYPICAL
+ sga_target                    805,306,368
+ sga_max_size                  805,306,368
+ memory_target                 0
+ memory_max_target             0
+ pga_aggregate_target          268,435,456
+
+ Memory Pool Sizes:
+ ----------------------------  ------------------------------------------------------------
+ db_cache_size                 0
+ shared_pool_size              0
+ streams_pool_size             0
+ large_pool_size               0
+ java_pool_size                0
+ current_sga_usage             805,306,368
+
+ Storage Configuration:
+ ----------------------------  ------------------------------------------------------------
+ db_create_file_dest
+ db_recovery_file_dest         /u01/fra/
+ db_recovery_file_dest_size    9,000,000,000
+ default_tbs_type              SMALLFILE
+ default_permanent_tablespace  USERS
+ default_temp_tablespace       TEMP
+
+ Storage Utilization:
+ ----------------------------  ------------------------------------------------------------
+ datafile_bytes                2,375,024,640
+ tempfile_bytes                138,412,032
+ redofile_bytes                314,572,800
+ controlfile_bytes             21,364,736
+ total_storage_bytes           2,849,374,208
+
+ Resource Management:
+ ----------------------------  ------------------------------------------------------------
+ cpu_count                     1
+ resource_manager_plan
+===========================================================================================
+End of Report                                                              2018-07-22 15:57
+===========================================================================================
+
+./dbvers
+
+
+Product                                       Version              Status
+--------------------------------------------- -------------------- -------------------------
+NLSRTL                                        12.2.0.1.0           Production
+Oracle Database 12c Enterprise Edition        12.2.0.1.0           64bit Production
+PL/SQL                                        12.2.0.1.0           Production
+TNS for Linux:                                12.2.0.1.0           Production
+
+Action Time                    Action               Namespace  Version                       ID Comments
+------------------------------ -------------------- ---------- -------------------- ----------- --------------------------------------------------
+                               BOOTSTRAP            DATAPATCH  12.2.0.1                         RDBMS_12.2.0.1.0_LINUX.X64_170125
+
+Opatch Detail
+-------------------------------------------------------------------------------------------------
+
+
+Patch Details:
+Patch Details                  :
+
+./filestorage
+
+Type                               Size (MB)
+-------------------- -----------------------
+controlfiles                           20.38
+datafiles                           2,265.00
+redologs                              300.00
+tempfiles                             132.00
+
+Total                               2,717.38
+
+./instattrs
+
+Name                                     Value
+---------------------------------------- --------------------------------------------------
+ACTIVE_STATE                             NORMAL
+ARCHIVER                                 STOPPED
+BLOCKED                                  NO
+CON_ID                                   0
+DATABASE_STATUS                          ACTIVE
+DATABASE_TYPE                            SINGLE
+EDITION                                  EE
+FAMILY
+HOST_NAME                                getperf.ostrich
+INSTANCE_MODE                            REGULAR
+INSTANCE_NAME                            orcl
+INSTANCE_NUMBER                          1
+INSTANCE_ROLE                            PRIMARY_INSTANCE
+LOGINS                                   ALLOWED
+LOG_SWITCH_WAIT
+PARALLEL                                 NO
+SHUTDOWN_PENDING                         NO
+STARTUP_TIME                             2018-07-22 09:22:20
+STATUS                                   OPEN
+THREAD#                                  1
+VERSION                                  12.2.0.1.0
+
+./nls
+
+
+Name                                Value
+----------------------------------- ----------------------------------------
+NLS_CALENDAR                        GREGORIAN
+NLS_CHARACTERSET                    AL32UTF8
+NLS_COMP                            BINARY
+NLS_CURRENCY                        $
+NLS_DATE_FORMAT                     DD-MON-RR
+NLS_DATE_LANGUAGE                   AMERICAN
+NLS_DUAL_CURRENCY                   $
+NLS_ISO_CURRENCY                    AMERICA
+NLS_LANGUAGE                        AMERICAN
+NLS_LENGTH_SEMANTICS                BYTE
+NLS_NCHAR_CHARACTERSET              AL16UTF16
+NLS_NCHAR_CONV_EXCP                 FALSE
+NLS_NUMERIC_CHARACTERS              .,
+NLS_RDBMS_VERSION                   12.2.0.1.0
+NLS_SORT                            BINARY
+NLS_TERRITORY                       AMERICA
+NLS_TIMESTAMP_FORMAT                DD-MON-RR HH.MI.SSXFF AM
+NLS_TIMESTAMP_TZ_FORMAT             DD-MON-RR HH.MI.SSXFF AM TZR
+NLS_TIME_FORMAT                     HH.MI.SSXFF AM
+NLS_TIME_TZ_FORMAT                  HH.MI.SSXFF AM TZR
+
+./parmdef |more
+
+
+Name                                               Value                          Description
+-------------------------------------------------- ------------------------------ ------------------------------------------------------------------------------------------
+DBFIPS_140                                         FALSE                          Enable use of crypographic libraries in FIPS mode, public
+O7_DICTIONARY_ACCESSIBILITY                        FALSE                          Version 7 Dictionary Accessibility Support
+active_instance_count                                                             number of active instances in the cluster database
+allow_global_dblinks                               FALSE                          LDAP lookup for DBLINKS
+allow_group_access_to_sga                          FALSE                          Allow read access for SGA to users of Oracle owner group
+approx_for_aggregation                             FALSE                          Replace exact aggregation with approximate aggregation
+approx_for_count_distinct                          FALSE                          Replace count distinct with approx_count_distinct
+approx_for_percentile                              none                           Replace percentile_* with approx_percentile
+aq_tm_processes                                    1                              number of AQ Time Managers to start
+archive_lag_target                                 0                              Maximum number of seconds of redos the standby could lose
+asm_diskgroups                                                                    disk groups to mount automatically
+asm_diskstring                                                                    disk set locations for discovery
+asm_io_processes                                   20                             number of I/O processes per domain in the ASM IOSERVER instance
+
+
+./redoinfo
+
+
+ Grp Trd#            Bytes Status   Archived?    First Change# First Time              Next Change# Next Time
+---- ---- ---------------- -------- --------- ---------------- ------------------- ---------------- -------------------
+   1    1      104,857,600 INACTIVE NO                14083471 2018-07-22 09:52:33         14083581 2018-07-22 09:52:37
+   2    1      104,857,600 INACTIVE NO                14083581 2018-07-22 09:52:37         14083759 2018-07-22 09:52:41
+   3    1      104,857,600 CURRENT  NO                14083759 2018-07-22 09:52:41 ################
+
+ Grp Status   Type         Member                                                                    Is Reco Dest File?
+---- -------- ------------ ------------------------------------------------------------------------- ------------------
+   1          ONLINE       /u01/oradata/orcl/redo01.log                                              NO
+   2          ONLINE       /u01/oradata/orcl/redo02.log                                              NO
+   3          ONLINE       /u01/oradata/orcl/redo03.log                                              NO
+
+./sgadc
+
+
+Component                     Current MB        Min. MB         Max MB  User Spec. MB     Oper Count Last Oper Type Last Oper Mode Last Oper Time          Granule MB
+------------------------- -------------- -------------- -------------- -------------- -------------- -------------- -------------- ------------------- --------------
+ASM Buffer Cache                      .0             .0             .0             .0             .0 STATIC                                                       4.0
+DEFAULT 16K buffer cache              .0             .0             .0             .0             .0 STATIC                                                       4.0
+DEFAULT 2K buffer cache               .0             .0             .0             .0             .0 STATIC                                                       4.0
+DEFAULT 32K buffer cache              .0             .0             .0             .0             .0 STATIC                                                       4.0
+DEFAULT 4K buffer cache               .0             .0             .0             .0             .0 STATIC                                                       4.0
+DEFAULT 8K buffer cache               .0             .0             .0             .0             .0 STATIC                                                       4.0
+DEFAULT buffer cache               508.0          456.0          568.0             .0            7.0 SHRINK         IMMEDIATE      2018-07-22 15:23:02            4.0
+Data Transfer Cache                   .0             .0             .0             .0             .0 STATIC                                                       4.0
+In Memory RO Extension Ar             .0             .0             .0             .0             .0 STATIC                                                       4.0
+ea
+
+In Memory RW Extension Ar             .0             .0             .0             .0             .0 STATIC                                                       4.0
+ea
+
+In-Memory Area                        .0             .0             .0             .0             .0 STATIC                                                       4.0
+KEEP buffer cache                     .0             .0             .0             .0             .0 STATIC                                                       4.0
+RECYCLE buffer cache                  .0             .0             .0             .0             .0 STATIC                                                       4.0
+Shared IO Pool                      36.0             .0           36.0             .0            1.0 GROW           IMMEDIATE      2018-07-22 09:22:47            4.0
+java pool                            4.0            4.0            4.0             .0             .0 STATIC                                                       4.0
+large pool                           8.0            8.0          120.0             .0            1.0 SHRINK         DEFERRED       2018-07-22 09:22:30            4.0
+shared pool                        200.0          176.0          200.0             .0            5.0 GROW           IMMEDIATE      2018-07-22 15:23:02            4.0
+streams pool                          .0             .0             .0             .0             .0 STATIC                                                       4.0
+
+./sgasize
+
+
+Name                                              Value
+------------------------------ ------------------------
+Database Buffers                        570,425,344.000
+Fixed Size                                8,625,856.000
+Redo Buffers                              3,956,736.000
+Variable Size                           222,298,432.000
+
+./sysmetric
+
+
+Begin Time          End Time                       Value Metric
+------------------- ------------------- ---------------- ------------------------------------------------------------
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Active Parallel Sessions
+2018-07-22 16:21:41 2018-07-22 16:22:41                2 Active Serial Sessions
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Average Active Sessions
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Average Synchronous Single-Block Read Latency
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Background CPU Usage Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Background Checkpoints Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Background Time Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Branch Node Splits Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Branch Node Splits Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41              100 Buffer Cache Hit Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 CPU Usage Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               29 CPU Usage Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 CR Blocks Created Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 CR Blocks Created Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 CR Undo Records Applied Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 CR Undo Records Applied Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Captured user calls
+2018-07-22 16:21:41 2018-07-22 16:22:41        2,814,464 Cell Physical IO Interconnect Bytes
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Consistent Read Changes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                6 Consistent Read Changes Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41              218 Consistent Read Gets Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           13,103 Consistent Read Gets Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               42 Current Logons Count
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Current OS Load
+2018-07-22 16:21:41 2018-07-22 16:22:41               32 Current Open Cursors Count
+2018-07-22 16:21:41 2018-07-22 16:22:41              355 Cursor Cache Hit Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 DB Block Changes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               71 DB Block Changes Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 DB Block Changes Per User Call
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 DB Block Gets Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               63 DB Block Gets Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 DB Block Gets Per User Call
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 DBWR Checkpoints Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 DDL statements parallelized Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 DML statements parallelized Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               68 Database CPU Time Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 Database Time Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               32 Database Wait Time Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Disk Sort Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Disk Sort Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Enqueue Deadlocks Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Enqueue Deadlocks Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41              218 Enqueue Requests Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           13,086 Enqueue Requests Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Enqueue Timeouts Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Enqueue Timeouts Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Enqueue Waits Per Sec
+
+Begin Time          End Time                       Value Metric
+------------------- ------------------- ---------------- ------------------------------------------------------------
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Enqueue Waits Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               65 Execute Without Parse Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41               24 Executions Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41            1,462 Executions Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 Executions Per User Call
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 Full Index Scans Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               57 Full Index Scans Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 GC CR Block Received Per Second
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 GC CR Block Received Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 GC Current Block Received Per Second
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 GC Current Block Received Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Global Cache Average CR Get Time
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Global Cache Average Current Get Time
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Global Cache Blocks Corrupted
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Global Cache Blocks Lost
+2018-07-22 16:21:41 2018-07-22 16:22:41                2 Hard Parse Count Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41              105 Hard Parse Count Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                6 Host CPU Usage Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                6 Host CPU Utilization (%)
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 I/O Megabytes per Second
+2018-07-22 16:21:41 2018-07-22 16:22:41                4 I/O Requests per Second
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Leaf Node Splits Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Leaf Node Splits Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               88 Library Cache Hit Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41               12 Library Cache Miss Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41              219 Logical Reads Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           13,166 Logical Reads Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               13 Logical Reads Per User Call
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Logons Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               12 Logons Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Long Table Scans Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Long Table Scans Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41              100 Memory Sorts Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41            9,184 Network Traffic Volume Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               24 Open Cursors Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41            1,424 Open Cursors Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41              100 PGA Cache Hit %
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PQ QC Session Count
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PQ Slave Session Count
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PX downgraded 1 to 25% Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PX downgraded 25 to 50% Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PX downgraded 50 to 75% Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PX downgraded 75 to 99% Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PX downgraded to serial Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 PX operations not downgraded Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Parse Failure Count Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Parse Failure Count Per Txn
+
+Begin Time          End Time                       Value Metric
+------------------- ------------------- ---------------- ------------------------------------------------------------
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Read Bytes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Read IO Requests Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           33,008 Physical Read Total Bytes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                2 Physical Read Total IO Requests Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Reads Direct Lobs Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Reads Direct Lobs Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Reads Direct Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Reads Direct Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Reads Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Reads Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Write Bytes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Write IO Requests Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           13,853 Physical Write Total Bytes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                2 Physical Write Total IO Requests Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Writes Direct Lobs  Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Writes Direct Lobs Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Writes Direct Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Writes Direct Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Writes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Physical Writes Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               16 Process Limit %
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Queries parallelized Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41              105 Recursive Calls Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41            6,323 Recursive Calls Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41              100 Redo Allocation Hit Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41              311 Redo Generated Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           18,656 Redo Generated Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 Redo Writes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               68 Redo Writes Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Replayed user calls
+2018-07-22 16:21:41 2018-07-22 16:22:41               43 Response Time Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               97 Row Cache Hit Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                3 Row Cache Miss Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41               10 Rows Per Sort
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Run Queue Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 SQL Service Response Time
+2018-07-22 16:21:41 2018-07-22 16:22:41               56 Session Count
+2018-07-22 16:21:41 2018-07-22 16:22:41               12 Session Limit %
+2018-07-22 16:21:41 2018-07-22 16:22:41                4 Shared Pool Free %
+2018-07-22 16:21:41 2018-07-22 16:22:41               80 Soft Parse Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Streams Pool Usage Percentage
+2018-07-22 16:21:41 2018-07-22 16:22:41        4,194,304 Temp Space Used
+2018-07-22 16:21:41 2018-07-22 16:22:41               25 Total Index Scans Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41            1,507 Total Index Scans Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41      164,168,704 Total PGA Allocated
+2018-07-22 16:21:41 2018-07-22 16:22:41        1,324,032 Total PGA Used by SQL Workareas
+2018-07-22 16:21:41 2018-07-22 16:22:41                9 Total Parse Count Per Sec
+
+Begin Time          End Time                       Value Metric
+------------------- ------------------- ---------------- ------------------------------------------------------------
+2018-07-22 16:21:41 2018-07-22 16:22:41              517 Total Parse Count Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Total Sorts Per User Call
+2018-07-22 16:21:41 2018-07-22 16:22:41                1 Total Table Scans Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41               78 Total Table Scans Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Total Table Scans Per User Call
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Txns Per Logon
+2018-07-22 16:21:41 2018-07-22 16:22:41               17 User Calls Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41            1,024 User Calls Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41               14 User Calls Ratio
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Commits Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Commits Percentage
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Limit %
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Rollback Undo Records Applied Per Txn
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Rollback UndoRec Applied Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Rollbacks Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Rollbacks Percentage
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 User Transaction Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 VM in bytes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41           53,809 VM out bytes Per Sec
+2018-07-22 16:21:41 2018-07-22 16:22:41                0 Workload Capture and Replay status
+
+./systime
+
+
+Stat Name                                                                    Seconds         Minutes
+------------------------------------------------------------ ----------------------- ---------------
+   background elapsed time                                                    311.07            5.18
+     background cpu time                                                      110.85            1.85
+       RMAN cpu time (backup/restore)                                            .07             .00
+   DB time                                                                     25.41             .42
+     DB CPU                                                                    11.14             .19
+     connection management call elapsed time                                     .56             .01
+     sequence load elapsed time                                                  .06             .00
+     sql execute elapsed time                                                  15.65             .26
+     parse time elapsed                                                         8.28             .14
+       hard parse elapsed time                                                  7.94             .13
+         hard parse (sharing criteria) elapsed time                              .41             .01
+           hard parse (bind mismatch) elapsed time                               .00             .00
+       failed parse elapsed time                                                 .00             .00
+         failed parse (out of shared memory) elapsed time                        .00             .00
+     PL/SQL execution elapsed time                                               .54             .01
+     inbound PL/SQL rpc elapsed time                                             .40             .01
+     PL/SQL compilation elapsed time                                             .90             .01
+     Java execution elapsed time                                                 .00             .00
+     repeated bind elapsed time                                                  .02             .00
+
+./tabstorage |more
+
+
+Owner                          Table                                 Megabytes
+------------------------------ ------------------------------ ----------------
+AUDSYS                         AUD$UNIFIED                                .375
+CTXSYS                         DR$CLASS                                   .063
+CTXSYS                         DR$FEATURE_USED                            .063
+CTXSYS                         DR$INDEX                                   .063
+CTXSYS                         DR$INDEX_SET                               .063
+CTXSYS                         DR$INDEX_VALUE                             .063
+CTXSYS                         DR$NUMBER_SEQUENCE                         .063
+CTXSYS                         DR$OBJECT                                  .063
+CTXSYS                         DR$OBJECT_ATTRIBUTE                        .125
+CTXSYS                         DR$OBJECT_ATTRIBUTE_LOV                    .063
+CTXSYS                         DR$PREFERENCE                              .063
+CTXSYS                         DR$PREFERENCE_VALUE                        .063
+
+JDBC環境
+--------
+
+mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1 -Dpackaging=jar
+
+avenのリポジトリからは取得できないようなので、実ファイルを入手します。
+以下のURLからOJDBCドライバーとグローバリゼーション・サポート用のjarファイルをダウンロードします。
+（Oracleの会員登録が必要です。無料です。）
+
+Oracle Database 12.1.0.2 JDBC Driver & UCP Downloads
+
+ドライバ
+ojdbc7.jar ? Certified with JDK7 and JDK 8; It contains the JDBC driver classes except classes for NLS support in Oracle Object and Collection types.
+
+グローバリゼーション・サポート用のjarファイル
+orai18n.jar ? Classes for NLS(National Language Support) support
+
+jarファイルを参照できるようにします。
+やり方が３つあります。
+
+１．指定のフォルダに置いてsystemPath指定
+プロジェクト直下にlibフォルダ（名前は任意）を作成します
+
+20160710 191001
+
+pom.xmlにscopeとsystemPathを記載します。
+ 
+  scp ojdbc7.jar psadmin@192.168.10.1:~/work/gradle/
+
+mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1 -Dpackaging=jar
+
+[INFO] Installing /home/psadmin/work/gradle/ojdbc7.jar to /home/psadmin/.m2/repository/com/oracle/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.jar
+[INFO] Installing /tmp/mvninstall7087097533992407161.pom to /home/psadmin/.m2/repository/com/oracle/ojdbc7/12.1.0.1/ojdbc7-12.1.0.1.pom
+
+repositories {  
+    mavenCentral()  
+    mavenLocal()  
+}  
+
+dependencies {  
+    compile ("com.oracle:ojdbc7:12.1.0.1")  
+}  
+
+mvn install:install-file -DgroupId=com.oracle.jdbc -DartifactId=oracle.jdbc -Dversion=11.2.0.3 -Dpackaging=jar \
+-Dfile=ojdbc6.jar
+
+
+ No suitable driver found for jdbc:oracle:thin:
+
+def f = new File('/home/psadmin/work/gradle/ojdbc6.jar')
+this.getClass().classLoader.rootLoader.addURL(f.toURL())
+
+$HOME/.gradle/gradle.propertiesにOTNのアカウント情報を設定
+
+vi $HOME/.gradle/gradle.properties
+
+OTNの自分のアカウント情報を設定する。
+otn_user=hoge
+otn_password=fuga
+
+build.gradleにOracle Maven Repositoryの情報を追加
+mavenリポジトリの設定とともに、credentialsを使用してリポジトリにアクセスするためのユーザ名とパスワードを指定する。
+ユーザ名とパスワードは、gradle.propertiesに設定したものを参照する。
+
+maven {
+  url "https://www.oracle.com/content/secure/maven/content"
+  credentials {
+    username otn_user
+    password otn_password
+  }
+}
+
+JDBCドライバの追加
+使いたいバージョンを設定する。
+compile 'com.oracle.jdbc:ojdbc8:12.2.0.1'
+
+1) Download ojdbc7.jar at Oracle homepage.
+
+(2) Run command
+
+mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1 -Dpackaging=jar
+(3) Add to build.gradle
+
+compile('com.oracle:ojdbc7:12.1.0.1')
+
+ com.github.noraui
+
+compile group: 'com.github.noraui', name: 'ojdbc8', version: '12.2.0.1'
+
+ 

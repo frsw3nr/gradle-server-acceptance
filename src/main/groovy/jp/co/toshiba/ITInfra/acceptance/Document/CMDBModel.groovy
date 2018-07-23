@@ -37,8 +37,13 @@ class CMDBModel {
                 def msg = "Config not found cmdb.dataSource in 'config/cmdb.groovy'"
                 throw new IllegalArgumentException(msg)
             }
-            this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
-                                  config_ds['password'], config_ds['driver'])
+            try {
+                this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
+                                            config_ds['password'], config_ds['driver'])
+            } catch (SQLException e) {
+                def msg = "Connection error i 'config/cmdb.groovy' : "
+                throw new SQLException(msg + e)
+            }
         }
 
         // Confirm existence of Version table. If not, execute db create script
@@ -128,7 +133,7 @@ class CMDBModel {
     def export(String node_config_source) throws IOException, SQLException,
         IllegalArgumentException {
 
-        long start = System.currentTimeMillis()
+        // long start = System.currentTimeMillis()
         // Regist SITE, TENANT table
         def site_id   = registMaster("sites", [site_name: this.project_name])
         def tenant_id = registMaster("tenants", [tenant_name: this.tenant_name])
@@ -182,8 +187,8 @@ class CMDBModel {
                 }
             }
         }
-        long elapsed = System.currentTimeMillis() - start
-        log.info "Export, Elapsed : ${elapsed} ms"
+        // long elapsed = System.currentTimeMillis() - start
+        // log.info "Export, Elapsed : ${elapsed} ms"
     }
 
     def getMetricByHost(String server_name) throws SQLException {

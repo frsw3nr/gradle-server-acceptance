@@ -11,7 +11,7 @@ applicationDefaultJvmArgs = [
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
-version = '0.1.21'
+version = '0.1.22'
 
 repositories {
     jcenter {
@@ -21,6 +21,13 @@ repositories {
     //     url "http://amateras.sourceforge.jp/mvn/"
     // }
 // jcenter()
+    // maven {
+    //     url "https://www.oracle.com/content/secure/maven/content"
+    //     credentials {
+    //         username otn_user
+    //         password otn_password
+    //     }
+    // }
 }
 
 dependencies {
@@ -48,6 +55,9 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-ant:2.0.1'
     compile "mysql:mysql-connector-java:5.1.6"
     compile "com.h2database:h2:1.3.157"
+    // compile 'com.oracle.jdbc:ojdbc8:12.2.0.1'
+    compile 'com.github.noraui:ojdbc8:12.2.0.1'
+    // compile 'com.github.noraui:ojdbc7:12.1.0.2'
 
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.12'

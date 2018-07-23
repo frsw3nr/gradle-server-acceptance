@@ -1,0 +1,210 @@
+Pyvmomi
+=======
+
+vSphere SSH接続設定
+-------------------
+
+vSphere で sshd を起動します。
+[構成]タブ→[ソフトウェア]→「セキュリティプロファイル」を開いて、
+右上の方にある「プロパティ」のリンクをクリックします。
+
+「サービス プロパティ」の中から「SSHサーバ」を選択したら、
+「オプション」ボタンをクリックします。
+
+ハイパーバイザ起動時に SSH 接続を許可するには、「ホストに連動して開始および停止」
+をチェックします。デフォルトは「手動で開始および停止」。
+また、「開始」ボタンをクリックして sshd を起動します。
+
+「OK」で閉じたら、同じように「ファイアウォール」の右側にある
+「プロパティ」をクリックします。
+「SSH」を選択して下方にある「ファイアウォール」をクリックします。
+
+ファイアウォールの設定を行います。ここでは SSH 接続の確認のため
+「任意のIP アドレスからの接続を許可」しておきます
+
+ESXiホストで証明書のインストール
+
+/home/psadmin/anaconda3/lib/python3.6/site-packages/certifi/cacert.pem
+
+cp /home/psadmin/anaconda3/lib/python3.6/site-packages/certifi/cacert.pem .
+
+Pythonモジュール
+----------------
+
+pip install pyvmomi
+t
+git clone https://github.com/vmware/pyvmomi-community-samples.git
+
+python pyvmomi-community-samples/samples/getallvms.py \
+-s [ADDRESS] -u [USERNAME] -p [PASSWORD] -S
+
+-S オプションをつけて、SSL証明書チェックを無効かする
+
+disable_ssl_verification
+ignore_ssl 
+
+Ansible連携
+-----------
+
+sudo pip install ansible
+ansible --version   
+ansible 2.6.1
+
+sudo pip install pysphere
+
+sudo pip show pysphere
+---
+Metadata-Version: 1.1
+Name: pysphere
+Version: 0.1.7
+
+
+ESX_IPADDR='192.168.10.100'
+ssh root@${ESX_IPADDR}
+
+mkdir /vmfs/volumes/datastore1/isofiles
+cd /vmfs/volumes/datastore1/isofiles
+wget http://ftp.iij.ad.jp/pub/linux/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso
+
+scp psadmin@192.168.0.10:/data/iso/CentOS-6.9-x86_64-bin-*.iso .
+
+wget http://ftp.iij.ad.jp/pub/linux/centos/6/isos/x86_64/CentOS-6.10-x86_64-minimal.iso
+
+hostname
+esxi.ostrich
+
+Ansible 構成ファイル準備
+------------------------
+
+mkdir -p ~/ansible/esxi-test/group_vars
+
+変数のセット
+
+ESX_HOSTNAME='esxi.ostrich'  #<- 上の手順でメモったホスト名
+ESX_IPADDR=192.168.10.100
+ESX_USER='root'
+ESX_PASSWORD='goliath19a$'  #<- ssh でログイン可能なパスワード
+VM_NAME='testvm01'
+DATASTORE_NAME='datastore2'
+ISO_PATH=${DATASTORE_NAME}/'isofiles/CentOS-6.10-x86_64-minimal.iso'
+
+変数の確認
+
+cat << ETX
+        ESX_HOSTNAME:   ${ESX_HOSTNAME}
+        ESX_USER:       ${ESX_USER}
+        ESX_PASSWORD:   ${ESX_PASSWORD}
+        VM_NAME:        ${VM_NAME}
+        DATASTORE_NAME: ${DATASTORE_NAME}
+        ISO_PATH:       ${ISO_PATH}
+ETX
+
+設定ファイルの作成
+cd ~/ansible/esxi-test/group_vars
+cat << EOF > all.yml
+---
+esx_hostname: ${ESX_HOSTNAME}
+esx_ipaddr: ${ESX_IPADDR}
+esx_user: ${ESX_USER}
+esx_password: ${ESX_PASSWORD}
+guest_vm_name: ${VM_NAME}
+datastore_name: ${DATASTORE_NAME}
+iso_path: ${ISO_PATH}
+EOF
+
+cat all.yml
+cd ../
+
+3. 構成ファイルの作成
+
+ESX_HOST_FILE='esx-host'
+cat << EOF > ${ESX_HOST_FILE}
+[esxi]
+    ${ESX_IPADDR}
+EOF
+cat ${ESX_HOST_FILE}
+
+cat << EOF > site.yml
+---
+- hosts: 127.0.0.1
+  connection: local
+  user: root
+  sudo: false
+  gather_facts: false
+  serial: 1
+  tasks:
+    - name: Deploy guest from template
+      vsphere_guest:
+        vcenter_hostname: "{{ esx_ipaddr }}"
+        username: "{{ esx_user }}"
+        password: "{{ esx_password }}"
+        guest: "{{ guest_vm_name }}"
+        state: powered_on
+        validate_certs: no
+        vm_hw_version: vmx-08
+        vm_extra_config:
+          vcpu.hotadd: yes
+          mem.hotadd:  yes
+          notes: This is a test VM
+        vm_disk:
+          disk1:
+            size_gb: 10
+            type: thin
+            datastore: "{{ datastore_name }}"
+        vm_nic:
+          nic1:
+            type: vmxnet3
+            network: VM Network
+            network_type: standard
+        vm_hardware:
+          memory_mb: 1024
+          num_cpus: 2
+          osid: centos64Guest
+          scsi: paravirtual
+          vm_cdrom:
+            type: "iso"
+            iso_path: "{{ iso_path }}"
+        esxi:
+          datacenter: ha-datacenter
+          hostname: "{{ esx_hostname  }}"
+EOF
+cat site.yml
+
+M の Deploy
+
+1. 以下のコマンドを実行します
+
+ansible-playbook site.yml -i esx-host
+
+SSL証明書エラー
+
+The tasks fails because SSL certificate verification fails. In Ansible version 2.1 validate_certs was added to the vsphere_guest_module
+
+Validate SSL certs. Note, if running on python without SSLContext support (typically, python < 2.7.9) you will have to set this to no as pysphere does not support validating certificates on older python. Prior to 2.1, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8.
+
+site.yml に validate_certs: no を追加
+
+  tasks:
+    - name: Deploy guest from template
+      vsphere_guest:
+        validate_certs: no
+        vcenter_hostname: "{{ esx_ipaddr }}"
+        
+So setting validate_certs: no should solve this issue as long you can use Ansible version >= 2.1 and Python version >= 2.7.9
+
+出力例:
+
+[DEPRECATION WARNING]: Instead of sudo/sudo_user, use become/become_user and make sure become_method is 'sudo' (default). This 
+feature will be removed in a future release. Deprecation warnings can be disabled by setting deprecation_warnings=False in 
+ansible.cfg.
+
+PLAY ***************************************************************************
+
+TASK [Deploy guest from template] **********************************************
+changed: [127.0.0.1]
+
+PLAY RECAP *********************************************************************
+127.0.0.1                  : ok=1    changed=1    unreachable=0    failed=0
+2. vSphere Client で VM が起動してきていたら成功です
+
+

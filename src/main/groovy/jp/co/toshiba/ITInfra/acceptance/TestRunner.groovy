@@ -17,7 +17,7 @@ enum RunnerCommand {
 @ToString(includePackage = false)
 class TestRunner {
 
-    static final String main_version = '0.1.21'
+    static final String main_version = '0.1.22'
     RunnerCommand command = RunnerCommand.SCHEDULER
     String getconfig_home
     String project_home
@@ -177,6 +177,7 @@ class TestRunner {
             } catch (Exception e) {
                 log.error "Fatal error : " + e
                  e.printStackTrace()
+                System.exit(1)
             }
         } else if (test_runner.command == RunnerCommand.EXPORT) {
             def evidence_manager = new EvidenceManager()
@@ -189,6 +190,7 @@ class TestRunner {
                 evidence_manager.update(test_runner.export_type)
             } catch (Exception e) {
                 log.error "Fatal error : " + e
+                 e.printStackTrace()
                 System.exit(1)
             }
         }

@@ -60,11 +60,11 @@ class EvidenceManager {
                 break
 
             case 'db' :
-                this..export_cmdb()
+                this.export_cmdb()
                 break
 
             case 'db-all' :
-                this..export_cmdb_all()
+                this.export_cmdb_all()
                 break
 
             default :
