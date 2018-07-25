@@ -6,7 +6,7 @@ import java.sql.SQLException
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-@GrabConfig( systemClassLoader=true )
+// @GrabConfig( systemClassLoader=true )
 
 // gradle --daemon test --tests "OracleBaseTest.ダミーテスト"
 
@@ -15,7 +15,9 @@ class OracleBaseTest extends Specification {
     def db
 
     def setup() {
-        db = Sql.newInstance("jdbc:oracle:thin:@192.168.0.16:1521:orcl", 
+        // db = Sql.newInstance("jdbc:oracle:thin:@192.168.0.16:1521:orcl", 
+        //                      "zabbix", "zabbix")
+        db = Sql.newInstance("jdbc:oracle:thin:@hatest02:1521:orcl", 
                              "zabbix", "zabbix")
     }
 

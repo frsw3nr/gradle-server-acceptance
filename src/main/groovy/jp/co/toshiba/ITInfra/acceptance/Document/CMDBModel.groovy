@@ -41,7 +41,7 @@ class CMDBModel {
                 this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
                                             config_ds['password'], config_ds['driver'])
             } catch (SQLException e) {
-                def msg = "Connection error i 'config/cmdb.groovy' : "
+                def msg = "Connection error in 'config/cmdb.groovy' : "
                 throw new SQLException(msg + e)
             }
         }

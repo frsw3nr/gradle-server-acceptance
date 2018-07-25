@@ -4,8 +4,8 @@ evidence.source = './template/Oracle/Oracle設定チェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-evidence.target='./build/Oracle設定チェックシート_<date>.xlsx'
-// evidence.target='./build/Oracle_check_sheet.xlsx'
+// evidence.target='./build/Oracle設定チェックシート_<date>.xlsx'
+evidence.target='./build/Oracle_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 
@@ -39,6 +39,6 @@ test.Oracle.dry_run   = false
 
 // Oracle接続情報
 
-account.Oracle.Test.server   = '192.168.0.16'
-account.Oracle.Test.user     = 'perfstat'
-account.Oracle.Test.password = 'perfstat'
+account.Oracle.Test.user     = 'zabbix'
+account.Oracle.Test.password = 'zabbix'
+account.Oracle.Test.port     = 1521

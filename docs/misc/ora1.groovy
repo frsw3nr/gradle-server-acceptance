@@ -23,7 +23,7 @@ import java.sql.SQLException
 // def f = new File('/home/psadmin/work/gradle/ojdbc6.jar')
 // this.getClass().classLoader.rootLoader.addURL(f.toURL())
 
-sql = Sql.newInstance("jdbc:oracle:thin:@192.168.0.16:1521:orcl", "perfstat", "perfstat")
+sql = Sql.newInstance("jdbc:oracle:thin:@10.51.219.23:1521:orcl", "zabbix", "zabbix")
 def row = sql.firstRow("SELECT * FROM tab")
 println row
 

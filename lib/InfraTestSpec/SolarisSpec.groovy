@@ -524,15 +524,20 @@ class SolarisSpec extends InfraTestSpec {
         }
 
         def csvs = []
-        def state = 'Not found'
+        def info = ['solaris11_build' : 'Not found']
         lines.eachLine {
-            // println it
             (it =~  /Build Release:\s+(.+)/).each { m0,m1->
-                state = m1
+                info['solaris11_build'] = m1
+            }
+            (it =~  /Version:\s+(.+)/).each { m0,m1->
+                info['solaris11_build.version'] = m1
+            }
+            (it =~  /Summary:\s+(.+)/).each { m0,m1->
+                info['solaris11_build.sru'] = m1
             }
             csvs << [it]
         }
-        test_item.results(state)
+        test_item.results(info)
     }
 
     def virturization(session, test_item) {
