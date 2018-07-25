@@ -5,14 +5,19 @@ New features:
 * 比較対象を実績からか、ローカルディスクからかを選択できるようにする
 
 ToDo:
-* データベースエクスポート機能単体
-    * CMDBModel.groovy
-    * EvidenceManager.groovy
-* Solaris テンプレート見直し
-    * Solaris 11環境の solaris11_build ログから SRU 番号抽出
-    * Swap,dumpサイズの容量チェック追加
-    * Solaris 11環境で pkg list のパッケージ結果取得
-* 値のチェックエラー発生時に終了コードを 1 にする
+* データベースエクスポート機能単体 [x]
+    * CMDBModel.groovy [x]
+    * EvidenceManager.groovy [x]
+* Solaris テンプレート見直し [ ]
+    * Solaris 11環境の solaris11_build ログから SRU 抽出 [x]
+    * Swap,dumpサイズの容量チェック追加 [x]
+    * Solaris 11環境で pkg list のパッケージ結果取得 [ ]
+* 値のチェックエラー発生時に終了コードを 1 にする [ ]
+* Oracle テンプレート
+    * csvユーティリティを TestItem クラスに移行 [ ]
+    * 12c シナリオ(ベース) [ ]
+    * 11g シナリオ [ ]
+* vCenter テンプレート
 
 Bug fixes:
 * デバイス実行結果のJSON保存でスタックオーバーフローエラーが発生する問題対処
