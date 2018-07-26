@@ -295,4 +295,43 @@ class TestItem {
             this.make_verify(item_name, check, ng_msg)
         }
     }
+
+    def sql_rows_to_csv(List rows, List header = null) {
+        println "ROWS:$rows"
+        def header_keys = [:]
+        def csv = []
+        rows.each { row ->
+            def list = []
+            row.each { column_name, value ->
+                list << value
+                if (!header_keys.containsKey(column_name))
+                    header_keys[column_name] = true
+            }
+            csv << list
+        }
+        def headers = header_keys.keySet()
+        if (header)
+            headers = header
+        def text = "${headers.join('\t')}\n"
+        csv.each { line ->
+            text += "${line.join('\t')}\n"
+        }
+        return text
+    }
+
+    def parse_csv(String lines) {
+        def header = []
+        def csv = []
+        def rownum = 1
+        lines.eachLine { line ->
+            def arr = line.split('\t')
+            if (rownum == 1)
+                header = arr
+            else
+                csv << arr
+            rownum ++
+        }
+        return [header, csv]
+    }
+
 }

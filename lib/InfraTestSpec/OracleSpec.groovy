@@ -83,42 +83,15 @@ class OracleSpec extends InfraTestSpec {
         }
     }
 
-    def rows_to_csv(List rows, List header = null) {
-        println "ROWS:$rows"
-        def header_keys = [:]
-        def csv = []
-        rows.each { row ->
-            def list = []
-            row.each { column_name, value ->
-                list << value
-                if (!header_keys.containsKey(column_name))
-                    header_keys[column_name] = true
-            }
-            csv << list
-        }
-        def headers = header_keys.keySet()
-        if (header)
-            headers = header
-        def text = "${headers.join(',')}\n"
-        csv.each { line ->
-            text += "${line.join(',')}\n"
-        }
-        return text
-    }
-
-    def parse_csv(String lines) {
-        def rownum = 1
-        def header = []
-        def csv = []
-        lines.eachLine { line ->
-            def arr = line.split(',')
-            if (rownum == 1)
-                header = arr
-            else
-                csv << arr
-            rownum ++
-        }
-        return [header, csv]
+    def rapup_test(test_item, info, csv, header) {
+        def test_id = test_item.test_id
+        info[test_id] = (csv.size() > 0) ? 'OK' : 'NG'
+        println "HEADER: $header"
+        println "CSV: $csv"
+        println "INFO: $info"
+        test_item.devices(csv, header)
+        test_item.results(info)
+        test_item.verify_text_search(test_id, info[test_id])
     }
 
     def cdbstorage(test_item) {
@@ -171,24 +144,17 @@ class OracleSpec extends InfraTestSpec {
             def rows = db.rows(query.stripMargin())
             def header = ['ID','Cont. Name','Tablespace','Free Space MB',
                           'Alloc Space MB']
-            def text = rows_to_csv(rows, header)
+            def text = test_item.sql_rows_to_csv(rows, header)
             new File("${local_dir}/cdbstorage").text = text
             return text
         }
         def info = [:]
-        def rownum = 1
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
-        println "($header, $csv)\n";
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
             info[arr[2]] = arr[4]
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results(info.toString())
+        rapup_test(test_item, info, csv, header)
     }
 
     def dbattrs(test_item) {
@@ -204,26 +170,74 @@ class OracleSpec extends InfraTestSpec {
                     pivot << [ name: column_name, value: value]
                 }
             }
-            // def header = ['ID','Cont. Name','Tablespace','Free Space MB',
-            //               'Alloc Space MB']
-            // def text = rows_to_csv(rows, header)
-            def text = rows_to_csv(pivot)
+            def text = test_item.sql_rows_to_csv(pivot)
             new File("${local_dir}/dbattrs").text = text
             return text
         }
         def info = [:]
         def rownum = 1
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
             info["dbattrs.${arr[0].toLowerCase()}"] = arr[1]
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results(info)
+        rapup_test(test_item, info, csv, header)
+    }
+
+    def dbinstance(test_item) {
+        def lines = exec('dbattrs') {
+            def query = '''\
+            |SELECT *
+            |  FROM v$instance
+            '''
+            def rows = db.rows(query.stripMargin())
+            def pivot = []
+            rows.each { row ->
+                row.each { column_name, value ->
+                    pivot << [ name: column_name, value: value]
+                }
+            }
+            def text = test_item.sql_rows_to_csv(pivot)
+            new File("${local_dir}/dbinstance").text = text
+            return text
+        }
+        def info = [:]
+        def rownum = 1
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        csv.each { arr ->
+            String name, value
+            (name, value) = arr
+            name = name.toLowerCase()
+            info["dbinstance.${name}"] = value
+        }
+        rapup_test(test_item, info, csv, header)
+    }
+
+    def hostconfig(test_item) {
+        def lines = exec('hostconfig') {
+            def query = '''\
+            |SELECT LOWER(stat_name),
+            |       value
+            |  FROM v$osstat
+            | WHERE LOWER(stat_name) in ('physical_memory_bytes','num_cpu_cores','num_cpus','num_cpu_sockets')
+            '''
+            def rows = db.rows(query.stripMargin())
+            def header = ['Name', 'Value']
+            def text = test_item.sql_rows_to_csv(rows, header)
+            new File("${local_dir}/hostconfig").text = text
+            return text
+        }
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        def registry_versions = [:]
+        csv.each { arr ->
+            String name, value
+            (name, value) = arr
+            info["hostconfig.${name}"] = value
+        }
+        rapup_test(test_item, info, csv, header)
     }
 
     def dbcomps(test_item) {
@@ -237,23 +251,22 @@ class OracleSpec extends InfraTestSpec {
             '''
             def rows = db.rows(query.stripMargin())
             def header = ['Name', 'Version', 'Status']
-            def text = rows_to_csv(rows, header)
+            def text = test_item.sql_rows_to_csv(rows, header)
             new File("${local_dir}/dbcomps").text = text
             return text
         }
         def info = [:]
-        def rownum = 1
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        def registry_versions = [:]
         csv.each { arr ->
-            info[arr[1]] = true
+            String comp_name, version, status
+            (comp_name, version, status) = arr
+            info["dbcomps.${comp_name}"] = status
+            registry_versions[version] = true
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results("${info.keySet()}")
+        info['dbcomps.version'] = registry_versions.keySet().join(',')
+        rapup_test(test_item, info, csv, header)
     }
 
     def dbfeatusage(test_item) {
@@ -273,24 +286,39 @@ class OracleSpec extends InfraTestSpec {
             '''
             def rows = db.rows(query.stripMargin())
             def header = ['Name','Usage', 'Count Currently Used', 'Version']
-            def text = rows_to_csv(rows, header)
+            def text = test_item.sql_rows_to_csv(rows, header)
             new File("${local_dir}/dbfeatusage").text = text
             return text
         }
         def info = [:]
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
-            if (arr[2] == "True")
-                return
-            info[arr[0]] = arr[2]
+            String name, detected_usages, currently_used, version
+            (name, detected_usages, currently_used, version) = arr
+            info["dbfeatusage.${name}"] = currently_used
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results(info.toString())
+        rapup_test(test_item, info, csv, header)
+    }
+
+    def check_memory_management(Map info){
+        def memory_max_target = info["dbinfo.memory_max_target"]
+        def memory_target     = info["dbinfo.memory_target"]
+        def sga_target        = info["dbinfo.sga_target"]
+        def statistics_level  = info['dbinfo.statistics_level'].toLowerCase()
+
+        if (memory_max_target && memory_target && sga_target) {
+            if (memory_max_target > 0 && memory_target > 0) {
+                return 'AMM'
+            } else if (sga_target > 0 && (statistics_level == 'typical' ||
+                       statistics_level == 'all')) {
+                return 'ASMM'
+            } else {
+                return 'None'
+            }
+        } else {
+            return 'unkown'
+        }
     }
 
     def dbinfo(test_item) {
@@ -300,22 +328,21 @@ class OracleSpec extends InfraTestSpec {
             '''
             def rows = db.rows(query.stripMargin())
             def header = ['Name','Value']
-            def text = rows_to_csv(rows, header)
+            def text = test_item.sql_rows_to_csv(rows, header)
             new File("${local_dir}/dbinfo").text = text
             return text
         }
         def info = [:]
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
-            info["dbinfo.${arr[0]}"] = arr[1]
+            String name, value
+            (name, value) = arr
+            info["dbinfo.${name}"] = value
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results(info)
+        info["dbinfo.memory_management"] = check_memory_management(info)
+
+        rapup_test(test_item, info, csv, header)
     }
 
     def dbvers(test_item) {
@@ -328,58 +355,51 @@ class OracleSpec extends InfraTestSpec {
             | ORDER BY product
             '''
             def rows = db.rows(query.stripMargin())
-            def text = rows_to_csv(rows)
+            def text = test_item.sql_rows_to_csv(rows)
             new File("${local_dir}/dbvers").text = text
             return text
         }
         def info = [:]
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
-            (arr[0]=~/Oracle Database/).each { m0 ->
-                info[arr.join(' ')] = true
+            String product, version, status
+            (product, version, status) = arr
+            (product=~/Oracle Database/).each {
+                info['dbvers.Oracle Database'] = "$product $version $status"
             }
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results("${info.keySet()}")
+        rapup_test(test_item, info, csv, header)
     }
 
     def nls(test_item) {
         def lines = exec('nls') {
             def query = '''\
-            |SELECT   name
-            |       , '"'||value$||'"' value
+            |SELECT   LOWER(name)
+            |       , value$ value
             |       , comment$ as "comment"
             |    FROM sys.props$
             |   WHERE upper(name) LIKE 'NLS%'
+            |      OR upper(name) LIKE 'DEFAULT%'
             |ORDER BY name
             |       , value
             '''
             def rows = db.rows(query.stripMargin())
-            def text = rows_to_csv(rows)
+            def text = test_item.sql_rows_to_csv(rows)
             new File("${local_dir}/nls").text = text
             return text
         }
         // def data = new CsvParser().parse(lines, separator: ',', quoteChar: '"')
         // println "DATA:$data"
         def info = [:]
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
-            (arr[0]=~/NLS_CHARACTERSET/).each { m0 ->
-                info[arr[0]] = arr[1]
-            }
+            String name, value, comment
+            (name, value, comment) = arr
+            info["nls.${name}"] = value
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results("${info}")
+        rapup_test(test_item, info, csv, header)
     }
 
     def parmdef(test_item) {
@@ -394,24 +414,19 @@ class OracleSpec extends InfraTestSpec {
             |       , description
             '''
             def rows = db.rows(query.stripMargin())
-            def text = rows_to_csv(rows)
+            def text = test_item.sql_rows_to_csv(rows)
             new File("${local_dir}/parmdef").text = text
             return text
         }
-        // def data = new CsvParser().parse(lines, separator: ',', quoteChar: '"')
-        // println "DATA:$data"
         def info = [:]
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
-            info["parmdef.${arr[0]}"] = arr[1]
+            String name, value, description
+            (name, value, description) = arr
+            info["parmdef.${name}"] = value
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results("${info}")
+        rapup_test(test_item, info, csv, header)
     }
 
     def redoinfo(test_item) {
@@ -429,81 +444,304 @@ class OracleSpec extends InfraTestSpec {
             |    FROM v$log
             '''
             def rows = db.rows(query.stripMargin())
-            def text = rows_to_csv(rows)
+            def text = test_item.sql_rows_to_csv(rows)
             new File("${local_dir}/redoinfo").text = text
             return text
         }
-        // def data = new CsvParser().parse(lines, separator: ',', quoteChar: '"')
-        // println "DATA:$data"
         def info = [:]
-        List header
-        List csv
-        (header, csv) = parse_csv(lines)
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        String redo_size
+        int redo_count = 0
         csv.each { arr ->
-            (arr[0]=~/dump_dest/).each { m0 ->
-                info["redoinfo.${arr[0]}"] = arr[1]
-            }
+            String group, thread, bytes, status, archived
+            (group, thread, bytes, status, archived) = arr
+            println "($group, $thread, $bytes, $status, $archived)"
+            redo_size = bytes
+            redo_count ++
         }
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
-        test_item.devices(csv, header)
-        test_item.results(info)
+        info["redoinfo.redo_size"]  = redo_size
+        info["redoinfo.redo_count"] = redo_count
+        rapup_test(test_item, info, csv, header)
     }
 
     def sgasize(test_item) {
         def lines = exec('sgasize') {
-
-
-            def content = ''
-            new File("${local_dir}/sgasize").text = content
-            return content
+            def query = '''\
+            |SELECT   name
+            |       , value
+            |    FROM v$sga
+            |ORDER BY name
+            '''
+            def rows = db.rows(query.stripMargin())
+            def text = test_item.sql_rows_to_csv(rows)
+            new File("${local_dir}/sgasize").text = text
+            return text
         }
-        def headers = []
-        def csv = []
-        test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        csv.each { arr ->
+            String name, value
+            (name, value) = arr
+            info["sgasize.${name}"] = value
+        }
+        rapup_test(test_item, info, csv, header)
     }
 
     def sysmetric(test_item) {
         def lines = exec('sysmetric') {
+            def query = '''\
+            |SELECT   TO_CHAR(begin_time , 'YYYY-MM-DD HH24:MI:SS') begin_time
+            |       , TO_CHAR(end_time   , 'YYYY-MM-DD HH24:MI:SS') end_time
+            |--       , intsize_csec
+            |--       , group_id
+            |--       , metric_id
+            |       , value
+            |       , metric_name
+            |--       , metric_unit
+            |    FROM v$sysmetric
+            |   WHERE group_id = 2
+            |ORDER BY begin_time
+            |       , metric_name
+            '''
 
-
-            def content = ''
-            new File("${local_dir}/sysmetric").text = content
-            return content
+            def rows = db.rows(query.stripMargin())
+            def text = test_item.sql_rows_to_csv(rows)
+            new File("${local_dir}/sysmetric").text = text
+            return text
         }
-        def headers = []
-        def csv = []
-        test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        csv.each { arr ->
+            String begin_time, end_time, value, metric_name
+            (begin_time, end_time, value, metric_name) = arr
+            info["sysmetric.${metric_name}"] = value
+        }
+        rapup_test(test_item, info, csv, header)
     }
 
     def systime(test_item) {
-        def lines = exec('systime') {
+        def lines = exec('sysmetric') {
+            def query = '''\
+            |SELECT  LPAD(' ', 2*level-1)||stat_name stat_name
+            |      , ROUND(value/1000000,2) seconds
+            |      , ROUND(value/1000000/60,2) minutes
+            |   FROM (select 0 id, 9 pid, null stat_name, null value from dual
+            |          UNION
+            |         SELECT DECODE(stat_name,'DB time',10) id
+            |              , DECODE(stat_name,'DB time',0) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'DB time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'DB CPU',20) id
+            |              , DECODE(stat_name,'DB CPU',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'DB CPU'
+            |          UNION
+            |         SELECT DECODE(stat_name,'connection management call elapsed time',21) id
+            |              , DECODE(stat_name,'connection management call elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'connection management call elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'sequence load elapsed time',22) id
+            |              , DECODE(stat_name,'sequence load elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'sequence load elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'sql execute elapsed time',23) id
+            |              , DECODE(stat_name,'sql execute elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'sql execute elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'parse time elapsed',24) id
+            |              , DECODE(stat_name,'parse time elapsed',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'parse time elapsed'
+            |          UNION
+            |         SELECT DECODE(stat_name,'hard parse elapsed time',30) id
+            |              , DECODE(stat_name,'hard parse elapsed time',24) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'hard parse elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'hard parse (sharing criteria) elapsed time',40) id
+            |              , DECODE(stat_name,'hard parse (sharing criteria) elapsed time',30) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'hard parse (sharing criteria) elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'hard parse (bind mismatch) elapsed time',50) id
+            |              , DECODE(stat_name,'hard parse (bind mismatch) elapsed time',40) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'hard parse (bind mismatch) elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'failed parse elapsed time',31) id
+            |              , DECODE(stat_name,'failed parse elapsed time',24) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'failed parse elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'failed parse (out of shared memory) elapsed time',41) id
+            |              , DECODE(stat_name,'failed parse (out of shared memory) elapsed time',31) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'failed parse (out of shared memory) elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'PL/SQL execution elapsed time',25) id
+            |              , DECODE(stat_name,'PL/SQL execution elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'PL/SQL execution elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'inbound PL/SQL rpc elapsed time',26) id
+            |              , DECODE(stat_name,'inbound PL/SQL rpc elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'inbound PL/SQL rpc elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'PL/SQL compilation elapsed time',27) id
+            |              , DECODE(stat_name,'PL/SQL compilation elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'PL/SQL compilation elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'Java execution elapsed time',28) id
+            |              , DECODE(stat_name,'Java execution elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'Java execution elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'repeated bind elapsed time',29) id
+            |              , DECODE(stat_name,'repeated bind elapsed time',10) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'repeated bind elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'background elapsed time',1) id
+            |              , DECODE(stat_name,'background elapsed time',0) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'background elapsed time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'background cpu time',2) id
+            |              , DECODE(stat_name,'background cpu time',1) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'background cpu time'
+            |          UNION
+            |         SELECT DECODE(stat_name,'RMAN cpu time (backup/restore)',3) id
+            |              , DECODE(stat_name,'RMAN cpu time (backup/restore)',2) pid
+            |              , stat_name
+            |              , value
+            |           FROM v$sys_time_model
+            |          WHERE stat_name = 'RMAN cpu time (backup/restore)'
+            |        )
+            |CONNECT BY PRIOR id = pid START WITH id = 0
+            '''
 
-
-            def content = ''
-            new File("${local_dir}/systime").text = content
-            return content
+            def rows = db.rows(query.stripMargin())
+            def text = test_item.sql_rows_to_csv(rows)
+            new File("${local_dir}/systime").text = text
+            return text
         }
-        def headers = []
-        def csv = []
-        test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        csv.each { arr ->
+            String stat_name, seconds, minutes
+            (stat_name, seconds, minutes) = arr
+            info["systime.${stat_name}"] = seconds
+        }
+        rapup_test(test_item, info, csv, header)
     }
 
     def tabstorage(test_item) {
         def lines = exec('tabstorage') {
-
-
-            def content = ''
-            new File("${local_dir}/tabstorage").text = content
-            return content
+            def query = '''\
+            |SELECT   tab.owner owner
+            |       , tab.table_name table_name
+            |       , ROUND(SUM(seg.bytes/1024/1024),3) mbytes
+            |    FROM (SELECT owner
+            |               , segment_name
+            |               , bytes
+            |            FROM dba_segments
+            |           WHERE 1=1
+            |         ) seg
+            |       , dba_tables tab
+            |   WHERE seg.owner = tab.owner
+            |     AND seg.segment_name = tab.table_name
+            |GROUP BY tab.owner
+            |       , tab.table_name
+            |ORDER BY tab.owner
+            |       , tab.table_name
+            '''
+            def rows = db.rows(query.stripMargin())
+            def text = test_item.sql_rows_to_csv(rows)
+            new File("${local_dir}/tabstorage").text = text
+            return text
         }
-        def headers = []
-        def csv = []
-        test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        csv.each { arr ->
+            String owner, table_name, mbytes
+            (owner, table_name, mbytes) = arr
+            info["tabstorage.${table_name}"] = mbytes
+        }
+        rapup_test(test_item, info, csv, header)
+    }
+
+    def sumstorage(test_item) {
+        def lines = exec('sumstorage') {
+            def query = '''\
+            |select 'datafiles' type, sum(bytes)/1024/1024 total from dba_data_files
+            | union
+            |select 'tempfiles' type, sum(bytes)/1024/1024 total from dba_temp_files
+            | union
+            |select 'redologs' type, sum(bytes)/1024/1024 total from v$log
+            | union
+            |select 'controlfiles' type, sum(block_size*file_size_blks)/1024/1024 total from v$controlfile
+            '''
+            def rows = db.rows(query.stripMargin())
+            def text = test_item.sql_rows_to_csv(rows)
+            new File("${local_dir}/sumstorage").text = text
+            return text
+        }
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        csv.each { arr ->
+            String type, total
+            (type, total) = arr
+            info["sumstorage.${type}"] = total
+        }
+        rapup_test(test_item, info, csv, header)
     }
 }
