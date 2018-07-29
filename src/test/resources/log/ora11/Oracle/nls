@@ -1,0 +1,25 @@
+LOWER(NAME)	VALUE	comment
+default_edition	ORA$BASE	Name of the database default edition
+default_permanent_tablespace	USERS	Name of default permanent tablespace
+default_tbs_type	SMALLFILE	Default tablespace type
+default_temp_tablespace	TEMP	Name of default temporary tablespace
+nls_calendar	GREGORIAN	Calendar system
+nls_characterset	AL32UTF8	Character set
+nls_comp	BINARY	NLS comparison
+nls_currency	$	Local currency
+nls_date_format	DD-MON-RR	Date format
+nls_date_language	AMERICAN	Date language
+nls_dual_currency	$	Dual currency symbol
+nls_iso_currency	AMERICA	ISO currency
+nls_language	AMERICAN	Language
+nls_length_semantics	BYTE	NLS length semantics
+nls_nchar_characterset	AL16UTF16	NCHAR Character set
+nls_nchar_conv_excp	FALSE	NLS conversion exception
+nls_numeric_characters	.,	Numeric characters
+nls_rdbms_version	11.2.0.1.0	RDBMS version for NLS parameters
+nls_sort	BINARY	Linguistic definition
+nls_territory	AMERICA	Territory
+nls_timestamp_format	DD-MON-RR HH.MI.SSXFF AM	Time stamp format
+nls_timestamp_tz_format	DD-MON-RR HH.MI.SSXFF AM TZR	Timestamp with timezone format
+nls_time_format	HH.MI.SSXFF AM	Time format
+nls_time_tz_format	HH.MI.SSXFF AM TZR	Time with timezone format

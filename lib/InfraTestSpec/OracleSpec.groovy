@@ -2,6 +2,7 @@ package InfraTestSpec
 
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.io.FileUtils.*
 import static groovy.json.JsonOutput.*
 import groovy.json.*
@@ -58,6 +59,7 @@ class OracleSpec extends InfraTestSpec {
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver")
                 def url = "jdbc:oracle:thin:@${oracle_ip}:${oracle_port}:${oracle_db}"
+                log.info "Connect: $url"
                 db = Sql.newInstance(url, oracle_user, oracle_password)
 
             } catch (SQLException e) {
@@ -79,6 +81,15 @@ class OracleSpec extends InfraTestSpec {
                     it.verify(false)
                     log.error "[Oracle Test] Test method '${method.name}()' faild, skip.\n" + e
                 }
+            }
+        }
+        if (!dry_run) {
+            try {
+                db.close()
+
+            } catch (SQLException e) {
+                def msg = "Oracle connection error : "
+                throw new SQLException(msg + e)
             }
         }
     }
@@ -302,9 +313,9 @@ class OracleSpec extends InfraTestSpec {
     }
 
     def check_memory_management(Map info){
-        def memory_max_target = info["dbinfo.memory_max_target"]
-        def memory_target     = info["dbinfo.memory_target"]
-        def sga_target        = info["dbinfo.sga_target"]
+        def memory_max_target = NumberUtils.toDouble(info["dbinfo.memory_max_target"])
+        def memory_target     = NumberUtils.toDouble(info["dbinfo.memory_target"])
+        def sga_target        = NumberUtils.toDouble(info["dbinfo.sga_target"])
         def statistics_level  = info['dbinfo.statistics_level'].toLowerCase()
 
         if (memory_max_target && memory_target && sga_target) {

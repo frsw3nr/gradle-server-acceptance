@@ -1,0 +1,29 @@
+Name	Usage	Count Currently Used	Version
+Automatic Undo Management	4	True	12.2.0.1.0
+Deferred Segment Creation	4	True	12.2.0.1.0
+SecureFiles (user)	4	True	12.2.0.1.0
+Automatic Maintenance - Space Advisor	4	True	12.2.0.1.0
+Automatic Maintenance - SQL Tuning Advisor	4	True	12.2.0.1.0
+Automatic SQL Execution Memory	4	True	12.2.0.1.0
+Automatic Maintenance - Optimizer Statistics Gathering	4	True	12.2.0.1.0
+Automatic Segment Space Management (system)	4	True	12.2.0.1.0
+SQL Plan Directive	4	True	12.2.0.1.0
+Oracle Java Virtual Machine (system)	4	True	12.2.0.1.0
+Locally Managed Tablespaces (user)	4	True	12.2.0.1.0
+Locally Managed Tablespaces (system)	4	True	12.2.0.1.0
+Server Parameter File	4	True	12.2.0.1.0
+Recovery Area	4	True	12.2.0.1.0
+Real Application Security	4	True	12.2.0.1.0
+Partitioning (system)	4	True	12.2.0.1.0
+Adaptive Plans	4	True	12.2.0.1.0
+Result Cache	2	False	12.2.0.1.0
+SecureFiles (system)	4	True	12.2.0.1.0
+Real-Time SQL Monitoring	3	True	12.2.0.1.0
+Unified Audit	4	True	12.2.0.1.0
+Character Set	4	True	12.2.0.1.0
+Automatic Reoptimization	4	True	12.2.0.1.0
+Traditional Audit	4	True	12.2.0.1.0
+Automatic SGA Tuning	4	True	12.2.0.1.0
+Automatic SQL Tuning Advisor	3	True	12.2.0.1.0
+DBMS_STATS Incremental Maintenance	4	True	12.2.0.1.0
+Oracle Utility External Table (ORACLE_LOADER)	3	True	12.2.0.1.0

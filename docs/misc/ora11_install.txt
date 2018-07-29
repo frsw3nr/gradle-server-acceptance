@@ -1,0 +1,152 @@
+CentOS6 に Oracle11 を手動インストールしる
+
+「Server World」の記事を参考にする
+
+https://www.server-world.info/query?os=CentOS_6&p=oracle11g&f=1
+https://www.server-world.info/query?os=CentOS_6&p=oracle11g&f=2
+
+SELinux無効化
+
+一時的に無効にする
+sudo setenforce 0
+
+ファイヤーウォール無効化
+
+sudo /etc/init.d/iptables stop
+sudo /sbin/chkconfig iptables off
+
+永続的に無効にする
+
+sudo vi /etc/selinux/config
+SELINUX=enforcing
+enforcingをdisabledに変えましょう。
+
+ユーザ作成などの準備
+
+sudo yum -y install epel-release
+
+sudo yum -y install binutils compat-libstdc++-33 compat-libstdc++-33.i686 ksh elfutils-libelf elfutils-libelf-devel glibc glibc-common glibc-devel gcc gcc-c++ libaio libaio.i686 libaio-devel libaio-devel.i686 libgcc libstdc++ libstdc++.i686 libstdc++-devel libstdc++-devel.i686 make sysstat unixODBC unixODBC-devel 
+
+
+sudo yum -y update
+
+カーネルパラメータを編集します。
+
+sudo vi /etc/sysctl.conf
+
+# 以下コメント化
+#net.bridge.bridge-nf-call-ip6tables = 0
+#net.bridge.bridge-nf-call-iptables = 0
+#net.bridge.bridge-nf-call-arptables = 0
+# 最終行に追記
+net.ipv4.ip_local_port_range = 9000 65500
+fs.file-max = 6815744
+kernel.shmall = 10523004
+kernel.shmmax = 6465333657
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+net.core.rmem_default=262144
+net.core.wmem_default=262144
+net.core.rmem_max=4194304
+net.core.wmem_max=1048576
+fs.aio-max-nr = 1048576
+
+sudo sysctl -p 
+
+[4] オラクル専用のユーザー/グループを作成し、システムの環境設定をします。
+
+sudo groupadd -g 200 oinstall 
+
+sudo groupadd -g 201 dba 
+
+sudo useradd -u 440 -g oinstall -G dba -d /usr/oracle oracle 
+
+sudo passwd oracle 
+
+sudo vi /etc/pam.d/login
+
+# 14行目あたりに追記
+
+ session    required     pam_limits.so   # 行追加
+ session    optional     pam_keyinit.so force revoke
+
+sudo vi /etc/security/limits.conf
+
+# 最終行に追記
+oracle   soft   nproc   2047
+oracle   hard   nproc   16384
+oracle   soft   nofile   1024
+oracle   hard   nofile   65536
+
+sudo vi /etc/profile
+
+# 最終行に追記
+if [ $USER = "oracle" ]; then
+      if [ $SHELL = "/bin/ksh" ]; then
+           ulimit -p 16384
+           ulimit -n 65536
+      else
+           ulimit -u 16384 -n 65536
+      fi
+fi
+[5] Oracle用の環境設定をしておきます。
+
+su - oracle
+chmod 755 /usr/oracle 
+mkdir /usr/oracle/app 
+chmod 775 /usr/oracle/app 
+mkdir /usr/oracle/oradata 
+chmod 775 /usr/oracle/oradata 
+
+vi ~/.bash_profile
+# 最終行に追記
+umask 022
+export ORACLE_BASE=/usr/oracle/app
+# インストール作業用一時Dir作成
+mkdir tmp
+
+Oracle Database 11g R2 インストール2014/10/05
+    
+Oracle Database 11g R2 をインストールします。
+[1] 作業はインストール前の環境設定で作成した oracle ユーザーで進めるため、oracle ユーザーでログインしておきます。
+
+cd tmp 
+unzip linux.x64_11gR2_database_1of2.zip 
+unzip linux.x64_11gR2_database_2of2.zip 
+
+ここからは、vSpehre コンソールの GUI 環境で行う
+800x640の環境では画面がはみでるのでコントールパネルを削除する。
+文字化けするのでロケールをcにして実行
+
+sudo vi /etc/hosts
+IP ホスト名追加
+
+LANG=c ./database/runInstaller
+
+パスワードは Oracle123 とする
+
+ CentOS 6 だと、通常、以下のようにいくつかのパッケージがひっかかります。 しかしこれらのパッケージは、実際にインストールされているバージョンが推奨要件よりも上のバージョンであるものばかりで問題はないため、「Ignore All」にチェックを入れ次へ進みます。
+
+sudo /usr/oracle/oraInventory/orainstRoot.sh
+sudo /usr/oracle/app/product/11.2.0/dbhome_1/root.sh
+
+   Copying dbhome to /usr/bin ...
+   Copying oraenv to /usr/bin ...
+   Copying coraenv to /usr/bin ...
+
+https://ora11:1158/em
+
+source /usr/bin/oraenv
+ORACLE_SID = [oracle] ? orcl
+The Oracle base for ORACLE_HOME=/usr/oracle/app/product/11.2.0/dbhome_1 is /usr/oracle/app
+
+SQL> connect / as sysdba
+Connected.
+SQL> show sga
+
+Total System Global Area 1603411968 bytes
+Fixed Size                  2213776 bytes
+Variable Size             939526256 bytes
+Database Buffers          654311424 bytes
+Redo Buffers                7360512 bytes
+
