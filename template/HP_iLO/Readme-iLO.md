@@ -13,13 +13,13 @@ HPE社
 注意事項
 --------
 
-以下機能を用いるため、iLO4 (ProLiant Gen8 and Gen9 servers)のみをサポートします。
+以下機能を用いるため、iLO5 以上(ProLiant Gen8 servers 以上)のみをサポートします。
 
 * iLO RESTful API- Redfish Conformant- for iLO 4 PowerShell RAW cmdlets support.
 * GET_EMBEDDED_HEALTH RIBCLコマンドによるSTORAGE情報採取
 
-最新の 2.0 では API 仕様変更により、動作しませんでした。
-以下の バージョン 1.4.0.2 をダウンロードしてインストールしてください。
+ライブラリ最新バージョンの 2.0 では API の仕様変更により、動作しません。
+以下の バージョン 1.4.0.2 をインストールしてください。
 
 ```
 Type:   Utility - Tools
@@ -29,8 +29,8 @@ Microsoft Windows 10 (64-bit) | View all
 File name:  HPiLOCmdlets-x64.exe (1.1 MB)
 ```
 
-複数のバージョンの上記モジュールをインストールすると、モジュールパスが正しくインストールされない
-場合があります。その場合は以下の既定のインストールディレクトリをパスに追加してください。
+複数のバージョンの上記ライブラリをインストールすると、インストールパスが正しく認識されない場合があります。
+その場合は以下の既定のインストールディレクトリをパスに追加してください。
 
 ```
 $Env:PSModulePath = $Env:PSModulePath + ";C:\Program Files\Hewlett-Packard\PowerShell\Modules\HPiLOCmdlets"

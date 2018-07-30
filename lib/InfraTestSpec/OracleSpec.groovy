@@ -8,6 +8,7 @@ import static groovy.json.JsonOutput.*
 import groovy.json.*
 import groovy.sql.Sql
 import java.sql.SQLException
+import java.sql.SQLSyntaxErrorException
 import com.xlson.groovycsv.CsvParser
 import oracle.jdbc.*
 import oracle.jdbc.pool.*
@@ -97,73 +98,57 @@ class OracleSpec extends InfraTestSpec {
     def rapup_test(test_item, info, csv, header) {
         def test_id = test_item.test_id
         info[test_id] = (csv.size() > 0) ? 'OK' : 'NG'
-        println "HEADER: $header"
-        println "CSV: $csv"
-        println "INFO: $info"
+        // println "HEADER: $header"
+        // println "CSV: $csv"
+        // println "INFO: $info"
         test_item.devices(csv, header)
         test_item.results(info)
         test_item.verify_text_search(test_id, info[test_id])
     }
 
-    def cdbstorage(test_item) {
-        def lines = exec('cdbstorage') {
+    def dbstorage(test_item) {
+        def lines = exec('dbstorage') {
             def query = '''\
-            |WITH x AS (  SELECT c1.con_id
-            |                  , cf1.tablespace_name
-            |                  , SUM(cf1.bytes)/1024/1024 fsm
-            |               FROM cdb_free_space cf1
-            |                  , v$containers   c1
-            |              WHERE cf1.con_id = c1.con_id
-            |           GROUP BY c1.con_id
-            |                  , cf1.tablespace_name
-            |          ),
-            |     y AS (  SELECT c2.con_id
-            |                  , cd.tablespace_name
-            |                  , SUM(cd.bytes)/1024/1024 apm
-            |               FROM cdb_data_files cd
-            |                  , v$containers   c2
-            |              WHERE cd.con_id = c2.con_id
-            |           GROUP BY c2.con_id
-            |                  , cd.tablespace_name
-            |          )
-            |   SELECT x.con_id
-            |        , v.name con_name
-            |        , x.tablespace_name
-            |        , x.fsm
-            |        , y.apm
-            |     FROM x
-            |        , y
-            |        , v$containers v
-            |    WHERE x.con_id = y.con_id
-            |      AND   x.tablespace_name = y.tablespace_name
-            |      AND   v.con_id = y.con_id
-            | UNION
-            |   SELECT vc2.con_id
-            |        , vc2.name
-            |        , tf.tablespace_name
-            |        , null
-            |        , SUM(tf.bytes)/1024/1024
-            |     FROM v$containers vc2
-            |        , cdb_temp_files tf
-            |    WHERE vc2.con_id = tf.con_id
-            | GROUP BY vc2.con_id
-            |        , vc2.name
-            |        , tf.tablespace_name
-            | ORDER BY con_id
-            |        , con_name
+            |select 
+            |  tablespace_name, 
+            |  nvl(total_bytes / 1024 / 1024, 0) as "size(MB)",
+            |  nvl((total_bytes - free_total_bytes) / 1024 / 1024, 0) as "used(MB)", 
+            |  nvl(free_total_bytes / 1024 / 1024, 0) as "free(MB)", 
+            |  nvl((total_bytes - free_total_bytes) / total_bytes * 100, 100) as "rate(%)" 
+            |from 
+            |  (
+            |    select 
+            |      tablespace_name, 
+            |      sum(bytes) total_bytes 
+            |    from 
+            |      dba_data_files 
+            |    group by 
+            |      tablespace_name
+            |  ), 
+            |  (
+            |    select 
+            |      tablespace_name free_tablespace_name, 
+            |      sum(bytes) free_total_bytes 
+            |    from 
+            |      dba_free_space 
+            |    group by 
+            |      tablespace_name
+            |  ) 
+            |where 
+            |  tablespace_name = free_tablespace_name(+)
             '''
             def rows = db.rows(query.stripMargin())
-            def header = ['ID','Cont. Name','Tablespace','Free Space MB',
-                          'Alloc Space MB']
+            def header = ['Tablespace','Size MB', 'Alloc Space MB', 'Free Space MB',
+                          'Rate %']
             def text = test_item.sql_rows_to_csv(rows, header)
-            new File("${local_dir}/cdbstorage").text = text
+            new File("${local_dir}/dbstorage").text = text
             return text
         }
         def info = [:]
         List header, csv
         (header, csv) = test_item.parse_csv(lines)
         csv.each { arr ->
-            info[arr[2]] = arr[4]
+            info[arr[0]] = arr[4]
         }
         rapup_test(test_item, info, csv, header)
     }
@@ -246,6 +231,10 @@ class OracleSpec extends InfraTestSpec {
         csv.each { arr ->
             String name, value
             (name, value) = arr
+            if (name == 'physical_memory_bytes') {
+                def memory_mb = NumberUtils.toDouble(value) / (1024 * 1024)
+                info["hostconfig.physical_memory_mb"] = memory_mb.round(0)
+            }
             info["hostconfig.${name}"] = value
         }
         rapup_test(test_item, info, csv, header)
@@ -318,7 +307,7 @@ class OracleSpec extends InfraTestSpec {
         def sga_target        = NumberUtils.toDouble(info["dbinfo.sga_target"])
         def statistics_level  = info['dbinfo.statistics_level'].toLowerCase()
 
-        if (memory_max_target && memory_target && sga_target) {
+        if (statistics_level) {
             if (memory_max_target > 0 && memory_target > 0) {
                 return 'AMM'
             } else if (sga_target > 0 && (statistics_level == 'typical' ||
@@ -385,6 +374,7 @@ class OracleSpec extends InfraTestSpec {
 
     def nls(test_item) {
         def lines = exec('nls') {
+            def rows
             def query = '''\
             |SELECT   LOWER(name)
             |       , value$ value
@@ -395,7 +385,22 @@ class OracleSpec extends InfraTestSpec {
             |ORDER BY name
             |       , value
             '''
-            def rows = db.rows(query.stripMargin())
+            def is_succeed = false
+            try {
+                rows = db.rows(query.stripMargin())
+                is_succeed = true
+            } catch (SQLException e) {
+                log.info "'sys.props\$' NLS check query failed, Retry the following query."
+            }
+            if (!is_succeed) {
+                def query2 = '''\
+                |SELECT   LOWER(PARAMETER)
+                |       , VALUE
+                |       , '' as "comment"
+                |    FROM v$nls_parameters
+                '''
+                rows = db.rows(query2.stripMargin())
+            }
             def text = test_item.sql_rows_to_csv(rows)
             new File("${local_dir}/nls").text = text
             return text
@@ -450,8 +455,6 @@ class OracleSpec extends InfraTestSpec {
             |       , archived
             |       , first_change#
             |       , to_char(first_time, 'yyyy-mm-dd hh24:mi:ss') first_time
-            |       , next_change#
-            |       , to_char(next_time, 'yyyy-mm-dd hh24:mi:ss') next_time
             |    FROM v$log
             '''
             def rows = db.rows(query.stripMargin())
@@ -467,7 +470,6 @@ class OracleSpec extends InfraTestSpec {
         csv.each { arr ->
             String group, thread, bytes, status, archived
             (group, thread, bytes, status, archived) = arr
-            println "($group, $thread, $bytes, $status, $archived)"
             redo_size = bytes
             redo_count ++
         }

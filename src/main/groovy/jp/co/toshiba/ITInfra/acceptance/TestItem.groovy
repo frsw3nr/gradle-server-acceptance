@@ -297,7 +297,6 @@ class TestItem {
     }
 
     def sql_rows_to_csv(List rows, List header = null) {
-        println "ROWS:$rows"
         def header_keys = [:]
         def csv = []
         rows.each { row ->

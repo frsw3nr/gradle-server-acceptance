@@ -6,6 +6,7 @@ import groovy.util.logging.Slf4j
 import groovy.transform.ToString
 import static groovy.json.JsonOutput.*
 import groovy.json.*
+import org.apache.commons.lang.math.NumberUtils
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -145,6 +146,14 @@ class ExcelSheetMaker {
         log.info "Finish excel sheet maker, Elapse : ${elapse} ms"
     }
 
+    def setCellValueWithNumericalTest(Cell cell, def value) {
+        if ((value in String || value in GString) && NumberUtils.isNumber(value)) {
+            cell.setCellValue(NumberUtils.toDouble(value))
+        } else {
+            cell.setCellValue(value)
+        }
+    }
+
     // def write_cell_summary(Cell cell, TestResult test_result) {
     def write_cell_summary(Cell cell, TestResult test_result,
                            Boolean disable_cell_style = false) {
@@ -153,10 +162,22 @@ class ExcelSheetMaker {
             //     cell.setCellValue(test_result.value)
             // }
             def value = test_result?.value ?: " "
-            cell.setCellValue(value)
+            // if (NumberUtils.isDigits(value)) {
+            //     cell_result.setCellValue(NumberUtils.toDouble(value))
+            // } else {
+            //     cell_result.setCellValue(value)
+            // }
+            // cell.setCellValue(value)
+            setCellValueWithNumericalTest(cell, value)
             set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
         } else if (test_result) {
-            cell.setCellValue(test_result.value)
+            // if (NumberUtils.isDigits(value)) {
+            //     cell_result.setCellValue(NumberUtils.toDouble(value))
+            // } else {
+            //     cell_result.setCellValue(value)
+            // }
+            // cell.setCellValue(test_result.value)
+            setCellValueWithNumericalTest(cell, test_result.value)
             if (test_result.status == null) {
                 set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
             } else if (test_result.status == ResultStatus.NG) {
@@ -384,7 +405,8 @@ class ExcelSheetMaker {
                     colnum ++
                     csv_values.each { csv_value ->
                         // println "CSV_VALUE:${rownum},${colnum},${csv_value.toString()}"
-                        row.createCell(colnum).setCellValue("${csv_value}")
+                        // row.createCell(colnum).setCellValue("${csv_value}")
+                        setCellValueWithNumericalTest(row.createCell(colnum), csv_value)
                         colnum ++
                     }
                     rownum ++

@@ -42,3 +42,4 @@ test.Oracle.dry_run   = false
 account.Oracle.Test.user     = 'zabbix'
 account.Oracle.Test.password = 'zabbix'
 account.Oracle.Test.port     = 1521
+
