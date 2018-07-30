@@ -24,6 +24,7 @@ class TestScheduler {
     def serialize_platforms = [:]
     def sheet_prefixes = [:]
     int parallel_degree = 0
+    int exit_code = 0
     def test_platform_tasks = [:].withDefault{[:]}
 
     def set_environment(ConfigTestEnvironment env) {
@@ -71,6 +72,8 @@ class TestScheduler {
         excel_sheet_maker.output(this.output_evidence)
         def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
         this.test_scenario.accept(test_result_writer)
+
+        return this.test_scenario.exit_code
     }
 
     def make_test_platform_tasks(test_scenario) {

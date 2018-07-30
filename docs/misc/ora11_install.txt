@@ -150,3 +150,38 @@ Variable Size             939526256 bytes
 Database Buffers          654311424 bytes
 Redo Buffers                7360512 bytes
 
+エラー対処
+
+09:13:33 INFO  j.c.t.I.a.D.EvidenceMaker - Finish verify : ora11, 3 / 16 Failed : [dbfeatusage, dbinfo, cdbstorage]
+
+dbfeatusageの結果が空になる
+
+sqlplus /nolog
+connect / as sysdba
+
+select * from dba_feature_usage_statistics
+
+            |SELECT u1.name
+            |     , u1.detected_usages
+            |     , INITCAP(u1.currently_used) currently_used
+            |     , u1.version
+            |  FROM dba_feature_usage_statistics u1
+            | WHERE version = (SELECT MAX(u2.version)
+            |                    FROM dba_feature_usage_statistics u2
+            |                   WHERE u2.name = u1.name
+            |                 )
+            |   AND u1.detected_usages > 0
+            |   AND u1.dbid = (SELECT dbid FROM v$database)
+
+https://blog.dbi-services.com/is-your-dba_feature_usage_statistics-up-to-date/
+
+統計情報を更新する必要がある。しばらく様子見。
+
+exec dbms_feature_usage_internal.exec_db_usage_sampling(SYSDATE);
+
+dbinfo
+
+09:20:47 ERROR I.OracleSpec - [Oracle Test] Test method 'dbinfo()' faild, skip.
+java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+
+cdbstorage

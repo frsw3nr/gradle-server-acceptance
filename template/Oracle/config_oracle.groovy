@@ -4,8 +4,8 @@ evidence.source = './template/Oracle/Oracle設定チェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/Oracle設定チェックシート_<date>.xlsx'
-evidence.target='./build/Oracle_check_sheet.xlsx'
+evidence.target='./build/Oracle設定チェックシート_<date>.xlsx'
+// evidence.target='./build/Oracle_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

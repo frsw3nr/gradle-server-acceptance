@@ -1,21 +1,21 @@
 STAT_NAME	SECONDS	MINUTES
  	null	null
-   background elapsed time	15.51	0.26
-     background cpu time	6.65	0.11
+   background elapsed time	263.39	4.39
+     background cpu time	147.94	2.47
        RMAN cpu time (backup/restore)	0	0
-   DB time	40.76	0.68
-     DB CPU	25.55	0.43
-     connection management call elapsed time	0.54	0.01
-     sequence load elapsed time	0.02	0
-     sql execute elapsed time	28.74	0.48
-     parse time elapsed	18.37	0.31
-       hard parse elapsed time	17.46	0.29
-         hard parse (sharing criteria) elapsed time	0.32	0.01
-           hard parse (bind mismatch) elapsed time	0.01	0
-       failed parse elapsed time	0.01	0
+   DB time	473.12	7.89
+     DB CPU	371.6	6.19
+     connection management call elapsed time	6.06	0.1
+     sequence load elapsed time	0.24	0
+     sql execute elapsed time	392.12	6.54
+     parse time elapsed	116.27	1.94
+       hard parse elapsed time	98.25	1.64
+         hard parse (sharing criteria) elapsed time	2.08	0.03
+           hard parse (bind mismatch) elapsed time	0.2	0
+       failed parse elapsed time	51.45	0.86
          failed parse (out of shared memory) elapsed time	0	0
-     PL/SQL execution elapsed time	3.52	0.06
+     PL/SQL execution elapsed time	72.24	1.2
      inbound PL/SQL rpc elapsed time	0	0
-     PL/SQL compilation elapsed time	1.86	0.03
+     PL/SQL compilation elapsed time	4.07	0.07
      Java execution elapsed time	0	0
-     repeated bind elapsed time	0.02	0
+     repeated bind elapsed time	0.33	0.01

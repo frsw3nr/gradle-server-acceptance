@@ -61,7 +61,7 @@ clonedb	FALSE
 instant_restore	FALSE
 ofs_threads	4
 resource_manager_cpu_allocation	1
-resource_manager_plan	SCHEDULER[0x4AC9]:DEFAULT_MAINTENANCE_PLAN
+resource_manager_plan	null
 db_performance_profile	null
 max_iops	0
 max_mbps	0

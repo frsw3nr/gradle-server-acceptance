@@ -12,6 +12,7 @@ class TestScenario extends SpecModel {
     TestRuleSet test_rules
     TestTemplateSet test_templates
     TestReportSet test_reports
+    int exit_code = 0
 
     def accept(visitor){
         visitor.visit_test_scenario(this)

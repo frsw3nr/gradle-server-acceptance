@@ -99,6 +99,7 @@ class EvidenceMaker {
                             verify_summaries[test_result.verify] ++
                             if (test_result.verify == ResultStatus.NG) {
                                 failed_metrics << metric
+                                test_scenario.exit_code = 1
                             }
                         }
                     }
