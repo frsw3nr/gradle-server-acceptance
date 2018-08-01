@@ -1,0 +1,147 @@
+# 値チェックエラー時に終了コードを1にする
+
+# Todo
+
+* コード調査
+* 変更範囲チェック
+* 単体テスト
+* 結合テスト
+
+# コード調査
+
+TestRunner.groovy 内 main()関数
+
+def rc = 0
+
+TestScheduler.groovy 内 exit_code 追加
+
+finish()内で exit_code 制御
+
+EvidenceMaker.groovy 内 exit_code 追加
+
+# 変更範囲チェック
+
+TestScheduler.groovy 内
+
+    def finish() {
+        def data_comparator = new DataComparator()
+        this.test_scenario.accept(data_comparator)
+        def evidence_maker = new EvidenceMaker()
+        this.test_scenario.accept(evidence_maker)
+		this.exit_code = evidence_maker.exit_code <=== 追加
+        def report_maker = new ReportMaker()
+        ConfigTestEnvironment.instance.accept(report_maker)
+        this.test_scenario.accept(report_maker)
+        def excel_sheet_maker = new ExcelSheetMaker(
+                                    excel_parser: this.excel_parser,
+                                    evidence_maker: evidence_maker,
+                                    report_maker: report_maker)
+        excel_sheet_maker.output(this.output_evidence)
+        def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
+        this.test_scenario.accept(test_result_writer)
+    }
+
+return test_scenario.exit_code 
+
+EvidenceMaker.groovy
+TestScheduleter.groovy
+TestRunner.groovy
+
+# 結合テスト
+
+cent7 のみの場合は 0
+全て込みの場合は 1 になることを確認する
+
+sudo cpanm Device::Router::RTX
+
+git clone https://github.com/benkasminbullock/Device-Router-RTX.git
+
+telnet 192.168.0.254
+Trying 192.168.0.254...
+Connected to 192.168.0.254.
+Escape character is '^]'.
+
+Password:
+
+RTX1000 BootROM Ver. 1.04
+
+perl Device-Router-RTX/examples/arp.pl
+MAC: 4c:72:b9:4a:25:79 IP: 192.168.0.21.
+MAC: 64:b5:c6:bb:b5:f6 IP: 192.168.0.27.
+MAC: 00:0c:29:ca:44:db IP: 192.168.10.4.
+MAC: 00:1b:21:7d:20:1d IP: 192.168.10.100.
+MAC: 00:0c:29:5a:f4:b8 IP: 192.168.0.20.
+MAC: 00:0c:29:ca:44:db IP: 192.168.10.1.
+MAC: 10:02:b5:4e:90:f8 IP: 192.168.0.17.
+MAC: 2c:fd:a1:28:41:0a IP: 192.168.0.26.
+MAC: 00:0c:29:b7:c2:92 IP: 192.168.0.16.
+MAC: 00:0c:29:29:13:6a IP: 192.168.0.11.
+MAC: 00:0c:29:87:a5:7b IP: 192.168.0.24.
+MAC: 60:6d:c7:1a:f3:64 IP: 192.168.0.13.
+MAC: 00:0c:29:a4:4d:11 IP: 192.168.0.10.
+MAC: 00:3a:9d:80:5e:7c IP: 192.168.0.211.
+
+use Device::Router::RTX;
+my $rtx = Device::Router::RTX->new (address => '192.168.0.254',);
+my $arp = $rtx->arp();
+
+git clone https://github.com/yuuitiro/rtx-config.git
+
+If you really want the ARP table from the switch, then you need to poll atPhysAddress...
+
+[mpenning@tsunami ~]$ snmpbulkwalk -v 2c -c public -OXsq  172.16.1.210 \
+  .1.3.6.1.2.1.3.1.1.2
+atPhysAddress[10][1.172.16.1.5] "80 EE 73 2F 0B 40 "
+atPhysAddress[10][1.172.16.1.25] "38 EA A7 6D 2E 8E "
+atPhysAddress[10][1.172.16.1.32] "BC 51 FE 50 16 F8 "
+atPhysAddress[10][1.172.16.1.200] "00 06 53 FE 39 E0 "
+atPhysAddress[10][1.172.16.1.210] "00 18 BA 51 5B 41 "
+
+telnet 192.168.0.254
+administrator 
+
+ snmp host any
+ snmp yrifppdisplayatmib2 on
+ snmp yriftunneldisplayatmib2 on
+ snmp local address 192.168.0.254
+ snmp community read-only public
+ save
+
+snmpv2c host 192.168.1.1                           #...(1)
+snmpv2c host 10.1.1.1 snmpv2chost                  #...(2)
+snmpv2c trap host 192.168.1.1                      #...(3)
+snmpv2c trap host 192.168.2.1 inform snmpv2cinform #...(4)
+snmpv2c trap community snmpv2ctrap                 #...(5)
+
+snmpbulkwalk -v 2c -c public -OXsq  192.168.0.254 .1.3.6.1.2.1.3.1.1.2
+
+snmpwalk -v 2c -c public 192.168.0.254 .1.3.6.1.4.1.1182.2.5.2
+
+snmpbulkwalk -v 1 -c public -OXsq  192.168.0.254 .1.3.6.1.2.1.3.1.1.2
+
+snmpwalk -v 1 -c public 192.168.0.254 .1.3.6.1.2.1.3.1.1.2
+
+snmpwalk -v 1 -c public 192.168.0.254 .1.3.6.1.2.1.3.1.1.2
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.10 = Hex-STRING: 00 0C 29 A4 4D 11
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.11 = Hex-STRING: 00 0C 29 29 13 6A
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.13 = Hex-STRING: 60 6D C7 1A F3 64
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.16 = Hex-STRING: 00 0C 29 B7 C2 92
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.17 = Hex-STRING: 10 02 B5 4E 90 F8
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.24 = Hex-STRING: 00 0C 29 87 A5 7B
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.26 = Hex-STRING: 2C FD A1 28 41 0A
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.27 = Hex-STRING: 64 B5 C6 BB B5 F6
+RFC1213-MIB::atPhysAddress.1.1.192.168.0.211 = Hex-STRING: 00 3A 9D 80 5E 7C
+RFC1213-MIB::atPhysAddress.1.1.192.168.10.4 = Hex-STRING: 00 0C 29 CA 44 DB
+RFC1213-MIB::atPhysAddress.1.1.192.168.10.100 = Hex-STRING: 00 1B 21 7D 20 1D
+
+snmp sysname RTX1000-1
+
+nmap -sP 192.168.0.0/24
+pingスキャン(ホスト発見)のみを実行し、応答した利用可能なホストの一覧を出力する
+
+sudo nmap -PR 192.168.0.0/24  # ポートスキャンやってくれる
+ARP要求(-PR)が用いられる
+
+sudo arp-scan -I wlp2s0 -l
+
+arp-scan -I eth0 192.168.10.0/24

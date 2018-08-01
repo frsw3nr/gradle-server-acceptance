@@ -1,5 +1,0 @@
-.col-lg-9
-  = f.association :account, label_method: :account_name
-  = f.simple_fields_for :node_config_details do |c|
-    = c.input :item_name, as: :hidden
-    = c.input :value, label: c.object.item_name, input_html: { id: c.object.item_name }
