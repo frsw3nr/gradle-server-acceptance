@@ -71,7 +71,7 @@ public class ReportMaker {
             }
         }
         return (test_result) ? test_result : 
-                               new TestResult(value: "Need json",
+                               new TestResult(value: "No data",
                                               status : ResultStatus.UNKOWN)
     }
 

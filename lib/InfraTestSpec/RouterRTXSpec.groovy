@@ -40,6 +40,10 @@ class RouterRTXSpec extends InfraTestSpec {
     static java.io.PrintStream tout;
     static String prompt = ">"
 
+    static String mac_vendor_dir = 'template/Router/mac-vendor'
+    static String mac_vendor_oui = 'ieee-oui.txt'
+    def mac_vendor_db = [:]
+
     String ip
     String os_user
     String os_password
@@ -79,10 +83,27 @@ class RouterRTXSpec extends InfraTestSpec {
         }
     }
 
+    def init_mac_vendor_oui_db() throws IOException {
+        new File("${mac_vendor_dir}/${mac_vendor_oui}").eachLine {
+            (it =~ /^([0-9A-F]+)\s+(.+)$/).each { m0, mac, vendor ->
+                this.mac_vendor_db[mac] = vendor
+            }
+        }
+        log.info "Read mac vendor file '${mac_vendor_oui}'' : ${this.mac_vendor_db.size()}"
+    }
+
+    def get_mac_vendor(String mac) {
+        mac = mac.replaceAll(":", "")
+        mac = mac.toUpperCase()
+        def mac_postfix = mac.take(6)
+        return this.mac_vendor_db[mac_postfix] ?: 'unkown'
+    }
+
     def setup_exec(TestItem[] test_items) {
     // def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
         super.setup_exec()
 
+        init_mac_vendor_oui_db()
         if (!dry_run) {
             init_telnet_session()
         }
@@ -182,13 +203,14 @@ class RouterRTXSpec extends InfraTestSpec {
             (it =~ /clock_MHz\s+(.+)/).each {m0,m1->
                 csv << [m1]
             }
-            (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,m1,m2,m3,m4->
-                csv << [m1,m2,m3]
+            (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
+                def vendor = this.get_mac_vendor(mac)
+                csv << [device, ip, mac, vendor]
             }
         }
         println csv
         test_item.results(csv.size())
-        def headers = ['interface', 'ip', 'mac']
+        def headers = ['interface', 'ip', 'mac', 'vendor']
         test_item.devices(csv, headers)
     }
 }
