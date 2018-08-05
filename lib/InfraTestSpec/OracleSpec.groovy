@@ -41,10 +41,12 @@ class OracleSpec extends InfraTestSpec {
         this.oracle_ip       = test_target.ip
         this.target_server   = test_target.name
         this.oracle_db       = test_target.remote_alias
-        this.oracle_port     = os_account['port']
-        this.oracle_user     = os_account['user']
-        this.oracle_password = os_account['password']
         this.timeout         = test_platform.timeout
+        this.oracle_user     = test_target.specific_user ?: os_account['user']
+        this.oracle_password = test_target.specific_password ?: os_account['password']
+        this.oracle_port     = os_account['port']
+        if (test_target.specific_port)
+            this.oracle_port = (int)(NumberUtils.toDouble(test_target.specific_port))
     }
 
     def finish() {
@@ -450,6 +452,7 @@ class OracleSpec extends InfraTestSpec {
             def query = '''\
             |SELECT   group#
             |       , thread#
+            |       , members
             |       , bytes
             |       , status
             |       , archived
@@ -467,14 +470,18 @@ class OracleSpec extends InfraTestSpec {
         (header, csv) = test_item.parse_csv(lines)
         String redo_size
         int redo_count = 0
+        def is_mirror = false
         csv.each { arr ->
-            String group, thread, bytes, status, archived
-            (group, thread, bytes, status, archived) = arr
+            String group, thread, members, bytes, status, archived
+            (group, thread, members, bytes, status, archived) = arr
+            if (NumberUtils.toDouble(members) > 1)
+                is_mirror = true
             redo_size = bytes
             redo_count ++
         }
         info["redoinfo.redo_size"]  = redo_size
         info["redoinfo.redo_count"] = redo_count
+        info["redoinfo.redo_mirror"]  = is_mirror
         rapup_test(test_item, info, csv, header)
     }
 
