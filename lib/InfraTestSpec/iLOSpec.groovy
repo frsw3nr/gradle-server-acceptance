@@ -322,10 +322,14 @@ class iLOSpecBase extends InfraTestSpec {
             }
             nic_infos.each { id, nic_info ->
                 csv << [
-                    nic_info['type'], nic_info['NETWORK_PORT'], nic_info['PORT_DESCRIPTION'],
-                    nic_info['LOCATION'], nic_info['MAC_ADDRESS'], nic_info['IP_ADDRESS'],
-                    nic_info['STATUS'],
-                ]
+                    nic_info?.'type'?.toString(), 
+                    nic_info?.'NETWORK_PORT'?.toString(), 
+                    nic_info?.'PORT_DESCRIPTION'?.toString(),
+                    nic_info?.'LOCATION'?.toString(), 
+                    nic_info?.'MAC_ADDRESS'?.toString(), 
+                    nic_info?.'IP_ADDRESS'?.toString(),
+                    nic_info?.'STATUS'?.toString(),
+                ] as String[]
                 if (nic_info['IP_ADDRESS'] ==~ /^\d.+/)
                     nic_ips << nic_info['IP_ADDRESS']
             }
@@ -423,10 +427,14 @@ class iLOSpecBase extends InfraTestSpec {
             }
             storage_infos.each { id, storage_info ->
                 csv << [
-                    storage_info['L_LABEL'] ?: '', storage_info['L_STATUS'] ?: '',
-                    storage_info['L_CAPACITY'] ?: '', storage_info['L_FAULT_TOLERANCE'] ?: '',
-                    storage_info['P_MODEL'], storage_info['P_CAPACITY'],
-                    storage_info['P_FW_VERSION'], storage_info['P_MEDIA_TYPE'],
+                    storage_info?.'L_LABEL'?.toString() ?: '', 
+                    storage_info?.'L_STATUS'?.toString() ?: '',
+                    storage_info?.'L_CAPACITY'?.toString() ?: '', 
+                    storage_info?.'L_FAULT_TOLERANCE'?.toString() ?: '',
+                    storage_info?.'P_MODEL'?.toString(), 
+                    storage_info?.'P_CAPACITY'?.toString(),
+                    storage_info?.'P_FW_VERSION'?.toString(), 
+                    storage_info?.'P_MEDIA_TYPE'?.toString(),
                 ]
             }
             def headers = ['ldisk', 'status', 'capacity', 'raid', 'model', 'size', 'fw', 'media_type']

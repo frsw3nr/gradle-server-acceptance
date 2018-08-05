@@ -4,6 +4,13 @@ New features:
 * AIX テンプレート追加
 * vCenter モニタリングテンプレート追加
 
+Bug fixes:
+* Excel セルの値セットでgroovy.util.slurpersupport.Attributes型をセットするとStack Overflow エラーが発生する問題対処。HP-iLO 検査シナリオで XmlSlurper() のパース結果で発生するケースあり
+
+groovy.lang.MissingMethodException: No signature of method: org.apache.poi.xssf.usermodel.XSSF
+Cell.setCellValue() is applicable for argument types: (groovy.util.slurpersupport.Attributes)
+values: [Port 1]
+
 Changes for 0.1.22 (2018-7-31)
 --------------------------------------------------------------------------------
 New features:

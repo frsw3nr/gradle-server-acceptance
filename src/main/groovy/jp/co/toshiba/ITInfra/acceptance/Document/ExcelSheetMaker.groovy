@@ -147,10 +147,11 @@ class ExcelSheetMaker {
     }
 
     def setCellValueWithNumericalTest(Cell cell, def value) {
+        // println "CELL SET ${value} ${value instanceof Collection} ${value.getClass()}"
         if ((value in String || value in GString) && NumberUtils.isNumber(value)) {
             cell.setCellValue(NumberUtils.toDouble(value))
         } else {
-            cell.setCellValue(value)
+            cell.setCellValue("${value}")
         }
     }
 
@@ -404,7 +405,7 @@ class ExcelSheetMaker {
                     row.createCell(colnum).setCellValue(target)
                     colnum ++
                     csv_values.each { csv_value ->
-                        // println "CSV_VALUE:${rownum},${colnum},${csv_value.toString()}"
+                        // println "CSV_VALUE:${rownum},${colnum},${csv_value}"
                         // row.createCell(colnum).setCellValue("${csv_value}")
                         setCellValueWithNumericalTest(row.createCell(colnum), csv_value)
                         colnum ++
