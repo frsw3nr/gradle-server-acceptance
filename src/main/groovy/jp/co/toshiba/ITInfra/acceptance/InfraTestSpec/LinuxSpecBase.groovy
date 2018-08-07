@@ -220,7 +220,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def infos = [:]
         infos['lsb'] = lsb
         (lsb =~ /^\[(.+) ([\d\.]+)/).each {m0, os, os_release ->
-            infos['os'] = os
+            infos['os'] = "${os} ${os_release}"
             infos['os_release'] = os_release
         }
         test_item.results(infos)

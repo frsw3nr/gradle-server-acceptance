@@ -24,6 +24,7 @@ class TestScheduler {
     def serialize_platforms = [:]
     def sheet_prefixes = [:]
     int parallel_degree = 0
+    int snapshot_level = -1
     int exit_code = 0
     def test_platform_tasks = [:].withDefault{[:]}
 
@@ -35,6 +36,7 @@ class TestScheduler {
         this.filter_server   = env.get_filter_server()
         this.filter_metric   = env.get_filter_metric()
         this.parallel_degree = env.get_parallel_degree()
+        this.snapshot_level  = env.get_snapshot_level()
         this.verify_test     = env.get_verify_test()
         this.sheet_prefixes  = env.get_sheet_prefixes()
     }
@@ -87,7 +89,7 @@ class TestScheduler {
                     return
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform, platform_metric ->
-                    def metrics = platform_metric.search_all(this.filter_metric)
+                    def metrics = platform_metric.search_all(this.filter_metric, this.snapshot_level)
                     if (metrics.size() == 0)
                         return
                     // def test_rule = rules[test_target.verify_id]

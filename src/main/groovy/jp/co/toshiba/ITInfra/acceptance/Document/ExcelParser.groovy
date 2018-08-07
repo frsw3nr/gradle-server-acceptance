@@ -200,9 +200,14 @@ class ExcelParser {
             sheet_design.sheet_row[[platform, id]] = sheet_row
             if (!id && !platform)
                 return
+            def snapshot_level = -1
+            (line['test']=~/^Y(\d+)$/).each { m0, level ->
+                snapshot_level = level as Integer
+            }
             def test_metric = new TestMetric(name: id, description: line['metric'], 
                                              platform: platform,
                                              enabled: line['test'], 
+                                             snapshot_level: snapshot_level, 
                                              device_enabled: line['device'])
             platform_tests[platform][id] = test_metric
             return

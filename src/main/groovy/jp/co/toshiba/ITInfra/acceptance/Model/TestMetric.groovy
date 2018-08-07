@@ -10,6 +10,7 @@ class TestMetric extends SpecModel {
     String description
     String platform
     Boolean enabled
+    int snapshot_level = -1
     Boolean device_enabled
 
     def count() { return 1 }
@@ -31,7 +32,7 @@ class TestMetricSet extends SpecCompositeModel {
         visitor.visit_test_metric_set(this)
     }
 
-    def search_all(String filter_metric) {
+    def search_all(String filter_metric, int snapshot_level = -1) {
         // def filterd = new ConfigObject()
         // children.each { name, test_metric ->
         //     println "SEARCH:$filter_metric, $name"
@@ -39,9 +40,23 @@ class TestMetricSet extends SpecCompositeModel {
         //         filterd[name] = test_metric
         //     }
         // }
+        // println "search_all: ${filter_metric}, ${snapshot_level}"
+        // def filterd = super.search_all(filter_metric)
+        // def new_filterd = filterd.findAll { it.value.enabled == true }.each { it }
+        // println "search_all: ${filter_metric}, ${snapshot_level}"
         def filterd = super.search_all(filter_metric)
-        def new_filterd = filterd.findAll { it.value.enabled == true }.each { it }
-
+        def new_filterd = [:]
+        filterd.findAll { metric_name, test_metric ->
+            if (test_metric.enabled) {
+                if (filter_metric) {
+                    new_filterd[metric_name] = test_metric
+                } else if (snapshot_level == -1) {
+                    new_filterd[metric_name] = test_metric
+                } else if (test_metric.snapshot_level <= snapshot_level) {
+                    new_filterd[metric_name] = test_metric
+                }
+            }
+        }
         return new_filterd
     }
 

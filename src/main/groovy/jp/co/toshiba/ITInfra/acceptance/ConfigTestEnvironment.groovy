@@ -159,6 +159,10 @@ class ConfigTestEnvironment {
         return this.config?.parallel_degree ?: 0
     }
 
+    def get_snapshot_level() {
+        return this.config?.snapshot_level
+    }
+
     def get_item_map() {
         return this.config?.report?.item_map
     }

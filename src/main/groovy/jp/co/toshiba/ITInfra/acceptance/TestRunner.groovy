@@ -28,6 +28,7 @@ class TestRunner {
     String filter_metric
     String export_type
     int parallel_degree
+    int snapshot_level
     Boolean dry_run
     Boolean verify_test
     Boolean silent
@@ -52,6 +53,8 @@ class TestRunner {
                 argName: 'check_sheet.xlsx'
             o longOpt: 'output',   args: 1, 'Output evidence path',
                 argName: 'build/check_sheet.xlsx'
+            l longOpt: 'snapshot-level',args: 1, 'Level of the test item to filter',
+                argName: 'level'
             s longOpt: 'server',   args: 1, 'Keyword of target server'
             t longOpt: 'test',     args: 1, 'Keyword of test metric'
             u longOpt: 'update',   args: 1, 'Update node config',
@@ -143,6 +146,21 @@ class TestRunner {
             }
         }
 
+        this.snapshot_level = -1
+        if (options.'snapshot-level') {
+            String level = options.'snapshot-level'
+            if (NumberUtils.isDigits(level)) {
+                this.snapshot_level = NumberUtils.toInt(level)
+                if (this.snapshot_level < 0) {
+                    log.error "Invarid level 'level < 0' : -l ${level}"
+                    System.exit(1)
+                }
+            } else {
+                log.error "Invarid parallel level options : -l ${level}"
+                cli.usage()
+                System.exit(1)
+            }
+        }
         // log.info "Parse Arguments : " + args.toString()
         // log.info "\thome          : " + this.project_home
         // // log.info "\ttest_resource : " + this.test_resource
@@ -154,6 +172,7 @@ class TestRunner {
         // log.info "\tfilter option : "
         // log.info "\t\ttarget servers : " + this.filter_server
         // log.info "\t\tmetrics        : " + this.filter_metric
+        // log.info "\t\tsnapshot_level : ${this.snapshot_level}"
     }
 
     static void main(String[] args) {
