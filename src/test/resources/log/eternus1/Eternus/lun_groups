@@ -1,0 +1,11 @@
+CLI> show lun-groups -lg-number 0
+LUN Group No.0
+LUN Group Name   lg#0
+LUN  Volume                                 Status                    Size(MB)  LUN Overlap UID
+     No.   Name                                                                 Volume
+---- ----- -------------------------------- ------------------------- --------- ----------- --------------------------------
+   0     0 lun0                             Available                      1024 Yes         FFFFFFFFFFFFFFFFFFFFFFF600000000
+   1     1 FT                               Available                   1062912 Yes         FFFFFFFFFFFFFFFFFFFFFFF600010000
+   2     2 usr2                             Available                    102400 Yes         FFFFFFFFFFFFFFFFFFFFFFF600020000
+   3     3 usr3                             Available                    512000 Yes         FFFFFFFFFFFFFFFFFFFFFFF600030000
+CLI> 

@@ -18,8 +18,7 @@ Getconfig エビデンスサマリーシート検索
 
 使用例：
 
-    python cleansing/getconfig/summary_sheet.py \
-        ~/work/gradle/gradle-server-acceptance/build/check_sheet.xlsx
+    python cleansing/getconfig/summary_sheet.py build/check_sheet.xlsx
 """
 
 class GetconfigSummarySheet(metaclass=ABCMeta):
@@ -70,9 +69,10 @@ class GetconfigSummarySheet(metaclass=ABCMeta):
         # ネットワーク構成情報から、IPアドレスを抽出
         df2 = self.expand_ip_address_list(df, 'ネットワーク構成')
         df2['ManagementLAN'] = False
-        df3 = self.expand_ip_address_list(df, '管理LAN')
-        df3['ManagementLAN'] = True
-        df = pd.concat([df2, df3], axis=0)
+        # df3 = self.expand_ip_address_list(df, '管理LAN')
+        # df3['ManagementLAN'] = True
+        # df = pd.concat([df2, df3], axis=0)
+        df = pd.concat([df2], axis=0)
 
         return df
 
@@ -122,7 +122,8 @@ if __name__ == '__main__':
         db = GetconfigSummarySheet(os.path.abspath(excel_path))
         db.load()
         df = pd.concat([db.df_hosts, df])
-    print(list(df['ネットワーク構成']))
+    print(list(df.columns))
+    print(df[:][['ホスト名','IP']])
     df.to_csv('build/getconfig_hosts.csv', encoding='utf-8-sig')
     # # excel_file = 'getconfig/4at00vx_y/build/iLOチェックシート_20170626_140157.xlsx'
     # excel_path = argvs[1]

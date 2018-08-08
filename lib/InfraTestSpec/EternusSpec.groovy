@@ -1084,4 +1084,44 @@ class EternusSpec extends LinuxSpecBase {
         test_item.results(results.toString())
     }
 
+    def subsystem_parameters(session, test_item) {
+
+    }
+    def eco_mode(session, test_item) {
+
+    }
+    def snmp_view(session, test_item) {
+
+    }
+    def syslog_notification(session, test_item) {
+
+    }
+    def role(session, test_item) {
+
+    }
+    def user_policy(session, test_item) {
+
+    }
+    def ssl_version(session, test_item) {
+
+    }
+    def thin_provisioning(session, test_item) {
+
+    }
+    def host_wwn_names(session, test_item) {
+
+    }
+    def host_groups(session, test_item) {
+
+    }
+    def port_groups(session, test_item) {
+
+    }
+    def lun_groups(session, test_item) {
+        // show lun-groups -lg-number 0
+    }
+    def raid_groups(session, test_item) {
+        // show raid-groups -rg-number 0
+    }
+
 }

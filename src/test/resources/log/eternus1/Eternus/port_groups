@@ -1,0 +1,21 @@
+CLI> show port-groups -all
+Port Group           CA Type
+No. Name                    
+--- ---------------- -------
+  0 pg#0             FC
+<Port List>
+  CM#0 CA#0 Port#0
+  CM#0 CA#0 Port#1
+  CM#1 CA#0 Port#0
+  CM#1 CA#0 Port#1
+CLI> 
+CLI> show lun-groups -lg-number 0
+LUN Group No.0
+LUN Group Name   lg#0
+LUN  Volume                                 Status                    Size(MB)  LUN Overlap UID
+     No.   Name                                                                 Volume
+---- ----- -------------------------------- ------------------------- --------- ----------- --------------------------------
+   0     0 lun0                             Available                      1024 Yes         600000E00D290000002935A600000000
+   1     1 FT                               Available                   1062912 Yes         600000E00D290000002935A600010000
+   2     2 usr2                             Available                    102400 Yes         600000E00D290000002935A600020000
+   3     3 usr3                             Available                    512000 Yes         600000E00D290000002935A600030000
