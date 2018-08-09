@@ -55,7 +55,7 @@
     },
     "os": {
         "name": "os",
-        "value": "CentOS Linux release",
+        "value": "CentOS Linux release 7.3.1611",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",

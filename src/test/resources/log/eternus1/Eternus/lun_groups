@@ -1,3 +1,9 @@
+CLI> show lun-groups
+LUN Group             LUN Overlap
+No.  Name             Volumes
+---- ---------------- -----------
+0    lg#0             Yes
+CLI> 
 CLI> show lun-groups -lg-number 0
 LUN Group No.0
 LUN Group Name   lg#0

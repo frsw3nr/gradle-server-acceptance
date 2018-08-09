@@ -4,8 +4,8 @@ evidence.source = './template/FJ_Eternus/ETERNUSチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-//evidence.target='./build/ETERNUSチェックシート_<date>.xlsx'
- evidence.target='./build/eternus_check_sheet.xlsx'
+evidence.target='./build/ETERNUSチェックシート_<date>.xlsx'
+// evidence.target='./build/eternus_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

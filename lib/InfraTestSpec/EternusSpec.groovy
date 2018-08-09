@@ -293,6 +293,33 @@ class EternusSpec extends LinuxSpecBase {
         test_item.results(results.toString())
     }
 
+    def raid_groups_detail(session, test_item) {
+        def lines = exec('raid_groups_detail') {
+            def lun_lists = session.execute 'show raid-groups'
+            def raid_groups = []
+            lun_lists.eachLine {
+                def lun_list = it.trim()
+                (lun_list=~/^(\d+) /).each { m0, m1 ->
+                    raid_groups << m1
+                }
+            }
+            def command = 'show raid-groups -rg-number ' + raid_groups.join(',')
+            def result = session.execute command
+            new File("${local_dir}/raid_groups_detail").text = result
+            return result
+        }
+        def headers = ['Result']
+        def csv = []
+        lines.eachLine {
+            if (!(it =~ /^CLI>/) && it.size() > 0) {
+                csv << [it]
+            }
+        }
+
+        test_item.devices(csv, headers)
+        test_item.results("${csv.size()} row")
+    }
+
     def volumes(session, test_item) {
         def lines = exec('volumes') {
             def result = session.execute 'show volumes'
@@ -487,7 +514,6 @@ class EternusSpec extends LinuxSpecBase {
         def headers = ['Port', 'Information', 'Item', 'Value']
         test_item.devices(csv, headers)
         test_item.results(results.toString())
-        println "RESULTS:$results"
         test_item.results(results.toString())
         // test_item.verify_text_search('network', results.toString())
         test_item.verify_text_search_list('network', results)
@@ -1085,43 +1111,285 @@ class EternusSpec extends LinuxSpecBase {
     }
 
     def subsystem_parameters(session, test_item) {
-
+        def lines = exec('subsystem_parameters') {
+            def result = session.execute 'show subsystem-parameters'
+            new File("${local_dir}/subsystem_parameters").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
+                csv << [m1.trim(), m2]
+                results << m2
+            }
+        }
+        def headers = ['Item', 'Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def eco_mode(session, test_item) {
-
+        def lines = exec('eco_mode') {
+            def result = session.execute 'show eco-mode'
+            new File("${local_dir}/echo_mode").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
+                csv << [m1.trim(), m2]
+                results << m2
+            }
+        }
+        def headers = ['Item', 'Value']
+        test_item.devices(csv, headers)
+        test_item.results(results.toString())
     }
+
     def snmp_view(session, test_item) {
-
+        def lines = exec('snmp_view') {
+            def result = session.execute 'show snmp-view'
+            new File("${local_dir}/snmp_view").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^"(.+?)"$/).each {m0, m1 ->
+                csv << [m1.trim()]
+                results << m1
+            }
+        }
+        def headers = ['Value']
+        test_item.devices(csv, headers)
+        test_item.results(results.toString())
     }
+
     def syslog_notification(session, test_item) {
-
+        def lines = exec('syslog_notification') {
+            def result = session.execute 'show syslog-notification'
+            new File("${local_dir}/syslog_notification").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
+                csv << [m1.trim(), m2]
+                results << m2
+            }
+        }
+        def headers = ['Item', 'Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def role(session, test_item) {
-
+        def lines = exec('role') {
+            def result = session.execute 'show role'
+            new File("${local_dir}/role").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
+                csv << [m1.trim(), m2]
+                results << m2
+            }
+        }
+        def headers = ['Item', 'Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def user_policy(session, test_item) {
-
+        def lines = exec('user_policy') {
+            def result = session.execute 'show user-policy'
+            new File("${local_dir}/user_policy").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
+                csv << [m1.trim(), m2]
+                results << m2
+            }
+        }
+        def headers = ['Item', 'Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def ssl_version(session, test_item) {
+        def lines = exec('ssl_version') {
+            def result = session.execute 'show ssl-version'
+            new File("${local_dir}/ssl_version").text = result
+            return result
+        }
+        def results = [:].withDefault{0}
+        def csv   = []
+        def csize = []
+        def row   = -1
+        lines.eachLine {
+            (it =~ /^(-+ *?) (-+ *?) (-+ *?) (-+ *?)$/).each {
+                m0, m1, m2, m3, m4 ->
+                row = 0
+                csize = [m1.size(), m2.size(), m3.size(), m4.size()]
+            }
+            if (row > 0 && it.size() > 0) {
+                (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}})(.*)$/).each {
+                    m0, m1, m2, m3, m4, m5 ->
+                    csv << [m1, m2, m3, m4]*.trim()
+                    results[m1.trim()] = m2
+                }
+            }
+            if (row >= 0)
+                row ++;
+        }
+        def headers = ['Protocol', 'TLS1.0', 'TLS1.1', 'TLS1.2']
 
+        test_item.devices(csv, headers)
+        test_item.results(results.toString())
     }
+
     def thin_provisioning(session, test_item) {
-
+        def lines = exec('thin_provisioning') {
+            def result = session.execute 'show thin-provisioning'
+            new File("${local_dir}/thin_provisioning").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
+                csv << [m1.trim(), m2]
+                results << m2
+            }
+        }
+        def headers = ['Item', 'Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def host_wwn_names(session, test_item) {
-
+        def lines = exec('host_wwn_names') {
+            def result = session.execute 'show host-wwn-names'
+            new File("${local_dir}/host_wwn_names").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            def is_contents = true
+            (it=~/^CLI>/).each {
+                is_contents = false
+            }
+            if (is_contents) {
+                csv << [it]
+                results << it
+            }
+        }
+        def headers = ['Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def host_groups(session, test_item) {
-
+        def lines = exec('host_groups') {
+            def result = session.execute 'show host-groups'
+            new File("${local_dir}/host_groups").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            def is_contents = true
+            (it=~/^CLI>/).each {
+                is_contents = false
+            }
+            if (is_contents) {
+                csv << [it]
+                results << it
+            }
+        }
+        def headers = ['Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
+
     def port_groups(session, test_item) {
+        def lines = exec('port_groups') {
+            def result = session.execute 'show port-groups -all'
+            new File("${local_dir}/port_groups").text = result
+            return result
+        }
+        def results = []
+        def csv = []
+        lines.eachLine {
+            def is_contents = true
+            (it=~/^CLI>/).each {
+                is_contents = false
+            }
+            if (is_contents) {
+                csv << [it]
+                results << it
+            }
+        }
+        def headers = ['Value']
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
+    }
 
-    }
     def lun_groups(session, test_item) {
-        // show lun-groups -lg-number 0
+        def lines = exec('lun_groups') {
+            def lun_lists = session.execute 'show lun-groups'
+            def luns = []
+            lun_lists.eachLine {
+                def lun_list = it.trim()
+                (lun_list=~/^(\d+) /).each { m0, m1 ->
+                    luns << m1
+                }
+            }
+            def command = 'show lun-groups -lg-number ' + luns.join(',')
+            def result = session.execute command
+            new File("${local_dir}/lun_groups").text = result
+            return result
+        }
+        def results = [:].withDefault{0}
+        def csv   = []
+        def csize = []
+        def row   = -1
+        def lun_group = 0
+        lines.eachLine {
+            (it =~ /^LUN Group No.(\d+)/).each { m0, m1 ->
+                lun_group = m1
+            }
+            (it =~ /^(-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?)/).each {
+                m0, m1, m2, m3, m4, m5, m6, m7 ->
+                row = 0
+                csize = [m1.size(), m2.size(), m3.size(), m4.size(), m5.size(), m6.size(), m7.size()]
+            }
+            if (row > 0 && it.size() > 0) {
+                (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}}) (.{${csize[4]}}) (.{${csize[5]}}) (.{${csize[6]}}).*$/).each {
+                    m0, m1, m2, m3, m4, m5, m6, m7 ->
+                    csv << [lun_group, m1, m2, m3, m4, m5, m6, m7]*.trim()
+                    results[m3.trim()] = m5.trim()
+                }
+            }
+            if (row >= 0)
+                row ++;
+        }
+        def headers = ['LUNGroup', 'LUN', 'Volume', 'Name', 'Status', 'Size', 'OverlapVolumes', 'UID']
+
+        test_item.devices(csv, headers)
+        test_item.results("${results.size()} row")
     }
-    def raid_groups(session, test_item) {
-        // show raid-groups -rg-number 0
-    }
+    // def raid_groups(session, test_item) {
+    //     // show raid-groups -rg-number 0
+    // }
 
 }

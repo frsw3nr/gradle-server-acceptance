@@ -137,7 +137,7 @@ class CMDBModelTest extends Specification {
         when:
         def metric_id = cmdb_model.registMaster("metrics",
                                     [metric_name: 'metric1',
-                                     domain_id: 1])
+                                     platform_id: 1])
         def devices = [
             header: ['value', 'verify'],
             csv: [
@@ -193,13 +193,13 @@ class CMDBModelTest extends Specification {
 
     //     then:
     //     result.size() > 0
-    //     result[0]['domain_name'].size() > 0
+    //     result[0]['platform_name'].size() > 0
     //     result[0]['node_name'].size() > 0
     //     result[0]['metric_name'].size() > 0
     //     result[0]['value'] != null
 
     //     device_result.size() > 0
-    //     device_result[0]['domain_name'].size() > 0
+    //     device_result[0]['platform_name'].size() > 0
     //     device_result[0]['node_name'].size() > 0
     //     device_result[0]['metric_name'].size() > 0
     //     device_result[0]['seq'] != null
@@ -220,7 +220,7 @@ class CMDBModelTest extends Specification {
         // def metric_text = '''
         // |    {
         // |        "test_id": "os_architecture",
-        // |        "domain": "Windows",
+        // |        "platform": "Windows",
         // |        "value": "64 \u30d3\u30c3\u30c8"
         // |    }
         // '''.stripMargin()

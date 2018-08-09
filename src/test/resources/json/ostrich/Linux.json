@@ -55,7 +55,7 @@
     },
     "os": {
         "name": "os",
-        "value": "CentOS release",
+        "value": "CentOS release 6.7",
         "error_msg": null,
         "compare_server": "cent7",
         "status": "OK",

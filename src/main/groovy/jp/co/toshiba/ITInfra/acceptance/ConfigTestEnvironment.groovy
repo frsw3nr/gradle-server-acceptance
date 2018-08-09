@@ -160,7 +160,10 @@ class ConfigTestEnvironment {
     }
 
     def get_snapshot_level() {
-        return this.config?.snapshot_level
+        if ("${this.config?.snapshot_level}" == '[:]')
+            return 0
+        else
+            return this.config?.snapshot_level
     }
 
     def get_item_map() {

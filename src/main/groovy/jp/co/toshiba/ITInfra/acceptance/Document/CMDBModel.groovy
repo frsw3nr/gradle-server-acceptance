@@ -148,8 +148,8 @@ class CMDBModel {
             def device_metric = [:]
             def set_flag_sql = 'update metrics set device_flag = true where id = ?'
             node_dir.eachFile { 
-                ( it.name =~ /(.+).json/ ).each { json_file, domain_name ->
-                    def domain_id = registMaster("domains", [domain_name: domain_name])
+                ( it.name =~ /(.+).json/ ).each { json_file, platform_name ->
+                    def platform_id = registMaster("platforms", [platform_name: platform_name])
                     def metrics = new JsonSlurper().parseText(it.text)
                     metrics.each { metric_name, metric ->
                         def metric_value = metric.value
@@ -159,12 +159,12 @@ class CMDBModel {
                             log.debug "Regist device ${metric_name}"
                             def metric_id = registMaster("metrics",
                                                          [metric_name: metric_name,
-                                                          domain_id: domain_id])
+                                                          platform_id: platform_id])
                             cmdb.execute(set_flag_sql, metric_id)
                             try {
                                 registDevice(node_id, metric_id, metric.devices)
                             } catch (SQLException e) {
-                                log.warn "Regist device metric failed $node_name, $domain_name, $metric_name: $e"
+                                log.warn "Regist device metric failed $node_name, $platform_name, $metric_name: $e"
                             }
 
                         } else {
@@ -179,7 +179,7 @@ class CMDBModel {
                                 log.debug "Regist metric ${metric_name}"
                                 def metric_id = registMaster("metrics",
                                                              [metric_name: metric_name,
-                                                              domain_id: domain_id])
+                                                              platform_id: platform_id])
                                 registMetric(node_id, metric_id, metric)
                             }
                         }
@@ -193,11 +193,11 @@ class CMDBModel {
 
     def getMetricByHost(String server_name) throws SQLException {
         def sql = '''\
-            |select domain_name, node_name, metric_name, value
-            |from domains, nodes, metrics, test_results
+            |select platform_name, node_name, metric_name, value
+            |from platforms, nodes, metrics, test_results
             |where nodes.id = test_results.node_id
             |and test_results.metric_id = metrics.id
-            |and metrics.domain_id = domains.id
+            |and metrics.platform_id = platforms.id
             |and node_name = ?
         '''.stripMargin()
 
@@ -206,11 +206,11 @@ class CMDBModel {
 
     def getDeviceResultByHost(String server_name) throws SQLException {
         def sql = '''\
-            |select domain_name, node_name, metric_name, seq, item_name, value
-            |from domains, nodes, metrics, device_results
+            |select platform_name, node_name, metric_name, seq, item_name, value
+            |from platforms, nodes, metrics, device_results
             |where nodes.id = device_results.node_id
             |and device_results.metric_id = metrics.id
-            |and metrics.domain_id = domains.id
+            |and metrics.platform_id = platforms.id
             |and node_name = ?
         '''.stripMargin()
 

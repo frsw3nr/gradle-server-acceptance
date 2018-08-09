@@ -15,6 +15,7 @@ public class ReportMaker {
     SheetDeviceResult error_report_sheet
     def metrics = [:].withDefault{[:]}
     def platform_metrics = [:].withDefault{[:]}
+    def report_info = [:].withDefault{[:].withDefault{[:]}}
 
     def set_environment(ConfigTestEnvironment env) {
         this.item_map = env.get_item_map()
@@ -75,6 +76,11 @@ public class ReportMaker {
                                               status : ResultStatus.UNKOWN)
     }
 
+    def set_report_info(TestTarget test_target, String platform, String item_name, 
+                        TestResult test_result) {
+        this.report_info[test_target.name][platform][item_name] = "${test_result.value}"
+    }
+
     TestResult get_test_result(TestReport test_report, TestTarget test_target) {
         def report_name = test_report?.name
         TestResult test_result
@@ -85,6 +91,8 @@ public class ReportMaker {
             if (result_name) {
                 def value = test_target?."${result_name}"
                 test_result = new TestResult(name: result_name, value: value)
+                this.set_report_info(test_target, 'base', 
+                                     result_name, test_result)
             }
         } else if (test_report.metric_type == 'platform') {
             def test_platforms = test_target?.test_platforms
@@ -96,6 +104,9 @@ public class ReportMaker {
                         def result_name = platform_metrics[platform_name]
                         if (test_platform.test_results.containsKey(result_name)) {
                             test_result = test_platform.test_results[result_name] as TestResult
+                            this.set_report_info(test_target, platform_name, 
+                                                 result_name, test_result)
+                            report_info[]
                             return true
                         }
                     }
@@ -177,6 +188,7 @@ public class ReportMaker {
                 }
             }
         }
+        println "REPORT_INFO: ${this.report_info}"
         this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start
         log.info "Finish report maker, Elapse : ${elapse} ms"
