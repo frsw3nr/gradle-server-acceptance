@@ -1,0 +1,8 @@
+ja:
+  inventory: サーバ構成情報
+  tenant: サイト
+  platform: プラットフォーム
+  node: サーバー
+  metric: 項目
+  value: 値
+  device: デバイス

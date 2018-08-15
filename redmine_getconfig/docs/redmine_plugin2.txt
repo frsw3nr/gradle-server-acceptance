@@ -1,0 +1,195 @@
+Rails プラグイン作成
+=====================
+
+スケルトン作成
+モデル作成
+コントローラ作成
+ビュー作成
+
+
+スケルトン作成
+--------------
+
+bundle exec rails generate redmine_plugin Getconfig
+
+  plugins/getconfig/init.rb
+  plugins/getconfig/config/routes.rb
+  plugins/getconfig/app/models
+  plugins/getconfig/app/controllers
+  plugins/getconfig/app/views
+  plugins/getconfig/db/migrate
+
+モデル作成
+----------
+
+# model
+# 引数はplugin名, model名, カラム情報
+bundle exec rails generate redmine_plugin_model getconfig site   site_name:string
+bundle exec rails generate redmine_plugin_model getconfig tenant tenant_name:string
+bundle exec rails generate redmine_plugin_model getconfig node   tenant:refferences node_name:string
+
+bundle exec rails generate redmine_plugin_model getconfig site_node site:refferences node:refferences
+
+bundle exec rails generate redmine_plugin_model getconfig platform platform_name:string
+bundle exec rails generate redmine_plugin_model getconfig metric platform:refferences metric_name:string
+
+bundle exec rails generate redmine_plugin_model getconfig test_result metric:refferences node:refferences value:string verify:integer
+
+bundle exec rails generate redmine_plugin_model getconfig device_result metric:refferences node:refferences seq:integer item_name:string value:string
+
+rails g model CategoryProduct category_id:integer product_id:integer
+
+
+rails generate migration AddUserRefToProducts user:references
+
+./bin/rails console
+@sites=Site.all
+Site.where(site_name: 'GitDemoEnv')
+
+site = Site.new(site_name: 'Test01')
+site.persisted?  # => false 保存済みでない
+site.save
+
+Tenant.joins(:nodes)
+@nodes=Node.all
+Node.joins(:tenant).find_by(id: 1)
+Node.includes(:tenant).find_by(id: 1)
+@nodes=Node.eager_load(:tenant).select(:tenant.tenant_name, :node_name)
+
+@nodes[0].tenant.tenant_name
+
+
+多対多
+
+@nodes=Node.eager_load(:sites).find_by(id: 1)
+@nodes[0].sites[0].site_name
+
+ @nodes=Node.eager_load(:sites).find_by(node_name: 'testgit001')
+
+検査結果
+
+Platform.all
+metric=Metric.eager_load(:platform).find_by(metric_name: 'cpu')
+Metric.eager_load(:platform).find_by(id:30).platform
+Metric.eager_load(:platform).find_by(metric_name: "mem_free").platform
+
+TestResult.eager_load(:metric,:platform,:node)
+TestResult.find_by(metric_id: 30)
+TestResult.eager_load(:metric).find_by(metric_id: 30)
+
+TestResult.find_by(metric_id: 30).node.tenant
+
+デバイス付き検査結果
+
+DeviceResult.all()
+DeviceResult.find_by(metric_id: 21).metric
+
+@devices=Node.find_by(node_name:'Jenkins').device_results
+@devices[0].metric.metric_name
+@devices[0].metric.platform.platform_name
+
+コントローラ
+------------
+
+# controller
+# 引数はplugin名, controller名, action名
+bundle exec rails generate redmine_plugin_controller getconfig test_result index
+
+
+@devices=Node.find_by(node_name:'Jenkins').device_results
+
+/home/psadmin/work/gradle/redmine-3.2.5/vendor/bundle/ruby/2.3.0/gems/activesupport-4.2.7.1/lib/active_support/dependencies.rb:274:in `require': cannot load such file -- 
+/home/psadmin/work/gradle/redmine-3.2.5/plugins/redmine_getconfig/init.rb (LoadError)
+
+検査結果
+
+@results=Node.find_by(node_name:'Jenkins').test_results
+
+@results[0].node.tenant.tenant_name
+=> "_Default"
+
+@results[0].metric.platform.platform_name
+=> "Zabbix"
+
+@results[0].metric.metric_name
+=> "Host"
+
+@results[0].value
+=> "jenkins"
+
+@results[0].verify
+=> nil
+
+デバイス付き検査結果
+
+@devices=Node.find_by(node_name:'Jenkins').device_results
+
+Node.find_by(node_name:'Jenkins').device_results.metric.metric_name
+
+select distinct metric_name from node, device_result, metric where node.node_name='Jenkins'
+and node.id = device_result.node_id and metric.id = device_result.metric_id;
+
+User.select(:name).distinct
+
+@devices=Node.select(:metric_id).find_by(node_name:'Jenkins').device_results
+
+Node.find_by(node_name:'Jenkins').device_results.select(:metric_id)
+
+Node.find_by(node_name:'Jenkins').device_results.joins(:metric)
+Node.find_by(node_name:'Jenkins').device_results.select(:metic_id).eager_load(:metric).distinct
+
+@device_metrics=Node.find_by(node_name:'Jenkins').device_results.select(:metric_id).distinct
+@device_metrics[0].metric_id
+=> 1
+Metric.find_by(id: 1).metric_name
+=> "Host"
+Metric.find_by(id: 1).platform.platform_name
+=> "Zabbix"
+
+rails generate datatable User
+
+bundle exec rails generate redmine_plugin_datatable redmine_getconfig TestResult
+
+    <tr>
+      <th>Tenant</th>
+      <th>Platform</th>
+      <th>Metric</th>
+      <th>Value</th>
+      <th>Verify</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @test_results.each do |result| %>
+    <tr>
+
+      <td><%= result.node.tenant.tenant_name %></td>
+      <td><%= result.metric.platform.platform_name %></td>
+      <td><%= result.metric.metric_name %></td>
+      <td><%= result.value %></td>
+      <td><%= result.verify %></td>
+
+$ ->
+  $('#test_results-table').dataTable
+    processing: true
+    serverSide: true
+    ajax: $('#test_results-table').data('source')
+    pagingType: 'full_numbers'
+
+ class="list"
+ "list boards"
+ "list messages"
+
+table.list td.id { width: 2%; text-align: center;}
+table.list td.name, table.list td.description, table.list td.subject, table.list td.comments, table.list td.roles {text-align: left;}
+table.list td.tick {width:15%}
+table.list td.checkbox { width: 15px; padding: 2px 0 0 0; }
+table.list td.checkbox input {padding:0px;}
+table.list td.buttons { width: 15%; white-space:nowrap; text-align: right; }
+table.list td.buttons a { padding-right: 0.6em; }
+table.list td.buttons img {vertical-align:middle;}
+table.list td.reorder {width:15%; white-space:nowrap; text-align:center; }
+table.list caption { text-align: left; padding: 0.5em 0.5em 0.5em 0; }
+
+tr.project td.name a { white-space:nowrap; }
+
+ 

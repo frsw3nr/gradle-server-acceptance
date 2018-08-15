@@ -8,17 +8,15 @@ New features:
     * 検査シートにJDBC接続のユーザ、ポート入力追加 [x]
 * 検査項目のレベル付け [x]
     * OS/Zabbix テンプレートの検査項目にレベルを追加
-        *  -l オプション指定がある場合、指定レベル以下の検査項目を実行
+        *  オプション'-l {レベル}'で、指定レベル以下の検査項目を実行
 * データクレンジング処理のサマリシート解析 [ ]
     * 「検査レポート」の値を読込む [ ]
     * 「ポートリスト」と IP の突き合わせ。ネットワーク情報付加 [ ]
     * 「機器台帳」とホスト名の突き合わせ [ ]
     * Redmine チケット登録 [ ]
 
-ug fixes:
-* サマリシートの未登録データの表記を No data に変更 [x]
-
 Bug fixes:
+* サマリシートの未登録データの表記を No data に変更 [x]
 * Excel セルの値セットでgroovy.util.slurpersupport.Attributes型をセットするとStack Overflow エラーが発生する問題対処。HP-iLO 検査シナリオで XmlSlurper() のパース結果で発生するケースあり
 
 groovy.lang.MissingMethodException: No signature of method: org.apache.poi.xssf.usermodel.XSSF

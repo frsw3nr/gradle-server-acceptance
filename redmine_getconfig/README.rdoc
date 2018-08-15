@@ -1,0 +1,166 @@
+= redmine_getconfig
+
+ToDo:
+-----
+
+* 手順展開
+
+プロトタイプの設定手順のみで、一連の Redmine 構築には手順が不足している。
+結合テスト完了後、正式な手順を作成する。
+
+* ラベルの国際化対応
+
+前提条件
+--------
+
+* Ruby 2.3 以上
+* Redmine 3.4 以上 ※ $HOME/redmine 下の配置を想定
+* データベースは MySQL を使用 ※ データベース名は redmine2 を想定
+* ベースディレクトリの配置は $HOME/work/gradle/gradle-server-acceptance を想定
+
+Redmine プラグインインストール
+------------------------------
+
+プラグインディレクトリのリンク作成
+
+```
+# gradle-server-acceptance ディレクトリに移動
+ln -s ~/work/gradle/gradle-server-acceptance/redmine_getconfig ~/redmine/plugins/
+```
+
+Redmine データベースを作成していない場合は、以下で新規作成
+
+```
+mysql -u root -p
+drop database redmine2 ;
+create database redmine2 default character set utf8;
+grant all privileges on redmine2.* to redmine2@"%" identified by 'P@ssw0rd' with grant option;
+flush privileges;
+exit
+```
+
+Redmine データベースの接続設定。接続先を編集する。
+
+```
+vi ~/redmine/config/database.yml
+production:
+  adapter: mysql2
+  database: redmine2
+  host: localhost
+  username: redmine2
+  password: "P@ssw0rd"
+  encoding: utf8
+```
+
+データベースの移行
+
+```
+cd ~/redmine
+bundle install
+
+# Redmine データベースの初期化をしていない場合は以下を実行する
+bundle exec bin/rake generate_secret_token
+bundle exec bin/rake db:migrate 
+
+# プラグイン用データの移行
+bundle exec bin/rake redmine:plugins:migrate RAILS_ENV=production
+```
+
+Apache を再起動して、Redmineを再起動する。
+
+```
+sudo /etc/init.d/httpd restart
+```
+
+redmine に接続
+
+```
+http://{ホスト名}/redmine
+```
+
+admin/admin でログイン
+
+管理者パスワードの設定とロケールを日本語に設定。
+
+MySQL テーブルのコードを utf8mb4 に変更。
+
+```
+mysql -u root -p redmine2
+
+alter table sites default character set utf8mb4;
+alter table device_results default character set utf8mb4;
+alter table test_results default character set utf8mb4;
+alter table metrics default character set utf8mb4;
+alter table nodes default character set utf8mb4;
+alter table tenants default character set utf8mb4;
+alter table platforms default character set utf8mb4;
+alter table site_nodes default character set utf8mb4;
+```
+
+リモート接続権限を付与
+
+```
+GRANT ALL PRIVILEGES ON redmine2.* TO redmine2@"192.168.%" IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
+exit
+```
+
+インベントリのデータロード
+--------------------------
+
+getconfig データベース接続設定ファイル編集
+
+```
+vi ~/work/gradle/gradle-server-acceptance/config/cmdb.groovy
+# 以下の箇所を編集
+cmdb.dataSource.username = "redmine2"
+cmdb.dataSource.password = "P@ssw0rd"
+mdb.dataSource.url = "jdbc:mysql://redmine:3306/redmine?useUnicode=true&characterEncoding=utf8mb4"
+cmdb.dataSource.driver = "com.mysql.jdbc.Driver"
+```
+
+Getconfig ベースディレクトリ移動
+
+```
+cd ~/work/gradle/gradle-server-acceptance
+```
+
+予行演習モードでサンプルのインベントリ収集
+
+```
+getconfig -d
+```
+
+データ登録
+
+```
+getconfig -u db
+```
+
+警告が発生する。要調査
+
+```
+警告: Failed to execute: insert into device_results (node_id, metric_id, seq, item_name, value) values (?, ?, ?, ?, ?) because: Incorrect string value: '\xF1\x8D\x90\x82\xEF\xBF...' for column 'value' at row 1
+```
+
+redmine インベントリメニューからデータ登録を確認
+
+```
+http://redmine/redmine/inventory
+```
+
+アンインストールの手順
+----------------------
+
+rake コマンドで移行スクリプトをリセット
+
+```
+rake redmine:plugins:migrate NAME=redmine_getconfig VERSION=0 RAILS_ENV=production
+rake redmine:plugins:migrate NAME=redmine_getconfig VERSION=0 RAILS_ENV=development
+```
+
+プラグインフォルダのリンクを削除
+
+```
+rm ~/redmine/plugins/redmine_getconfig
+```
+

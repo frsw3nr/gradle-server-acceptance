@@ -1,0 +1,184 @@
+= redmine_getconfig
+
+Description goes here
+
+モデル作成
+
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig site   site_name:string
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig tenant tenant_name:string
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig node   tenant:references node_name:string
+
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig site_node site:references node:references
+
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig platform platform_name:string
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig metric platform:references metric_name:string device_flag:boolean
+
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig test_result metric:references node:references value:string verify:integer
+
+bundle exec bin/rails generate redmine_plugin_model redmine_getconfig device_result metric:references node:references seq:integer item_name:string value:string
+
+DB作成
+
+mysql -u root -p
+drop database redmine ;
+create database redmine default character set utf8;
+grant all privileges on redmine.* to redmine@"%" identified by 'getperf' with grant option;
+flush privileges;
+exit
+
+mysql -u redmine -p redmine < redmine.dmp
+
+bundle install
+
+bundle exec bin/rake redmine:plugins:migrate RAILS_ENV=development
+
+mysql -u root -p redmine
+
+alter table sites default character set utf8mb4;
+alter table device_results default character set utf8mb4;
+alter table test_results default character set utf8mb4;
+alter table metrics default character set utf8mb4;
+alter table nodes default character set utf8mb4;
+alter table tenants default character set utf8mb4;
+alter table platforms default character set utf8mb4;
+alter table site_nodes default character set utf8mb4;
+
+getconfig -u db-all
+
+select node_name, platform_name, metric_name, value
+from nodes,test_results,metrics,platforms
+where test_results.node_id = nodes.id
+and test_results.metric_id = metrics.id
+and metrics.platform_id = platforms.id
+and node_name = 'w2016'
+order by metrics.id
+
+アンインストール
+
+rake redmine:plugins:migrate NAME=redmine_getconfig VERSION=0 RAILS_ENV=production
+rake redmine:plugins:migrate NAME=redmine_getconfig VERSION=0 RAILS_ENV=development
+
+コントローラ
+------------
+
+# controller
+# 引数はplugin名, controller名, action名
+bundle exec bin/rails generate redmine_plugin_controller redmine_getconfig inventory index
+
+    app/controllers/inventory_controller.rb
+    app/helpers/inventory_helper.rb
+    test/functional/inventory_controller_test.rb
+    app/views/inventory/index.html.erb
+
+bundle exec bin/rails generate redmine_plugin_controller redmine_getconfig device_inventory index
+
+    app/controllers/device_inventory_controller.rb
+    app/helpers/device_inventory_helper.rb
+    test/functional/device_inventory_controller_test.rb
+    app/views/device_inventory/index.html.erb
+
+route.rb 編集
+
+get 'inventory', :to => 'inventory#index'
+get 'device_inventory', :to => 'device_inventory#index'
+
+
+動作確認
+
+vi .bundle/config
+BUNDLE_WITHOUT: development というオプション を外す
+
+bundle install
+
+./bin/rails s -b 0.0.0.0
+
+http://ostrich:3000/inventory?server_name=aaa
+http://ostrich:3000/device_inventory?server_name=w2016
+
+リファレンス
+
+http://www.gamvaro.com/kswiki/index.php?%E6%83%85%E5%A0%B1%E5%85%B1%E6%9C%89%2FRedmine_Plugin
+
+デバイスモデル
+
+Metric.find_by(metric_name: 'filesystem')
+
+1行のみを検索。Linux の filesystem を取得
+
+Node.find_by(node_name: 'w2016')
+
+id: 2, tenant_id: 1
+
+Node.find_by(node_name: 'w2016').test_results.where(
+
+Book.where(author: author)
+Book.joins(:authors).where(authors: { name: 'taro' })
+
+Node.joins(:metrics).find_by(node_name: 'w2016').where(metrics: { metric_name: 'filesystem'})
+
+Metric.joins(:nodes).where(nodes: { node_name: 'w2016'})
+
+Metric.joins(:nodes).where(nodes: { node_name: 'w2016'}, device_flag: 1).distinct
+
+Platform.find_by(platform_name: 'Windows').metrics.where(device_flag: 1)
+
+Windowsドメインのメトリックでdevice_flagが1の行を複数行取得
+
+Platform.find_by(platform_name: 'Windows').metrics.where(metric_name: 'filesystem')
+
+id: 101
+
+Node.find_by(node_name: 'w2016').device_results.where(metric_id: 58).order(seq: :desc)
+
+metric_id が 58のデバイス検査結果取得
+
+Node.find_by(node_name: 'w2016').device_results.where(metric_id: 101)
+
+http://ostrich:3000/inventory?server_name=ostrich
+
+http://ostrich:3000/device_inventory?server_name=ostrich&metric_name=filesystem
+
+node_configs 追加
+
+bundle exec rails generate redmine_plugin_model redmine_getconfig device_result metric:refferences node:refferences seq:integer item_name:string value:string
+bundle exec rails generate redmine_plugin_model redmine_getconfig node_config platform:references node:references item_name:string value:string
+
+      create  plugins/redmine_getconfig/app/models/node_config.rb
+      create  plugins/redmine_getconfig/test/unit/node_config_test.rb
+      create  plugins/redmine_getconfig/db/migrate/013_create_node_configs.rb
+
+bundle exec bin/rake redmine:plugins:migrate RAILS_ENV=development
+
+no such file が出た場合は、 bundle update を再実行する
+
+bundle exec rails generate redmine_plugin_model redmine_getconfig network network_name:string location:string network_address:integer subnet_mask:integer broadcast_address:integer
+bundle exec rails generate redmine_plugin_model redmine_getconfig network_node network:references node:references ip:string network_address:integer
+
+bundle exec bin/rake redmine:plugins:migrate RAILS_ENV=development
+
+networks 追加
+
+network_nodes 追加
+
+create_table 'example' do |t|
+  t.integer :int8, :limit => 8   # bigint
+end
+
+  t.integer     :int_limit_8,        limit: 8, null: false, default: 0
+
+IPアドレスは 12桁必要
+
+rails generate migration AddDetailsToTitles price:integer author:string
+
+Nodes に IP 追加
+
+bundle exec rails generate redmine_plugin_model redmine_getconfig migration AddIpToNodes ip:string
+
+      create  plugins/redmine_getconfig/app/models/add_ip_to_nodes.rb
+      create  plugins/redmine_getconfig/test/unit/add_ip_to_nodes_test.rb
+      create  plugins/redmine_getconfig/db/migrate/016_create_add_ip_to_nodes.rb
+      
+失敗。一旦削除
+
+bundle exec rails generate migration redmine_plugin_model redmine_getconfig AddIpToNodes ip:string
+

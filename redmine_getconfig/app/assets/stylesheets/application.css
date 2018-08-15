@@ -1,0 +1,6 @@
+*= require dataTables/jquery.dataTables
+
+table.inventory {
+  table-layout:auto;
+  width:100%;
+}

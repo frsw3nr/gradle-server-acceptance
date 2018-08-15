@@ -150,8 +150,9 @@ class SolarisSpec extends InfraTestSpec {
                 info[m1] = m2
             }
         }
+        info['System'] += info['Release']
         info['kernel'] = info.toString()
-        // println prettyPrint(toJson(info))
+        println prettyPrint(toJson(info))
 
         test_item.results(info)
         test_item.verify_text_search('System', info['System'])

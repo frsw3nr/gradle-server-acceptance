@@ -1,0 +1,55 @@
+Plugin Tutorial
+===============
+
+http://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial
+
+プロジェクト作成
+
+export RAILS_ENV="production" 
+
+bundle exec ruby bin/rails generate redmine_plugin Polls
+
+bin/rails generate redmine_plugin RedmineGetconfig2
+
+初期化ファイル定義
+
+The plugin structure is created in plugins/polls. 
+Edit plugins/polls/init.rb 
+to adjust plugin information (name, author, description and version):
+
+Redmine::Plugin.register :polls do
+  name 'Polls plugin'
+  author 'John Smith'
+  description 'A plugin for managing polls'
+  version '0.0.1'
+end
+
+モデル作成
+
+bundle exec ruby bin/rails generate redmine_plugin_model polls poll question:string yes:integer no:integer
+
+  plugins/polls/app/models/poll.rb
+  plugins/polls/db/migrate/001_create_polls.rb
+
+bundle exec rake redmine:plugins:migrate NAME=polls RAILS_ENV=production
+
+データ登録
+
+bundle exec ruby bin/rails console
+
+Poll.create(:question => "Can you see this poll")
+Poll.create(:question => "And can you see this other poll")
+
+コントローラ作成
+
+bundle exec ruby bin/rails generate redmine_plugin_controller Polls polls index vote
+
+  plugins/polls/app/controllers/polls_controller.rb
+  plugins/polls/app/helpers/polls_helper.rb
+
+  plugins/polls/app/views/polls/index.html.erb
+  plugins/polls/app/views/polls/vote.html.erb
+
+http://ostrich/redmine/polls
+
+
