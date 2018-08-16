@@ -3,13 +3,16 @@ Getconfig data cleansing
 """
 from setuptools import find_packages, setup
 
-dependencies = ['click']
+dependencies = [
+    'click','nose','sphinx','python-redmine','pandas','dataset',
+    'xlrd','openpyxl','mysqlclient'
+]
 
 setup(
     name='getconfigcleansing',
     version='0.1.0',
-    url='https://github.com/frsw3nr/cleansing',
-    license='BSD',
+    url='https://github.com/frsw3nr/gradle-server-acceptance',
+    license='GPLv2',
     author='Minoru Furusawa',
     author_email='minoru.furusawa@toshiba.co.jp',
     description='Getconfig data cleansing',
@@ -35,7 +38,7 @@ setup(
         # 'Development Status :: 7 - Inactive',
         'Environment :: Console',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: GPLv2 License',
         'Operating System :: POSIX',
         'Operating System :: MacOS',
         'Operating System :: Unix',

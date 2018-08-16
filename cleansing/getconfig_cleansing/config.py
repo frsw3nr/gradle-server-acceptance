@@ -15,7 +15,7 @@ Example:
 import logging
 import configparser
 import codecs
-from cleansing.singleton import singleton
+from getconfig_cleansing.singleton import singleton
 
 @singleton
 class Config():

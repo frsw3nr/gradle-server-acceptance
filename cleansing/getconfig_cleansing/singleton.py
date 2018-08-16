@@ -7,7 +7,7 @@ Example:
 .. highlight:: python
 .. code-block:: python
 
-    from cleansing.singleton import singleton
+    from getconfig_cleansing.singleton import singleton
 
     @singleton
     class MasterDataAssetList(MasterData):

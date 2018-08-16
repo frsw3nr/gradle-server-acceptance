@@ -25,10 +25,11 @@ Redmine プラグインインストール
 
 ```
 # gradle-server-acceptance ディレクトリに移動
-ln -s ~/work/gradle/gradle-server-acceptance/redmine_getconfig ~/redmine/plugins/
+ln -s ~/work/gradle/gradle-server-acceptance/redmine_getconfig ~/redmine/plugins/redmine_getconfig
 ```
 
-Redmine データベースを作成していない場合は、以下で新規作成
+Redmine データベースを作成していない場合は、以下で新規作成。
+ここでは redmine2 を作成する。
 
 ```
 mysql -u root -p
@@ -82,7 +83,7 @@ admin/admin でログイン
 
 管理者パスワードの設定とロケールを日本語に設定。
 
-MySQL テーブルのコードを utf8mb4 に変更。
+プラグイン用 MySQL テーブルのコードを utf8mb4 に変更。
 
 ```
 mysql -u root -p redmine2
@@ -100,8 +101,14 @@ alter table site_nodes default character set utf8mb4;
 リモート接続権限を付与
 
 ```
-GRANT ALL PRIVILEGES ON redmine2.* TO redmine2@"192.168.%" IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON redmine2.* TO redmine2@"%" IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
 exit
+```
+
+接続確認
+
+```
+mysql -u redmine2 -p redmine2 -h redmine
 ```
 
 インベントリのデータロード

@@ -5,8 +5,8 @@
 // cmdb.dataSource.url = "jdbc:h2:mem:"
 // cmdb.dataSource.driver = "org.h2.Driver"
 
-cmdb.dataSource.username = "root"
-cmdb.dataSource.password = "getperf"
+cmdb.dataSource.username = "redmine2"
+cmdb.dataSource.password = "P@ssw0rd"
 cmdb.dataSource.url = "jdbc:mysql://redmine:3306/redmine2?useUnicode=true&characterEncoding=utf8"
 cmdb.dataSource.driver = "com.mysql.jdbc.Driver"
 

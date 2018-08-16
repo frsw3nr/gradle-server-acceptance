@@ -22,6 +22,7 @@ Bug fixes:
 groovy.lang.MissingMethodException: No signature of method: org.apache.poi.xssf.usermodel.XSSF
 Cell.setCellValue() is applicable for argument types: (groovy.util.slurpersupport.Attributes)
 values: [Port 1]
+* チュートリアル手順書の予行演習モードコマンドの記述を修正
 
 Changes for 0.1.22 (2018-7-31)
 --------------------------------------------------------------------------------

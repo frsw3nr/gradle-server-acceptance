@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 import dataset as ds
 from dataset.types import Types
-from cleansing.config import Config
+from getconfig_cleansing.config import Config
 
 """
 Getconfig エビデンスサマリーシート検索
@@ -86,7 +86,7 @@ class GetconfigSummarySheet(metaclass=ABCMeta):
         df_devices = dict()
         read_phase = None
         _logger.info("Read sheet : {}".format(self.excel_file))
-        hw_job, excel_name = db.check_excel_path(self.excel_file)
+        hw_job, excel_name = self.check_excel_path(self.excel_file)
         print(hw_job)
         print(excel_name)
         df = self.parse_excel_summary_sheet('検査レポート')
