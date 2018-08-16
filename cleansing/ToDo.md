@@ -130,4 +130,8 @@ ToDo
     import sys
     sys.path.append('your certain directory')
 * cleansig API 移行
-
+    
+* プロトタイピング
+    * エビデンス読込み
+    * Redmine登録
+    * 台帳突き合わせ
