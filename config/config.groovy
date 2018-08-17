@@ -4,8 +4,8 @@ evidence.source = './サーバチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-//evidence.target='./build/サーバチェックシート_<date>.xlsx'
-evidence.target='./build/check_sheet.xlsx'
+evidence.target='./build/サーバチェックシート_<date>.xlsx'
+//evidence.target='./build/check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

@@ -24,7 +24,7 @@ setup(
     install_requires=dependencies,
     entry_points={
         'console_scripts': [
-            'gctool = getconfig_cleansing.cli:main',
+            'gcadmin = getconfig_cleansing.cli:main',
         ],
     },
     classifiers=[
