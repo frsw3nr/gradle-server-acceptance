@@ -4,5 +4,7 @@ dist/
 build/
 *.egg-info/
 
+.cache/
 .tox/
 .coverage
+!tests/resources/*/build
