@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 from abc import ABCMeta, abstractmethod
 from getconfig_cleansing.evidence.inventory import InventoryInfo
+from getconfig_cleansing.evidence.loader import InventoryLoader
+from getconfig_cleansing.evidence.merge_master import MergeMaster
 
 class InventoryCollector(object):
     INVENTORY_DIR = 'build'
@@ -18,7 +20,7 @@ class InventoryCollector(object):
     def make_inventory_from_excel_path(self, excel_path):
         ''' Excel インベントリソースパス名を解析する '''
         inventory_dir, excel_file = os.path.split(excel_path)
-        if not excel_file.endswith('.xlsx'):
+        if not excel_file.endswith('.xlsx') or excel_file.startswith('~'):
             return
 
         # Extract project from '.../{project}/build'
@@ -32,7 +34,6 @@ class InventoryCollector(object):
         if match_file:
             inventory  = match_file.group(1)
             timestamp = match_file.group(2)
-
         return InventoryInfo(excel_path, inventory, project, timestamp)
 
     def scan_excel_inventory_files(self, inventory_source):
@@ -49,7 +50,7 @@ class InventoryCollector(object):
                     inventory = self.make_inventory_from_excel_path(excel_path)
                     if inventory:
                         inventoris.append(inventory)
-            inventoris.sort(key=lambda x: x.timestamp)
+            inventoris.sort(key=lambda x: x.timestamp, reverse=True)
         return inventoris
 
     def read_excel_inventory(self, excel_source):
@@ -59,22 +60,36 @@ class InventoryCollector(object):
         df.drop(range(8))
         df = df.dropna(subset=['ホスト名'])
         # ネットワーク構成情報から、IPアドレスを抽出
+        port_list = pd.DataFrame()
         df2 = Util.expand_ip_address_list(df, 'ネットワーク構成')
-        df2['ManagementLAN'] = False
+        if not df2.empty:
+            df2['ManagementLAN'] = False
+            port_list = pd.concat([port_list, df2], axis=0)
         df3 = Util.expand_ip_address_list(df, '管理LAN')
-        df3['ManagementLAN'] = True
-        df = pd.concat([df2, df3], axis=0)
+        if not df3.empty:
+            df3['ManagementLAN'] = True
+            port_list = pd.concat([port_list, df3], axis=0)
+        return df, port_list
 
-        return df
+    def merge_master_with_inventory(self, source, target, join_key):
+        if not target.empty:
+            if not source.empty:
+                source = MergeMaster().join_by_host(source, target, join_key)
+            else:
+                source = target
+        return source
 
-    def load(self, inventory_source):
+    def load(self, inventorys, join_key = 'ホスト名'):
         _logger = logging.getLogger(__name__)
-        inventorys = self.scan_excel_inventory_files(inventory_source)
+        loader = InventoryLoader()
+        hosts = pd.DataFrame()
+        ports = pd.DataFrame()
         for inventory in inventorys:
-            print("SOURCE:", inventory.source)
-            df = read_excel_inventory(inventory_source)
-            return df
+            (host_list, port_list) = loader.read_inventory_excel(inventory)
+            hosts = self.merge_master_with_inventory(hosts, host_list, join_key)
+            ports = self.merge_master_with_inventory(ports, port_list, [join_key, 'IP'])
 
+        return hosts, ports
 
     def get_module(self, name):
         _logger = logging.getLogger(__name__)

@@ -6,7 +6,7 @@
 *.ear
 .mtj.tmp/
 /libdeps/
-/resource/
+# /resource/
 /config/.secret/
 build/*
 node/*
@@ -33,7 +33,6 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-build/
 develop-eggs/
 dist/
 downloads/

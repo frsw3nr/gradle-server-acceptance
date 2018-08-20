@@ -1,10 +1,10 @@
 *.pyc
 
 dist/
-build/
+/build/
+!tests/resources/*/build/
 *.egg-info/
 
 .cache/
 .tox/
 .coverage
-!tests/resources/*/build

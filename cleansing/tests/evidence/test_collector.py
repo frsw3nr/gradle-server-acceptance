@@ -2,6 +2,8 @@ import re
 import sys
 import os
 import pytest
+import numpy as np
+import pandas as pd
 
 from getconfig_cleansing import cli
 from getconfig_cleansing.evidence.collector import InventoryCollector
@@ -14,8 +16,8 @@ def test_parse_evidence_from_excel_file1():
     assert inventory == None
 
 @pytest.mark.parametrize('path,name,project,timestamp', [
-    ('/project1/build/サーバチェックシート_20180818_101734.xlsx',
-        'サーバチェックシート', 'project1', '20180818_101734'),
+    ('/project1/build/サーバチェックシート_20180817_092416.xlsx',
+        'サーバチェックシート', 'project1', '20180817_092416'),
     ('/project1/build/check_sheet.xlsx',
         'check_sheet', 'project1', ''),
     ('/check_sheet.xlsx',
@@ -30,30 +32,81 @@ def test_parse_evidence_from_excel_file2(path, name, project, timestamp):
 
 def test_parse_evidence_from_excel_dir1():
     collector = InventoryCollector()
-    path = 'tests/resources/project1/build/サーバチェックシート_20180818_101734.xlsx'
+    path = 'tests/resources/import/project1/build/サーバチェックシート_20180817_142016.xlsx'
     inventorys = collector.scan_excel_inventory_files(path)
     assert len(inventorys) == 1
 
 def test_parse_evidence_from_excel_dir2():
     collector = InventoryCollector()
-    path = 'tests/resources'
-    inventorys = collector.scan_excel_inventory_files(path)
+    inventorys = collector.scan_excel_inventory_files('tests/resources/import')
     assert len(inventorys) > 1
 
 def test_parse_evidence_from_excel_dir3():
     collector = InventoryCollector()
-    path = 'hoge'
-    inventorys = collector.scan_excel_inventory_files(path)
-    print(inventorys)
+    inventorys = collector.scan_excel_inventory_files('hoge')
+    assert not inventorys
+
+def test_load_single_inventory1():
+    collector = InventoryCollector()
+    path = 'tests/resources/import/project1/build/サーバチェックシート_20180817_142016.xlsx'
+    inventory = collector.make_inventory_from_excel_path(path)
+    (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+    print(host_list[['ホスト名', 'OS名']])
+    print(port_list)
+    assert len(host_list) == 3
+    assert len(port_list) == 5
+
+def test_load_single_inventory2():
+    # iLOチェックシート読み込みで、'unexpected tag'エラー発生.
+    # 該当Excel を開いて上書きしたら解消した
+    # Exception: unexpected tag '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}ext'
+    collector = InventoryCollector()
+    path = 'tests/resources/import/project1/build/iLOチェックシート_20180817_092416.xlsx'
+    inventory = collector.make_inventory_from_excel_path(path)
+    (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+
+    print(host_list[['ホスト名', 'OS名']])
+    print(port_list)
+    assert len(host_list) == 1
+    assert len(port_list) == 2
+
+def test_load_single_inventory3():
+    collector = InventoryCollector()
+    path = 'tests/resources/import/project2/build/Zabbix監視設定チェックシート_20180820_112635.xlsx'
+    inventory = collector.make_inventory_from_excel_path(path)
+    (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+    print(host_list[['ホスト名','ホストグループ']])
+    print(port_list)
+    assert len(host_list) == 3
+    assert len(port_list) == 0
+
+def test_load_single_inventory4():
+    collector = InventoryCollector()
+    path = 'tests/resources/import/project4/build/ETERNUSチェックシート_20180820_115934.xlsx'
+    inventory = collector.make_inventory_from_excel_path(path)
+    (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+    print(host_list)
+    print(port_list)
+    assert len(host_list) == 3
+    assert len(port_list) == 0
+
+def test_load_multiple_inventory1():
+    collector = InventoryCollector()
+    inventorys = collector.scan_excel_inventory_files('tests/resources/import/project1')
+    (host_list, port_list) = collector.load(inventorys)
+    print(host_list[['ホスト名', 'OS名']])
+    print(port_list)
+    assert len(host_list) == 3
+    assert len(port_list) == 5
+
+def test_load_multiple_inventory2():
+    collector = InventoryCollector()
+    inventorys = collector.scan_excel_inventory_files('tests/resources/import/')
+    (host_list, port_list) = collector.load(inventorys)
+    print(host_list[['ホスト名', 'OS名']])
+    print(port_list)
     assert 1 == 1
 
-def test_load1():
-    collector = InventoryCollector()
-    path = 'tests/resources/project1/build/サーバチェックシート_20180818_101734.xlsx'
-    inventory = collector.make_inventory_from_excel_path(path)
-    df = InventoryLoader().read_inventory_excel(inventory)
-    print(df[['ホスト名','IP']])
-    assert 1 == 1
 
 # def test_parse_evidence_from_excel_dir():
 #     collector = InventoryCollector()
@@ -61,16 +114,16 @@ def test_load1():
 #     assert 1 == 1
 
 # def test_parse_evidence_from_excel1(collector):
-#     path = '/project1/build/サーバチェックシート_20180818_101734.xlsx'
+#     path = '/project1/build/サーバチェックシート_20180817_092416.xlsx'
 #     evidence = collector.make_inventory_from_source(path)
 
 #     assert evidence.source    == path
 #     assert evidence.name      == 'サーバチェックシート'
 #     assert evidence.project   == 'project1'
-#     assert evidence.timestamp == '20180818_101734'
+#     assert evidence.timestamp == '20180817_092416'
 
 def test_import_single_evidence():
-    collector = InventoryCollector('tests/resources/import/project1/build/サーバチェックシート_20180818_101734.xlsx')
+    collector = InventoryCollector('tests/resources/import/project1/build/サーバチェックシート_20180817_092416.xlsx')
     print ("Single test")
     collector.parse()
     assert 1 == 1

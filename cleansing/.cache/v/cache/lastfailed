@@ -1,14 +1,1 @@
-{
-  "tests/evidence/test_collector.py::test_import_multiple_evidence": true,
-  "tests/evidence/test_collector.py::test_import_single_evidence": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel1[collector0]": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel1[collector1]": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel1[collector2]": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_dir1": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_dir2": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_dir3": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_file1": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_file2[/check_sheet.xlsx-check_sheet-_Default-]": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_file2[/project1/build/\\u30b5\\u30fc\\u30d0\\u30c1\\u30a7\\u30c3\\u30af\\u30b7\\u30fc\\u30c8_20180818_101734.xlsx-\\u30b5\\u30fc\\u30d0\\u30c1\\u30a7\\u30c3\\u30af\\u30b7\\u30fc\\u30c8-project1-20180818_101734]": true,
-  "tests/evidence/test_collector.py::test_parse_evidence_from_excel_file2[/project1/build/check_sheet.xlsx-check_sheet-project1-]": true
-}
+{}
