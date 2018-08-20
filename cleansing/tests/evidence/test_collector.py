@@ -68,7 +68,7 @@ def test_load_single_inventory2():
     print(host_list[['ホスト名', 'OS名']])
     print(port_list)
     assert len(host_list) == 1
-    assert len(port_list) == 2
+    assert len(port_list) == 3
 
 def test_load_single_inventory3():
     collector = InventoryCollector()
@@ -87,8 +87,29 @@ def test_load_single_inventory4():
     (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
     print(host_list)
     print(port_list)
-    assert len(host_list) == 3
+    assert len(host_list) == 1
+    assert len(port_list) == 2
+
+def test_load_single_inventory5():
+    collector = InventoryCollector()
+    path = 'tests/resources/import/empty.xlsx'
+    inventory = collector.make_inventory_from_excel_path(path)
+    (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+    print(host_list)
+    print(port_list)
+    assert len(host_list) == 0
     assert len(port_list) == 0
+
+def test_load_single_inventory6():
+    collector = InventoryCollector()
+    path = 'tests/resources/import/old1/build/check_sheet_20170512_143424.xlsx'
+    inventory = collector.make_inventory_from_excel_path(path)
+    (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+    print(host_list)
+    print(port_list)
+    # assert len(host_list) == 0
+    # assert len(port_list) == 0
+    assert 1 == 1
 
 def test_load_multiple_inventory1():
     collector = InventoryCollector()
@@ -97,7 +118,7 @@ def test_load_multiple_inventory1():
     print(host_list[['ホスト名', 'OS名']])
     print(port_list)
     assert len(host_list) == 3
-    assert len(port_list) == 5
+    assert len(port_list) == 6
 
 def test_load_multiple_inventory2():
     collector = InventoryCollector()
@@ -105,7 +126,8 @@ def test_load_multiple_inventory2():
     (host_list, port_list) = collector.load(inventorys)
     print(host_list[['ホスト名', 'OS名']])
     print(port_list)
-    assert 1 == 1
+    assert len(host_list) == 4
+    assert len(port_list) == 8
 
 
 # def test_parse_evidence_from_excel_dir():
