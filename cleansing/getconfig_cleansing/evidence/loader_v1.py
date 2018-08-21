@@ -39,7 +39,6 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
             column_heads.append(columns.pop(0))
         columns.pop(0)
         hosts = columns
-        print(df.columns)
         df = pd.melt(df, id_vars=column_heads, value_vars=hosts)
         df.rename(columns={
                   'ID': 'test_id', 'variable': 'node_name', '分類': 'domain',
@@ -84,7 +83,6 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
         read_phase = None
         _logger.info("Read sheet : {}".format(self.excel_file))
         for sheet_name in self.xls.sheet_names:
-            print(sheet_name)
             if sheet_name == 'チェック対象' or sheet_name == 'Target':
                 read_phase = 'Summary'
                 continue

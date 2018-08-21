@@ -17,9 +17,9 @@ class Util(object):
         """
         ネットワーク結果の解析。IPアドレスを分離/抽出し、複数行に分割
         """
-
         # 先頭、末尾の括弧を取り除く
         df_tmp = df[column_name].str.extract('\[(?P<ips>.+)\]', expand=False)
+        # df_tmp = df[column_name]
 
         # カンマ区切りのIPリストを分割して、複数行に展開
         df_lan = pd.DataFrame()

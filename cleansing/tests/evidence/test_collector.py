@@ -111,11 +111,24 @@ def test_load_single_inventory6():
     # assert len(port_list) == 0
     assert 1 == 1
 
+# def test_load_single_inventory7():
+#     collector = InventoryCollector()
+#     # path = 'tests/resources/import/old1/build/iLOチェックシート_20180201_114341.xlsx'
+#     # path = '/home/psadmin/work/getconfig/rep_network_hosts/DataCleansing/getconfig/AT0043G/build/iLOチェックシート_20180803_152632.xlsx'
+#     path = '/home/psadmin/work/getconfig/rep_network_hosts/DataCleansing/getconfig/4at00vx_y/build/iLOチェックシート_20170626_140157.xlsx'
+#     inventory = collector.make_inventory_from_excel_path(path)
+#     (host_list, port_list) = InventoryLoader().read_inventory_excel(inventory)
+#     print(host_list)
+#     print(port_list)
+#     # assert len(host_list) == 0
+#     # assert len(port_list) == 0
+#     assert 1 == 1
+
 def test_load_multiple_inventory1():
     collector = InventoryCollector()
     inventorys = collector.scan_excel_inventory_files('tests/resources/import/project1')
     (host_list, port_list) = collector.load(inventorys)
-    print(host_list[['ホスト名', 'OS名']])
+    print(host_list[['ホスト名', 'OS名', 'getconfig_project', 'getconfig_name']])
     print(port_list)
     assert len(host_list) == 3
     assert len(port_list) == 6
