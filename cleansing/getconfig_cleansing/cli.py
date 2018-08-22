@@ -32,6 +32,6 @@ def load(ctx, excel_file):
     # # df = pd.concat([db.df_hosts, df])
     # print(list(db.df_hosts.columns))
 
-# def main():
-#     """Getconfig data cleansing"""
-#     cli(obj={})
+def main():
+    """Getconfig data cleansing"""
+    cli(obj={})

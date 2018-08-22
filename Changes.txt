@@ -13,13 +13,43 @@ New features:
     * 「ポートリスト」と IP の突き合わせ。ネットワーク情報付加 [ ]
     * 「機器台帳」とホスト名の突き合わせ [ ]
     * Redmine チケット登録 [ ]
-* データクレンジング全体構成調査 [ ]
-    * ベースパターン [ ]
-    * ベースクラス/UML作成  [ ]
+* データクレンジング全体構成調査 [x]
+    * ベースパターン
+        Excelシート読み込み、つき合わせ(台帳,ポートリスト)、Redmine登録
+    * ベースクラス/UML作成
+        inventory
+            InventoryInfo インベントリモデル
+            InventoryCollector Excel ファイルスキャン、CSV保存(ホスト,IP)
+            InventoryLoader Excel フォーマット読込み
+                InventoryLoaderV1 旧 Excel フォーマット読込み
+        master_data
+            MasterData 台帳読込みメタクラス
+        ticket
+            RedmineTicket Redmineチケット登録
+        MergeMaster 台帳つき合わせユーティリティ
+        Util ユーティリティ。テキスト処理、ワークデータ保存
+        Config 設定ファイル管理
+        Scheduler バッチスケジューラメタクラス
     * コマンド、ディレクトリ構成  [ ]
-    * 共通モジュール整理  [ ]
-        * ログ管理  [ ]
-        * 処理統計  [ ]
+        gcadmin [--grep <s>] [load|transfer|classify|regist] <path>
+        build/dat/(load|transfer|classify|regist) ワークデータ
+        cleansing/getconfig_cleansing Python ライブラリ
+
+ToDo:
+* ベースクラス作成 [ ]
+    * ディレクトリ構成変更 [ ]
+    * UML作成 [ ]
+* Config クラス作成 [ ]
+    * パラメータ定義 [ ]
+      ディレクトリ ワーク用、ホーム(ベース,プロジェクト) [ ]
+      接続定義 (Redmine, MySQL) [ ]
+* 単体テスト [ ]
+    * config [ ]
+    * inventory [ ]
+    * master_data [ ]
+    * ticket [ ]
+* 結合テスト [ ]
+    * コマンド実行 [ ]
 
 Bug fixes:
 * 

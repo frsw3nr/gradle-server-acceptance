@@ -12,6 +12,9 @@ Simply run:
 
     $ pipsi install .
 
+# 開発環境のインストール
+
+    $ pip install --force-reinstall --editable .
 
 # Usage
 

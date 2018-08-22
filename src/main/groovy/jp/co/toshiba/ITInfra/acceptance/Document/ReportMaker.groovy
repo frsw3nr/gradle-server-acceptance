@@ -188,7 +188,7 @@ public class ReportMaker {
                 }
             }
         }
-        println "REPORT_INFO: ${this.report_info}"
+        // println "REPORT_INFO: ${this.report_info}"
         this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start
         log.info "Finish report maker, Elapse : ${elapse} ms"
