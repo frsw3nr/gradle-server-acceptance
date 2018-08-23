@@ -1,15 +1,12 @@
 import re
 import sys
 import os
-from enum import Enum
-from datetime import datetime
 import logging
 import numpy as np
 import pandas as pd
-from abc import ABCMeta, abstractmethod
-from getconfig_cleansing.evidence.inventory import InventoryInfo
-from getconfig_cleansing.evidence.loader import InventoryLoader
-from getconfig_cleansing.evidence.merge_master import MergeMaster
+from getconfig_cleansing.merge_master import MergeMaster
+from getconfig_cleansing.inventory.info import InventoryInfo
+from getconfig_cleansing.inventory.loader import InventoryLoader
 
 class InventoryCollector(object):
     INVENTORY_DIR = 'build'
@@ -91,26 +88,26 @@ class InventoryCollector(object):
 
         return hosts, ports
 
-    def get_module(self, name):
-        _logger = logging.getLogger(__name__)
-        try:
-            mod = __import__('getconfig_cleansing.inventory.parser_' + name,
-                             None, None, ['InventoryParser'])
-        except ImportError:
-            return
-        return mod
+    # def get_module(self, name):
+    #     _logger = logging.getLogger(__name__)
+    #     try:
+    #         mod = __import__('getconfig_cleansing.inventory.parser_' + name,
+    #                          None, None, ['InventoryParser'])
+    #     except ImportError:
+    #         return
+    #     return mod
 
-    def parse(self):
-        _logger = logging.getLogger(__name__)
-        inventorys = self.list_inventorys()
-        for inventory in inventorys:
-            match = re.match(r'^(.+)_(\d+_\d+)$', inventory)
-            timestamp = ''
-            if match:
-                inventory = match.group(1)
-                timestamp = match.group(2)
-            _logger.warn("Check: %s, Date: %s" % (inventory, timestamp))
-            mod = self.get_module(inventory)
-            if mod:
-                mod.InventoryParser().say('Hello')
+    # def parse(self):
+    #     _logger = logging.getLogger(__name__)
+    #     inventorys = self.list_inventorys()
+    #     for inventory in inventorys:
+    #         match = re.match(r'^(.+)_(\d+_\d+)$', inventory)
+    #         timestamp = ''
+    #         if match:
+    #             inventory = match.group(1)
+    #             timestamp = match.group(2)
+    #         _logger.warn("Check: %s, Date: %s" % (inventory, timestamp))
+    #         mod = self.get_module(inventory)
+    #         if mod:
+    #             mod.InventoryParser().say('Hello')
 

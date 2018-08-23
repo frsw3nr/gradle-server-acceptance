@@ -5,11 +5,11 @@ import pytest
 import numpy as np
 import pandas as pd
 
-from getconfig_cleansing import cli
-from getconfig_cleansing.evidence.collector import InventoryCollector
-from getconfig_cleansing.evidence.loader import InventoryLoader
+from getconfig_cleansing.cli import cli
+from getconfig_cleansing.inventory.collector import InventoryCollector
+from getconfig_cleansing.inventory.loader import InventoryLoader
 
-# py.test tests/evidence/test_collector.py -v --capture=no -k test_parse_evidence_from_excel
+# py.test tests/inventory/test_collector.py -v --capture=no -k test_parse_evidence_from_excel_file1
 
 def test_parse_evidence_from_excel_file1():
     inventory = InventoryCollector().make_inventory_from_excel_path('')

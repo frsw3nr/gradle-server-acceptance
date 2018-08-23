@@ -8,10 +8,10 @@ import logging
 import numpy as np
 import pandas as pd
 from abc import ABCMeta, abstractmethod
-from getconfig_cleansing.evidence.util import Util
-from getconfig_cleansing.evidence.loader_v1 import GetconfigEvidenceV1
-from getconfig_cleansing.evidence.inventory import InventoryInfo
-from getconfig_cleansing.evidence.merge_master import MergeMaster
+from getconfig_cleansing.util import Util
+from getconfig_cleansing.merge_master import MergeMaster
+from getconfig_cleansing.inventory.info import InventoryInfo
+from getconfig_cleansing.inventory.loader_v1 import GetconfigEvidenceV1
 
 class InventoryLoader(object):
     INVENTORY_DIR = 'build'

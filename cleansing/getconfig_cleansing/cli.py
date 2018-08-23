@@ -2,7 +2,6 @@ import sys
 import os
 import click
 sys.path.append(os.path.dirname('.') + '/cleansing/')
-from getconfig_cleansing.getconfig.summary_sheet import GetconfigSummarySheet
 
 '''
 チェックシートを読み込んで、build/cleansing_dat/master の下に保存する

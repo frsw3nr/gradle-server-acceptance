@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import dataset as ds
 from dataset.types import Types
-from getconfig_cleansing.evidence.util import Util
+from getconfig_cleansing.util import Util
 
 """
 Getconfig エビデンスデータ登録用テンプレートクラス
