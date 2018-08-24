@@ -87,8 +87,8 @@ class Util(object):
         指定したカラムの文字列のサフィックスを取り除く。
         """
         for suffix, category in self.IT_EQUIPMENT_HOST_SUFFIX.items():
-            cond1 = df[column].str.contains(suffix) & \
-                   ~(df[column].isnull())
+            cond1 = (df[column].str.contains(suffix) & \
+                               ~(df[column].isnull()))
             if not nocategory:
                 df.loc[cond1,'IPカテゴリ'] = category
             df.loc[cond1, column] = df.loc[cond1, column].str.replace(suffix, '')
