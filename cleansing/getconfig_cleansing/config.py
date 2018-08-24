@@ -2,6 +2,32 @@
 
 'clensing.ini' ファイルを読み込み、get()関数で指定したパラメータ値を返します。
 
+[Getconfig]
+ディレクトリ関連
+    GETCONFIG_HOME  本体ホーム
+    PROJECT_HOME    プロジェクトホーム
+    INVENTORY_DIR   入力ディレクトリ
+    RESULT_DIR      出力ディレクトリ
+
+[Redmine]
+Redmine 接続情報
+    REDMINE_API_KEY Redmine APIキー
+    REDMINE_URL     Redmine 接続 URL
+Redmine キャッシュ
+    CMDB_URL        MySQL キャッシュDB 接続 URL
+    
+[JobOptions]
+入力オプション
+    DRY_RUN          予行演習
+    VERIFY_TEST      デバッグ関連
+    FILTER_INVENTORY インベントリファイルキーワード
+    USE_OUTER_JOIN
+    FETCH_FIRST_FEW_LINES
+    USE_CACHE
+    SKIP_REDMINE
+    FORCE_UPDATE
+    FILTER_CLASSIFY_FILE
+
 Example:
 
 .. highlight:: python
@@ -12,6 +38,7 @@ Example:
 
 """
 
+import os
 import logging
 import configparser
 import codecs
@@ -20,11 +47,19 @@ from getconfig_cleansing.singleton import singleton
 @singleton
 class Config():
 
-    def __init__(self):
+    def __init__(self, config_path = 'cleansing.ini'):
         config = configparser.ConfigParser()
-        with open('cleansing.ini', 'r', encoding='shift_jis') as f:
+        with open(config_path, 'r', encoding='shift_jis') as f:
             config.read_file(f)
+        self.project_home     = os.getcwd()
+        self.inventory_dir    = os.path.join(self.project_home, 'build/inventory')
+        self.result_dir       = os.path.join(self.project_home, 'build/result')
+        self.dry_run          = False
+        self.filter_inventory = None
         self.config = config
+
+    def set(self, section_name, parameter_name, value):
+        self.config[section_name][parameter_name] = value
 
     def get(self, section_name, parameter_name):
         return self.config[section_name][parameter_name]
@@ -38,6 +73,52 @@ class Config():
             return int(value)
         else:
             return 0
+
+    def get_with_default(self, section, name, default):
+        if self.config.has_option(section, name):
+            return self.config.get(section, name)
+        else:
+            return default
+
+    def get_getconfig_home(self):
+        # 本体ホーム
+        return os.environ.get('GETCONFIG_HOME') or \
+            self.get_with_default('Getconfig', 'GETCONFIG_HOME', '/opt/server-acceptance')
+
+    def get_project_home(self):
+        # プロジェクトホーム(カレントディレクトリ)
+        return self.project_home
+
+    def get_inventory_dir(self):
+        # 入力ディレクトリ(カレントディレクトリ/build/inventory)
+        return self.inventory_dir
+
+    def get_result_dir(self):
+        # 出力ディレクトリ(カレントディレクトリ/build/result)
+        return self.result_dir
+
+    def get_redmine_api_key(self):
+        return os.environ.get('REDMINE_API_KEY') or \
+            self.get_with_default('Redmine', 'API_KEY', None)
+
+    def get_redmine_url(self):
+        return os.environ.get('REDMINE_URL') or \
+            self.get_with_default('Redmine', 'URL', None)
+
+    def get_cmdb_url(self):
+        return os.environ.get('REDMINE_CMDB') or \
+            self.get_with_default('Redmine', 'CMDB', None)
+
+    def get_dry_run(self):
+        # 予行演習
+        return self.dry_run
+
+    def get_filter_inventory(self):
+        # インベントリファイルキーワード
+        return self.filter_inventory
+
+    def accept(self, visitor):
+        visitor.set_envoronment(self)
 
 if __name__ == '__main__':
     # ログの初期化

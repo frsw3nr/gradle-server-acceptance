@@ -36,9 +36,9 @@ New features:
         cleansing/getconfig_cleansing Python ライブラリ
 
 ToDo:
-* ベースクラス作成 [ ]
-    * ディレクトリ構成変更 [ ]
-    * UML作成 [ ]
+* ベースクラス作成 [x]
+    * ディレクトリ構成変更 [x]
+    * UML作成 [x]
 * Config クラス作成 [ ]
     * パラメータ定義 [ ]
       ディレクトリ ワーク用、ホーム(ベース,プロジェクト) [ ]
