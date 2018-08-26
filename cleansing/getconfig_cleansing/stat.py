@@ -19,6 +19,8 @@ Example:
     Stat().show()
 """
 
+import sys
+import os
 import logging
 import datetime
 import pandas as pd

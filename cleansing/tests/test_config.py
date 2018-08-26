@@ -1,7 +1,3 @@
-import pytest
-from click.testing import CliRunner
-from getconfig_cleansing import config
-
 import re
 import sys
 import os
@@ -26,8 +22,21 @@ def test_config1():
     print(Config().get_getconfig_home())
     print(Config().get_project_home())
     print(Config().get_inventory_dir())
-    # print(Config().config.get('Getconfig', 'GETCONFIG_HOME'))
-    assert 1 == 1
-    # assert not result.exception
-    # assert result.output.strip() == 'Hello, world.'
 
+    assert Config().get_getconfig_home() == '/opt/server-acceptance'
+
+def test_config2():
+    Config().set_inventory_dir('/tmp')
+    print(Config().get_getconfig_home())
+    print(Config().get_inventory_dir())
+
+    assert Config().get_inventory_dir() == '/tmp'
+    assert Config().get_getconfig_home() == '/opt/server-acceptance'
+
+def test_config3():
+    collector = InventoryCollector()
+    Config().accept(collector)
+    print(collector.dry_run)
+
+    assert collector.dry_run == False
+    

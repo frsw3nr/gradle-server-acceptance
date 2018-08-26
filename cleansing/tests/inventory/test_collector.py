@@ -4,9 +4,11 @@ import os
 import pytest
 import numpy as np
 import pandas as pd
-
+from pprint import pprint
 from getconfig_cleansing.cli import cli
+from getconfig_cleansing.config import Config
 from getconfig_cleansing.inventory.collector import InventoryCollector
+from getconfig_cleansing.inventory.table import InventoryTableSet
 from getconfig_cleansing.inventory.loader import InventoryLoader
 
 # py.test tests/inventory/test_collector.py -v --capture=no -k test_parse_evidence_from_excel_file1
@@ -50,10 +52,14 @@ def test_load_single_inventory1():
     collector = InventoryCollector()
     path = 'tests/resources/import/project1/build/サーバチェックシート_20180817_142016.xlsx'
     inventory = collector.make_inventory_info(path)
-    inventory_dat = InventoryLoader().read_inventory_sheet(inventory)
-    inventory_dat.print(['ホスト名', 'OS名'])
-    assert inventory_dat.count() == 3
-    assert inventory_dat.port_count() == 5
+    inventory_tables = InventoryTableSet()
+    pprint(inventory)
+    InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
+    # inventory_dat = InventoryLoader().read_inventory_sheet(inventory)
+    # inventory_dat.print(['ホスト名', 'OS名'])
+    assert 1 == 1
+    # assert inventory_dat.count() == 3
+    # assert inventory_dat.port_count() == 5
     # (host_list, port_list) = InventoryLoader().read_inventory_sheet(inventory)
     # print(host_list[['ホスト名', 'OS名']])
     # print(port_list)
@@ -109,6 +115,16 @@ def test_load_single_inventory6():
     assert inventory_dat.count() == 2
     assert inventory_dat.port_count() == 1
 
+def test_load_single_inventory7():
+    collector = InventoryCollector()
+    path = 'tests/resources/import/net1/build/rtx_check_sheet.xlsx'
+    inventory = collector.make_inventory_info(path)
+    inventory_dat = InventoryLoader().read_inventory_sheet(inventory)
+    inventory_dat.print()
+    # assert inventory_dat.count() == 0
+    # assert inventory_dat.port_count() == 0
+    assert 1 == 1
+
 # def test_load_single_inventory7():
 #     collector = InventoryCollector()
 #     # path = 'tests/resources/import/old1/build/iLOチェックシート_20180201_114341.xlsx'
@@ -126,24 +142,45 @@ def test_load_multiple_inventory1():
     collector = InventoryCollector()
     inventorys = collector.scan_inventorys('tests/resources/import/project1')
     inventory_dat = collector.load(inventorys)
-    # inventory_dat.print(['ホスト名', 'OS名'])
-    # inventory_dat.print(['ホスト名', 'OS名', 'getconfig_project', 'getconfig_name'])
-    assert inventory_dat.count() == 0
-    assert inventory_dat.port_count() == 0
-    # (host_list, port_list) = collector.load(inventorys)
-    # print(host_list[['ホスト名', 'OS名', 'getconfig_project', 'getconfig_name']])
-    # print(port_list)
-    # assert len(host_list) == 3
-    # assert len(port_list) == 6
+    inventory_dat.print(['ホスト名', 'OS名'])
+    assert inventory_dat.count() == 3
+    assert inventory_dat.port_count() == 6
 
 def test_load_multiple_inventory2():
     collector = InventoryCollector()
     inventorys = collector.scan_inventorys('tests/resources/import/')
-    (host_list, port_list) = collector.load(inventorys)
-    print(host_list[['ホスト名', 'OS名']])
-    print(port_list)
-    assert len(host_list) == 4
-    assert len(port_list) == 8
+    inventory_dat = collector.load(inventorys)
+    inventory_dat.print(['ホスト名', 'OS名'])
+    assert inventory_dat.count() == 4
+    assert inventory_dat.port_count() == 10
+
+def test_load_multiple_inventory3():
+    Config().set_inventory_dir('tests/resources/import/project1')
+    Config().set_result_dir('/tmp')
+    collector = InventoryCollector()
+    Config().accept(collector)
+    inventorys = collector.scan_inventorys()
+    inventory_dat = collector.load(inventorys)
+    collector.save(inventory_dat)
+    inventory_dat.print(['ホスト名', 'OS名', 'ネットワーク構成'])
+
+    assert inventory_dat.count() == 3
+    assert inventory_dat.port_count() == 6
+
+def test_load_multiple_inventory4():
+    collector = InventoryCollector()
+    inventorys = collector.scan_inventorys('tests/resources/import/net1/build/rtx_check_sheet.xlsx')
+    inventory_dat = collector.load(inventorys)
+    inventory_dat.print()
+    # assert inventory_dat.count() == 4
+    # assert inventory_dat.port_count() == 10
+    assert 1 == 1
+
+def test_export_inventory1():
+    Config().set_result_dir('/tmp')
+    collector = InventoryCollector()
+    Config().accept(collector)
+    collector.export('tests/resources/import/project1')
 
 
 # def test_parse_evidence_from_excel_dir():

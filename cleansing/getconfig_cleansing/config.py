@@ -51,12 +51,20 @@ class Config():
         config = configparser.ConfigParser()
         with open(config_path, 'r', encoding='shift_jis') as f:
             config.read_file(f)
+        self.config = config
+        self.getconfig_home   = os.environ.get('GETCONFIG_HOME') or \
+            self.get_with_default('Getconfig', 'GETCONFIG_HOME', '/opt/server-acceptance')
         self.project_home     = os.getcwd()
         self.inventory_dir    = os.path.join(self.project_home, 'build/inventory')
         self.result_dir       = os.path.join(self.project_home, 'build/result')
+        self.redmine_api_key  = os.environ.get('REDMINE_API_KEY') or \
+            self.get_with_default('Redmine', 'API_KEY', None)
+        self.redmine_url      = os.environ.get('REDMINE_URL') or \
+            self.get_with_default('Redmine', 'URL', None)
+        self.cmdb_url         = os.environ.get('REDMINE_CMDB') or \
+            self.get_with_default('Redmine', 'CMDB', None)
         self.dry_run          = False
         self.filter_inventory = None
-        self.config = config
 
     def set(self, section_name, parameter_name, value):
         self.config[section_name][parameter_name] = value
@@ -80,10 +88,42 @@ class Config():
         else:
             return default
 
+    def set_getconfig_home(self, getconfig_home):
+        # 本体ホーム
+        self.getconfig_home = getconfig_home
+
+    def set_project_home(self, project_home):
+        # プロジェクトホーム(カレントディレクトリ)
+        self.project_home = project_home
+
+    def set_inventory_dir(self, inventory_dir):
+        # 入力ディレクトリ(カレントディレクトリ/build/inventory)
+        self.inventory_dir = inventory_dir
+
+    def set_result_dir(self, result_dir):
+        # 出力ディレクトリ(カレントディレクトリ/build/result)
+        self.result_dir = result_dir
+
+    def set_redmine_api_key(self, redmine_api_key):
+        self.redmine_api_key = redmine_api_key
+
+    def set_redmine_url(self):
+        self.redmine_url = redmine_url
+
+    def set_cmdb_url(self):
+        self.cmdb_url = cmdb_url
+
+    def set_dry_run(self):
+        # 予行演習
+        self.dry_run = dry_run
+
+    def set_filter_inventory(self):
+        # インベントリファイルキーワード
+        self.filter_inventory = filter_inventory
+
     def get_getconfig_home(self):
         # 本体ホーム
-        return os.environ.get('GETCONFIG_HOME') or \
-            self.get_with_default('Getconfig', 'GETCONFIG_HOME', '/opt/server-acceptance')
+        return self.getconfig_home
 
     def get_project_home(self):
         # プロジェクトホーム(カレントディレクトリ)
@@ -98,16 +138,13 @@ class Config():
         return self.result_dir
 
     def get_redmine_api_key(self):
-        return os.environ.get('REDMINE_API_KEY') or \
-            self.get_with_default('Redmine', 'API_KEY', None)
+        return self.redmine_api_key
 
     def get_redmine_url(self):
-        return os.environ.get('REDMINE_URL') or \
-            self.get_with_default('Redmine', 'URL', None)
+        return self.redmine_url
 
     def get_cmdb_url(self):
-        return os.environ.get('REDMINE_CMDB') or \
-            self.get_with_default('Redmine', 'CMDB', None)
+        return self.cmdb_url
 
     def get_dry_run(self):
         # 予行演習

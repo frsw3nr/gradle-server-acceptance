@@ -15,7 +15,8 @@ class Util(object):
 
     def expand_ip_address_list(self, df, column_name, target_name = 'IP'):
         """
-        ネットワーク結果の解析。IPアドレスを分離/抽出し、複数行に分割
+        ネットワーク結果の解析。IPアドレスを分離/抽出して置換する。
+        複数行に分割したデータフレームを返す
         """
         # 先頭、末尾の括弧を取り除く
         df_tmp = df[column_name].str.extract('\[(?P<ips>.+)\]', expand=False)
@@ -104,7 +105,7 @@ class Util(object):
             del df[column]
         return df
 
-    def _save_data(self, data_frame, target_dir, filename):
+    def save_data(self, data_frame, target_dir, filename):
         """ベース処理用結果ファイルの書き込み。出力先を指定して利用する"""
         logger = logging.getLogger(__name__)
         if not os.path.isdir(target_dir):
@@ -117,14 +118,14 @@ class Util(object):
     def save_transfer_data(self, data_frame, filename):
         """変換処理の結果ファイルの書き込み。'build'ディレクトリ下に保存します"""
         target_dir = "build/%s" % (self.fab)
-        self._save_data(data_frame, target_dir, filename)
+        self.save_data(data_frame, target_dir, filename)
 
     def save_classify_data(self, data_frame, filename):
         """分類処理の結果ファイルの書き込み。'build/classify'ディレクトリ下に保存します"""
         target_dir = "build/classify"
-        self._save_data(data_frame, target_dir, filename)
+        self.save_data(data_frame, target_dir, filename)
 
     def save_asset_data(self, data_frame, filename, fab):
         """保守情報変換処理の結果ファイルの書き込み。'build/{fab} ディレクトリ下に保存します"""
         target_dir = "build/%s" % (fab)
-        self._save_data(data_frame, target_dir, filename)
+        self.save_data(data_frame, target_dir, filename)
