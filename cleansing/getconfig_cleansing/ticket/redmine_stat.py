@@ -30,8 +30,8 @@ import logging
 import sys
 import pandas as pd
 import sqlite3
-from cleansing.config import Config
-from cleansing.singleton import singleton
+from getconfig_cleansing.config import Config
+from getconfig_cleansing.singleton import singleton
 
 @singleton
 class RedmineStatistics():

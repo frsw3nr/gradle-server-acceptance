@@ -25,7 +25,7 @@ from redminelib.exceptions import AuthError
 from redminelib.exceptions import ResourceNotFoundError
 from redminelib.exceptions import ValidationError
 from redminelib.exceptions import UnknownError
-from cleansing.config import Config
+from getconfig_cleansing.config import Config
 
 class RedmineField():
 

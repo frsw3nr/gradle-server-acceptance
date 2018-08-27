@@ -35,7 +35,8 @@ class RedmineCache():
         _logger = logging.getLogger(__name__)
         cmdb = ''
         try:
-            cmdb = Config().get('Redmine','CMDB')
+            # cmdb = Config().get('Redmine','CMDB')
+            cmdb = Config().get_cmdb_url()
         except KeyError as e:
             _logger.error(e)
             sys.exit("Could not read configfile")
@@ -76,6 +77,7 @@ class RedmineCache():
         return self._table.find_one(from_to_ticket_id = key)
 
 if __name__ == '__main__':
+    Config().set_cmdb_url('sqlite:///dbcache.db')
     db = RedmineCache('networks', 'hostname', Types.text)
     row = dict(text1='text1', num1 = 1)
     db.regist('host1', row)

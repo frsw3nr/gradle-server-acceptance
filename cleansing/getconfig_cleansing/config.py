@@ -107,17 +107,17 @@ class Config():
     def set_redmine_api_key(self, redmine_api_key):
         self.redmine_api_key = redmine_api_key
 
-    def set_redmine_url(self):
+    def set_redmine_url(self, redmine_url):
         self.redmine_url = redmine_url
 
-    def set_cmdb_url(self):
+    def set_cmdb_url(self, cmdb_url):
         self.cmdb_url = cmdb_url
 
-    def set_dry_run(self):
+    def set_dry_run(self, dry_run):
         # 予行演習
         self.dry_run = dry_run
 
-    def set_filter_inventory(self):
+    def set_filter_inventory(self, filter_inventory):
         # インベントリファイルキーワード
         self.filter_inventory = filter_inventory
 

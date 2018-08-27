@@ -21,10 +21,10 @@ from redminelib.exceptions import ValidationError
 from redminelib.exceptions import UnknownError
 from redminelib.exceptions import ResourceAttrError
 from redminelib.exceptions import ServerError
-from cleansing.config import Config
-from cleansing.redmine.redmine_repository import RedmineRepository
-from cleansing.redmine.redmine_cache      import RedmineCache
-from cleansing.redmine.redmine_stat       import RedmineStatistics
+from getconfig_cleansing.config import Config
+from getconfig_cleansing.ticket.redmine_repository import RedmineRepository
+from getconfig_cleansing.ticket.redmine_cache      import RedmineCache
+from getconfig_cleansing.ticket.redmine_stat       import RedmineStatistics
 
 class Ticket(metaclass=ABCMeta):
 

@@ -9,4 +9,4 @@ dist/
 .tox/
 .coverage
 
-report.db
+*.db
