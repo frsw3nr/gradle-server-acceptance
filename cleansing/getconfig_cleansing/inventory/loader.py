@@ -54,13 +54,14 @@ class InventoryLoader(object):
 
     #     return InventoryData(df, port_list)
 
-    def import_inventory_sheet(sefl, inventory_info, inventory_tables):
+    def import_inventory_sheet(self, inventory_info, inventory_tables):
         _logger = logging.getLogger(__name__)
         # print("■チェック対象", inventory_info.source)
         # 旧バージョンのインベントリシート読み込み
         xls = pd.ExcelFile(inventory_info.source)
         if 'チェック対象' in xls.sheet_names or 'Target' in xls.sheet_names:
-            return InventoryLoaderV1().read_inventory_sheet(inventory_info)
+            InventoryLoaderV1().import_inventory_sheet(inventory_info, inventory_tables)
+            return
 
         if not '検査レポート' in xls.sheet_names:
             return
@@ -86,18 +87,29 @@ class InventoryLoader(object):
         df['getconfig_project'] = inventory_info.project
 
         inventory_tables.add('host_list', df)
+        print("★★★", port_list)
         inventory_tables.add('port_list', port_list, True)
 
         # ネットワーク ARP 情報インベントリがある場合は、APRインベントリを付加
-        # sheet_arp_list = self.check_sheet_arp_list(xls)
-        # if sheet_arp_list:
-        #     arp_list = self.read_arp_inventory_sheet(xls, sheet_arp_list)
-        #     inventory_tables.add('arp_list', arp_list)
+        sheetname_arp = self.check_sheet_arp_list(xls)
+        if sheetname_arp:
+            arp_list = self.read_arp_inventory_sheet(xls, sheetname_arp)
+            inventory_tables.add('arp_list', arp_list)
 
     def check_sheet_arp_list(self, xls):
-        return 'RouterRTX_arp'
+        sheet_name_arp = None
+        for sheet_name in xls.sheet_names:
+            match = re.match(r"^(.+?)_arp$", sheet_name)
+            if match:
+                sheet_name_arp = sheet_name
+                break
+
+        return sheet_name_arp
 
     def read_arp_inventory_sheet(self, xls, sheet_name):
         df = xls.parse(sheet_name)
-        df.rename(columns = {'target': 'ホスト名', 'ip': 'IP'}, inplace=True)
+        df.rename(columns = {'target': 'スイッチ名', 'ip': 'IP',
+                  'interface': 'ポート名','mac': 'MACアドレス',
+                  'vendor': 'ベンダー'
+                  }, inplace=True)
         return df

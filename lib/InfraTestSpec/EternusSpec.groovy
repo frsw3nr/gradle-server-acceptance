@@ -493,7 +493,9 @@ class EternusSpec extends LinuxSpecBase {
             new File("${local_dir}/network").text = result
             return result
         }
-        def results = [:]
+        def net_ip     = [:]
+        def net_subnet = [:]
+        def net_route  = [:]
         def csv = []
         def port    = 'Unkown'
         def ip_info = 'Unkown'
@@ -507,16 +509,19 @@ class EternusSpec extends LinuxSpecBase {
             (it=~/^(.+?) \[(.+?)\]$/).each {m0, item, value ->
                 item = item.trim()
                 if (item == 'Master IP Address')
-                    results[port] = value
+                    net_ip[port]   = value
+                if (item == 'Subnet Mask')
+                    net_subnet[port]   = value
+                if (item == 'Gateway')
+                    net_route[port]   = value
                 csv << [port, ip_info, item, value]
             }
         }
         def headers = ['Port', 'Information', 'Item', 'Value']
         test_item.devices(csv, headers)
-        test_item.results(results.toString())
-        test_item.results(results.toString())
+        test_item.results([network: net_ip, net_subnet: net_subnet, net_route: net_route])
         // test_item.verify_text_search('network', results.toString())
-        test_item.verify_text_search_list('network', results)
+        test_item.verify_text_search_list('network', net_ip)
     }
 
 // MNT port

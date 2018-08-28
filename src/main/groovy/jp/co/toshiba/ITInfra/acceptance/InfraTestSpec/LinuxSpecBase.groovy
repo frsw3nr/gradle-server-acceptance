@@ -295,11 +295,11 @@ class LinuxSpecBase extends InfraTestSpec {
         Closure norm = { value, unit ->
             def value_number = NumberUtils.toDouble(value)
             if (unit == 'kB') {
-                return value_number / 1024
+                return value_number / (1024 * 1024)
             } else if (unit == 'mB') {
-                return value_number
+                return value_number / 1024
             } else if (unit == 'gB') {
-                return value_number * 1024
+                return value_number
             } else {
                 return "${value}${unit}"
             }
@@ -325,6 +325,7 @@ class LinuxSpecBase extends InfraTestSpec {
         def csv        = []
         def network    = [:].withDefault{[:]}
         def net_ip     = [:]
+        def net_subnet = [:]
         def device     = ''
         def hw_address = []
         lines.eachLine {
@@ -354,6 +355,7 @@ class LinuxSpecBase extends InfraTestSpec {
                 try {
                     SubnetInfo subnet = new SubnetUtils(m1).getInfo()
                     network[device]['subnet'] = subnet.getNetmask()
+                    net_subnet[device] = network[device]['subnet']
                 } catch (IllegalArgumentException e) {
                     log.error "[LinuxTest] subnet convert : m1\n" + e
                 }
@@ -378,6 +380,7 @@ class LinuxSpecBase extends InfraTestSpec {
         test_item.results(
                 'network' : net_ip.keySet().toString(),
                 'net_ip': net_ip.toString(),
+                'net_subnet': net_subnet.toString(),
                 'hw_address' : hw_address.toString()
         )
         test_item.devices(csv, headers)
@@ -642,6 +645,9 @@ class LinuxSpecBase extends InfraTestSpec {
         }
         def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
         package_info['packages'] = distributions.toString()
+
+        def package_list = test_item.target_info('packages')
+        package_info['packages.requirements'] = "${package_list.keySet()}"
 
         test_item.devices(csv, headers)
         test_item.results(package_info)
@@ -970,12 +976,15 @@ class LinuxSpecBase extends InfraTestSpec {
             run_ssh_command(session, command, 'runlevel')
         }
         def runlevel = "$lines"
+        def console  = 'CUI'
         lines.eachLine {
             ( it =~ /^id:(\d+):/).each {m0,m1->
                 runlevel = m1
             }
         }
-        test_item.results(runlevel)
+        if (runlevel == 'graphical.target' || runlevel == '5')
+            console == 'GUI'
+        test_item.results(['runlevel':runlevel, 'runlevel.console':console])
     }
 
     def resolve_conf(session, test_item) {

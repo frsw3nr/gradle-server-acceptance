@@ -3,6 +3,7 @@ package InfraTestSpec
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.apache.commons.io.FileUtils.*
+import org.apache.commons.lang.math.NumberUtils
 import static groovy.json.JsonOutput.*
 import org.hidetake.groovy.ssh.Ssh
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
@@ -60,6 +61,42 @@ class WindowsSpec extends WindowsSpecBase {
    //      test_item.results(results.toString())
    //  }
 
+    // def memory(TestItem test_item) {
+    //     def command = '''\
+    //         |Get-WmiObject Win32_OperatingSystem | `
+    //         |    select TotalVirtualMemorySize,TotalVisibleMemorySize, `
+    //         |        FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles
+    //         |'''.stripMargin()
+
+    //     run_script(command) {
+    //         def lines = exec('memory') {
+    //             new File("${local_dir}/memory")
+    //         }
+    //         def meminfo    = [:].withDefault{0}
+    //         lines.eachLine {
+    //             (it =~ /^TotalVirtualMemorySize\s*:\s+(\d+)$/).each {m0,m1->
+    //                 meminfo['virtual_memory'] = NumberUtils.toDouble(m1) / (1024 * 1024)
+    //             }
+    //             (it =~ /^TotalVisibleMemorySize\s*:\s+(\d+)$/).each {m0,m1->
+    //                 meminfo['visible_memory'] = NumberUtils.toDouble(m1) / (1024 * 1024)
+    //             }
+    //             (it =~ /^FreePhysicalMemory\s*:\s+(\d+)$/).each {m0,m1->
+    //                 meminfo['free_memory'] = NumberUtils.toDouble(m1) / (1024 * 1024)
+    //             }
+    //             (it =~ /^FreeVirtualMemory\s*:\s+(\d+)$/).each {m0,m1->
+    //                 meminfo['free_virtual'] = NumberUtils.toDouble(m1) / (1024 * 1024)
+    //             }
+    //             (it =~ /^FreeSpaceInPagingFiles\s*:\s+(\d+)$/).each {m0,m1->
+    //                 meminfo['free_space'] = NumberUtils.toDouble(m1) / (1024 * 1024)
+    //             }
+    //         }
+    //         test_item.results(meminfo)
+    //         test_item.verify_number_equal('visible_memory',
+    //                                       meminfo['visible_memory'],
+    //                                       0.1)
+    //     }
+    // }
+
     // def cpu(TestItem test_item) {
     //     run_script('Get-WmiObject Win32_Processor') {
     //         def lines = exec('cpu') {
@@ -67,6 +104,7 @@ class WindowsSpec extends WindowsSpecBase {
     //         }
     //         def cpuinfo    = [:].withDefault{0}
     //         def cpu_number = 0
+    //         def sockets    = [:]
     //         lines.eachLine {
     //             (it =~ /^DeviceID\s+:\s(.+)$/).each {m0, m1->
     //                 cpu_number += 1
@@ -77,8 +115,12 @@ class WindowsSpec extends WindowsSpecBase {
     //             (it =~ /^MaxClockSpeed\s+:\s(.+)$/).each {m0, m1->
     //                 cpuinfo["mhz"] = m1
     //             }
+    //             (it =~ /^SocketDesignation\s+:\s(.+)$/).each {m0, m1->
+    //                 sockets[m1] = 1
+    //             }
     //         }
     //         cpuinfo["cpu_total"] = cpu_number
+    //         cpuinfo["cou_socket"] = sockets.size()
     //         cpuinfo["cpu"] = "${cpuinfo['model_name']} ${cpu_number} CPU"
     //         test_item.results(cpuinfo)
     //     }

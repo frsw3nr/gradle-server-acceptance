@@ -130,15 +130,24 @@ class HitachiVSPSpec extends WindowsSpecBase {
         def headers = ['Storage System Type', 'Serial Number#', 'IP Address', 'Subnet Mask', 'Number of CUs', 'Number of DKBs', 'Configuration Type', 'Model']
         def csv = parse_csv(test_item, 'DkcInfo', headers)
         def infos = [:].withDefault{[]}
+        def networks = [:]
+        def net_subnet = [:]
+        def rownum = 0
         csv.each { row ->
             def colnum = 0
             ['Type', 'Serial', 'IP', 'Subnet'].each { metric ->
                 infos[metric] << row[colnum]
+                if (metric == 'IP')
+                    networks[rownum] = row[colnum]
+                if (metric == 'Subnet')
+                    net_subnet[rownum] = row[colnum]
                 colnum ++
             }
+            rownum ++
         }
-        test_item.results(infos.toString())
-        test_item.results(infos)
+        test_item.results(['DkcInfo':infos.toString(), 
+                          'Type':infos['Type'], 'Serial':infos['Serial'],
+                          'networks':networks.toString(), 'net_subnet':net_subnet.toString()])
     }
 
     def LdevInfo(TestItem test_item) {

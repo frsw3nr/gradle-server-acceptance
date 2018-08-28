@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.apache.commons.io.FileUtils.*
 import static groovy.json.JsonOutput.*
+import org.apache.commons.lang.math.NumberUtils
 import org.hidetake.groovy.ssh.Ssh
 import org.hidetake.groovy.ssh.session.execution.*
 import jp.co.toshiba.ITInfra.acceptance.*
@@ -80,6 +81,7 @@ class WindowsSpecBase extends InfraTestSpec {
             }
             def cpuinfo    = [:].withDefault{0}
             def cpu_number = 0
+            def sockets    = [:]
             lines.eachLine {
                 (it =~ /^DeviceID\s+:\s(.+)$/).each {m0, m1->
                     cpu_number += 1
@@ -90,8 +92,12 @@ class WindowsSpecBase extends InfraTestSpec {
                 (it =~ /^MaxClockSpeed\s+:\s(.+)$/).each {m0, m1->
                     cpuinfo["mhz"] = m1
                 }
+                (it =~ /^SocketDesignation\s+:\s(.+)$/).each {m0, m1->
+                    sockets[m1] = 1
+                }
             }
             cpuinfo["cpu_total"] = cpu_number
+            cpuinfo["cpu_socket"] = sockets.size()
             test_item.results(cpuinfo)
             test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
         }
@@ -144,19 +150,19 @@ class WindowsSpecBase extends InfraTestSpec {
             def meminfo    = [:].withDefault{0}
             lines.eachLine {
                 (it =~ /^TotalVirtualMemorySize\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['virtual_memory'] = m1
+                    meminfo['virtual_memory'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
                 (it =~ /^TotalVisibleMemorySize\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['visible_memory'] = m1
+                    meminfo['visible_memory'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
                 (it =~ /^FreePhysicalMemory\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['free_memory'] = m1
+                    meminfo['free_memory'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
                 (it =~ /^FreeVirtualMemory\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['free_virtual'] = m1
+                    meminfo['free_virtual'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
                 (it =~ /^FreeSpaceInPagingFiles\s*:\s+(\d+)$/).each {m0,m1->
-                    meminfo['free_space'] = m1
+                    meminfo['free_space'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
             }
             test_item.results(meminfo)

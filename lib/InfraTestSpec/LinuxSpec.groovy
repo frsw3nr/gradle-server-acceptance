@@ -23,39 +23,78 @@ class LinuxSpec extends LinuxSpecBase {
         super.finish()
     }
 
-    def packages(session, test_item) {
-        super.packages(session, test_item)
+    // def packages(session, test_item) {
+    //     def lines = exec('packages') {
+    //         def command = "rpm -qa --qf "
+    //         def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
+    //         run_ssh_command(session, "${command} ${argument}", 'packages')
+    //     }
+    //     def package_info = [:].withDefault{'unkown'}
+    //     def infos = [:].withDefault{'unkown'}
+    //     def distributions = [:].withDefault{0}
+    //     def csv = []
+    //     lines.eachLine {
+    //         def arr = it.split(/\t/)
+    //         def packagename = arr[0]
+    //         def release = arr[3]
+    //         def release_label = 'COMMON'
+    //         if (release =~ /el5/) {
+    //             release_label = 'RHEL5'
+    //         } else if (release =~ /el6/) {
+    //             release_label = 'RHEL6'
+    //         } else if (release =~ /el7/) {
+    //             release_label = 'RHEL7'
+    //         }
+    //         def install_time = Long.decode(arr[4]) * 1000L
+    //         arr[4] = new Date(install_time).format("yyyy/MM/dd HH:mm:ss")
+    //         csv << arr
+    //         def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
+    //         distributions[release_label] ++
+    //         package_info['packages.' + packagename] = arr[2]
+    //         infos[packagename] = arr[2]
+    //     }
+    //     def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
+    //     package_info['packages'] = distributions.toString()
+    //     println test_item.target_info('packages')
+    //     test_item.devices(csv, headers)
+    //     test_item.results(package_info)
+    //     test_item.verify_text_search_list('packages', package_info)
+    // }
 
-        def lines = new File("${local_dir}/packages").text
-        def requirements = [:]
-        Config.instance.configs.each { config_file, config ->
-            if (!config?.package?.requirements)
-                return
-            config.package.requirements.each { package_group, packages ->
-                requirements[package_group] = packages
-            }
-        }
-        def infos = [:]
-        def packages = [:]
-        requirements.each { package_group, requiement ->
-            def checks = [:]
-            requiement.each {
-                checks[it] = 1
-            }
-            def n_requirements = 0
-            lines.eachLine {
-                def arr = it.split(/\t/)
-                def packagename = arr[0]
-                if (checks[packagename])
-                    n_requirements ++
-            }
-            def isok = (requiement.size() == n_requirements) ? 'OK' : 'NG'
-            packages['packages_set.' + package_group] = isok
-            infos[package_group] = isok
-        }
-        packages['packages'] = infos.toString()
-        test_item.results(packages)
-    }
+
+    // def packages(session, test_item) {
+    //     super.packages(session, test_item)
+
+    //     def lines = new File("${local_dir}/packages").text
+    //     def requirements = [:]
+    //     Config.instance.configs.each { config_file, config ->
+    //         if (!config?.package?.requirements)
+    //             return
+    //         config.package.requirements.each { package_group, packages ->
+    //             requirements[package_group] = packages
+    //         }
+    //     }
+    //     def infos = [:]
+    //     def packages = [:]
+    //     requirements.each { package_group, requiement ->
+    //         def checks = [:]
+    //         requiement.each {
+    //             checks[it] = 1
+    //         }
+    //         def n_requirements = 0
+    //         lines.eachLine {
+    //             def arr = it.split(/\t/)
+    //             def packagename = arr[0]
+    //             if (checks[packagename])
+    //                 n_requirements ++
+    //         }
+    //         def isok = (requiement.size() == n_requirements) ? 'OK' : 'NG'
+    //         packages['packages_set.' + package_group] = isok
+    //         infos[package_group] = isok
+    //     }
+    //     packages['packages'] = infos.toString()
+    //     test_item.results(packages)
+    // }
 
     def oracle_module(session, test_item) {
         def lines = exec('oracle_module') {

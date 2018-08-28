@@ -8,11 +8,12 @@ from abc import ABCMeta, abstractmethod
 from getconfig_cleansing.util import Util
 from getconfig_cleansing.merge_master import MergeMaster
 from getconfig_cleansing.inventory.info import InventoryInfo
-from getconfig_cleansing.inventory.data import InventoryData
+from getconfig_cleansing.inventory.table import InventoryTableSet
+# from getconfig_cleansing.inventory.data import InventoryData
 from getconfig_cleansing.inventory.old.evidence_v1 import GetconfigEvidenceV1
 
 class InventoryLoaderV1(object):
-    def read_inventory_sheet(self, inventory_info):
+    def import_inventory_sheet(self, inventory_info, inventory_tables):
         _logger = logging.getLogger(__name__)
         # print("■旧タイプインベントリロード", inventory_info.source)
         db = GetconfigEvidenceV1(inventory_info.source, export_dir='build/tmp')
@@ -59,9 +60,8 @@ class InventoryLoaderV1(object):
         # (df, port_list) = self.read_old_inventory(db)
         # df = pd.DataFrame()
         # port_list = pd.DataFrame()
-
-        return InventoryData(df, port_list)
-
+        inventory_tables.add('host_list', df)
+        inventory_tables.add('port_list', port_list, True)
 
     def make_linux_inventory(self, db):
         # Linux の OS 、アーキテクチャ、CPU、メモリ読み込み

@@ -4,4 +4,4 @@ CWD=`dirname $0`
 JAVA_OPTS="-Dgetconfig_home=$CWD -Dlogback.configurationFile=$CWD/config/logback.xml"
 #JAVA_OPTS="$JAVA_OPTS -agentlib:hprof=cpu=samples"
 
-java $JAVA_OPTS -jar $CWD/build/libs/gradle-server-acceptance-0.1.22-all.jar $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14} ${15}
+java $JAVA_OPTS -jar $CWD/build/libs/gradle-server-acceptance-0.1.24-all.jar $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14} ${15}

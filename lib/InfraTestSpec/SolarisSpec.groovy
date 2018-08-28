@@ -1,5 +1,6 @@
 package InfraTestSpec
 
+import javax.xml.bind.*
 import static groovy.json.JsonOutput.*
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
@@ -7,6 +8,7 @@ import groovy.transform.InheritConstructors
 import ch.ethz.ssh2.Connection
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
@@ -219,7 +221,8 @@ class SolarisSpec extends InfraTestSpec {
         lines.eachLine {
             // println it
             (it =~ /(\d+)/).each {m0,m1->
-                memory += Integer.decode(m1)
+                memory += NumberUtils.toDouble(m1) / 1024
+                // Integer.decode(m1)
             }
         }
         test_item.results(memory.toString())
@@ -255,6 +258,7 @@ class SolarisSpec extends InfraTestSpec {
         def device = ''
         def hw_address = []
         def device_ip = [:]
+        def net_subnet = [:]
         lines.eachLine {
             // println it
             // e1000g0: flags=1000843<UP,BROADCAST,RUNNING,MULTICAST,IPv4> mtu 1500 index 2
@@ -281,7 +285,16 @@ class SolarisSpec extends InfraTestSpec {
                 device_ip[device] = m1
             }
             (it =~ /netmask\s+(.+?)[\s|]/).each {m0, m1->
-                network[device]['subnet'] = m1
+                try {
+                    def subnet = InetAddress.getByAddress(DatatypeConverter.parseHexBinary(m1));
+                    net_subnet[device] = "${subnet.getHostAddress()}"
+                    network[device]['subnet'] = net_subnet[device]
+                    // SubnetInfo subnet = new SubnetUtils(m1).getInfo()
+                    // network[device]['subnet'] = subnet.getNetmask()
+                    // net_subnet[device] = network[device]['subnet']
+                } catch (IllegalArgumentException e) {
+                    log.error "[SolarisTest] subnet convert : m1\n" + e
+                }
             }
 
             // ether 8:0:20:0:0:1
@@ -306,7 +319,7 @@ class SolarisSpec extends InfraTestSpec {
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
-        test_item.results(['network': "$infos", 'net_ip': "$device_ip"])
+        test_item.results(['network': "$infos", 'net_ip': "$device_ip", 'net_subnet': "$net_subnet"])
         // test_item.verify_text_search_map('network', device_ip)
         test_item.verify_text_search_list('net_ip', device_ip)
     }

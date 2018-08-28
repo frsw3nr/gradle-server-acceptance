@@ -73,17 +73,15 @@ class InventoryCollector(object):
         loader = InventoryLoader()
         inventory_tables = InventoryTableSet()
         for inventory in inventorys:
+            _logger.info("Loading '{}'".format(inventory.source))
             loader.import_inventory_sheet(inventory, inventory_tables)
         return inventory_tables
-
-    # def save(self, inventory_tables):
-    #     for inventory_table in inventory_tables.get_all():
-    #         inventory_table.save_csv(self.result_dir)
-        # Util().save_data(inventory_data.host_list, self.result_dir, 'host_list.csv')
 
     def export(self, source = None):
         inventorys = self.scan_inventorys(source)
         inventory_tables = self.load(inventorys)
+        # print("RESULT_DIR:{}".format(self.result_dir))
+        # inventory_tables.print()
         inventory_tables.save_csv(self.result_dir)
 
     # def get_module(self, name):

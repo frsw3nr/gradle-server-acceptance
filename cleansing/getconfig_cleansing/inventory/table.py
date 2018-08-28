@@ -17,22 +17,26 @@ class InventoryTableSet(object):
         return self.inventory_tables
 
     def get(self, name):
-        return self.inventory_tables[name]
+        return self.inventory_tables.get(name, pd.DataFrame())
 
     def add(self, name, df, include_ip = False):
-        target = self.inventory_tables.get(name)
-        if not target:
+        target = self.inventory_tables.get(name, pd.DataFrame())
+        if target.empty:
             self.inventory_tables[name] = df
         else:
             join_key = ['ホスト名', 'IP'] if include_ip else 'ホスト名'
-            target = MergeMaster().join_by_host(target, df, join_key)
+            if not df.empty:
+                print("ADD_BEFORE:", target)
+                target = MergeMaster().join_by_host(target, df, join_key)
+                print("ADD_AFTER:", target)
+                self.inventory_tables[name] = target
 
     def save_csv(self, target_dir):
-        for name, inventory_table in self.inventory_tables:
+        for name, inventory_table in self.inventory_tables.items():
            Util().save_data(inventory_table, target_dir, name + '.csv')
 
-    def print(self, columns):
-        for name, inventory_table in self.inventory_tables:
+    def print(self, columns = None):
+        for name, inventory_table in self.inventory_tables.items():
             if columns:
                 print(name, " : ", inventory_table[columns])
             else:

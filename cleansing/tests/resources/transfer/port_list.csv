@@ -1,0 +1,11 @@
+﻿,ホスト名,IP,AdminIP
+0,eternus1,10.20.2.52,False
+1,eternus1,192.168.1.52,False
+2,ostrich,192.168.10.1,False
+3,ostrich,192.168.10.4,False
+4,cent7,192.168.0.20,False
+5,cent7,172.17.0.1,False
+6,win2012,192.168.0.24,False
+7,ostrich,192.168.1.148,True
+8,ostrich,10.154.20.54,True
+9,win2012,192.168.0.14,False
