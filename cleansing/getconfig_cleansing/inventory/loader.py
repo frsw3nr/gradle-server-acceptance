@@ -67,6 +67,7 @@ class InventoryLoader(object):
             return
 
         df = xls.parse('検査レポート', skiprows=range(0,2))
+        df = df.replace('No data', np.NaN)
         # 先頭列の'No'が整数の行のみを抽出する
         df = df[(df['No'].str.contains('^\d+$', na=False))]
         
@@ -87,7 +88,6 @@ class InventoryLoader(object):
         df['getconfig_project'] = inventory_info.project
 
         inventory_tables.add('host_list', df)
-        print("★★★", port_list)
         inventory_tables.add('port_list', port_list, True)
 
         # ネットワーク ARP 情報インベントリがある場合は、APRインベントリを付加

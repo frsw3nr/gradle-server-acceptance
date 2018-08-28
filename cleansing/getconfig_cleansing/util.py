@@ -112,7 +112,7 @@ class Util(object):
             os.makedirs(target_dir)
         target_path = "%s/%s" % (target_dir, filename)
         filename, ext = os.path.splitext(filename)
-        data_frame.to_csv(target_path, encoding='utf-8-sig')
+        data_frame.to_csv(target_path, encoding='utf-8-sig', index=False)
         logger.info("結果を '%s' に書き込み %d件" % (target_path, len(data_frame)))
 
     def save_transfer_data(self, data_frame, filename):

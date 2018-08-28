@@ -86,3 +86,12 @@ def test_export_inventory1():
     Config().accept(collector)
     collector.export('tests/resources/import/')
 
+def test_export_inventory2():
+    collector = InventoryCollector()
+    inventorys = collector.scan_inventorys('tests/resources/import/project1')
+    inventorys.extend(collector.scan_inventorys('tests/resources/import/project2'))
+    inventorys.extend(collector.scan_inventorys('tests/resources/import/net1'))
+    inventory_tables = collector.load(inventorys)
+    hosts = inventory_tables.get('host_list')
+    # print(hosts[hosts['ホスト名'] == 'ostrich'].T)
+    print(inventory_tables.get_domains())
