@@ -2,14 +2,16 @@ import re
 import sys
 import os
 from enum import Enum
-from datetime import datetime
+import datetime
 import logging
 import numpy as np
 import pandas as pd
 from abc import ABCMeta, abstractmethod
+from getconfig_cleansing.singleton import singleton
 from getconfig_cleansing.merge_master import MergeMaster
 from getconfig_cleansing.inventory.info import InventoryInfo
 
+@singleton
 class Util(object):
     INVENTORY_DIR = 'build'
 
@@ -129,3 +131,32 @@ class Util(object):
         """保守情報変換処理の結果ファイルの書き込み。'build/{fab} ディレクトリ下に保存します"""
         target_dir = "build/%s" % (fab)
         self.save_data(data_frame, target_dir, filename)
+
+    # "YYYY年MM月"の日付を"YYYY-MM-DD"形式で変換する
+    def reform_date(self, in_date):
+        if in_date == None:
+            return
+        if (isinstance(in_date, float) and math.isnan(in_date)):
+            return
+
+        if (isinstance(in_date, (int, float))):
+            # return(datetime(1899, 12, 30) + datetime.timedelta(days=in_date))
+            in_date = datetime.datetime(1899, 12, 30)+ datetime.timedelta(days=in_date)
+            return in_date.strftime('%Y-%m-%d')
+
+        if (isinstance(in_date, datetime.datetime) or isinstance(in_date, datetime.time)):
+            if str(in_date) == "NaT":
+                return
+            return in_date.strftime('%Y-%m-%d')
+
+        yymm = re.findall(r'^(\d{2,4})\/(\d+)\/(\d+)$' , in_date)
+        if yymm:
+            return("%s-%s-%s" % (yymm[0]))
+        yymm2 = re.findall(r'^(\d{2,4})年(\d+)月$' , in_date)
+        if yymm2:
+            return("%s-%s-1" % (yymm2[0]))
+
+if __name__ == '__main__':
+    # sqlite3 report.db "select * from jobs"
+    print(Util().reform_date('1998年?月'))
+    print(Util().reform_date('1998年12月'))

@@ -38,7 +38,6 @@ class InventoryLoaderV1(object):
         df = MergeMaster().join_by_host(df,       df_ilo,     'node_name')
         df.rename(columns={'node_name': 'ホスト名', 'domain': 'ドメイン'},
                   inplace=True)
-        # print("■■JOIN■■\n", df[['ホスト名','ドメイン']])
 
         # ネットワーク構成情報から、IPアドレスを抽出
         port_list = pd.DataFrame()
@@ -149,6 +148,7 @@ class InventoryLoaderV1(object):
         # df2 = df2.set_index(['node_name', 'test_id'])
         # df2 = df2.unstack()
         df2.rename(columns={'value': '管理LAN'}, inplace=True)
+        df2['domain'] = 'iLO'
         # df2 = df2.set_index(['node_name'])
 
         return df2

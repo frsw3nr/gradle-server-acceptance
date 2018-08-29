@@ -1,15 +1,15 @@
-﻿,スイッチ名,ポート名,IP,MACアドレス,ベンダー
-0,router1,LAN3,192.168.10.100,00:1b:21:12:34:56,Intel Corporate
-1,router1,LAN3,192.168.10.1,00:0c:29:12:34:56,"VMware, Inc."
-2,router1,LAN1,192.168.0.17,10:02:b5:12:34:56,Intel Corporate
-3,router1,LAN3,192.168.10.4,00:0c:29:12:34:56,"VMware, Inc."
-4,router1,LAN1,192.168.0.20,00:0c:29:12:34:56,"VMware, Inc."
-5,router1,LAN1,192.168.0.27,64:b5:c6:12:34:56,"Nintendo Co.,Ltd"
-6,router1,LAN1,192.168.0.18,2c:fd:a1:12:34:56,ASUSTek COMPUTER INC.
-7,router1,LAN1,192.168.0.19,bc:5f:f4:12:34:56,ASRock Incorporation
-8,router1,LAN1,192.168.0.16,00:0c:29:12:34:56,"VMware, Inc."
-9,router1,LAN1,192.168.0.11,00:0c:29:12:34:56,"VMware, Inc."
-10,router1,LAN1,192.168.0.24,00:0c:29:12:34:56,"VMware, Inc."
-11,router1,LAN1,192.168.0.13,60:6d:c7:12:34:56,"Hon Hai Precision Ind. Co.,Ltd."
-12,router1,LAN1,192.168.0.10,00:0c:29:12:34:56,"VMware, Inc."
-13,router1,LAN1,192.168.0.211,00:3a:9d:12:34:56,"NEC Platforms, Ltd."
+﻿スイッチ名,ポート名,IP,MACアドレス,ベンダー
+router1,LAN3,192.168.10.100,00:1b:21:12:34:56,Intel Corporate
+router1,LAN3,192.168.10.1,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.17,10:02:b5:12:34:56,Intel Corporate
+router1,LAN3,192.168.10.4,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.20,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.27,64:b5:c6:12:34:56,"Nintendo Co.,Ltd"
+router1,LAN1,192.168.0.18,2c:fd:a1:12:34:56,ASUSTek COMPUTER INC.
+router1,LAN1,192.168.0.19,bc:5f:f4:12:34:56,ASRock Incorporation
+router1,LAN1,192.168.0.16,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.11,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.24,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.13,60:6d:c7:12:34:56,"Hon Hai Precision Ind. Co.,Ltd."
+router1,LAN1,192.168.0.10,00:0c:29:12:34:56,"VMware, Inc."
+router1,LAN1,192.168.0.211,00:3a:9d:12:34:56,"NEC Platforms, Ltd."

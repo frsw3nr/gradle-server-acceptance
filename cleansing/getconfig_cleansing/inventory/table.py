@@ -33,6 +33,14 @@ class InventoryTableSet(object):
             hosts[host] = domain_list
         return hosts
 
+    def reset_host_domains(self):
+        domains = self.get_domains()
+        for name, df in self.inventory_tables.items():
+            if not pd.Series(['ドメイン']).isin(df.columns).all():
+                continue
+            df['ドメイン'] = df.apply(lambda x: domains.get(x['ホスト名']), axis = 1)
+            self.inventory_tables[name] = df
+
     def add(self, name, df, include_ip = False):
         target = self.inventory_tables.get(name, pd.DataFrame())
         if df.empty:

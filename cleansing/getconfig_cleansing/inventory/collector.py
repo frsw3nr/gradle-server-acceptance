@@ -75,6 +75,7 @@ class InventoryCollector(object):
         for inventory in inventorys:
             _logger.info("Loading '{}'".format(inventory.source))
             loader.import_inventory_sheet(inventory, inventory_tables)
+        inventory_tables.reset_host_domains()
         return inventory_tables
 
     def export(self, source = None):
@@ -82,6 +83,7 @@ class InventoryCollector(object):
         inventory_tables = self.load(inventorys)
         # print("RESULT_DIR:{}".format(self.result_dir))
         # inventory_tables.print()
+        print(inventory_tables.get_domains())
         inventory_tables.save_csv(self.result_dir)
 
     # def get_module(self, name):

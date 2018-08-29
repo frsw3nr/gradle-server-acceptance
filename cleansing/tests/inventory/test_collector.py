@@ -11,7 +11,7 @@ from getconfig_cleansing.inventory.collector import InventoryCollector
 from getconfig_cleansing.inventory.table import InventoryTableSet
 from getconfig_cleansing.inventory.loader import InventoryLoader
 
-# py.test tests/inventory/test_collector.py -v --capture=no -k test_parse_evidence_from_excel_file1
+# py.test tests/inventory/test_collector.py -v --capture=no -k test_export_inventory2
 
 def test_parse_evidence_from_excel_file1():
     inventory = InventoryCollector().make_inventory_info('')
@@ -93,5 +93,15 @@ def test_export_inventory2():
     inventorys.extend(collector.scan_inventorys('tests/resources/import/net1'))
     inventory_tables = collector.load(inventorys)
     hosts = inventory_tables.get('host_list')
-    # print(hosts[hosts['ホスト名'] == 'ostrich'].T)
-    print(inventory_tables.get_domains())
+    print(hosts[hosts['ホスト名'] == 'ostrich'].T)
+    # print(inventory_tables.get_domains())
+    # inventory_tables.print()
+
+def test_export_inventory3():
+    collector = InventoryCollector()
+    inventorys = collector.scan_inventorys('tests/resources/import/v1.24')
+    inventory_tables = collector.load(inventorys)
+    hosts = inventory_tables.get('host_list')
+    print(hosts[hosts['ホスト名'] == 'ostrich'].T)
+    ports = inventory_tables.get('port_list')
+    print(ports[ports['ホスト名'] == 'ostrich'])
