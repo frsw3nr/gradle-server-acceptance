@@ -1,4 +1,4 @@
-﻿# A5:ER FORMAT:11
+﻿# A5:ER FORMAT:12
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright (C)2007 m.matsubara
 # A5:SQL Mk-2 Copyright (C)1997 m.matsubara
@@ -294,7 +294,6 @@ Field="OS名","OS名","",,,"","",$FFFFFFFF,""
 Field="アーキテクチャ","アーキテクチャ","",,,"","",$FFFFFFFF,""
 Field="CPU数","CPU数","",,,"","",$FFFFFFFF,""
 Field="MEM容量","MEM容量","",,,"","",$FFFFFFFF,""
-Field="ディスク構成","ディスク構成","",,,"","",$FFFFFFFF,""
 Field="ネットワーク構成","ネットワーク構成","",,,"","",$FFFFFFFF,""
 Field="管理LAN","管理LAN","",,,"","",$FFFFFFFF,""
 Field="インベントリ名","インベントリ名","",,,"","",$FFFFFFFF,""
@@ -312,8 +311,9 @@ Field="営業担当","営業担当","",,,"","",$FFFFFFFF,""
 Field="納期","納期","",,,"","",$FFFFFFFF,""
 Field="ホストグループ","ホストグループ","",,,"","",$FFFFFFFF,""
 Field="監視テンプレート","監視テンプレート","",,,"","",$FFFFFFFF,""
+Field="保守情報","保守情報","",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20180829174024
+ModifiedDateTime=20180830053634
 Position="MAIN",1450,900
