@@ -63,8 +63,8 @@ def test_load_multiple_inventory2():
     inventorys = collector.scan_inventorys('tests/resources/import/')
     inventory_tables = collector.load(inventorys)
     inventory_tables.print()
-    assert len(inventory_tables.get('host_list')) == 5
-    assert len(inventory_tables.get('port_list')) == 10
+    assert len(inventory_tables.get('host_list')) == 10
+    assert len(inventory_tables.get('port_list')) == 13
     assert len(inventory_tables.get('arp_list'))  == 14
     # assert inventory_dat.count() == 4
     # assert inventory_dat.port_count() == 10

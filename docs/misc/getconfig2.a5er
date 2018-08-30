@@ -1,4 +1,4 @@
-﻿# A5:ER FORMAT:12
+﻿# A5:ER FORMAT:11
 # A5:ER ENCODING:UTF8
 # A5:ER Mk-1 Copyright (C)2007 m.matsubara
 # A5:SQL Mk-2 Copyright (C)1997 m.matsubara
@@ -38,22 +38,81 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Relation]
+Entity1=NEW_ENTITY7
+Entity2=NEW_ENTITY5
+RelationType1=1
+RelationType2=3
+Fields1=発番
+Fields2=発番
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,6795,3205,5892,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=680
+Bar2=320
+Bar3=589
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=NEW_ENTITY7
+Entity2=hosts
+RelationType1=1
+RelationType2=3
+Fields1=発番
+Fields2=発番
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3965,6035,5892,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=396
+Bar2=604
+Bar3=589
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=NEW_ENTITY7
+LName=案件
+Comment=
+TableOption=
+Page=Main
+Left=2250
+Top=500
+Field="発番","発番","","NOT NULL",0,"","",$FFFFFFFF,""
+Field="サイト","サイト","",,,"","",$FFFFFFFF,""
+Field="システム","システム","",,,"","",$FFFFFFFF,""
+Field="担当者","担当者","",,,"","",$FFFFFFFF,""
+Field="納期","納期","",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180830092728
+Position="Main",2250,500
+
+[Relation]
 Entity1=NEW_ENTITY5
 Entity2=NEW_ENTITY6
 RelationType1=1
 RelationType2=3
-Fields1=システム,パッケージ
+Fields1=システム,品名
 Fields2=システム,パッケージ
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",0,5000,5000,5000,R,R
+Position="MAIN",0,5000,5000,5030,R,R
 Dependence=1
 Caption=
 PName=
 LineMode=0
 Bar1=500
 Bar2=500
-Bar3=500
+Bar3=503
 TermPos1=R
 TermPos2=R
 
@@ -66,14 +125,14 @@ Fields1=ホスト名
 Fields2=ホスト名
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",0,5378,4622,4704,R,R
+Position="MAIN",0,5378,4622,4957,R,R
 Dependence=1
 Caption=
 PName=
 LineMode=0
 Bar1=538
 Bar2=462
-Bar3=470
+Bar3=496
 TermPos1=R
 TermPos2=R
 
@@ -83,8 +142,8 @@ LName=ソフトウェア関連
 Comment=
 TableOption=
 Page=MAIN
-Left=2250
-Top=950
+Left=2100
+Top=1400
 Field="ホスト名","ホスト名","","NOT NULL",0,"","",$FFFFFFFF,""
 Field="システム","システム","","NOT NULL",1,"","",$FFFFFFFF,""
 Field="パッケージ","パッケージ","","NOT NULL",2,"","",$FFFFFFFF,""
@@ -93,7 +152,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20180829173721
-Position="MAIN",2250,950
+Position="MAIN",2100,1400
 
 [Entity]
 PName=NEW_ENTITY5
@@ -101,18 +160,20 @@ LName=softwares
 Comment=
 TableOption=
 Page=MAIN
-Left=2300
-Top=350
+Left=2700
+Top=1350
 Field="システム","システム","","NOT NULL",0,"","",$FFFFFFFF,""
-Field="パッケージ","パッケージ","","NOT NULL",1,"","",$FFFFFFFF,""
+Field="品名","品名","","NOT NULL",1,"","",$FFFFFFFF,""
 Field="タイトル","タイトル","","NOT NULL",,"","",$FFFFFFFF,""
+Field="システムオーナー","システムオーナー","",,,"","",$FFFFFFFF,""
+Field="発番","発番","",,,"","",$FFFFFFFF,""
 Field="個数","個数","",,,"","",$FFFFFFFF,""
 Field="ライセンス","ライセンス","",,,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20180829173415
-Position="MAIN",2300,350
+ModifiedDateTime=20180830092139
+Position="MAIN",2700,1350
 
 [Relation]
 Entity1=NEW_ENTITY3

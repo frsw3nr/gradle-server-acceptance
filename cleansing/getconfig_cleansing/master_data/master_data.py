@@ -47,6 +47,7 @@ class MasterData(metaclass=ABCMeta):
         master_list = pd.DataFrame()
         file = pd.ExcelFile(excel_file)
         for sheet_name in file.sheet_names:
+            logger.info("'{}' のシート '{}' を読み込み".format(excel_file, sheet_name))
             df = file.parse(sheet_name,header=self.header_row)
             df['シート'] = sheet_name
             df = self.load_setup(df)

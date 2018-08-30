@@ -52,8 +52,8 @@ class InventoryLoaderV1(object):
             df2['AdminIP'] = True
             port_list = pd.concat([port_list, df2], axis=0)
 
-        df['getconfig_name']    = inventory_info.name
-        df['getconfig_project'] = inventory_info.project
+        df['インベントリ名'] = inventory_info.name
+        df['ジョブ名'] = inventory_info.project
 
         # db.export()
         # (df, port_list) = self.read_old_inventory(db)

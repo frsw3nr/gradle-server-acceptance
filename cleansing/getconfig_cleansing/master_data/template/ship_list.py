@@ -48,6 +48,7 @@ class MasterDataShipList(MasterData):
         df = df.drop_duplicates(['ホスト名'], keep='last')
         df = df.assign(搬入日=df.apply(
                 lambda x: Util().reform_date(x['搬入日']), axis=1))
+        df.rename(columns={'発番': 'ジョブ名'}, inplace=True)
         return df
 
 if __name__ == '__main__':

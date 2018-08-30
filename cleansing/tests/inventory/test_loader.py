@@ -11,7 +11,7 @@ from getconfig_cleansing.inventory.collector import InventoryCollector
 from getconfig_cleansing.inventory.table import InventoryTableSet
 from getconfig_cleansing.inventory.loader import InventoryLoader
 
-# py.test tests/inventory/test_loader.py -v --capture=no -k test_load_single_inventory1
+# py.test tests/inventory/test_loader.py -v --capture=no -k test_load_single_inventory2
 
 @pytest.mark.parametrize('path,n_host_list,n_port_list,n_arp_list', [
 (
@@ -55,6 +55,12 @@ from getconfig_cleansing.inventory.loader import InventoryLoader
     1,
     0,
     14
+),
+(
+    'tests/resources/import/project3/build/Oracle設定チェックシート_20180830_090010.xlsx',
+    2,
+    0,
+    0
 )
 ])
 def test_load_single_inventory(path, n_host_list, n_port_list, n_arp_list):
@@ -69,19 +75,20 @@ def test_load_single_inventory(path, n_host_list, n_port_list, n_arp_list):
     assert len(inventory_tables.get('port_list')) == n_port_list # 5
     assert len(inventory_tables.get('arp_list'))  == n_arp_list  # 0
 
-# def test_load_single_inventory2():
-#     # iLOチェックシート読み込みで、'unexpected tag'エラー発生.
-#     # 該当Excel を開いて上書きしたら解消した
-#     # Exception: unexpected tag '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}ext'
-#     collector = InventoryCollector()
-#     path = 'tests/resources/import/project1/build/iLOチェックシート_20180817_092416.xlsx'
-#     inventory = collector.make_inventory_info(path)
-#     inventory_tables = InventoryTableSet()
-#     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
-#     inventory_tables.print()
-
-#     assert len(inventory_tables.get('host_list')) == 1
-#     assert len(inventory_tables.get('port_list')) == 3
+def test_load_single_inventory2():
+    # iLOチェックシート読み込みで、'unexpected tag'エラー発生.
+    # 該当Excel を開いて上書きしたら解消した
+    # Exception: unexpected tag '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}ext'
+    collector = InventoryCollector()
+    path = 'tests/resources/import/project3/build/Oracle設定チェックシート_20180830_090010.xlsx'
+    inventory = collector.make_inventory_info(path)
+    inventory_tables = InventoryTableSet()
+    InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
+    inventory_tables.print()
+    df = inventory_tables.get('host_list')
+    print(df[df['ホスト名'] == 'ora11'].T)
+    assert len(inventory_tables.get('host_list')) == 2
+    assert len(inventory_tables.get('port_list')) == 0
 
 # def test_load_single_inventory3():
 #     collector = InventoryCollector()
