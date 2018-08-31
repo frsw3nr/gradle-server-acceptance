@@ -16,7 +16,7 @@ from getconfig_cleansing.master_data.template.ship_list import MasterDataShipLis
 from getconfig_cleansing.master_data.template.mw_list import MasterDataSoftwareList
 from getconfig_cleansing.master_data.template.net_list import MasterDataNetworkList
 
-# py.test tests/master_data/test_merge.py -v --capture=no -k test_merge3
+# py.test tests/master_data/test_merge.py -v --capture=no -k test_merge5
 
 def test_merge1():
     hosts = pd.read_csv('tests/resources/transfer/host_list.csv')
@@ -87,6 +87,7 @@ def test_merge5():
     collector = InventoryCollector()
     inventorys = collector.scan_inventorys('tests/resources/import/net1')
     inventorys.extend(collector.scan_inventorys('tests/resources/import/v1.24'))
+    inventorys.extend(collector.scan_inventorys('tests/resources/import/project2'))
     inventory_tables = collector.load(inventorys)
     inventory_tables.save_csv('tests/resources/transfer')
 
@@ -115,6 +116,6 @@ def test_merge5():
     # ARPテーブルとのつき合わせ
     df = MergeMaster().join_by_host(df, arp_tables2, 'IP')
     # 欠損地の穴埋め
-    df = df.fillna(method='ffill')
+    # df = df.fillna(method='ffill')
     print(df[df['ホスト名'] == 'ostrich'].T)
     Util().save_data(df, 'tests/resources/classify', 'host_list.csv')

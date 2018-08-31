@@ -72,8 +72,8 @@ class Ticket(metaclass=ABCMeta):
         """
 
         _logger = logging.getLogger(__name__)
-        if self.subject_header == None or self.tracker_name == None or \
-           self.cache_table == None or self.cache_key_name == None:
+        if self.tracker_name == None or self.cache_table == None or \
+           self.cache_key_name == None:
             raise TypeError("Ticket class member not set")
         db = RedmineRepository()
         self.tracker_id = db.get_tracker_id(self.tracker_name)
@@ -297,7 +297,9 @@ class Ticket(metaclass=ABCMeta):
         """
         更新がない場合はissue_cache を返す
         """
-        subject = '%s - %s' % (self.subject_header, key)
+        subject = key
+        if self.subject_header:
+            subject = '%s - %s' % (self.subject_header, key)
         if not diff_fields and not force_update:
             self.record_statistics['スキップ数'] = 1
             RedmineStatistics().dictionary_count_up(self.tracker_name, self.record_statistics)

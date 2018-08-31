@@ -45,6 +45,7 @@ class MasterDataJobList(MasterData):
     def load_all_setup(self, df, **kwargs):
         """全ての台帳読み込み後のデータクレンジング処理"""
         df.rename(columns={
+                    '顧客': 'オーナー情報',
                     '発番': 'ジョブ名'
                  }, inplace=True)
         return df

@@ -156,7 +156,25 @@ class Util(object):
         if yymm2:
             return("%s-%s-1" % (yymm2[0]))
 
+    def analogize_tracker(self, domain):
+        if re.search("(Linux|Windows)", domain):
+            return 'IAサーバ'
+        elif re.search("(Solaris)", domain):
+            return 'SPARCサーバ'
+        elif re.search("(AIX)", domain):
+            return 'POWERサーバ'
+        elif re.search("(HitachiVSP|Eternus)", domain):
+            return 'ストレージ'
+        elif re.search("(Router)", domain):
+            return 'ネットワーク'
+        else:
+            return None
+
+    def analogize_platform(self, name):
+        return 'オンプレ'
+
 if __name__ == '__main__':
     # sqlite3 report.db "select * from jobs"
     print(Util().reform_date('1998年?月'))
     print(Util().reform_date('1998年12月'))
+    print(Util().analogize_tracker("'Linux'"))
