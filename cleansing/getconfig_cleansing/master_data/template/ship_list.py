@@ -49,6 +49,11 @@ class MasterDataShipList(MasterData):
         df = df.assign(搬入日=df.apply(
                 lambda x: Util().reform_date(x['搬入日']), axis=1))
         df.rename(columns={'発番': 'ジョブ名'}, inplace=True)
+        df.rename(columns={
+                    '設置場所': 'サイト',
+                    'システム': '用途',
+                    '発番': 'ジョブ名'
+                 }, inplace=True)
         return df
 
 if __name__ == '__main__':

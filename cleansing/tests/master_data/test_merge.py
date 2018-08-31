@@ -25,6 +25,7 @@ def test_merge1():
 
     df = MergeMaster().join_by_host(hosts, ports, 'ホスト名')
     df2 = MergeMaster().join_by_host(df, arp_tables, 'IP')
+    Util().save_data(df2, 'tests/resources/classify', 'host_list.csv')
     print(df2[df2['ホスト名']=='ostrich'].T)
 
 def test_merge2():
@@ -77,4 +78,43 @@ def test_merge4():
     df = MergeMaster().join_by_host(hosts, net_list, 'ホスト名')
 
     print(df[df['ホスト名'] == 'router1'].T)
+    Util().save_data(df, 'tests/resources/classify', 'host_list.csv')
+
+def test_merge5():
+    '''サーバとネットワークインベントリを読み込み、各種台帳とつき合わせ'''
+
+    # ネットワークと、v1.24 のインベントリを読み込む（サーバ、ストレージ）
+    collector = InventoryCollector()
+    inventorys = collector.scan_inventorys('tests/resources/import/net1')
+    inventorys.extend(collector.scan_inventorys('tests/resources/import/v1.24'))
+    inventory_tables = collector.load(inventorys)
+    inventory_tables.save_csv('tests/resources/transfer')
+
+    hosts = pd.read_csv('tests/resources/transfer/host_list.csv')
+    ports = pd.read_csv('tests/resources/transfer/port_list.csv')
+    arp_tables = pd.read_csv('tests/resources/transfer/arp_list.csv')
+
+    # 案件情報、出荷台帳、ネットワーク台帳の読込み
+    job_list  = MasterDataJobList().load_all()
+    ship_list = MasterDataShipList().load_all()
+    net_list  = MasterDataNetworkList().load_all()
+
+    # ARPテーブルとネットワーク台帳のつき合わせ
+    net_list2 = net_list.rename(columns={'ホスト名': 'スイッチ名'})
+    arp_tables2 = MergeMaster().join_by_host(arp_tables, net_list2, 'スイッチ名')
+
+    # サーバと出荷台帳のつき合わせ
+    df = MergeMaster().join_by_host(hosts, ship_list, 'ホスト名')
+    # 案件台帳とのつき合わせ。ジョブ名を v1.24 から、project1 に変更
+    df['ジョブ名'] = 'project1'
+    df = MergeMaster().join_by_host(df, job_list, 'ジョブ名')
+    # ネットワーク台帳とのつき合わせ
+    df = MergeMaster().join_by_host(df, net_list, 'ホスト名')
+    # 接続ポートとのつき合わせ
+    df = MergeMaster().join_by_host(df, ports, 'ホスト名')
+    # ARPテーブルとのつき合わせ
+    df = MergeMaster().join_by_host(df, arp_tables2, 'IP')
+    # 欠損地の穴埋め
+    df = df.fillna(method='ffill')
+    print(df[df['ホスト名'] == 'ostrich'].T)
     Util().save_data(df, 'tests/resources/classify', 'host_list.csv')

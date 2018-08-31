@@ -44,14 +44,14 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     software     = Tracker.find_by_name('ソフトウェア')
 
     # サーバ用トラッカーのカスタムフィールド設定
-    [owner, platform, os, sys_name, model_name, model_type, cpu, mem, disk, inventory, hostgroup, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
+    [owner, platform, os, sys_name, model_name, model_type, cpu, mem, inventory, hostgroup, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
         [ia_server, sparc_server, power_server].each { |tracker|
             tracker.custom_fields << custom_field
         }
     }
 
     # ストレージのカスタムフィールド設定
-    [owner, sys_name, model_name, model_type, cpu, disk, inventory, hostgroup, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
+    [owner, sys_name, model_name, model_type, cpu, inventory, hostgroup, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
         storage.custom_fields << custom_field
     }
 
@@ -66,7 +66,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     }
 
     # ソフトウェアのカスタムフィールド設定
-    [sys_name, product, model_type, amount, job_id].each { |custom_field|
+    [owner, sys_name, product, model_type, amount].each { |custom_field|
         software.custom_fields << custom_field
     }
 

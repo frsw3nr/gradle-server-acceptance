@@ -45,7 +45,11 @@ class MasterDataSoftwareList(MasterData):
 
     def load_all_setup(self, df, **kwargs):
         """全ての台帳読み込み後のデータクレンジング処理"""
-        df.rename(columns={'発番': 'ジョブ名'}, inplace=True)
+        df.rename(columns={
+                    '設置場所': 'サイト',
+                    'システム': '用途',
+                    '発番': 'ジョブ名'
+                 }, inplace=True)
         return df
 
 if __name__ == '__main__':

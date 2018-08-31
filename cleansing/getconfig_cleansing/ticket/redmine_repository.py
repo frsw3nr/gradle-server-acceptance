@@ -39,8 +39,10 @@ class RedmineRepository():
         # Redmine の初期化
         _logger.info("Init RedmineRepository")
         try:
-            redmine_key = Config().get('Redmine','API_KEY')
-            redmine_url = Config().get('Redmine','URL')
+            # redmine_key = Config().get('Redmine','API_KEY')
+            # redmine_url = Config().get('Redmine','URL')
+            redmine_key = Config().get_redmine_api_key()
+            redmine_url = Config().get_redmine_url()
             self.redmine = Redmine(redmine_url, key=redmine_key)
         except KeyError as e:
             _logger.error(e)
