@@ -173,7 +173,9 @@ class Ticket(metaclass=ABCMeta):
             また、CSV値と、キャッシュ値が違っていれば更新対象にする
             """
             is_difference = False
+            print("CSV_FIELD_NAME:", csv_field_name)
             cache_value = issue_cache.get(csv_field_name)
+            print("CACHE_VALUE:{},{}".format( cache_value, csv_value))
             if cache_value == None and csv_value != None:
                 is_difference = True
             if csv_value != None and cache_value != csv_value:

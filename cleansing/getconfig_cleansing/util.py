@@ -170,7 +170,7 @@ class Util(object):
         else:
             return None
 
-    def analogize_platform(self, name):
+    def analogize_platform(self, field_name, row):
         return 'オンプレ'
 
 if __name__ == '__main__':

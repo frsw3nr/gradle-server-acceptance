@@ -23,6 +23,33 @@ New features:
         build/dat/(load|transfer|classify|regist) ワークデータ
         cleansing/getconfig_cleansing Python ライブラリ
 
+チケット登録検討
+
+ホスト名でグルーピング
+    ホスト行抽出
+        ドメインからトラッカー判別
+            サーバの場合
+                トラッカー判別
+                    Linux,Windows : IAサーバ
+                    Solaris : SPARCサーバ
+                    AIX : POWERサーバ
+                    Eternus,HitachVSP : storage
+                設備チケット登録
+                    オンプレ/仮想マシン判別 [ ]
+                    列抽出、登録
+                    オーナー情報登録処理 [ ]
+                    IP行抽出
+                        列抽出、登録 [ ]
+            ネットワークの場合
+                トラッカー判別
+                    Router : ネットワーク
+                設備チケット登録
+            ソフトウェアの場合
+                トラッカー判別
+                    Oracle : ソフトウェア
+            トラッカー不明
+                不明ポート登録処理
+
 ToDo:
 * 単体テスト [ ]
     * config [x]

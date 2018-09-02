@@ -2,7 +2,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
   include Redmine::I18n
   def up
     # Custom Field
-    owner        = IssueCustomField.find_or_create_by!(name: 'オーナー情報',       field_format: 'user',   is_required: false, editable: true, visible: true, is_for_all: true)
+    owner        = IssueCustomField.find_or_create_by!(name: 'オーナー情報',       field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     platform     = IssueCustomField.find_or_create_by!(name: 'プラットフォーム',   field_format: 'list',   :possible_values => ['オンプレ', '仮想マシン'], is_required: false, editable: true, visible: true, is_for_all: true)
     os           = IssueCustomField.find_or_create_by!(name: 'OS名',               field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     sys_name     = IssueCustomField.find_or_create_by!(name: 'システム',           field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)

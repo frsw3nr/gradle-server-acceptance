@@ -99,6 +99,7 @@ def test_merge5():
     job_list  = MasterDataJobList().load_all()
     ship_list = MasterDataShipList().load_all()
     net_list  = MasterDataNetworkList().load_all()
+    print(ship_list['搬入日'])
 
     # ARPテーブルとネットワーク台帳のつき合わせ
     net_list2 = net_list.rename(columns={'ホスト名': 'スイッチ名'})
@@ -109,13 +110,16 @@ def test_merge5():
     # 案件台帳とのつき合わせ。ジョブ名を v1.24 から、project1 に変更
     df['ジョブ名'] = 'project1'
     df = MergeMaster().join_by_host(df, job_list, 'ジョブ名')
+    print(df['機種'])
     # ネットワーク台帳とのつき合わせ
     df = MergeMaster().join_by_host(df, net_list, 'ホスト名')
+    print(df['機種'])
+    # print(df['搬入日'])
     # 接続ポートとのつき合わせ
     df = MergeMaster().join_by_host(df, ports, 'ホスト名')
     # ARPテーブルとのつき合わせ
     df = MergeMaster().join_by_host(df, arp_tables2, 'IP')
     # 欠損地の穴埋め
     # df = df.fillna(method='ffill')
-    print(df[df['ホスト名'] == 'ostrich'].T)
+    # print(df[df['ホスト名'] == 'ostrich'].T)
     Util().save_data(df, 'tests/resources/classify', 'host_list.csv')
