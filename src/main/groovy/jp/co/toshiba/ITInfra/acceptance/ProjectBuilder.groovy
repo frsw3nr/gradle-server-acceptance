@@ -48,7 +48,7 @@ class ProjectBuilder {
                                new File("${target_dir}/config/${base}"))
         }
         // Copy all files under the directory
-        ['lib', 'image', 'template', 'src/test/resources/log'].each { base ->
+        ['lib', 'image', 'template', 'src/test/resources/log', 'cleansing'].each { base ->
             FileUtils.copyDirectory(new File("${home}/${base}"),
                                     new File("${target_dir}/${base}"))
         }
