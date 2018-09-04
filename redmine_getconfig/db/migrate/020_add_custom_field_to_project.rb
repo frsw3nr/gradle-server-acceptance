@@ -32,6 +32,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     mac_vendor   = IssueCustomField.find_or_create_by!(name: 'MACアドレスベンダー',field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     host_found   = IssueCustomField.find_or_create_by!(name: '台帳つき合わせ',     field_format: 'bool',   is_required: false, editable: true, visible: true, is_for_all: true)
     location     = IssueCustomField.find_or_create_by!(name: '設置場所',           field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
+    admin_ip     = IssueCustomField.find_or_create_by!(name: '管理用',             field_format: 'bool',   is_required: false, editable: true, visible: true, is_for_all: true)
     admin_pass   = IssueCustomField.find_or_create_by!(name: '管理者パスワード',   field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
 
     # トラッカーとカスタムフィールドの関連付け
@@ -61,7 +62,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     }
 
     # ポートリストのカスタムフィールド設定
-    [ip, switch_name, port_no, lan_category, mac_address, mac_vendor, host_found, location].each { |custom_field|
+    [ip, switch_name, port_no, lan_category, mac_address, mac_vendor, host_found, location, admin_ip].each { |custom_field|
         portlist.custom_fields << custom_field
     }
 
