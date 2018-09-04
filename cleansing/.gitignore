@@ -2,6 +2,7 @@
 
 dist/
 /build/
+tests/resources2/
 !tests/resources/*/build/
 *.egg-info/
 

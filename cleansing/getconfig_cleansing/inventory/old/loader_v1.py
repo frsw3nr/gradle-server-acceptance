@@ -94,7 +94,7 @@ class InventoryLoaderV1(object):
         df3['net'] = df3['device'] + ':' + df3['ip']
         df3 = df3.pivot(index='node_name', columns='device', values='net')
         df3 = df3.apply(','.join, axis=1)
-        df2['ネットワーク構成'] = df3
+        df2['ネットワーク構成'] = '[' + df3 + ']'
         df2['domain'] = 'Linux'
 
         return df2.reset_index()
@@ -149,6 +149,7 @@ class InventoryLoaderV1(object):
         # df2 = df2.unstack()
         df2.rename(columns={'value': '管理LAN'}, inplace=True)
         df2['domain'] = 'iLO'
+        # print(df2)
         # df2 = df2.set_index(['node_name'])
 
         return df2

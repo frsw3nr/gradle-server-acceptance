@@ -1,0 +1,160 @@
+Gitbucket インストール
+=======================
+
+EPELリポジトリの追加します。
+
+sudo -E yum install -y epel-release
+
+必須パッケージに加え、普段よく使うパッケージも入れておきます。
+
+sudo -E yum --enablerepo=epel install -y httpd \
+httpd-devel wget git java-1.8.0-openjdk-devel java-1.8.0-openjdk tomcat
+
+パッケージを最新の状態にします。
+
+sudo -E yum -y update
+
+tomcatフォルダ以下の権限を作成したtomcatユーザに変更します。
+
+sudo useradd -s /sbin/nolog tomcat
+sudo -E chown -R tomcat:tomcat /usr/share/tomcat
+
+GitBucketインストール
+GitBucket開発サイトからリリース情報を確認します。
+
+https://github.com/gitbucket/gitbucket/releases
+
+releaseから最新版のgitbucket.warをダウンロードして、実行用のディレクトリにコピーします。
+
+wget https://github.com/gitbucket/gitbucket/releases/download/4.28.0/gitbucket.war
+sudo cp gitbucket.war /var/lib/tomcat/webapps/
+
+GitBucketを起動します。Apatch/Tomcatを経由せずに直接起動します。
+
+sudo java -jar /var/lib/tomcat/webapps/gitbucket.war --port=80 --gitbucket.home=/usr/share/tomcat/.gitbucket &
+
+
+GitBucketにアクセスしてみます。
+
+http://[hostname]/gitbucket
+# ユーザー名/パスワードは、root/root です
+ユーザの作成
+ログイン後はrootのパスワードを変更し、新規ユーザーを作成します。
+
+画面右上のプロファイルアイコンを選択し、メニュー「System Administration」を選択します。
+
+画面右上の「Create User」を選択してユーザを作成します。
+
+Gitクライアントから、Gitbucketをアクセスする場合の注意点
+クライアントがプロキシー設定している場合、 GitBucket サーバをプロキシーの除外設定をする必要が有ります。 除外設定をせずにアクセスすると、「エラー 503: Service Unavailable」が 発生します。
+
+Linux の場合、以下の環境変数設定をして除外設定をします。
+
+export no_proxy=localhost,172.*,10.*,gitbucket01
+
+Jenkins インストール注意点
+==========================
+
+プラグインのプロキシー設定で、ダウンロードURLをhttps から http に変える。
+SSL の認証エラーを回避するため。
+推奨プラグインは以下の通り。手動インストールの場合は以下の順番にインストールする
+
+Folders
+OWASP Markup Formatter
+build timeout
+Credentials Binding
+Workspace Cleanup
+Ant
+Gradle
+GitHub Organization Folder
+Pipeline: Stage View
+Git
+Subversion
+SSH Slaves
+Matrix Authorization Strategy
+PAM Authentication
+LDAP
+Email Extension
+Mailer
+
+Gitbucket webhook
+===================
+
+Jenkinsセットアップ
+-------------------
+
+*事前準備*
+
+Gitリポジトリに Jenkins ジョブを管理するため、あらかじめGitサーバが必要。
+ここでは、GitBucketを使って Git と連携する。
+(GitBucket)[gitbucket.md] 環境を構築してから行う。
+
+Jenkinsの設定
+-------------
+
+Git系は入っていないのでいれないと動かないよぉ
+[ダッシュボード]-[Jennkinsの管理]-[プラグインの管理]-[利用可能]
+から以下のものにチェックを入れてインストール後にjenkins再起動はしたほうがいいです
+
+4.)GitBucket Plugin
+
+
+1.)GIT client plugin
+2.)GIT plugin
+3.)GIT server plugin
+4.)GitBucket Plugin
+5.)HipChat Plugin
+
+指定したもの意外も入ってきます
+
+6.)SCM API Plugin
+7.)Matrix Project Plugin
+
+複数リポジトリをまとめてビルド等もできるようになるためのプラグインです
+
+sudo service jenkins restart
+
+5.2.Jenkins Jobの作成
+
+ここを詳しく書くと長くなってしまうので
+参考
+などを見てつくってください
+
+Gitのリポジトリ設定やHipChatの通知設定の項目をうめていく
+
+http://ostrich:8090/root/test1
+
+GitBucket URL http://ostrich:8090/root/test1
+    Enable issue
+HipChat
+    Project Root    test1
+ソースコード
+    http://ostrich:8090/git/root/test1.git
+
+
+export PATH=/home/psadmin/work/gradle/gradle-server-acceptance:$PATH
+cd $WORKSPACE
+getconfig -c config/config_zabbix.groovy -s ostrich
+getconfig -c config/config_zabbix.groovy -s ostrich -u
+
+　左端の？ボタンを押すとHelpがでてきます
+ここにGitBucketからWebHookするための記述が書かれているのでこのURLをのちほどGitBucketに設定します
+
+6.GitBucketとJenkinsの連携設定
+いよいよです
+GitBucketのリポジトリの[Setting]-[ServiceHooks]を開きます
+Settings.png
+
+URL：http://[LOCALHOST]:8080/jenkins/gitbucket-webhook/
+を入れます
+「TestHook」して問題なければ「Add」します
+
+ためしにJenkinsが動くか試してみます
+1.)自分のリポジトリにコミット
+2.)GitBucketのリモートリポジトリにPush
+3.) GitBucketがWebHookを使ってJenkinsにビルド要求
+
+リファレンス
+------------
+
+https://qiita.com/kounoike/items/52fa35ca5813d0edc7b7
