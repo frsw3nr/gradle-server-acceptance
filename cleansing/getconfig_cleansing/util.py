@@ -173,6 +173,12 @@ class Util(object):
     def analogize_platform(self, field_name, row):
         return 'オンプレ'
 
+    def analogize_master_check(self, field_name, row):
+        return False
+
+    def analogize_admin_ip(self, field_name, row):
+        return row.get('AdminIP') == True
+
 if __name__ == '__main__':
     # sqlite3 report.db "select * from jobs"
     print(Util().reform_date('1998年?月'))
