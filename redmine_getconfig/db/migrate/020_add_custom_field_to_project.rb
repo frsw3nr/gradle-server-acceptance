@@ -62,7 +62,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     }
 
     # ポートリストのカスタムフィールド設定
-    [ip, switch_name, port_no, lan_category, mac_address, mac_vendor, host_found, location, admin_ip].each { |custom_field|
+    [switch_name, port_no, lan_category, mac_address, mac_vendor, host_found, location, admin_ip].each { |custom_field|
         portlist.custom_fields << custom_field
     }
 
