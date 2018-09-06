@@ -66,4 +66,5 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     df = MasterDataShipList().load_all()
+    print(df[df['ホスト名']=='cent7'].T)
     Util().save_data(df, '/tmp', 'ship_list.csv')

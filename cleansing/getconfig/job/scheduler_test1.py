@@ -16,12 +16,16 @@ from getconfig.master_data.template.job_list import MasterDataJobList
 from getconfig.master_data.template.ship_list import MasterDataShipList
 from getconfig.master_data.template.mw_list import MasterDataSoftwareList
 from getconfig.master_data.template.net_list import MasterDataNetworkList
-from getconfig.job.scheduler import Scheduler
-from getconfig.ticket.ticket_ia_server import TicketIAServer
-from getconfig.ticket.ticket_port_list import TicketPortList
-from getconfig.ticket.ticket_relation import TicketRelation
+from getconfig.job.scheduler_base import SchedulerBase
+from getconfig.ticket.template.ticket_ia_server import TicketIAServer
+from getconfig.ticket.template.ticket_sparc import TicketSparc
+from getconfig.ticket.template.ticket_power import TicketPower
+from getconfig.ticket.template.ticket_storage import TicketStorage
+# from getconfig.ticket.template.ticket_network import TicketNetwork
+from getconfig.ticket.template.ticket_port_list import TicketPortList
+from getconfig.ticket.template.ticket_relation import TicketRelation
 
-class SchedulerTest(Scheduler):
+class Scheduler(SchedulerBase):
     INVENTORY_DIR = 'build'
 
     def __init__(self, inventory_source = INVENTORY_DIR, **kwargs):
@@ -76,6 +80,20 @@ class SchedulerTest(Scheduler):
     def classify(self):
         '''データ分類'''
 
+    def get_ticket_manager(self, tracker, filter = 'server'):
+        if filter == 'server':
+            if tracker == 'IAサーバ':
+                return TicketIAServer()
+            elif tracker == 'SPARCサーバ':
+                return TicketSparc()
+            elif tracker == 'POWERサーバ':
+                return TicketPower()
+            elif tracker == 'ストレージ':
+                return TicketStorage()
+        elif filter == 'network':
+            if tracker == 'ネットワーク':
+                return TicketNetwork()
+
     def regist(self):
         '''データ登録'''
         port_list = pd.read_csv('data/classify/hosts.csv')
@@ -85,11 +103,13 @@ class SchedulerTest(Scheduler):
         for hostname, host_list_set in port_list_sets.first().iterrows():
             host_list_set['ホスト名'] = hostname
             tracker = Util().analogize_tracker(host_list_set['ドメイン'])
-            if tracker != 'IAサーバ':
+            ticket_manager = self.get_ticket_manager(tracker)
+            if not ticket_manager:
                 continue
             print("ホスト:{},{}".format(hostname, tracker))
             # host = self.regist_host(hostname, portListSet, **kwargs)
-            host = TicketIAServer().regist('test1', hostname, host_list_set)
+            site = Util().analogize_site(host_list_set['サイト'])
+            host = ticket_manager.regist(site, hostname, host_list_set)
             logger.info ("Regist Host : {}({})".format(hostname, host['id']))
             # # print(port_list_set)
 
@@ -110,5 +130,5 @@ if __name__ == '__main__':
     )
     logger = logging.getLogger(__name__)
 
-    SchedulerTest().transfer()
-    SchedulerTest().regist()
+    # Scheduler().transfer()
+    Scheduler().regist()

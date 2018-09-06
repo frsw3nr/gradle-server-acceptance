@@ -171,6 +171,16 @@ class Util(object):
         else:
             return None
 
+    def analogize_site(self, site):
+        print("サイト：", site, ",", type(site))
+        return site if isinstance(site, str) else '場所不明'
+        # :
+        #     return str
+        # if site == None or math.isnan(site):
+        #     site = '場所不明'
+        # print("サイト：", site, ",", type(site))
+        # return site
+
     def analogize_platform(self, field_name, row):
         return 'オンプレ'
 

@@ -16,6 +16,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     templete     = IssueCustomField.find_or_create_by!(name: '監視テンプレート',   field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     ship_date    = IssueCustomField.find_or_create_by!(name: '搬入日',             field_format: 'date',   is_required: false, editable: true, visible: true, is_for_all: true)
     due_date     = IssueCustomField.find_or_create_by!(name: '引渡し日',           field_format: 'date',   is_required: false, editable: true, visible: true, is_for_all: true)
+    support_type = IssueCustomField.find_or_create_by!(name: '保守種別',           field_format: 'list',   :possible_values => ['ワランティー', 'HW保守', 'PF保守', '保守対象外', 'その他'], is_required: false, editable: true, visible: true, is_for_all: true)
     support_info = IssueCustomField.find_or_create_by!(name: '保守契約情報',       field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     serial       = IssueCustomField.find_or_create_by!(name: 'S/N',                field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     sys_code     = IssueCustomField.find_or_create_by!(name: 'システムコード',     field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
@@ -45,19 +46,19 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     software     = Tracker.find_by_name('ソフトウェア')
 
     # サーバ用トラッカーのカスタムフィールド設定
-    [owner, platform, os, sys_name, model_name, model_type, cpu, mem, inventory, hostgroup, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
+    [owner, platform, os, sys_name, model_name, model_type, cpu, mem, inventory, hostgroup, templete, ship_date, due_date, support_type, support_info, serial, sys_code, rack_no, location].each { |custom_field|
         [ia_server, sparc_server, power_server].each { |tracker|
             tracker.custom_fields << custom_field
         }
     }
 
     # ストレージのカスタムフィールド設定
-    [owner, sys_name, model_name, model_type, cpu, inventory, hostgroup, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
+    [owner, sys_name, model_name, model_type, cpu, inventory, hostgroup, templete, ship_date, due_date, support_type, support_info, serial, sys_code, rack_no, location].each { |custom_field|
         storage.custom_fields << custom_field
     }
 
     # ネットワークのカスタムフィールド設定
-    [ip, os, sys_name, net_category, lan_category, model_name, model_type, inventory, templete, ship_date, due_date, support_info, serial, sys_code, rack_no, location].each { |custom_field|
+    [ip, os, sys_name, net_category, lan_category, model_name, model_type, inventory, templete, ship_date, due_date, support_type, support_info, serial, sys_code, rack_no, location].each { |custom_field|
         network.custom_fields << custom_field
     }
 

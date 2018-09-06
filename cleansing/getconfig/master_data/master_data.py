@@ -53,9 +53,10 @@ class MasterData(metaclass=ABCMeta):
             # df = file.parse(header=None)
             if not df.empty:
                 df['シート'] = sheet_name
-                df = self.load_setup(df)
                 df = df.replace('-', np.NaN)
                 df = df.fillna(method='ffill')
+                df = self.load_setup(df)
+                print(df)
                 master_list = pd.concat([master_list, df])
         return master_list
 
@@ -77,7 +78,7 @@ class MasterData(metaclass=ABCMeta):
         if self.master_cache is None:
             df = pd.DataFrame()
             walk_dir = os.path.join(self.base_dir, self.master_data_dir)
-            print("WALK_DIR:",walk_dir)
+            # print("WALK_DIR:",walk_dir)
             for root, dirs, files in os.walk(walk_dir):
                 for file in files:
                     if  re.match('(.+)\.xlsx$', file):

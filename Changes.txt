@@ -2,68 +2,23 @@ Changes for 0.1.26 (2018-9-10)
 ------------------------------------------------------------------------------
 New features:
 * データクレンジングジョブ [x]
-    * 「ポートリスト」と IP の突き合わせ。ネットワーク情報付加 [x]
-    * 「機器台帳」とホスト名の突き合わせ [x]
-    * Redmine チケット登録 [ ]
-* データクレンジング全体構成調査 [x]
-    * ベースパターン [x]
-        Excelシート読み込み、つき合わせ(台帳,ポートリスト)、Redmine登録 [x]
-    * ベースクラス/UML作成 [x]
-        inventory [x]
-        master_data [x]
-            MasterData 台帳読込みメタクラス [x]
-        ticket [x]
-            RedmineTicket Redmineチケット登録 [ ]
-        MergeMaster 台帳つき合わせユーティリティ [x]
-        Util ユーティリティ。テキスト処理、ワークデータ保存 [x]
-        Config 設定ファイル管理 [x]
-        Scheduler バッチスケジューラメタクラス [ ]
     * コマンド、ディレクトリ構成  [ ]
         gcadmin [--grep <s>] [load|transfer|classify|regist] <path>
         build/dat/(load|transfer|classify|regist) ワークデータ
         cleansing/getconfig_cleansing Python ライブラリ
 
-チケット登録検討
-
-ホスト名でグルーピング
-    ホスト行抽出
-        ドメインからトラッカー判別
-            サーバの場合
-                トラッカー判別
-                    Linux,Windows : IAサーバ
-                    Solaris : SPARCサーバ
-                    AIX : POWERサーバ
-                    Eternus,HitachVSP : storage
-                設備チケット登録
-                    オンプレ/仮想マシン判別 [ ]
-                    列抽出、登録
-                    オーナー情報登録処理 [ ]
-                    IP行抽出
-                        列抽出、登録 [ ]
-            ネットワークの場合
-                トラッカー判別
-                    Router : ネットワーク
-                設備チケット登録
-            ソフトウェアの場合
-                トラッカー判別
-                    Oracle : ソフトウェア
-            トラッカー不明
-                不明ポート登録処理
-
 ToDo:
-* 単体テスト [ ]
-    * config [x]
-    * inventory [x]
-    * master_data [x]
-    * ticket [ ]
-        Oracleインベントリインポート追加 [ ]
-        既存コード調査 [ ]
-        Redmine 項目定義 [ ]
-            トラッカー [ ]
-            カスタムフィールド [ ]
-        登録テスト [ ]
-* 結合テスト [ ]
-    * コマンド実行 [ ]
+* コマンド実装 [ ]
+    * 既存ジョブ実行確認 [ ]
+    * サイト抽出、プロジェクト定義 [ ]
+    * ドメイン抽出、トラッカー判別 [ ]
+    * gcadmin 仕様検討 [ ]
+    * python load import 調査 [ ]
+    * gcadmin 単体 [ ]
+* Jenkins ジョブ [ ]
+    * ドキュメント調査 [ ]
+    * 環境調査 [ ]
+    * test3 プロジェクト試行 [ ]
 
 Changes for 0.1.25 (2018-9-3)
 ------------------------------------------------------------------------------
