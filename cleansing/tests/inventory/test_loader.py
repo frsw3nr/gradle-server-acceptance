@@ -5,59 +5,53 @@ import pytest
 import numpy as np
 import pandas as pd
 from pprint import pprint
-from getconfig_cleansing.cli import cli
-from getconfig_cleansing.config import Config
-from getconfig_cleansing.inventory.collector import InventoryCollector
-from getconfig_cleansing.inventory.table import InventoryTableSet
-from getconfig_cleansing.inventory.loader import InventoryLoader
+from getconfig.cli import cli
+from getconfig.config import Config
+from getconfig.inventory.collector import InventoryCollector
+from getconfig.inventory.table import InventoryTableSet
+from getconfig.inventory.loader import InventoryLoader
 
 # py.test tests/inventory/test_loader.py -v --capture=no -k test_load_single_inventory2
 
 @pytest.mark.parametrize('path,n_host_list,n_port_list,n_arp_list', [
 (
-    'tests/resources/import/project1/build/サーバチェックシート_20180817_142016.xlsx',
+    'data/import/project1/build/サーバチェックシート_20180817_142016.xlsx',
     3,
     5,
     0
 ),
 (
-    'tests/resources/import/project1/build/iLOチェックシート_20180817_092416.xlsx',
+    'data/import/project1/build/iLOチェックシート_20180817_092416.xlsx',
     1,
     3,
     0
 ),
 (
-    'tests/resources/import/project2/build/Zabbix監視設定チェックシート_20180820_112635.xlsx',
+    'data/import/project2/build/Zabbix監視設定チェックシート_20180820_112635.xlsx',
     3,
     0,
     0
 ),
 (
-    'tests/resources/import/project4/build/ETERNUSチェックシート_20180820_115934.xlsx',
+    'data/import/project4/build/ETERNUSチェックシート_20180820_115934.xlsx',
     1,
     2,
     0
 ),
 (
-    'tests/resources/import/empty.xlsx',
-    0,
-    0,
-    0
-),
-(
-    'tests/resources/import/old1/build/check_sheet_20170512_143424.xlsx',
+    'data/import/old1/build/check_sheet_20170512_143424.xlsx',
     2,
     1,
     0
 ),
 (
-    'tests/resources/import/net1/build/rtx_check_sheet.xlsx',
+    'data/import/net1/build/rtx_check_sheet.xlsx',
     1,
     0,
     14
 ),
 (
-    'tests/resources/import/project3/build/Oracle設定チェックシート_20180830_090010.xlsx',
+    'data/import/project3/build/Oracle設定チェックシート_20180830_090010.xlsx',
     2,
     0,
     0
@@ -65,7 +59,7 @@ from getconfig_cleansing.inventory.loader import InventoryLoader
 ])
 def test_load_single_inventory(path, n_host_list, n_port_list, n_arp_list):
     collector = InventoryCollector()
-    # path = 'tests/resources/import/project1/build/サーバチェックシート_20180817_142016.xlsx'
+    # path = 'data/import/project1/build/サーバチェックシート_20180817_142016.xlsx'
     inventory = collector.make_inventory_info(path)
     inventory_tables = InventoryTableSet()
     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
@@ -80,7 +74,7 @@ def test_load_single_inventory2():
     # 該当Excel を開いて上書きしたら解消した
     # Exception: unexpected tag '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}ext'
     collector = InventoryCollector()
-    path = 'tests/resources/import/project3/build/Oracle設定チェックシート_20180830_090010.xlsx'
+    path = 'data/import/project3/build/Oracle設定チェックシート_20180830_090010.xlsx'
     inventory = collector.make_inventory_info(path)
     inventory_tables = InventoryTableSet()
     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
@@ -92,7 +86,7 @@ def test_load_single_inventory2():
 
 # def test_load_single_inventory3():
 #     collector = InventoryCollector()
-#     path = 'tests/resources/import/project2/build/Zabbix監視設定チェックシート_20180820_112635.xlsx'
+#     path = 'data/import/project2/build/Zabbix監視設定チェックシート_20180820_112635.xlsx'
 #     inventory = collector.make_inventory_info(path)
 #     inventory_tables = InventoryTableSet()
 #     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
@@ -103,7 +97,7 @@ def test_load_single_inventory2():
 
 # def test_load_single_inventory4():
 #     collector = InventoryCollector()
-#     path = 'tests/resources/import/project4/build/ETERNUSチェックシート_20180820_115934.xlsx'
+#     path = 'data/import/project4/build/ETERNUSチェックシート_20180820_115934.xlsx'
 #     inventory = collector.make_inventory_info(path)
 #     inventory_tables = InventoryTableSet()
 #     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
@@ -114,7 +108,7 @@ def test_load_single_inventory2():
 
 # def test_load_single_inventory5():
 #     collector = InventoryCollector()
-#     path = 'tests/resources/import/empty.xlsx'
+#     path = 'data/import/empty.xlsx'
 #     inventory = collector.make_inventory_info(path)
 #     inventory_tables = InventoryTableSet()
 #     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
@@ -126,7 +120,7 @@ def test_load_single_inventory2():
 # def test_load_single_inventory6():
 #     # 古いインベントリシートの読み込み
 #     collector = InventoryCollector()
-#     path = 'tests/resources/import/old1/build/check_sheet_20170512_143424.xlsx'
+#     path = 'data/import/old1/build/check_sheet_20170512_143424.xlsx'
 #     inventory = collector.make_inventory_info(path)
 #     inventory_tables = InventoryTableSet()
 #     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)
@@ -137,7 +131,7 @@ def test_load_single_inventory2():
 
 # def test_load_single_inventory7():
 #     collector = InventoryCollector()
-#     path = 'tests/resources/import/net1/build/rtx_check_sheet.xlsx'
+#     path = 'data/import/net1/build/rtx_check_sheet.xlsx'
 #     inventory = collector.make_inventory_info(path)
 #     inventory_tables = InventoryTableSet()
 #     InventoryLoader().import_inventory_sheet(inventory, inventory_tables)

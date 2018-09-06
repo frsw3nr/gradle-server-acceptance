@@ -5,10 +5,9 @@ import os
 import logging
 import numpy as np
 import pandas as pd
-from getconfig_cleansing.util import Util
-from getconfig_cleansing.inventory.info import InventoryInfo
-from getconfig_cleansing.inventory.data import InventoryDataFrame
-from getconfig_cleansing.inventory.loader import InventoryLoader
+from getconfig.util import Util
+from getconfig.inventory.info import InventoryInfo
+from getconfig.inventory.loader import InventoryLoader
 
 # py.test tests/test_util.py -v --capture=no -k test_util1
 

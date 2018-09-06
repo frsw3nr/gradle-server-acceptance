@@ -1,6 +1,6 @@
 import pytest
 from click.testing import CliRunner
-from getconfig_cleansing import cli
+from getconfig import cli
 
 
 @pytest.fixture
@@ -27,8 +27,8 @@ def test_cli_with_load_option(runner):
     # assert result.output.strip() == 'Howdy, world.'
 
 
-def test_cli_with_arg(runner):
-    result = runner.invoke(cli.main, ['Minoru'])
-    assert result.exit_code == 0
-    assert not result.exception
-    assert result.output.strip() == 'Hello, Minoru.'
+# def test_cli_with_arg(runner):
+#     result = runner.invoke(cli.main, ['Minoru'])
+#     assert result.exit_code == 0
+#     assert not result.exception
+#     assert result.output.strip() == 'Hello, Minoru.'

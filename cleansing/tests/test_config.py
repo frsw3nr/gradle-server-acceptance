@@ -3,9 +3,9 @@ import sys
 import os
 import pytest
 from click.testing import CliRunner
-from getconfig_cleansing.config import Config
-from getconfig_cleansing.inventory.collector import InventoryCollector
-from getconfig_cleansing.inventory.loader import InventoryLoader
+from getconfig.config import Config
+from getconfig.inventory.collector import InventoryCollector
+from getconfig.inventory.loader import InventoryLoader
 
 # py.test tests/test_config.py -v --capture=no -k test_config1
 

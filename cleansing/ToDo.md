@@ -20,7 +20,7 @@ getconfigcleansing
 script_name [my-tool]: 
 gctool
 package_name [my_tool]: 
-getconfig_cleansing
+getconfig
 project_short_description [My Tool does one thing, and one thing well.]: 
 Getconfig data cleansing
 release_date [2015-04-15]: 
@@ -98,7 +98,7 @@ redmine ... プラグイン
     redmine-getconfig
         Redmine プラグイン
     cleansing
-        getconfig_cleansing
+        getconfig
             cli.py
             master/transfer/classify/regist
         setup.py

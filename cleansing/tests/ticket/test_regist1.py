@@ -6,13 +6,13 @@ import pytest
 import numpy as np
 import pandas as pd
 import dataset as ds
-from getconfig_cleansing.util import Util
-from getconfig_cleansing.config import Config
-from getconfig_cleansing.merge_master import MergeMaster
-from getconfig_cleansing.ticket.redmine_repository import RedmineRepository
-from getconfig_cleansing.ticket.redmine_cache      import RedmineCache
-from getconfig_cleansing.ticket.redmine_stat       import RedmineStatistics
-from getconfig_cleansing.ticket.ticket_ia_server   import TicketIAServer
+from getconfig.util import Util
+from getconfig.config import Config
+from getconfig.merge_master import MergeMaster
+from getconfig.ticket.redmine_repository import RedmineRepository
+from getconfig.ticket.redmine_cache      import RedmineCache
+from getconfig.ticket.redmine_stat       import RedmineStatistics
+from getconfig.ticket.ticket_ia_server   import TicketIAServer
 
 # export REDMINE_API_KEY=作成したAPIキー
 # export REDMINE_URL=作成したRedmine環境のURL
@@ -70,7 +70,7 @@ def test_regist_server1(redmine_repository):
         return
 
     print (redmine_repository.get_tracker_id('IAサーバ'))
-    hosts = pd.read_csv('tests/resources/classify/host_list.csv')
+    hosts = pd.read_csv('data/classify/host_list.csv')
     # 「ホスト名」でグルーピングする
     host_sets = hosts.groupby(by='ホスト名')
     for hostname, host_set in host_sets.first().iterrows():

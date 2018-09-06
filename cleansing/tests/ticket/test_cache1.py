@@ -1,8 +1,8 @@
 import pytest
 from click.testing import CliRunner
 from dataset.types import Types
-from getconfig_cleansing.config import Config
-from getconfig_cleansing.ticket.redmine_cache import RedmineCache
+from getconfig.config import Config
+from getconfig.ticket.redmine_cache import RedmineCache
 
 # py.test tests/ticket/test_cache1.py -v --capture=no -k test_sqlite1
 

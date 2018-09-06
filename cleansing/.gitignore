@@ -2,8 +2,8 @@
 
 dist/
 /build/
-tests/resources2/
-!tests/resources/*/build/
+data2/
+!data/*/build/
 *.egg-info/
 
 .cache/
