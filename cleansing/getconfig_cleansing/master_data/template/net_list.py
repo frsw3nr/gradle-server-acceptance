@@ -47,6 +47,7 @@ class MasterDataNetworkList(MasterData):
         """全ての台帳読み込み後のデータクレンジング処理"""
         # df.rename(columns={'発番': 'ジョブ名'}, inplace=True)
         df.rename(columns={
+                    'ホスト名': 'スイッチ名',
                     'システム': '用途',
                  }, inplace=True)
         return df

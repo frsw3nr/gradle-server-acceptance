@@ -94,7 +94,7 @@ class InventoryLoaderV1(object):
         df3['net'] = df3['device'] + ':' + df3['ip']
         df3 = df3.pivot(index='node_name', columns='device', values='net')
         df3 = df3.apply(','.join, axis=1)
-        df2['ネットワーク構成'] = '[' + df3 + ']'
+        df2['ネットワーク構成'] = '[' + df3.astype(object) + ']'
         df2['domain'] = 'Linux'
 
         return df2.reset_index()
@@ -132,7 +132,7 @@ class InventoryLoaderV1(object):
         df3['net'] = df3['IPAddress'].str.extract('(?P<IP>\d{1,3}\.\d{1,3}\.\d{1,3}.\d{1,3})', expand=True)
         df3 = df3.pivot(index='node_name', columns='IPAddress', values='net')
         df3 = df3.apply(','.join, axis=1)
-        df2['ネットワーク構成'] = '[' + df3 + ']'
+        df2['ネットワーク構成'] = '[' + df3.astype(object) + ']'
         df2['domain'] = 'Windows'
 
         return df2.reset_index()
