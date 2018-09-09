@@ -1,0 +1,109 @@
+node {
+    stage('scm') {
+        checkout scm
+        bat 'git submodule update --init'
+        // bat 'python cleansing/delete_ticket.py'
+        bat '''
+        cd cleansing
+        '''
+    }
+    stage('transfer') {
+        def workspace = pwd()
+        def projects = get_project_dirs("cleansing/data/import", 20)
+
+        def v = input message: 'ジョブ番号を入力してください',
+            ok: 'レポート実行',
+            parameters: [
+              [$class: 'ChoiceParameterDefinition',
+                  choices: projects.join("\n"),
+                  description: '出荷機器インベントリディレクトリ',
+                  name: 'project'],
+              [$class: 'StringParameterDefinition',
+                  description: 'ネットワークスイッチ名 ※必須',
+                  name: 'sw_name'],
+              [$class: 'StringParameterDefinition',
+                  description: 'レポートファイル名(-o) ※オプション',
+                  name: '-o'],
+              [$class: 'BooleanParameterDefinition',
+                  description: '全カラム抽出(-a) ※オプション',
+                  name: '-a']
+            ]
+        if (v == null) {
+           error '選択してください'
+        }
+
+        def cleansing_opt = v['projectproject']
+        if (v['-o']) {
+            cleansing_opt += ' -o ' + v['-o']
+        }
+        if (v['-a']) {
+            cleansing_opt += ' -a '
+        }
+        bat """
+        cd cleansing
+        """
+        // python getconfig/job/scheduler_server1.py ${cleansing_opt}
+    }
+    stage('rapup') {
+        archiveArtifacts "cleansing/transfer/*.*"
+    }
+}
+
+def get_project_dirs(import_path, limit = 5) {
+    def project_output = bat script : "python cleansing/getconfig/job/get_projects.py",
+                        returnStdout : true
+    // def project_output = bat script : "python cleansing/getconfig/job/get_projects.py  -s ${import_path} -n ${limit}",
+    //                     returnStdout : true
+    // println(project_output)
+    def projects = []
+    def project_lines = project_output.split(",")
+    for (ii = 0; ii < project_lines.size() && ii < 10; ii++) {
+      def line = project_lines[ii]
+        projects.add(line)
+      // def matcher = line =~ 'remotes/origin/(.+)'
+      // if (matcher) {
+      //   projectes.add(matcher[0][1])
+      // }
+    }
+    if (projects.size() == 0) {
+       error "プロジェクトが取得できません : ${project_output}"
+    }
+    // return projects
+    return ['4AT013C', '4AT014F', '4AT014H', '4AT014M', 'AT0008S']
+    // def projects = [:]
+    // new File(import_path).eachDir {
+    //     projects[it.lastModified()] = it.name
+    // }
+    // def projects2 = projects.sort { a, b -> b.key <=> a.key }
+    // def project_dirs = []
+    // def project_count = 1
+    // projects2.each { tms, dir_name ->
+    //     if (project_count > limit)
+    //         return true
+    //     project_count ++
+    //     project_dirs << dir_name
+    // }
+    // return project_dirs
+}
+
+def getBranches() {
+  def cmd = 'Get-ChildItem cleansing\\data\\import | Sort-Object -Descending LastWriteTime'
+  def branch_output = bat script : 'powershell -Command "' + cmd + '"',
+                      returnStdout : true
+  
+  def branches = []
+  def branch_lines = branch_output.split("\n")
+  for (ii = 0; ii < branch_lines.size() && ii < 10; ii++) {
+    def line = branch_lines[ii]
+      branches.add(line)
+    // def matcher = line =~ 'remotes/origin/(.+)'
+    // if (matcher) {
+    //   branches.add(matcher[0][1])
+    // }
+  }
+  if (branches.size() == 0) {
+     error "ブランチが取得できません : ${branch_output}"
+  }
+  return branches
+}
+
