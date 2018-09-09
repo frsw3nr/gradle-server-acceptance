@@ -8,22 +8,19 @@ import dataset as ds
 from getconfig.util import Util
 from getconfig.config import Config
 from getconfig.merge_master import MergeMaster
-from getconfig.inventory.info import InventoryInfo
-from getconfig.inventory.loader import InventoryLoader
 from getconfig.inventory.collector import InventoryCollector
-from getconfig.inventory.table import InventoryTableSet
-from getconfig.master_data.template.job_list import MasterDataJobList
+from getconfig.master_data.template.job_list  import MasterDataJobList
 from getconfig.master_data.template.ship_list import MasterDataShipList
-from getconfig.master_data.template.mw_list import MasterDataSoftwareList
-from getconfig.master_data.template.net_list import MasterDataNetworkList
+from getconfig.master_data.template.mw_list   import MasterDataSoftwareList
+from getconfig.master_data.template.net_list  import MasterDataNetworkList
 from getconfig.job.scheduler_base import SchedulerBase
 from getconfig.ticket.template.ticket_ia_server import TicketIAServer
-from getconfig.ticket.template.ticket_sparc import TicketSparc
-from getconfig.ticket.template.ticket_power import TicketPower
-from getconfig.ticket.template.ticket_storage import TicketStorage
+from getconfig.ticket.template.ticket_sparc     import TicketSparc
+from getconfig.ticket.template.ticket_power     import TicketPower
+from getconfig.ticket.template.ticket_storage   import TicketStorage
 # from getconfig.ticket.template.ticket_network import TicketNetwork
 from getconfig.ticket.template.ticket_port_list import TicketPortList
-from getconfig.ticket.template.ticket_relation import TicketRelation
+from getconfig.ticket.template.ticket_relation  import TicketRelation
 
 class Scheduler(SchedulerBase):
     INVENTORY_DIR = 'build'
@@ -34,13 +31,17 @@ class Scheduler(SchedulerBase):
     def load(self):
         '''データロード'''
 
+    def test(self):
+        print('SCHEDULER_TEST1')
+
     def transfer(self):
         # '''データ変換'''
         # # ネットワークと、v1.24 のインベントリを読み込む（サーバ、ストレージ）
+        _logger = logging.getLogger(__name__)
         collector = InventoryCollector()
-        inventorys = collector.scan_inventorys('data/import/project1')
-        inventorys.extend(collector.scan_inventorys('data/import/project2'))
-        inventorys.extend(collector.scan_inventorys('data/import/net1'))
+        inventorys = collector.scan_inventorys(self.inventory_source)
+        # inventorys.extend(collector.scan_inventorys('data/import/project2'))
+        # inventorys.extend(collector.scan_inventorys('data/import/net1'))
         inventory_tables = collector.load(inventorys)
         inventory_tables.save_csv('data/transfer')
 
@@ -56,9 +57,8 @@ class Scheduler(SchedulerBase):
         # arp_tables = MasterDataPortList().load_all()
         # mac_vendor = MasterDataMacVendor().load_all()
 
+        # '案件情報'は'ジョブ名'をキーに、'出荷台帳'は'ホスト名'をキーに、
         # ホストインベントリとのつき合わせ
-        # 'ジョブ名'をキーに'案件情報'とつき合わせ
-        # 'ホスト名'をキーに'出荷台帳'とつき合わせ
         hosts = MergeMaster().join_by_host(hosts, job_list, 'ジョブ名', 'left')
         hosts = MergeMaster().join_by_host(hosts, ship_list, 'ホスト名', 'left')
 
@@ -96,6 +96,7 @@ class Scheduler(SchedulerBase):
 
     def regist(self):
         '''データ登録'''
+        _logger = logging.getLogger(__name__)
         port_list = pd.read_csv('data/classify/hosts.csv')
         port_list_sets = port_list.groupby(by='ホスト名')
 
@@ -110,7 +111,7 @@ class Scheduler(SchedulerBase):
             # host = self.regist_host(hostname, portListSet, **kwargs)
             site = Util().analogize_site(host_list_set['サイト'])
             host = ticket_manager.regist(site, hostname, host_list_set)
-            logger.info ("Regist Host : {}({})".format(hostname, host['id']))
+            _logger.info ("Regist Host : {}({})".format(hostname, host['id']))
             # # print(port_list_set)
 
             # 接続しているポートを登録
@@ -130,5 +131,5 @@ if __name__ == '__main__':
     )
     logger = logging.getLogger(__name__)
 
-    # Scheduler().transfer()
+    Scheduler().transfer()
     Scheduler().regist()

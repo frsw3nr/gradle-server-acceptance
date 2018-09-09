@@ -69,7 +69,7 @@ class SchedulerTest(Scheduler):
         Util().save_data(df, '/tmp', 'host2.csv')
         # ARPテーブルとのつき合わせ
         df = MergeMaster().join_by_host(df, arp_tables2, 'IP')
-        print(df.loc[df['ホスト名'] == 'yaqdb61',['ホスト名','用途', 'スイッチ名', 'IP']].T)
+        # print(df.loc[df['ホスト名'] == 'yaqdb61',['ホスト名','用途', 'スイッチ名', 'IP']].T)
         # print(df.loc[df['ホスト名'] == 'yaqdb61',['ホスト名','用途']].T)
         # df = pd.DataFrame()
         return df
