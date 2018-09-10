@@ -84,6 +84,22 @@ class RedmineRepository():
                 self.tracker_fields[(tracker['name'], field['name'])]  = field_dict
                 self.tracker_field_ids[(tracker['id'], field['id'])] = field_dict
 
+    def set_issue_statuses(self):
+        """Redmine チケットステータスを検索し、配列に格納する"""
+
+        # self.tracker_fields = dict()
+        # self.tracker_field_ids = dict()
+        statuses = self.redmine.issue_status.all()
+        for status in statuses:
+            print(dict(status))
+        # for field in fields:
+        #     trackers = field['trackers']
+        #     field_dict = dict(field)
+        #     del field_dict['trackers']
+        #     for tracker in trackers:
+        #         self.tracker_fields[(tracker['name'], field['name'])]  = field_dict
+        #         self.tracker_field_ids[(tracker['id'], field['id'])] = field_dict
+
     def set_tracker_ids(self):
         """Redmine トラッカーを検索し、トラッカー名をキーにした配列 tracker_ids に格納する"""
 
@@ -122,8 +138,10 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     db = RedmineRepository()
-    # print (db.get_tracker_id('IAサーバー'))
+    print (db.get_tracker_id('IAサーバ'))
     # print (db.get_tracker_fields('IAサーバー', 'ＯＳ'))
-    print (db.get_tracker_fields_by_id(1, 27))
+    # print (db.get_tracker_fields_by_id(1, 27))
     # db.set_project_ids()
     print(db.project_ids)
+    db.set_issue_statuses()
+    # print()
