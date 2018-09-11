@@ -58,6 +58,8 @@ class RedmineRepository():
         # トラッカーのカスタムフィールドを取得
         # 使用例: print (self.tracker_fields[('IAサーバー', 'ホストグループ')])
         self.set_tracker_fields()
+        # Redmine チケットステータスを取得
+        self.set_issue_statuses()
 
     def set_project_ids(self):
         """Redmine プロジェクトを検索し、プロジェクト名をキーにした配列 project_ids に格納する"""
@@ -87,18 +89,10 @@ class RedmineRepository():
     def set_issue_statuses(self):
         """Redmine チケットステータスを検索し、配列に格納する"""
 
-        # self.tracker_fields = dict()
-        # self.tracker_field_ids = dict()
+        self.issue_statuses = dict()
         statuses = self.redmine.issue_status.all()
         for status in statuses:
-            print(dict(status))
-        # for field in fields:
-        #     trackers = field['trackers']
-        #     field_dict = dict(field)
-        #     del field_dict['trackers']
-        #     for tracker in trackers:
-        #         self.tracker_fields[(tracker['name'], field['name'])]  = field_dict
-        #         self.tracker_field_ids[(tracker['id'], field['id'])] = field_dict
+            self.issue_statuses[status.name] = status.id
 
     def set_tracker_ids(self):
         """Redmine トラッカーを検索し、トラッカー名をキーにした配列 tracker_ids に格納する"""
@@ -128,6 +122,10 @@ class RedmineRepository():
 
         return self.tracker_field_ids.get((tracker_id, field_id), None)
 
+    def get_issue_status(self, status_name):
+        """ステータスの初期値を取得する"""
+        return self.issue_statuses.get(status_name, None)
+
 if __name__ == '__main__':
     # ログの初期化
     logging.basicConfig(
@@ -143,5 +141,7 @@ if __name__ == '__main__':
     # print (db.get_tracker_fields_by_id(1, 27))
     # db.set_project_ids()
     print(db.project_ids)
-    db.set_issue_statuses()
+    # db.set_issue_statuses()
+    # project_id = RedmineRepository().get_project_id(fab)
+    print(db.get_issue_status('計画'))
     # print()

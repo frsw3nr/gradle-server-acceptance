@@ -173,7 +173,8 @@ class Util(object):
 
     def analogize_site(self, site):
         print("サイト：", site, ",", type(site))
-        return site if isinstance(site, str) else '場所不明'
+        # return site if isinstance(site, str) else '場所不明'
+        return 'Y6'
         # :
         #     return str
         # if site == None or math.isnan(site):

@@ -68,7 +68,7 @@ class InventoryLoaderV1(object):
         df = df[df['domain'] == 'Linux']
         if df.empty:
             return df
-        cond = (df['test_id'].isin(['lsb', 'uname', 'cpu_total', 'mem_total']))
+        cond = (df['test_id'].isin(['lsb', 'uname', 'cpu_total', 'meminfo']))
         df2 = df[['node_name', 'test_id', 'value']][cond]
         df2 = df2.set_index(['node_name', 'test_id'])
         # unstackのみのコードだと、unstack後のカラム定義がMultiindexになる。戻し方が不明なため、
@@ -77,9 +77,9 @@ class InventoryLoaderV1(object):
         del df2['level_0']
         df2 = df2.set_index('node_name')
         df2.rename(columns={'lsb': 'OS名', 'uname': 'アーキテクチャ', 
-                            'cpu_total':'CPU数', 'mem_total':'MEM容量'},
+                            'cpu_total':'CPU数', 'meminfo':'MEM容量'},
                    inplace=True)
-
+        df2['MEM容量'] = 1.0 * df2['MEM容量'] / (1024 * 1024)
         # ディスク構成の読み込み
         df = db.df_devices['Linux_filesystem']
         df3 = df[df['mountpoint']!='NaN']
@@ -105,7 +105,7 @@ class InventoryLoaderV1(object):
         df = df[df['domain'] == 'Windows']
         if df.empty:
             return df
-        cond = (df['test_id'].isin(['os_caption', 'os_architecture', 'cpu_total', 'mem_total']))
+        cond = (df['test_id'].isin(['os_caption', 'os_architecture', 'cpu_total', 'memory']))
         df2 = df[['node_name', 'test_id', 'value']][cond]
         df2 = df2.set_index(['node_name', 'test_id'])
         # 以下のコードだと、unstack後のカラム定義がMultiindexになる。戻し方が不明なため、
@@ -114,8 +114,9 @@ class InventoryLoaderV1(object):
         del df2['level_0']
         df2 = df2.set_index('node_name')
         df2.rename(columns={'os_caption': 'OS名', 'os_architecture': 'アーキテクチャ', 
-                            'cpu_total':'CPU数', 'mem_total':'MEM容量'},
+                            'cpu_total':'CPU数', 'memory':'MEM容量'},
                    inplace=True)
+        df2['MEM容量'] = 1.0 * df2['MEM容量'] / (1024 * 1024)
 
         # ディスク構成の読み込み
         df = db.df_devices['Windows_filesystem']

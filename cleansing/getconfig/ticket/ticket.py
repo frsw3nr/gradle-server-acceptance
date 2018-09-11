@@ -41,6 +41,9 @@ class Ticket(metaclass=ABCMeta):
     tracker_name = None
     """トラッカー名(必須項目)"""
 
+    first_status = '計画'
+    """初期ステータス"""
+
     cache_table    = None
     """DBキャッシュ用テーブル名(必須項目)"""
 
@@ -173,9 +176,9 @@ class Ticket(metaclass=ABCMeta):
             また、CSV値と、キャッシュ値が違っていれば更新対象にする
             """
             is_difference = False
-            print("CSV_FIELD_NAME:", csv_field_name)
+            # print("CSV_FIELD_NAME:", csv_field_name)
             cache_value = issue_cache.get(csv_field_name)
-            print("CACHE_VALUE:{},{}".format( cache_value, csv_value))
+            # print("CACHE_VALUE:{},{}".format( cache_value, csv_value))
             if cache_value == None and csv_value != None:
                 is_difference = True
             if csv_value != None and cache_value != csv_value:
@@ -239,7 +242,8 @@ class Ticket(metaclass=ABCMeta):
                 # キャッシュ登録のため、導出値を登録
                 csv[field_name] = str(value)
         # カスタムフィールドの登録
-        validated = True
+        status_ranks = dict()
+        # validated = True
         for field_name, custom_field_id in self.custom_field_ids.items():
             custom_field = self.custom_fields.get(field_name)
             csv_field_name = self.csv_field_names.get(field_name)
@@ -254,11 +258,25 @@ class Ticket(metaclass=ABCMeta):
                 issue_custom_fields.append({'id': custom_field_id, 'value': value})
                 custom_field_name = self.custom_fields[field_name]
                 updated = True
-            if custom_field.required and not updated:
-                validated = False
-
+            # チケットステータスのチェック
+            #   各チケットフィールドの更新状態をチェックする
+            #   required のステータスの項目が全て更新されている場合は、そのステータスIDを返す
+            status_id = RedmineRepository().get_issue_status(custom_field.required)
+            if status_id:
+                status_rank = status_ranks.get(status_id, True)
+                status_ranks[status_id] = status_rank & updated
+            # print("CUSTOME_FIELD {} : {} : {} : {}".format(custom_field.column, custom_field.required, updated, status_ranks[status_id]))
+            # if custom_field.required and not updated:
+            #     validated = False
+        # 初期ステータスから順にチケットステータスをチェックする
+        validated_status_id = RedmineRepository().get_issue_status(self.first_status)
+        for status_id, validated in sorted(status_ranks.items()):
+            if not validated:
+                break
+            validated_status_id = status_id
+            # print("VARIDATE: {} : {} : {}".format(status_id, validated, validated_status_id))
         _logger.debug("make field:{}".format(issue_custom_fields))
-        return issue_custom_fields, validated
+        return issue_custom_fields, validated_status_id
 
     def regist(self, fab, key, row, **kwargs):
         """
@@ -348,12 +366,14 @@ class Ticket(metaclass=ABCMeta):
         issue.tracker_id = self.tracker_id
         issue.priority_id = kwargs.get('priority_id', 1)  # 優先度 低め(1)
         custom_fields, validated = self.make_custom_fields(row, issue_cache, user_updated_fields)
+        print("チケットステータス:{},{}".format(subject, validated))
         if custom_fields:
             issue.custom_fields = custom_fields
-        if validated:
-            issue.status_id  = self.Status.IN_OPERATION.value
-        else:
-            issue.status_id  = self.Status.PLANNNING.value
+        issue.status_id = validated
+        # if validated:
+        #     issue.status_id  = self.Status.IN_OPERATION.value
+        # else:
+        #     issue.status_id  = self.Status.PLANNNING.value
 
         if skip_redmine == False:
             _logger.debug("チケット登録:{}".format(subject))

@@ -3,12 +3,16 @@ import os
 import logging
 from argparse import ArgumentParser
 # import click
-sys.path.append(os.path.dirname('.') + '/cleansing/')
+# sys.path.append(os.path.dirname('.') + '/cleansing/')
 
 '''
 Usage:
 
  python getconfig/cli.py --job shipping1 project1
+
+古いパッケージがサイトパッケージなどに入っている場合、スクリプトを更新すると、
+ModuleNotFoundError が発生する。一旦サイトパッケージの管理をなしにする
+pip uninstall getconfigcleansing
 
 チェックシートを読み込んで、build/cleansing_dat/master の下に保存する
 
@@ -58,9 +62,17 @@ def parser():
 def get_job(name):
     _logger = logging.getLogger(__name__)
     try:
-        mod = __import__('getconfig.job.template.scheduler_' + name,
-                         None, None, ['Scheduler'])
+        import sys
+        sys.path.append("/home/psadmin/work/gradle/gradle-server-acceptance/cleansing")
+        # mod = __import__('getconfig.job.template.scheduler_' + name,
+        #                  None, None, ['Scheduler'])
+        mod = __import__('getconfig.job.template.scheduler_' + name, None, None, ['Scheduler'])
+        # mod = __import__('getconfig.job.scheduler_' + name)
     except ImportError:
+        import sys
+        print(sys.path)
+        import traceback
+        traceback.print_exc()
         return
     return mod
 
@@ -81,7 +93,8 @@ def main():
     args = parser()
     job = get_job(args.job)
     if not job:
-        _logger.error("Job not found 'getconfig/job/template/schedule_{}.py'".format(args.job))
+        # _logger.error("Job not found 'getconfig/job/template/scheduler_{}.py'".format(args.job))
+        _logger.error("Job not found 'getconfig/job/scheduler_{}.py'".format(args.job))
         return -1
 
     inventory_source = os.path.join('data/import', args.fname)
