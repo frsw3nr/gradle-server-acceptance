@@ -48,6 +48,7 @@ class MasterDataJobList(MasterData):
                     '顧客': 'オーナー情報',
                     '発番': 'ジョブ名'
                  }, inplace=True)
+        Stat().regist('1.案件台帳行数', len(df), self.module_name)
         return df
 
 if __name__ == '__main__':

@@ -50,6 +50,7 @@ class MasterDataNetworkList(MasterData):
                     'ホスト名': 'スイッチ名',
                     'システム': '用途',
                  }, inplace=True)
+        Stat().regist('4.ネットワーク機器台帳行数', len(df), self.module_name)
         return df
 
 if __name__ == '__main__':

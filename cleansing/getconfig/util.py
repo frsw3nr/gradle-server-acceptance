@@ -168,13 +168,15 @@ class Util(object):
             return 'ストレージ'
         elif re.search("(Router)", domain):
             return 'ネットワーク'
+        elif re.search("(Oracle)", domain):
+            return 'ソフトウェア'
         else:
             return None
 
-    def analogize_site(self, site):
+    def analogize_site(self, site, default_site = '場所不明'):
         print("サイト：", site, ",", type(site))
-        # return site if isinstance(site, str) else '場所不明'
-        return 'Y6'
+        return site if isinstance(site, str) else default_site
+        # return 'Y6'
         # :
         #     return str
         # if site == None or math.isnan(site):

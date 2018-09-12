@@ -1,7 +1,0 @@
-﻿AdminIP,IP,ホスト名
-False,192.168.10.1,ostrich
-False,192.168.10.4,ostrich
-False,192.168.0.20,cent7
-False,172.17.0.1,cent7
-False,192.168.0.24,win2012
-True,192.168.1.148,ostrich

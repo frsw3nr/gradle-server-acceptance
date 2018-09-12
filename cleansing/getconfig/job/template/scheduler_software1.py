@@ -25,7 +25,8 @@ from getconfig.ticket.template.ticket_ia_server import TicketIAServer
 from getconfig.ticket.template.ticket_sparc     import TicketSparc
 from getconfig.ticket.template.ticket_power     import TicketPower
 from getconfig.ticket.template.ticket_storage   import TicketStorage
-# from getconfig.ticket.template.ticket_network import TicketNetwork
+from getconfig.ticket.template.ticket_network   import TicketNetwork
+from getconfig.ticket.template.ticket_software  import TicketSoftware
 from getconfig.ticket.template.ticket_port_list import TicketPortList
 from getconfig.ticket.template.ticket_relation  import TicketRelation
 
@@ -41,10 +42,7 @@ redmine/plugins 下の README.rdoc の手順の通りRedmine 初期設定
 
 test1 プロジェクトを作成して、登録スクリプト実行
 
-python getconfig/job/template/scheduler_shipping1.py \
-    --skip-regist \
-    --default-site test1 \
-    project1 project2 net1
+python getconfig/job/template/scheduler_software1.py  --default-site test1 project3 -s
 
 '''
 
@@ -100,48 +98,34 @@ class Scheduler(SchedulerBase):
         inventory_tables = collector.load(inventorys)
         inventory_tables.save_csv('data/transfer')
 
-        hosts = self.read_csv('host_list.csv', '1.インベントリ機器総数')
-        # hosts = pd.read_csv('data/transfer/host_list.csv')
-        # Stat().regist('1.インベントリ:機器', len(hosts), 'transfer')
-        # ports = pd.read_csv('data/transfer/port_list.csv')
-        ports = self.read_csv('port_list.csv', '2.インベントリ抽出IP数')
-        # Stat().regist('1.インベントリ:IP', len(ports), 'transfer')
-        # arp_tables = pd.read_csv('data/transfer/arp_list.csv')
-        arp_tables = self.read_csv('arp_list.csv', '3.インベントリARPテーブル数')
-        # Stat().regist('1.インベントリ:ARPテーブル', len(arp_tables), 'transfer')
+        soft_list = MasterDataSoftwareList().load_all()
+        hosts = self.read_csv('host_list.csv', '1.インベントリMWインスタンス総数')
+        # ports = self.read_csv('port_list.csv', '2.インベントリ抽出IP数')
+        # arp_tables = self.read_csv('arp_list.csv', '3.インベントリARPテーブル数')
 
-        # 案件情報、出荷台帳、ネットワーク台帳の読込み
-        job_list   = MasterDataJobList().load_all()
-        ship_list  = MasterDataShipList().load_all()
-        soft_list  = MasterDataSoftwareList().load_all()
-        net_list   = MasterDataNetworkList().load_all()
-        # arp_tables = MasterDataPortList().load_all()
-        # mac_vendor = MasterDataMacVendor().load_all()
+        # # ネットワーク機器台帳の読込み
+        # net_list  = MasterDataNetworkList().load_all()
 
-        # ホストインベントリとのつき合わせ
-        # 'ジョブ名'をキーに'案件情報'とつき合わせ
-        # 'ホスト名'をキーに'出荷台帳'とつき合わせ
-        # hosts = hosts[hosts['ホスト名'] == 'ostrich']
-        hosts = MergeMaster().join_by_host(hosts, job_list, 'ジョブ名', 'left')
-        hosts = MergeMaster().join_by_host(hosts, ship_list, 'ホスト名', 'left')
+        # # ネットワークインベントリとのつき合わせ
+        # # 'スイッチ名'をキーに'ネットワーク機器管理台帳'とつき合わせ
+        # hosts.rename(columns={'ホスト名': 'スイッチ名'}, inplace=True)
+        # hosts = MergeMaster().join_by_host(hosts, net_list, 'スイッチ名', 'left')
 
-        # IP インベントリとのつき合わせ
-        # 'IP'をキーに'オンラインIP情報'とつき合わせ
-        # 'スイッチ名'をキーに'ネットワーク機器台帳'とつき合わせ
-        ports = MergeMaster().join_by_host(ports, arp_tables, 'IP', 'left')
-        ports = MergeMaster().join_by_host(ports, net_list, 'スイッチ名', 'left')
+        # # ARPテーブル(IPリスト)インベントリとのつき合わせ
+        # # 'スイッチ名'をキーに'ARPテーブル'とつき合わせ
+        # # ports = MergeMaster().join_by_host(ports, arp_tables, 'IP', 'left')
+        # # ports = MergeMaster().join_by_host(ports, net_list, 'スイッチ名', 'left')
 
-        # # MACアドレスの先頭6桁をキーにベンダー情報をルックアップ
-        # # ports['MAC6'] = ports['MACアドレス'].str.replace('.','').str[:6]
-        # # ports = pd.merge( ports, mac_vendor, on='MAC6', how='left' )
+        # # # MACアドレスの先頭6桁をキーにベンダー情報をルックアップ
+        # # # ports['MAC6'] = ports['MACアドレス'].str.replace('.','').str[:6]
+        # # # ports = pd.merge( ports, mac_vendor, on='MAC6', how='left' )
 
         # ホストとポートをつき合わせ
-        df = MergeMaster().join_by_host(hosts, ports, 'ホスト名', 'left')
-        # print(df[df['ホスト名'] == 'ostrich'].T)
-        Util().save_data(df, 'data/classify', 'hosts.csv')
-        df_host = df.groupby(by=['ホスト名'])
-        Stat().regist('5.出荷機器つき合わせ台数', len(df_host), self.module_name)
-        Stat().regist('6.出荷機器つき合わせIP数', len(df), self.module_name)
+        hosts = MergeMaster().join_by_host(hosts, soft_list, 'ジョブ名', 'outer')
+        # print(hosts[hosts['ホスト名'] == 'ostrich'].T)
+        Util().save_data(hosts, 'data/classify', 'softwares.csv')
+        Stat().regist('1.ミドルウェア管理台帳行数', len(soft_list),
+                      self.module_name)
         Stat().show()
 
     def classify(self):
@@ -160,6 +144,9 @@ class Scheduler(SchedulerBase):
         elif filter == 'network':
             if tracker == 'ネットワーク':
                 return TicketNetwork()
+        elif filter == 'software':
+            if tracker == 'ソフトウェア':
+                return TicketSoftware()
 
     def clear_work_dir(self):
         for build_dir in ['transfer', 'classify']:
@@ -173,33 +160,25 @@ class Scheduler(SchedulerBase):
         logger = logging.getLogger(__name__)
         redmine_stat = RedmineStatistics()
         redmine_stat.reset()
-        port_list = pd.read_csv('data/classify/hosts.csv')
+        port_list = pd.read_csv('data/classify/softwares.csv')
         port_list_sets = port_list.groupby(by='ホスト名')
 
         # 指定キーでグルーピングしてホストを登録
         for hostname, host_list_set in port_list_sets.first().iterrows():
             host_list_set['ホスト名'] = hostname
             tracker = Util().analogize_tracker(host_list_set['ドメイン'])
-            ticket_manager = self.get_ticket_manager(tracker)
+            print(hostname, tracker)
+            ticket_manager = self.get_ticket_manager(tracker, 'software')
             if not ticket_manager:
                 continue
             # host = self.regist_host(hostname, portListSet, **kwargs)
-            default_site = kwargs.get('default_site', '場所不明')
-            site = Util().analogize_site(host_list_set['サイト'], default_site)
+            site = Util().analogize_site(host_list_set.get('サイト'),
+                                         kwargs.get('default_site', '場所不明'))
             print("サイト：", site, ",", type(site))
             # site = 'test1'
             host = ticket_manager.regist(site, hostname, host_list_set)
             logger.info ("Regist {} : {}({})".format(tracker, hostname, host['id']))
             # # print(port_list_set)
-
-            # 接続しているポートを登録
-            for port_id, port_list_set in port_list_sets.get_group(hostname).iterrows():
-                ip_address = port_list_set['IP']
-                port = TicketPortList().regist(site, ip_address, port_list_set)
-                logger.info ("Regist IP : {}, HOST : {}".format(ip_address, hostname))
-                # print("IP:", ip_address, ",HOST:", hostname)
-                # print(port)
-                TicketRelation().regist_relation(host['id'], port['id'])
         redmine_stat.show()
 
 if __name__ == '__main__':

@@ -50,6 +50,7 @@ class MasterDataSoftwareList(MasterData):
                     'システム': '用途',
                     '発番': 'ジョブ名'
                  }, inplace=True)
+        Stat().regist('3.ソフトウェア管理台帳行数', len(df), self.module_name)
         return df
 
 if __name__ == '__main__':

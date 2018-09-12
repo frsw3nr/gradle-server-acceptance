@@ -6,7 +6,7 @@ from getconfig.ticket.ticket import Ticket
 from getconfig.ticket.redmine_field import RedmineField
 
 @singleton
-class TicketIAServer(Ticket):
+class TicketNetwork(Ticket):
     # チケットの題名ヘッダ(必須項目)
     subject_header = None
 

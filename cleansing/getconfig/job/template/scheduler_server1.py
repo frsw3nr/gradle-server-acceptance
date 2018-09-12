@@ -1,12 +1,10 @@
 import re
 import sys
 import os
-import shutil
 import logging
 import numpy as np
 import pandas as pd
 import dataset as ds
-from argparse import ArgumentParser
 from getconfig.util         import Util
 from getconfig.config       import Config
 from getconfig.stat         import Stat
@@ -41,11 +39,7 @@ redmine/plugins 下の README.rdoc の手順の通りRedmine 初期設定
 
 test1 プロジェクトを作成して、登録スクリプト実行
 
-python getconfig/job/template/scheduler_shipping1.py \
-    --skip-regist \
-    --default-site test1 \
-    project1 project2 net1
-
+python getconfig/job/template/scheduler_shipping2.py
 '''
 
 
@@ -53,24 +47,6 @@ class Scheduler(SchedulerBase):
 
     def __init__(self, inventory_source = None, **kwargs):
         self.inventory_source = inventory_source
-
-    def parser(self):
-        """
-        実行オプション解析
-        """
-        usage = 'python {} [-d <site>] [-s] <inventorys>'\
-                .format(__file__)
-        argparser = ArgumentParser(usage=usage)
-        argparser.add_argument('inventory_names', type=str, nargs='*',
-                               help='inventory source filename')
-        argparser.add_argument('-d', '--default-site', type=str,
-                               dest='default_site',
-                               help='Redmine default project(site)')
-        argparser.add_argument('-s', '--skip-regist', action='store_true',
-                               dest='skip_regist', 
-                               help='Skip regist')
-        argparser.set_defaults(skip_regist=False)
-        return argparser.parse_args()
 
     def load(self):
         '''データロード'''
@@ -80,21 +56,18 @@ class Scheduler(SchedulerBase):
 
     def read_csv(self, csv_file, metric_name):
         csv_path = os.path.join('data/transfer', csv_file)
-        df = pd.read_csv(csv_path) if os.path.exists(csv_path) else pd.DataFrame()
+        df = pd.read_csv(csv_path)
         Stat().regist(metric_name, len(df), self.module_name)
         return df
 
-    def transfer(self, inventory_names):
+    def transfer(self):
         # '''データ変換'''
         # # ネットワークと、v1.24 のインベントリを読み込む（サーバ、ストレージ）
         logger = logging.getLogger(__name__)
         Stat().create_report_id()
         collector = InventoryCollector()
-        inventorys = list()
-        for inventory_name in inventory_names:
-            inventory_path = os.path.join('data/import', inventory_name)
-            inventorys.extend(collector.scan_inventorys(inventory_path))
-        # inventorys = collector.scan_inventorys('data/import/project1')
+        inventorys = collector.scan_inventorys('data/import/project1')
+        # inventorys.extend(collector.scan_inventorys('data/import/project2'))
         # inventorys.extend(collector.scan_inventorys('data/import/net1'))
         Stat().regist('0.インベントリソース', len(inventorys), self.module_name)
         inventory_tables = collector.load(inventorys)
@@ -161,14 +134,7 @@ class Scheduler(SchedulerBase):
             if tracker == 'ネットワーク':
                 return TicketNetwork()
 
-    def clear_work_dir(self):
-        for build_dir in ['transfer', 'classify']:
-            path = "data/{}".format(build_dir)
-            if os.path.exists(path):
-                shutil.rmtree(path)
-            os.makedirs(path, exist_ok=True)
-
-    def regist(self, **kwargs):
+    def regist(self):
         '''データ登録'''
         logger = logging.getLogger(__name__)
         redmine_stat = RedmineStatistics()
@@ -184,10 +150,8 @@ class Scheduler(SchedulerBase):
             if not ticket_manager:
                 continue
             # host = self.regist_host(hostname, portListSet, **kwargs)
-            default_site = kwargs.get('default_site', '場所不明')
-            site = Util().analogize_site(host_list_set['サイト'], default_site)
-            print("サイト：", site, ",", type(site))
-            # site = 'test1'
+            # site = Util().analogize_site(host_list_set['サイト'])
+            site = 'test1'
             host = ticket_manager.regist(site, hostname, host_list_set)
             logger.info ("Regist {} : {}({})".format(tracker, hostname, host['id']))
             # # print(port_list_set)
@@ -211,10 +175,5 @@ if __name__ == '__main__':
     )
     logger = logging.getLogger(__name__)
 
-    args = Scheduler().parser()
-
-    Scheduler().clear_work_dir()
-    Scheduler().transfer(args.inventory_names)
-    if not args.skip_regist:
-        Scheduler().regist(default_site = args.default_site)
-
+    Scheduler().transfer()
+    Scheduler().regist()

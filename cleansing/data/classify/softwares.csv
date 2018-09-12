@@ -1,0 +1,3 @@
+﻿No,ホスト名,ドメイン,データベース名,プロダクト名,CPU構成,メモリ構成[MB],プラットフォーム,文字コード,表領域[MB],一時表領域[MB],Redoログ[MB],検査成績,検査結果,備考,インベントリ名,ジョブ名,搬入日,サイト,担当者,品名,個数,型番,用途,シート
+1,ora11,['Oracle'],orcl,Oracle Database 11g Enterprise Edition  11.2.0.1.0 64bit Production,1,3834,Linux x86 64-bit,AL32UTF8,1460,29,150,100.0 %, , ,Oracle設定チェックシート,project3,2018-07-01,Aサイト,古澤,Oracle 11 E.E.,1,S-00000A,構成管理,1期-Aシステム
+2,ora12,['Oracle'],orcl,Oracle Database 12c Enterprise Edition  12.2.0.1.0 64bit Production,1,1877,Linux x86 64-bit,AL32UTF8,2265,132,300,100.0 %, , ,Oracle設定チェックシート,project3,2018-07-01,Aサイト,古澤,Oracle 11 E.E.,1,S-00000A,構成管理,1期-Aシステム

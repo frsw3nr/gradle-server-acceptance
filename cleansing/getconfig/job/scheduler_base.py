@@ -27,6 +27,7 @@ from getconfig.ticket.template.ticket_relation import TicketRelation
 
 class SchedulerBase(metaclass=ABCMeta):
     INVENTORY_DIR = 'build'
+    module_name = '変換処理'
 
     def __init__(self, inventory_source = INVENTORY_DIR, **kwargs):
         self.inventory_source = inventory_source

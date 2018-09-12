@@ -32,6 +32,8 @@ class MasterData(metaclass=ABCMeta):
     master_cache = None
     """台帳データのキャッシュ"""
 
+    module_name = '台帳収集'
+
     @abstractmethod
     def load_setup(self, df, **kwargs):
         """台帳読み込み時のデータクレンジング処理"""
@@ -56,7 +58,6 @@ class MasterData(metaclass=ABCMeta):
                 df = df.replace('-', np.NaN)
                 df = df.fillna(method='ffill')
                 df = self.load_setup(df)
-                print(df)
                 master_list = pd.concat([master_list, df])
         return master_list
 

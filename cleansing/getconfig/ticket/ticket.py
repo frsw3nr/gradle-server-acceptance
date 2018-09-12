@@ -366,7 +366,7 @@ class Ticket(metaclass=ABCMeta):
         issue.tracker_id = self.tracker_id
         issue.priority_id = kwargs.get('priority_id', 1)  # 優先度 低め(1)
         custom_fields, validated = self.make_custom_fields(row, issue_cache, user_updated_fields)
-        print("チケットステータス:{},{}".format(subject, validated))
+        # print("チケットステータス:{},{}".format(subject, validated))
         if custom_fields:
             issue.custom_fields = custom_fields
         issue.status_id = validated

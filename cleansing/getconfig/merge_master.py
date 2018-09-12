@@ -35,6 +35,11 @@ class MergeMaster():
             arg_how(String):
                 ジョインの方法。'left', 'right', 'outer' を選択
         """
+        if not isinstance(key_column, list):
+            key_column = [key_column]
+        if not pd.Series(key_column).isin(df_source.columns).all() or \
+            not pd.Series(key_column).isin(df_lookup.columns).all():
+            return df_source
         df = pd.merge(df_source, df_lookup, on=key_column, how=arg_how, 
                       suffixes=('', '__lookup'))
         for column in list(df.columns.values):

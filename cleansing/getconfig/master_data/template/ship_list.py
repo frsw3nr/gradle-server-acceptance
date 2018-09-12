@@ -54,6 +54,7 @@ class MasterDataShipList(MasterData):
                     'システム': '用途',
                     '発番': 'ジョブ名'
                  }, inplace=True)
+        Stat().regist('2.出荷台帳行数', len(df), self.module_name)
         return df
 
 if __name__ == '__main__':

@@ -5,6 +5,7 @@ import logging
 import numpy as np
 import pandas as pd
 from getconfig.util import Util
+from getconfig.stat import Stat
 from getconfig.inventory.info import InventoryInfo
 # from getconfig.inventory.data import InventoryData
 from getconfig.inventory.table import InventoryTableSet
@@ -80,13 +81,15 @@ class InventoryCollector(object):
         inventory_tables.reset_host_domains()
         return inventory_tables
 
-    def export(self, source = None):
-        inventorys = self.scan_inventorys(source)
-        inventory_tables = self.load(inventorys)
-        # print("RESULT_DIR:{}".format(self.result_dir))
-        # inventory_tables.print()
-        print(inventory_tables.get_domains())
-        inventory_tables.save_csv(self.result_dir)
+    # def export(self, source = None):
+    #     inventorys = self.scan_inventorys(source)
+    #     Stat().regist(metric_name + ':台数', nhosts, classify)
+    #     Stat().regist('0.インベントリ:ファイル数', len(inventorys), 'collector')
+    #     inventory_tables = self.load(inventorys)
+    #     # print("RESULT_DIR:{}".format(self.result_dir))
+    #     # inventory_tables.print()
+    #     print(inventory_tables.get_domains())
+    #     inventory_tables.save_csv(self.result_dir)
 
     # def get_module(self, name):
     #     _logger = logging.getLogger(__name__)

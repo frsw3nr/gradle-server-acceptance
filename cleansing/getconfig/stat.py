@@ -31,6 +31,8 @@ from getconfig.singleton import singleton
 @singleton
 class Stat():
     report_id = None
+    purge_upper_limit_id = None
+    log_storage_size = 10
 
     def __init__(self):
         logger = logging.getLogger(__name__)
@@ -48,11 +50,20 @@ class Stat():
         self.set_current_report_id()
         logger.info("Statistic report initialized, report_id=%d" % self.report_id)
 
+    def purge_log(self, upper_report_id):
+        if upper_report_id > 0:
+            self.db.query('delete from jobs where id <= :id',
+                          dict(id = upper_report_id))
+            self.db.query('delete from metrics where job_id <= :id',
+                          dict(id = upper_report_id))
+
     def create_report_id(self):
         logger = logging.getLogger(__name__)
         row = dict(created=datetime.datetime.now())
         self.report_id = self.db['jobs'].insert(row)
         logger.info("Statistic report_id created : %d" % self.report_id)
+        self.purge_log(self.report_id - self.log_storage_size)
+
         return self.report_id
 
     def set_current_report_id(self):
@@ -156,4 +167,4 @@ if __name__ == '__main__':
     Stat().show(90)
     Stat().show(90, 'Module2')
     Stat().show_summary()
-
+    Stat().purge_log(2)
