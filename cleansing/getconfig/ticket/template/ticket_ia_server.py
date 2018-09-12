@@ -42,7 +42,7 @@ class TicketIAServer(Ticket):
         '保守種別'         : RedmineField('保守種別',       required = '運用'),
         '保守契約情報'     : RedmineField('保守契約情報',   required = '運用'),
         'S/N'              : RedmineField('S/N',            required = '搬入'),
-        # 'システムコード'   : RedmineField('システムコード', required = '搬入'),
+        'システムコード'   : RedmineField('システムコード', required = '搬入'),
         'ラック番号'       : RedmineField('ラック番号',     required = '搬入'),
         '設置場所'         : RedmineField('設置場所',       required = '搬入'),
     }
