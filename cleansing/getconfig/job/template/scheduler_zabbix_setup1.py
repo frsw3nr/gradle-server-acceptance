@@ -35,13 +35,16 @@ redmine/plugins 下の README.rdoc の手順の通りRedmine 初期設定
 
 test1 プロジェクトを作成して、登録スクリプト実行
 
-python getconfig/job/template/scheduler_shipping1.py \
+python getconfig/job/template/scheduler_zabbix_setup1.py \
     --default-site test1 \
-    project1 project2 net1
+    project2 
+
+(注) 監視設定インベントリにサイトの情報がないため、登録には、
+     '--default-site <サイト名>' でサイトの指定が必要
 '''
 
 class Scheduler(SchedulerBase):
-    module_name = '出荷機器登録'
+    module_name = 'Zabbix 設定登録'
     """ジョブモジュール名"""
 
     def transfer(self):
@@ -58,38 +61,38 @@ class Scheduler(SchedulerBase):
 
         # 各種インベントリデータの読込み。存在しない場合はemptyを取得する。
         hosts = self.read_inventory_dat('host_list.csv', '1.インベントリ機器総数')
-        ports = self.read_inventory_dat('port_list.csv', '2.インベントリ抽出IP数')
-        arp_tables = self.read_inventory_dat('arp_list.csv',
-                                   '3.インベントリARPテーブル抽出IP数')
+        # ports = self.read_inventory_dat('port_list.csv', '2.インベントリ抽出IP数')
+        # arp_tables = self.read_inventory_dat('arp_list.csv',
+        #                            '3.インベントリARPテーブル抽出IP数')
 
         # 案件情報、出荷台帳、ネットワーク台帳の読込み
-        job_list   = MasterDataJobList().load_all()      # サーバ案件管理台帳
-        ship_list  = MasterDataShipList().load_all()     # サーバ出荷台帳
-        soft_list  = MasterDataSoftwareList().load_all() # ソフトウェア管理台帳
-        net_list   = MasterDataNetworkList().load_all()  # ネットワーク管理台帳
-        # arp_tables = MasterDataPortList().load_all()   # ポートリスト
-        # mac_vendor = MasterDataMacVendor().load_all()  # MACアドレスベンダリスト
+        # job_list   = MasterDataJobList().load_all()      # サーバ案件管理台帳
+        # ship_list  = MasterDataShipList().load_all()     # サーバ出荷台帳
+        # soft_list  = MasterDataSoftwareList().load_all() # ソフトウェア管理台帳
+        # net_list   = MasterDataNetworkList().load_all()  # ネットワーク管理台帳
+        # # arp_tables = MasterDataPortList().load_all()   # ポートリスト
+        # # mac_vendor = MasterDataMacVendor().load_all()  # MACアドレスベンダリスト
 
-        # 'ジョブ名'をキーに'ホストインベントリ'と'案件台帳'のつき合わせ
-        hosts = MergeMaster().join_by_host(hosts, job_list, 'ジョブ名', 'left')
-        # 'ホスト名名'をキーに'ホストインベントリ'と'出荷台帳'のつき合わせ
-        hosts = MergeMaster().join_by_host(hosts, ship_list, 'ホスト名', 'left')
-        # 'IP'をキーに'ARPテーブルIP'と'インベントリ抽出IP'のつき合わせ
-        ports = MergeMaster().join_by_host(ports, arp_tables, 'IP', 'left')
-        # 'スイッチ名'をキーに'ネットワーク台帳'と'インベントリ抽出IP'のつき合わせ
-        ports = MergeMaster().join_by_host(ports, net_list, 'スイッチ名', 'left')
+        # # 'ジョブ名'をキーに'ホストインベントリ'と'案件台帳'のつき合わせ
+        # hosts = MergeMaster().join_by_host(hosts, job_list, 'ジョブ名', 'left')
+        # # 'ホスト名名'をキーに'ホストインベントリ'と'出荷台帳'のつき合わせ
+        # hosts = MergeMaster().join_by_host(hosts, ship_list, 'ホスト名', 'left')
+        # # 'IP'をキーに'ARPテーブルIP'と'インベントリ抽出IP'のつき合わせ
+        # ports = MergeMaster().join_by_host(ports, arp_tables, 'IP', 'left')
+        # # 'スイッチ名'をキーに'ネットワーク台帳'と'インベントリ抽出IP'のつき合わせ
+        # ports = MergeMaster().join_by_host(ports, net_list, 'スイッチ名', 'left')
 
         # # MACアドレスの先頭6桁をキーにベンダー情報をルックアップ
         # # ports['MAC6'] = ports['MACアドレス'].str.replace('.','').str[:6]
         # # ports = pd.merge( ports, mac_vendor, on='MAC6', how='left' )
 
         # 'ホストインベントリ'と'インベントリ抽出IP'をマージ
-        df = MergeMaster().join_by_host(hosts, ports, 'ホスト名', 'left')
+        # df = MergeMaster().join_by_host(hosts, ports, 'ホスト名', 'left')
 
         # 変換結果を保存。後のclassify()処理で読み込む
-        Util().save_data(df, 'data/work/classify', 'hosts.csv')
-        self.set_report('5.出荷機器つき合わせ台数', len(df.groupby(by=['ホスト名'])))
-        self.set_report('6.出荷機器つき合わせIP数', len(df))
+        Util().save_data(hosts, 'data/work/classify', 'hosts.csv')
+        # self.set_report('5.出荷機器つき合わせ台数', len(df.groupby(by=['ホスト名'])))
+        self.set_report('6.出荷機器つき合わせ台数', len(hosts))
 
     def classify(self):
         """
@@ -99,15 +102,13 @@ class Scheduler(SchedulerBase):
         出力データ：'data/work/regist 下のCSV
         """
         df = pd.read_csv('data/work/classify/hosts.csv')
-        df['tracker'] = df.apply(lambda x: Util().analogize_tracker(x['ドメイン']),
+        df['tracker'] = df.apply(lambda x: Util().analogize_tracker(x['テンプレート']),
                                  axis=1)
         df = df[(df['tracker'] == 'IAサーバ') | \
                 (df['tracker'] == 'SPARCサーバ') | \
                 (df['tracker'] == 'POWERサーバ') | \
                 (df['tracker'] == 'ストレージ')]
 
-        # つき合わせした IP は完了ステータスでポートリストチケットに登録
-        df['台帳つき合わせ'] = 1
         # print(df.loc[:, ['tracker','ホスト名']])
         self.set_report('7.サーバ機器つき合わせIP数', len(df))
         Util().save_data(df, 'data/work/regist', 'hosts.csv')
@@ -133,17 +134,17 @@ class Scheduler(SchedulerBase):
             if not ticket_manager:
                 continue
             default_site = kwargs.get('default_site', '場所不明')
-            site = Util().analogize_site(host_list_set['サイト'], default_site)
+            site = Util().analogize_site(host_list_set.get('サイト'), default_site)
 
             host = ticket_manager.regist(site, hostname, host_list_set)
             logger.info ("Regist {} : {}({})".format(tracker, hostname, host['id']))
 
             # 接続しているポートを登録
-            for port_id, port_list_set in port_list_sets.get_group(hostname).iterrows():
-                ip_address = port_list_set['IP']
-                port = TicketPortList().regist(site, ip_address, port_list_set)
-                logger.info ("Regist IP : {}, HOST : {}".format(ip_address, hostname))
-                TicketRelation().regist_relation(host['id'], port['id'])
+            # for port_id, port_list_set in port_list_sets.get_group(hostname).iterrows():
+            #     ip_address = port_list_set['IP']
+            #     port = TicketPortList().regist(site, ip_address, port_list_set)
+            #     logger.info ("Regist IP : {}, HOST : {}".format(ip_address, hostname))
+            #     TicketRelation().regist_relation(host['id'], port['id'])
 
 if __name__ == '__main__':
     Scheduler().main()

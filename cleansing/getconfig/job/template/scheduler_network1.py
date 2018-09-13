@@ -41,7 +41,7 @@ python getconfig/job/template/scheduler_network1.py \
 '''
 
 class Scheduler(SchedulerBase):
-    module_name = 'ARPテーブル棚卸し'
+    module_name = 'IPリスト棚卸し'
     """ジョブモジュール名"""
 
     def transfer(self):
@@ -73,8 +73,8 @@ class Scheduler(SchedulerBase):
 
         # 変換結果を保存。後のclassify()処理で読み込む
         Util().save_data(df, 'data/work/classify', 'hosts.csv')
-        self.set_report('5.出荷機器つき合わせ台数', len(df.groupby(by=['スイッチ名'])))
-        self.set_report('6.出荷機器つき合わせIP数', len(df))
+        # self.set_report('5.出荷機器つき合わせ台数', len(df.groupby(by=['スイッチ名'])))
+        # self.set_report('6.出荷機器つき合わせIP数', len(df))
 
     def classify(self):
         """
@@ -83,12 +83,23 @@ class Scheduler(SchedulerBase):
         入力データ：'data/work/classify'下のデータつき合わせ結果
         出力データ：'data/work/regist 下のCSV
         """
+        logger = logging.getLogger(__name__)
         df = pd.read_csv('data/work/classify/hosts.csv')
-        df['tracker'] = df.apply(lambda x: Util().analogize_tracker(x['ドメイン']),
-                                 axis=1)
-        df = df[(df['tracker'] == 'ネットワーク')]
-        # print(df.loc[:, ['tracker','ホスト名']])
-        self.set_report('7.サーバ機器つき合わせIP数', len(df))
+        # インベントリデータの場合、ドメインからトラッカー絞り込み
+        if pd.Series(['ドメイン']).isin(df.columns).all():
+            df['tracker'] = df.apply(lambda x: Util().analogize_tracker(x['ドメイン']),
+                                     axis=1)
+            df = df[(df['tracker'] == 'ネットワーク')]
+        # スイッチ名列がある場合はスイッチ名がない行を除外
+        elif pd.Series(['スイッチ名']).isin(df.columns).all():
+            df = df.dropna(subset=['スイッチ名'])
+            df['tracker'] = 'ネットワーク'
+        # それ以外は不明
+        else:
+            logger.error('Unkown datasource : data/work/classify/hosts.csv')
+            raise ValueError
+
+        self.set_report('7.ネットワーク機器つき合わせIP数', len(df))
         Util().save_data(df, 'data/work/regist', 'hosts.csv')
 
     def regist(self, **kwargs):
@@ -119,10 +130,11 @@ class Scheduler(SchedulerBase):
 
             # 接続しているポートを登録
             for port_id, port_list_set in port_list_sets.get_group(hostname).iterrows():
-                ip_address = port_list_set['IP']
-                port = TicketPortList().regist(site, ip_address, port_list_set)
-                logger.info ("Regist IP : {}, HOST : {}".format(ip_address, hostname))
-                TicketRelation().regist_relation(host['id'], port['id'])
+                ip_address = port_list_set.get('IP')
+                if ip_address:
+                    port = TicketPortList().regist(site, ip_address, port_list_set)
+                    logger.info ("Regist IP : {}, HOST : {}".format(ip_address, hostname))
+                    TicketRelation().regist_relation(host['id'], port['id'])
 
 if __name__ == '__main__':
     Scheduler().main()

@@ -184,7 +184,7 @@ class Util(object):
         # return site
 
     def analogize_platform(self, field_name, row):
-        return 'オンプレ'
+        return '仮想マシン' if row.get('ベンダー') == 'VMware, Inc.' else 'オンプレ'
 
     def analogize_master_check(self, field_name, row):
         return False
