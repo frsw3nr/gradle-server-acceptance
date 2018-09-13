@@ -29,7 +29,7 @@ class TicketNetwork(Ticket):
         'システム'            : RedmineField('用途',             required = '運用'),
         '機種'                : RedmineField('機種',             required = '運用'),
         '型番'                : RedmineField('型番',             required = '運用'),
-        'インベントリ'        : RedmineField('インベントリ名',   required = '運用'),
+        'インベントリ'        : RedmineField('ホスト名',         required = '運用'),
         '監視テンプレート'    : RedmineField('テンプレート',     required = '運用'),
         '搬入日'              : RedmineField('搬入日',           required = '運用'),
         '引渡し日'            : RedmineField('納期',             required = '運用'),

@@ -10,6 +10,7 @@
 /config/.secret/
 build/*
 node/*
+cleansing/data/work/
 !.gitkeep
 gradle-app.setting
 gradle.properties

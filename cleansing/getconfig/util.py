@@ -174,7 +174,6 @@ class Util(object):
             return None
 
     def analogize_site(self, site, default_site = '場所不明'):
-        print("サイト：", site, ",", type(site))
         return site if isinstance(site, str) else default_site
         # return 'Y6'
         # :

@@ -209,3 +209,4 @@ alter table platforms change domain_name platform_name varchar(24);
 alter table metrics change domain_id platform_id int(11);
 
 bundle exec bin/rails generate redmine_plugin_model redmine_getconfig device_result metric:references node:references seq:integer item_name:string value:string
+
