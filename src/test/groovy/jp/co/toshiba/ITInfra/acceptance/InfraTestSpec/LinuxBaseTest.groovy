@@ -252,7 +252,7 @@ class LinuxBaseTest extends Specification {
         1 == 1
         println test_platform.test_results
         test_platform.test_results['meminfo'].status  == ResultStatus.OK
-        test_platform.test_results['mem_total'].verify == ResultStatus.OK
+        test_platform.test_results['mem_total'].verify == ResultStatus.NG
     }
 
     // Linux   network

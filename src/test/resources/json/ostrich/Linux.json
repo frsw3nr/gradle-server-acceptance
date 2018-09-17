@@ -163,8 +163,8 @@
     },
     "mem_total": {
         "name": "mem_total",
-        "value": "1877.19921875",
-        "error_msg": "1877.19921875 != 4000.0(error range=0.1)",
+        "value": "1.8332023620605469",
+        "error_msg": "1.8332023620605469 != 4000.0(error range=0.1)",
         "compare_server": "cent7",
         "status": "OK",
         "verify": "NG",
@@ -172,7 +172,7 @@
     },
     "mem_free": {
         "name": "mem_free",
-        "value": "239.1953125",
+        "value": "0.23358917236328125",
         "error_msg": null,
         "compare_server": "cent7",
         "status": "OK",
@@ -233,6 +233,15 @@
         "verify": "NG",
         "comparision": "UNMATCH"
     },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[lo:255.0.0.0, eth0:255.255.255.0, eth0:1:255.255.255.0]",
+        "error_msg": null,
+        "compare_server": "cent7",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
     "hw_address": {
         "name": "hw_address",
         "value": "[00:0c:29:ca:44:db]",
@@ -262,12 +271,12 @@
     },
     "net_bond": {
         "name": "net_bond",
-        "value": "[bonding:NotConfigured, devices:[], options:[]]",
+        "value": "[bonding:Configured, devices:[bond0], options:[miimon=100 updelay=100 mode=active-backup primary=eno1]]",
         "error_msg": null,
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "block_device": {
         "name": "block_device",
@@ -2171,10 +2180,10 @@
     "packages": {
         "name": "packages",
         "value": "[RHEL6:1064, COMMON:21]",
-        "error_msg": "'alchemist' not in '[packages.perl-Log-Message-Simple:0.04, packages.alsa-lib:1.0.22, packages.pixman-devel:0.32.4, pack ...'",
+        "error_msg": null,
         "compare_server": "cent7",
         "status": "OK",
-        "verify": "NG",
+        "verify": "OK",
         "comparision": "UNMATCH",
         "devices": {
             "csv": [
@@ -10860,6 +10869,7 @@
                 ]
             ],
             "header": [
+                "target",
                 "name",
                 "epoch",
                 "version",
@@ -10948,7 +10958,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.perl-Email-Date-Format": {
         "name": "packages.perl-Email-Date-Format",
@@ -11047,7 +11057,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.glibc-devel": {
         "name": "packages.glibc-devel",
@@ -11200,7 +11210,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.ustr": {
         "name": "packages.ustr",
@@ -11209,7 +11219,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.xinetd": {
         "name": "packages.xinetd",
@@ -11353,7 +11363,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.GConf2": {
         "name": "packages.GConf2",
@@ -11461,7 +11471,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libmng": {
         "name": "packages.libmng",
@@ -11776,7 +11786,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.desktop-file-utils": {
         "name": "packages.desktop-file-utils",
@@ -12163,7 +12173,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.node-gyp": {
         "name": "packages.node-gyp",
@@ -12190,7 +12200,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.iwl6000g2a-firmware": {
         "name": "packages.iwl6000g2a-firmware",
@@ -12199,7 +12209,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.perl-MIME-Types": {
         "name": "packages.perl-MIME-Types",
@@ -12568,7 +12578,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.nss-tools": {
         "name": "packages.nss-tools",
@@ -12577,7 +12587,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.iproute": {
         "name": "packages.iproute",
@@ -12640,7 +12650,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.device-mapper-event": {
         "name": "packages.device-mapper-event",
@@ -12721,7 +12731,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.autoconf": {
         "name": "packages.autoconf",
@@ -12748,7 +12758,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.system-config-firewall-base": {
         "name": "packages.system-config-firewall-base",
@@ -12865,7 +12875,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.mesa-libGLU": {
         "name": "packages.mesa-libGLU",
@@ -12982,7 +12992,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.perl-core": {
         "name": "packages.perl-core",
@@ -13045,7 +13055,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.expat-devel": {
         "name": "packages.expat-devel",
@@ -13180,7 +13190,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libhugetlbfs": {
         "name": "packages.libhugetlbfs",
@@ -13396,7 +13406,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.nss-softokn": {
         "name": "packages.nss-softokn",
@@ -13738,7 +13748,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libtirpc": {
         "name": "packages.libtirpc",
@@ -14080,7 +14090,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.systemtap-devel": {
         "name": "packages.systemtap-devel",
@@ -14242,7 +14252,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libselinux-devel": {
         "name": "packages.libselinux-devel",
@@ -14656,7 +14666,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.gnutls": {
         "name": "packages.gnutls",
@@ -14683,7 +14693,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.openjpeg-libs": {
         "name": "packages.openjpeg-libs",
@@ -14926,7 +14936,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libidn": {
         "name": "packages.libidn",
@@ -14953,7 +14963,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.xz-libs": {
         "name": "packages.xz-libs",
@@ -15061,7 +15071,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.setserial": {
         "name": "packages.setserial",
@@ -15097,7 +15107,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.rfkill": {
         "name": "packages.rfkill",
@@ -15142,7 +15152,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.php-phpunit-PHP-Timer": {
         "name": "packages.php-phpunit-PHP-Timer",
@@ -15205,7 +15215,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.php-symfony-yaml": {
         "name": "packages.php-symfony-yaml",
@@ -15232,7 +15242,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.readline-devel": {
         "name": "packages.readline-devel",
@@ -15277,7 +15287,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.pax": {
         "name": "packages.pax",
@@ -15385,7 +15395,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.xz": {
         "name": "packages.xz",
@@ -15412,7 +15422,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.cloog-ppl": {
         "name": "packages.cloog-ppl",
@@ -15448,7 +15458,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libgcj": {
         "name": "packages.libgcj",
@@ -15970,7 +15980,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.dash": {
         "name": "packages.dash",
@@ -16060,7 +16070,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.nodejs-assert-plus": {
         "name": "packages.nodejs-assert-plus",
@@ -16519,7 +16529,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.sssd-ipa": {
         "name": "packages.sssd-ipa",
@@ -16573,7 +16583,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.rsyslog": {
         "name": "packages.rsyslog",
@@ -16744,7 +16754,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libwebp": {
         "name": "packages.libwebp",
@@ -16816,7 +16826,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.gdb": {
         "name": "packages.gdb",
@@ -16960,7 +16970,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.perl-Params-Validate": {
         "name": "packages.perl-Params-Validate",
@@ -17338,7 +17348,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.iptables": {
         "name": "packages.iptables",
@@ -17383,7 +17393,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.dracut": {
         "name": "packages.dracut",
@@ -17518,7 +17528,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.shared-mime-info": {
         "name": "packages.shared-mime-info",
@@ -17599,7 +17609,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.genisoimage": {
         "name": "packages.genisoimage",
@@ -17626,7 +17636,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libreport-plugin-kerneloops": {
         "name": "packages.libreport-plugin-kerneloops",
@@ -17662,7 +17672,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libtar": {
         "name": "packages.libtar",
@@ -17833,7 +17843,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.nodejs-boom": {
         "name": "packages.nodejs-boom",
@@ -18121,7 +18131,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.setuptool": {
         "name": "packages.setuptool",
@@ -18139,7 +18149,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.pciutils": {
         "name": "packages.pciutils",
@@ -18157,7 +18167,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.poppler-data": {
         "name": "packages.poppler-data",
@@ -18589,7 +18599,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.pcsc-lite-libs": {
         "name": "packages.pcsc-lite-libs",
@@ -18643,7 +18653,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.openldap-devel": {
         "name": "packages.openldap-devel",
@@ -18652,7 +18662,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.php-phpunit-PHP-TokenStream": {
         "name": "packages.php-phpunit-PHP-TokenStream",
@@ -18670,7 +18680,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.lcms-libs": {
         "name": "packages.lcms-libs",
@@ -18769,7 +18779,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.OpenEXR-libs": {
         "name": "packages.OpenEXR-libs",
@@ -18814,7 +18824,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libreport-plugin-mailx": {
         "name": "packages.libreport-plugin-mailx",
@@ -18841,7 +18851,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.libusb": {
         "name": "packages.libusb",
@@ -18958,7 +18968,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.parted": {
         "name": "packages.parted",
@@ -19039,7 +19049,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.nss_compat_ossl": {
         "name": "packages.nss_compat_ossl",
@@ -19165,7 +19175,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.environment-modules": {
         "name": "packages.environment-modules",
@@ -19291,7 +19301,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.nodejs-forever-agent": {
         "name": "packages.nodejs-forever-agent",
@@ -19444,7 +19454,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.dejavu-sans-mono-fonts": {
         "name": "packages.dejavu-sans-mono-fonts",
@@ -20002,7 +20012,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.fossology-monk": {
         "name": "packages.fossology-monk",
@@ -20074,7 +20084,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.acl": {
         "name": "packages.acl",
@@ -20164,7 +20174,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.rcs": {
         "name": "packages.rcs",
@@ -20380,7 +20390,7 @@
         "compare_server": "cent7",
         "status": "OK",
         "verify": null,
-        "comparision": "MATCH"
+        "comparision": "UNMATCH"
     },
     "packages.php54-runtime": {
         "name": "packages.php54-runtime",
@@ -20535,6 +20545,15 @@
         "verify": null,
         "comparision": "UNMATCH"
     },
+    "packages.requirements": {
+        "name": "packages.requirements",
+        "value": "[alchemist, busybox-anaconda, dmidecode, net-snmp-libs, net-snmp-utils, strace, sysstat, system-config-netboot, system-config-netboot-cmd, tftp-server, xinetd]",
+        "error_msg": null,
+        "compare_server": "cent7",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
     "mount_iso": {
         "name": "mount_iso",
         "value": "no mount",
@@ -20579,6 +20598,15 @@
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
+    },
+    "runlevel.console": {
+        "name": "runlevel.console",
+        "value": "CUI",
+        "error_msg": null,
+        "compare_server": "cent7",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
     },
     "resolve_conf": {
         "name": "resolve_conf",
