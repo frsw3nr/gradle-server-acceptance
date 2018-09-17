@@ -103,5 +103,35 @@ pip install .
 Redmien セットアップ
 ===========================
 
+サブプロジェクトによるJenkinsジョブ管理手順整理
+----------------------------------------------------
+
+プロジェクト名
+
+server_shipping サーバ出荷時の変更管理プロセス
+ip_address_clensing IPアドレス棚卸しプロセス
+zabbix_inventory_update Zabbix監視設定インベントリ登録
+middleware_inventory_update ミドルウェアインベントリ登録
+
+GItBucket で空のプロジェクト作成、グループは getconfig 下
+
+[psadmin@paas rep_network_hosts]$ 
+ls
+Changes.txt  DataCleansing  Jenkinsfile  README.md
+
+mkdir server_shipping
+cd server_shipping
+
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin http://gitbucket/git/getconfig/server_shipping.git
+git push -u origin master
+
+git submodule add http://gitbucket/git/getconfig/test2.git test2
+
+プロジェクトホーム下の
+Jenkins ファイルを編集
 
  
