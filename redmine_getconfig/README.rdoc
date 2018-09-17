@@ -33,9 +33,9 @@ Redmine データベースを作成していない場合は、以下で新規作
 
 ```
 mysql -u root -p
-drop database redmine2 ;
-create database redmine2 default character set utf8;
-grant all privileges on redmine2.* to redmine2@"%" identified by 'P@ssw0rd' with grant option;
+drop database redmine ;
+create database redmine default character set utf8;
+grant all privileges on redmine.* to redmine@"%" identified by 'P@ssw0rd' with grant option;
 flush privileges;
 exit
 ```
@@ -46,9 +46,9 @@ Redmine データベースの接続設定。接続先を編集する。
 vi ~/redmine/config/database.yml
 production:
   adapter: mysql2
-  database: redmine2
+  database: redmine
   host: localhost
-  username: redmine2
+  username: redmine
   password: "P@ssw0rd"
   encoding: utf8
 ```
@@ -70,7 +70,7 @@ bundle exec bin/rake redmine:plugins:migrate RAILS_ENV=production
 プラグイン用 MySQL テーブルのコードを utf8mb4 に変更。
 
 ```
-mysql -u root -p redmine2
+mysql -u root -p redmine
 
 alter table sites default character set utf8mb4;
 alter table device_results default character set utf8mb4;
@@ -85,14 +85,14 @@ alter table site_nodes default character set utf8mb4;
 リモート接続権限を付与
 
 ```
-GRANT ALL PRIVILEGES ON redmine2.* TO redmine2@"%" IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON redmine.* TO redmine@"%" IDENTIFIED BY 'P@ssw0rd' WITH GRANT OPTION;
 exit
 ```
 
 接続確認
 
 ```
-mysql -u redmine2 -p redmine2 -h redmine
+mysql -u redmine -p redmine -h redmine
 ```
 
 Apache を再起動して、Redmineを再起動する。

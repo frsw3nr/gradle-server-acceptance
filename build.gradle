@@ -115,6 +115,7 @@ task zipApp(type: Zip, dependsOn: shadowJar) {
     [
         'lib',
         'template',
+        'cleansing',
         'build/libs',
         'src/test/resources/log'
     ].each { path ->

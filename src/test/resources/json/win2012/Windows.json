@@ -26,6 +26,15 @@
         "verify": "OK",
         "comparision": null
     },
+    "cpu_socket": {
+        "name": "cpu_socket",
+        "value": "1",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "cpu": {
         "name": "cpu",
         "value": null,
@@ -37,7 +46,7 @@
     },
     "virtual_memory": {
         "name": "virtual_memory",
-        "value": "4914744",
+        "value": "4.687065124511719",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -46,16 +55,16 @@
     },
     "visible_memory": {
         "name": "visible_memory",
-        "value": "4193848",
-        "error_msg": null,
+        "value": "3.9995651245117188",
+        "error_msg": "3.9995651245117188 != 4000000.0(error range=0.1)",
         "compare_server": null,
         "status": "OK",
-        "verify": "OK",
+        "verify": "NG",
         "comparision": null
     },
     "free_memory": {
         "name": "free_memory",
-        "value": "2700588",
+        "value": "2.575481414794922",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -64,7 +73,7 @@
     },
     "free_virtual": {
         "name": "free_virtual",
-        "value": "3382580",
+        "value": "3.225879669189453",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -73,7 +82,7 @@
     },
     "free_space": {
         "name": "free_space",
-        "value": "664856",
+        "value": "0.6340560913085938",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -86,7 +95,7 @@
         "error_msg": null,
         "compare_server": null,
         "status": null,
-        "verify": "OK",
+        "verify": "NG",
         "comparision": null
     },
     "Domain": {
