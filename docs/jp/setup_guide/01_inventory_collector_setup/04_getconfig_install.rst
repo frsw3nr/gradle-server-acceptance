@@ -40,20 +40,6 @@ PowerShell コンソールから、 getconfig -h コマンドを実行して、
 ::
 
    getconfig -h
+   Getconfig Inventory collector v0.1.29
    usage: getconfig -c ./config/config.groovy
-    -c,--config <config.groovy>             Config file path
-    -d,--dry-run                            Enable Dry run test
-       --decode <config.groovy-encrypted>   Decode config file
-       --encode <config.groovy>             Encode config file
-       --excel <check_sheet.xlsx>           Excel sheet path
-    -g,--generate </work/project>           Generate project directory
-    -h,--help                               Print usage
-    -i,--input <test_servers.groovy>        Target server config script
-    -k,--keyword <password>                 Config file password
-       --parallel <arg>                     Degree of test runner processes
-    -r,--resource <arg>                     Dry run test resource directory
-    -s,--server <svr1,svr2,...>             Filtering list of servers
-    -t,--test <vm,cpu,...>                  Filtering list of test_ids
-    -u,--update <local|db|db-all>           Update node config
-       --verify                             Disable verify test
-    -x,--xport </work/project.zip>          Export project zip file
+   <中略>
