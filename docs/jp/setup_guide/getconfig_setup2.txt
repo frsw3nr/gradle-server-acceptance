@@ -1,8 +1,13 @@
 
 Jenkins
 
-192.168.0.26
-P@ssword
+192.168.0.14
+P@ssw0rd
+
+ora11
+
+192.168.0.11
+psadmin
 
 検査PCのセットアップ
 

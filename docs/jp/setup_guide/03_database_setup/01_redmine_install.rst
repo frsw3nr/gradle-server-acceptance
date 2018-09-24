@@ -22,15 +22,78 @@ Redmine を構成管理データベースとしてカスタマイズします。
 * SELinuxは無効化されていること
 * イントラネット環境の場合、プロキシーの設定がされていること
 
+.. note:: SELinux の無効化
+
+   インストールするソフトウェアの設定は SELinux が機能しない設定となっているため、
+   SELinux を無効にしてください。 root で以下を実行してください。
+
+   getenforce コマンドで SELinux の動作状況を調べます。
+
+   ::
+
+       getenforce
+
+   Enforcing と出力された場合は、SELinux が有効となっています。
+   以下のコマンドで SELinux を無効化します。
+
+   ::
+
+       setenforce 0 
+
+   /etc/selinux/config を編集し、再起動時の SELinux 状態を無効にします。
+
+   ::
+
+       vi /etc/selinux/config
+
+   SELINUX の値を disabled に変更して保存します。
+
+   ::
+
+       SELINUX=disabled
+
+.. note:: Firewall の許可設定
+
+   Firewall の設定がされている場合は、これらポートのアクセス許可設定をします。
+   設定は iptables の設定ファイルを編集して行いますが、ここでは簡略化のため、
+   iptables 自体を停止して全ポートのアクセス許可設定をします。
+
+   ::
+
+       /etc/rc.d/init.d/iptables stop 
+       chkconfig iptables off 
+       chkconfig ip6tables off 
+
 yumパッケージインストール
 -------------------------
+
+visudo 権限のある管理者ユーザでサーバにログインし、以下のコマンドでパッケージを
+インストールします。
 
 ::
 
    sudo -E yum -y install gcc gcc-c++
    sudo -E yum -y install httpd httpd-devel
-   sudo -E yum -y install mysql-server mysql-devel
    sudo -E yum -y install openssl-devel readline-devel zlib-devel curl-devel
+
+MySQL 5.5 インストール用に remi リポジトリをインストールします。
+
+::
+
+   sudo -E rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+MySQL をインストールします。
+
+::
+
+   sudo -E yum -y install mysql-server mysql-devel --enablerepo=remi
+
+MySQL を起動し、自動起動設定をします。
+
+::
+
+   sudo /etc/init.d/mysqld start
+   sudo chkconfig mysqld on
 
 EPELリポジトリ追加
 
@@ -135,12 +198,6 @@ my.cnfにutf8の設定を追加
    sudo vi /etc/my.cnf
 
 [mysqld]の下に以下を追加します。
-
-::
-
-   character-set-server=utf8
-
-[mysql]の箇所に追加
 
 ::
 
@@ -306,7 +363,7 @@ passenger用http設定ファイルを編集します。
 
    sudo vi /etc/httpd/conf/httpd.conf
 
-Listen パラメータの行を追加します。 
+Listen パラメータの行を編集します。 
 
 ::
 
@@ -325,9 +382,14 @@ httpdサービスを再起動します。
    sudo service httpd configtest
    sudo service httpd restart
 
-WebブラウザからRedmineに接続して動作確認します。
+WebブラウザからRedmineに接続して接続確認します。
 
 ::
 
-   http://{サーバ}/redmine/
+   http://{サーバ}:8080/redmine/
+
+admin/admin でログインします。
+パスワード変更画面で、新しいパスワードの入力をして保存します。
+個人設定画面で、言語を「Japanese」、タイムゾーンを「(GMT+09:00) Tokyo」を選択して、
+保存します。
 
