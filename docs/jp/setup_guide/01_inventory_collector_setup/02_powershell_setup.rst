@@ -56,3 +56,21 @@ PowerShell でリモートアクセスをできるようにします。
 ::
 
    Set-Item wsman:\localhost\Client\TrustedHosts -Value * -Force
+
+WinRM リモート管理設定
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. note::
+
+   自ホストのインベントリ収集をする場合は以下の WinRM 設定コマンドを実行します。
+
+::
+
+   winrm quickconfig
+
+変更しますかに対し、yを入力してください。
+本設定は以下のPowerShell リモート接続をするための設定を行います。
+
+* WinRM用のservice起動設定
+* WinRM用のLisner作成
+* WinRM用のファイヤーウォールの設定
