@@ -30,7 +30,7 @@ class InventoryCollector(object):
             return
 
         # Extract project from '.../{project}/build'
-        match_dir = re.search(r'([^/]+?)/build$', inventory_dir)
+        match_dir = re.search(r'([^/]+?)[/|\\]build$', inventory_dir)
         if not match_dir:
             return
         project = match_dir.group(1)

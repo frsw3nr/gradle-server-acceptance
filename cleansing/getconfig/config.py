@@ -6,7 +6,8 @@
 ディレクトリ関連
     GETCONFIG_HOME  本体ホーム
     PROJECT_HOME    プロジェクトホーム
-    INVENTORY_DIR   入力ディレクトリ
+    INVENTORY_DIR   インベントリディレクトリ
+    MASTER_DIR      台帳ディレクトリ
     RESULT_DIR      出力ディレクトリ
 
 [Redmine]
@@ -53,9 +54,15 @@ class Config():
             config.read_file(f)
         self.config = config
         self.getconfig_home   = os.environ.get('GETCONFIG_HOME') or \
-            self.get_with_default('Getconfig', 'GETCONFIG_HOME', '/opt/server-acceptance')
+                                self.get_with_default('Getconfig', 'GETCONFIG_HOME', \
+                                    '/opt/server-acceptance')
         self.project_home     = os.getcwd()
-        self.inventory_dir    = os.path.join(self.project_home, 'build/inventory')
+        self.inventory_dir    = os.environ.get('GETCONFIG_INVENTORY_DIR') or \
+                                self.get_with_default('Getconfig', 'INVENTORY_DIR', \
+                                    os.path.join(self.project_home, 'data/import'))
+        self.master_dir       = os.environ.get('GETCONFIG_MASTER_DIR') or \
+                                self.get_with_default('Getconfig', 'MSTER_DIR', \
+                                    os.path.join(self.project_home, 'data/master'))
         self.result_dir       = os.path.join(self.project_home, 'build/result')
         self.redmine_api_key  = os.environ.get('REDMINE_API_KEY') or \
             self.get_with_default('Redmine', 'API_KEY', None)

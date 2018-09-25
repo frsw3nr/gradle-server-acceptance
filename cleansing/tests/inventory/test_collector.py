@@ -5,7 +5,7 @@ import pytest
 import numpy as np
 import pandas as pd
 from pprint import pprint
-from getconfig.cli import cli
+# from getconfig.cli import cli
 from getconfig.config import Config
 from getconfig.inventory.collector import InventoryCollector
 from getconfig.inventory.table import InventoryTableSet
