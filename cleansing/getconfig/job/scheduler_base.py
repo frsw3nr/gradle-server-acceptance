@@ -34,6 +34,17 @@ class SchedulerBase(metaclass=ABCMeta):
     module_name = '変換処理'
     """ジョブモジュール名"""
 
+    def set_envoronment(self, env):
+        """
+        環境変数の初期化。以下のコードで初期化する
+
+            Config().accept(scheduler)
+
+        :param Config env: パラメータ管理オブジェクト
+        """
+        self.inventory_dir = env.get_inventory_dir()
+        self.master_dir    = env.get_master_dir()
+
     def parser(self):
         """
         コマンド実行オプションの解析
@@ -86,7 +97,7 @@ class SchedulerBase(metaclass=ABCMeta):
         collector = InventoryCollector()
         inventorys = list()
         for inventory_name in inventory_names:
-            inventory_path = os.path.join('data/import', inventory_name)
+            inventory_path = os.path.join(self.inventory_dir, inventory_name)
             inventorys.extend(collector.scan_inventorys(inventory_path))
         # inventorys = collector.scan_inventorys('data/import/project1')
         # inventorys.extend(collector.scan_inventorys('data/import/net1'))

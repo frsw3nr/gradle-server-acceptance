@@ -78,11 +78,11 @@ def test_load_multiple_inventory3():
     assert len(inventory_tables.get('host_list')) == 3# n_host_list # 3
     assert len(inventory_tables.get('port_list')) == 6# n_port_list # 5
 
-def test_export_inventory1():
-    Config().set_result_dir('/tmp')
-    collector = InventoryCollector()
-    Config().accept(collector)
-    collector.export('data/import/')
+# def test_export_inventory1():
+#     Config().set_result_dir('/tmp')
+#     collector = InventoryCollector()
+#     Config().accept(collector)
+#     collector.export('data/import/')
 
 def test_export_inventory2():
     collector = InventoryCollector()

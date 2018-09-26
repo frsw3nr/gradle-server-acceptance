@@ -104,8 +104,12 @@ class Config():
         self.project_home = project_home
 
     def set_inventory_dir(self, inventory_dir):
-        # 入力ディレクトリ(カレントディレクトリ/build/inventory)
+        # 入力用インベントリディレクトリ(カレントディレクトリ/build/inventory)
         self.inventory_dir = inventory_dir
+
+    def set_master_dir(self, master_dir):
+        # 入力用台帳ディレクトリ(カレントディレクトリ/build/inventory)
+        self.master_dir = master_dir
 
     def set_result_dir(self, result_dir):
         # 出力ディレクトリ(カレントディレクトリ/build/result)
@@ -137,8 +141,12 @@ class Config():
         return self.project_home
 
     def get_inventory_dir(self):
-        # 入力ディレクトリ(カレントディレクトリ/build/inventory)
+        # 入力用インベントリディレクトリ(カレントディレクトリ/build/inventory)
         return self.inventory_dir
+
+    def get_master_dir(self):
+        # 入力用マスターディレクトリ(カレントディレクトリ/build/inventory)
+        return self.master_dir
 
     def get_result_dir(self):
         # 出力ディレクトリ(カレントディレクトリ/build/result)
