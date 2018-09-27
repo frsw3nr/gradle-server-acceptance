@@ -79,7 +79,9 @@ class InventoryLoaderV1(object):
         df2.rename(columns={'lsb': 'OS名', 'uname': 'アーキテクチャ', 
                             'cpu_total':'CPU数', 'meminfo':'MEM容量'},
                    inplace=True)
-        df2['MEM容量'] = 1.0 * df2['MEM容量'] / (1024 * 1024)
+        print(df2)
+        if pd.Series(['MEM容量']).isin(df2.columns).all():
+            df2['MEM容量'] = 1.0 * df2['MEM容量'] / (1024 * 1024)
         # ディスク構成の読み込み
         df = db.df_devices['Linux_filesystem']
         df3 = df[df['mountpoint']!='NaN']
@@ -93,7 +95,8 @@ class InventoryLoaderV1(object):
         df3 = df[df['ip']!='NaN']
         df3['net'] = df3['device'] + ':' + df3['ip']
         df3 = df3.pivot(index='node_name', columns='device', values='net')
-        df3 = df3.apply(','.join, axis=1)
+        print(df3)
+        df3 = df3.apply(lambda x: ','.join(filter(None, x)), axis=1)
         df2['ネットワーク構成'] = '[' + df3.astype(object) + ']'
         df2['domain'] = 'Linux'
 
@@ -116,7 +119,8 @@ class InventoryLoaderV1(object):
         df2.rename(columns={'os_caption': 'OS名', 'os_architecture': 'アーキテクチャ', 
                             'cpu_total':'CPU数', 'memory':'MEM容量'},
                    inplace=True)
-        df2['MEM容量'] = 1.0 * df2['MEM容量'] / (1024 * 1024)
+        if pd.Series(['MEM容量']).isin(df2.columns).all():
+            df2['MEM容量'] = 1.0 * df2['MEM容量'] / (1024 * 1024)
 
         # ディスク構成の読み込み
         df = db.df_devices['Windows_filesystem']

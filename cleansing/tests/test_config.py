@@ -22,6 +22,7 @@ def test_config1():
     print(Config().get_getconfig_home())
     print(Config().get_project_home())
     print(Config().get_inventory_dir())
+    print(Config().get_master_dir())
 
     assert Config().get_getconfig_home() == '/opt/server-acceptance'
 

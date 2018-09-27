@@ -5,7 +5,7 @@ import pytest
 import numpy as np
 import pandas as pd
 from pprint import pprint
-from getconfig.cli import cli
+# from getconfig.cli import cli
 from getconfig.config import Config
 from getconfig.inventory.collector import InventoryCollector
 from getconfig.inventory.table import InventoryTableSet
@@ -78,11 +78,11 @@ def test_load_multiple_inventory3():
     assert len(inventory_tables.get('host_list')) == 3# n_host_list # 3
     assert len(inventory_tables.get('port_list')) == 6# n_port_list # 5
 
-def test_export_inventory1():
-    Config().set_result_dir('/tmp')
-    collector = InventoryCollector()
-    Config().accept(collector)
-    collector.export('data/import/')
+# def test_export_inventory1():
+#     Config().set_result_dir('/tmp')
+#     collector = InventoryCollector()
+#     Config().accept(collector)
+#     collector.export('data/import/')
 
 def test_export_inventory2():
     collector = InventoryCollector()
