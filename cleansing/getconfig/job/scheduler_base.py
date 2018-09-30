@@ -97,7 +97,9 @@ class SchedulerBase(metaclass=ABCMeta):
         collector = InventoryCollector()
         inventorys = list()
         for inventory_name in inventory_names:
-            inventory_path = os.path.join(self.inventory_dir, inventory_name)
+            inventory_path = inventory_name
+            if not os.path.isdir(inventory_name):
+                inventory_path = os.path.join(self.inventory_dir, inventory_name)
             inventorys.extend(collector.scan_inventorys(inventory_path))
         # inventorys = collector.scan_inventorys('data/import/project1')
         # inventorys.extend(collector.scan_inventorys('data/import/net1'))
@@ -192,10 +194,13 @@ class SchedulerBase(metaclass=ABCMeta):
         self.transfer()
         self.classify()
         Stat().show()
-        if not args.skip_regist:
+        if args.skip_regist:
+            return
+        try:
             redmine_stat = RedmineStatistics()
             redmine_stat.reset()
             self.regist(default_site = args.default_site)
             redmine_stat.show()
-
+        except:
+              print("Database registration error")
 

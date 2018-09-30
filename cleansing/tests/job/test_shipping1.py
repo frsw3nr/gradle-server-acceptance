@@ -4,11 +4,11 @@ import os
 import pytest
 import pandas as pd
 from click.testing import CliRunner
+from getconfig.stat import Stat
 from getconfig.config import Config
-from getconfig.job.scheduler_base import SchedulerBase
 from getconfig.job.template.scheduler_shipping1 import Scheduler
 
-# py.test tests/job/test_scheduler.py -v --capture=no -k test_scheduler1
+# py.test tests/job/test_shipping1.py -v --capture=no -k test_scheduler1
 
 # 以下の順に設定パラメータをセットする。後から上書きする
 
@@ -26,7 +26,7 @@ def config():
     return config
 
 def test_scheduler_init1(config):
-    scheduler = SchedulerBase()
+    scheduler = Scheduler()
     scheduler.clear_work_directory()
     config.accept(scheduler)
 
@@ -35,7 +35,7 @@ def test_scheduler_init1(config):
     assert scheduler.master_dir == 'data/master'
 
 def test_extract_inventory_data1(config):
-    scheduler = SchedulerBase()
+    scheduler = Scheduler()
     scheduler.clear_work_directory()
     config.accept(scheduler)
     scheduler.extract_inventory_data(['project1'])
@@ -45,10 +45,14 @@ def test_extract_inventory_data1(config):
     assert len(hosts) > 0
     assert len(ports) > 0
 
-def test_scheduler3():
-    collector = InventoryCollector()
-    Config().accept(collector)
-    print(collector.dry_run)
+def test_scheduler1(config):
+    Stat().create_report_id()
+    scheduler = Scheduler()
+    scheduler.clear_work_directory()
+    config.accept(scheduler)
+    scheduler.extract_inventory_data(['project1'])
 
-    assert collector.dry_run == False
+    scheduler.transfer()
+    scheduler.classify()
+    Stat().show()
     

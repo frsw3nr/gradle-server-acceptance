@@ -7,10 +7,10 @@ Python セットアップ
 構成概要
 --------
 
-* Chocolatey で miniconda3 Python をインストール
-* 環境の依存度が強い mysqlclient ライブラリは conda install コマンドでインストール
-* 前節でインストールした c:\\server-acceptance\\cleansing 下の requirements.txt
-  のパッケージリストをインストール
+* Chocolatey で miniconda3 をインストール
+* conda install コマンドで mysqlclient ライブラリパッケージをインストール
+* pip コマンドで 前節で配布した c:\\server-acceptance\\cleansing 下の
+  requirements.txt リストのライブラリパッケージをインストール
 
 Pyhton セットアップ
 -------------------
@@ -49,7 +49,7 @@ mysqlclient をインストールします。
 Pythonライブラリのインストール
 ------------------------------
 
-PowerShell コンソールを開きます。
+PowerShell コンソールに戻ります。
 Pathを通すために、環境変数を更新します。
 
 ::

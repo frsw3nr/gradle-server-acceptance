@@ -57,16 +57,19 @@ class Scheduler(SchedulerBase):
         """
 
         # 各種インベントリデータの読込み。存在しない場合はemptyを取得する。
-        hosts = self.read_inventory_dat('host_list.csv', '1.インベントリ機器総数')
-        ports = self.read_inventory_dat('port_list.csv', '2.インベントリ抽出IP数')
+        hosts = self.read_inventory_dat('host_list.csv', 
+                                        '1.インベントリ機器総数')
+        ports = self.read_inventory_dat('port_list.csv', 
+                                        '2.インベントリ抽出IP数')
         arp_tables = self.read_inventory_dat('arp_list.csv',
-                                   '3.インベントリARPテーブル抽出IP数')
+                                        '3.インベントリARPリストIP数')
 
-        # 案件情報、出荷台帳、ネットワーク台帳の読込み
-        job_list   = MasterDataJobList().load_all()      # サーバ案件管理台帳
-        ship_list  = MasterDataShipList().load_all()     # サーバ出荷台帳
-        soft_list  = MasterDataSoftwareList().load_all() # ソフトウェア管理台帳
-        net_list   = MasterDataNetworkList().load_all()  # ネットワーク管理台帳
+        # 案件情報、出荷台帳、ソフトウェア台帳、ネットワーク台帳の読込み
+        job_list   = MasterDataJobList().load_all()
+        ship_list  = MasterDataShipList().load_all()
+        soft_list  = MasterDataSoftwareList().load_all()
+        net_list   = MasterDataNetworkList().load_all()
+
         # arp_tables = MasterDataPortList().load_all()   # ポートリスト
         # mac_vendor = MasterDataMacVendor().load_all()  # MACアドレスベンダリスト
 

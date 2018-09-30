@@ -64,13 +64,19 @@ class RedmineRepository():
     def set_project_ids(self):
         """Redmine プロジェクトを検索し、プロジェクト名をキーにした配列 project_ids に格納する"""
 
+        _logger = logging.getLogger(__name__)
         self.project_ids = dict()
-        projects = self.redmine.project.all()
-        for project in projects:
-            # "場所不明"のプロジェクトが登録できない問題あり
-            # セットするキーをプロジェクト表示名から、 project.identifier に変更
-            identifier = project.identifier
-            self.project_ids[project.name] = identifier
+        try:
+            projects = self.redmine.project.all()
+            for project in projects:
+                # "場所不明"のプロジェクトが登録できない問題あり
+                # セットするキーをプロジェクト表示名から、 project.identifier に変更
+                identifier = project.identifier
+                self.project_ids[project.name] = identifier
+        except Exception as e:
+            _logger.error('Connection error')
+            _logger.error(e)
+            raise ValueError("Redmine Connect error")
 
     def set_tracker_fields(self):
         """Redmine トラッカー、カスタムフィールドを検索し、配列に格納する"""
