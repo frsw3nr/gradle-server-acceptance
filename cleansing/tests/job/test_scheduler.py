@@ -8,7 +8,7 @@ from getconfig.inventory.collector import InventoryCollector
 from getconfig.job.scheduler_base import SchedulerBase
 from getconfig.job.template.scheduler_shipping1 import Scheduler
 
-# py.test tests/job/test_scheduler.py -v --capture=no -k test_scheduler1
+# py.test tests/job/test_scheduler.py -v --capture=no -k test_scheduler3
 
 # 以下の順に設定パラメータをセットする。後から上書きする
 

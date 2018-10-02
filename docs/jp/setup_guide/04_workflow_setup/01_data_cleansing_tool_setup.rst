@@ -1,13 +1,13 @@
 Python セットアップ
 ===================
 
-インベントリ収集PCにて、構成管理データベースへのデータ登録用Pythonスクリプトを
-実行出来るよう、Python 環境をセットアップします。
+構成管理データベースへのデータ登録用Pythonスクリプトを実行出来るように、
+Python 環境をセットアップします。
 
 構成概要
 --------
 
-* Chocolatey で miniconda3 をインストール
+* Chocolatey で miniconda3 (Anaconda製 Python 3)をインストール
 * conda install コマンドで mysqlclient ライブラリパッケージをインストール
 * pip コマンドで 前節で配布した c:\\server-acceptance\\cleansing 下の
   requirements.txt リストのライブラリパッケージをインストール
@@ -26,25 +26,13 @@ PowerShell コンソールを開いて、Chocolatey で Python をインスト�
    MySQL用Pythonライブラリ mysqlclient のインストールは C++ コンパイラなど
    環境に依存する場合が多いため、Anaconda Inc. の conda パッケージを使用します。
 
-Path 環境変数に、C:\tools\miniconda3 を追加します。
+Path 環境変数に、C:\tools\miniconda3 と、C:\tools\miniconda3\Scripts を追加します。
 
 * コントロールパネルを開きます。
 * 「システムとセキュリティ」、「システム」、「システムの詳細設定」、「環境変数」を選択します。
 * システムの環境変数のリストから、Path を選択して、「編集」をクリックします。
-   * 値の先頭に C:\tools\miniconda3; を追加して、パスを追加します。
+   * 値の先頭に C:\tools\miniconda3;C:\tools\miniconda3\Scripts; を追加して、パスを追加します。
 
-
-MySQLdb インストール
---------------------
-
-スタートメニューを選択して、Anaconda Prompt を起動します。
-mysqlclient をインストールします。
-
-::
-
-   conda install mysqlclient
-
-インストールがすんだら、「exit」で Anaconda Prompt を終了してください。
 
 Pythonライブラリのインストール
 ------------------------------
@@ -62,7 +50,13 @@ Python パスが正しく通っているかの確認で、python --version で�
 ::
 
    python --version
-   Python 3.6.5 :: Anaconda, Inc.
+   conda --version
+
+mysqlclient をインストールします。
+
+::
+
+   conda install mysqlclient
 
 前節でインストールした Getconfig ホームディレクトリ下の、 cleansing 
 ディレクトリに移動します。

@@ -29,7 +29,7 @@ from getconfig.master_data.master_data import MasterData
 class MasterDataJobList(MasterData):
     """マスターファイルを読み込み、データをキャッシュする"""
 
-    master_data_dir = 'master/job_list'
+    master_data_dir = 'job_list'
     """台帳ファイルディレクトリ"""
 
     header_row = 2
