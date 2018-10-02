@@ -52,6 +52,7 @@ root ユーザにスイッチ後、ダウンロードします。
 ::
    
    mkdir -p /var/lib/gitbucket
+   cd /var/lib/gitbucket
    wget https://raw.githubusercontent.com/gitbucket/gitbucket/master/contrib/gitbucket.init
 
 ダウンロードした起動スクリプトを編集します。
@@ -59,6 +60,12 @@ root ユーザにスイッチ後、ダウンロードします。
 ::
 
    vi gitbucket.init
+
+「set -e」の行をコメントアウトします。
+
+::
+
+   #set -e
 
 GITBUCKET_WAR_FILEの行の下に、「GITBUCKET_PORT=80」を追加します。
 
