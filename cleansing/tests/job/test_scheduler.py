@@ -3,8 +3,8 @@ import sys
 import os
 import pytest
 import pandas as pd
-from click.testing import CliRunner
 from getconfig.config import Config
+from getconfig.inventory.collector import InventoryCollector
 from getconfig.job.scheduler_base import SchedulerBase
 from getconfig.job.template.scheduler_shipping1 import Scheduler
 

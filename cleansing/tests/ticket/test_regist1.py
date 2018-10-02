@@ -12,7 +12,7 @@ from getconfig.merge_master import MergeMaster
 from getconfig.ticket.redmine_repository import RedmineRepository
 from getconfig.ticket.redmine_cache      import RedmineCache
 from getconfig.ticket.redmine_stat       import RedmineStatistics
-from getconfig.ticket.ticket_ia_server   import TicketIAServer
+from getconfig.ticket.template.ticket_ia_server import TicketIAServer
 
 # export REDMINE_API_KEY=作成したAPIキー
 # export REDMINE_URL=作成したRedmine環境のURL
@@ -64,48 +64,48 @@ def redmine_repository():
 
 #     assert 1 == 1
 
-def test_regist_server1(redmine_repository):
-    # マージテスト(test_merge.py)で生成した、host_list.csv を読込み、Redmine に登録する
-    if not redmine_repository:
-        return
+# def test_regist_server1(redmine_repository):
+#     # マージテスト(test_merge.py)で生成した、host_list.csv を読込み、Redmine に登録する
+#     if not redmine_repository:
+#         return
 
-    print (redmine_repository.get_tracker_id('IAサーバ'))
-    hosts = pd.read_csv('data/classify/host_list.csv')
-    # 「ホスト名」でグルーピングする
-    host_sets = hosts.groupby(by='ホスト名')
-    for hostname, host_set in host_sets.first().iterrows():
-        if hostname == 'ostrich':
-            print(dict(host_set))
-            TicketIAServer().regist('test1', 'ostrich', host_set)
-            break
-        # row = host_sets.get_group(hostname)
-    #     tracker = Util().analogize_tracker(str(row['ドメイン']))
-    #     print("サーバ登録 {},{}".format(hostname,tracker))
+#     print (redmine_repository.get_tracker_id('IAサーバ'))
+#     hosts = pd.read_csv('data/classify/host_list.csv')
+#     # 「ホスト名」でグルーピングする
+#     host_sets = hosts.groupby(by='ホスト名')
+#     for hostname, host_set in host_sets.first().iterrows():
+#         if hostname == 'ostrich':
+#             print(dict(host_set))
+#             TicketIAServer().regist('test1', 'ostrich', host_set)
+#             break
+#         # row = host_sets.get_group(hostname)
+#     #     tracker = Util().analogize_tracker(str(row['ドメイン']))
+#     #     print("サーバ登録 {},{}".format(hostname,tracker))
 
-    # row = host_sets.get_group('ostrich')
-    # print(row.head(1))
-    #  「インベントリ名」から種別を類推する
+#     # row = host_sets.get_group('ostrich')
+#     # print(row.head(1))
+#     #  「インベントリ名」から種別を類推する
 
-    # print(hosts)
-    # db = RedmineCache('networks', 'hostname', Types.text)
-    # row = dict(text1='text1', num1 = 1)
-    # db.regist('host1', row)
-    # row2 = [("test1", 'test2'), ("num1", 5)]
-    # db.regist('host2', dict(row2))
+#     # print(hosts)
+#     # db = RedmineCache('networks', 'hostname', Types.text)
+#     # row = dict(text1='text1', num1 = 1)
+#     # db.regist('host1', row)
+#     # row2 = [("test1", 'test2'), ("num1", 5)]
+#     # db.regist('host2', dict(row2))
     
-    # host1 = db.get('host1')
-    # host2 = db.get('host2')
+#     # host1 = db.get('host1')
+#     # host2 = db.get('host2')
 
-    # assert host1.get('text1') == 'text1'
-    # assert host1.get('num1')  == '1'
-    # assert host2.get('test1') == 'test2'
-    # assert host2.get('num1')  == '5'
-    assert 1 == 1
+#     # assert host1.get('text1') == 'text1'
+#     # assert host1.get('num1')  == '1'
+#     # assert host2.get('test1') == 'test2'
+#     # assert host2.get('num1')  == '5'
+#     assert 1 == 1
 
-def test_repos1():
-    db = RedmineRepository()
-    print (db.get_tracker_id('IAサーバ'))
-    print (db.get_tracker_fields('IAサーバ', 'OS名'))
-    # print (db.get_tracker_fields_by_id(1, 27))
-    # db.set_project_ids()
-    print(db.project_ids)
+# def test_repos1():
+#     db = RedmineRepository()
+#     print (db.get_tracker_id('IAサーバ'))
+#     print (db.get_tracker_fields('IAサーバ', 'OS名'))
+#     # print (db.get_tracker_fields_by_id(1, 27))
+#     # db.set_project_ids()
+#     print(db.project_ids)
