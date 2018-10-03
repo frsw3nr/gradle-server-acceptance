@@ -123,6 +123,15 @@ server_shipping ディレクトリに移動して、以下のコマンドで Git
       git config --global user.email "root@example.com"
       git config --global user.name "root"
 
+.. note::
+
+   Filename too longエラーの対処。以下コマンドを実行します。
+
+   ::
+
+      git config --system core.longpaths true
+
+
 以下のコマンドでGitリモートリポジトリにプッシュします。
 
 ::
@@ -141,49 +150,44 @@ Webブラウザから、Jenkins 管理画面を開きます。
 
    http://jenkins1:8080
 
-ユーザは admin、パスワードは前節で指定した値でログインします。
+ユーザは admin で、前節で指定したパスワードでログインします。
 
 画面左側のメニューから「Jenkinsの管理」を選択します。
 画面中央のメニューから「システム設定」を選択します。
-
 
 まず、GitBucket の URL を Jenkins に登録します。
 Jenkins には見かけ上、GitHub Enterprise のように振舞う（API が同じ）ので、
 GitHub Enterprise を登録するように設定してください。
 
 「GitHub」と「GitHub Enterprise Servers」の2箇所に登録します。
-
 API URL (API endpoint) に以下を入力します。
 
-* Name に getconfig を入力
-* URL に http://redmine1/api/v3/ を入力
+* 「GitHub」 設定セクションから「Add GitHub Server」をクリック
 
-Credentials はなしで構いません。
+   - 「Name」 に 構成管理DBのホスト名 を入力
+   - 「API URL」 に http://{構成管理DBのIP}/api/v3/ を入力
+   - 「Credentials」 はなしを選択
 
-Jenkinsの位置
+* 「GitHub Enterprise Servers」設定セクションから「追加」をクリック
 
-http://jenkins3:8080/
+   - 「API endpoint」に http://{構成管理DBのIP}/api/v3 を入力
+   - 「Name」に 構成管理DBのホスト名 を入力
 
 
-GitHubサーバ
-testgit003
-http://testgit003/api/v3/
+.. note::
 
-GitHub Enterprise Servers
+   Jenkins に プロキシーを除外する設定
 
-http://testgit003/api/v3
-Gitbucket on testgit003
+   プロキシーを設定している場合は、上記で設定したサーバIPをプロキシーから除外する設定をします。
 
-"This URL requires POST" jenkins エラーが出るが、無視する
+   画面左側のメニューから「Jenkinsの管理」を選択します。
+   画面中央のメニューから「プラグインの管理」を選択します。
 
-プラグインの高度な設定でプロキシーを設定。以下を除外設定
+   「高度な設定」タブでプロキシーを設定。以下を除外設定。
 
-testgit003
-jenkins3
+   testgit003
+   jenkins3
 
-Filename too longエラーの対処。GitBash で以下コマンドを実行する
-
-git config --system core.longpaths true
 
 新規ジョブ作成で名前を getconfig GitHub Organization を選んで OK
 

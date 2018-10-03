@@ -12,7 +12,7 @@ Python 環境をセットアップします。
 * pip コマンドで 前節で配布した c:\\server-acceptance\\cleansing 下の
   requirements.txt リストのライブラリパッケージをインストール
 
-Pyhton セットアップ
+Pyhton インストール
 -------------------
 
 PowerShell コンソールを開いて、Chocolatey で Python をインストールします。
