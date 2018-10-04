@@ -12,7 +12,7 @@ from getconfig.merge_master import MergeMaster
 from getconfig.ticket.redmine_repository import RedmineRepository
 from getconfig.ticket.redmine_cache      import RedmineCache
 from getconfig.ticket.redmine_stat       import RedmineStatistics
-from getconfig.ticket.ticket_ia_server   import TicketIAServer
+from getconfig.ticket.template.ticket_ia_server   import TicketIAServer
 
 # export REDMINE_API_KEY=作成したAPIキー
 # export REDMINE_URL=作成したRedmine環境のURL
@@ -64,20 +64,20 @@ def redmine_repository():
 
 #     assert 1 == 1
 
-def test_regist_server1(redmine_repository):
-    # マージテスト(test_merge.py)で生成した、host_list.csv を読込み、Redmine に登録する
-    if not redmine_repository:
-        return
+# def test_regist_server1(redmine_repository):
+#     # マージテスト(test_merge.py)で生成した、host_list.csv を読込み、Redmine に登録する
+#     if not redmine_repository:
+#         return
 
-    print (redmine_repository.get_tracker_id('IAサーバ'))
-    hosts = pd.read_csv('data/classify/host_list.csv')
-    # 「ホスト名」でグルーピングする
-    host_sets = hosts.groupby(by='ホスト名')
-    for hostname, host_set in host_sets.first().iterrows():
-        if hostname == 'ostrich':
-            print(dict(host_set))
-            TicketIAServer().regist('test1', 'ostrich', host_set)
-            break
+#     print (redmine_repository.get_tracker_id('IAサーバ'))
+#     hosts = pd.read_csv('data/classify/host_list.csv')
+#     # 「ホスト名」でグルーピングする
+#     host_sets = hosts.groupby(by='ホスト名')
+#     for hostname, host_set in host_sets.first().iterrows():
+#         if hostname == 'ostrich':
+#             print(dict(host_set))
+#             TicketIAServer().regist('test1', 'ostrich', host_set)
+#             break
         # row = host_sets.get_group(hostname)
     #     tracker = Util().analogize_tracker(str(row['ドメイン']))
     #     print("サーバ登録 {},{}".format(hostname,tracker))

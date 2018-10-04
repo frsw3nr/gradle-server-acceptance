@@ -207,40 +207,40 @@ class CMDBModelTest extends Specification {
     //     device_result[0]['value'] != null
     // }
 
-    def "ユニコード登録"() {
-        setup:
-        def db = Sql.newInstance(
-            'jdbc:mysql://localhost:3306/cmdb?useUnicode=true&characterEncoding=utf8',
-            'root',
-            'getperf',
-            'com.mysql.jdbc.Driver'
-        )
+    // def "ユニコード登録"() {
+    //     setup:
+    //     def db = Sql.newInstance(
+    //         'jdbc:mysql://localhost:3306/cmdb?useUnicode=true&characterEncoding=utf8',
+    //         'root',
+    //         'getperf',
+    //         'com.mysql.jdbc.Driver'
+    //     )
 
-        when:
-        // def metric_text = '''
-        // |    {
-        // |        "test_id": "os_architecture",
-        // |        "platform": "Windows",
-        // |        "value": "64 \u30d3\u30c3\u30c8"
-        // |    }
-        // '''.stripMargin()
-        def metric_text = new File('src/test/resources/metrics1.json').getText("UTF-8")
-        def metrics = new JsonSlurper().parseText(metric_text)
-        println metrics
+    //     when:
+    //     // def metric_text = '''
+    //     // |    {
+    //     // |        "test_id": "os_architecture",
+    //     // |        "platform": "Windows",
+    //     // |        "value": "64 \u30d3\u30c3\u30c8"
+    //     // |    }
+    //     // '''.stripMargin()
+    //     def metric_text = new File('src/test/resources/metrics1.json').getText("UTF-8")
+    //     def metrics = new JsonSlurper().parseText(metric_text)
+    //     println metrics
 
-        // mysql> select * from test_result where value like '64%';
-        // +---------+-----------+--------+--------+---------------------+
-        // | node_id | metric_id | value  | verify | created             |
-        // +---------+-----------+--------+--------+---------------------+
-        // |       2 |        94 | 64 ??? |   NULL | 2017-02-05 08:30:15 |
-        // +---------+-----------+--------+--------+---------------------+
-        db.execute('DROP TABLE IF EXISTS unicode_test')
-        db.execute('create table unicode_test(name VARCHAR(15)  CHARACTER SET utf8mb4 NOT NULL)')
-        db.execute('insert into unicode_test values(?)', metrics['value'])
-        def rows = db.rows("select * from unicode_test")
-        println rows
+    //     // mysql> select * from test_result where value like '64%';
+    //     // +---------+-----------+--------+--------+---------------------+
+    //     // | node_id | metric_id | value  | verify | created             |
+    //     // +---------+-----------+--------+--------+---------------------+
+    //     // |       2 |        94 | 64 ??? |   NULL | 2017-02-05 08:30:15 |
+    //     // +---------+-----------+--------+--------+---------------------+
+    //     db.execute('DROP TABLE IF EXISTS unicode_test')
+    //     db.execute('create table unicode_test(name VARCHAR(15)  CHARACTER SET utf8mb4 NOT NULL)')
+    //     db.execute('insert into unicode_test values(?)', metrics['value'])
+    //     def rows = db.rows("select * from unicode_test")
+    //     println rows
 
-        then:
-        1 == 1
-    }
+    //     then:
+    //     1 == 1
+    // }
 }

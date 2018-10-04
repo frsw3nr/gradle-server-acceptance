@@ -185,8 +185,8 @@ class SchedulerBase(metaclass=ABCMeta):
             datefmt='%Y/%m/%d %H:%M:%S',
         )
         logger = logging.getLogger(__name__)
-
         args = self.parser()
+        Config().accept(self)
 
         Stat().create_report_id()
         self.clear_work_directory()

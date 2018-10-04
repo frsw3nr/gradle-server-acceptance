@@ -12,15 +12,16 @@ from abc import ABCMeta, abstractmethod
 from getconfig.singleton import singleton
 from getconfig.stat import Stat
 from getconfig.util import Util
+from getconfig.config import Config
 import warnings
 warnings.filterwarnings("ignore", 'This pattern has match groups') # uncomment to suppress the UserWarning
 
 class MasterData(metaclass=ABCMeta):
-    # base_dir = 'data'
-    base_dir = 'data'
+    # master_dir = 'data'
+    master_dir = 'data/master'
     """台帳ファイルを読み込むベースディレクトリ"""
 
-    master_data_dir = 'master/shipping'
+    master_data_dir = 'shipping'
     """台帳ファイルディレクトリ"""
 
     header_row = 2
@@ -33,6 +34,20 @@ class MasterData(metaclass=ABCMeta):
     """台帳データのキャッシュ"""
 
     module_name = '台帳収集'
+
+    def set_envoronment(self, env):
+        """
+        環境変数の初期化。以下のコードで初期化する
+
+            Config().accept(scheduler)
+
+        :param Config env: パラメータ管理オブジェクト
+        """
+        self.inventory_dir = env.get_inventory_dir()
+        self.master_dir    = env.get_master_dir()
+
+    def __init__(self):
+        Config().accept(self)
 
     @abstractmethod
     def load_setup(self, df, **kwargs):
@@ -51,14 +66,17 @@ class MasterData(metaclass=ABCMeta):
         file = pd.ExcelFile(excel_file)
         for sheet_name in file.sheet_names:
             logger.info("'{}' のシート '{}' を読み込み".format(excel_file, sheet_name))
-            df = file.parse(sheet_name,header=self.header_row)
+            # df = file.parse(sheet_name,skiprows=3, header=self.header_row)
+            df = file.parse(sheet_name, header=self.header_row)
             # df = file.parse(header=None)
             if not df.empty:
                 df['シート'] = sheet_name
                 df = df.replace('-', np.NaN)
                 df = df.fillna(method='ffill')
+                logger.info("{} 行の読み込み".format(len(df)))
                 df = self.load_setup(df)
-                master_list = pd.concat([master_list, df])
+                if not df.empty:
+                    master_list = pd.concat([master_list, df])
         return master_list
 
     def load_csv(self, csv_file, csv_name):
@@ -78,7 +96,7 @@ class MasterData(metaclass=ABCMeta):
         logger = logging.getLogger(__name__)
         if self.master_cache is None:
             df = pd.DataFrame()
-            walk_dir = os.path.join(self.base_dir, self.master_data_dir)
+            walk_dir = os.path.join(self.master_dir, self.master_data_dir)
             # print("WALK_DIR:",walk_dir)
             for root, dirs, files in os.walk(walk_dir):
                 for file in files:
