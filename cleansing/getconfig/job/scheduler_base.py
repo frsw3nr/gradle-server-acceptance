@@ -186,7 +186,6 @@ class SchedulerBase(metaclass=ABCMeta):
         )
         logger = logging.getLogger(__name__)
         args = self.parser()
-        Config().accept(self)
 
         Config().accept(self)
         Stat().create_report_id()
@@ -202,6 +201,6 @@ class SchedulerBase(metaclass=ABCMeta):
             redmine_stat.reset()
             self.regist(default_site = args.default_site)
             redmine_stat.show()
-        except:
-              print("Database registration error")
+        except Exception as e:
+              print("Database registration error :{}".format(e.args))
 

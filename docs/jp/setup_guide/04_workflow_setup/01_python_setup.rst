@@ -24,15 +24,25 @@ PowerShell コンソールを開いて、Chocolatey で Python をインスト�
 .. note::
 
    MySQL用Pythonライブラリ mysqlclient のインストールは C++ コンパイラなど
-   環境に依存する場合が多いため、Anaconda Inc. の conda パッケージを使用します。
+   環境に依存する場合が多いため、バイナリインストールが可能な、Anaconda Inc. の
+    conda パッケージ管理ツールを使用します。
 
-Path 環境変数に、C:\tools\miniconda3 と、C:\tools\miniconda3\Scripts を追加します。
+Path 環境変数に、C:\\tools\\miniconda3 と、C:\\tools\\miniconda3\\Scripts を追加します。
 
-* コントロールパネルを開きます。
-* 「システムとセキュリティ」、「システム」、「システムの詳細設定」、「環境変数」を選択します。
-* システムの環境変数のリストから、Path を選択して、「編集」をクリックします。
-   * 値の先頭に C:\tools\miniconda3;C:\tools\miniconda3\Scripts; を追加して、パスを追加します。
+::
 
+   $system_path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+   $system_path = "C:\tools\miniconda3;C:\tools\miniconda3\Scripts;" + $system_path
+   [System.Environment]::SetEnvironmentVariable("Path", $system_path, "Machine")
+
+.. note::
+
+   上述の環境変数設定コマンドが利用できない場合はコントロールパネルからパスを追加してください。
+
+   * コントロールパネルを開きます。
+   * 「システムとセキュリティ」、「システム」、「システムの詳細設定」、「環境変数」を選択します。
+   * システムの環境変数のリストから、Path を選択して、「編集」をクリックします。
+      * 値の先頭に C:\\tools\\miniconda3;C:\\tools\\miniconda3\\Scripts; を追加して、パスを追加します。
 
 Pythonライブラリのインストール
 ------------------------------
@@ -58,14 +68,15 @@ mysqlclient をインストールします。
 
    conda install mysqlclient
 
-前節でインストールした Getconfig ホームディレクトリ下の、 cleansing 
+前節の :doc:`../01_inventory_collector_setup/04_getconfig_install`
+でインストールした Getconfig ホームディレクトリ下の、 cleansing 
 ディレクトリに移動します。
 
 ::
 
    cd C:\server-acceptance\cleansing\
 
-Python ライブラリをインストールします。
+Python 依存ライブラリをインストールします。
 
 ::
 

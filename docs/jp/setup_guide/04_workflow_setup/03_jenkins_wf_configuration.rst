@@ -4,10 +4,9 @@ Jenkinsワークフロー設定
 構成概要
 --------
 
-* 構成管理DB の Git サーバにグループを追加し、Webhookの設定をして 
-  Jenkins ワークフローサーバと連携する設定をします。
+* 構成管理DB の GitBucket に Git グループを追加し、WebHook の設定をします。 
+* WebHook で Jenkins ワークフローサーバと連携する設定をします。
 * データベース登録ワークフロー用のプロジェクトを作成します。
-* Jenkins に Git サーバと連携する設定をします。
 * Jenkins にワークフローを登録します。
 
 
@@ -22,44 +21,93 @@ Gitbucket セットアップ
 
       http://{構成管理DBのIP}/
 
-   画面右上の「Sign in」をクリックしてログインします。
-   ユーザは root 、パスワードは前節で指定したパスワードを入力してください。
+   画面右上の「Sign in」をクリックして root ユーザでログインします。
 
 2. グループの作成
 
-   画面右上の「+」をクリックしてメニュー「New Group」を選択します。
-
-   「Group name」の欄に getconfig と入力して、「Create group」をクリックします。
+   * 画面右上の「+」をクリックしてメニュー「New Group」を選択します。
+   * 「Group name」の欄に getconfig と入力します。
+   * 「Create group」をクリックします。
 
 3. WebHook の設定
 
    getconfig グループに対して Group レベルの WebHook を設定します。
 
-   以下の URL にアクセスして、作成した getconfig グループの管理画面に移動します。
+   * 以下の URL にアクセスして、作成した getconfig グループの管理画面に移動します。
+
+      ::
+
+         http://{構成管理DBのIP}/getconfig 
+
+   * 「Edig group」ボタンをクリックします。
+   * 「ServiceHooks」 タブを選択します。
+   * 「Add webhook」 ボタンを押して、以下の設定をします。
+
+      - Payload URL に以下の、Jenkins サーバのURLを設定します。
+        最後の/を忘れないようにしてください。
+
+      ::
+
+         http://{ワークフローサーバのIP}:8080/github-webhook/
+
+      - 「Test Hook」をクリックして、疎通確認をします。200番のコードが返ってくればOKです。
+      - 「Which events would you like to trigger this webhook?」 の下の
+         チェックボックスに Pull Request と Push の2つにチェックを入れます。
+      - 「Add webhook」をクリックして登録します。
+
+Jenkins に Git サーバと連携する設定
+-----------------------------------
+
+Webブラウザから、Jenkins 管理画面を開きます。
+
+::
+
+   http://jenkins1:8080
+
+ユーザは admin で、前節で指定したパスワードでログインします。
+
+GitBucket の URL を Jenkins に登録します。
+
+* 画面左側のメニューから「Jenkinsの管理」を選択します。
+* 画面中央のメニューから「システム設定」を選択します。
+
+.. note::
+
+   Jenkins には見かけ上、GitHub Enterprise のように振舞う（API が同じ）ので、
+   GitHub Enterprise を登録するイメージで設定してください。
+
+「GitHub」と「GitHub Enterprise Servers」の2つの設定セクションに登録します。
+
+* 「GitHub」 設定セクションから「Add GitHub Server」をクリック
+
+   - 「Name」 に 構成管理DBのホスト名 を入力
+   - 「API URL」 に http://{構成管理DBのIP}/api/v3/ を入力
+   - 「Credentials」 はなしを選択
+
+* 「GitHub Enterprise Servers」設定セクションから「追加」をクリック
+
+   - 「API endpoint」に http://{構成管理DBのIP}/api/v3 を入力
+   - 「Name」に 構成管理DBのホスト名 を入力
+
+   .. note::
+
+      「POST is required 」のエラーが発生しますが、無視してかまいません
+   
+.. note::
+
+   プロキシーを設定している場合は、上記で設定したサーバIPをプロキシーから除外する設定をします。
+
+   * 画面左側のメニューから「Jenkinsの管理」を選択します。
+   * 画面中央のメニューから「プラグインの管理」を選択します。
+   * 「高度な設定」タブでプロキシーを設定。以下を除外設定。
 
    ::
 
-      http://{構成管理DBのIP}/getconfig 
+      jenkins1
+      redmine1
 
-   「Edig group」ボタンをクリックし、「ServiceHooks」 タブを選択します。
-   「Add webhook」 ボタンを押して、以下の設定をします。
-
-   Payload URL に以下の、Jenkins サーバのURLを設定します。
-   最後の/を忘れないようにしてください。
-
-   ::
-
-      http://{ワークフローサーバのIP}:8080/github-webhook/
-
-   「Test Hook」をクリックして、疎通確認をします。200番のコードが返ってくればOKです。
-
-   Which events would you like to trigger this webhook? の下の
-   チェックボックスでは Pull Request と Push の2つにチェックを入れます。
-
-   「Add webhook」をクリックして登録します。
-
-データベース登録ワークフロー用のプロジェクトを作成
---------------------------------------------------
+データベース登録用 Git プロジェクト作成
+---------------------------------------
 
 Git 管理コンソール画面に戻ります。
 
@@ -87,21 +135,71 @@ Git 管理コンソール画面に戻ります。
 データベース登録ワークフロー用プロジェクトの登録
 ------------------------------------------------
 
-ワークフローサーバにリモートデスクトップ接続をします。
-PowerShellコンソールを開きます。
+Getconfig ホームからデータベース登録ワークフローをコピーして、Git リポジトリに登録します。
 
-Desktop ディレクトリに移動して、getconfig コマンドで server_shipping プロジェクトを作成します。
+ワークフローサーバにリモートデスクトップ接続して、PowerShellコンソールを開きます。
+
+Desktop ディレクトリに移動します。
 
 ::
 
    cd C:\Users\Administrator\Desktop\
-   getconfig -g server_shipping
 
-Jenkins スクリプトの、Jenkinsfile のサンプルをプロジェクトホーム下にコピーします。 
+Geconfig ホームのデータベース登録ワークフローディレクトリを server_shipping にコピーします。
 
 ::
 
-   cp .\cleansing\Jenkinsfile .
+   Copy-Item -Path C:\server-acceptance\cleansing\ -Destination .\server_shipping -Recurse
+
+ディレクトリに移動し、Jenkinsfile を編集します。 
+
+::
+
+   cd server_shipping
+   notepad++.exe .\Jenkinsfile
+
+データベース登録ワークフロー用プロジェクトの設定
+------------------------------------------------
+
+   [System.Environment]::SetEnvironmentVariable("PYTHONPATH", ".", "Machine")
+
+   $inventory_dir = "C:\Users\Administrator\Desktop\server_shipping\data\import"
+   [System.Environment]::SetEnvironmentVariable("GETCONFIG_INVENTORY_DIR", $inventory_dir, "Machine")
+
+   $master_dir = "C:\Users\Administrator\Desktop\server_shipping\data\master"
+   [System.Environment]::SetEnvironmentVariable("GETCONFIG_MASTER_DIR", $master_dir, "Machine")
+
+   $redmine_api_key="b293fe50728de6fe4156fe53c1acb4c10ba08f19"
+   [System.Environment]::SetEnvironmentVariable("REDMINE_API_KEY", $redmine_api_key, "Machine")
+
+   $redmine_url="http://redmine1:8080/redmine/"
+   [System.Environment]::SetEnvironmentVariable("REDMINE_URL", $redmine_url, "Machine")
+
+環境変数を更新するために、PowerShellコンソールを閉じて、再度 PowerShellコンソールを起動します。
+
+::
+
+   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+
+.. note::
+
+   上述の環境変数設定コマンドが利用できない場合はコントロールパネルからパスを追加してください。
+
+   * コントロールパネルを開きます。
+   * 「システムとセキュリティ」、「システム」、「システムの詳細設定」、「環境変数」を選択します。
+   * システムの環境変数のリストから、Path を選択して、「編集」をクリックします。
+      * 値の先頭に C:\\tools\\miniconda3;C:\\tools\\miniconda3\\Scripts; を追加して、パスを追加します。
+
+Pythonライブラリのインストール
+------------------------------
+
+PowerShell コンソールに戻ります。
+Pathを通すために、環境変数を更新します。
+
+::
+
+   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+
 
 server_shipping ディレクトリに移動して、以下のコマンドで Git ローカルリポジトリの初期化
 をします。
@@ -141,55 +239,25 @@ server_shipping ディレクトリに移動して、以下のコマンドで Git
 
 ユーザ名は root、パスワードは前節で指定した値を入力して「OK」をクリックします。
 
-Jenkins に Git サーバと連携する設定
------------------------------------
+Jenkins ジョブの作成
+---------------------
 
-Webブラウザから、Jenkins 管理画面を開きます。
+画面左上の「Jenkins」をクリックしてダッシュボードに戻ります。
+メニュー「新規ジョブ作成」を選択します。
 
-::
+* 「name」に getconfig GitHub Organization を入力します。
+* ジョブ種別に「GitHub Organization」を選択して、「OK」をクリックします。
+* 「GitHub Organization」設定セクションに移動します
 
-   http://jenkins1:8080
+   - 「API endpoint」に上記作成した Web フックを選択します
+   - 「Credentials」の「追跡」をクリックします
 
-ユーザは admin で、前節で指定したパスワードでログインします。
+      + GitBucekt の認証情報を登録します
+      + ユーザに root パスワードに設定したパスワードを入力し、それ以外は空欄にして OK を
+        クリックします
+      + Credentials リストボックスから作成した作成した認証情報を選択します
 
-画面左側のメニューから「Jenkinsの管理」を選択します。
-画面中央のメニューから「システム設定」を選択します。
-
-まず、GitBucket の URL を Jenkins に登録します。
-Jenkins には見かけ上、GitHub Enterprise のように振舞う（API が同じ）ので、
-GitHub Enterprise を登録するように設定してください。
-
-「GitHub」と「GitHub Enterprise Servers」の2箇所に登録します。
-API URL (API endpoint) に以下を入力します。
-
-* 「GitHub」 設定セクションから「Add GitHub Server」をクリック
-
-   - 「Name」 に 構成管理DBのホスト名 を入力
-   - 「API URL」 に http://{構成管理DBのIP}/api/v3/ を入力
-   - 「Credentials」 はなしを選択
-
-* 「GitHub Enterprise Servers」設定セクションから「追加」をクリック
-
-   - 「API endpoint」に http://{構成管理DBのIP}/api/v3 を入力
-   - 「Name」に 構成管理DBのホスト名 を入力
-
-
-.. note::
-
-   Jenkins に プロキシーを除外する設定
-
-   プロキシーを設定している場合は、上記で設定したサーバIPをプロキシーから除外する設定をします。
-
-   画面左側のメニューから「Jenkinsの管理」を選択します。
-   画面中央のメニューから「プラグインの管理」を選択します。
-
-   「高度な設定」タブでプロキシーを設定。以下を除外設定。
-
-   testgit003
-   jenkins3
-
-
-新規ジョブ作成で名前を getconfig GitHub Organization を選んで OK
+* 画面下の「保存」をクリックして完了します。
 
 設定したWeb フックを選んで、認証
 
