@@ -76,6 +76,12 @@ visudo 権限のある管理者ユーザでサーバにログインし、以下�
    sudo -E yum -y install httpd httpd-devel
    sudo -E yum -y install openssl-devel readline-devel zlib-devel curl-devel
 
+EPEL yum リポジトリをインストールします
+
+::
+
+   sudo -E yum -y install epel-release
+
 MySQL 5.5 インストール用に remi リポジトリをインストールします。
 
 ::
@@ -86,7 +92,7 @@ MySQL をインストールします。
 
 ::
 
-   sudo -E yum -y install mysql-server mysql-devel --enablerepo=remi
+   sudo -E yum install mysql-server mysql-devel --enablerepo=remi
 
 MySQL を起動し、自動起動設定をします。
 
@@ -95,11 +101,10 @@ MySQL を起動し、自動起動設定をします。
    sudo /etc/init.d/mysqld start
    sudo chkconfig mysqld on
 
-EPELリポジトリ追加
+Node.js をインストールします。
 
 ::
 
-   sudo -E yum -y install epel-release
    sudo -E yum -y install libyaml libyaml-devel --enablerepo=epel
    sudo -E yum -y install nodejs npm --enablerepo=epel
 

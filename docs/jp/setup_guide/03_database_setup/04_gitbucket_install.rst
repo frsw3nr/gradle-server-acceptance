@@ -5,8 +5,8 @@ GitBucketインストール
 --------
 
 * Git プロジェクト管理用に GitBacket を構築します
-* Redmine とサーバを共有する環境を想定しています
-* Jenkins ワークフローとの相性の制約のため、接続ポート番号を 80 にします
+* Redmine 用サーバと同じサーバにインストールします
+* Jenkins ワークフローサーバとの相性の制約があるため、接続ポート番号を 80 にします
 
 パッケージインストール
 ----------------------
@@ -17,7 +17,7 @@ EPELリポジトリの追加します。
 
    sudo -E yum install -y epel-release
 
-必須パッケージに加え、普段よく使うパッケージを入れておきます。
+必須パッケージと関連するパッケージを入れておきます。
 
 ::
 
@@ -52,6 +52,7 @@ root ユーザにスイッチ後、ダウンロードします。
 ::
    
    mkdir -p /var/lib/gitbucket
+   cd /var/lib/gitbucket
    wget https://raw.githubusercontent.com/gitbucket/gitbucket/master/contrib/gitbucket.init
 
 ダウンロードした起動スクリプトを編集します。
@@ -59,6 +60,12 @@ root ユーザにスイッチ後、ダウンロードします。
 ::
 
    vi gitbucket.init
+
+「set -e」の行をコメントアウトします。
+
+::
+
+   #set -e
 
 GITBUCKET_WAR_FILEの行の下に、「GITBUCKET_PORT=80」を追加します。
 

@@ -1,65 +1,193 @@
 Jenkinsワークフロー設定
 =======================
 
+構成概要
+--------
+
+* 構成管理DB の Git サーバにグループを追加し、Webhookの設定をして 
+  Jenkins ワークフローサーバと連携する設定をします。
+* データベース登録ワークフロー用のプロジェクトを作成します。
+* Jenkins に Git サーバと連携する設定をします。
+* Jenkins にワークフローを登録します。
+
+
 Gitbucket セットアップ
 -----------------------
 
-1. Git グループを作成
-2. 作成した Git グループ化に Git プロジェクト作成
-3. 
+1. ログイン
 
-getconfig グループに対して Group レベルの WebHook を設定します。
-http://testgit003/getconfig にアクセスして、ServiceHooks タブを選択します。
+   Web ブラウザから Git 管理コンソールを開きます。
+
+   ::
+
+      http://{構成管理DBのIP}/
+
+   画面右上の「Sign in」をクリックしてログインします。
+   ユーザは root 、パスワードは前節で指定したパスワードを入力してください。
+
+2. グループの作成
+
+   画面右上の「+」をクリックしてメニュー「New Group」を選択します。
+
+   「Group name」の欄に getconfig と入力して、「Create group」をクリックします。
+
+3. WebHook の設定
+
+   getconfig グループに対して Group レベルの WebHook を設定します。
+
+   以下の URL にアクセスして、作成した getconfig グループの管理画面に移動します。
+
+   ::
+
+      http://{構成管理DBのIP}/getconfig 
+
+   「Edig group」ボタンをクリックし、「ServiceHooks」 タブを選択します。
+   「Add webhook」 ボタンを押して、以下の設定をします。
+
+   Payload URL に以下の、Jenkins サーバのURLを設定します。
+   最後の/を忘れないようにしてください。
+
+   ::
+
+      http://{ワークフローサーバのIP}:8080/github-webhook/
+
+   「Test Hook」をクリックして、疎通確認をします。200番のコードが返ってくればOKです。
+
+   Which events would you like to trigger this webhook? の下の
+   チェックボックスでは Pull Request と Push の2つにチェックを入れます。
+
+   「Add webhook」をクリックして登録します。
+
+データベース登録ワークフロー用のプロジェクトを作成
+--------------------------------------------------
+
+Git 管理コンソール画面に戻ります。
+
+::
+
+   http://{構成管理DBのIP}/
+
+画面右上の「+」をクリックしてメニュー「New Repository」を選択します。
+
+* 「Owner」 に "getconfig" を選択します。
+* 「Repository name」の欄に、 "server_shipping" を入力します。
+* 「Description」の欄に、 "機器搬入時の変更管理" を入力します。
+* 「Private」を選択します。
+
+「Create repository」をクリックして登録します。
+登録後、表示された画面の「Push an existing repository from the command line」の
+したの以下の行をコピーします。
+
+::
+
+   git remote add origin http://redmine1/git/getconfig/server_shipping.git
+   git push -u origin master
+   
+
+データベース登録ワークフロー用プロジェクトの登録
+------------------------------------------------
+
+ワークフローサーバにリモートデスクトップ接続をします。
+PowerShellコンソールを開きます。
+
+Desktop ディレクトリに移動して、getconfig コマンドで server_shipping プロジェクトを作成します。
+
+::
+
+   cd C:\Users\Administrator\Desktop\
+   getconfig -g server_shipping
+
+Jenkins スクリプトの、Jenkinsfile のサンプルをプロジェクトホーム下にコピーします。 
+
+::
+
+   cp .\cleansing\Jenkinsfile .
+
+server_shipping ディレクトリに移動して、以下のコマンドで Git ローカルリポジトリの初期化
+をします。
+
+::
+
+   cd .\server_shipping\
+   git init .
+   git add .
+   git commit -m "first commit"
+
+.. note::
+
+   git commit 子マントでgit ユーザ情報が設定されていない旨のエラーが発生した場合は、
+   以下の git コマンドでユーザ情報を登録します。
+
+   ::
+
+      git config --global user.email "root@example.com"
+      git config --global user.name "root"
+
+.. note::
+
+   Filename too longエラーの対処。以下コマンドを実行します。
+
+   ::
+
+      git config --system core.longpaths true
 
 
-Add webhook ボタンを押して出てくる画面で、以下の設定をします。
+以下のコマンドでGitリモートリポジトリにプッシュします。
 
-Payload URL に http://jenkins3:8080/github-webhook/ を設定
-最後の/を忘れないように。
-Content type は application/x-www-form-urlencoded のままで OK です。
-Security Token は空白で OK です。
-Which events would you like to trigger this webhook? の下の
-チェックボックスでは Pull Request と Push の2つにチェックを入れます
+::
 
-Jenkins の設定
-==================
+   git remote add origin http://redmine1/git/getconfig/server_shipping.git
+   git push -u origin master
+
+ユーザ名は root、パスワードは前節で指定した値を入力して「OK」をクリックします。
+
+Jenkins に Git サーバと連携する設定
+-----------------------------------
+
+Webブラウザから、Jenkins 管理画面を開きます。
+
+::
+
+   http://jenkins1:8080
+
+ユーザは admin で、前節で指定したパスワードでログインします。
+
+画面左側のメニューから「Jenkinsの管理」を選択します。
+画面中央のメニューから「システム設定」を選択します。
 
 まず、GitBucket の URL を Jenkins に登録します。
-Jenkins には見かけ上、GitHub Enterprise のように振舞う
-（API が同じ）ので、
-GitHub Enterprise を登録するような気持ちで設定してください。
+Jenkins には見かけ上、GitHub Enterprise のように振舞う（API が同じ）ので、
+GitHub Enterprise を登録するように設定してください。
 
-Jenkins の管理→システムの設定で、「GitHub」と「GitHub Enterprise Servers」の
-2箇所に登録します。
+「GitHub」と「GitHub Enterprise Servers」の2箇所に登録します。
+API URL (API endpoint) に以下を入力します。
 
-API URL (API endpoint) は http://testgit003/api/v3/
+* 「GitHub」 設定セクションから「Add GitHub Server」をクリック
 
-Credentials はなしで構いません。
+   - 「Name」 に 構成管理DBのホスト名 を入力
+   - 「API URL」 に http://{構成管理DBのIP}/api/v3/ を入力
+   - 「Credentials」 はなしを選択
 
-Jenkinsの位置
+* 「GitHub Enterprise Servers」設定セクションから「追加」をクリック
 
-http://jenkins3:8080/
+   - 「API endpoint」に http://{構成管理DBのIP}/api/v3 を入力
+   - 「Name」に 構成管理DBのホスト名 を入力
 
 
-GitHubサーバ
-testgit003
-http://testgit003/api/v3/
+.. note::
 
-GitHub Enterprise Servers
+   Jenkins に プロキシーを除外する設定
 
-http://testgit003/api/v3
-Gitbucket on testgit003
+   プロキシーを設定している場合は、上記で設定したサーバIPをプロキシーから除外する設定をします。
 
-"This URL requires POST" jenkins エラーが出るが、無視する
+   画面左側のメニューから「Jenkinsの管理」を選択します。
+   画面中央のメニューから「プラグインの管理」を選択します。
 
-プラグインの高度な設定でプロキシーを設定。以下を除外設定
+   「高度な設定」タブでプロキシーを設定。以下を除外設定。
 
-testgit003
-jenkins3
+   testgit003
+   jenkins3
 
-Filename too longエラーの対処。GitBash で以下コマンドを実行する
-
-git config --system core.longpaths true
 
 新規ジョブ作成で名前を getconfig GitHub Organization を選んで OK
 

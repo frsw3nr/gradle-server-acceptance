@@ -10,6 +10,7 @@ import pandas as pd
 import dataset as ds
 from abc import ABCMeta, abstractmethod
 from getconfig.singleton import singleton
+from getconfig.config       import Config
 from getconfig.stat import Stat
 from getconfig.util import Util
 from getconfig.config import Config
@@ -34,6 +35,7 @@ class MasterData(metaclass=ABCMeta):
     """台帳データのキャッシュ"""
 
     module_name = '台帳収集'
+    """ロードする台帳のラベル"""
 
     def set_envoronment(self, env):
         """
@@ -94,6 +96,7 @@ class MasterData(metaclass=ABCMeta):
     def load_all(self):
         """指定ディレクトリ下の全台帳読み込み"""
         logger = logging.getLogger(__name__)
+        Config().accept(self)
         if self.master_cache is None:
             df = pd.DataFrame()
             walk_dir = os.path.join(self.master_dir, self.master_data_dir)

@@ -188,6 +188,7 @@ class SchedulerBase(metaclass=ABCMeta):
         args = self.parser()
         Config().accept(self)
 
+        Config().accept(self)
         Stat().create_report_id()
         self.clear_work_directory()
         self.extract_inventory_data(args.inventory_names)

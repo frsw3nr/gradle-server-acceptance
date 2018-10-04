@@ -10,4 +10,5 @@ Contents:
    02_getconfig_plugin_install
    03_redmine_configuration
    04_gitbucket_install
-
+   05_getconfig_collector_setup
+   06_python_setup

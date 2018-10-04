@@ -78,34 +78,34 @@ def redmine_repository():
 #             print(dict(host_set))
 #             TicketIAServer().regist('test1', 'ostrich', host_set)
 #             break
-        # row = host_sets.get_group(hostname)
-    #     tracker = Util().analogize_tracker(str(row['ドメイン']))
-    #     print("サーバ登録 {},{}".format(hostname,tracker))
+#         # row = host_sets.get_group(hostname)
+#     #     tracker = Util().analogize_tracker(str(row['ドメイン']))
+#     #     print("サーバ登録 {},{}".format(hostname,tracker))
 
-    # row = host_sets.get_group('ostrich')
-    # print(row.head(1))
-    #  「インベントリ名」から種別を類推する
+#     # row = host_sets.get_group('ostrich')
+#     # print(row.head(1))
+#     #  「インベントリ名」から種別を類推する
 
-    # print(hosts)
-    # db = RedmineCache('networks', 'hostname', Types.text)
-    # row = dict(text1='text1', num1 = 1)
-    # db.regist('host1', row)
-    # row2 = [("test1", 'test2'), ("num1", 5)]
-    # db.regist('host2', dict(row2))
+#     # print(hosts)
+#     # db = RedmineCache('networks', 'hostname', Types.text)
+#     # row = dict(text1='text1', num1 = 1)
+#     # db.regist('host1', row)
+#     # row2 = [("test1", 'test2'), ("num1", 5)]
+#     # db.regist('host2', dict(row2))
     
-    # host1 = db.get('host1')
-    # host2 = db.get('host2')
+#     # host1 = db.get('host1')
+#     # host2 = db.get('host2')
 
-    # assert host1.get('text1') == 'text1'
-    # assert host1.get('num1')  == '1'
-    # assert host2.get('test1') == 'test2'
-    # assert host2.get('num1')  == '5'
-    assert 1 == 1
+#     # assert host1.get('text1') == 'text1'
+#     # assert host1.get('num1')  == '1'
+#     # assert host2.get('test1') == 'test2'
+#     # assert host2.get('num1')  == '5'
+#     assert 1 == 1
 
-def test_repos1():
-    db = RedmineRepository()
-    print (db.get_tracker_id('IAサーバ'))
-    print (db.get_tracker_fields('IAサーバ', 'OS名'))
-    # print (db.get_tracker_fields_by_id(1, 27))
-    # db.set_project_ids()
-    print(db.project_ids)
+# def test_repos1():
+#     db = RedmineRepository()
+#     print (db.get_tracker_id('IAサーバ'))
+#     print (db.get_tracker_fields('IAサーバ', 'OS名'))
+#     # print (db.get_tracker_fields_by_id(1, 27))
+#     # db.set_project_ids()
+#     print(db.project_ids)
