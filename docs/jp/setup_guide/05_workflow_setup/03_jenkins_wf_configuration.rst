@@ -159,36 +159,6 @@ Geconfig ホームのデータベース登録ワークフローディレクト�
    notepad++.exe .\Jenkinsfile
 
 データベース登録ワークフロー用プロジェクトの設定
-------------------------------------------------
-
-   [System.Environment]::SetEnvironmentVariable("PYTHONPATH", ".", "Machine")
-
-   $inventory_dir = "C:\Users\Administrator\Desktop\server_shipping\data\import"
-   [System.Environment]::SetEnvironmentVariable("GETCONFIG_INVENTORY_DIR", $inventory_dir, "Machine")
-
-   $master_dir = "C:\Users\Administrator\Desktop\server_shipping\data\master"
-   [System.Environment]::SetEnvironmentVariable("GETCONFIG_MASTER_DIR", $master_dir, "Machine")
-
-   $redmine_api_key="b293fe50728de6fe4156fe53c1acb4c10ba08f19"
-   [System.Environment]::SetEnvironmentVariable("REDMINE_API_KEY", $redmine_api_key, "Machine")
-
-   $redmine_url="http://redmine1:8080/redmine/"
-   [System.Environment]::SetEnvironmentVariable("REDMINE_URL", $redmine_url, "Machine")
-
-環境変数を更新するために、PowerShellコンソールを閉じて、再度 PowerShellコンソールを起動します。
-
-::
-
-   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
-
-.. note::
-
-   上述の環境変数設定コマンドが利用できない場合はコントロールパネルからパスを追加してください。
-
-   * コントロールパネルを開きます。
-   * 「システムとセキュリティ」、「システム」、「システムの詳細設定」、「環境変数」を選択します。
-   * システムの環境変数のリストから、Path を選択して、「編集」をクリックします。
-      * 値の先頭に C:\\tools\\miniconda3;C:\\tools\\miniconda3\\Scripts; を追加して、パスを追加します。
 
 Pythonライブラリのインストール
 ------------------------------
@@ -201,8 +171,7 @@ Pathを通すために、環境変数を更新します。
    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
 
 
-server_shipping ディレクトリに移動して、以下のコマンドで Git ローカルリポジトリの初期化
-をします。
+server_shipping ディレクトリに移動して、以下のコマンドで Git ローカルリポジトリの初期化をします。
 
 ::
 
@@ -271,7 +240,7 @@ test2 プロジェクト作成
        proxy =
 
 Jenkins セットアップ
-======================
+====================
 
 hosts ファイルに Gitbucket サーバ登録
 
