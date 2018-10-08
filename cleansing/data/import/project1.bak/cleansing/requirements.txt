@@ -1,0 +1,9 @@
+click
+nose
+sphinx
+python-redmine
+pandas
+dataset
+xlrd
+openpyxl
+mysqlclient

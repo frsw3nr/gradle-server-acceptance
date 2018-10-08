@@ -1,0 +1,121 @@
+{
+    "Server": {
+        "@Version": "1.01",
+        "HWConfigurationIrmc": {
+            "@Version": "1.00",
+            "Adapters": {
+                "RAIDAdapter": [
+                    {
+                        "RebuildRate": 30,
+                        "EnableCopybackOnSMART": "Enabled",
+                        "LogicalDrives": {
+                            "LogicalDrive": [
+                                {
+                                    "DiskCacheMode": "Disabled",
+                                    "InitMode": "no",
+                                    "@Number": 0,
+                                    "Size": {
+                                        "#text": 558,
+                                        "@Unit": "GB"
+                                    },
+                                    "CacheMode": "Direct",
+                                    "Name": "VD0",
+                                    "@Action": "None",
+                                    "RaidLevel": "1",
+                                    "Stripe": {
+                                        "#text": 256,
+                                        "@Unit": "KB"
+                                    },
+                                    "ReadMode": "ReadAhead",
+                                    "LDStatus": "Operational",
+                                    "ArrayRefs": {
+                                        "ArrayRef": [
+                                            {
+                                                "@Number": 0
+                                            }
+                                        ]
+                                    },
+                                    "WriteMode": "WriteBack"
+                                }
+                            ]
+                        },
+                        "BGIRate": 30,
+                        "MDCRate": 30,
+                        "PhysicalDisks": {
+                            "PhysicalDisk": [
+                                {
+                                    "Type": "HDD",
+                                    "@Number": "0",
+                                    "@Action": "None",
+                                    "Size": {
+                                        "#text": 558,
+                                        "@Unit": "GB"
+                                    },
+                                    "Slot": 0,
+                                    "Product": "HUC156060CSS204",
+                                    "Vendor": "HGST",
+                                    "PDStatus": "Operational",
+                                    "Interface": "SAS"
+                                },
+                                {
+                                    "Type": "HDD",
+                                    "@Number": "1",
+                                    "@Action": "None",
+                                    "Size": {
+                                        "#text": 558,
+                                        "@Unit": "GB"
+                                    },
+                                    "Slot": 1,
+                                    "Product": "HUC156060CSS204",
+                                    "Vendor": "HGST",
+                                    "PDStatus": "Operational",
+                                    "Interface": "SAS"
+                                }
+                            ]
+                        },
+                        "@AdapterId": "RAIDAdapter0",
+                        "PCIId": {
+                            "ControllerIndex": 0,
+                            "Device": "005D",
+                            "Vendor": "1000"
+                        },
+                        "AutoRebuild": "Enabled",
+                        "@ConfigurationType": "Addressing",
+                        "Features": {
+                            "DiskCacheMode": "Enabled,Disabled,Unchanged",
+                            "InitMode": "no,fast,slow",
+                            "RaidLevel": "0,1,5,6,10,50,60",
+                            "Stripe": {
+                                "#text": "8,16,32,64,128,256,512,1024",
+                                "@Unit": "KB"
+                            },
+                            "ReadMode": "NoReadAhead,ReadAhead",
+                            "CacheMode": "Direct,Cached",
+                            "WriteMode": "WriteBack,WriteThrough,AlwaysWriteBack"
+                        },
+                        "EnableCopyback": "Enabled",
+                        "Arrays": {
+                            "Array": [
+                                {
+                                    "@Number": 0,
+                                    "@ConfigurationType": "Addressing",
+                                    "PhysicalDiskRefs": {
+                                        "PhysicalDiskRef": [
+                                            {
+                                                "@Number": "0"
+                                            },
+                                            {
+                                                "@Number": "1"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "EnableCopybackOnSSDSMART": "Enabled"
+                    }
+                ]
+            }
+        }
+    }
+}

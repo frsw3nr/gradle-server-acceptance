@@ -1,0 +1,22 @@
+showsnmp
+
+Agent Status: Enabled
+Agent port: 161
+System Location: MainTower21F
+System Contact: foo@example.com
+System Description: DataBaseServer
+　
+Trap Hosts:
+　
+Hostname Port Type Community String Username Auth Encrypt
+-------- ---- ---- ---------------- -------- ---- ---------
+host3    162  v3   n/a              yyyyy    SHA  DES
+host1    62   v1   public           n/a      n/a  n/a
+host2    1162 v2   public           n/a      n/a  n/a
+SNMP V1/V2c:
+Status: Enabled
+Community String: public
+　
+Enabled MIB Modules:
+SP MIB
+XSCF> 

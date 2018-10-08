@@ -1,0 +1,38 @@
+﻿
+
+IP                                   : 192.168.1.148
+HOSTNAME                             : 
+STATUS_TYPE                          : OK
+STATUS_MESSAGE                       : OK
+AGENTLESS_MANAGEMENT_ENABLE          : Y
+CIM_SECURITY_MASK                    : 3
+COLD_START_TRAP_BROADCAST            : Y
+OS_TRAPS                             : Y
+RIB_TRAPS                            : Y
+SNMP_ACCESS                          : Enable
+SNMP_ADDRESS_1                       : 192.168.125.120
+SNMP_ADDRESS_1_ROCOMMUNITY           : public1
+SNMP_ADDRESS_1_TRAPCOMMUNITY         : trapcomm1
+SNMP_ADDRESS_1_TRAPCOMMUNITY_VERSION : v1
+SNMP_ADDRESS_2                       : 192.168.125.121 
+SNMP_ADDRESS_2_ROCOMMUNITY           : public2
+SNMP_ADDRESS_2_TRAPCOMMUNITY         : trapcomm2
+SNMP_ADDRESS_2_TRAPCOMMUNITY_VERSION : v2c
+SNMP_ADDRESS_3                       : 192.168.125.122 
+SNMP_ADDRESS_3_ROCOMMUNITY           : public3
+SNMP_ADDRESS_3_TRAPCOMMUNITY         : trapcomm3
+SNMP_ADDRESS_3_TRAPCOMMUNITY_VERSION : 1
+SNMP_PASSTHROUGH_STATUS              : N
+SNMP_PORT                            : 161
+SNMP_SYSTEM_ROLE                     : 
+SNMP_SYSTEM_ROLE_DETAIL              : 
+SNMP_SYS_CONTACT                     : 
+SNMP_SYS_LOCATION                    : 
+SNMP_TRAP_PORT                       : 162
+SNMP_V1_TRAPS                        : Y
+SNMP_V3_ENGINE_ID                    : 
+TRAP_SOURCE_IDENTIFIER               : iLO Hostname
+WEB_AGENT_IP_ADDRESS                 : ostrich
+
+
+

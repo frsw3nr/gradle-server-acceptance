@@ -1,0 +1,4 @@
+showcod -v -s cpu
+PROC Permits installed: 6 cores
+PROC Permits assigned for PPAR 0: 6 [Permanent 6cores]
+XSCF> 

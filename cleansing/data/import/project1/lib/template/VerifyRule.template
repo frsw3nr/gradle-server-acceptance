@@ -1,0 +1,33 @@
+package InfraTestSpec
+
+import org.apache.commons.lang.math.NumberUtils
+import groovy.util.logging.Slf4j
+
+@Slf4j
+class VerifyRule {
+
+<%
+verify_rules.each { rule_id, domain_rules ->
+    domain_rules.each { domain, test_id_rules ->
+        test_id_rules.each { test_id, rule ->
+            def method_name = "${rule_id}__${domain}__${test_id}"
+
+%>\
+    def <%= method_name %>(Object string_x, Map server_info = [:]) {
+        string_x = string_x.toString()
+        if (NumberUtils.isNumber(string_x)) {
+            def x = NumberUtils.toDouble(string_x)
+            return (<%= rule %>) ? true : false
+        } else {
+            def x = string_x
+            return (<%= rule %>) ? true : false
+        }
+    }
+
+<%
+        }
+    }
+}
+%>\
+
+}

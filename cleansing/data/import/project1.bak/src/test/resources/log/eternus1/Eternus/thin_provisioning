@@ -1,0 +1,4 @@
+CLI> show thin-provisioning
+Thin provisioning     [Disable]
+Maximum pool capacity [-]
+CLI> 

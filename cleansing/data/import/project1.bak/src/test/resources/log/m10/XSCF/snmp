@@ -1,0 +1,14 @@
+showsnmp
+
+Agent Status:       Disabled
+Agent Port:         161
+System Location:    Unknown
+System Contact:     Unknown
+System Description: Unknown
+
+Trap Hosts: None
+
+SNMP V1/V2c: None
+
+Enabled MIB Modules: None
+XSCF> 

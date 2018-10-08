@@ -1,0 +1,818 @@
+[
+    {
+        "DeviceClass": "PRINTQUEUE",
+        "DeviceID": "SWD\\PRINTENUM\\{6093610A-E6B1-427B-90A5-0072BA6BAFCF}",
+        "DeviceName": "Local Print Queue",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "PRINTQUEUE",
+        "DeviceID": "SWD\\PRINTENUM\\PRINTQUEUES",
+        "DeviceName": "Local Print Queue",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "SWD\\IP_TUNNEL_VBUS\\TEREDO_TUNNEL_DEVICE",
+        "DeviceName": "Microsoft Teredo Tunneling Adapter",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "SWD\\IP_TUNNEL_VBUS\\ISATAP_0",
+        "DeviceName": "Microsoft ISATAP Adapter",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SOFTWAREDEVICE",
+        "DeviceID": "SWD\\IP_TUNNEL_VBUS\\IP_TUNNEL_DEVICE_ROOT",
+        "DeviceName": "Generic software device",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\RDPBUS\\0000",
+        "DeviceName": "Remote Desktop Device Redirector Bus",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\SYSTEM\\0000",
+        "DeviceName": "Plug and Play Software Device Enumerator",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17415"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\MSSMBIOS\\0000",
+        "DeviceName": "Microsoft System Management BIOS Driver",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_PPPOEMINIPORT\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (PPPOE)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17039"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\NDISVIRTUALBUS\\0000",
+        "DeviceName": "NDIS Virtual Network Adapter Enumerator",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_L2TPMINIPORT\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (L2TP)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17039"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\VMWVMCIHOSTDEV\\0000",
+        "DeviceName": "VMware VMCI Host Device",
+        "DriverDate": "20130213000000.******+***",
+        "DriverProviderName": "VMware, Inc.",
+        "DriverVersion": "9.5.10.0"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_NDISWANBH\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (\u30cd\u30c3\u30c8\u30ef\u30fc\u30af \u30e2\u30cb\u30bf\u30fc)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17039"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_PPTPMINIPORT\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (PPTP)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17039"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\BASICRENDER\\0000",
+        "DeviceName": "Microsoft Basic Render Driver",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17031"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\FIXEDBUTTON\\2&DABA3FF&2",
+        "DeviceName": "ACPI Fixed Feature Button",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "PROCESSOR",
+        "DeviceID": "ACPI\\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I5-4460__CPU_@_3.20GHZ\\_1",
+        "DeviceName": "Intel Processor",
+        "DriverDate": "20090421000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "PROCESSOR",
+        "DeviceID": "ACPI\\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I5-4460__CPU_@_3.20GHZ\\_0",
+        "DeviceName": "Intel Processor",
+        "DriverDate": "20090421000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "BATTERY",
+        "DeviceID": "ACPI\\ACPI0003\\1",
+        "DeviceName": "Microsoft AC Adapter",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\VMW0001\\7",
+        "DeviceName": "Microsoft Hyper-V \u4e16\u4ee3\u30ab\u30a6\u30f3\u30bf\u30fc",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0C02\\4",
+        "DeviceName": "Motherboard resources",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C7",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C6",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C5",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C4",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C3",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C2",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C1",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&C0",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&BF",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&BE",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&BD",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&BC",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&BB",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&BA",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B9",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B8",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B7",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B6",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B5",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B4",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B3",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B2",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B1",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "PCI\\VEN_8086&DEV_10D3&SUBSYS_07D015AD&REV_00\\000C29FFFFCB468600",
+        "DeviceName": "Intel(R) 82574L Gigabit Network Connection",
+        "DriverDate": "20130328000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "12.6.47.1"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&B0",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&AF",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&AE",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&AD",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&AC",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&AB",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&AA",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&A9",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "DISKDRIVE",
+        "DeviceID": "SCSI\\DISK&VEN_VMWARE&PROD_VIRTUAL_DISK\\5&22BE343F&0&000000",
+        "DeviceName": "Disk drive",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.18203"
+    },
+    {
+        "DeviceClass": "SCSIADAPTER",
+        "DeviceID": "PCI\\VEN_1000&DEV_0054&SUBSYS_197615AD&REV_01\\4&1F16FEF7&0&00A8",
+        "DeviceName": "LSI Adapter, SAS 3000 series, 8-port with 1068",
+        "DriverDate": "20130326000000.******+***",
+        "DriverProviderName": "LSI",
+        "DriverVersion": "1.34.3.82"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\\3&2B8E0B4B&0&A8",
+        "DeviceName": "PCI Express standard Root Port",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_0790&SUBSYS_079015AD&REV_02\\3&2B8E0B4B&0&88",
+        "DeviceName": "PCI standard PCI-to-PCI bridge",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "MONITOR",
+        "DeviceID": "DISPLAY\\DEFAULT_MONITOR\\4&10C2E2D6&0&UID0",
+        "DeviceName": "Generic Non-PnP Monitor",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "DISPLAY",
+        "DeviceID": "PCI\\VEN_15AD&DEV_0405&SUBSYS_040515AD&REV_00\\3&2B8E0B4B&0&78",
+        "DeviceName": "VMware SVGA 3D",
+        "DriverDate": "20130620000000.******+***",
+        "DriverProviderName": "VMware, Inc.",
+        "DriverVersion": "7.14.1.2019"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_15AD&DEV_0740&SUBSYS_074015AD&REV_10\\3&2B8E0B4B&0&3F",
+        "DeviceName": "VMware VMCI Bus Device",
+        "DriverDate": "20130213000000.******+***",
+        "DriverProviderName": "VMware, Inc.",
+        "DriverVersion": "9.5.10.0"
+    },
+    {
+        "DeviceClass": "CDROM",
+        "DeviceID": "IDE\\CDROMNECVMWAR_VMWARE_IDE_CDR10_______________1.00____\\5&3A794E10&0&1.0.0",
+        "DeviceName": "CD-ROM Drive",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "HDC",
+        "DeviceID": "PCIIDE\\IDECHANNEL\\4&C5D1198&0&1",
+        "DeviceName": "IDE Channel",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "HDC",
+        "DeviceID": "PCIIDE\\IDECHANNEL\\4&C5D1198&0&0",
+        "DeviceName": "IDE Channel",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "HDC",
+        "DeviceID": "PCI\\VEN_8086&DEV_7111&SUBSYS_197615AD&REV_01\\3&2B8E0B4B&0&39",
+        "DeviceName": "Intel(R) 82371AB/EB PCI Bus Master IDE Controller",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "FLOPPYDISK",
+        "DeviceID": "FDC\\GENERIC_FLOPPY_DRIVE\\6&3B4C39BD&0&0",
+        "DeviceName": "Floppy disk drive",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "FDC",
+        "DeviceID": "ACPI\\PNP0700\\5&27D1C488&0",
+        "DeviceName": "Standard floppy disk controller",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "PORTS",
+        "DeviceID": "ACPI\\PNP0501\\2",
+        "DeviceName": "\u901a\u4fe1\u30dd\u30fc\u30c8",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "PORTS",
+        "DeviceID": "ACPI\\PNP0501\\1",
+        "DeviceName": "\u901a\u4fe1\u30dd\u30fc\u30c8",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "LPTENUM\\MICROSOFTRAWPORT\\6&227B8172&0&LPT1",
+        "DeviceName": "Printer Port Logical Interface",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "PORTS",
+        "DeviceID": "ACPI\\PNP0400\\5&27D1C488&0",
+        "DeviceName": "\u30d7\u30ea\u30f3\u30bf\u30fc \u30dd\u30fc\u30c8",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0A05\\4&205AD762&0",
+        "DeviceName": "Generic Bus",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0103\\4&205AD762&0",
+        "DeviceName": "High precision event timer",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "MOUSE",
+        "DeviceID": "ACPI\\PNP0F13\\4&205AD762&0",
+        "DeviceName": "VMware Pointing Device",
+        "DriverDate": "20120326000000.******+***",
+        "DriverProviderName": "VMware, Inc.",
+        "DriverVersion": "12.5.2.0"
+    },
+    {
+        "DeviceClass": "KEYBOARD",
+        "DeviceID": "ACPI\\PNP0303\\4&205AD762&0",
+        "DeviceName": "Standard PS/2 Keyboard",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17808"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0800\\4&205AD762&0",
+        "DeviceName": "System speaker",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0B00\\4&205AD762&0",
+        "DeviceName": "System CMOS/real time clock",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0100\\4&205AD762&0",
+        "DeviceName": "System timer",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0001\\4&205AD762&0",
+        "DeviceName": "EISA programmable interrupt controller",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0200\\4&205AD762&0",
+        "DeviceName": "Direct memory access controller",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0C02\\1F",
+        "DeviceName": "Motherboard resources",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_8086&DEV_7110&SUBSYS_197615AD&REV_08\\3&2B8E0B4B&0&38",
+        "DeviceName": "Intel 82371AB/EB PCI to ISA bridge (ISA mode)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_8086&DEV_7191&SUBSYS_00000000&REV_01\\3&2B8E0B4B&0&08",
+        "DeviceName": "PCI standard PCI-to-PCI bridge",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "PCI\\VEN_8086&DEV_7190&SUBSYS_197615AD&REV_01\\3&2B8E0B4B&0&00",
+        "DeviceName": "Intel 82443BX Pentium(R) II Processor to PCI Bridge",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI\\PNP0A03\\2&DABA3FF&2",
+        "DeviceName": "PCI bus",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17238"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ACPI_HAL\\PNP0C08\\0",
+        "DeviceName": "Microsoft ACPI-Compliant System",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17393"
+    },
+    {
+        "DeviceClass": "COMPUTER",
+        "DeviceID": "ROOT\\ACPI_HAL\\0000",
+        "DeviceName": "ACPI x64-based PC",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "UMB\\UMB\\1&841921D&0&TERMINPUT_BUS",
+        "DeviceName": "UMBus Enumerator",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\UMBUS\\0000",
+        "DeviceName": "UMBus Root Bus Enumerator",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_NDISWANIPV6\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (IPv6)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17039"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\KDNIC\\0000",
+        "DeviceName": "Microsoft \u30ab\u30fc\u30cd\u30eb \u30c7\u30d0\u30c3\u30b0 \u30cd\u30c3\u30c8\u30ef\u30fc\u30af \u30a2\u30c0\u30d7\u30bf\u30fc",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SCSIADAPTER",
+        "DeviceID": "ROOT\\SPACEPORT\\0000",
+        "DeviceName": "Microsoft Storage Spaces Controller",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.18217"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\VDRVROOT\\0000",
+        "DeviceName": "Microsoft Virtual Drive Enumerator",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\COMPOSITEBUS\\0000",
+        "DeviceName": "Composite Bus Enumerator",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_AGILEVPNMINIPORT\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (IKEv2)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_SSTPMINIPORT\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (SSTP)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "NET",
+        "DeviceID": "ROOT\\MS_NDISWANIP\\0000",
+        "DeviceName": "WAN \u30df\u30cb\u30dd\u30fc\u30c8 (IP)",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.17039"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\BASICDISPLAY\\0000",
+        "DeviceName": "Microsoft Basic Display Driver",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.16384"
+    },
+    {
+        "DeviceClass": "VOLUME",
+        "DeviceID": "STORAGE\\VOLUME\\{B372FB2C-EBC7-11E5-80B3-806E6F6E6963}#0000000015F00000",
+        "DeviceName": "Generic volume",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.18266"
+    },
+    {
+        "DeviceClass": "VOLUME",
+        "DeviceID": "STORAGE\\VOLUME\\{B372FB2C-EBC7-11E5-80B3-806E6F6E6963}#0000000000100000",
+        "DeviceName": "Generic volume",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.18266"
+    },
+    {
+        "DeviceClass": "SYSTEM",
+        "DeviceID": "ROOT\\VOLMGR\\0000",
+        "DeviceName": "Volume Manager",
+        "DriverDate": "20060621000000.******+***",
+        "DriverProviderName": "Microsoft",
+        "DriverVersion": "6.3.9600.18302"
+    },
+    {
+        "DeviceClass": "",
+        "DeviceID": "HTREE\\ROOT\\0",
+        "DeviceName": "",
+        "DriverDate": "",
+        "DriverProviderName": "",
+        "DriverVersion": ""
+    },
+    {
+        "DeviceClass": "",
+        "DeviceID": "Microsoft XPS Document Writer",
+        "DeviceName": "",
+        "DriverDate": "",
+        "DriverProviderName": "",
+        "DriverVersion": "2:5.1,2:5.2,2:6.0,2:6.1,2:6.2,2:6.3"
+    }
+]

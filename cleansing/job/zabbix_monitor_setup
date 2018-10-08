@@ -1,0 +1,102 @@
+node {
+    stage('scm') {
+        checkout scm
+        bat 'git submodule update --init'
+        // bat 'python cleansing/delete_ticket.py'
+    }
+    stage('transfer') {
+        // def workspace = pwd()
+        def inventory_projects = get_inventory_projects(20)
+        def redmine_projects   = get_redmine_projects()
+
+        def v = input message: 'インベントリ名を入力してください',
+            ok: 'レポート実行',
+            parameters: [
+              [$class: 'ChoiceParameterDefinition',
+                  choices: inventory_projects.join("\n"),
+                  description: 'どのインベントリをインポートしますか？ ※必須',
+                  name: 'inventory'],
+              [$class: 'ChoiceParameterDefinition',
+                  choices: redmine_projects.join("\n"),
+                  description: '既定のRedmineプロジェクト名を入力してください ※必須',
+                  name: 'project'],
+              [$class: 'BooleanParameterDefinition',
+                  description: 'データ変換のみで、データベース登録はしない ※オプション',
+                  name: '-s']
+            ]
+        if (v == null) {
+           error '選択してください'
+        }
+
+        def cleansing_args = v['inventory']
+        if (v['project']) {
+            cleansing_args += ' -d ' + v['project']
+        }
+        if (v['-s']) {
+            cleansing_args += ' -s '
+        }
+
+        bat """
+        python getconfig/job/template/scheduler_zabbix_setup1.py ${cleansing_args}
+        """
+    }
+    stage('rapup') {
+        archiveArtifacts "data/work/**/*.*"
+    }
+}
+
+def get_inventory_projects(limit = 5) {
+    def outputs = bat script : "python getconfig/job/get_inventory_projects.py -n ${limit}",
+                      returnStdout : true
+
+    def projects = []
+    def output_lines = outputs.split("\n")
+    output_lines.each {
+        ( it =~ /^project : (.+)$/ ).each { column ->
+            projects.add(column[1])
+        }
+    }
+    if (projects.size() == 0) {
+       error "プロジェクトが取得できません : ${outputs}"
+    }
+    return projects
+}
+
+def get_redmine_projects() {
+    def outputs = bat script : "python getconfig/job/get_redmine_projects.py",
+                      returnStdout : true
+
+    def projects = []
+    def output_lines = outputs.split("\n")
+    output_lines.each {
+        ( it =~ /^project : (.+)$/ ).each { column ->
+            projects.add(column[1])
+        }
+    }
+    if (projects.size() == 0) {
+       error "プロジェクトが取得できません : ${outputs}"
+    }
+    return projects
+}
+
+def getBranches() {
+  def cmd = 'Get-ChildItem cleansing\\data\\import | Sort-Object -Descending LastWriteTime'
+  def branch_output = bat script : 'powershell -Command "' + cmd + '"',
+                      returnStdout : true
+  
+  def branches = []
+  def branch_lines = branch_output.split("\n")
+  for (ii = 0; ii < branch_lines.size() && ii < 10; ii++) {
+    def line = branch_lines[ii]
+      branches.add(line)
+    // def matcher = line =~ 'remotes/origin/(.+)'
+    // if (matcher) {
+    //   branches.add(matcher[0][1])
+    // }
+  }
+  if (branches.size() == 0) {
+     error "ブランチが取得できません : ${branch_output}"
+  }
+  return branches
+}
+

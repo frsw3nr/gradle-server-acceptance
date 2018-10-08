@@ -1,0 +1,72 @@
+System Model: IBM,8408-44E
+Machine Serial Number: 123456
+Processor Type: PowerPC_POWER8
+Processor Implementation Mode: POWER 8
+Processor Version: PV_8_Compat
+Number Of Processors: 1
+Processor Clock Speed: 4223 MHz
+CPU Type: 64-bit
+Kernel Type: 64-bit
+LPAR Info: 11 AIX1
+Memory Size: 32768 MB
+Good Memory Size: 32768 MB
+Platform Firmware level: SV860_082
+Firmware Version: IBM,FW860.20 (SV860_082)
+Console Login: enable
+Auto Restart: true
+Full Core: true
+NX Crypto Acceleration: Capable and Enabled
+ 
+Network Information
+	Host Name: aix1
+	IP Address: 192.168.0.2
+	Sub Netmask: 255.255.255.0
+	Gateway: 192.168.0.1
+	Name Server: 
+	Domain Name: 
+ 
+Paging Space Information
+	Total Paging Space: 32768MB
+	Percent Used: 0%
+ 
+Volume Groups Information
+============================================================================== 
+Active VGs
+============================================================================== 
+datavg1:
+PV_NAME           PV STATE          TOTAL PPs   FREE PPs    FREE DISTRIBUTION
+hdisk1            active            12287       8965        1653..1729..2457..1542..1584
+============================================================================== 
+ 
+rootvg:
+PV_NAME           PV STATE          TOTAL PPs   FREE PPs    FREE DISTRIBUTION
+hdisk0            active            863         313         00..01..00..139..173
+============================================================================== 
+ 
+INSTALLED RESOURCE LIST
+
+The following resources are installed on the machine.
++/- = Added or deleted from Resource List.
+*   = Diagnostic support not available.
+	
+  Model Architecture: chrp
+  Model Implementation: Multiple Processor, PCI bus
+	
++ sys0                                                                             System Object
++ sysplanar0                                                                       System Planar
+* vio0                                                                             Virtual I/O Bus
+* ent1             U8408.44E.21DF8DW-V11-C116-T1                                   Virtual I/O Ethernet Adapter (l-lan)
+* ent0             U8408.44E.21DF8DW-V11-C115-T1                                   Virtual I/O Ethernet Adapter (l-lan)
+* vsa0             U8408.44E.21DF8DW-V11-C0                                        LPAR Virtual Serial Adapter
+* vty0             U8408.44E.21DF8DW-V11-C0-L0                                     Asynchronous Terminal
++ fcs0             U8408.44E.21DF8DW-V11-C111-T1                                   Virtual Fibre Channel Client Adapter
++ fscsi0           U8408.44E.21DF8DW-V11-C111-T1                                   FC SCSI I/O Controller Protocol Device
+* hdisk0           U8408.44E.21DF8DW-V11-C111-T1-W500507680B21894A-L0              MPIO IBM 2076 FC Disk
+* sfwcomm0         U8408.44E.21DF8DW-V11-C111-T1-W0-L0                             Fibre Channel Storage Framework Comm
+* hdisk1           U8408.44E.21DF8DW-V11-C111-T1-W500507680B21894A-L1000000000000  MPIO IBM 2076 FC Disk
++ fcs1             U8408.44E.21DF8DW-V11-C112-T1                                   Virtual Fibre Channel Client Adapter
++ fscsi1           U8408.44E.21DF8DW-V11-C112-T1                                   FC SCSI I/O Controller Protocol Device
+* sfwcomm1         U8408.44E.21DF8DW-V11-C112-T1-W0-L0                             Fibre Channel Storage Framework Comm
++ L2cache0                                                                         L2 Cache
++ mem0                                                                             Memory
++ proc0                                                                            Processor

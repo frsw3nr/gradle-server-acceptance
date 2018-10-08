@@ -1,0 +1,11 @@
+
+CLI> show volumes
+Volume                                 Status                    Type              RG or TPP or FTRP     Size(MB)  Copy
+No.   Name                                                                         No.  Name                       Protection
+----- -------------------------------- ------------------------- ----------------- ---- ---------------- --------- ----------
+    0 LUN_V#000                        Available                 Standard             0 LUN_R#000          2232320 Disable    
+    1 LUN_V#001                        Available                 Standard             1 LUN_R#001          2232320 Disable    
+    2 LUN_V#002                        Available                 Standard             2 LUN_R#002          2232320 Disable    
+    3 LUN_V#003                        Available                 Standard             3 LUN_R#003          2232320 Disable    
+    4 LUN_V#004                        Available                 Standard             4 LUN_R#004          1116160 Disable    
+CLI> 

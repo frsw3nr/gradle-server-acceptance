@@ -1,0 +1,139 @@
+﻿
+
+Id              : HostSystem-ha-host/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV//vmfs/devices/disks/t10.ATA_____WDC_WD30EZRX2D00D8
+                  PB0_________________________WD2DWMC4N0K6TKCV/1:2048-5860532223
+PartitionNumber : 1
+Attributes      : 0
+Logical         : False
+StartSector     : 2048
+EndSector       : 5860532223
+Type            : Vmfs
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6T
+                  KCV/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV/VMHostDisk
+                  Partition=1:2048-5860532223/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/1:64-8191
+PartitionNumber : 1
+Attributes      : -128
+Logical         : False
+StartSector     : 64
+EndSector       : 8191
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=1:64-8191/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/2:7086080-15472639
+PartitionNumber : 2
+Attributes      : 0
+Logical         : False
+StartSector     : 7086080
+EndSector       : 15472639
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=2:7086080-15472639/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/3:15472640-250069646
+PartitionNumber : 3
+Attributes      : 0
+Logical         : False
+StartSector     : 15472640
+EndSector       : 250069646
+Type            : Vmfs
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=3:15472640-250069646/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/5:8224-520191
+PartitionNumber : 5
+Attributes      : 0
+Logical         : False
+StartSector     : 8224
+EndSector       : 520191
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=5:8224-520191/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/6:520224-1032191
+PartitionNumber : 6
+Attributes      : 0
+Logical         : False
+StartSector     : 520224
+EndSector       : 1032191
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=6:520224-1032191/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/7:1032224-1257471
+PartitionNumber : 7
+Attributes      : 0
+Logical         : False
+StartSector     : 1032224
+EndSector       : 1257471
+Type            : VmkDiagnostic
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=7:1032224-1257471/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/8:1257504-1843199
+PartitionNumber : 8
+Attributes      : 0
+Logical         : False
+StartSector     : 1257504
+EndSector       : 1843199
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=8:1257504-1843199/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCS
+                  U___________________________44SS108GT7RW/9:1843200-7086079
+PartitionNumber : 9
+Attributes      : 0
+Logical         : False
+StartSector     : 1843200
+EndSector       : 7086079
+Type            : VmkDiagnostic
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7R
+                  W/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPart
+                  ition=9:1843200-7086079/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+
+

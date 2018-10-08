@@ -1,0 +1,47 @@
+
+CLI> show event-notification
+[Severity: Error Level]                                E-Mail             SNMP               Host               REMCS              Syslog            
+ ----------------------------------------------------- ------------------ ------------------ ------------------ ------------------ ------------------
+ Parts Error                                           Notify             Notify             Notify(OPMSG)      -                  Do not notify      
+ Disk Error                                            Notify             Notify             Notify             -                  Do not notify      
+ Disk Error (HDD Shield)                               Do not notify      Do not notify      Do not notify      Do not notify      Do not notify      
+ Succeed HDD Shield                                    Do not notify      Do not notify      -                  Do not notify      Do not notify      
+ Temperature Error                                     Notify             Notify             Notify(OPMSG)      -                  Do not notify      
+ Rebuild/Copyback w/ redundant                         Do not notify      Do not notify      Notify(OPMSG)      Do not notify      Do not notify      
+ Rebuild/Copyback w/o redundant                        Do not notify      Do not notify      Notify(OPMSG)      Do not notify      Do not notify      
+ Complete Redundant Copy                               Do not notify      Do not notify      Do not notify      Notify             Do not notify      
+ Complete Redundant Copy (HDD Shield)                  Do not notify      Do not notify      Do not notify      Do not notify      Do not notify      
+ Complete rebuild                                      Notify             Notify             Notify(OPMSG)      -                  Do not notify      
+ Bad data                                              Notify             Notify             Notify(OPMSG)      -                  Do not notify      
+ Pinned data                                           Notify             Notify             Notify(OPMSG)      -                  Do not notify      
+ Not ready                                             Notify             Notify             Notify(OPMSG)      -                  Do not notify      
+ Thin Provisioning Pool Rate                           Notify             Notify             -                  -                  Do not notify      
+ Redundant                                             Do not notify      Do not notify      Do not notify      Do not notify      Do not notify      
+ Copy Session Error                                    Do not notify      Do not notify      -                  Do not notify      Do not notify      
+
+[Severity: Warning Level]                              E-Mail             SNMP               Host               REMCS              Syslog            
+ ----------------------------------------------------- ------------------ ------------------ ------------------ ------------------ ------------------
+ Parts Warning                                         Notify             Notify             Notify             -                  Do not notify      
+ Disk Warning                                          Notify             Notify             Notify             -                  Do not notify      
+ Disk Warning (HDD Shield)                             Do not notify      Do not notify      Do not notify      Do not notify      Do not notify      
+ Temperature Warning                                   Notify             Notify             Notify             -                  Do not notify      
+
+[Severity: Information Level]                          E-Mail             SNMP               Host               REMCS              Syslog            
+ ----------------------------------------------------- ------------------ ------------------ ------------------ ------------------ ------------------
+ Recovery module                                       Do not notify      Notify             -                  -                  Do not notify      
+ Temperature restoration                               Do not notify      Notify             -                  -                  Do not notify      
+ User login/logout                                     Do not notify      Do not notify      -                  -                  Do not notify      
+ Operated RAID Group                                   Do not notify      Do not notify      -                  -                  Do not notify      
+ Added/Released Hot Spare                              Do not notify      Do not notify      -                  -                  Do not notify      
+ Operated Volume                                       Do not notify      Do not notify      -                  -                  Do not notify      
+ Power off/on Apply Firmware                           Do not notify      Do not notify      -                  -                  Do not notify      
+ SDP Usage Rate Over Lv1                               Do not notify      Do not notify      -                  -                  Do not notify      
+ SDP Usage Rate Over Lv2                               Do not notify      Do not notify      -                  -                  Do not notify      
+ SDP Usage Rate Over Lv3                               Do not notify      Do not notify      -                  -                  Do not notify      
+ Copy Table Size Usage Rate Over                       Do not notify      Do not notify      -                  -                  Do not notify      
+ Trial copy license expired                            Notify             Notify             -                  -                  Do not notify      
+ No Free Space on ODX Volume                           Do not notify      Do not notify      -                  -                  Do not notify      
+ FC CA Port Link Status Changed                        Do not notify      Notify             -                  -                  Do not notify      
+ ISCSI CA Port Link Status Changed                     Do not notify      Notify             -                  -                  Do not notify      
+ Host Login Over                                       Do not notify      Do not notify      -                  -                  Do not notify      
+CLI> 

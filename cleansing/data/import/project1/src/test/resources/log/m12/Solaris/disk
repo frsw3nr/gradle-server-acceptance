@@ -1,0 +1,4259 @@
+  / (picl, 1e900000001)
+  :PICLVersion	 1.100000 
+  :_class	 picl 
+  :name	 / 
+     platform (sun4v, 1e900000005)
+      :PlatformGroup	 sun4v 
+      :OS-Version	 11.3 
+      :OS-Release	 5.11 
+      :HostName	 m12-1-01 
+      :OS-Name	 SunOS 
+      :#size-cells	 0x2 
+      :#address-cells	 0x2 
+      :device_type	 sun4v 
+      :breakpoint-trap	 0x7f 
+      :hv-api-groups	
+ 00  00  00  00  00  00  00  01  00  00  01  00  00  00  00  02  00  00  00  03 
+ 00  00  01  01  00  00  01  08  00  00  01  18  00  00  01  1d 
+      :stick-frequency	 0x3b9aca00 
+      :banner-name	 SPARC M12-1 
+      :pcie-ari-supported
+      :scsi-initiator-id	 0x7 
+      :idprom	
+ 01  90  b0  99  28  a0  95  96  00  00  00  00  07  3e  96  9c  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00 
+      :compatible	(1e900000017TBL) 
+       | chassis,Sun-Microsystems.SPARC-M12-1.unknown.unknown |
+       | chassis,Sun-Microsystems.SPARC-M12-1 |
+       | chassis.SPARC-M12-1 |
+       | sun4v |
+      :PAGESIZE	 0x2000 
+      :MMU_PAGESIZE	 0x2000 
+      :MMU_PAGEOFFSET	 0x1fff 
+      :relative-addressing	 0x1 
+      :fm-capable	 0x9 
+      :fm-ereport-capable
+      :fm-errcb-capable
+      :pm-hardware-state	 no-suspend-resume 
+      :devfs-path	 / 
+      :driver-name	 rootnex 
+      :binding-name	 ORCL,SPARC64-X 
+      :bus-addr	  
+      :instance	 -1 
+      :PlatformName	 ORCL,SPARC64-X 
+      :_class	 sun4v 
+      :name	 platform 
+         scsi_vhci (devctl, 1e900000029)
+          :scsi-enumeration	 0 
+          :scsi-options	 0x107ff8 
+          :scsi-reset-delay	 0xbb8 
+          :scsi-watchdog-tick	 0xa 
+          :scsi-selection-timeout	 0xfa 
+          :scsi-tag-age-limit	 0x2 
+          :scsi-poll-timeout	 0xa 
+          :scsi-transport-timeout	 0x3c 
+          :scsi-initiator-id	 0x7 
+          :initiator-interconnect-type	 SPI 
+          :scsi-vhci-failover-override	(1e900000049TBL) 
+           | TOSHIBA AL13SEB300 |
+           | f_sym |
+           | TOSHIBA AL13SEB600 |
+           | f_sym |
+           | TOSHIBA AL13SEB900 |
+           | f_sym |
+           | TOSHIBA MBF2300RC |
+           | f_sym |
+           | TOSHIBA MBF2600RC |
+           | f_sym |
+           | TOSHIBA MK1001GRZB |
+           | f_sym |
+           | TOSHIBA PX02SMF020 |
+           | f_sym |
+           | TOSHIBA PX02SMF040 |
+           | f_sym |
+           | TOSHIBA PX04SMB04FUJ400G |
+           | f_sym |
+           | TOSHIBA PX04SMB08FUJ800G |
+           | f_sym |
+           | TOSHIBA MK2001GRZB |
+           | f_sym |
+          :ddi-child-instance-transient	 yes 
+          :iport-rlentime-snapshot-interval	 0x1e 
+          :spread-iport-reservation	 yes 
+          :scsi-vhci-update-pathstate-on-reset	(1e900000040TBL) 
+           | Pillar  Axiom |
+           | yes |
+           | Oracle  Oracle FS |
+           | yes |
+          :ddi-forceload	(1e900000037TBL) 
+           | misc/scsi_vhci/scsi_vhci_f_asym_sun |
+           | misc/scsi_vhci/scsi_vhci_f_asym_lsi |
+           | misc/scsi_vhci/scsi_vhci_f_asym_emc |
+           | misc/scsi_vhci/scsi_vhci_f_sym_emc |
+           | misc/scsi_vhci/scsi_vhci_f_sym_hds |
+           | misc/scsi_vhci/scsi_vhci_f_sym |
+           | misc/scsi_vhci/scsi_vhci_f_tpgs |
+          :auto-failback	 enable 
+          :load-balance	 round-robin 
+          :class	 root 
+          :fm-ereport-capable
+          :pm-want-child-notification?
+          :devfs-path	 /scsi_vhci 
+          :driver-name	 scsi_vhci 
+          :binding-name	 scsi_vhci 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 devctl 
+          :name	 scsi_vhci 
+             disk (fabric, 1e90000006a)
+              :client-guid	 50000397a8423745 
+              :compatible	(1e90000008eTBL) 
+               | scsiclass,00.vTOSHIBA.pAL13SEB600AL14SE.r3703 |
+               | scsiclass,00.vTOSHIBA.pAL13SEB600AL14SE |
+               | scsiclass,00 |
+               | scsiclass |
+              :inquiry-device-type	 0 
+              :inquiry-vendor-id	 TOSHIBA 
+              :inquiry-product-id	 AL13SEB600AL14SE 
+              :inquiry-revision-id	 3703 
+              :class	 scsi 
+              :numaio-root-lgrp
+              :devid	 id1,sd@n50000397a8423745 
+              :ddi-devid-registrant	 0x1 
+              :device-lowest-aligned-lba	 0 
+              :device-optimal-io-granularity	 0 
+              :device-pblksize	 0x200 
+              :device-blksize	 0x200 
+              :pblksize	 0x200 
+              :blksize	 0x200 
+              :fm-ereport-capable
+              :ddi-kernel-ioctl
+              :ddi-failfast-supported
+              :pm-hardware-state	 needs-suspend-resume 
+              :pm-components	(1e900000075TBL) 
+               | NAME=spindle-motor |
+               | 0=stopped |
+               | 1=standby |
+               | 2=idle |
+               | 3=active |
+              :inquiry-serial-no	 37L0A026F7TD 
+              :ddi-dpofua-supported
+              :devfs-path	 /scsi_vhci/disk@g50000397a8423745 
+              :driver-name	 sd 
+              :binding-name	 scsiclass,00 
+              :bus-addr	 g50000397a8423745 
+              :instance	 2 
+              :_class	 fabric 
+              :name	 disk 
+                 multipath (multipath, 1e900000094)
+                  :path-class	 primary 
+                  :obp-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@w50000397a8423746,0 
+                  :phy-num	 0 
+                  :target-port-pm	 1 
+                  :attached-port-pm	 1 
+                  :attached-port	 w500000e0e0d01f7f 
+                  :target-port	 w50000397a8423746 
+                  :lun64	 00  00  00  00  00  00  00  00 
+                  :lun	 0 
+                  :wwn	 50000397a8423745 
+                  :State	 online 
+                  :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/iport@f 
+                  :instance	 1 
+                  :_class	 multipath 
+                  :name	 multipath 
+             disk (fabric, 1e9000000a4)
+              :client-guid	 50000397a8423529 
+              :compatible	(1e9000000c8TBL) 
+               | scsiclass,00.vTOSHIBA.pAL13SEB600AL14SE.r3703 |
+               | scsiclass,00.vTOSHIBA.pAL13SEB600AL14SE |
+               | scsiclass,00 |
+               | scsiclass |
+              :inquiry-device-type	 0 
+              :inquiry-vendor-id	 TOSHIBA 
+              :inquiry-product-id	 AL13SEB600AL14SE 
+              :inquiry-revision-id	 3703 
+              :class	 scsi 
+              :numaio-root-lgrp
+              :devid	 id1,sd@n50000397a8423529 
+              :ddi-devid-registrant	 0x1 
+              :device-lowest-aligned-lba	 0 
+              :device-optimal-io-granularity	 0 
+              :device-pblksize	 0x200 
+              :device-blksize	 0x200 
+              :pblksize	 0x200 
+              :blksize	 0x200 
+              :fm-ereport-capable
+              :ddi-kernel-ioctl
+              :ddi-failfast-supported
+              :pm-hardware-state	 needs-suspend-resume 
+              :pm-components	(1e9000000afTBL) 
+               | NAME=spindle-motor |
+               | 0=stopped |
+               | 1=standby |
+               | 2=idle |
+               | 3=active |
+              :inquiry-serial-no	 37L0A022F7TD 
+              :ddi-dpofua-supported
+              :devfs-path	 /scsi_vhci/disk@g50000397a8423529 
+              :driver-name	 sd 
+              :binding-name	 scsiclass,00 
+              :bus-addr	 g50000397a8423529 
+              :instance	 0 
+              :_class	 fabric 
+              :name	 disk 
+                 multipath (multipath, 1e9000000ce)
+                  :path-class	 primary 
+                  :obp-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@w50000397a842352a,0 
+                  :phy-num	 0x1 
+                  :target-port-pm	 1 
+                  :attached-port-pm	 2 
+                  :attached-port	 w500000e0e0d01f7f 
+                  :target-port	 w50000397a842352a 
+                  :lun64	 00  00  00  00  00  00  00  00 
+                  :lun	 0 
+                  :wwn	 50000397a8423529 
+                  :State	 online 
+                  :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/iport@f 
+                  :instance	 1 
+                  :_class	 multipath 
+                  :name	 multipath 
+         memory (memory, 1e9000001e5)
+          :Size	 0x1f60000000 
+          :UnitAddress	 7e00,a0000000 
+          :available	
+ 00  00  7e  1f  f9  ea  00  00  00  00  00  00  00  30  a0  00  00  00  7e  1f 
+ f0  00  00  00  00  00  00  00  09  d4  a0  00  00  00  7e  00  b0  00  00  00 
+ 00  00  00  1f  20  00  00  00  00  00  7e  00  a0  40  00  00  00  00  00  00 
+ 0f  a1  e0  00 
+          :reg	 00  00  7e  00  a0  00  00  00  00  00  00  1f  60  00  00  00 
+          :devfs-path	 /memory 
+          :binding-name	 memory 
+          :instance	 -1 
+          :_class	 memory 
+          :name	 memory 
+             memory-segment (memory-segment, 1e900000f3a)
+              :mirror-mode	 0 
+              :InterleaveFactor	 0x4 
+              :BaseAddress	 0x7e0000000000 
+              :Size	 0x2000000000 
+              :_class	 memory-segment 
+              :name	 memory-segment 
+                 memory-bank (memory-bank, 1e900000f3d)
+                  :ID	 0 
+                  :AddressMatch	 0x7e0000000000 
+                  :AddressMask	 0x7f0000000180 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, 1e900000f44)
+                      :Label	 MEM00A 
+                      :nac	 /SYS/MBU/CMP0/MEM00A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, 1e900000f49)
+                      :Label	 MEM01A 
+                      :nac	 /SYS/MBU/CMP0/MEM01A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                 memory-bank (memory-bank, 1e900000f4e)
+                  :ID	 1 
+                  :AddressMatch	 0x7e0000000080 
+                  :AddressMask	 0x7f0000000180 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, 1e900000f55)
+                      :Label	 MEM02A 
+                      :nac	 /SYS/MBU/CMP0/MEM02A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, 1e900000f5a)
+                      :Label	 MEM03A 
+                      :nac	 /SYS/MBU/CMP0/MEM03A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                 memory-bank (memory-bank, 1e900000f5f)
+                  :ID	 2 
+                  :AddressMatch	 0x7e0000000100 
+                  :AddressMask	 0x7f0000000180 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, 1e900000f66)
+                      :Label	 MEM10A 
+                      :nac	 /SYS/MBU/CMP0/MEM10A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, 1e900000f6b)
+                      :Label	 MEM11A 
+                      :nac	 /SYS/MBU/CMP0/MEM11A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                 memory-bank (memory-bank, 1e900000f70)
+                  :ID	 3 
+                  :AddressMatch	 0x7e0000000180 
+                  :AddressMask	 0x7f0000000180 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, 1e900000f77)
+                      :Label	 MEM12A 
+                      :nac	 /SYS/MBU/CMP0/MEM12A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, 1e900000f7c)
+                      :Label	 MEM13A 
+                      :nac	 /SYS/MBU/CMP0/MEM13A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+         virtual-devices (virtual-devices, 1e9000001fe)
+          :UnitAddress	 c0000100,0 
+          :compatible	(1e90000020fTBL) 
+           | SUNW,sun4v-virtual-devices |
+           | SUNW,virtual-devices |
+          :device_type	 virtual-devices 
+          :#size-cells	 0 
+          :#address-cells	 0x1 
+          :reg	 c0  00  01  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  00  00  1f  00  ff  ff  ff  00  00  00  03 
+          :interrupt-map	 00  00  00  01  00  00  00  01  f0  29  a3  c0  00  00  00  11 
+          :numaio-root-lgrp
+          :devfs-path	 /virtual-devices@100 
+          :driver-name	 vnex 
+          :binding-name	 SUNW,sun4v-virtual-devices 
+          :bus-addr	 100 
+          :instance	 0 
+          :_class	 virtual-devices 
+          :name	 virtual-devices 
+             rtc (obp-device, 1e900000212)
+              :UnitAddress	 5 
+              :reg	 00  00  00  05 
+              :compatible	 SUNW,sun4v-tod 
+              :devfs-path	 /virtual-devices@100/rtc 
+              :binding-name	 rtc 
+              :instance	 -1 
+              :_class	 obp-device 
+              :name	 rtc 
+             flashprom (flashprom, 1e90000021a)
+              :UnitAddress	 0 
+              :reg	 00  00  00  00 
+              :devfs-path	 /virtual-devices@100/flashprom 
+              :binding-name	 flashprom 
+              :instance	 -1 
+              :_class	 flashprom 
+              :name	 flashprom 
+             console (serial, 1e900000221)
+              :UnitAddress	 1 
+              :interrupts	 00  00  00  01 
+              :compatible	 SUNW,sun4v-console 
+              :device_type	 serial 
+              :reg	 00  00  00  01 
+              :numaio-root-lgrp
+              :ddi-no-autodetach	 0x1 
+              :devfs-path	 /virtual-devices@100/console@1 
+              :driver-name	 qcn 
+              :binding-name	 SUNW,sun4v-console 
+              :bus-addr	 1 
+              :instance	 0 
+              :_class	 serial 
+              :name	 console 
+             channel-devices (channel-devices, 1e90000022f)
+              :UnitAddress	 200 
+              :device_type	 channel-devices 
+              :compatible	 SUNW,sun4v-channel-devices 
+              :reg	 00  00  02  00 
+              :#size-cells	 0 
+              :#address-cells	 0x1 
+              :numaio-root-lgrp
+              :devfs-path	 /virtual-devices@100/channel-devices@200 
+              :driver-name	 cnex 
+              :binding-name	 SUNW,sun4v-channel-devices 
+              :bus-addr	 200 
+              :instance	 0 
+              :_class	 channel-devices 
+              :name	 channel-devices 
+                 virtual-channel (obp-device, 1e90000023d)
+                  :UnitAddress	 0 
+                  :reg	 00  00  00  00 
+                  :compatible	 SUNW,sun4v-channel 
+                  :numaio-root-lgrp
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel@0 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 0 
+                  :instance	 0 
+                  :_class	 obp-device 
+                  :name	 virtual-channel 
+                 virtual-channel (obp-device, 1e900000248)
+                  :UnitAddress	 3 
+                  :reg	 00  00  00  03 
+                  :compatible	 SUNW,sun4v-channel 
+                  :numaio-root-lgrp
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel@3 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 3 
+                  :instance	 3 
+                  :_class	 obp-device 
+                  :name	 virtual-channel 
+                 virtual-channel-client (obp-device, 1e900000253)
+                  :UnitAddress	 1 
+                  :reg	 00  00  00  01 
+                  :compatible	 SUNW,sun4v-channel 
+                  :numaio-root-lgrp
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel-client@1 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 1 
+                  :instance	 1 
+                  :_class	 obp-device 
+                  :name	 virtual-channel-client 
+                 virtual-channel-client (obp-device, 1e90000025e)
+                  :UnitAddress	 2 
+                  :reg	 00  00  00  02 
+                  :compatible	 SUNW,sun4v-channel 
+                  :numaio-root-lgrp
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel-client@2 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 2 
+                  :instance	 2 
+                  :_class	 obp-device 
+                  :name	 virtual-channel-client 
+                 pciv-communication (obp-device, 1e900000269)
+                  :UnitAddress	 0 
+                  :reg	 00  00  00  00 
+                  :compatible	 SUNW,sun4v-pciv-comm 
+                  :numaio-root-lgrp
+                  :ddi-forceattach	 0x1 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/pciv-communication@0 
+                  :driver-name	 vpci 
+                  :binding-name	 SUNW,sun4v-pciv-comm 
+                  :bus-addr	 0 
+                  :instance	 0 
+                  :_class	 obp-device 
+                  :name	 pciv-communication 
+                 virtual-domain-service (obp-device, 1e900000275)
+                  :UnitAddress	 0 
+                  :reg	 00  00  00  00 
+                  :compatible	 SUNW,sun4v-domain-service 
+                  :numaio-root-lgrp
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-domain-service@0 
+                  :driver-name	 vlds 
+                  :binding-name	 SUNW,sun4v-domain-service 
+                  :bus-addr	 0 
+                  :instance	 0 
+                  :_class	 obp-device 
+                  :name	 virtual-domain-service 
+         cpu (cpu, 1e900000280)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 0 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 0 
+          :cpuid	 0 
+          :UnitAddress	 c0000000,0 
+          :reg	 c0  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000289TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000291)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 1 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 1 
+          :cpuid	 1 
+          :UnitAddress	 c0000001,0 
+          :reg	 c0  00  00  01  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e90000029aTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000002a2)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 2 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 2 
+          :cpuid	 2 
+          :UnitAddress	 c0000002,0 
+          :reg	 c0  00  00  02  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000002abTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000002b3)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 3 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 3 
+          :cpuid	 3 
+          :UnitAddress	 c0000003,0 
+          :reg	 c0  00  00  03  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000002bcTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000002c4)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 4 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 4 
+          :cpuid	 4 
+          :UnitAddress	 c0000004,0 
+          :reg	 c0  00  00  04  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000002cdTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000002d5)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 5 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 5 
+          :cpuid	 5 
+          :UnitAddress	 c0000005,0 
+          :reg	 c0  00  00  05  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000002deTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000002e6)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 6 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 6 
+          :cpuid	 6 
+          :UnitAddress	 c0000006,0 
+          :reg	 c0  00  00  06  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000002efTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000002f7)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 7 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 7 
+          :cpuid	 7 
+          :UnitAddress	 c0000007,0 
+          :reg	 c0  00  00  07  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000300TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000308)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 8 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 8 
+          :cpuid	 8 
+          :UnitAddress	 c0000008,0 
+          :reg	 c0  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000311TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000319)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 9 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 9 
+          :cpuid	 9 
+          :UnitAddress	 c0000009,0 
+          :reg	 c0  00  00  09  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000322TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000032a)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 10 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 10 
+          :cpuid	 10 
+          :UnitAddress	 c000000a,0 
+          :reg	 c0  00  00  0a  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000333TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000033b)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 11 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 11 
+          :cpuid	 11 
+          :UnitAddress	 c000000b,0 
+          :reg	 c0  00  00  0b  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000344TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000034c)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 12 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 12 
+          :cpuid	 12 
+          :UnitAddress	 c000000c,0 
+          :reg	 c0  00  00  0c  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000355TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000035d)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 13 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 13 
+          :cpuid	 13 
+          :UnitAddress	 c000000d,0 
+          :reg	 c0  00  00  0d  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000366TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000036e)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 14 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 14 
+          :cpuid	 14 
+          :UnitAddress	 c000000e,0 
+          :reg	 c0  00  00  0e  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000377TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000037f)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 15 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 15 
+          :cpuid	 15 
+          :UnitAddress	 c000000f,0 
+          :reg	 c0  00  00  0f  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000388TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000390)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 16 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 16 
+          :cpuid	 16 
+          :UnitAddress	 c0000010,0 
+          :reg	 c0  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000399TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000003a1)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 17 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 17 
+          :cpuid	 17 
+          :UnitAddress	 c0000011,0 
+          :reg	 c0  00  00  11  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000003aaTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000003b2)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 18 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 18 
+          :cpuid	 18 
+          :UnitAddress	 c0000012,0 
+          :reg	 c0  00  00  12  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000003bbTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000003c3)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 19 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 19 
+          :cpuid	 19 
+          :UnitAddress	 c0000013,0 
+          :reg	 c0  00  00  13  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000003ccTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000003d4)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 20 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 20 
+          :cpuid	 20 
+          :UnitAddress	 c0000014,0 
+          :reg	 c0  00  00  14  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000003ddTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000003e5)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 21 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 21 
+          :cpuid	 21 
+          :UnitAddress	 c0000015,0 
+          :reg	 c0  00  00  15  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000003eeTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000003f6)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 22 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 22 
+          :cpuid	 22 
+          :UnitAddress	 c0000016,0 
+          :reg	 c0  00  00  16  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000003ffTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000407)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 23 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 23 
+          :cpuid	 23 
+          :UnitAddress	 c0000017,0 
+          :reg	 c0  00  00  17  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000410TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000418)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 24 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 24 
+          :cpuid	 24 
+          :UnitAddress	 c0000018,0 
+          :reg	 c0  00  00  18  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000421TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000429)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 25 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 25 
+          :cpuid	 25 
+          :UnitAddress	 c0000019,0 
+          :reg	 c0  00  00  19  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000432TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000043a)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 26 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 26 
+          :cpuid	 26 
+          :UnitAddress	 c000001a,0 
+          :reg	 c0  00  00  1a  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000443TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000044b)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 27 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 27 
+          :cpuid	 27 
+          :UnitAddress	 c000001b,0 
+          :reg	 c0  00  00  1b  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000454TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000045c)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 28 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 28 
+          :cpuid	 28 
+          :UnitAddress	 c000001c,0 
+          :reg	 c0  00  00  1c  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000465TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000046d)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 29 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 29 
+          :cpuid	 29 
+          :UnitAddress	 c000001d,0 
+          :reg	 c0  00  00  1d  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000476TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000047e)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 30 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 30 
+          :cpuid	 30 
+          :UnitAddress	 c000001e,0 
+          :reg	 c0  00  00  1e  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000487TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000048f)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 31 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 31 
+          :cpuid	 31 
+          :UnitAddress	 c000001f,0 
+          :reg	 c0  00  00  1f  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000498TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000004a0)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 32 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 32 
+          :cpuid	 32 
+          :UnitAddress	 c0000020,0 
+          :reg	 c0  00  00  20  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000004a9TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000004b1)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 33 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 33 
+          :cpuid	 33 
+          :UnitAddress	 c0000021,0 
+          :reg	 c0  00  00  21  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000004baTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000004c2)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 34 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 34 
+          :cpuid	 34 
+          :UnitAddress	 c0000022,0 
+          :reg	 c0  00  00  22  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000004cbTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000004d3)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 35 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 35 
+          :cpuid	 35 
+          :UnitAddress	 c0000023,0 
+          :reg	 c0  00  00  23  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000004dcTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000004e4)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 36 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 36 
+          :cpuid	 36 
+          :UnitAddress	 c0000024,0 
+          :reg	 c0  00  00  24  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000004edTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e9000004f5)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 37 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 37 
+          :cpuid	 37 
+          :UnitAddress	 c0000025,0 
+          :reg	 c0  00  00  25  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000004feTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000506)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 38 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 38 
+          :cpuid	 38 
+          :UnitAddress	 c0000026,0 
+          :reg	 c0  00  00  26  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e90000050fTBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000517)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 39 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 39 
+          :cpuid	 39 
+          :UnitAddress	 c0000027,0 
+          :reg	 c0  00  00  27  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000520TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000528)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 40 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 40 
+          :cpuid	 40 
+          :UnitAddress	 c0000028,0 
+          :reg	 c0  00  00  28  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000531TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e900000539)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 41 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 41 
+          :cpuid	 41 
+          :UnitAddress	 c0000029,0 
+          :reg	 c0  00  00  29  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000542TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000054a)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 42 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 42 
+          :cpuid	 42 
+          :UnitAddress	 c000002a,0 
+          :reg	 c0  00  00  2a  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000553TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000055b)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 43 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 43 
+          :cpuid	 43 
+          :UnitAddress	 c000002b,0 
+          :reg	 c0  00  00  2b  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000564TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000056c)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 44 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 44 
+          :cpuid	 44 
+          :UnitAddress	 c000002c,0 
+          :reg	 c0  00  00  2c  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000575TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000057d)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 45 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 45 
+          :cpuid	 45 
+          :UnitAddress	 c000002d,0 
+          :reg	 c0  00  00  2d  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000586TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000058e)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 46 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 46 
+          :cpuid	 46 
+          :UnitAddress	 c000002e,0 
+          :reg	 c0  00  00  2e  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e900000597TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, 1e90000059f)
+          :StateBegin	 Tue May 22 16:13:45 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 47 
+          :dtlb-entries	 2048 
+          :itlb-entries	 2048 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 8 
+          :l3-cache-line-size	 128 
+          :l3-cache-size	 8388608 
+          :l3-cache-associativity	 16 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 524288 
+          :l2-cache-associativity	 16 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :portid	 47 
+          :cpuid	 47 
+          :UnitAddress	 c000002f,0 
+          :reg	 c0  00  00  2f  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(1e9000005a8TBL) 
+           | SPARC64-XII |
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency64	 0xbebc2000 
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         pci (pciex, 1e9000005b0)
+          :UnitAddress	 c0008000,0 
+          :virtual-dma	 80  00  00  00  80  00  00  00 
+          :compatible	 SUNW,sun4v-pci 
+          :#size-cells	 0x2 
+          :#address-cells	 0x3 
+          :bus-parity-generated
+          :available-bus-range	 00  00  00  00  00  00  00  ff 
+          :hotplug-memsize	 0x70000000 
+          :hotplug-mem64size	 00  00  00  0d  20  00  00  00 
+          :msi-address-ranges	
+ 00  00  00  00  7f  80  00  00  00  80  00  00  e0  00  00  00  3f  80  00  00 
+ 00  80  00  00 
+          :#msi	 0x400 
+          :msi-data-mask	 0x3ff 
+          :msi-ranges	 00  00  00  00  00  00  04  00 
+          :msi-eq-size	 0x400 
+          :msix-data-width	 0x20 
+          :#msi-eqs	 0x38 
+          :msi-eq-to-devino	 00  00  00  00  00  00  00  38  00  00  00  06 
+          :iommu-address-ranges	
+ 00  00  00  00  80  00  00  00  00  00  00  00  80  00  00  00  a0  00  00  00 
+ 00  00  00  00  01  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  00 
+ 01  00  00  00  00  00  00  00 
+          :iommu-pagesizes	 0xff 
+          :interrupts	 00  00  00  3f  00  00  00  3e 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  ff  f8  00  00  00  00  00  00  00  00  00  00  00  00  07 
+          :interrupt-map	
+ 00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  01  f0  2a  25  f8 
+ 00  00  00  02  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  02 
+ f0  2a  25  f8  00  00  00  03  00  00  08  00  00  00  00  00  00  00  00  00 
+ 00  00  00  03  f0  2a  25  f8  00  00  00  04  00  00  08  00  00  00  00  00 
+ 00  00  00  00  00  00  00  04  f0  2a  25  f8  00  00  00  01  00  00  10  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  f0  2a  25  f8  00  00  00  03 
+ 00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  02  f0  2a  25  f8 
+ 00  00  00  04  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  03 
+ f0  2a  25  f8  00  00  00  01  00  00  10  00  00  00  00  00  00  00  00  00 
+ 00  00  00  04  f0  2a  25  f8  00  00  00  02 
+          :numaio-root-lgrp
+          :bus-range	 00  00  00  00  00  00  00  03 
+          :ranges	
+ 01  00  00  00  00  00  00  00  00  00  00  00  80  00  80  1f  00  00  00  00 
+ 00  00  00  00  10  00  00  00  02  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  80  00  00  00  00  00  00  00  00  00  80  00  00  00  03  00  00  00 
+ 00  00  00  01  00  00  00  00  80  00  80  01  00  00  00  00  00  00  00  0f 
+ 00  00  00  00 
+          :available	
+ 81  00  00  00  00  00  00  00  00  00  10  00  00  00  00  00  0f  ff  f0  00 
+ 82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00  7f  e0  00  00 
+ c3  00  00  00  00  00  00  01  10  00  00  00  00  00  00  0e  f0  00  00  00 
+          :reg	 c0  00  80  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ddi-forceattach	 0x1 
+          :device_type	 pciex 
+          :pci-conf-indirect	 0x1 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :pm-want-child-notification?
+          :ddi-kernel-ioctl
+          :devfs-path	 /pci@8000 
+          :driver-name	 px 
+          :binding-name	 SUNW,sun4v-pci 
+          :bus-addr	 8000 
+          :instance	 0 
+          :_class	 pciex 
+          :name	 pci 
+             pci (pciex, 1e9000005dc)
+              :DeviceID	 0x4 
+              :UnitAddress	 4 
+              :vendor-id	 0x10cf 
+              :device-id	 0x18c9 
+              :revision-id	 0x1 
+              :class-code	 0x60400 
+              :cache-line-size	 0 
+              :port-type	 Root-Port 
+              :#size-cells	 0x2 
+              :#address-cells	 0x3 
+              :compatible	(1e9000005f3TBL) 
+               | pciex10cf,18c9.1 |
+               | pciex10cf,18c9 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+              :bus-range	 00  00  00  01  00  00  00  ff 
+              :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  82  00  00  00  00  00  00  00 
+ 00  00  00  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  0f  00  00  00  00 
+              :reg	
+ 00  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :numaio-root-lgrp
+              :available	
+ 82  00  00  00  00  00  00  00  00  14  00  00  00  00  00  00  00  0c  00  00 
+              :ddi-forceattach	 0x1 
+              :fm-ereport-capable
+              :pm-want-child-notification?
+              :pm-components	(1e9000005e6TBL) 
+               | NAME=PCIe switch/bridge PM |
+               | 0=Power Off (D3) |
+               | 3=Full Power D0 |
+              :device_type	 pciex 
+              :devfs-path	 /pci@8000/pci@4 
+              :driver-name	 pcieb 
+              :binding-name	 pciexclass,060400 
+              :bus-addr	 4 
+              :instance	 0 
+              :_class	 pciex 
+              :name	 pci 
+                 pci (pciex, 1e900000600)
+                  :DeviceID	 0 
+                  :UnitAddress	 0 
+                  :vendor-id	 0x10b5 
+                  :device-id	 0x8748 
+                  :revision-id	 0xca 
+                  :subsystem-id	 0x8748 
+                  :subsystem-vendor-id	 0x10b5 
+                  :class-code	 0x60400 
+                  :cache-line-size	 0x10 
+                  :interrupts	 00  00  00  01 
+                  :port-type	 Upstream-Port 
+                  :#size-cells	 0x2 
+                  :#address-cells	 0x3 
+                  :compatible	(1e900000612TBL) 
+                   | pciex10b5,8748.10b5.8748.ca |
+                   | pciex10b5,8748.10b5.8748 |
+                   | pciex10b5,8748.ca |
+                   | pciex10b5,8748 |
+                   | pciexclass,060400 |
+                   | pciexclass,0604 |
+                  :bus-range	 00  00  00  02  00  00  00  03 
+                  :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  c3  00  00  00  00  00  00  01 
+ 00  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  00  00  00  00 
+ 10  00  00  00 
+                  :reg	
+ 00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                  :assigned-addresses	
+ 82  01  00  10  00  00  00  00  00  10  00  00  00  00  00  00  00  04  00  00 
+                  :numaio-root-lgrp
+                  :ddi-forceattach	 0x1 
+                  :fm-ereport-capable
+                  :pm-want-child-notification?
+                  :device_type	 pciex 
+                  :devfs-path	 /pci@8000/pci@4/pci@0 
+                  :driver-name	 pcieb 
+                  :binding-name	 pciexclass,060400 
+                  :bus-addr	 0 
+                  :instance	 1 
+                  :_class	 pciex 
+                  :name	 pci 
+                     pci (pciex, 1e900000624)
+                      :DeviceID	 0x1 
+                      :UnitAddress	 1 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :compatible	(1e900000637TBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :ari-enabled
+                      :bus-range	 00  00  00  03  00  00  00  03 
+                      :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  c3  00  00  00  00  00  00  01 
+ 00  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  00  00  00  00 
+ 10  00  00  00 
+                      :reg	
+ 00  02  08  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :available	
+ 81  00  00  00  00  00  00  00  00  00  00  40  00  00  00  00  00  00  0f  c0 
+ c3  00  00  00  00  00  00  01  00  50  80  00  00  00  00  00  00  0f  80  00 
+ c3  00  00  00  00  00  00  01  00  90  00  00  00  00  00  00  0f  70  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8000/pci@4/pci@0/pci@1 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 1 
+                      :instance	 2 
+                      :_class	 pciex 
+                      :name	 pci 
+                         network (network, 1e900000649)
+                          :Label	 /SYS/MBU/NET0 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x1528 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187c 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x40 
+                          :initial-vfs	 0x40 
+                          :total-vfs	 0x40 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  99  e1  f4 
+                          :compatible	(1e90000065eTBL) 
+                           | pciex8086,1528.10cf.187c.1 |
+                           | pciex8086,1528.10cf.187c |
+                           | pciex8086,1528.1 |
+                           | pciex8086,1528 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 43  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 43  03  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :vf-assigned-addresses	
+ c3  03  00  00  00  00  00  01  00  20  40  00  00  00  00  00  00  00  40  00 
+ c3  03  00  03  00  00  00  01  00  30  40  00  00  00  00  00  00  00  40  00 
+                          :reg	
+ 00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 43  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  20  00  00 
+ 01  03  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 43  03  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ c3  03  00  10  00  00  00  01  00  00  00  00  00  00  00  00  00  20  00  00 
+ 81  03  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ c3  03  00  20  00  00  00  01  00  20  00  00  00  00  00  00  00  00  40  00 
+                          :ari-enabled
+                          :numaio-root-lgrp
+                          :ddi-intr-weight	 0x23 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :nvm_version	 pba number: 000000-000; short2: 04.05.0 4.03.0 80000530 0.0.0 
+                          :devfs-path	 /pci@8000/pci@4/pci@0/pci@1/network@0 
+                          :driver-name	 ixgbe 
+                          :binding-name	 pciex8086,1528 
+                          :bus-addr	 0 
+                          :instance	 0 
+                          :_class	 network 
+                          :name	 network 
+                         network (network, 1e900000677)
+                          :Label	 /SYS/MBU/NET1 
+                          :DeviceID	 0 
+                          :UnitAddress	 0,1 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x1528 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187c 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  02 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x40 
+                          :initial-vfs	 0x40 
+                          :total-vfs	 0x40 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  99  e1  f5 
+                          :compatible	(1e90000068cTBL) 
+                           | pciex8086,1528.10cf.187c.1 |
+                           | pciex8086,1528.10cf.187c |
+                           | pciex8086,1528.1 |
+                           | pciex8086,1528 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 43  03  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 43  03  01  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :vf-assigned-addresses	
+ c3  03  01  00  00  00  00  01  00  40  80  00  00  00  00  00  00  00  40  00 
+ c3  03  01  03  00  00  00  01  00  80  00  00  00  00  00  00  00  00  40  00 
+                          :reg	
+ 00  03  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 43  03  01  10  00  00  00  00  00  00  00  00  00  00  00  00  00  20  00  00 
+ 01  03  01  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 43  03  01  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ c3  03  01  10  00  00  00  01  00  60  00  00  00  00  00  00  00  20  00  00 
+ 81  03  01  18  00  00  00  00  00  00  00  20  00  00  00  00  00  00  00  20 
+ c3  03  01  20  00  00  00  01  00  40  40  00  00  00  00  00  00  00  40  00 
+                          :ari-enabled
+                          :numaio-root-lgrp
+                          :ddi-intr-weight	 0x23 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :nvm_version	 pba number: 000000-000; short2: 04.05.0 4.03.0 80000530 0.0.0 
+                          :devfs-path	 /pci@8000/pci@4/pci@0/pci@1/network@0,1 
+                          :driver-name	 ixgbe 
+                          :binding-name	 pciex8086,1528 
+                          :bus-addr	 0,1 
+                          :instance	 1 
+                          :_class	 network 
+                          :name	 network 
+         pci (pciex, 1e9000006a5)
+          :UnitAddress	 c0008100,0 
+          :virtual-dma	 80  00  00  00  80  00  00  00 
+          :compatible	 SUNW,sun4v-pci 
+          :#size-cells	 0x2 
+          :#address-cells	 0x3 
+          :bus-parity-generated
+          :available-bus-range	 00  00  00  00  00  00  00  ff 
+          :hotplug-memsize	 0x70000000 
+          :hotplug-mem64size	 00  00  00  0d  20  00  00  00 
+          :msi-address-ranges	
+ 00  00  00  00  7f  80  00  00  00  80  00  00  e0  00  00  00  3f  80  00  00 
+ 00  80  00  00 
+          :#msi	 0x400 
+          :msi-data-mask	 0x3ff 
+          :msi-ranges	 00  00  00  00  00  00  04  00 
+          :msi-eq-size	 0x400 
+          :msix-data-width	 0x20 
+          :#msi-eqs	 0x38 
+          :msi-eq-to-devino	 00  00  00  00  00  00  00  38  00  00  00  06 
+          :iommu-address-ranges	
+ 00  00  00  00  80  00  00  00  00  00  00  00  80  00  00  00  a0  00  00  00 
+ 00  00  00  00  01  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  00 
+ 01  00  00  00  00  00  00  00 
+          :iommu-pagesizes	 0xff 
+          :level2-hotplug-slot-count	 0xb 
+          :level1-hotplug-slot-count	 0x1 
+          :interrupts	 00  00  00  3f  00  00  00  3e 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  ff  f8  00  00  00  00  00  00  00  00  00  00  00  00  07 
+          :interrupt-map	
+ 00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  01  f0  2b  21  2c 
+ 00  00  00  02  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  02 
+ f0  2b  21  2c  00  00  00  03  00  00  08  00  00  00  00  00  00  00  00  00 
+ 00  00  00  03  f0  2b  21  2c  00  00  00  04  00  00  08  00  00  00  00  00 
+ 00  00  00  00  00  00  00  04  f0  2b  21  2c  00  00  00  01  00  00  10  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  f0  2b  21  2c  00  00  00  03 
+ 00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  02  f0  2b  21  2c 
+ 00  00  00  04  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  03 
+ f0  2b  21  2c  00  00  00  01  00  00  10  00  00  00  00  00  00  00  00  00 
+ 00  00  00  04  f0  2b  21  2c  00  00  00  02 
+          :numaio-root-lgrp
+          :bus-range	 00  00  00  00  00  00  00  05 
+          :ranges	
+ 01  00  00  00  00  00  00  00  00  00  00  00  80  00  80  3f  00  00  00  00 
+ 00  00  00  00  10  00  00  00  02  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  80  20  00  00  00  00  00  00  00  00  80  00  00  00  03  00  00  00 
+ 00  00  00  01  00  00  00  00  80  00  80  21  00  00  00  00  00  00  00  0f 
+ 00  00  00  00 
+          :available	
+ 81  00  00  00  00  00  00  00  00  00  10  00  00  00  00  00  0f  ff  f0  00 
+ 82  00  00  00  00  00  00  00  00  30  00  00  00  00  00  00  7f  d0  00  00 
+ c3  00  00  00  00  00  00  01  20  00  00  00  00  00  00  0e  e0  00  00  00 
+          :reg	 c0  00  81  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ddi-forceattach	 0x1 
+          :device_type	 pciex 
+          :pci-conf-indirect	 0x1 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :pm-want-child-notification?
+          :ddi-kernel-ioctl
+          :devfs-path	 /pci@8100 
+          :driver-name	 px 
+          :binding-name	 SUNW,sun4v-pci 
+          :bus-addr	 8100 
+          :instance	 1 
+          :_class	 pciex 
+          :name	 pci 
+             pci (pciex, 1e9000006d3)
+              :DeviceID	 0x4 
+              :UnitAddress	 4 
+              :vendor-id	 0x10cf 
+              :device-id	 0x18c9 
+              :revision-id	 0x1 
+              :class-code	 0x60400 
+              :cache-line-size	 0 
+              :port-type	 Root-Port 
+              :#size-cells	 0x2 
+              :#address-cells	 0x3 
+              :compatible	(1e9000006eaTBL) 
+               | pciex10cf,18c9.1 |
+               | pciex10cf,18c9 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+              :bus-range	 00  00  00  01  00  00  00  ff 
+              :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  82  00  00  00  00  00  00  00 
+ 00  00  00  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  0f  00  00  00  00 
+              :reg	
+ 00  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :numaio-root-lgrp
+              :available	
+ 82  00  00  00  00  00  00  00  00  14  00  00  00  00  00  00  00  0c  00  00 
+              :ddi-forceattach	 0x1 
+              :fm-ereport-capable
+              :pm-want-child-notification?
+              :pm-components	(1e9000006ddTBL) 
+               | NAME=PCIe switch/bridge PM |
+               | 0=Power Off (D3) |
+               | 3=Full Power D0 |
+              :device_type	 pciex 
+              :devfs-path	 /pci@8100/pci@4 
+              :driver-name	 pcieb 
+              :binding-name	 pciexclass,060400 
+              :bus-addr	 4 
+              :instance	 3 
+              :_class	 pciex 
+              :name	 pci 
+                 pci (pciex, 1e9000006f7)
+                  :DeviceID	 0 
+                  :UnitAddress	 0 
+                  :vendor-id	 0x10b5 
+                  :device-id	 0x8748 
+                  :revision-id	 0xca 
+                  :subsystem-id	 0x8748 
+                  :subsystem-vendor-id	 0x10b5 
+                  :class-code	 0x60400 
+                  :cache-line-size	 0x10 
+                  :interrupts	 00  00  00  01 
+                  :port-type	 Upstream-Port 
+                  :#size-cells	 0x2 
+                  :#address-cells	 0x3 
+                  :compatible	(1e900000709TBL) 
+                   | pciex10b5,8748.10b5.8748.ca |
+                   | pciex10b5,8748.10b5.8748 |
+                   | pciex10b5,8748.ca |
+                   | pciex10b5,8748 |
+                   | pciexclass,060400 |
+                   | pciexclass,0604 |
+                  :bus-range	 00  00  00  02  00  00  00  05 
+                  :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  82  00  00  00  00  00  00  00 
+ 00  20  00  00  82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00 
+ 00  10  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  00  20  00  00  00 
+                  :reg	
+ 00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                  :assigned-addresses	
+ 82  01  00  10  00  00  00  00  00  10  00  00  00  00  00  00  00  04  00  00 
+                  :numaio-root-lgrp
+                  :ddi-forceattach	 0x1 
+                  :fm-ereport-capable
+                  :pm-want-child-notification?
+                  :device_type	 pciex 
+                  :devfs-path	 /pci@8100/pci@4/pci@0 
+                  :driver-name	 pcieb 
+                  :binding-name	 pciexclass,060400 
+                  :bus-addr	 0 
+                  :instance	 4 
+                  :_class	 pciex 
+                  :name	 pci 
+                     pci (pciex, 1e90000071b)
+                      :DeviceID	 0 
+                      :UnitAddress	 0 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :compatible	(1e90000072eTBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :ari-enabled
+                      :bus-range	 00  00  00  03  00  00  00  03 
+                      :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  82  00  00  00  00  00  00  00 
+ 00  20  00  00  82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00 
+ 00  10  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  00  10  00  00  00 
+                      :reg	
+ 00  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :available	
+ 81  00  00  00  00  00  00  00  00  00  01  00  00  00  00  00  00  00  0f  00 
+ c3  00  00  00  00  00  00  01  00  01  00  00  00  00  00  00  00  03  00  00 
+ c3  00  00  00  00  00  00  01  00  08  00  00  00  00  00  00  0f  f8  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8100/pci@4/pci@0/pci@0 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 0 
+                      :instance	 5 
+                      :_class	 pciex 
+                      :name	 pci 
+                         scsi (scsi-sas, 1e900000740)
+                          :Label	 /SYS/MBU/SASHBA0 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x1000 
+                          :device-id	 0x87 
+                          :revision-id	 0x5 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187e 
+                          :class-code	 0x10700 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#address-cells	 0x4 
+                          :device_type	 scsi-sas 
+                          :wide	 0x10 
+                          :version	 1.00.56 
+                          :model	 LSI,2308_2 
+                          :local-wwid	 50  00  00  e0  e0  64  03  e8 
+                          :mpt-version	 2.00 
+                          :reg	
+ 00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 01  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00 
+ 03  03  00  14  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00  00 
+ 03  03  00  1c  00  00  00  00  00  00  00  00  00  00  00  00  00  04  00  00 
+ 02  03  00  30  00  00  00  00  00  00  00  00  00  00  00  00  00  10  00  00 
+                          :assigned-addresses	
+ 81  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00 
+ 83  03  00  14  00  00  00  01  00  00  00  00  00  00  00  00  00  01  00  00 
+ 83  03  00  1c  00  00  00  01  00  04  00  00  00  00  00  00  00  04  00  00 
+ 82  03  00  30  00  00  00  00  00  20  00  00  00  00  00  00  00  10  00  00 
+                          :compatible	(1e900000766TBL) 
+                           | pciex10cf,87 |
+                           | pci10cf,87 |
+                           | pciex1000,87 |
+                           | pci1000,87 |
+                           | pciex1000,87.10cf.187e |
+                          :ari-enabled
+                          :numaio-root-lgrp
+                          :ddi-intr-weight	 0xa 
+                          :ddi-config-driver-node
+                          :mpxio-disable	 no 
+                          :ddi-vhci-class	 scsi_vhci 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :pm-components	(1e900000757TBL) 
+                           | NAME=mptsas0 |
+                           | 0=Off (PCI D3 State) |
+                           | 3=On (PCI D0 State) |
+                          :firmware-version	 20.0.10.0 
+                          :num-phys	 0x8 
+                          :scsi-iports	(1e900000751TBL) 
+                           | f |
+                           | v0 |
+                          :sm-hba-supported	 0x1 
+                          :driver-version	 MPTSAS HBA Driver 00.00.00.30 
+                          :hardware-version	 F 
+                          :num-phys-hba	 0x8000000 
+                          :supported-protocol	 0xb 
+                          :Manufacturer	 LSISAS2308 
+                          :ModelName	 SAS9217-4i4e 
+                          :SerialNumber	 LSISAS2308ALLSAS9217-4i4e 
+                          :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0 
+                          :driver-name	 mpt_sas 
+                          :binding-name	 pciex1000,87 
+                          :bus-addr	 0 
+                          :instance	 0 
+                          :_class	 scsi-sas 
+                          :name	 scsi 
+                             iport (devctl, 1e90000077e)
+                              :scsi-iport	 f 
+                              :compatible	 mpt_sas 
+                              :obp-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0 
+                              :numaio-root-lgrp
+                              :scsi-enumeration	 0 
+                              :scsi-options	 0x107ff8 
+                              :scsi-reset-delay	 0xbb8 
+                              :scsi-watchdog-tick	 0xa 
+                              :scsi-selection-timeout	 0xfa 
+                              :scsi-tag-age-limit	 0x2 
+                              :scsi-poll-timeout	 0xa 
+                              :scsi-transport-timeout	 0x3c 
+                              :scsi-initiator-id	 0x7 
+                              :initiator-interconnect-type	 SAS 
+                              :mpxio-disable	 no 
+                              :ddi-vhci-class	 scsi_vhci 
+                              :fm-ereport-capable
+                              :initiator-port	 w500000e0e06403e8 
+                              :num-phys	 0x4 
+                              :phymask	 0xf 
+                              :dynamic-port	 0x1 
+                              :virtual-port	 0 
+                              :phy-info	
+ 00  00  00  00  00  00  00  00  00  00  00  01  00  00  00  a0  00  0d  00  00 
+ 00  00  00  04  00  00  00  14  70  68  79  2d  69  6e  66  6f  2d  6e  76  6c 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  28  00  0e  00  00 
+ 00  00  00  01  00  00  00  17  50  68  79  49  64  65  6e  74  69  66  69  65 
+ 72  00  00  00  00  00  00  00  00  00  00  00  00  00  00  28  00  09  00  00 
+ 00  00  00  01  00  00  00  17  70  68  79  53  74  61  74  65  00  00  00  00 
+ 00  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  30  00  13  00  00 
+ 00  00  00  01  00  00  00  16  4e  65  67  6f  74  69  61  74  65  64  4c  69 
+ 6e  6b  52  61  74  65  00  00  00  00  00  00  0a  00  00  00  00  00  00  00 
+ 00  00  00  30  00  16  00  00  00  00  00  01  00  00  00  16  50  72  6f  67 
+ 72  61  6d  6d  65  64  4d  69  6e  4c  69  6e  6b  52  61  74  65  00  00  00 
+ 08  00  00  00  00  00  00  00  00  00  00  30  00  14  00  00  00  00  00  01 
+ 00  00  00  16  48  61  72  64  77  61  72  65  4d  69  6e  4c  69  6e  6b  52 
+ 61  74  65  00  00  00  00  00  08  00  00  00  00  00  00  00  00  00  00  30 
+ 00  16  00  00  00  00  00  01  00  00  00  16  50  72  6f  67  72  61  6d  6d 
+ 65  64  4d  61  78  4c  69  6e  6b  52  61  74  65  00  00  00  0a  00  00  00 
+ 00  00  00  00  00  00  00  30  00  14  00  00  00  00  00  01  00  00  00  16 
+ 48  61  72  64  77  61  72  65  4d  61  78  4c  69  6e  6b  52  61  74  65  00 
+ 00  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  00  00  00  00  28 
+ 00  0e  00  00  00  00  00  01  00  00  00  17  50  68  79  49  64  65  6e  74 
+ 69  66  69  65  72  00  00  00  01  00  00  00  00  00  00  00  00  00  00  28 
+ 00  09  00  00  00  00  00  01  00  00  00  17  70  68  79  53  74  61  74  65 
+ 00  00  00  00  00  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  30 
+ 00  13  00  00  00  00  00  01  00  00  00  16  4e  65  67  6f  74  69  61  74 
+ 65  64  4c  69  6e  6b  52  61  74  65  00  00  00  00  00  00  0a  00  00  00 
+ 00  00  00  00  00  00  00  30  00  16  00  00  00  00  00  01  00  00  00  16 
+ 50  72  6f  67  72  61  6d  6d  65  64  4d  69  6e  4c  69  6e  6b  52  61  74 
+ 65  00  00  00  08  00  00  00  00  00  00  00  00  00  00  30  00  14  00  00 
+ 00  00  00  01  00  00  00  16  48  61  72  64  77  61  72  65  4d  69  6e  4c 
+ 69  6e  6b  52  61  74  65  00  00  00  00  00  08  00  00  00  00  00  00  00 
+ 00  00  00  30  00  16  00  00  00  00  00  01  00  00  00  16  50  72  6f  67 
+ 72  61  6d  6d  65  64  4d  61  78  4c  69  6e  6b  52  61  74  65  00  00  00 
+ 0a  00  00  00  00  00  00  00  00  00  00  30  00  14  00  00  00  00  00  01 
+ 00  00  00  16  48  61  72  64  77  61  72  65  4d  61  78  4c  69  6e  6b  52 
+ 61  74  65  00  00  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  28  00  0e  00  00  00  00  00  01  00  00  00  17  50  68  79  49 
+ 64  65  6e  74  69  66  69  65  72  00  00  00  02  00  00  00  00  00  00  00 
+ 00  00  00  28  00  09  00  00  00  00  00  01  00  00  00  17  70  68  79  53 
+ 74  61  74  65  00  00  00  00  00  00  00  00  0a  00  00  00  00  00  00  00 
+ 00  00  00  30  00  13  00  00  00  00  00  01  00  00  00  16  4e  65  67  6f 
+ 74  69  61  74  65  64  4c  69  6e  6b  52  61  74  65  00  00  00  00  00  00 
+ 0a  00  00  00  00  00  00  00  00  00  00  30  00  16  00  00  00  00  00  01 
+ 00  00  00  16  50  72  6f  67  72  61  6d  6d  65  64  4d  69  6e  4c  69  6e 
+ 6b  52  61  74  65  00  00  00  08  00  00  00  00  00  00  00  00  00  00  30 
+ 00  14  00  00  00  00  00  01  00  00  00  16  48  61  72  64  77  61  72  65 
+ 4d  69  6e  4c  69  6e  6b  52  61  74  65  00  00  00  00  00  08  00  00  00 
+ 00  00  00  00  00  00  00  30  00  16  00  00  00  00  00  01  00  00  00  16 
+ 50  72  6f  67  72  61  6d  6d  65  64  4d  61  78  4c  69  6e  6b  52  61  74 
+ 65  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  30  00  14  00  00 
+ 00  00  00  01  00  00  00  16  48  61  72  64  77  61  72  65  4d  61  78  4c 
+ 69  6e  6b  52  61  74  65  00  00  00  00  00  0a  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  28  00  0e  00  00  00  00  00  01  00  00  00  17 
+ 50  68  79  49  64  65  6e  74  69  66  69  65  72  00  00  00  03  00  00  00 
+ 00  00  00  00  00  00  00  28  00  09  00  00  00  00  00  01  00  00  00  17 
+ 70  68  79  53  74  61  74  65  00  00  00  00  00  00  00  00  0a  00  00  00 
+ 00  00  00  00  00  00  00  30  00  13  00  00  00  00  00  01  00  00  00  16 
+ 4e  65  67  6f  74  69  61  74  65  64  4c  69  6e  6b  52  61  74  65  00  00 
+ 00  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  30  00  16  00  00 
+ 00  00  00  01  00  00  00  16  50  72  6f  67  72  61  6d  6d  65  64  4d  69 
+ 6e  4c  69  6e  6b  52  61  74  65  00  00  00  08  00  00  00  00  00  00  00 
+ 00  00  00  30  00  14  00  00  00  00  00  01  00  00  00  16  48  61  72  64 
+ 77  61  72  65  4d  69  6e  4c  69  6e  6b  52  61  74  65  00  00  00  00  00 
+ 08  00  00  00  00  00  00  00  00  00  00  30  00  16  00  00  00  00  00  01 
+ 00  00  00  16  50  72  6f  67  72  61  6d  6d  65  64  4d  61  78  4c  69  6e 
+ 6b  52  61  74  65  00  00  00  0a  00  00  00  00  00  00  00  00  00  00  30 
+ 00  14  00  00  00  00  00  01  00  00  00  16  48  61  72  64  77  61  72  65 
+ 4d  61  78  4c  69  6e  6b  52  61  74  65  00  00  00  00  00  0a  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00 
+                              :attached-port	 w500000e0e0d01f7f 
+                              :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/iport@f 
+                              :driver-name	 mpt_sas 
+                              :binding-name	 mpt_sas 
+                              :bus-addr	 f 
+                              :instance	 1 
+                              :_class	 devctl 
+                              :name	 iport 
+                                 smp (smp, 1e90000079e)
+                                  :smp-wwn	 500000e0e0d01f7f 
+                                  :target-port	 w500000e0e0d01f7f 
+                                  :attached-port	 w500000e0e06403e8 
+                                  :attached-port-pm	 f 
+                                  :target-port-pm	 f00 
+                                  :smp-device
+                                  :numaio-root-lgrp
+                                  :component	 LSI.00551.005 
+                                  :inquiry-revision-id	 1303 
+                                  :inquiry-product-id	 NBBEXP 
+                                  :inquiry-vendor-id	 FUJITSU 
+                                  :devid	 id1,smp@w500000e0e0d01f7f 
+                                  :ddi-devid-registrant	 0x1 
+                                  :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/iport@f/smp@w500000e0e0d01f7f 
+                                  :driver-name	 smp 
+                                  :binding-name	 smp 
+                                  :bus-addr	 w500000e0e0d01f7f 
+                                  :instance	 0 
+                                  :_class	 smp 
+                                  :name	 smp 
+                                 enclosure (scsi, 1e9000007b3)
+                                  :lun	 0 
+                                  :compatible	(1e9000007caTBL) 
+                                   | scsiclass,0d.vFUJITSU.pNBBEXP.r1303 |
+                                   | scsiclass,0d.vFUJITSU.pNBBEXP |
+                                   | scsiclass,0d |
+                                   | scsiclass |
+                                  :target-port	 w500000e0e0d01f7d 
+                                  :port-wwn	 50  00  00  e0  e0  d0  1f  7d 
+                                  :sas-mpt
+                                  :attached-port	 w500000e0e0d01f7f 
+                                  :attached-port-pm	 100000 
+                                  :target-port-pm	 1 
+                                  :phy-num	 0x14 
+                                  :class	 scsi 
+                                  :numaio-root-lgrp
+                                  :inquiry-device-type	 0xd 
+                                  :inquiry-vendor-id	 FUJITSU 
+                                  :inquiry-product-id	 NBBEXP 
+                                  :inquiry-revision-id	 1303 
+                                  :pm-hardware-state	 needs-suspend-resume 
+                                  :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/iport@f/enclosure@w500000e0e0d01f7d,0 
+                                  :driver-name	 ses 
+                                  :binding-name	 scsiclass,0d 
+                                  :bus-addr	 w500000e0e0d01f7d,0 
+                                  :instance	 0 
+                                  :_class	 scsi 
+                                  :name	 enclosure 
+                             iport (devctl, 1e9000007d0)
+                              :scsi-iport	 v0 
+                              :compatible	 mpt_sas 
+                              :obp-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0 
+                              :numaio-root-lgrp
+                              :scsi-enumeration	 0 
+                              :scsi-options	 0x107ff8 
+                              :scsi-reset-delay	 0xbb8 
+                              :scsi-watchdog-tick	 0xa 
+                              :scsi-selection-timeout	 0xfa 
+                              :scsi-tag-age-limit	 0x2 
+                              :scsi-poll-timeout	 0xa 
+                              :scsi-transport-timeout	 0x3c 
+                              :scsi-initiator-id	 0x7 
+                              :initiator-interconnect-type	 SAS 
+                              :mpxio-disable	 no 
+                              :ddi-vhci-class	 scsi_vhci 
+                              :fm-ereport-capable
+                              :virtual-port	 0x1 
+                              :initiator-port	 w500000e0e06403e8 
+                              :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/iport@v0 
+                              :driver-name	 mpt_sas 
+                              :binding-name	 mpt_sas 
+                              :bus-addr	 v0 
+                              :instance	 2 
+                              :_class	 devctl 
+                              :name	 iport 
+                     pci (pciex, 1e9000007eb)
+                      :DeviceID	 0x8 
+                      :UnitAddress	 8 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :compatible	(1e9000007fdTBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :bus-range	 00  00  00  04  00  00  00  04 
+                      :ranges	
+ c3  00  00  00  00  00  00  01  10  00  00  00  c3  00  00  00  00  00  00  01 
+ 10  00  00  00  00  00  00  00  10  00  00  00 
+                      :reg	
+ 00  02  40  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :available	
+ c3  00  00  00  00  00  00  01  10  00  20  00  00  00  00  00  0f  ff  e0  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8100/pci@4/pci@0/pci@8 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 8 
+                      :instance	 6 
+                      :_class	 pciex 
+                      :name	 pci 
+                         usb (xchi, 1e90000080f)
+                          :Label	 /SYS/MBU/USB 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x1912 
+                          :device-id	 0x14 
+                          :revision-id	 0x3 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187d 
+                          :class-code	 0xc0330 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#address-cells	 0x1 
+                          :#size-cells	 0 
+                          :compatible	(1e900000826TBL) 
+                           | pciex1912,14.10cf.187d.3 |
+                           | pciex1912,14.10cf.187d |
+                           | pciex1912,14.3 |
+                           | pciex1912,14 |
+                           | pciexclass,0c0330 |
+                           | pciexclass,0c03 |
+                          :device_type	 xchi 
+                          :reg	
+ 00  04  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 03  04  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20  00 
+                          :assigned-addresses	
+ 83  04  00  10  00  00  00  01  10  00  00  00  00  00  00  00  00  00  20  00 
+                          :numaio-root-lgrp
+                          :root-hub
+                          :driver-major	 0x2 
+                          :driver-minor	 0 
+                          :pm-want-child-notification?
+                          :usb-port-count	 0x8 
+                          :ddi-forceattach	 0x1 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :devfs-path	 /pci@8100/pci@4/pci@0/pci@8/usb@0 
+                          :driver-name	 xhci 
+                          :binding-name	 pciexclass,0c0330 
+                          :bus-addr	 0 
+                          :instance	 0 
+                          :_class	 xchi 
+                          :name	 usb 
+                             hub (obp-device, 1e900000838)
+                              :UnitAddress	 1 
+                              :assigned-address	 0x1 
+                              :reg	 0x1 
+                              :compatible	(1e90000084fTBL) 
+                               | usb4b4,6500.5010 |
+                               | usb4b4,6500 |
+                               | usb4b4,class9.0.3 |
+                               | usb4b4,class9.0 |
+                               | usb4b4,class9 |
+                               | usb,class9.0.3 |
+                               | usb,class9.0 |
+                               | usb,class9 |
+                               | usbif4b4,class9.0.0 |
+                               | usbif4b4,class9.0 |
+                               | usbif4b4,class9 |
+                               | usbif,class9.0.0 |
+                               | usbif,class9.0 |
+                               | usbif,class9 |
+                               | usb,device |
+                              :usb-vendor-id	 0x4b4 
+                              :usb-product-id	 0x6500 
+                              :usb-revision-id	 0x5010 
+                              :usb-num-configs	 0x1 
+                              :usb-release	 0x300 
+                              :usb-dev-descriptor	
+ 12  01  03  00  09  00  03  09  04  b4  65  00  50  10  00  00  00  01 
+                              :usb-raw-cfg-descriptors	
+ 09  02  1f  00  01  01  00  e0  00  09  04  00  00  01  09  00  00  00  07  05 
+ 81  13  02  00  08  06  30  00  00  02  00 
+                              :super-speed
+                              :numaio-root-lgrp
+                              :driver-major	 0x2 
+                              :driver-minor	 0 
+                              :pm-want-child-notification?
+                              :usb-port-count	 0x4 
+                              :fm-ereport-capable
+                              :devfs-path	 /pci@8100/pci@4/pci@0/pci@8/usb@0/hub@1 
+                              :driver-name	 hubd 
+                              :binding-name	 usbif,class9 
+                              :bus-addr	 1 
+                              :instance	 0 
+                              :_class	 obp-device 
+                              :name	 hub 
+                             hub (obp-device, 1e900000861)
+                              :UnitAddress	 5 
+                              :assigned-address	 0x2 
+                              :reg	 0x5 
+                              :compatible	(1e90000087dTBL) 
+                               | usb4b4,6502.5010 |
+                               | usb4b4,6502 |
+                               | usb4b4,class9.0.2 |
+                               | usb4b4,class9.0 |
+                               | usb4b4,class9 |
+                               | usb,class9.0.2 |
+                               | usb,class9.0 |
+                               | usb,class9 |
+                               | usbif4b4,class9.0.1 |
+                               | usbif4b4,class9.0 |
+                               | usbif4b4,class9 |
+                               | usbif,class9.0.1 |
+                               | usbif,class9.0 |
+                               | usbif,class9 |
+                               | usb,device |
+                              :usb-vendor-id	 0x4b4 
+                              :usb-product-id	 0x6502 
+                              :usb-revision-id	 0x5010 
+                              :usb-num-configs	 0x1 
+                              :usb-release	 0x210 
+                              :usb-dev-descriptor	
+ 12  01  02  10  09  00  02  40  04  b4  65  02  50  10  00  00  00  01 
+                              :usb-raw-cfg-descriptors	
+ 09  02  29  00  01  01  00  e0  00  09  04  00  00  01  09  00  01  00  07  05 
+ 81  03  01  00  0c  09  04  00  01  01  09  00  02  00  07  05  81  03  01  00 
+ 0c 
+                              :high-speed
+                              :numaio-root-lgrp
+                              :driver-major	 0x2 
+                              :driver-minor	 0 
+                              :pm-want-child-notification?
+                              :usb-port-count	 0x4 
+                              :fm-ereport-capable
+                              :pm-components	(1e90000086aTBL) 
+                               | NAME= hubd1 Power |
+                               | 0=USB D3 State |
+                               | 3=USB D0 State |
+                              :devfs-path	 /pci@8100/pci@4/pci@0/pci@8/usb@0/hub@5 
+                              :driver-name	 hubd 
+                              :binding-name	 usbif,class9 
+                              :bus-addr	 5 
+                              :instance	 1 
+                              :_class	 obp-device 
+                              :name	 hub 
+                     pci (pciex, 1e90000088f)
+                      :Label	 /SYS/PCI0 
+                      :DeviceID	 0x9 
+                      :UnitAddress	 9 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :physical-slot#	 0 
+                      :compatible	(1e9000008a1TBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :slot-implemented?
+                      :slot-names	 00  00  00  01  50  43  49  23  30  00 
+                      :bus-range	 00  00  00  05  00  00  00  05 
+                      :reg	
+ 00  02  48  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8100/pci@4/pci@0/pci@9 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 9 
+                      :instance	 7 
+                      :_class	 pciex 
+                      :name	 pci 
+         pci (pciex, 1e9000008b4)
+          :UnitAddress	 c0008200,0 
+          :virtual-dma	 80  00  00  00  80  00  00  00 
+          :compatible	 SUNW,sun4v-pci 
+          :#size-cells	 0x2 
+          :#address-cells	 0x3 
+          :bus-parity-generated
+          :available-bus-range	 00  00  00  00  00  00  00  ff 
+          :hotplug-memsize	 0x70000000 
+          :hotplug-mem64size	 00  00  00  0d  20  00  00  00 
+          :msi-address-ranges	
+ 00  00  00  00  7f  80  00  00  00  80  00  00  e0  00  00  00  3f  80  00  00 
+ 00  80  00  00 
+          :#msi	 0x400 
+          :msi-data-mask	 0x3ff 
+          :msi-ranges	 00  00  00  00  00  00  04  00 
+          :msi-eq-size	 0x400 
+          :msix-data-width	 0x20 
+          :#msi-eqs	 0x38 
+          :msi-eq-to-devino	 00  00  00  00  00  00  00  38  00  00  00  06 
+          :iommu-address-ranges	
+ 00  00  00  00  80  00  00  00  00  00  00  00  80  00  00  00  a0  00  00  00 
+ 00  00  00  00  01  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  00 
+ 01  00  00  00  00  00  00  00 
+          :iommu-pagesizes	 0xff 
+          :level2-hotplug-slot-count	 0xb 
+          :level1-hotplug-slot-count	 0x1 
+          :interrupts	 00  00  00  3f  00  00  00  3e 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  ff  f8  00  00  00  00  00  00  00  00  00  00  00  00  07 
+          :interrupt-map	
+ 00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  01  f0  2c  1c  60 
+ 00  00  00  02  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  02 
+ f0  2c  1c  60  00  00  00  03  00  00  08  00  00  00  00  00  00  00  00  00 
+ 00  00  00  03  f0  2c  1c  60  00  00  00  04  00  00  08  00  00  00  00  00 
+ 00  00  00  00  00  00  00  04  f0  2c  1c  60  00  00  00  01  00  00  10  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  f0  2c  1c  60  00  00  00  03 
+ 00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  02  f0  2c  1c  60 
+ 00  00  00  04  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  03 
+ f0  2c  1c  60  00  00  00  01  00  00  10  00  00  00  00  00  00  00  00  00 
+ 00  00  00  04  f0  2c  1c  60  00  00  00  02 
+          :numaio-root-lgrp
+          :bus-range	 00  00  00  00  00  00  00  04 
+          :ranges	
+ 01  00  00  00  00  00  00  00  00  00  00  00  80  00  82  1f  00  00  00  00 
+ 00  00  00  00  10  00  00  00  02  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  82  00  00  00  00  00  00  00  00  00  80  00  00  00  03  00  00  00 
+ 00  00  00  01  00  00  00  00  80  00  82  01  00  00  00  00  00  00  00  0f 
+ 00  00  00  00 
+          :available	
+ 81  00  00  00  00  00  00  00  00  00  10  00  00  00  00  00  0f  ff  f0  00 
+ 82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00  7f  e0  00  00 
+ c3  00  00  00  00  00  00  01  10  00  00  00  00  00  00  0e  f0  00  00  00 
+          :reg	 c0  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ddi-forceattach	 0x1 
+          :device_type	 pciex 
+          :pci-conf-indirect	 0x1 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :pm-want-child-notification?
+          :ddi-kernel-ioctl
+          :devfs-path	 /pci@8200 
+          :driver-name	 px 
+          :binding-name	 SUNW,sun4v-pci 
+          :bus-addr	 8200 
+          :instance	 2 
+          :_class	 pciex 
+          :name	 pci 
+             pci (pciex, 1e9000008e2)
+              :DeviceID	 0x4 
+              :UnitAddress	 4 
+              :vendor-id	 0x10cf 
+              :device-id	 0x18c9 
+              :revision-id	 0x1 
+              :class-code	 0x60400 
+              :cache-line-size	 0 
+              :port-type	 Root-Port 
+              :#size-cells	 0x2 
+              :#address-cells	 0x3 
+              :compatible	(1e9000008f9TBL) 
+               | pciex10cf,18c9.1 |
+               | pciex10cf,18c9 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+              :bus-range	 00  00  00  01  00  00  00  ff 
+              :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  82  00  00  00  00  00  00  00 
+ 00  00  00  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  0f  00  00  00  00 
+              :reg	
+ 00  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :numaio-root-lgrp
+              :available	
+ 82  00  00  00  00  00  00  00  00  14  00  00  00  00  00  00  00  0c  00  00 
+              :ddi-forceattach	 0x1 
+              :fm-ereport-capable
+              :pm-want-child-notification?
+              :pm-components	(1e9000008ecTBL) 
+               | NAME=PCIe switch/bridge PM |
+               | 0=Power Off (D3) |
+               | 3=Full Power D0 |
+              :device_type	 pciex 
+              :devfs-path	 /pci@8200/pci@4 
+              :driver-name	 pcieb 
+              :binding-name	 pciexclass,060400 
+              :bus-addr	 4 
+              :instance	 8 
+              :_class	 pciex 
+              :name	 pci 
+                 pci (pciex, 1e900000906)
+                  :DeviceID	 0 
+                  :UnitAddress	 0 
+                  :vendor-id	 0x10b5 
+                  :device-id	 0x8748 
+                  :revision-id	 0xca 
+                  :subsystem-id	 0x8748 
+                  :subsystem-vendor-id	 0x10b5 
+                  :class-code	 0x60400 
+                  :cache-line-size	 0x10 
+                  :interrupts	 00  00  00  01 
+                  :port-type	 Upstream-Port 
+                  :#size-cells	 0x2 
+                  :#address-cells	 0x3 
+                  :compatible	(1e900000918TBL) 
+                   | pciex10b5,8748.10b5.8748.ca |
+                   | pciex10b5,8748.10b5.8748 |
+                   | pciex10b5,8748.ca |
+                   | pciex10b5,8748 |
+                   | pciexclass,060400 |
+                   | pciexclass,0604 |
+                  :bus-range	 00  00  00  02  00  00  00  04 
+                  :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  c3  00  00  00  00  00  00  01 
+ 00  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  00  00  00  00 
+ 10  00  00  00 
+                  :reg	
+ 00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                  :assigned-addresses	
+ 82  01  00  10  00  00  00  00  00  10  00  00  00  00  00  00  00  04  00  00 
+                  :numaio-root-lgrp
+                  :ddi-forceattach	 0x1 
+                  :fm-ereport-capable
+                  :pm-want-child-notification?
+                  :device_type	 pciex 
+                  :devfs-path	 /pci@8200/pci@4/pci@0 
+                  :driver-name	 pcieb 
+                  :binding-name	 pciexclass,060400 
+                  :bus-addr	 0 
+                  :instance	 9 
+                  :_class	 pciex 
+                  :name	 pci 
+                     pci (pciex, 1e90000092a)
+                      :DeviceID	 0 
+                      :UnitAddress	 0 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :compatible	(1e90000093dTBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :ari-enabled
+                      :bus-range	 00  00  00  03  00  00  00  03 
+                      :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  c3  00  00  00  00  00  00  01 
+ 00  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  00  00  00  00 
+ 10  00  00  00 
+                      :reg	
+ 00  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :available	
+ 81  00  00  00  00  00  00  00  00  00  00  40  00  00  00  00  00  00  0f  c0 
+ c3  00  00  00  00  00  00  01  00  50  80  00  00  00  00  00  00  0f  80  00 
+ c3  00  00  00  00  00  00  01  00  90  00  00  00  00  00  00  0f  70  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8200/pci@4/pci@0/pci@0 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 0 
+                      :instance	 10 
+                      :_class	 pciex 
+                      :name	 pci 
+                         network (network, 1e90000094f)
+                          :Label	 /SYS/MBU/NET2 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x1528 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187c 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x40 
+                          :initial-vfs	 0x40 
+                          :total-vfs	 0x40 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  99  e1  f6 
+                          :compatible	(1e900000964TBL) 
+                           | pciex8086,1528.10cf.187c.1 |
+                           | pciex8086,1528.10cf.187c |
+                           | pciex8086,1528.1 |
+                           | pciex8086,1528 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 43  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 43  03  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :vf-assigned-addresses	
+ c3  03  00  00  00  00  00  01  00  20  40  00  00  00  00  00  00  00  40  00 
+ c3  03  00  03  00  00  00  01  00  30  40  00  00  00  00  00  00  00  40  00 
+                          :reg	
+ 00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 43  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  20  00  00 
+ 01  03  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 43  03  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ c3  03  00  10  00  00  00  01  00  00  00  00  00  00  00  00  00  20  00  00 
+ 81  03  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ c3  03  00  20  00  00  00  01  00  20  00  00  00  00  00  00  00  00  40  00 
+                          :ari-enabled
+                          :numaio-root-lgrp
+                          :ddi-intr-weight	 0x23 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :nvm_version	 pba number: 000000-000; short2: 04.05.0 4.03.0 80000530 0.0.0 
+                          :devfs-path	 /pci@8200/pci@4/pci@0/pci@0/network@0 
+                          :driver-name	 ixgbe 
+                          :binding-name	 pciex8086,1528 
+                          :bus-addr	 0 
+                          :instance	 2 
+                          :_class	 network 
+                          :name	 network 
+                         network (network, 1e90000097d)
+                          :Label	 /SYS/MBU/NET3 
+                          :DeviceID	 0 
+                          :UnitAddress	 0,1 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x1528 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187c 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  02 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x40 
+                          :initial-vfs	 0x40 
+                          :total-vfs	 0x40 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  99  e1  f7 
+                          :compatible	(1e900000992TBL) 
+                           | pciex8086,1528.10cf.187c.1 |
+                           | pciex8086,1528.10cf.187c |
+                           | pciex8086,1528.1 |
+                           | pciex8086,1528 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 43  03  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 43  03  01  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :vf-assigned-addresses	
+ c3  03  01  00  00  00  00  01  00  40  80  00  00  00  00  00  00  00  40  00 
+ c3  03  01  03  00  00  00  01  00  80  00  00  00  00  00  00  00  00  40  00 
+                          :reg	
+ 00  03  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 43  03  01  10  00  00  00  00  00  00  00  00  00  00  00  00  00  20  00  00 
+ 01  03  01  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 43  03  01  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ c3  03  01  10  00  00  00  01  00  60  00  00  00  00  00  00  00  20  00  00 
+ 81  03  01  18  00  00  00  00  00  00  00  20  00  00  00  00  00  00  00  20 
+ c3  03  01  20  00  00  00  01  00  40  40  00  00  00  00  00  00  00  40  00 
+                          :ari-enabled
+                          :numaio-root-lgrp
+                          :ddi-intr-weight	 0x23 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :nvm_version	 pba number: 000000-000; short2: 04.05.0 4.03.0 80000530 0.0.0 
+                          :devfs-path	 /pci@8200/pci@4/pci@0/pci@0/network@0,1 
+                          :driver-name	 ixgbe 
+                          :binding-name	 pciex8086,1528 
+                          :bus-addr	 0,1 
+                          :instance	 3 
+                          :_class	 network 
+                          :name	 network 
+                     pci (pciex, 1e9000009ab)
+                      :Label	 /SYS/PCI1 
+                      :DeviceID	 0x8 
+                      :UnitAddress	 8 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :physical-slot#	 0x1 
+                      :compatible	(1e9000009bdTBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :slot-implemented?
+                      :slot-names	 00  00  00  01  50  43  49  23  31  00 
+                      :bus-range	 00  00  00  04  00  00  00  04 
+                      :reg	
+ 00  02  40  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8200/pci@4/pci@0/pci@8 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 8 
+                      :instance	 11 
+                      :_class	 pciex 
+                      :name	 pci 
+         pci (pciex, 1e9000009d0)
+          :UnitAddress	 c0008300,0 
+          :virtual-dma	 80  00  00  00  80  00  00  00 
+          :compatible	 SUNW,sun4v-pci 
+          :#size-cells	 0x2 
+          :#address-cells	 0x3 
+          :bus-parity-generated
+          :available-bus-range	 00  00  00  00  00  00  00  ff 
+          :hotplug-memsize	 0x70000000 
+          :hotplug-mem64size	 00  00  00  0d  20  00  00  00 
+          :msi-address-ranges	
+ 00  00  00  00  7f  80  00  00  00  80  00  00  e0  00  00  00  3f  80  00  00 
+ 00  80  00  00 
+          :#msi	 0x400 
+          :msi-data-mask	 0x3ff 
+          :msi-ranges	 00  00  00  00  00  00  04  00 
+          :msi-eq-size	 0x400 
+          :msix-data-width	 0x20 
+          :#msi-eqs	 0x38 
+          :msi-eq-to-devino	 00  00  00  00  00  00  00  38  00  00  00  06 
+          :iommu-address-ranges	
+ 00  00  00  00  80  00  00  00  00  00  00  00  80  00  00  00  a0  00  00  00 
+ 00  00  00  00  01  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  00 
+ 01  00  00  00  00  00  00  00 
+          :iommu-pagesizes	 0xff 
+          :level2-hotplug-slot-count	 0xb 
+          :level1-hotplug-slot-count	 0x1 
+          :interrupts	 00  00  00  3f  00  00  00  3e 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  ff  f8  00  00  00  00  00  00  00  00  00  00  00  00  07 
+          :interrupt-map	
+ 00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  01  f0  2d  17  94 
+ 00  00  00  02  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  02 
+ f0  2d  17  94  00  00  00  03  00  00  08  00  00  00  00  00  00  00  00  00 
+ 00  00  00  03  f0  2d  17  94  00  00  00  04  00  00  08  00  00  00  00  00 
+ 00  00  00  00  00  00  00  04  f0  2d  17  94  00  00  00  01  00  00  10  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  f0  2d  17  94  00  00  00  03 
+ 00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  02  f0  2d  17  94 
+ 00  00  00  04  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  03 
+ f0  2d  17  94  00  00  00  01  00  00  10  00  00  00  00  00  00  00  00  00 
+ 00  00  00  04  f0  2d  17  94  00  00  00  02 
+          :numaio-root-lgrp
+          :bus-range	 00  00  00  00  00  00  00  03 
+          :ranges	
+ 01  00  00  00  00  00  00  00  00  00  00  00  80  00  82  3f  00  00  00  00 
+ 00  00  00  00  10  00  00  00  02  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  82  20  00  00  00  00  00  00  00  00  80  00  00  00  03  00  00  00 
+ 00  00  00  01  00  00  00  00  80  00  82  21  00  00  00  00  00  00  00  0f 
+ 00  00  00  00 
+          :available	
+ 81  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  10  00  00  00 
+ 82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00  7f  e0  00  00 
+ c3  00  00  00  00  00  00  01  00  00  00  00  00  00  00  0f  00  00  00  00 
+          :reg	 c0  00  83  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ddi-forceattach	 0x1 
+          :device_type	 pciex 
+          :pci-conf-indirect	 0x1 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :pm-want-child-notification?
+          :ddi-kernel-ioctl
+          :devfs-path	 /pci@8300 
+          :driver-name	 px 
+          :binding-name	 SUNW,sun4v-pci 
+          :bus-addr	 8300 
+          :instance	 3 
+          :_class	 pciex 
+          :name	 pci 
+             pci (pciex, 1e9000009fe)
+              :DeviceID	 0x4 
+              :UnitAddress	 4 
+              :vendor-id	 0x10cf 
+              :device-id	 0x18c9 
+              :revision-id	 0x1 
+              :class-code	 0x60400 
+              :cache-line-size	 0 
+              :port-type	 Root-Port 
+              :#size-cells	 0x2 
+              :#address-cells	 0x3 
+              :compatible	(1e900000a15TBL) 
+               | pciex10cf,18c9.1 |
+               | pciex10cf,18c9 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+              :bus-range	 00  00  00  01  00  00  00  ff 
+              :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  82  00  00  00  00  00  00  00 
+ 00  00  00  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  0f  00  00  00  00 
+              :reg	
+ 00  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :numaio-root-lgrp
+              :available	
+ 82  00  00  00  00  00  00  00  00  14  00  00  00  00  00  00  00  0c  00  00 
+              :ddi-forceattach	 0x1 
+              :fm-ereport-capable
+              :pm-want-child-notification?
+              :pm-components	(1e900000a08TBL) 
+               | NAME=PCIe switch/bridge PM |
+               | 0=Power Off (D3) |
+               | 3=Full Power D0 |
+              :device_type	 pciex 
+              :devfs-path	 /pci@8300/pci@4 
+              :driver-name	 pcieb 
+              :binding-name	 pciexclass,060400 
+              :bus-addr	 4 
+              :instance	 12 
+              :_class	 pciex 
+              :name	 pci 
+                 pci (pciex, 1e900000a22)
+                  :DeviceID	 0 
+                  :UnitAddress	 0 
+                  :vendor-id	 0x10b5 
+                  :device-id	 0x8748 
+                  :revision-id	 0xca 
+                  :subsystem-id	 0x8748 
+                  :subsystem-vendor-id	 0x10b5 
+                  :class-code	 0x60400 
+                  :cache-line-size	 0x10 
+                  :interrupts	 00  00  00  01 
+                  :port-type	 Upstream-Port 
+                  :#size-cells	 0x2 
+                  :#address-cells	 0x3 
+                  :compatible	(1e900000a33TBL) 
+                   | pciex10b5,8748.10b5.8748.ca |
+                   | pciex10b5,8748.10b5.8748 |
+                   | pciex10b5,8748.ca |
+                   | pciex10b5,8748 |
+                   | pciexclass,060400 |
+                   | pciexclass,0604 |
+                  :bus-range	 00  00  00  02  00  00  00  03 
+                  :reg	
+ 00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                  :assigned-addresses	
+ 82  01  00  10  00  00  00  00  00  10  00  00  00  00  00  00  00  04  00  00 
+                  :numaio-root-lgrp
+                  :ddi-forceattach	 0x1 
+                  :fm-ereport-capable
+                  :pm-want-child-notification?
+                  :device_type	 pciex 
+                  :devfs-path	 /pci@8300/pci@4/pci@0 
+                  :driver-name	 pcieb 
+                  :binding-name	 pciexclass,060400 
+                  :bus-addr	 0 
+                  :instance	 13 
+                  :_class	 pciex 
+                  :name	 pci 
+                     pci (pciex, 1e900000a45)
+                      :Label	 /SYS/PCI2 
+                      :DeviceID	 0x1 
+                      :UnitAddress	 1 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8748 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8748 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :physical-slot#	 0x2 
+                      :compatible	(1e900000a57TBL) 
+                       | pciex10b5,8748.10b5.8748.ca |
+                       | pciex10b5,8748.10b5.8748 |
+                       | pciex10b5,8748.ca |
+                       | pciex10b5,8748 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :slot-implemented?
+                      :slot-names	 00  00  00  01  50  43  49  23  32  00 
+                      :bus-range	 00  00  00  03  00  00  00  03 
+                      :reg	
+ 00  02  08  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :numaio-root-lgrp
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :devfs-path	 /pci@8300/pci@4/pci@0/pci@1 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 1 
+                      :instance	 14 
+                      :_class	 pciex 
+                      :name	 pci 
+         pci-performance-counters (obp-device, 1e900000a6a)
+          :UnitAddress	 c0008000,0 
+          :compatible	 FJSV,titania-pr 
+          :reg	 c0  00  80  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :numaio-root-lgrp
+          :ddi-forceattach	 0x1 
+          :devfs-path	 /pci-performance-counters@8000 
+          :driver-name	 iospc 
+          :binding-name	 FJSV,titania-pr 
+          :bus-addr	 8000 
+          :instance	 0 
+          :_class	 obp-device 
+          :name	 pci-performance-counters 
+         pci-performance-counters (obp-device, 1e900000a76)
+          :UnitAddress	 c0008100,0 
+          :compatible	 FJSV,titania-pr 
+          :reg	 c0  00  81  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :numaio-root-lgrp
+          :ddi-forceattach	 0x1 
+          :devfs-path	 /pci-performance-counters@8100 
+          :driver-name	 iospc 
+          :binding-name	 FJSV,titania-pr 
+          :bus-addr	 8100 
+          :instance	 1 
+          :_class	 obp-device 
+          :name	 pci-performance-counters 
+         pci-performance-counters (obp-device, 1e900000a82)
+          :UnitAddress	 c0008200,0 
+          :compatible	 FJSV,titania-pr 
+          :reg	 c0  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :numaio-root-lgrp
+          :ddi-forceattach	 0x1 
+          :devfs-path	 /pci-performance-counters@8200 
+          :driver-name	 iospc 
+          :binding-name	 FJSV,titania-pr 
+          :bus-addr	 8200 
+          :instance	 2 
+          :_class	 obp-device 
+          :name	 pci-performance-counters 
+         pci-performance-counters (obp-device, 1e900000a8e)
+          :UnitAddress	 c0008300,0 
+          :compatible	 FJSV,titania-pr 
+          :reg	 c0  00  83  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :numaio-root-lgrp
+          :ddi-forceattach	 0x1 
+          :devfs-path	 /pci-performance-counters@8300 
+          :driver-name	 iospc 
+          :binding-name	 FJSV,titania-pr 
+          :bus-addr	 8300 
+          :instance	 3 
+          :_class	 obp-device 
+          :name	 pci-performance-counters 
+         pseudo (devctl, 1e900000ac2)
+          :class	 root 
+          :devfs-path	 /pseudo 
+          :driver-name	 pseudo 
+          :binding-name	 pseudo 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 devctl 
+          :name	 pseudo 
+             zconsnex (devctl, 1e900000acb)
+              :valid-children	 zcons 
+              :devfs-path	 /pseudo/zconsnex@1 
+              :driver-name	 pseudo 
+              :binding-name	 zconsnex 
+              :bus-addr	 1 
+              :instance	 1 
+              :_class	 devctl 
+              :name	 zconsnex 
+     obp (picl, 1e900000026)
+      :_class	 picl 
+      :name	 obp 
+         packages (packages, 1e9000000de)
+          :devfs-path	 /packages 
+          :binding-name	 packages 
+          :instance	 -1 
+          :_class	 packages 
+          :name	 packages 
+             SUNW,builtin-drivers (SUNW,builtin-drivers, 1e9000000e4)
+              :builtin-drivers	(1e9000000ebTBL) 
+               | class010802 |
+               | nvme |
+               | pci1000,87 |
+               | pci1000,87 |
+               | pciex1000,87 |
+               | pci1000,87 |
+               | pciex1000,87.10cf.177f |
+               | pci1000,87 |
+               | pciex1000,87.10cf.187e |
+               | pci1000,87 |
+               | pciex1000,86 |
+               | pci1000,87 |
+               | pciex1000,86.1000.3000 |
+               | pci1000,87 |
+               | class060400 |
+               | class060400 |
+               | pci14e4,1656 |
+               | pci14e4,1656 |
+               | pciex14e4,1656 |
+               | pci14e4,1656 |
+               | pciex14e4,1656.10cf.165a |
+               | pci14e4,1656 |
+               | pciex8086,10c9.8086.0 |
+               | ophir |
+               | pciex8086,10c9.108e.4848 |
+               | ophir |
+               | pciex8086,10c9.108e.10c9 |
+               | ophir |
+               | pciex8086,10c9.108e.450c |
+               | ophir |
+               | pciex8086,10c9.10cf.1770 |
+               | ophir |
+               | pciex8086,10c9.10cf.1780 |
+               | ophir |
+               | pciex8086,10ca.10cf.1780 |
+               | ophir |
+               | pciex8086,1520.10cf.187b |
+               | ophir |
+               | pciex8086,1521.10cf.187b |
+               | ophir |
+               | pciex8086,1520.108e.7b18 |
+               | ophir |
+               | pciex8086,1521.108e.7b18 |
+               | ophir |
+               | pciex8086,1528.10cf.187c |
+               | ophir |
+               | pciex8086,1515.10cf.187c |
+               | ophir |
+               | pciex8086,1528.108e.7b15 |
+               | ophir |
+               | pciex8086,1529.108e.7b15 |
+               | ophir |
+               | pciex1912,14 |
+               | xhci |
+               | pciex1912,14.10cf.187d |
+               | xhci |
+               | device |
+               | usbdevice |
+               | usb,class9 |
+               | hub |
+               | usbif,class9 |
+               | hub |
+               | usbif,class3.1.1 |
+               | usbkbd |
+               | usbif,class8 |
+               | usbstorage |
+              :devfs-path	 /packages/SUNW,builtin-drivers 
+              :binding-name	 SUNW,builtin-drivers 
+              :instance	 -1 
+              :_class	 SUNW,builtin-drivers 
+              :name	 SUNW,builtin-drivers 
+             SUNW,probe-error-handler (SUNW,probe-error-handler, 1e90000012e)
+              :devfs-path	 /packages/SUNW,probe-error-handler 
+              :binding-name	 SUNW,probe-error-handler 
+              :instance	 -1 
+              :_class	 SUNW,probe-error-handler 
+              :name	 SUNW,probe-error-handler 
+             deblocker (deblocker, 1e900000134)
+              :disk-write-fix
+              :lba64
+              :devfs-path	 /packages/deblocker 
+              :binding-name	 deblocker 
+              :instance	 -1 
+              :_class	 deblocker 
+              :name	 deblocker 
+             disk-label (disk-label, 1e90000013c)
+              :supported-labels	(1e900000144TBL) 
+               | gpt |
+               | sun |
+               | mbr |
+              :gpt
+              :devfs-path	 /packages/disk-label 
+              :binding-name	 disk-label 
+              :instance	 -1 
+              :_class	 disk-label 
+              :name	 disk-label 
+             terminal-emulator (terminal-emulator, 1e900000148)
+              :iso6429-1983-colors
+              :devfs-path	 /packages/terminal-emulator 
+              :binding-name	 terminal-emulator 
+              :instance	 -1 
+              :_class	 terminal-emulator 
+              :name	 terminal-emulator 
+             dropins (dropins, 1e90000014f)
+              :source	 /flashprom: 
+              :devfs-path	 /packages/dropins 
+              :binding-name	 dropins 
+              :instance	 -1 
+              :_class	 dropins 
+              :name	 dropins 
+             SUNW,asr (SUNW,asr, 1e900000156)
+              :devfs-path	 /packages/SUNW,asr 
+              :binding-name	 SUNW,asr 
+              :instance	 -1 
+              :_class	 SUNW,asr 
+              :name	 SUNW,asr 
+             kbd-translator (kbd-translator, 1e90000015c)
+              :devfs-path	 /packages/kbd-translator 
+              :binding-name	 kbd-translator 
+              :instance	 -1 
+              :_class	 kbd-translator 
+              :name	 kbd-translator 
+             obp-tftp (obp-tftp, 1e900000162)
+              :devfs-path	 /packages/obp-tftp 
+              :binding-name	 obp-tftp 
+              :instance	 -1 
+              :_class	 obp-tftp 
+              :name	 obp-tftp 
+             zfs-file-system (zfs-file-system, 1e900000168)
+              :devfs-path	 /packages/zfs-file-system 
+              :binding-name	 zfs-file-system 
+              :instance	 -1 
+              :_class	 zfs-file-system 
+              :name	 zfs-file-system 
+             hsfs-file-system (hsfs-file-system, 1e90000016e)
+              :devfs-path	 /packages/hsfs-file-system 
+              :binding-name	 hsfs-file-system 
+              :instance	 -1 
+              :_class	 hsfs-file-system 
+              :name	 hsfs-file-system 
+         chosen (chosen, 1e900000174)
+          :root-be-uuid	 de9042de-aaef-4866-a893-d0f5ba8eaac7 
+          :root-uuid-chk	 1 
+          :stdout-#lines	 0xffffffff 
+          :stdin	 0xfee89c78 
+          :stdout	 0xfee31c78 
+          :memory	 0xffb0cd48 
+          :mmu	 0xffb0cb38 
+          :openboot-reserved	 0x40000000 
+          :bootpath	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@w50000397a8423746,0:a 
+          :bootargs	 0 
+          :fstype	 zfs 
+          :bootfs	 0xfee25ee0 
+          :zfs-bootfs	 rpool/40 
+          :bootarchive	 /ramdisk-root 
+          :archive-fstype	 hsfs 
+          :archfs	 0xfee1fb70 
+          :elfheader-address	 0x50000000 
+          :elfheader-length	 0x33a000 
+          :impl-arch-name	 sun4v 
+          :whoami	 /platform/sun4v/kernel/sparcv9/unix 
+          :fs-package	 hsfs-file-system 
+          :devfs-path	 /chosen 
+          :binding-name	 chosen 
+          :instance	 -1 
+          :_class	 chosen 
+          :name	 chosen 
+         openprom (openprom, 1e90000018f)
+          :relative-addressing
+          :aligned-allocator
+          :model	 SUNW,4.38.5[ 3.2.0 ] 
+          :version	 OBP 4.38.5 2017/05/10 16:43 
+          :devfs-path	 /openprom 
+          :binding-name	 openprom 
+          :instance	 -1 
+          :_class	 openprom 
+          :name	 openprom 
+             client-services (client-services, 1e900000199)
+              :devfs-path	 /openprom/client-services 
+              :binding-name	 client-services 
+              :instance	 -1 
+              :_class	 client-services 
+              :name	 client-services 
+         options (options, 1e90000019f)
+          :error-reset-recovery	 boot 
+          :nvramrc
+          :use-nvramrc?	 false 
+          :boot-device-index	 0 
+          :multipath-boot?	 false 
+          :boot-device	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@w50000397a8423746,0:a disk net 
+          :boot-file
+          :boot-command	 boot 
+          :network-boot-arguments
+          :os-root-device
+          :auto-boot?	 true 
+          :load-base	 16384 
+          :auto-boot-on-error?	 false 
+          :input-device	 virtual-console 
+          :output-device	 virtual-console 
+          :ttya-mode	 9600,8,n,1,- 
+          :screen-#rows	 34 
+          :screen-#columns	 80 
+          :ansi-terminal?	 true 
+          :oem-banner?	 false 
+          :oem-banner
+          :oem-logo?	 false 
+          :oem-logo
+          :scsi-initiator-id	 0x37 
+          :fcode-debug?	 false 
+          :local-mac-address?	 true 
+          :diag-switch?	 false 
+          :security-#badlogins	 0 
+          :security-password
+          :security-mode	 none 
+          :reboot-command
+          :keyboard-layout
+          :ttya-ignore-cd	 true 
+          :ttya-rts-dtr-off	 false 
+          :class	 root 
+          :ttymodes	
+ 00  00  25  02  00  00  18  05  00  00  00  bd  00  00  8a  3b  03  1c  7f  15 
+ 04  00  00  00  11  13  1a  19  12  0f  17  16  00  00  00  00 
+          :devfs-path	 /options 
+          :driver-name	 options 
+          :binding-name	 options 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 options 
+          :name	 options 
+         aliases (aliases, 1e9000001cb)
+          :virtual-console	 /virtual-devices@100/console@1 
+          :net	 /pci@8000/pci@4/pci@0/pci@1/network@0 
+          :net0	 /pci@8000/pci@4/pci@0/pci@1/network@0 
+          :net1	 /pci@8000/pci@4/pci@0/pci@1/network@0,1 
+          :disk	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p0,0 
+          :disk0	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p0,0 
+          :disk1	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p1,0 
+          :disk2	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p2,0 
+          :disk3	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p3,0 
+          :disk4	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p4,0 
+          :disk5	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p5,0 
+          :disk6	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p6,0 
+          :disk7	 /pci@8100/pci@4/pci@0/pci@0/scsi@0/disk@p7,0 
+          :cdrom	 /pci@8100/pci@4/pci@0/pci@8/usb@0/cdrom@6/disk@0 
+          :cdrom0	 /pci@8100/pci@4/pci@0/pci@8/usb@0/hub@5/cdrom@1/disk@0 
+          :cdrom0-30	 /pci@8100/pci@4/pci@0/pci@8/usb@0/hub@1/cdrom@1/disk@0 
+          :cdrom1	 /pci@8100/pci@4/pci@0/pci@8/usb@0/cdrom@6/disk@0 
+          :rcdrom	 /pci@8100/pci@4/pci@0/pci@8/usb@0/storage@7/disk@0 
+          :net2	 /pci@8200/pci@4/pci@0/pci@0/network@0 
+          :net3	 /pci@8200/pci@4/pci@0/pci@0/network@0,1 
+          :devfs-path	 /aliases 
+          :binding-name	 aliases 
+          :instance	 -1 
+          :_class	 aliases 
+          :name	 aliases 
+         virtual-memory (virtual-memory, 1e9000001ed)
+          :page-size	 0x2000 
+          :available	
+ ff  ff  f8  00  00  00  00  00  00  00  07  fc  00  00  00  00  00  00  00  01 
+ 00  00  00  00  00  00  07  ff  00  00  00  00  00  00  00  00  ff  ff  00  00 
+ 00  00  00  00  00  00  e0  00  00  00  00  00  56  7e  40  00  00  00  00  00 
+ 99  81  c0  00  00  00  00  00  30  00  00  00  00  00  00  00  21  00  00  00 
+ 00  00  00  00  01  47  20  00  00  00  00  00  0e  b8  e0  00  00  00  00  00 
+ 00  f8  00  00  00  00  00  00  00  48  20  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  a0  00  00  00  00  00  00  f7  20  00  00  00  00  00  00 
+ 07  af  c0  00 
+          :existing	
+ 00  00  00  00  00  00  00  00  00  00  08  00  00  00  00  00  ff  ff  f8  00 
+ 00  00  00  00  00  00  08  00  00  00  00  00 
+          :translations	
+ 00  00  00  00  00  00  20  00  00  00  00  00  00  9f  e0  00  80  00  7e  00 
+ a0  40  27  40  00  00  00  00  00  a0  00  00  00  00  00  00  00  58  00  00 
+ 80  00  7e  1f  ff  9d  c7  40  00  00  00  00  01  40  20  00  00  00  00  00 
+ 00  07  00  00  80  00  7e  1f  f9  e2  e7  40  00  00  00  00  10  00  00  00 
+ 00  00  00  00  10  00  00  00  80  00  7e  1f  e0  00  07  40  00  00  00  00 
+ 20  00  00  00  00  00  00  00  10  00  00  00  80  00  7e  1f  d0  00  07  40 
+ 00  00  00  00  51  00  00  00  00  00  00  00  05  7e  40  00  80  00  7e  1f 
+ fa  1f  87  40  00  00  00  00  f0  00  00  00  00  00  00  00  00  40  00  00 
+ 80  00  7e  00  a0  00  07  50  00  00  00  00  fe  cf  c0  00  00  00  00  00 
+ 00  03  00  00  80  00  7e  1f  fa  1a  a7  50  00  00  00  00  fe  d2  c0  00 
+ 00  00  00  00  00  06  20  00  80  00  7e  1f  f9  d4  a7  50  00  00  00  00 
+ fe  d8  e0  00  00  00  00  00  00  00  80  00  80  00  7e  1f  fa  1d  a7  50 
+ 00  00  00  00  fe  d9  60  00  00  00  00  00  00  02  40  00  80  00  7e  1f 
+ ff  f5  c7  50  00  00  00  00  fe  db  a0  00  00  00  00  00  00  04  00  00 
+ 80  00  80  21  00  04  09  50  00  00  00  00  fe  df  a0  00  00  00  00  00 
+ 00  01  00  00  80  00  80  21  00  00  09  50  00  00  00  00  fe  e0  a0  00 
+ 00  00  00  00  00  06  e0  00  80  00  7e  1f  ff  f8  47  50  00  00  00  00 
+ fe  e7  80  00  00  00  00  00  00  00  20  00  80  00  80  21  10  00  09  50 
+ 00  00  00  00  fe  e7  a0  00  00  00  00  00  00  00  e0  00  80  00  7e  1f 
+ ff  ff  27  50  00  00  00  00  fe  e8  80  00  00  00  00  00  00  0e  00  00 
+ 80  00  7e  00  af  e1  e7  50  00  00  00  00  fe  f6  c0  00  00  00  00  00 
+ 00  08  40  00  80  00  7e  00  af  f5  e7  50  00  00  00  00  fe  ff  00  00 
+ 00  00  00  00  00  01  00  00  80  00  7e  00  af  fe  67  50  00  00  00  00 
+ ff  b0  00  00  00  00  00  00  00  02  00  00  80  00  7e  00  a0  1e  07  50 
+          :devfs-path	 /virtual-memory 
+          :binding-name	 virtual-memory 
+          :instance	 -1 
+          :_class	 virtual-memory 
+          :name	 virtual-memory 
+         iscsi-hba (iscsi-hba, 1e9000001f7)
+          :compatible	 SUNW,iscsi-hba 
+          :devfs-path	 /iscsi-hba 
+          :binding-name	 iscsi-hba 
+          :instance	 -1 
+          :_class	 iscsi-hba 
+          :name	 iscsi-hba 
+         fcoe (fcoe, 1e900000a9a)
+          :numaio-root-lgrp
+          :devfs-path	 /fcoe 
+          :driver-name	 fcoe 
+          :binding-name	 fcoe 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 fcoe 
+          :name	 fcoe 
+         iscsi (iscsi, 1e900000aa3)
+          :numaio-root-lgrp
+          :scsi-enumeration	 0 
+          :scsi-options	 0x107ff8 
+          :scsi-reset-delay	 0xbb8 
+          :scsi-watchdog-tick	 0xa 
+          :scsi-selection-timeout	 0xfa 
+          :scsi-tag-age-limit	 0x2 
+          :scsi-poll-timeout	 0xa 
+          :scsi-transport-timeout	 0x3c 
+          :scsi-initiator-id	 0x7 
+          :initiator-interconnect-type	 iSCSI 
+          :ddi-child-instance-transient	 yes 
+          :load-balance	 round-robin 
+          :mpxio-disable	 no 
+          :so-rcvbuf	 0x40000 
+          :so-sndbuf	 0x40000 
+          :tcp-nodelay	 0 
+          :tcp-conn-notify-threshold	 0x7d0 
+          :tcp-conn-abort-threshold	 0x2710 
+          :tcp-abort-threshold	 0x7530 
+          :config-storm-delay	 0x5 
+          :fm-ereport-capable
+          :initiator-port	 iqn.1986-03.com.sun:01:b09928a09596.5b03c345,4000002a00ff 
+          :devfs-path	 /iscsi 
+          :driver-name	 iscsi 
+          :binding-name	 iscsi 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 iscsi 
+          :name	 iscsi 
+     physical-platform (picl, 1e900000f8e)
+      :_class	 picl 
+      :name	 physical-platform 
+         SYS (chassis, 1e900000f91)
+          :FRU
+          :ModelName	 M12-1 
+          :MfgName	 Fujitsu Limited 
+          :SerialNumber	 PZ71722014 
+          :FW-version	 3051 
+          :Label	 SYS 
+          :Description	 SPARC M12-1 
+          :OperationalStatus	 enabled 
+          :_class	 chassis 
+          :name	 SYS 

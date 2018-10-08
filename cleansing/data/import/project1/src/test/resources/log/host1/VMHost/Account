@@ -1,0 +1,9 @@
+﻿
+Name      Domain Description                                 Server        
+----      ------ -----------                                 ------        
+root             Administrator                               192.168.10.100
+dcui             DCUI User                                   192.168.10.100
+vpxuser          VMware VirtualCenter administration account 192.168.10.100
+test_user        ESXi User                                   192.168.10.100
+
+

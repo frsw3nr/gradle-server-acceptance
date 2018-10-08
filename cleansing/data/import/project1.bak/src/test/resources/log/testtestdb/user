@@ -1,0 +1,70 @@
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+gopher:x:13:30:gopher:/var/gopher:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+avahi-autoipd:x:170:170:Avahi IPv4LL Stack:/var/lib/avahi-autoipd:/sbin/nologin
+vcsa:x:69:69:virtual console memory owner:/dev:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/cache/rpcbind:/sbin/nologin
+rtkit:x:499:497:RealtimeKit:/proc:/sbin/nologin
+abrt:x:173:173::/etc/abrt:/sbin/nologin
+haldaemon:x:68:68:HAL daemon:/:/sbin/nologin
+ntp:x:38:38::/etc/ntp:/sbin/nologin
+saslauth:x:498:76:"Saslauthd user":/var/empty/saslauth:/sbin/nologin
+postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+avahi:x:70:70:Avahi mDNS/DNS-SD Stack:/var/run/avahi-daemon:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+pulse:x:497:496:PulseAudio System Daemon:/var/run/pulse:/sbin/nologin
+gdm:x:42:42::/var/lib/gdm:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+tcpdump:x:72:72::/:/sbin/nologin
+commonstyle:x:500:500:CommonStyle for VM:/home/commonstyle:/bin/bash
+postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/bash
+pscommon:x:501:104::/home/pscommon:/bin/csh
+apache:x:48:48:Apache:/var/www:/sbin/nologin
+mysql:x:27:27:MySQL Server:/var/lib/mysql:/bin/bash
+esx:x:516:104::/home/esx:/bin/bash
+himeji:x:502:104::/home/himeji:/bin/bash
+nexco:x:511:104::/home/nexco:/bin/bash
+payok04:x:514:104::/home/payok04:/bin/bash
+pcoit01:x:513:104::/home/pcoit01:/bin/bash
+pskag01:x:504:104::/home/pskag01:/bin/bash
+pskg01:x:505:104::/home/pskg01:/bin/bash
+psoit01:x:506:104::/home/psoit01:/bin/bash
+psoit02:x:507:104::/home/psoit02:/bin/bash
+psyok04:x:512:104::/home/psyok04:/bin/bash
+psyok05:x:508:104::/home/psyok05:/bin/bash
+tmeic:x:515:104::/home/tmeic:/bin/bash
+psyok02:x:517:104::/home/psyok02:/bin/bash
+rstudio-server:x:496:493::/home/rstudio-server:/bin/bash
+pbyok01:x:518:104::/home/pbyok01:/bin/bash
+mitaka:x:519:104::/home/mitaka:/bin/bash
+psadmin:x:520:301::/home/psadmin:/bin/bash
+db2fenc1:x:521:104::/home/db2fenc1:/bin/bash
+myinst:x:522:104::/home/myinst:/bin/bash
+mongod:x:495:492:mongod:/var/lib/mongo:/bin/false
+git:x:523:523::/home/git:/bin/bash
+redis:x:494:491:Redis Server:/var/lib/redis:/sbin/nologin
+psyok03:x:524:104::/home/psyok03:/bin/bash
+pboit01:x:525:525::/home/pboit01:/bin/bash
+nagios:x:526:104::/home/nagios/:/bin/bash
+nails:x:527:527:McAfeeVSEForLinux Administrator:/home/nails:/sbin/nologin
+peyok04:x:528:104::/home/peyok04:/bin/bash
+zabbix:x:493:300:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+snmptt:x:492:299:SNMP Trap Translator:/var/spool/snmptt:/sbin/nologin
+carbon:x:491:297:Carbon cache daemon:/var/lib/carbon:/sbin/nologin
+influxdb:x:490:490::/home/influxdb:/bin/bash
+grafana:x:489:296:grafana user:/usr/share/grafana:/sbin/nologin
+oracle:x:54321:54321::/home/oracle:/bin/bash

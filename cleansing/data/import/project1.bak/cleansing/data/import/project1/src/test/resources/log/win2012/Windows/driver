@@ -1,0 +1,4104 @@
+﻿
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {62f9c741-b25a-46ce-b54c-9bccce08b6f2}
+CompatID                : SWD\GenericRaw
+CreationClassName       : 
+Description             : Generic software device
+DeviceClass             : SOFTWAREDEVICE
+DeviceID                : SWD\SCDEVICEENUMBUS\0
+DeviceName              : Generic software device
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : Smart Card Device Enumeration Bus
+HardWareID              : root\scdeviceenum
+InfName                 : c_swdevice.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000035
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {1ed2bbf9-11f0-4084-b21f-ad83a8e6dcdc}
+CompatID                : GenPrintQueue
+CreationClassName       : 
+Description             : Local Print Queue
+DeviceClass             : PRINTQUEUE
+DeviceID                : SWD\PRINTENUM\{6093610A-E6B1-427B-90A5-0072BA6BAFCF}
+DeviceName              : Local Print Queue
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : Microsoft XPS Document Writer
+HardWareID              : PRINTENUM\{0f4130dd-19c7-7ab6-99a1-980f03b2ee4e}
+InfName                 : PrintQueue.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000031
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {1ed2bbf9-11f0-4084-b21f-ad83a8e6dcdc}
+CompatID                : SWD\GenericRaw
+CreationClassName       : 
+Description             : Local Print Queue
+DeviceClass             : PRINTQUEUE
+DeviceID                : SWD\PRINTENUM\PRINTQUEUES
+DeviceName              : Local Print Queue
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : ルート印刷キュー
+HardWareID              : PRINTENUM\LocalPrintQueue
+InfName                 : PrintQueue.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000030
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : SWD\GenericRaw
+CreationClassName       : 
+Description             : Microsoft ISATAP Adapter
+DeviceClass             : NET
+DeviceID                : SWD\IP_TUNNEL_VBUS\ISATAP_0
+DeviceName              : Microsoft ISATAP Adapter
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : Microsoft ISATAP Adapter
+HardWareID              : *ISATAP
+InfName                 : nettun.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000053
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {62f9c741-b25a-46ce-b54c-9bccce08b6f2}
+CompatID                : SWD\GenericRaw
+CreationClassName       : 
+Description             : Generic software device
+DeviceClass             : SOFTWAREDEVICE
+DeviceID                : SWD\IP_TUNNEL_VBUS\IP_TUNNEL_DEVICE_ROOT
+DeviceName              : Generic software device
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : Microsoft IPv4 IPv6 Transition Adapter Bus
+HardWareID              : (null)
+InfName                 : c_swdevice.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000002e
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Remote Desktop Device Redirector Bus
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\RDPBUS\0000
+DeviceName              : Remote Desktop Device Redirector Bus
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\RDPBUS
+InfName                 : rdpbus.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000015
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Plug and Play Software Device Enumerator
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\SYSTEM\0000
+DeviceName              : Plug and Play Software Device Enumerator
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\SWENUM
+InfName                 : swenum.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000014
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft System Management BIOS Driver
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\MSSMBIOS\0000
+DeviceName              : Microsoft System Management BIOS Driver
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\mssmbios
+InfName                 : mssmbios.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000013
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (PPPOE)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_PPPOEMINIPORT\0000
+DeviceName              : WAN ミニポート (PPPOE)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17039
+FriendlyName            : WAN ミニポート (PPPOE)
+HardWareID              : ms_pppoeminiport
+InfName                 : netrasa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000012
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : NDIS Virtual Network Adapter Enumerator
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\NDISVIRTUALBUS\0000
+DeviceName              : NDIS Virtual Network Adapter Enumerator
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\NdisVirtualBus
+InfName                 : ndisvirtualbus.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000011
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (L2TP)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_L2TPMINIPORT\0000
+DeviceName              : WAN ミニポート (L2TP)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17039
+FriendlyName            : WAN ミニポート (L2TP)
+HardWareID              : ms_l2tpminiport
+InfName                 : netrasa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000010
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (ネットワーク モニター)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_NDISWANBH\0000
+DeviceName              : WAN ミニポート (ネットワーク モニター)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17039
+FriendlyName            : WAN ミニポート (ネットワーク モニター)
+HardWareID              : ms_ndiswanbh
+InfName                 : netrasa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000000f
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (PPTP)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_PPTPMINIPORT\0000
+DeviceName              : WAN ミニポート (PPTP)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17039
+FriendlyName            : WAN ミニポート (PPTP)
+HardWareID              : ms_pptpminiport
+InfName                 : netrasa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000000e
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft Basic Render Driver
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\BASICRENDER\0000
+DeviceName              : Microsoft Basic Render Driver
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ROOT\BasicRender
+InfName                 : basicrender.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000000d
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : ACPI Fixed Feature Button
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\FIXEDBUTTON\2&DABA3FF&2
+DeviceName              : ACPI Fixed Feature Button
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\FixedButton
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\0000001a
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {50127dc3-0f36-415e-a6cc-4cb3be910b65}
+CompatID                : ACPI\Processor
+CreationClassName       : 
+Description             : Intel Processor
+DeviceClass             : PROCESSOR
+DeviceID                : ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I5-4460__CPU_@_3.20GHZ\_0
+DeviceName              : Intel Processor
+DevLoader               : 
+DriverDate              : 20090421000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+HardWareID              : ACPI\GenuineIntel_-_Intel64_Family_6_Model_60
+InfName                 : cpu.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Intel
+Name                    : 
+PDO                     : \Device\00000019
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {72631e54-78a4-11d0-bcf7-00aa00b7b32a}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft AC Adapter
+DeviceClass             : BATTERY
+DeviceID                : ACPI\ACPI0003\1
+DeviceName              : Microsoft AC Adapter
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ACPI\VEN_ACPI&DEV_0003
+InfName                 : cmbatt.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000018
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : ACPI\VM_Gen_Counter
+CreationClassName       : 
+Description             : Microsoft Hyper-V 世代カウンター
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\VMW0001\7
+DeviceName              : Microsoft Hyper-V 世代カウンター
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ACPI\VEN_VMW&DEV_0001
+InfName                 : wgencounter.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000001c
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Motherboard resources
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0C02\4
+DeviceName              : Motherboard resources
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0C02
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\0000001b
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C7
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 7
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0039
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C6
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 6
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0038
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C5
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 5
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0037
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C4
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 4
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0036
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C3
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 3
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0035
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C2
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 2
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0034
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C1
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 1
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0033
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&C0
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 24, function 0
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0032
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&BF
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 7
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0031
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&BE
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 6
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0030
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&BD
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 5
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0029
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&BC
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 4
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0028
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&BB
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 3
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0027
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&BA
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 2
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0026
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B9
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 1
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0025
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B8
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 23, function 0
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0024
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B7
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 7
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0023
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B6
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 6
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0022
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B5
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 5
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0021
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B4
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 4
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0020
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B3
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 3
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0019
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B2
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 2
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0018
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B1
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 1
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0017
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_8086&DEV_10D3&REV_00
+CreationClassName       : 
+Description             : Intel(R) 82574L Gigabit Network Connection
+DeviceClass             : NET
+DeviceID                : PCI\VEN_8086&DEV_10D3&SUBSYS_07D015AD&REV_00\000C29FFFF87A57B00
+DeviceName              : Intel(R) 82574L Gigabit Network Connection
+DevLoader               : 
+DriverDate              : 20130328000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 12.6.47.1
+FriendlyName            : Intel(R) 82574L Gigabit Network Connection
+HardWareID              : PCI\VEN_8086&DEV_10D3&SUBSYS_07D015AD&REV_00
+InfName                 : net1ix64.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 11, device 0, function 0
+Manufacturer            : Intel Corporation
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0041
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&B0
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 22, function 0
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0016
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&AF
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 7
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0015
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&AE
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 6
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0014
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&AD
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 5
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0013
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&AC
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 4
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0012
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&AB
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 3
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0011
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&AA
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 2
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0010
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&A9
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 1
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0009
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e967-e325-11ce-bfc1-08002be10318}
+CompatID                : SCSI\Disk
+CreationClassName       : 
+Description             : Disk drive
+DeviceClass             : DISKDRIVE
+DeviceID                : SCSI\DISK&VEN_VMWARE&PROD_VIRTUAL_DISK\5&22BE343F&0&000000
+DeviceName              : Disk drive
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : VMware Virtual disk SCSI Disk Device
+HardWareID              : SCSI\DiskVMware__Virtual_disk____1.0_
+InfName                 : disk.inf
+InstallDate             : 
+IsSigned                : True
+Location                : Bus Number 0, Target Id 0, LUN 0
+Manufacturer            : (Standard disk drives)
+Name                    : 
+PDO                     : \Device\0000002b
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97b-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_1000&DEV_0054&REV_01
+CreationClassName       : 
+Description             : LSI Adapter, SAS 3000 series, 8-port with 1068
+DeviceClass             : SCSIADAPTER
+DeviceID                : PCI\VEN_1000&DEV_0054&SUBSYS_197615AD&REV_01\4&1F16FEF7&0&00A8
+DeviceName              : LSI Adapter, SAS 3000 series, 8-port with 1068
+DevLoader               : 
+DriverDate              : 20130326000000.******+***
+DriverName              : 
+DriverProviderName      : LSI
+DriverVersion           : 1.34.3.82
+FriendlyName            : 
+HardWareID              : PCI\VEN_1000&DEV_0054&SUBSYS_197615AD&REV_01
+InfName                 : lsi_sas.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 3, device 0, function 0
+Manufacturer            : LSI
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0040
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_07A0&REV_01
+CreationClassName       : 
+Description             : PCI Express standard Root Port
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01\3&2B8E0B4B&0&A8
+DeviceName              : PCI Express standard Root Port
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_07A0&SUBSYS_07A015AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 21, function 0
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0008
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_0790&REV_02
+CreationClassName       : 
+Description             : PCI standard PCI-to-PCI bridge
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_15AD&DEV_0790&SUBSYS_079015AD&REV_02\3&2B8E0B4B&0&88
+DeviceName              : PCI standard PCI-to-PCI bridge
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_0790&SUBSYS_079015AD&REV_02
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 17, function 0
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0007
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e96e-e325-11ce-bfc1-08002be10318}
+CompatID                : *PNP09FF
+CreationClassName       : 
+Description             : Generic Non-PnP Monitor
+DeviceClass             : MONITOR
+DeviceID                : DISPLAY\DEFAULT_MONITOR\4&10C2E2D6&0&UID0
+DeviceName              : Generic Non-PnP Monitor
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : MONITOR\Default_Monitor
+InfName                 : monitor.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard monitor types)
+Name                    : 
+PDO                     : \Device\0000002d
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e968-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_15AD&DEV_0405&REV_00
+CreationClassName       : 
+Description             : Microsoft 基本ディスプレイ アダプター
+DeviceClass             : DISPLAY
+DeviceID                : PCI\VEN_15AD&DEV_0405&SUBSYS_040515AD&REV_00\3&2B8E0B4B&0&78
+DeviceName              : Microsoft 基本ディスプレイ アダプター
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_0405&SUBSYS_040515AD&REV_00
+InfName                 : display.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 15, function 0
+Manufacturer            : (標準ディスプレイ)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0006
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : 
+CompatID                : PCI\VEN_15AD&DEV_0740&REV_10
+CreationClassName       : 
+Description             : 
+DeviceClass             : 
+DeviceID                : PCI\VEN_15AD&DEV_0740&SUBSYS_074015AD&REV_10\3&2B8E0B4B&0&3F
+DeviceName              : Base System Device
+DevLoader               : 
+DriverDate              : 
+DriverName              : 
+DriverProviderName      : 
+DriverVersion           : 
+FriendlyName            : 
+HardWareID              : PCI\VEN_15AD&DEV_0740&SUBSYS_074015AD&REV_10
+InfName                 : 
+InstallDate             : 
+IsSigned                : 
+Location                : PCI bus 0, device 7, function 7
+Manufacturer            : 
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0005
+Signer                  : 
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e965-e325-11ce-bfc1-08002be10318}
+CompatID                : GenCdRom
+CreationClassName       : 
+Description             : CD-ROM Drive
+DeviceClass             : CDROM
+DeviceID                : IDE\CDROMNECVMWAR_VMWARE_IDE_CDR10_______________1.00____\5&3A794E10&0&1.0.0
+DeviceName              : CD-ROM Drive
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : NECVMWar VMware IDE CDR10 ATA Device
+HardWareID              : IDE\CdRomNECVMWar_VMware_IDE_CDR10_______________1.00____
+InfName                 : cdrom.inf
+InstallDate             : 
+IsSigned                : True
+Location                : Channel 1, Target 0, Lun 0
+Manufacturer            : (Standard CD-ROM drives)
+Name                    : 
+PDO                     : \Device\Ide\IdeDeviceP1T0L0-2
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e96a-e325-11ce-bfc1-08002be10318}
+CompatID                : *PNP0600
+CreationClassName       : 
+Description             : IDE Channel
+DeviceClass             : HDC
+DeviceID                : PCIIDE\IDECHANNEL\4&C5D1198&0&1
+DeviceName              : IDE Channel
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : ATA Channel 1
+HardWareID              : Intel-PIIX4
+InfName                 : mshdc.inf
+InstallDate             : 
+IsSigned                : True
+Location                : Channel 1
+Manufacturer            : (Standard IDE ATA/ATAPI controllers)
+Name                    : 
+PDO                     : \Device\Ide\PciIde0Channel1
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e96a-e325-11ce-bfc1-08002be10318}
+CompatID                : *PNP0600
+CreationClassName       : 
+Description             : IDE Channel
+DeviceClass             : HDC
+DeviceID                : PCIIDE\IDECHANNEL\4&C5D1198&0&0
+DeviceName              : IDE Channel
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : ATA Channel 0
+HardWareID              : Intel-PIIX4
+InfName                 : mshdc.inf
+InstallDate             : 
+IsSigned                : True
+Location                : Channel 0
+Manufacturer            : (Standard IDE ATA/ATAPI controllers)
+Name                    : 
+PDO                     : \Device\Ide\PciIde0Channel0
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e96a-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_8086&DEV_7111&REV_01
+CreationClassName       : 
+Description             : Intel(R) 82371AB/EB PCI Bus Master IDE Controller
+DeviceClass             : HDC
+DeviceID                : PCI\VEN_8086&DEV_7111&SUBSYS_197615AD&REV_01\3&2B8E0B4B&0&39
+DeviceName              : Intel(R) 82371AB/EB PCI Bus Master IDE Controller
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : PCI\VEN_8086&DEV_7111&SUBSYS_197615AD&REV_01
+InfName                 : mshdc.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 7, function 1
+Manufacturer            : Intel
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0003
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e980-e325-11ce-bfc1-08002be10318}
+CompatID                : GenFloppyDisk
+CreationClassName       : 
+Description             : Floppy disk drive
+DeviceClass             : FLOPPYDISK
+DeviceID                : FDC\GENERIC_FLOPPY_DRIVE\6&3B4C39BD&0&0
+DeviceName              : Floppy disk drive
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : FDC\GENERIC_FLOPPY_DRIVE
+InfName                 : flpydisk.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard floppy disk drives)
+Name                    : 
+PDO                     : \Device\FloppyPDO0
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e969-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Standard floppy disk controller
+DeviceClass             : FDC
+DeviceID                : ACPI\PNP0700\5&27D1C488&0
+DeviceName              : Standard floppy disk controller
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0700
+InfName                 : fdc.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard floppy disk controllers)
+Name                    : 
+PDO                     : \Device\0000002a
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e978-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : 通信ポート
+DeviceClass             : PORTS
+DeviceID                : ACPI\PNP0501\2
+DeviceName              : 通信ポート
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 通信ポート (COM2)
+HardWareID              : ACPI\VEN_PNP&DEV_0501
+InfName                 : msports.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (標準ポート)
+Name                    : 
+PDO                     : \Device\00000029
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e978-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : 通信ポート
+DeviceClass             : PORTS
+DeviceID                : ACPI\PNP0501\1
+DeviceName              : 通信ポート
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 通信ポート (COM1)
+HardWareID              : ACPI\VEN_PNP&DEV_0501
+InfName                 : msports.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (標準ポート)
+Name                    : 
+PDO                     : \Device\00000028
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Printer Port Logical Interface
+DeviceClass             : SYSTEM
+DeviceID                : LPTENUM\MICROSOFTRAWPORT\6&227B8172&0&LPT1
+DeviceName              : Printer Port Logical Interface
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : LPTENUM\MicrosoftRawPort958A
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : LPT1
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\Parallel0
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e978-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : プリンター ポート
+DeviceClass             : PORTS
+DeviceID                : ACPI\PNP0400\5&27D1C488&0
+DeviceName              : プリンター ポート
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : プリンター ポート (LPT1)
+HardWareID              : ACPI\VEN_PNP&DEV_0400
+InfName                 : msports.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (標準ポート)
+Name                    : 
+PDO                     : \Device\00000027
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Generic Bus
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0A05\4&205AD762&0
+DeviceName              : Generic Bus
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0A05
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000026
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : *PNP0C01
+CreationClassName       : 
+Description             : High precision event timer
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0103\4&205AD762&0
+DeviceName              : High precision event timer
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0103
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000025
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e96f-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : PS/2 Compatible Mouse
+DeviceClass             : MOUSE
+DeviceID                : ACPI\PNP0F13\4&205AD762&0
+DeviceName              : PS/2 Compatible Mouse
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0F13
+InfName                 : msmouse.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000024
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e96b-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Standard PS/2 Keyboard
+DeviceClass             : KEYBOARD
+DeviceID                : ACPI\PNP0303\4&205AD762&0
+DeviceName              : Standard PS/2 Keyboard
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0303
+InfName                 : keyboard.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard keyboards)
+Name                    : 
+PDO                     : \Device\00000023
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : System speaker
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0800\4&205AD762&0
+DeviceName              : System speaker
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0800
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000022
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : System CMOS/real time clock
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0B00\4&205AD762&0
+DeviceName              : System CMOS/real time clock
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0B00
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000021
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : System timer
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0100\4&205AD762&0
+DeviceName              : System timer
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0100
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000020
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : EISA programmable interrupt controller
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0001\4&205AD762&0
+DeviceName              : EISA programmable interrupt controller
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0001
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\0000001f
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Direct memory access controller
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0200\4&205AD762&0
+DeviceName              : Direct memory access controller
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0200
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\0000001e
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Motherboard resources
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0C02\1F
+DeviceName              : Motherboard resources
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0C02
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\0000001d
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_8086&DEV_7110&REV_08
+CreationClassName       : 
+Description             : Intel 82371AB/EB PCI to ISA bridge (ISA mode)
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_8086&DEV_7110&SUBSYS_197615AD&REV_08\3&2B8E0B4B&0&38
+DeviceName              : Intel 82371AB/EB PCI to ISA bridge (ISA mode)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_8086&DEV_7110&SUBSYS_197615AD&REV_08
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 7, function 0
+Manufacturer            : Intel
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0002
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_8086&CC_060400
+CreationClassName       : 
+Description             : PCI standard PCI-to-PCI bridge
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_8086&DEV_7191&SUBSYS_00000000&REV_01\3&2B8E0B4B&0&08
+DeviceName              : PCI standard PCI-to-PCI bridge
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_8086&DEV_7191&SUBSYS_00000000&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 1, function 0
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0001
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : PCI\VEN_8086&DEV_7190&REV_01
+CreationClassName       : 
+Description             : Intel 82443BX Pentium(R) II Processor to PCI Bridge
+DeviceClass             : SYSTEM
+DeviceID                : PCI\VEN_8086&DEV_7190&SUBSYS_197615AD&REV_01\3&2B8E0B4B&0&00
+DeviceName              : Intel 82443BX Pentium(R) II Processor to PCI Bridge
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : PCI\VEN_8086&DEV_7190&SUBSYS_197615AD&REV_01
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : PCI bus 0, device 0, function 0
+Manufacturer            : Intel
+Name                    : 
+PDO                     : \Device\NTPNP_PCI0000
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : *PNP0A08
+CreationClassName       : 
+Description             : PCI bus
+DeviceClass             : SYSTEM
+DeviceID                : ACPI\PNP0A03\2&DABA3FF&2
+DeviceName              : PCI bus
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI\VEN_PNP&DEV_0A03
+InfName                 : machine.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard system devices)
+Name                    : 
+PDO                     : \Device\00000017
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft ACPI-Compliant System
+DeviceClass             : SYSTEM
+DeviceID                : ACPI_HAL\PNP0C08\0
+DeviceName              : Microsoft ACPI-Compliant System
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : ACPI_HAL\PNP0C08
+InfName                 : acpi.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000016
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e966-e325-11ce-bfc1-08002be10318}
+CompatID                : DETECTEDInternal\ACPI_HAL
+CreationClassName       : 
+Description             : ACPI x64-based PC
+DeviceClass             : COMPUTER
+DeviceID                : ROOT\ACPI_HAL\0000
+DeviceName              : ACPI x64-based PC
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : acpiapic
+InfName                 : hal.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard computers)
+Name                    : 
+PDO                     : \Device\0000000c
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : UMBus Enumerator
+DeviceClass             : SYSTEM
+DeviceID                : UMB\UMB\1&841921D&0&TERMINPUT_BUS
+DeviceName              : UMBus Enumerator
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : UMB\UMBUS
+InfName                 : umbus.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000032
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : UMBus Root Bus Enumerator
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\UMBUS\0000
+DeviceName              : UMBus Root Bus Enumerator
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : root\umbus
+InfName                 : umbus.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000000b
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (IPv6)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_NDISWANIPV6\0000
+DeviceName              : WAN ミニポート (IPv6)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17039
+FriendlyName            : WAN ミニポート (IPv6)
+HardWareID              : ms_ndiswanipv6
+InfName                 : netrasa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\0000000a
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft カーネル デバッグ ネットワーク アダプター
+DeviceClass             : NET
+DeviceID                : ROOT\KDNIC\0000
+DeviceName              : Microsoft カーネル デバッグ ネットワーク アダプター
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : Microsoft カーネル デバッグ ネットワーク アダプター
+HardWareID              : root\kdnic
+InfName                 : kdnic.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000009
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97b-e325-11ce-bfc1-08002be10318}
+CompatID                : DETECTEDInternal\spaceport
+CreationClassName       : 
+Description             : Microsoft Storage Spaces Controller
+DeviceClass             : SCSIADAPTER
+DeviceID                : ROOT\SPACEPORT\0000
+DeviceName              : Microsoft Storage Spaces Controller
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : Root\Spaceport
+InfName                 : spaceport.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000008
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft Virtual Drive Enumerator
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\VDRVROOT\0000
+DeviceName              : Microsoft Virtual Drive Enumerator
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\vdrvroot
+InfName                 : vdrvroot.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000007
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Composite Bus Enumerator
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\COMPOSITEBUS\0000
+DeviceName              : Composite Bus Enumerator
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\CompositeBus
+InfName                 : CompositeBus.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000006
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (IKEv2)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_AGILEVPNMINIPORT\0000
+DeviceName              : WAN ミニポート (IKEv2)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : WAN ミニポート (IKEv2)
+HardWareID              : ms_agilevpnminiport
+InfName                 : netavpna.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000005
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (SSTP)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_SSTPMINIPORT\0000
+DeviceName              : WAN ミニポート (SSTP)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : WAN ミニポート (SSTP)
+HardWareID              : ms_sstpminiport
+InfName                 : netsstpa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000004
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e972-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : WAN ミニポート (IP)
+DeviceClass             : NET
+DeviceID                : ROOT\MS_NDISWANIP\0000
+DeviceName              : WAN ミニポート (IP)
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17039
+FriendlyName            : WAN ミニポート (IP)
+HardWareID              : ms_ndiswanip
+InfName                 : netrasa.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000003
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : 
+CreationClassName       : 
+Description             : Microsoft Basic Display Driver
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\BASICDISPLAY\0000
+DeviceName              : Microsoft Basic Display Driver
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\BasicDisplay
+InfName                 : basicdisplay.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : (Standard display types)
+Name                    : 
+PDO                     : \Device\00000002
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {71a27cdd-812a-11d0-bec7-08002be2092f}
+CompatID                : 
+CreationClassName       : 
+Description             : Generic volume
+DeviceClass             : VOLUME
+DeviceID                : STORAGE\VOLUME\{BF59E4C3-9165-11E7-80B3-806E6F6E6963}#0000000015F00000
+DeviceName              : Generic volume
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : STORAGE\Volume
+InfName                 : volume.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\HarddiskVolume2
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {71a27cdd-812a-11d0-bec7-08002be2092f}
+CompatID                : 
+CreationClassName       : 
+Description             : Generic volume
+DeviceClass             : VOLUME
+DeviceID                : STORAGE\VOLUME\{BF59E4C3-9165-11E7-80B3-806E6F6E6963}#0000000000100000
+DeviceName              : Generic volume
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.17031
+FriendlyName            : 
+HardWareID              : STORAGE\Volume
+InfName                 : volume.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\HarddiskVolume1
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : {4d36e97d-e325-11ce-bfc1-08002be10318}
+CompatID                : DETECTEDInternal\volmgr
+CreationClassName       : 
+Description             : Volume Manager
+DeviceClass             : SYSTEM
+DeviceID                : ROOT\VOLMGR\0000
+DeviceName              : Volume Manager
+DevLoader               : 
+DriverDate              : 20060621000000.******+***
+DriverName              : 
+DriverProviderName      : Microsoft
+DriverVersion           : 6.3.9600.16384
+FriendlyName            : 
+HardWareID              : ROOT\VOLMGR
+InfName                 : volmgr.inf
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : Microsoft
+Name                    : 
+PDO                     : \Device\00000001
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : 
+CompatID                : 
+CreationClassName       : 
+Description             : 
+DeviceClass             : 
+DeviceID                : HTREE\ROOT\0
+DeviceName              : 
+DevLoader               : 
+DriverDate              : 
+DriverName              : 
+DriverProviderName      : 
+DriverVersion           : 
+FriendlyName            : 
+HardWareID              : 
+InfName                 : 
+InstallDate             : 
+IsSigned                : 
+Location                : 
+Manufacturer            : 
+Name                    : 
+PDO                     : 
+Signer                  : 
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+PSComputerName          : 192.168.0.24
+RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+__GENUS                 : 2
+__CLASS                 : Win32_PnPSignedDriver
+__SUPERCLASS            : CIM_Service
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : 
+__PROPERTY_COUNT        : 28
+__DERIVATION            : {CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : WIN-1CF89L6IEBI
+__NAMESPACE             : root\cimv2
+__PATH                  : 
+Caption                 : 
+ClassGuid               : 
+CompatID                : 
+CreationClassName       : 
+Description             : 
+DeviceClass             : 
+DeviceID                : Microsoft XPS Document Writer
+DeviceName              : 
+DevLoader               : 
+DriverDate              : 
+DriverName              : 
+DriverProviderName      : 
+DriverVersion           : 2:5.1,2:5.2,2:6.0,2:6.1,2:6.2,2:6.3
+FriendlyName            : 
+HardWareID              : 
+InfName                 : 
+InstallDate             : 
+IsSigned                : True
+Location                : 
+Manufacturer            : 
+Name                    : 
+PDO                     : 
+Signer                  : Microsoft Windows
+Started                 : 
+StartMode               : 
+Status                  : 
+SystemCreationClassName : 
+SystemName              : 
+
+
+

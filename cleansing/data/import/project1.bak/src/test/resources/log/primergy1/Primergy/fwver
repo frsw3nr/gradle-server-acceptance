@@ -1,0 +1,30 @@
+{
+    "SystemBIOS": "V5.0.0.11 R1.15.0 for D3279-B1x",
+    "iSCSI": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/iSCSI"
+    },
+    "BMCFirmware": "8.67F",
+    "@odata.type": null,
+    "SDRRVersion": "3.04",
+    "NIC": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/NIC"
+    },
+    "SDRRId": "0464",
+    "@odata.context": null,
+    "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory",
+    "FCoE": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/FCoE"
+    },
+    "Storage": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/Storage"
+    },
+    "RoCE": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/RoCE"
+    },
+    "IB": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/IB"
+    },
+    "FC": {
+        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/FC"
+    }
+}

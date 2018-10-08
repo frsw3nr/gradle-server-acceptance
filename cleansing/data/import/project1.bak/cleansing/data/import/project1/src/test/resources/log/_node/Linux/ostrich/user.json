@@ -1,0 +1,562 @@
+[
+    {
+        "UserName": "root",
+        "UserID": "0",
+        "GroupID": "0",
+        "Group": "root",
+        "Home": "/root",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "bin",
+        "UserID": "1",
+        "GroupID": "1",
+        "Group": "bin",
+        "Home": "/bin",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "daemon",
+        "UserID": "2",
+        "GroupID": "2",
+        "Group": "daemon",
+        "Home": "/sbin",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "adm",
+        "UserID": "3",
+        "GroupID": "4",
+        "Group": "adm",
+        "Home": "/var/adm",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "lp",
+        "UserID": "4",
+        "GroupID": "7",
+        "Group": "lp",
+        "Home": "/var/spool/lpd",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "sync",
+        "UserID": "5",
+        "GroupID": "0",
+        "Group": "root",
+        "Home": "/sbin",
+        "Shell": "/bin/sync"
+    },
+    {
+        "UserName": "shutdown",
+        "UserID": "6",
+        "GroupID": "0",
+        "Group": "root",
+        "Home": "/sbin",
+        "Shell": "/sbin/shutdown"
+    },
+    {
+        "UserName": "halt",
+        "UserID": "7",
+        "GroupID": "0",
+        "Group": "root",
+        "Home": "/sbin",
+        "Shell": "/sbin/halt"
+    },
+    {
+        "UserName": "mail",
+        "UserID": "8",
+        "GroupID": "12",
+        "Group": "mail",
+        "Home": "/var/spool/mail",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "uucp",
+        "UserID": "10",
+        "GroupID": "14",
+        "Group": "uucp",
+        "Home": "/var/spool/uucp",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "operator",
+        "UserID": "11",
+        "GroupID": "0",
+        "Group": "root",
+        "Home": "/root",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "games",
+        "UserID": "12",
+        "GroupID": "100",
+        "Group": "users",
+        "Home": "/usr/games",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "gopher",
+        "UserID": "13",
+        "GroupID": "30",
+        "Group": "gopher",
+        "Home": "/var/gopher",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "ftp",
+        "UserID": "14",
+        "GroupID": "50",
+        "Group": "ftp",
+        "Home": "/var/ftp",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "nobody",
+        "UserID": "99",
+        "GroupID": "99",
+        "Group": "nobody",
+        "Home": "/",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "dbus",
+        "UserID": "81",
+        "GroupID": "81",
+        "Group": "dbus",
+        "Home": "/",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "avahi-autoipd",
+        "UserID": "170",
+        "GroupID": "170",
+        "Group": "avahi-autoipd",
+        "Home": "/var/lib/avahi-autoipd",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "vcsa",
+        "UserID": "69",
+        "GroupID": "69",
+        "Group": "vcsa",
+        "Home": "/dev",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "rpc",
+        "UserID": "32",
+        "GroupID": "32",
+        "Group": "rpc",
+        "Home": "/var/cache/rpcbind",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "rtkit",
+        "UserID": "499",
+        "GroupID": "497",
+        "Group": "rtkit",
+        "Home": "/proc",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "abrt",
+        "UserID": "173",
+        "GroupID": "173",
+        "Group": "abrt",
+        "Home": "/etc/abrt",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "haldaemon",
+        "UserID": "68",
+        "GroupID": "68",
+        "Group": "haldaemon",
+        "Home": "/",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "ntp",
+        "UserID": "38",
+        "GroupID": "38",
+        "Group": "ntp",
+        "Home": "/etc/ntp",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "saslauth",
+        "UserID": "498",
+        "GroupID": "76",
+        "Group": "saslauth",
+        "Home": "/var/empty/saslauth",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "postfix",
+        "UserID": "89",
+        "GroupID": "89",
+        "Group": "postfix",
+        "Home": "/var/spool/postfix",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "avahi",
+        "UserID": "70",
+        "GroupID": "70",
+        "Group": "avahi",
+        "Home": "/var/run/avahi-daemon",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "rpcuser",
+        "UserID": "29",
+        "GroupID": "29",
+        "Group": "rpcuser",
+        "Home": "/var/lib/nfs",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "nfsnobody",
+        "UserID": "65534",
+        "GroupID": "65534",
+        "Group": "nfsnobody",
+        "Home": "/var/lib/nfs",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "pulse",
+        "UserID": "497",
+        "GroupID": "496",
+        "Group": "pulse",
+        "Home": "/var/run/pulse",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "gdm",
+        "UserID": "42",
+        "GroupID": "42",
+        "Group": "gdm",
+        "Home": "/var/lib/gdm",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "sshd",
+        "UserID": "74",
+        "GroupID": "74",
+        "Group": "sshd",
+        "Home": "/var/empty/sshd",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "tcpdump",
+        "UserID": "72",
+        "GroupID": "72",
+        "Group": "tcpdump",
+        "Home": "/",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "commonstyle",
+        "UserID": "500",
+        "GroupID": "500",
+        "Group": "commonstyle",
+        "Home": "/home/commonstyle",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "postgres",
+        "UserID": "26",
+        "GroupID": "26",
+        "Group": "postgres",
+        "Home": "/var/lib/pgsql",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "pscommon",
+        "UserID": "501",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/pscommon",
+        "Shell": "/bin/csh"
+    },
+    {
+        "UserName": "apache",
+        "UserID": "48",
+        "GroupID": "48",
+        "Group": "apache",
+        "Home": "/var/www",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "mysql",
+        "UserID": "27",
+        "GroupID": "27",
+        "Group": "mysql",
+        "Home": "/var/lib/mysql",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "esx",
+        "UserID": "516",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/esx",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "himeji",
+        "UserID": "502",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/himeji",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "nexco",
+        "UserID": "511",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/nexco",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "payok04",
+        "UserID": "514",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/payok04",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "pcoit01",
+        "UserID": "513",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/pcoit01",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "pskag01",
+        "UserID": "504",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/pskag01",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "pskg01",
+        "UserID": "505",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/pskg01",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "psoit01",
+        "UserID": "506",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/psoit01",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "psoit02",
+        "UserID": "507",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/psoit02",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "psyok04",
+        "UserID": "512",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/psyok04",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "psyok05",
+        "UserID": "508",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/psyok05",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "tmeic",
+        "UserID": "515",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/tmeic",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "psyok02",
+        "UserID": "517",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/psyok02",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "rstudio-server",
+        "UserID": "496",
+        "GroupID": "493",
+        "Group": "rstudio-server",
+        "Home": "/home/rstudio-server",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "pbyok01",
+        "UserID": "518",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/pbyok01",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "mitaka",
+        "UserID": "519",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/mitaka",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "psadmin",
+        "UserID": "520",
+        "GroupID": "301",
+        "Group": "psadmin",
+        "Home": "/home/psadmin",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "db2fenc1",
+        "UserID": "521",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/db2fenc1",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "myinst",
+        "UserID": "522",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/myinst",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "mongod",
+        "UserID": "495",
+        "GroupID": "492",
+        "Group": "mongod",
+        "Home": "/var/lib/mongo",
+        "Shell": "/bin/false"
+    },
+    {
+        "UserName": "git",
+        "UserID": "523",
+        "GroupID": "523",
+        "Group": "git",
+        "Home": "/home/git",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "redis",
+        "UserID": "494",
+        "GroupID": "491",
+        "Group": "redis",
+        "Home": "/var/lib/redis",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "psyok03",
+        "UserID": "524",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/psyok03",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "pboit01",
+        "UserID": "525",
+        "GroupID": "525",
+        "Group": "pboit01",
+        "Home": "/home/pboit01",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "nagios",
+        "UserID": "526",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/nagios/",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "nails",
+        "UserID": "527",
+        "GroupID": "527",
+        "Group": "nailsgroup",
+        "Home": "/home/nails",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "peyok04",
+        "UserID": "528",
+        "GroupID": "104",
+        "Group": "cacti",
+        "Home": "/home/peyok04",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "zabbix",
+        "UserID": "493",
+        "GroupID": "300",
+        "Group": "zabbix",
+        "Home": "/var/lib/zabbix",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "snmptt",
+        "UserID": "492",
+        "GroupID": "299",
+        "Group": "snmptt",
+        "Home": "/var/spool/snmptt",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "carbon",
+        "UserID": "491",
+        "GroupID": "297",
+        "Group": "carbon",
+        "Home": "/var/lib/carbon",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "influxdb",
+        "UserID": "490",
+        "GroupID": "490",
+        "Group": "influxdb",
+        "Home": "/home/influxdb",
+        "Shell": "/bin/bash"
+    },
+    {
+        "UserName": "grafana",
+        "UserID": "489",
+        "GroupID": "296",
+        "Group": "grafana",
+        "Home": "/usr/share/grafana",
+        "Shell": "/sbin/nologin"
+    },
+    {
+        "UserName": "oracle",
+        "UserID": "54321",
+        "GroupID": "54321",
+        "Group": "oinstall",
+        "Home": "/home/oracle",
+        "Shell": "/bin/bash"
+    }
+]

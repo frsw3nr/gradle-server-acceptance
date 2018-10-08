@@ -1,0 +1,7 @@
+/dev/mapper/vg_ostrich-lv_root on / type ext4 (rw)
+proc on /proc type proc (rw)
+sysfs on /sys type sysfs (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+tmpfs on /dev/shm type tmpfs (rw)
+/dev/sda1 on /boot type ext4 (rw)
+none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)

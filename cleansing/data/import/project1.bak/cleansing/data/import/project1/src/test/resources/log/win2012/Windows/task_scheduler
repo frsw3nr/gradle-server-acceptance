@@ -1,0 +1,76 @@
+﻿
+
+LastRunTime        : 2018/06/25 7:12:12
+LastTaskResult     : 0
+NextRunTime        : 2018/06/25 8:12:12
+NumberOfMissedRuns : 0
+TaskName           : GoogleUpdateTaskMachineUA
+TaskPath           : \
+PSComputerName     : 
+
+LastRunTime        : 2018/06/25 4:12:12
+LastTaskResult     : 0
+NextRunTime        : 2018/06/26 4:12:12
+NumberOfMissedRuns : 0
+TaskName           : GoogleUpdateTaskMachineCore
+TaskPath           : \
+PSComputerName     : 
+
+LastRunTime        : 2018/06/24 13:00:00
+LastTaskResult     : 2147488001
+NextRunTime        : 2018/06/25 8:00:00
+NumberOfMissedRuns : 0
+TaskName           : Consolidator
+TaskPath           : \Microsoft\Windows\Customer Experience Improvement Program\
+PSComputerName     : 
+
+LastRunTime        : 2018/06/25 4:36:36
+LastTaskResult     : 2147946720
+NextRunTime        : 2018/06/26 4:40:40
+NumberOfMissedRuns : 0
+TaskName           : ServerCeipAssistant
+TaskPath           : \Microsoft\Windows\Customer Experience Improvement Program\Server\
+PSComputerName     : 
+
+LastRunTime        : 2018/06/13 4:29:29
+LastTaskResult     : 0
+NextRunTime        : 2018/07/08 10:06:06
+NumberOfMissedRuns : 0
+TaskName           : Data Integrity Scan
+TaskPath           : \Microsoft\Windows\Data Integrity Scan\
+PSComputerName     : 
+
+LastRunTime        : 2018/05/31 8:07:07
+LastTaskResult     : 0
+NextRunTime        : 2018/06/26 7:38:38
+NumberOfMissedRuns : 0
+TaskName           : SvcRestartTask
+TaskPath           : \Microsoft\Windows\SoftwareProtectionPlatform\
+PSComputerName     : 
+
+LastRunTime        : 2018/06/25 1:00:00
+LastTaskResult     : 0
+NextRunTime        : 2018/06/26 1:00:00
+NumberOfMissedRuns : 0
+TaskName           : Maintenance Configurator
+TaskPath           : \Microsoft\Windows\TaskScheduler\
+PSComputerName     : 
+
+LastRunTime        : 2018/06/25 3:19:19
+LastTaskResult     : 0
+NextRunTime        : 2018/06/26 4:36:36
+NumberOfMissedRuns : 0
+TaskName           : Regular Maintenance
+TaskPath           : \Microsoft\Windows\TaskScheduler\
+PSComputerName     : 
+
+LastRunTime        : 2018/06/24 8:11:11
+LastTaskResult     : 0
+NextRunTime        : 2018/06/25 8:11:11
+NumberOfMissedRuns : 0
+TaskName           : Scheduled Start
+TaskPath           : \Microsoft\Windows\WindowsUpdate\
+PSComputerName     : 
+
+
+

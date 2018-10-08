@@ -2,6 +2,7 @@ import re
 import sys
 import os
 import logging
+import subprocess
 import numpy as np
 import pandas as pd
 from abc import ABCMeta, abstractmethod
@@ -15,6 +16,20 @@ from getconfig.inventory.old.loader_v1 import InventoryLoaderV1
 
 class InventoryLoader(object):
     INVENTORY_DIR = 'build'
+
+    def exec_getconfig_loader(self, inventory_info):
+        _logger = logging.getLogger(__name__)
+
+        getconfig_loader_cmd = "getconfig -u db"
+        project_dir= inventory_info.project_dir
+        node_dir = os.path.join(project_dir, 'build/json')
+        if not os.path.exists(node_dir):
+            _logger.info("Node dir not found, skip : {}".format(node_dir))
+            return
+
+        _logger.info("Getconfig Load:{}".format(project_dir))
+        rc = subprocess.call(getconfig_loader_cmd, shell=True,  cwd=project_dir)
+        _logger.info("rc={}".format(rc))
 
     def import_inventory_sheet(self, inventory_info, inventory_tables):
         _logger = logging.getLogger(__name__)

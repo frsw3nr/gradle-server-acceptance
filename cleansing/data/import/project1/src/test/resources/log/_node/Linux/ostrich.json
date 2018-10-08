@@ -1,0 +1,252 @@
+[
+    {
+        "test_id": "hostname",
+        "domain": "Linux",
+        "value": "ostrich"
+    },
+    {
+        "test_id": "hostname_fqdn",
+        "domain": "Linux",
+        "value": "ostrich.example.com"
+    },
+    {
+        "test_id": "uname",
+        "domain": "Linux",
+        "value": "Linux ostrich 2.6.32-573.12.1.el6.x86_64 "
+    },
+    {
+        "test_id": "lsb",
+        "domain": "Linux",
+        "value": "[CentOS release 6.7 (Final)]"
+    },
+    {
+        "test_id": "cpu",
+        "domain": "Linux",
+        "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz 1 Socket 1 Core"
+    },
+    {
+        "test_id": "model_name",
+        "domain": "Linux",
+        "value": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz"
+    },
+    {
+        "test_id": "mhz",
+        "domain": "Linux",
+        "value": "3192.607"
+    },
+    {
+        "test_id": "cpu_total",
+        "domain": "Linux",
+        "value": "1"
+    },
+    {
+        "test_id": "cpu_core",
+        "domain": "Linux",
+        "value": "1"
+    },
+    {
+        "test_id": "cpu_real",
+        "domain": "Linux",
+        "value": "1"
+    },
+    {
+        "test_id": "machineid",
+        "domain": "Linux",
+        "value": "76d1374a96baf95519ccde830000000e"
+    },
+    {
+        "test_id": "meminfo",
+        "domain": "Linux",
+        "value": "1922252"
+    },
+    {
+        "test_id": "mem_total",
+        "domain": "Linux",
+        "value": "1922252"
+    },
+    {
+        "test_id": "mem_free",
+        "domain": "Linux",
+        "value": "110596"
+    },
+    {
+        "test_id": "network",
+        "domain": "Linux",
+        "value": "[eth0:null]"
+    },
+    {
+        "test_id": "hw_address",
+        "domain": "Linux",
+        "value": "[00:0c:29:ca:44:db]"
+    },
+    {
+        "test_id": "net_onboot",
+        "domain": "Linux",
+        "value": "[eth0:yes, eth0:1:no, lo:yes]"
+    },
+    {
+        "test_id": "net_route",
+        "domain": "Linux",
+        "value": "[ens160:192.168.0.254]"
+    },
+    {
+        "test_id": "block_device",
+        "domain": "Linux",
+        "value": "[sda:[timeout:180, queue_depth:32], sr0:[timeout:30, queue_depth:1]]"
+    },
+    {
+        "test_id": "mdadb",
+        "domain": "Linux",
+        "value": "Personalities : unused devices: <none>"
+    },
+    {
+        "test_id": "filesystem",
+        "domain": "Linux",
+        "value": "[/boot:500M, /:26.5G, [SWAP]:3G]"
+    },
+    {
+        "test_id": "filesystem./",
+        "domain": "Linux",
+        "value": "26.5G"
+    },
+    {
+        "test_id": "filesystem.[SWAP]",
+        "domain": "Linux",
+        "value": "3G"
+    },
+    {
+        "test_id": "filesystem./boot",
+        "domain": "Linux",
+        "value": "500M"
+    },
+    {
+        "test_id": "user",
+        "domain": "Linux",
+        "value": "[root, commonstyle, postgres, pscommon, mysql, esx, himeji, nexco, payok04, pcoit01, pskag01, pskg01, psoit01, psoit02, psyok04, psyok05, tmeic, psyok02, rstudio-server, pbyok01, mitaka, psadmin, db2fenc1, myinst, git, psyok03, pboit01, nagios, peyok04, influxdb, oracle]"
+    },
+    {
+        "test_id": "user.zabbix",
+        "domain": "Linux",
+        "value": "OK"
+    },
+    {
+        "test_id": "logon_test",
+        "domain": "Linux",
+        "value": "[logon_test:Ignored]"
+    },
+    {
+        "test_id": "fips",
+        "domain": "Linux",
+        "value": "False"
+    },
+    {
+        "test_id": "virturization",
+        "domain": "Linux",
+        "value": "no KVM"
+    },
+    {
+        "test_id": "service",
+        "domain": "Linux",
+        "value": "78"
+    },
+    {
+        "test_id": "service.kdump",
+        "domain": "Linux",
+        "value": "On"
+    },
+    {
+        "test_id": "service.iptables",
+        "domain": "Linux",
+        "value": "Off"
+    },
+    {
+        "test_id": "service.ip6tables",
+        "domain": "Linux",
+        "value": "Off"
+    },
+    {
+        "test_id": "service.restorecond",
+        "domain": "Linux",
+        "value": "Off"
+    },
+    {
+        "test_id": "packages",
+        "domain": "Linux",
+        "value": "[:]"
+    },
+    {
+        "test_id": "packages.gcc",
+        "domain": "Linux",
+        "value": "4.4.7"
+    },
+    {
+        "test_id": "packages.httpd",
+        "domain": "Linux",
+        "value": "2.2.15"
+    },
+    {
+        "test_id": "packages.mysql",
+        "domain": "Linux",
+        "value": "5.5.50"
+    },
+    {
+        "test_id": "packages.net-snmp-utils",
+        "domain": "Linux",
+        "value": "5.5"
+    },
+    {
+        "test_id": "mount_iso",
+        "domain": "Linux",
+        "value": "no mount"
+    },
+    {
+        "test_id": "proxy_global",
+        "domain": "Linux",
+        "value": "proxy=http://proxy.your.company.co.jp:8080"
+    },
+    {
+        "test_id": "crash_size",
+        "domain": "Linux",
+        "value": "135266304"
+    },
+    {
+        "test_id": "runlevel",
+        "domain": "Linux",
+        "value": "3"
+    },
+    {
+        "test_id": "resolve_conf",
+        "domain": "Linux",
+        "value": "on"
+    },
+    {
+        "test_id": "nameservers",
+        "domain": "Linux",
+        "value": "[nameserver1:xxx.xxx.xxx.xxx]"
+    },
+    {
+        "test_id": "ntp",
+        "domain": "Linux",
+        "value": "[ntp:Configured, server:[133.119.128.59]]"
+    },
+    {
+        "test_id": "sestatus",
+        "domain": "Linux",
+        "value": "enabled"
+    },
+    {
+        "test_id": "se_mode",
+        "domain": "Linux",
+        "value": "permissive"
+    },
+    {
+        "test_id": "oracle_module",
+        "domain": "Linux",
+        "value": "NG"
+    },
+    {
+        "test_id": "oracle",
+        "domain": "Linux",
+        "value": "12.1.0"
+    }
+]

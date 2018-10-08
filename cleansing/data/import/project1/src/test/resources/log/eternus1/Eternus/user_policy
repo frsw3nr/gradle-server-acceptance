@@ -1,0 +1,11 @@
+CLI> show user-policy 
+<Password Policy>
+Minimum Password Length       [4]
+Password Complexity           [Disable]
+Password History              [0]
+Minimum Password Age(day)     [0]
+Maximum Password Age(day)     [0]
+<Account Lockout Policy>
+Account Lockout Threshold     [0]
+Account Lockout Duration(min) [30]
+CLI> 

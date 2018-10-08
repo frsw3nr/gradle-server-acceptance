@@ -1,0 +1,314 @@
+[
+    {
+        "Name": "abrt-ccpp",
+        "Status": "Off"
+    },
+    {
+        "Name": "abrtd",
+        "Status": "Off"
+    },
+    {
+        "Name": "acpid",
+        "Status": "On"
+    },
+    {
+        "Name": "apache2-admin",
+        "Status": "On"
+    },
+    {
+        "Name": "apache2-data",
+        "Status": "On"
+    },
+    {
+        "Name": "atd",
+        "Status": "On"
+    },
+    {
+        "Name": "auditd",
+        "Status": "On"
+    },
+    {
+        "Name": "autofs",
+        "Status": "On"
+    },
+    {
+        "Name": "blk-availability",
+        "Status": "On"
+    },
+    {
+        "Name": "carbon-aggregator",
+        "Status": "Off"
+    },
+    {
+        "Name": "carbon-cache",
+        "Status": "On"
+    },
+    {
+        "Name": "carbon-relay",
+        "Status": "Off"
+    },
+    {
+        "Name": "certmonger",
+        "Status": "On"
+    },
+    {
+        "Name": "cgconfig",
+        "Status": "Off"
+    },
+    {
+        "Name": "cgred",
+        "Status": "Off"
+    },
+    {
+        "Name": "cpuspeed",
+        "Status": "On"
+    },
+    {
+        "Name": "crond",
+        "Status": "On"
+    },
+    {
+        "Name": "cups",
+        "Status": "On"
+    },
+    {
+        "Name": "fossology",
+        "Status": "On"
+    },
+    {
+        "Name": "getperfagent",
+        "Status": "On"
+    },
+    {
+        "Name": "haldaemon",
+        "Status": "On"
+    },
+    {
+        "Name": "haproxy",
+        "Status": "Off"
+    },
+    {
+        "Name": "htcacheclean",
+        "Status": "Off"
+    },
+    {
+        "Name": "httpd",
+        "Status": "On"
+    },
+    {
+        "Name": "influxdb",
+        "Status": "On"
+    },
+    {
+        "Name": "ip6tables",
+        "Status": "Off"
+    },
+    {
+        "Name": "iptables",
+        "Status": "Off"
+    },
+    {
+        "Name": "irqbalance",
+        "Status": "On"
+    },
+    {
+        "Name": "jexec",
+        "Status": "On"
+    },
+    {
+        "Name": "kdump",
+        "Status": "On"
+    },
+    {
+        "Name": "lvm2-monitor",
+        "Status": "On"
+    },
+    {
+        "Name": "mcelogd",
+        "Status": "Off"
+    },
+    {
+        "Name": "mdmonitor",
+        "Status": "On"
+    },
+    {
+        "Name": "messagebus",
+        "Status": "On"
+    },
+    {
+        "Name": "mysqld",
+        "Status": "On"
+    },
+    {
+        "Name": "netconsole",
+        "Status": "Off"
+    },
+    {
+        "Name": "netfs",
+        "Status": "On"
+    },
+    {
+        "Name": "network",
+        "Status": "On"
+    },
+    {
+        "Name": "nfs",
+        "Status": "Off"
+    },
+    {
+        "Name": "nfslock",
+        "Status": "On"
+    },
+    {
+        "Name": "nmb",
+        "Status": "On"
+    },
+    {
+        "Name": "ntpd",
+        "Status": "On"
+    },
+    {
+        "Name": "ntpdate",
+        "Status": "Off"
+    },
+    {
+        "Name": "numad",
+        "Status": "Off"
+    },
+    {
+        "Name": "oddjobd",
+        "Status": "Off"
+    },
+    {
+        "Name": "portreserve",
+        "Status": "On"
+    },
+    {
+        "Name": "postfix",
+        "Status": "On"
+    },
+    {
+        "Name": "postgresql",
+        "Status": "Off"
+    },
+    {
+        "Name": "psacct",
+        "Status": "Off"
+    },
+    {
+        "Name": "quota_nld",
+        "Status": "Off"
+    },
+    {
+        "Name": "rdisc",
+        "Status": "Off"
+    },
+    {
+        "Name": "redis",
+        "Status": "On"
+    },
+    {
+        "Name": "redis-sentinel",
+        "Status": "Off"
+    },
+    {
+        "Name": "restorecond",
+        "Status": "Off"
+    },
+    {
+        "Name": "rngd",
+        "Status": "Off"
+    },
+    {
+        "Name": "rpcbind",
+        "Status": "On"
+    },
+    {
+        "Name": "rpcgssd",
+        "Status": "On"
+    },
+    {
+        "Name": "rpcsvcgssd",
+        "Status": "Off"
+    },
+    {
+        "Name": "rsyslog",
+        "Status": "On"
+    },
+    {
+        "Name": "saslauthd",
+        "Status": "Off"
+    },
+    {
+        "Name": "smartd",
+        "Status": "Off"
+    },
+    {
+        "Name": "smb",
+        "Status": "On"
+    },
+    {
+        "Name": "snmpd",
+        "Status": "Off"
+    },
+    {
+        "Name": "snmptrapd",
+        "Status": "Off"
+    },
+    {
+        "Name": "sshd",
+        "Status": "On"
+    },
+    {
+        "Name": "sssd",
+        "Status": "Off"
+    },
+    {
+        "Name": "sumupctl",
+        "Status": "On"
+    },
+    {
+        "Name": "svnserve",
+        "Status": "Off"
+    },
+    {
+        "Name": "sysstat",
+        "Status": "On"
+    },
+    {
+        "Name": "tomcat-admin",
+        "Status": "On"
+    },
+    {
+        "Name": "tomcat-data",
+        "Status": "On"
+    },
+    {
+        "Name": "udev-post",
+        "Status": "On"
+    },
+    {
+        "Name": "vmware-tools",
+        "Status": "On"
+    },
+    {
+        "Name": "winbind",
+        "Status": "Off"
+    },
+    {
+        "Name": "xinetd",
+        "Status": "On"
+    },
+    {
+        "Name": "ypbind",
+        "Status": "Off"
+    },
+    {
+        "Name": "zabbix-server",
+        "Status": "On"
+    },
+    {
+        "Name": "zabbixagent",
+        "Status": "On"
+    }
+]

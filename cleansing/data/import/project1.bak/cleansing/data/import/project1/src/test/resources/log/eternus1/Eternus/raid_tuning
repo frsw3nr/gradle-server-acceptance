@@ -1,0 +1,11 @@
+
+CLI> show raid-tuning
+RAID Group            RAID     Status                          DCMF Rebuild  Drive Access Disk    Throttle Ordered
+No.  Name             Level                                         Priority Priority     Tuning           Cut    
+---- ---------------- -------- ------------------------------- ---- -------- ------------ ------- -------- -------
+   0 LUN_R#000        RAID5    Available                          1 Low      Response     Enable      100%     400 
+   1 LUN_R#001        RAID5    Available                          1 Low      Response     Enable      100%     400 
+   2 LUN_R#002        RAID5    Available                          1 Low      Response     Enable      100%     400 
+   3 LUN_R#003        RAID5    Available                          1 Low      Response     Enable      100%     400 
+   4 LUN_R#004        RAID5    Available                          1 Low      Response     Enable      100%     400 
+CLI> 

@@ -10,7 +10,7 @@ Redmine を構成管理データベースとしてカスタマイズします。
 * Ruby は rbenv で、/opt/ruby の下に配置
 * Redmine は 管理者ユーザの $HOME下の ~/redmine に配置
 * GitBucket サーバとのバッティングを避けるため、接続ポートは 8080 にします
-* Passenger で /sbin/httpd と連動。URL は http://サーバ:8080/redmine
+* Passenger で /sbin/httpd と連動。URL は http://{DBサーバのIP}:8080/redmine
 
 システム要件
 ------------
@@ -209,13 +209,14 @@ my.cnfにutf8の設定を追加
    character-set-server=utf8
 
 DB、ユーザー作成します。
-パスワードは適宜変更してください。
+'change_password' の記載のパスワードは適宜変更してください。
 
 ::
 
    mysql -u root -p
    create database redmine default character set utf8;
    grant all on redmine.* to redmine@localhost identified by 'change_password';
+   grant all privileges on redmine.* to redmine@"{ワークフローサーバIP}" identified by 'change_password' with grant option;
    flush privileges;
    exit
 
@@ -391,7 +392,7 @@ WebブラウザからRedmineに接続して接続確認します。
 
 ::
 
-   http://{サーバ}:8080/redmine/
+   http://{DBサーバのIP}:8080/redmine/
 
 admin/admin でログインします。
 パスワード変更画面で、新しいパスワードの入力をして保存します。

@@ -1,0 +1,25 @@
+Filesystem             Size   Used  Available Capacity  Mounted on
+rpool/ROOT/solaris     547G   5.0G       425G     2%    /
+/devices                 0K     0K         0K     0%    /devices
+/dev                     0K     0K         0K     0%    /dev
+ctfs                     0K     0K         0K     0%    /system/contract
+proc                     0K     0K         0K     0%    /proc
+mnttab                   0K     0K         0K     0%    /etc/mnttab
+swap                   121G   1.0M       121G     1%    /system/volatile
+objfs                    0K     0K         0K     0%    /system/object
+sharefs                  0K     0K         0K     0%    /etc/dfs/sharetab
+rpool/ROOT/solaris/var   547G   465M       425G     1%    /var
+fd                       0K     0K         0K     0%    /dev/fd
+swap                   121G   880K       121G     1%    /tmp
+rpool/VARSHARE         547G   2.6M       425G     1%    /var/share
+rpool/VARSHARE/zones   547G    31K       425G     1%    /system/zones
+rpool/export           547G    34K       425G     1%    /export
+rpool/export/home      547G    32K       425G     1%    /export/home
+rpool/export/home/guest   547G    35K       425G     1%    /export/home/guest
+rpool/export/install   547G    48G       425G    11%    /export/install
+rpool                  547G    73K       425G     1%    /rpool
+rpool/VARSHARE/pkg     547G    32K       425G     1%    /var/share/pkg
+rpool/VARSHARE/pkg/repositories   547G    31K       425G     1%    /var/share/pkg/repositories
+-hosts                   0K     0K         0K     0%    /net
+auto_home                0K     0K         0K     0%    /home
+-fedfs                   0K     0K         0K     0%    /nfs4

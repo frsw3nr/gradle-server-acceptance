@@ -1,0 +1,10 @@
+﻿
+
+NumCpu     : 2
+PowerState : PoweredOn
+MemoryGB   : 2
+VMHost     : esx19.local
+Cluster    : APC001
+
+
+

@@ -1,0 +1,13 @@
+*.pyc
+
+dist/
+/build/
+data2/
+!data/*/build/
+*.egg-info/
+
+.cache/
+.tox/
+.coverage
+
+*.db

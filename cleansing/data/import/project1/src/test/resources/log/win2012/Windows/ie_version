@@ -1,0 +1,21 @@
+﻿
+
+Version           : 9.11.9600.17031
+svcKBFWLink       : http://go.microsoft.com/fwlink/?LinkId=391932
+svcVersion        : 11.0.9600.17031
+svcUpdateVersion  : 11.0.7
+MkEnabled         : Yes
+Build             : 99600
+W2kVersion        : 9.11.9600.17031
+IntegratedBrowser : 1
+svcKBNumber       : KB2919355
+PSPath            : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer
+PSParentPath      : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft
+PSChildName       : Internet Explorer
+PSDrive           : HKLM
+PSProvider        : Microsoft.PowerShell.Core\Registry
+PSComputerName    : 192.168.0.24
+RunspaceId        : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+
+
+

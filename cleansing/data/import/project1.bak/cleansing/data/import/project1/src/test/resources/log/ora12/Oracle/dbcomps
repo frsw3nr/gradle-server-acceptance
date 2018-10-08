@@ -1,0 +1,16 @@
+Name	Version	Status
+JServer JAVA Virtual Machine	12.2.0.1.0	VALID
+OLAP Analytic Workspace	12.2.0.1.0	VALID
+Oracle Database Catalog Views	12.2.0.1.0	VALID
+Oracle Database Java Packages	12.2.0.1.0	VALID
+Oracle Database Packages and Types	12.2.0.1.0	VALID
+Oracle Database Vault	12.2.0.1.0	VALID
+Oracle Label Security	12.2.0.1.0	VALID
+Oracle Multimedia	12.2.0.1.0	VALID
+Oracle OLAP API	12.2.0.1.0	VALID
+Oracle Real Application Clusters	12.2.0.1.0	OPTION OFF
+Oracle Text	12.2.0.1.0	VALID
+Oracle Workspace Manager	12.2.0.1.0	VALID
+Oracle XDK	12.2.0.1.0	VALID
+Oracle XML Database	12.2.0.1.0	VALID
+Spatial	12.2.0.1.0	VALID

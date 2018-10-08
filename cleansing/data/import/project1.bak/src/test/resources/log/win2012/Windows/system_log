@@ -1,0 +1,120 @@
+﻿
+
+Index              : 26593
+EntryType          : Error
+InstanceId         : 10010
+Message            : ソース 'DCOM' のイベント ID '10010' の説明が見つかりません。必要なレジストリ情報またはメッセージ
+                     を表示するメッセージ DLL ファイルがローカル コンピューターに存在しない可能性があります。または、これらのデータ
+                     へのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'{9BA05972-F
+                     6A8-11CF-A442-00A0C90A8F39}'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {{9BA05972-F6A8-11CF-A442-00A0C90A8F39}}
+Source             : DCOM
+TimeGenerated      : 2017/07/17 16:55:46
+TimeWritten        : 2017/07/17 16:55:46
+UserName           : win2012\Administrator
+
+Index              : 26042
+EntryType          : Error
+InstanceId         : 134
+Message            : ファイル システムはメディア バッキング ボリューム F: にメタデータを書き込むことができませんでした。状態 "0
+                     xc000009d" ReFS で失敗した書き込みにより、ボリュームがオフラインになります。このボリュームは自動的に
+                     再マウントされる可能性があります。
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {2, F:, 0xc000009d}
+Source             : ReFS
+TimeGenerated      : 2017/07/17 16:16:41
+TimeWritten        : 2017/07/17 16:16:41
+UserName           : NT AUTHORITY\SYSTEM
+
+Index              : 26040
+EntryType          : Error
+InstanceId         : 3221487631
+Message            : デバイス \Device\Harddisk2\DR2 はまだアクセスできる状態ではありません。
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {\Device\Harddisk2\DR2}
+Source             : disk
+TimeGenerated      : 2017/07/17 16:16:41
+TimeWritten        : 2017/07/17 16:16:41
+UserName           : 
+
+Index              : 26039
+EntryType          : Error
+InstanceId         : 3254779913
+Message            : 予期しないプロバイダー エラーが発生しました。サービスを再起動すると問題が解決する可能性があります。エラー コード:
+                      80004005@02000014
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {80004005@02000014}
+Source             : Virtual Disk Service
+TimeGenerated      : 2017/07/17 16:16:41
+TimeWritten        : 2017/07/17 16:16:41
+UserName           : 
+
+Index              : 26038
+EntryType          : Error
+InstanceId         : 3254779913
+Message            : 予期しないプロバイダー エラーが発生しました。サービスを再起動すると問題が解決する可能性があります。エラー コード:
+                      80004005@02000014
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {80004005@02000014}
+Source             : Virtual Disk Service
+TimeGenerated      : 2017/07/17 16:16:41
+TimeWritten        : 2017/07/17 16:16:41
+UserName           : 
+
+Index              : 25013
+EntryType          : Error
+InstanceId         : 10010
+Message            : ソース 'DCOM' のイベント ID '10010' の説明が見つかりません。必要なレジストリ情報またはメッセージ
+                     を表示するメッセージ DLL ファイルがローカル コンピューターに存在しない可能性があります。または、これらのデータ
+                     へのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'{9BA05972-F
+                     6A8-11CF-A442-00A0C90A8F39}'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {{9BA05972-F6A8-11CF-A442-00A0C90A8F39}}
+Source             : DCOM
+TimeGenerated      : 2017/07/14 18:50:50
+TimeWritten        : 2017/07/14 18:50:50
+UserName           : win2012\Administrator
+
+Index              : 2829
+EntryType          : Error
+InstanceId         : 10010
+Message            : ソース 'DCOM' のイベント ID '10010' の説明が見つかりません。必要なレジストリ情報またはメッセージ
+                     を表示するメッセージ DLL ファイルがローカル コンピューターに存在しない可能性があります。または、これらのデータ
+                     へのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'{9BA05972-F
+                     6A8-11CF-A442-00A0C90A8F39}'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {{9BA05972-F6A8-11CF-A442-00A0C90A8F39}}
+Source             : DCOM
+TimeGenerated      : 2017/07/12 18:37:00
+TimeWritten        : 2017/07/12 18:37:00
+UserName           : win2012\Administrator
+
+Index              : 585
+EntryType          : Error
+InstanceId         : 10016
+Message            : ソース 'DCOM' のイベント ID '10016' の説明が見つかりません。必要なレジストリ情報またはメッセージ
+                     を表示するメッセージ DLL ファイルがローカル コンピューターに存在しない可能性があります。または、これらのデータ
+                     へのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'アプリケーション固有'
+                     , 'ローカル', 'アクティブ化', '{D63B10C5-BB46-4990-A94F-E40B9D520160
+                     }', '{9CA88EE3-ACB7-47C8-AFC4-AB702511C276}', 'NT AUTHORIT
+                     Y', 'SYSTEM', 'S-1-5-18', 'LocalHost (LRPC 使用)', '利用不可', '
+                     利用不可'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {アプリケーション固有, ローカル, アクティブ化, {D63B10C5-BB46-4990-A94F-E40B9D
+                     520160}...}
+Source             : DCOM
+TimeGenerated      : 2017/07/12 15:24:25
+TimeWritten        : 2017/07/12 15:24:25
+UserName           : NT AUTHORITY\SYSTEM
+
+
+

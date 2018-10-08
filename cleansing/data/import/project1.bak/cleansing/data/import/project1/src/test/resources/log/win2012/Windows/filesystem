@@ -1,0 +1,28 @@
+﻿
+
+DeviceID       : A:
+DriveType      : 2
+ProviderName   : 
+FreeSpace      : 
+Size           : 
+VolumeName     : 
+PSComputerName : 192.168.0.24
+
+DeviceID       : C:
+DriveType      : 3
+ProviderName   : 
+FreeSpace      : 13915357184
+Size           : 42580570112
+VolumeName     : 
+PSComputerName : 192.168.0.24
+
+DeviceID       : D:
+DriveType      : 5
+ProviderName   : 
+FreeSpace      : 
+Size           : 
+VolumeName     : 
+PSComputerName : 192.168.0.24
+
+
+

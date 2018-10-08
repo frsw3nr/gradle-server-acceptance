@@ -1,0 +1,7 @@
+
+CLI> show snmp-trap
+Trap SNMP    Manager IP                                      Community                          User                               Port  
+No.  Version Number  Address                                 Name                               Name                               Number
+---- ------- ------- --------------------------------------- ---------------------------------- ---------------------------------- ------
+   1 v1            1 10.20.5.1                               "public"                                                              162  
+CLI> 

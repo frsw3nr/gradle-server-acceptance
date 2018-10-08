@@ -1,0 +1,43 @@
+﻿
+
+Index              : 1744
+EntryType          : Error
+InstanceId         : 3221233670
+Message            : ライセンス認証 (slui.exe) が失敗しました。エラー コード:
+                     hr=0x8007007B
+                     コマンド ライン引数:
+                     RuleId=eeba1977-569e-4571-b639-7623d8bfecc0;Action=AutoAct
+                     ivate;AppId=55c92734-d682-4d71-983e-d6ec3f16059f;SkuId=b3c
+                     a044e-a358-4d68-9883-aaa2941aca99;NotificationInterval=144
+                     0;Trigger=NetworkAvailable
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {hr=0x8007007B, RuleId=eeba1977-569e-4571-b639-7623d8bfecc
+                     0;Action=AutoActivate;AppId=55c92734-d682-4d71-983e-d6ec3f
+                     16059f;SkuId=b3ca044e-a358-4d68-9883-aaa2941aca99;Notifica
+                     tionInterval=1440;Trigger=NetworkAvailable}
+Source             : Software Protection Platform Service
+TimeGenerated      : 2017/07/20 22:15:02
+TimeWritten        : 2017/07/20 22:15:02
+UserName           : 
+
+Index              : 1664
+EntryType          : Error
+InstanceId         : 3221233670
+Message            : ライセンス認証 (slui.exe) が失敗しました。エラー コード:
+                     hr=0x8007007B
+                     コマンド ライン引数:
+                     RuleId=eeba1977-569e-4571-b639-7623d8bfecc0;Action=AutoAct
+                     ivate;AppId=55c92734-d682-4d71-983e-d6ec3f16059f;SkuId=b3c
+                     a044e-a358-4d68-9883-aaa2941aca99;NotificationInterval=144
+                     0;Trigger=NetworkAvailable
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {hr=0x8007007B, RuleId=eeba1977-569e-4571-b639-7623d8bfecc
+                     0;Action=AutoActivate;AppId=55c92734-d682-4d71-983e-d6ec3f
+                     16059f;SkuId=b3ca044e-a358-4d68-9883-aaa2941aca99;Notifica
+                     tionInterval=1440;Trigger=NetworkAvailable}
+Source             : Software Protection Platform Service
+TimeGenerated      : 2017/07/20 20:45:23
+TimeWritten        : 2017/07/20 20:45:23
+UserName           : 

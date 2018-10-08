@@ -1,0 +1,5 @@
+
+CLI> show event-parameters
+Blink Panel Fault LED     [Enable ]
+Redundant Copy Fault LED  [Disable]
+CLI> 

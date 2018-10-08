@@ -1,0 +1,4 @@
+Filesystem                      Inodes  IUsed   IFree IUse% Mounted on
+/dev/mapper/vg_ostrich-lv_root 1738080 426241 1311839   25% /
+tmpfs                           240281      1  240280    1% /dev/shm
+/dev/sda1                       128016     46  127970    1% /boot

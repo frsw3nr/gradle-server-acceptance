@@ -1,0 +1,8 @@
+
+CLI> show users
+User Name                        User Role        Availability SSH Public Key
+-------------------------------- ---------------- ------------ ----------------
+f.ce                             Maintainer       [Enable ]    [Not Registered]
+root                             Admin            [Enable ]    [Not Registered]
+snmpuser                         Software         [Enable ]    [Not Registered]
+CLI> 

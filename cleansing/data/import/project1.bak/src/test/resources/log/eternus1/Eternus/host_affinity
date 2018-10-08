@@ -1,0 +1,18 @@
+
+CLI> show host-affinity
+Port Group           Host Response        LUN Group             LUN Mask
+No. Name             No. Name             No.  Name             Group No.
+--- ---------------- --- ---------------- ---- ---------------- ---------
+  0 rx2530m2-08        0 Default             0 rx2530m2-08              -
+<Port List>
+  CM#0 CA#0 Port#0
+  CM#1 CA#0 Port#0
+
+CM#0 CA#0 Port#0 (Host Affinity Mode Disable)
+
+CM#0 CA#0 Port#1 (Host Affinity Mode Enable)
+
+CM#1 CA#0 Port#0 (Host Affinity Mode Disable)
+
+CM#1 CA#0 Port#1 (Host Affinity Mode Enable)
+CLI> 

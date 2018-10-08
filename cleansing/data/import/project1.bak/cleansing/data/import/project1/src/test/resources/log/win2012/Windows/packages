@@ -1,0 +1,952 @@
+﻿
+
+Name    : SQL Server 2017 Integration Services Scale Out Management Portal
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft .NET Framework 4.5.1 Multi-Targeting Pack
+Vendor  : Microsoft Corporation
+Version : 4.5.50932
+
+Name    : Visual C++ Library CRT X86 Redist Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)
+Vendor  : Microsoft Corporation
+Version : 4.5.51209
+
+Name    : SQL Server 2017 Shared Management Objects Extensions
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Universal CRT Headers Libraries and Sources
+Vendor  : Microsoft Corporation
+Version : 10.0.26624
+
+Name    : SQL Server Management Studio
+Vendor  : Microsoft Corporation
+Version : 14.0.17230.0
+
+Name    : Microsoft Visual Studio 2015 Shell (Isolated) Resources
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Windows Software Development Kit for Windows Store Apps
+Vendor  : Microsoft Corporation
+Version : 8.100.26936
+
+Name    : Microsoft Visual Studio 2015 XAML Designer - ENU
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Windows Runtime Intellisense Content - en-us
+Vendor  : Microsoft Corporation
+Version : 8.100.25984
+
+Name    : SQL Server 2016 Database Engine Shared
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Visual C++ Compiler/Tools X64 ARM Cross Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2016 Connection Info
+Vendor  : Microsoft Corporation
+Version : 13.0.14500.10
+
+Name    : Microsoft .NET Framework 4.5 Multi-Targeting Pack
+Vendor  : Microsoft Corporation
+Version : 4.5.50710
+
+Name    : Visual C++ Compiler/Tools X64 ARM Cross Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2017 Batch Parser
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : SQL Server 2016 Shared Management Objects
+Vendor  : Microsoft Corporation
+Version : 13.0.14500.10
+
+Name    : SQL Server 2016 Shared Management Objects
+Vendor  : Microsoft Corporation
+Version : 13.0.14500.10
+
+Name    : Microsoft SQL Server 2016 RsFx Driver
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Windows App Certification Kit Native Components
+Vendor  : Microsoft Corporation
+Version : 8.100.26629
+
+Name    : Visual C++ Compiler/Tools X64 Base Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Build Tools 14.0 (amd64)
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219
+Vendor  : Microsoft Corporation
+Version : 10.0.40219
+
+Name    : Visual C++ Library CRT X64 Store Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219
+Vendor  : Microsoft Corporation
+Version : 10.0.40219
+
+Name    : Visual C++ Compiler/Tools X64 Base Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005
+Vendor  : Microsoft Corporation
+Version : 12.0.21005
+
+Name    : Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005
+Vendor  : Microsoft Corporation
+Version : 12.0.21005
+
+Name    : SQL Server 2017 Shared Management Objects Extensions
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : SQL Server Management Studio for Reporting Services
+Vendor  : Microsoft Corporation
+Version : 14.0.17230.0
+
+Name    : Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)
+Vendor  : Microsoft Corporation
+Version : 4.5.50932
+
+Name    : Microsoft Build Tools Language Resources 14.0 (x86)
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : LibreOffice 5.3.6.1
+Vendor  : The Document Foundation
+Version : 5.3.6.1
+
+Name    : Visual C++ Library CRT ARM Store Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2017 Client Tools Extensions
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005
+Vendor  : Microsoft Corporation
+Version : 12.0.21005
+
+Name    : SQL Server Management Studio for Analysis Services
+Vendor  : Microsoft Corporation
+Version : 14.0.17230.0
+
+Name    : Visual Studio 2015 Prerequisites - ENU Language Pack
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Windows Software Development Kit
+Vendor  : Microsoft Corporation
+Version : 8.100.26936
+
+Name    : TortoiseGit 2.5.0.0 (64 bit)
+Vendor  : TortoiseGit
+Version : 2.5.0.0
+
+Name    : Visual C++ Compiler/Tools X86 Native Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ MSBuild X64 Package
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : SQL Server 2017 DMF
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : VMware PowerCLI
+Vendor  : VMware, Inc.
+Version : 6.5.0.234
+
+Name    : SQL Server 2017 Integration Services Scale Out Management Portal
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft Visual Studio Services Hub
+Vendor  : Microsoft Corporation
+Version : 1.0.23107.00
+
+Name    : Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2016 Database Engine Shared
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : SQL Server 2016 Database Engine Services
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Windows Software Development Kit for Windows Store Apps DirectX x86 Remote
+Vendor  : Microsoft Corporation
+Version : 8.100.26936
+
+Name    : Microsoft SQL Server 2008 Setup Support Files 
+Vendor  : Microsoft Corporation
+Version : 10.3.5500.0
+
+Name    : Microsoft Analysis Services OLE DB Provider
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.397
+
+Name    : SQL Server 2017 Shared Management Objects
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer
+Vendor  : Microsoft Corporation
+Version : 14.0.23107.20
+
+Name    : Visual C++ MSBuild Base Package
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Jenkins 2.46.3
+Vendor  : Jenkins project
+Version : 0.2.46.3000
+
+Name    : Microsoft VSS Writer for SQL Server 2016
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Microsoft .NET Framework 4.5.2 Multi-Targeting Pack
+Vendor  : Microsoft Corporation
+Version : 4.5.51209
+
+Name    : Microsoft System CLR Types for SQL Server 2017
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Visual C++ Library CRT ARM Redist Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Java SE Development Kit 8 Update 144 (64-bit)
+Vendor  : Oracle Corporation
+Version : 8.0.1440.1
+
+Name    : Microsoft ODBC Driver 13 for SQL Server
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : SQL Server 2017 Management Studio Extensions
+Vendor  : Microsoft Corporation
+Version : 14.0.3006.16
+
+Name    : Visual C++ Compiler/Tools X86 Base Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Active Directory Authentication Library for SQL Server
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft System CLR Types for SQL Server 2014
+Vendor  : Microsoft Corporation
+Version : 12.0.2402.11
+
+Name    : Browser for SQL Server 2016
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Microsoft Visual Studio 2015 Shell (Minimum)
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Visual C++ MSBuild X86 Package
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Visual C++ Compiler/Tools X86 ARM Cross Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft SQL Server Data-Tier Application Framework (x86)
+Vendor  : Microsoft Corporation
+Version : 14.0.3953.4
+
+Name    : SQL Server 2016 Connection Info
+Vendor  : Microsoft Corporation
+Version : 13.0.14500.10
+
+Name    : SQL Server 2017 Connection Info
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : SQL Server 2017 SQL Diagnostics
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005
+Vendor  : Microsoft Corporation
+Version : 12.0.21005
+
+Name    : SQL Server 2017 Management Studio Extensions
+Vendor  : Microsoft Corporation
+Version : 14.0.3006.16
+
+Name    : Microsoft Visual Studio 2015 Shell (Minimum) Resources
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    :  Tools for .Net 3.5
+Vendor  : Microsoft Corporation
+Version : 3.11.50727
+
+Name    : Windows Software Development Kit DirectX x86 Remote
+Vendor  : Microsoft Corporation
+Version : 8.100.25984
+
+Name    : Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005
+Vendor  : Microsoft Corporation
+Version : 12.0.21005
+
+Name    : Universal CRT Extension SDK
+Vendor  : Microsoft Corporation
+Version : 10.0.26624
+
+Name    : Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support
+Vendor  : Microsoft Corporation
+Version : 14.0.23829
+
+Name    : SQL Server 2016 DMF
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : Visual C++ Library CRT X86 Store Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Roslyn Language Services - x86
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005
+Vendor  : Microsoft Corporation
+Version : 12.0.21005
+
+Name    : Visual C++ Library CRT X64 Redist Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SSMS Post Install Tasks
+Vendor  : Microsoft Corporation
+Version : 14.0.17230.0
+
+Name    : Visual C++ Core Build Toolset
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Visual C++ Compiler/Tools X86 Base Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ MSBuild Base Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft .NET Framework 4 Multi-Targeting Pack
+Vendor  : Microsoft Corporation
+Version : 4.0.30319
+
+Name    : SQL Server 2016 Common Files
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Microsoft SQL Server 2016 T-SQL ScriptDom 
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Visual C++ Compiler/Tools X86 ARM Cross Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ Compiler/Tools X86 Base Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ Compiler/Tools X86 Native Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ Compiler/Tools X64 Native Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ MSBuild ARM Package
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Microsoft SQL Server 2017 Policies 
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Visual C++ Compiler/Tools X86 Base Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Google Update Helper
+Vendor  : Google Inc.
+Version : 1.3.33.17
+
+Name    : SQL Server 2017 Shared Management Objects
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft Visual Studio 2015 XAML Designer
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Visual C++ Compiler/Tools X86 X64 Cross Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Windows Software Development Kit for Windows Store Apps DirectX x64 Remote
+Vendor  : Microsoft Corporation
+Version : 8.100.26936
+
+Name    : Visual C++ Library CRT X86 Desktop Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Help Viewer 2.2
+Vendor  : Microsoft Corporation
+Version : 2.2.23107
+
+Name    : Sql Server Customer Experience Improvement Program
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : SQL Server 2017 Common Files
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack
+Vendor  : Microsoft Corporation
+Version : 14.0.23107.20
+
+Name    : Microsoft SQL Server 2017 T-SQL Language Service 
+Vendor  : Microsoft Corporation
+Version : 14.0.17230.0
+
+Name    : Visual C++ Compiler/Tools X64 X86 Cross Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ Library CRT ARM Desktop Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Roslyn Language Services - x86
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : SQL Server Management Studio
+Vendor  : Microsoft Corporation
+Version : 14.0.17230.0
+
+Name    : Visual C++ Compiler/Tools X64 Native Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2016 Shared Management Objects Extensions
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : SQL Server 2016 Batch Parser
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : SQL Server 2016 Shared Management Objects Extensions
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : Visual Studio 2015 Prerequisites
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2016 Database Engine Services
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Visual C++ CRT Headers Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft Build Tools Language Resources 14.0 (amd64)
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : VMware vSphere Client 6.0
+Vendor  : VMware, Inc.
+Version : 6.0.0.6826
+
+Name    : Microsoft SQL Server 2016 Setup (English)
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : SQL Server 2017 Common Files
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : SQL Server 2017 Client Tools Extensions
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Microsoft .NET Framework 4.5.1 SDK
+Vendor  : Microsoft Corporation
+Version : 4.5.51641
+
+Name    : Microsoft Build Tools 14.0 (x86)
+Vendor  : Microsoft Corporation
+Version : 14.0.25420
+
+Name    : Microsoft Visual Studio Tools for Applications 2015 Finalizer
+Vendor  : Microsoft Corporation
+Version : 14.0.23829
+
+Name    : Microsoft SQL Server 2016 T-SQL Language Service 
+Vendor  : Microsoft Corporation
+Version : 13.0.14500.10
+
+Name    : Google Chrome
+Vendor  : Google, Inc.
+Version : 67.0.3396.87
+
+Name    : Microsoft Visual Studio 2015 Shell (Isolated)
+Vendor  : Microsoft Corporation
+Version : 14.0.23107
+
+Name    : Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support
+Vendor  : Microsoft Corporation
+Version : 14.0.23829
+
+Name    : SQL Server 2016 SQL Diagnostics
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : Windows Software Development Kit DirectX x64 Remote
+Vendor  : Microsoft Corporation
+Version : 8.100.25984
+
+Name    : Visual C++ Library CRT X64 Desktop Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2016 XEvent
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : Visual C++ Compiler/Tools X64 X86 Cross Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : SQL Server 2016 DMF
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : Microsoft Visual Studio Tools for Applications 2015 Language Support
+Vendor  : Microsoft Corporation
+Version : 14.0.23107.20
+
+Name    : Microsoft Analysis Services OLE DB Provider
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.397
+
+Name    : SQL Server 2017 Connection Info
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Windows App Certification Kit x64
+Vendor  : Microsoft Corporation
+Version : 8.100.26795
+
+Name    : SQL Server 2016 Common Files
+Vendor  : Microsoft Corporation
+Version : 13.1.4001.0
+
+Name    : Microsoft SQL Server 2014 Management Objects 
+Vendor  : Microsoft Corporation
+Version : 12.0.2000.8
+
+Name    : SQL Server 2016 XEvent
+Vendor  : Microsoft Corporation
+Version : 13.0.1601.5
+
+Name    : SQL Server 2017 DMF
+Vendor  : Microsoft Corporation
+Version : 14.0.1000.169
+
+Name    : Visual C++ Compiler/Tools X86 X64 Cross Resource Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Visual C++ Library CRT Source Package
+Vendor  : Microsoft Corporation
+Version : 14.0.24210
+
+Name    : Microsoft SQL Server 2012 Native Client 
+Vendor  : Microsoft Corporation
+Version : 11.3.6540.0
+
+
+
+
+
+DisplayName    : 7-Zip 16.04 (x64)
+Publisher      : Igor Pavlov
+DisplayVersion : 16.04
+
+DisplayName    : 
+Publisher      : 
+DisplayVersion : 
+
+DisplayName    : Git version 2.14.1
+Publisher      : The Git Development Community
+DisplayVersion : 2.14.1
+
+DisplayName    : Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Microsoft SQL Server 2016 (64-bit)
+Publisher      : 
+DisplayVersion : 
+
+DisplayName    : Microsoft SQL Server 2016 (64-bit)
+Publisher      : Microsoft Corporation
+DisplayVersion : 
+
+DisplayName    : Notepad++ (64-bit x64)
+Publisher      : Notepad++ Team
+DisplayVersion : 7.5.1
+
+DisplayName    : 
+Publisher      : 
+DisplayVersion : 
+
+DisplayName    : SQL Server 2017 Client Tools Extensions
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft SQL Server 2016 Setup (English)
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : SQL Server 2016 Database Engine Services
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Sql Server Customer Experience Improvement Program
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Microsoft Analysis Services OLE DB Provider
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.397
+
+DisplayName    : SQL Server 2017 Shared Management Objects
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 Common Files
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Windows App Certification Kit Native Components
+Publisher      : Microsoft Corporation
+DisplayVersion : 8.100.26629
+
+DisplayName    : Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219
+Publisher      : Microsoft Corporation
+DisplayVersion : 10.0.40219
+
+DisplayName    : SQL Server Management Studio
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.17230.0
+
+DisplayName    : SQL Server 2017 Client Tools Extensions
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft SQL Server 2017 T-SQL Language Service 
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.17230.0
+
+DisplayName    : TortoiseGit 2.5.0.0 (64 bit)
+Publisher      : TortoiseGit
+DisplayVersion : 2.5.0.0
+
+DisplayName    : SQL Server 2017 Batch Parser
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 DMF
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : SQL Server 2016 DMF
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : Microsoft Build Tools Language Resources 14.0 (amd64)
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.25420
+
+DisplayName    : SSMS Post Install Tasks
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.17230.0
+
+DisplayName    : Microsoft VSS Writer for SQL Server 2016
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Microsoft SQL Server 2012 Native Client 
+Publisher      : Microsoft Corporation
+DisplayVersion : 11.3.6540.0
+
+DisplayName    : Google Chrome
+Publisher      : Google, Inc.
+DisplayVersion : 67.0.3396.87
+
+DisplayName    : Active Directory Authentication Library for SQL Server
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 Database Engine Services
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Windows Software Development Kit DirectX x64 Remote
+Publisher      : Microsoft Corporation
+DisplayVersion : 8.100.25984
+
+DisplayName    : SQL Server 2016 Common Files
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Microsoft SQL Server 2008 Setup Support Files 
+Publisher      : Microsoft Corporation
+DisplayVersion : 10.3.5500.0
+
+DisplayName    : Java SE Development Kit 8 Update 144 (64-bit)
+Publisher      : Oracle Corporation
+DisplayVersion : 8.0.1440.1
+
+DisplayName    : SQL Server 2016 Database Engine Shared
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : SQL Server 2017 Integration Services Scale Out Management Portal
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2017 Shared Management Objects
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 Connection Info
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.14500.10
+
+DisplayName    : SQL Server 2016 SQL Diagnostics
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : Microsoft ODBC Driver 13 for SQL Server
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft Build Tools 14.0 (amd64)
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.25420
+
+DisplayName    : SQL Server 2016 Database Engine Shared
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : Visual Studio 2015 Prerequisites - ENU Language Pack
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.23107
+
+DisplayName    : SQL Server 2017 Connection Info
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 Connection Info
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.14500.10
+
+DisplayName    : SQL Server 2017 Shared Management Objects Extensions
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 XEvent
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : SQL Server Management Studio
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.17230.0
+
+DisplayName    : SQL Server 2017 Integration Services Scale Out Management Portal
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005
+Publisher      : Microsoft Corporation
+DisplayVersion : 12.0.21005
+
+DisplayName    : Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.24210
+
+DisplayName    : LibreOffice 5.3.6.1
+Publisher      : The Document Foundation
+DisplayVersion : 5.3.6.1
+
+DisplayName    : Windows Software Development Kit for Windows Store Apps DirectX x64 Remote
+Publisher      : Microsoft Corporation
+DisplayVersion : 8.100.26936
+
+DisplayName    : Microsoft System CLR Types for SQL Server 2017
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005
+Publisher      : Microsoft Corporation
+DisplayVersion : 12.0.21005
+
+DisplayName    : Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.23829
+
+DisplayName    : SQL Server 2017 Connection Info
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft SQL Server 2016 RsFx Driver
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : SQL Server 2016 Shared Management Objects Extensions
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : SQL Server 2017 DMF
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.24210
+
+DisplayName    : Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005
+Publisher      : Microsoft Corporation
+DisplayVersion : 12.0.21005
+
+DisplayName    : SQL Server 2017 Shared Management Objects Extensions
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft SQL Server 2016 T-SQL ScriptDom 
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.1.4001.0
+
+DisplayName    : SQL Server Management Studio for Analysis Services
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.17230.0
+
+DisplayName    : SQL Server 2016 Shared Management Objects
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.14500.10
+
+DisplayName    : SQL Server 2016 Batch Parser
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : SQL Server 2017 DMF
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.24210
+
+DisplayName    : Visual Studio 2015 Prerequisites
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.23107
+
+DisplayName    : SQL Server 2017 SQL Diagnostics
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.1000.169
+
+DisplayName    : SQL Server 2016 XEvent
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : SQL Server Management Studio for Reporting Services
+Publisher      : Microsoft Corporation
+DisplayVersion : 14.0.17230.0
+
+DisplayName    : SQL Server 2016 Shared Management Objects
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.14500.10
+
+DisplayName    : SQL Server 2016 Shared Management Objects Extensions
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.1601.5
+
+DisplayName    : Microsoft SQL Server 2016 T-SQL Language Service 
+Publisher      : Microsoft Corporation
+DisplayVersion : 13.0.14500.10
+
+
+

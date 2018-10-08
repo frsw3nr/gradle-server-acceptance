@@ -29,8 +29,13 @@ class InventoryCollector(object):
         if not excel_file.endswith('.xlsx') or excel_file.startswith('~'):
             return
 
+        # 'tests/resource'ディレクトリは除外
+        match_dir = re.search(r'tests[/|\\]resources', inventory_dir)
+        if match_dir:
+            return
+
         # Extract project from '.../{project}/build'
-        match_dir = re.search(r'([^/]+?)[/|\\]build$', inventory_dir)
+        match_dir = re.search(r'([^/|^\\]+?)[/|\\]build$', inventory_dir)
         if not match_dir:
             return
         project = match_dir.group(1)
@@ -68,6 +73,7 @@ class InventoryCollector(object):
         inventory_tables = InventoryTableSet()
         for inventory in inventorys:
             _logger.info("Loading '{}'".format(inventory.source))
+            loader.exec_getconfig_loader(inventory)
             loader.import_inventory_sheet(inventory, inventory_tables)
         inventory_tables.reset_host_domains()
         return inventory_tables

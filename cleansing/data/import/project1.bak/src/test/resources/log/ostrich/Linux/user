@@ -1,0 +1,43 @@
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+gopher:x:13:30:gopher:/var/gopher:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+vcsa:x:69:69:virtual console memory owner:/dev:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/cache/rpcbind:/sbin/nologin
+abrt:x:173:173::/etc/abrt:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+haldaemon:x:68:68:HAL daemon:/:/sbin/nologin
+ntp:x:38:38::/etc/ntp:/sbin/nologin
+saslauth:x:499:76:Saslauthd user:/var/empty/saslauth:/sbin/nologin
+postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+oprofile:x:16:16:Special user account to be used by OProfile:/home/oprofile:/sbin/nologin
+tcpdump:x:72:72::/:/sbin/nologin
+psadmin:x:500:500::/home/psadmin:/bin/bash
+apache:x:48:48:Apache:/var/www:/sbin/nologin
+redis:x:498:498:Redis Server:/var/lib/redis:/sbin/nologin
+mysql:x:27:27:MySQL Server:/var/lib/mysql:/bin/bash
+zabbix:x:497:497:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+carbon:x:496:496:Carbon cache daemon:/var/lib/carbon:/sbin/nologin
+influxdb:x:495:495::/var/lib/influxdb:/bin/false
+grafana:x:494:494:grafana user:/usr/share/grafana:/sbin/nologin
+pscommon:x:501:501::/home/pscommon:/bin/bash
+postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/bash
+fossy:x:502:502:fossology:/home/fossy:/bin/bash
+haproxy:x:188:188::/var/lib/haproxy:/sbin/nologin
+someuser:x:503:503::/home/someuser:/bin/bash
+jenkins:x:493:493:Jenkins Continuous Integration Server:/var/lib/jenkins:/bin/false
+tomcat:x:91:91:Apache Tomcat:/usr/share/tomcat:/bin/nologin

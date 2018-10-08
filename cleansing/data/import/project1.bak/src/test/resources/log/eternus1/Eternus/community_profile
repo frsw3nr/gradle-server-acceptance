@@ -1,0 +1,6 @@
+
+CLI> show community-profile
+No. Name                               Manager No.                             MIB View
+--- ---------------------------------- --------------------------------------- ----------------------------------
+  1 "public"                            1                                      "ViewALL"                         
+CLI> 

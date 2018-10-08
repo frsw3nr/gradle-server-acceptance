@@ -1,0 +1,10 @@
+CLI> show syslog-notification
+Server1 Function    [Disable]
+Server1             []
+Server1 Port Number [514]
+Server1 Port        [MNT]
+Server2 Function    [Disable]
+Server2             []
+Server2 Port Number [514]
+Server2 Port        [MNT]
+CLI> 

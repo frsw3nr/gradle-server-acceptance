@@ -1,0 +1,10 @@
+  pool: rpool
+ state: ONLINE
+  scan: none requested
+config:
+
+	NAME                     STATE     READ WRITE CKSUM
+	rpool                    ONLINE       0     0     0
+	  c0t50000397A8423745d0  ONLINE       0     0     0
+
+errors: No known data errors

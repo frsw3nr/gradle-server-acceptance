@@ -1,0 +1,29 @@
+
+CLI> show disks
+Location      Status                        Size    Type                Speed(rpm) Usage               Health(%)
+------------- ----------------------------- ------- ------------------- ---------- ------------------- ---------
+CE-Disk#0     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#1     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#2     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#3     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#4     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#5     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#6     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#7     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#8     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#9     Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#10    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#11    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#12    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#13    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#14    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#15    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#16    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#17    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#18    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#19    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#20    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#21    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#22    Available                       600GB 2.5 Online               10000 Data                        -
+CE-Disk#23    Spare                           600GB 2.5 Online               10000 Global Hot Spare            -
+CLI> 

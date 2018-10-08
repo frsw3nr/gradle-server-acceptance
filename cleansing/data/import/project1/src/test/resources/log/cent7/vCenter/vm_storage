@@ -1,0 +1,16 @@
+﻿
+
+Parent        : cent7
+Filename      : [datastore1] cent7/cent7.vmdk
+CapacityGB    : 16
+StorageFormat : Thick
+DiskType      : Flat
+
+Parent        : cent7
+Filename      : [living-data1] cent7/cent7_1.vmdk
+CapacityGB    : 16
+StorageFormat : Thin
+DiskType      : Flat
+
+
+

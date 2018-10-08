@@ -1,0 +1,17 @@
+﻿
+
+PSComputerName   : 192.168.0.24
+RunspaceId       : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+Caption          : 
+Description      : 
+ElementName      : 
+InstanceID       : {45138F8A-E3D8-43BE-A7DB-F9E74F300FBE}
+InterfaceAlias   : イーサネット
+InterfaceIndex   : 12
+IPv4Connectivity : 4
+IPv6Connectivity : 1
+Name             : ネットワーク
+NetworkCategory  : 1
+
+
+

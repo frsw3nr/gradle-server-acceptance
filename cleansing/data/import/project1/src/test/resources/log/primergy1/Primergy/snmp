@@ -1,0 +1,105 @@
+{
+    "Server": {
+        "@Version": "1.01",
+        "SystemConfig": {
+            "IrmcConfig": {
+                "@Version": "1.02",
+                "NetworkServices": {
+                    "Proxy": {
+                        "Authentication": {
+                            "Username": null,
+                            "Password": {
+                                "#text": null,
+                                "@Encryption": "IRMC"
+                            }
+                        },
+                        "Port": null,
+                        "Hostname": null
+                    },
+                    "IpmiOverLanEnabled": true,
+                    "Cim": {
+                        "LogLanguage": 1033,
+                        "CimManagementEnabled": false
+                    },
+                    "Snmp": {
+                        "ServicePort": 161,
+                        "SnmpV3": {
+                            "EngineID": null,
+                            "TrapUserIndex": 0
+                        },
+                        "PagingEnabled": false,
+                        "TrapDestinations": {
+                            "TrapDestination": [
+                                {
+                                    "@TrapDestinationIdx": 0,
+                                    "Protocol": null,
+                                    "Name": null
+                                },
+                                {
+                                    "@TrapDestinationIdx": 1,
+                                    "Protocol": null,
+                                    "Name": null
+                                },
+                                {
+                                    "@TrapDestinationIdx": 2,
+                                    "Protocol": null,
+                                    "Name": null
+                                },
+                                {
+                                    "@TrapDestinationIdx": 3,
+                                    "Protocol": null,
+                                    "Name": null
+                                },
+                                {
+                                    "@TrapDestinationIdx": 4,
+                                    "Protocol": null,
+                                    "Name": null
+                                },
+                                {
+                                    "@TrapDestinationIdx": 5,
+                                    "Protocol": null,
+                                    "Name": null
+                                },
+                                {
+                                    "@TrapDestinationIdx": 6,
+                                    "Protocol": null,
+                                    "Name": null
+                                }
+                            ]
+                        },
+                        "Enabled": false,
+                        "CommunityName": "public",
+                        "ServiceVersion": "All",
+                        "TrapCommunityName": "public"
+                    },
+                    "Tls": {
+                        "Sslv3Enabled": false,
+                        "Tls11Enabled": true,
+                        "Tls10Enabled": true,
+                        "Tls12Enabled": true
+                    },
+                    "Text": {
+                        "Https": {
+                            "Port": 443,
+                            "ForceHttpsEnabled": false
+                        },
+                        "Ssh": {
+                            "AuthenticationMode": "Password",
+                            "Port": 22,
+                            "SecurityLevel": "Relaxed",
+                            "Enabled": true
+                        },
+                        "Http": {
+                            "Port": 80
+                        },
+                        "Telnet": {
+                            "SshDropTime": 600,
+                            "Port": 3172,
+                            "Enabled": false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

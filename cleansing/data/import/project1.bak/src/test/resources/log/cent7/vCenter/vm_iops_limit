@@ -1,0 +1,25 @@
+﻿
+class VMResourceConfigurationImpl
+{
+  DiskResourceConfiguration = 
+    [
+      class VMDiskResourceConfigurationImpl
+      {
+        Key = 2000
+        NumDiskShares = 1000
+        DiskSharesLevel = Normal
+        DiskLimitIOPerSecond = -1
+      }
+      class VMDiskResourceConfigurationImpl
+      {
+        Key = 2001
+        NumDiskShares = 1000
+        DiskSharesLevel = Normal
+        DiskLimitIOPerSecond = -1
+      }
+    ]
+    
+}
+
+
+

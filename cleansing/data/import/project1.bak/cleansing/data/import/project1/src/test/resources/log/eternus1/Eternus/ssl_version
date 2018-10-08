@@ -1,0 +1,7 @@
+CLI> show ssl-version
+Protocol           TLS1.0 TLS1.1 TLS1.2
+------------------ ------ ------ ------
+HTTPS(GUI)         Enable Enable Enable
+HTTPS(SMI-S)       Enable Enable Enable
+Maintenance-Secure Enable Enable Enable
+CLI> 

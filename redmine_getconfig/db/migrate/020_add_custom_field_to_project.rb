@@ -69,7 +69,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     }
 
     # ソフトウェアのカスタムフィールド設定
-    [owner, sys_name, product, model_type, amount].each { |custom_field|
+    [owner, sys_name, inventory, product, model_type, amount].each { |custom_field|
         software.custom_fields << custom_field
     }
 

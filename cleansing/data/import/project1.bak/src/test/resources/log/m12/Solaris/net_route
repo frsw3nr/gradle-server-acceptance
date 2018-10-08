@@ -1,0 +1,5 @@
+newrt->ri_dst: inet 0.0.0.0; newrt->ri_mask: inet 0.0.0.0; newrt->ri_ifp: link ; RTM_GET: Report Metrics: len 360, pid: 0, seq 1, errno 0, flags:<GATEWAY,STATIC>
+locks:  inits: 
+sockaddrs: <DST,NETMASK,IFP>
+ default default 
+ 0.0.0.0: not in table

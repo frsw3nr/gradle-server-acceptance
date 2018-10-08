@@ -125,9 +125,9 @@ Python ライブラリパスにカレントディレクトリを追加します�
 
    source ~/.bash_profile
 
-データベース登録スクリプトの動作確認をします。
+サンプルデータを用いてデータベース登録スクリプトの動作確認をします。
 
 ::
 
    cd ~/gradle-server-acceptance/cleansing/
-   python getconfig/job/template/scheduler_shipping1.py -s -d test1 project1
+   python getconfig/job/template/scheduler_shipping1.py -s -d TokyoDC project1

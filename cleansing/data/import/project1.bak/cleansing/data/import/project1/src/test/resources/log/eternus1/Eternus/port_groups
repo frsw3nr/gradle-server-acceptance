@@ -1,0 +1,11 @@
+CLI> show port-groups -all
+Port Group           CA Type
+No. Name                    
+--- ---------------- -------
+  0 pg#0             FC
+<Port List>
+  CM#0 CA#0 Port#0
+  CM#0 CA#0 Port#1
+  CM#1 CA#0 Port#0
+  CM#1 CA#0 Port#1
+CLI> 

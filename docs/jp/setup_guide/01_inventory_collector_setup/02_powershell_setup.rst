@@ -6,7 +6,9 @@ PowerShellのインストール
 
 OSが以下のバージョンの場合、PowerShellの追加インストールが必要となります
 
-Windows 7、Windows Server 2008 R2、Windows Server 2012
+   * Windows 7
+   * Windows Server 2008 R2
+   * Windows Server 2012
 
 以下サイトからインストールしてください
 

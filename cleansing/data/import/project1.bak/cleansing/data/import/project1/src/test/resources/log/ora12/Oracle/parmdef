@@ -1,0 +1,418 @@
+NAME	VALUE	DESCRIPTION
+DBFIPS_140	FALSE	Enable use of crypographic libraries in FIPS mode, public
+O7_DICTIONARY_ACCESSIBILITY	FALSE	Version 7 Dictionary Accessibility Support
+active_instance_count	null	number of active instances in the cluster database
+allow_global_dblinks	FALSE	LDAP lookup for DBLINKS
+allow_group_access_to_sga	FALSE	Allow read access for SGA to users of Oracle owner group
+approx_for_aggregation	FALSE	Replace exact aggregation with approximate aggregation
+approx_for_count_distinct	FALSE	Replace count distinct with approx_count_distinct
+approx_for_percentile	none	Replace percentile_* with approx_percentile
+aq_tm_processes	1	number of AQ Time Managers to start
+archive_lag_target	0	Maximum number of seconds of redos the standby could lose
+asm_diskgroups	null	disk groups to mount automatically
+asm_diskstring	null	disk set locations for discovery
+asm_io_processes	20	number of I/O processes per domain in the ASM IOSERVER instance
+asm_power_limit	1	number of parallel relocations for disk rebalancing
+asm_preferred_read_failure_groups	null	preferred read failure groups
+audit_file_dest	/u01/app/oracle/admin/orcl/adump	Directory in which auditing files are to reside
+audit_sys_operations	TRUE	enable sys auditing
+audit_syslog_level	null	Syslog facility and level
+audit_trail	DB	enable system auditing
+autotask_max_active_pdbs	2	Setting for Autotask Maximum Maintenance PDBs
+awr_pdb_autoflush_enabled	FALSE	Enable/Disable AWR automatic PDB flushing
+awr_snapshot_time_offset	0	Setting for AWR Snapshot Time Offset
+background_core_dump	partial	Core Size for Background Processes
+background_dump_dest	/u01/app/oracle/12.2.0.1/db1/rdbms/log	Detached process dump directory
+backup_tape_io_slaves	FALSE	BACKUP Tape I/O slaves
+bitmap_merge_area_size	1048576	maximum memory allow for BITMAP MERGE
+blank_trimming	FALSE	blank trimming semantics parameter
+buffer_pool_keep	null	Number of database blocks/latches in keep buffer pool
+buffer_pool_recycle	null	Number of database blocks/latches in recycle buffer pool
+cdb_cluster	FALSE	if TRUE startup in CDB Cluster mode
+cdb_cluster_name	orcl	CDB Cluster name
+cell_offload_compaction	ADAPTIVE	Cell packet compaction strategy
+cell_offload_decryption	TRUE	enable SQL processing offload of encrypted data to cells
+cell_offload_parameters	null	Additional cell offload parameters
+cell_offload_plan_display	AUTO	Cell offload explain plan display
+cell_offload_processing	TRUE	enable SQL processing offload to cells
+cell_offloadgroup_name	null	Set the offload group name
+circuits	null	max number of circuits
+client_result_cache_lag	3000	client result cache maximum lag in milliseconds
+client_result_cache_size	0	client result cache max size in bytes
+clonedb	FALSE	clone database
+clonedb_dir	null	CloneDB Directory
+cluster_database	FALSE	if TRUE startup in cluster database mode
+cluster_database_instances	1	number of instances to use for sizing cluster db SGA structures
+cluster_interconnects	null	interconnects for RAC use
+commit_logging	null	transaction commit log write behaviour
+commit_point_strength	1	Bias this node has toward not preparing in a two-phase commit
+commit_wait	null	transaction commit log wait behaviour
+commit_write	null	transaction commit log write behaviour
+common_user_prefix	C##	Enforce restriction on a prefix of a Common User/Role/Profile name
+compatible	12.2.0	Database will be completely compatible with this software version
+connection_brokers	((TYPE=DEDICATED)(BROKERS=1)), ((TYPE=EMON)(BROKERS=1))	connection brokers specification
+containers_parallel_degree	65535	Parallel degree for a CONTAINERS() query
+control_file_record_keep_time	7	control file record keep time in days
+control_files	/u01/oradata/orcl/control01.ctl, /u01/fra/orcl/control02.ctl	control file names list
+control_management_pack_access	DIAGNOSTIC+TUNING	declares which manageability packs are enabled
+core_dump_dest	/u01/app/oracle/diag/rdbms/orcl/orcl/cdump	Core dump directory
+cpu_count	1	number of CPUs for this instance
+create_bitmap_area_size	8388608	size of create bitmap buffer for bitmap index
+create_stored_outlines	null	create stored outlines for DML statements
+cursor_bind_capture_destination	memory+disk	Allowed destination for captured bind variables
+cursor_invalidation	IMMEDIATE	default for DDL cursor invalidation semantics
+cursor_sharing	EXACT	cursor sharing mode
+cursor_space_for_time	FALSE	use more memory in order to get faster execution
+data_guard_sync_latency	0	Data Guard SYNC latency
+data_transfer_cache_size	0	Size of data transfer cache
+db_16k_cache_size	0	Size of cache for 16K buffers
+db_2k_cache_size	0	Size of cache for 2K buffers
+db_32k_cache_size	0	Size of cache for 32K buffers
+db_4k_cache_size	0	Size of cache for 4K buffers
+db_8k_cache_size	0	Size of cache for 8K buffers
+db_big_table_cache_percent_target	0	Big table cache target size in percentage
+db_block_buffers	0	Number of database blocks cached in memory
+db_block_checking	FALSE	header checking and data and index block checking
+db_block_checksum	TYPICAL	store checksum in db blocks and check during reads
+db_block_size	8192	Size of database block in bytes
+db_cache_advice	ON	Buffer cache sizing advisory
+db_cache_size	0	Size of DEFAULT buffer pool for standard block size buffers
+db_create_file_dest	null	default database location
+db_create_online_log_dest_1	null	online log/controlfile destination #1
+db_create_online_log_dest_2	null	online log/controlfile destination #2
+db_create_online_log_dest_3	null	online log/controlfile destination #3
+db_create_online_log_dest_4	null	online log/controlfile destination #4
+db_create_online_log_dest_5	null	online log/controlfile  destination #5
+db_domain	null	directory part of global database name stored with CREATE DATABASE
+db_file_multiblock_read_count	117	db block to be read each IO
+db_file_name_convert	null	datafile name convert patterns and strings for standby/clone db
+db_files	200	max allowable # db files
+db_flash_cache_file	null	flash cache file for default block size
+db_flash_cache_size	0	flash cache size for db_flash_cache_file
+db_flashback_retention_target	1440	Maximum Flashback Database log retention time in minutes.
+db_index_compression_inheritance	NONE	options for table or tablespace level compression inheritance
+db_keep_cache_size	0	Size of KEEP buffer pool for standard block size buffers
+db_lost_write_protect	NONE	enable lost write detection
+db_name	orcl	database name specified in CREATE DATABASE
+db_performance_profile	null	Database performance category
+db_recovery_file_dest	/u01/fra/	default database recovery file location
+db_recovery_file_dest_size	9000000000	database recovery files size limit
+db_recycle_cache_size	0	Size of RECYCLE buffer pool for standard block size buffers
+db_securefile	PREFERRED	permit securefile storage during lob creation
+db_ultra_safe	OFF	Sets defaults for other parameters that control protection levels
+db_unique_name	orcl	Database Unique Name
+db_unrecoverable_scn_tracking	TRUE	Track nologging SCN in controlfile
+db_writer_processes	1	number of background database writer  processes to start
+dbwr_io_slaves	0	DBWR I/O slaves
+ddl_lock_timeout	0	timeout to restrict the time that ddls wait for dml lock
+default_sharing	metadata	Default sharing clause
+deferred_segment_creation	TRUE	defer segment creation to first insert
+dg_broker_config_file1	/u01/app/oracle/12.2.0.1/db1/dbs/dr1orcl.dat	data guard broker configuration file #1
+dg_broker_config_file2	/u01/app/oracle/12.2.0.1/db1/dbs/dr2orcl.dat	data guard broker configuration file #2
+dg_broker_start	FALSE	start Data Guard broker (DMON process)
+diagnostic_dest	/u01/app/oracle	diagnostic base directory
+disable_pdb_feature	0	Disable features
+disk_asynch_io	TRUE	Use asynch I/O for random access devices
+dispatchers	(PROTOCOL=TCP) (SERVICE=orclXDB)	specifications of dispatchers
+distributed_lock_timeout	60	number of seconds a distributed transaction waits for a lock
+dml_locks	2076	dml locks - one for each table modified in a transaction
+dnfs_batch_size	4096	Max number of dNFS asynch I/O requests queued per session
+dst_upgrade_insert_conv	TRUE	Enables/Disables internal conversions during DST upgrade
+enable_automatic_maintenance_pdb	TRUE	Enable/Disable Automated Maintenance for Non-Root PDB
+enable_ddl_logging	FALSE	enable ddl logging
+enable_dnfs_dispatcher	FALSE	Enable DNFS Dispatcher
+enable_goldengate_replication	FALSE	goldengate replication enabled
+enable_pluggable_database	FALSE	Enable Pluggable Database
+enabled_PDBs_on_standby	*	List of Enabled PDB patterns
+encrypt_new_tablespaces	CLOUD_ONLY	whether to encrypt newly created tablespaces
+event	null	debug event control - default null string
+exafusion_enabled	1	Enable Exafusion
+external_keystore_credential_location	null	external keystore credential location
+fal_client	null	FAL client
+fal_server	null	FAL server list
+fast_start_io_target	0	Upper bound on recovery reads
+fast_start_mttr_target	0	MTTR target in seconds
+fast_start_parallel_rollback	LOW	max number of parallel recovery slaves that may be used
+file_mapping	FALSE	enable file mapping
+fileio_network_adapters	null	Network Adapters for File I/O
+filesystemio_options	none	IO operations on filesystem files
+fixed_date	null	fixed SYSDATE value
+gcs_server_processes	0	number of background gcs server processes to start
+global_names	FALSE	enforce that database links have same name as remote database
+global_txn_processes	1	number of background global transaction processes to start
+hash_area_size	131072	size of in-memory hash work area
+heat_map	OFF	ILM Heatmap Tracking
+hi_shared_memory_address	0	SGA starting address (high order 32-bits on 64-bit platforms)
+hs_autoregister	TRUE	enable automatic server DD updates in HS agent self-registration
+ifile	null	include file in init.ora
+inmemory_adg_enabled	TRUE	Enable IMC support on ADG
+inmemory_clause_default	null	Default in-memory clause for new tables
+inmemory_expressions_usage	ENABLE	Controls which In-Memory Expressions are populated in-memory
+inmemory_force	DEFAULT	Force tables to be in-memory or not
+inmemory_max_populate_servers	0	maximum inmemory populate servers
+inmemory_query	ENABLE	Specifies whether in-memory queries are allowed
+inmemory_size	0	size in bytes of in-memory area
+inmemory_trickle_repopulate_servers_percent	1	inmemory trickle repopulate servers percent
+inmemory_virtual_columns	MANUAL	Controls which user-defined virtual columns are stored in-memory
+instance_abort_delay_time	0	time to delay an internal initiated abort (in seconds)
+instance_groups	null	list of instance group names
+instance_mode	READ-WRITE	indicates whether the instance read-only or read-write or read-mostly
+instance_name	orcl	instance name supported by the instance
+instance_number	0	instance number
+instance_type	RDBMS	type of instance to be executed
+instant_restore	FALSE	instant repopulation of datafiles
+java_jit_enabled	TRUE	Java VM JIT enabled
+java_max_sessionspace_size	0	max allowed size in bytes of a Java sessionspace
+java_pool_size	0	size in bytes of java pool
+java_restrict	none	Restrict Java VM Access
+java_soft_sessionspace_limit	0	warning limit on size in bytes of a Java sessionspace
+job_queue_processes	4000	maximum number of job queue slave processes
+large_pool_size	0	size in bytes of large pool
+ldap_directory_access	NONE	RDBMS's LDAP access option
+ldap_directory_sysauth	no	OID usage parameter
+license_max_sessions	0	maximum number of non-system user sessions allowed
+license_max_users	0	maximum number of named users that can be created in the database
+license_sessions_warning	0	warning level for number of non-system user sessions
+listener_networks	null	listener registration networks
+local_listener	LISTENER_ORCL	local listener
+lock_name_space	null	lock name space used for generating lock names for standby/clone database
+lock_sga	FALSE	Lock entire SGA in physical memory
+log_archive_config	null	log archive config
+log_archive_dest	null	archival destination text string
+log_archive_dest_1	null	archival destination #1 text string
+log_archive_dest_10	null	archival destination #10 text string
+log_archive_dest_11	null	archival destination #11 text string
+log_archive_dest_12	null	archival destination #12 text string
+log_archive_dest_13	null	archival destination #13 text string
+log_archive_dest_14	null	archival destination #14 text string
+log_archive_dest_15	null	archival destination #15 text string
+log_archive_dest_16	null	archival destination #16 text string
+log_archive_dest_17	null	archival destination #17 text string
+log_archive_dest_18	null	archival destination #18 text string
+log_archive_dest_19	null	archival destination #19 text string
+log_archive_dest_2	null	archival destination #2 text string
+log_archive_dest_20	null	archival destination #20 text string
+log_archive_dest_21	null	archival destination #21 text string
+log_archive_dest_22	null	archival destination #22 text string
+log_archive_dest_23	null	archival destination #23 text string
+log_archive_dest_24	null	archival destination #24 text string
+log_archive_dest_25	null	archival destination #25 text string
+log_archive_dest_26	null	archival destination #26 text string
+log_archive_dest_27	null	archival destination #27 text string
+log_archive_dest_28	null	archival destination #28 text string
+log_archive_dest_29	null	archival destination #29 text string
+log_archive_dest_3	null	archival destination #3 text string
+log_archive_dest_30	null	archival destination #30 text string
+log_archive_dest_31	null	archival destination #31 text string
+log_archive_dest_4	null	archival destination #4 text string
+log_archive_dest_5	null	archival destination #5 text string
+log_archive_dest_6	null	archival destination #6 text string
+log_archive_dest_7	null	archival destination #7 text string
+log_archive_dest_8	null	archival destination #8 text string
+log_archive_dest_9	null	archival destination #9 text string
+log_archive_dest_state_1	enable	archival destination #1 state text string
+log_archive_dest_state_10	enable	archival destination #10 state text string
+log_archive_dest_state_11	enable	archival destination #11 state text string
+log_archive_dest_state_12	enable	archival destination #12 state text string
+log_archive_dest_state_13	enable	archival destination #13 state text string
+log_archive_dest_state_14	enable	archival destination #14 state text string
+log_archive_dest_state_15	enable	archival destination #15 state text string
+log_archive_dest_state_16	enable	archival destination #16 state text string
+log_archive_dest_state_17	enable	archival destination #17 state text string
+log_archive_dest_state_18	enable	archival destination #18 state text string
+log_archive_dest_state_19	enable	archival destination #19 state text string
+log_archive_dest_state_2	enable	archival destination #2 state text string
+log_archive_dest_state_20	enable	archival destination #20 state text string
+log_archive_dest_state_21	enable	archival destination #21 state text string
+log_archive_dest_state_22	enable	archival destination #22 state text string
+log_archive_dest_state_23	enable	archival destination #23 state text string
+log_archive_dest_state_24	enable	archival destination #24 state text string
+log_archive_dest_state_25	enable	archival destination #25 state text string
+log_archive_dest_state_26	enable	archival destination #26 state text string
+log_archive_dest_state_27	enable	archival destination #27 state text string
+log_archive_dest_state_28	enable	archival destination #28 state text string
+log_archive_dest_state_29	enable	archival destination #29 state text string
+log_archive_dest_state_3	enable	archival destination #3 state text string
+log_archive_dest_state_30	enable	archival destination #30 state text string
+log_archive_dest_state_31	enable	archival destination #31 state text string
+log_archive_dest_state_4	enable	archival destination #4 state text string
+log_archive_dest_state_5	enable	archival destination #5 state text string
+log_archive_dest_state_6	enable	archival destination #6 state text string
+log_archive_dest_state_7	enable	archival destination #7 state text string
+log_archive_dest_state_8	enable	archival destination #8 state text string
+log_archive_dest_state_9	enable	archival destination #9 state text string
+log_archive_duplex_dest	null	duplex archival destination text string
+log_archive_format	%t_%s_%r.dbf	archival destination format
+log_archive_max_processes	4	maximum number of active ARCH processes
+log_archive_min_succeed_dest	1	minimum number of archive destinations that must succeed
+log_archive_start	FALSE	start archival process on SGA initialization
+log_archive_trace	0	Establish archivelog operation tracing level
+log_buffer	3735552	redo circular buffer size
+log_checkpoint_interval	0	# redo blocks checkpoint threshold
+log_checkpoint_timeout	1800	Maximum time interval between checkpoints in seconds
+log_checkpoints_to_alert	FALSE	log checkpoint begin/end to alert file
+log_file_name_convert	null	logfile name convert patterns and strings for standby/clone db
+long_module_action	TRUE	Use longer module and action
+max_datapump_jobs_per_pdb	100	maximum number of concurrent Data Pump Jobs per PDB
+max_dispatchers	null	max number of dispatchers
+max_dump_file_size	unlimited	Maximum size (in bytes) of dump file
+max_idle_time	0	maximum session idle time in minutes
+max_iops	0	MAX IO per second
+max_mbps	0	MAX MB per second
+max_pdbs	4098	max number of pdbs allowed in CDB or Application ROOT
+max_shared_servers	null	max number of shared servers
+max_string_size	STANDARD	controls maximum size of VARCHAR2, NVARCHAR2, and RAW types in SQL
+memory_max_target	0	Max size for Memory Target
+memory_target	0	Target size of Oracle SGA and PGA memory
+nls_calendar	null	NLS calendar system name
+nls_comp	BINARY	NLS comparison
+nls_currency	null	NLS local currency symbol
+nls_date_format	null	NLS Oracle date format
+nls_date_language	null	NLS date language name
+nls_dual_currency	null	Dual currency symbol
+nls_iso_currency	null	NLS ISO currency territory name
+nls_language	JAPANESE	NLS language name
+nls_length_semantics	BYTE	create columns using byte or char semantics by default
+nls_nchar_conv_excp	FALSE	NLS raise an exception instead of allowing implicit conversion
+nls_numeric_characters	null	NLS numeric characters
+nls_sort	null	NLS linguistic definition name
+nls_territory	JAPAN	NLS territory name
+nls_time_format	null	time format
+nls_time_tz_format	null	time with timezone format
+nls_timestamp_format	null	time stamp format
+nls_timestamp_tz_format	null	timestamp with timezone format
+noncdb_compatible	FALSE	Non-CDB Compatible
+object_cache_max_size_percent	10	percentage of maximum size over optimal of the user session's object cache
+object_cache_optimal_size	10240000	optimal size of the user session's object cache in bytes
+ofs_threads	4	Number of OFS threads
+olap_page_pool_size	0	size of the olap page pool in bytes
+one_step_plugin_for_pdb_with_tde	FALSE	Facilitate one-step plugin for PDB with TDE encrypted data
+open_cursors	300	max # cursors per session
+open_links	4	max # open links per session
+open_links_per_instance	4	max # open links per instance
+optimizer_adaptive_plans	TRUE	controls all types of adaptive plans
+optimizer_adaptive_reporting_only	FALSE	use reporting-only mode for adaptive optimizations
+optimizer_adaptive_statistics	FALSE	controls all types of adaptive statistics
+optimizer_capture_sql_plan_baselines	FALSE	automatic capture of SQL plan baselines for repeatable statements
+optimizer_dynamic_sampling	2	optimizer dynamic sampling
+optimizer_features_enable	12.2.0.1	optimizer plan compatibility parameter
+optimizer_index_caching	0	optimizer percent index caching
+optimizer_index_cost_adj	100	optimizer index cost adjustment
+optimizer_inmemory_aware	TRUE	optimizer in-memory columnar awareness
+optimizer_mode	ALL_ROWS	optimizer mode
+optimizer_secure_view_merging	TRUE	optimizer secure view merging and predicate pushdown/movearound
+optimizer_use_invisible_indexes	FALSE	Usage of invisible indexes (TRUE/FALSE)
+optimizer_use_pending_statistics	FALSE	Control whether to use optimizer pending statistics
+optimizer_use_sql_plan_baselines	TRUE	use of SQL plan baselines for captured sql statements
+os_authent_prefix	ops$	prefix for auto-logon accounts
+os_roles	FALSE	retrieve roles from the operating system
+outbound_dblink_protocols	ALL	Outbound DBLINK Protocols allowed
+parallel_adaptive_multi_user	FALSE	enable adaptive setting of degree for multiple user streams
+parallel_degree_limit	CPU	limit placed on degree of parallelism
+parallel_degree_policy	MANUAL	policy used to compute the degree of parallelism (MANUAL/LIMITED/AUTO/ADAPTIVE)
+parallel_execution_message_size	16384	message buffer size for parallel execution
+parallel_force_local	FALSE	force single instance execution
+parallel_instance_group	null	instance group to use for all parallel operations
+parallel_max_servers	40	maximum parallel query servers per instance
+parallel_min_percent	0	minimum percent of threads required for parallel query
+parallel_min_servers	4	minimum parallel query servers per instance
+parallel_min_time_threshold	AUTO	threshold above which a plan is a candidate for parallelization (in seconds)
+parallel_servers_target	16	instance target in terms of number of parallel servers
+parallel_threads_per_cpu	2	number of parallel execution threads per CPU
+pdb_file_name_convert	null	PDB file name convert patterns and strings for create cdb/pdb
+pdb_lockdown	null	pluggable database lockdown profile
+pdb_os_credential	null	pluggable database OS credential to bind
+permit_92_wrap_format	TRUE	allow 9.2 or older wrap format in PL/SQL
+pga_aggregate_limit	2147483648	limit of aggregate PGA memory for the instance or PDB
+pga_aggregate_target	268435456	Target size for the aggregate PGA memory consumed by the instance
+plscope_settings	IDENTIFIERS:NONE	plscope_settings controls the compile time collection, cross reference, and storage of PL/SQL source code identifier and SQL statement data
+plsql_ccflags	null	PL/SQL ccflags
+plsql_code_type	INTERPRETED	PL/SQL code-type
+plsql_debug	FALSE	PL/SQL debug
+plsql_optimize_level	2	PL/SQL optimize level
+plsql_v2_compatibility	FALSE	PL/SQL version 2.x compatibility flag
+plsql_warnings	DISABLE:ALL	PL/SQL compiler warnings settings
+pre_page_sga	TRUE	pre-page sga for process
+processes	300	user processes
+processor_group_name	null	Name of the processor group that this instance should run in.
+query_rewrite_enabled	TRUE	allow rewrite of queries using materialized views if enabled
+query_rewrite_integrity	enforced	perform rewrite using materialized views with desired integrity
+rdbms_server_dn	null	RDBMS's Distinguished Name
+read_only_open_delayed	FALSE	if TRUE delay opening of read only files until first access
+recovery_parallelism	0	number of server processes to use for parallel recovery
+recyclebin	on	recyclebin processing
+redo_transport_user	null	Data Guard transport user when using password file
+remote_dependencies_mode	TIMESTAMP	remote-procedure-call dependencies mode parameter
+remote_listener	null	remote listener
+remote_login_passwordfile	EXCLUSIVE	password file usage parameter
+remote_os_authent	FALSE	allow non-secure remote clients to use auto-logon accounts
+remote_os_roles	FALSE	allow non-secure remote clients to use os roles
+remote_recovery_file_dest	null	default remote database recovery file location for refresh/relocate
+replication_dependency_tracking	TRUE	tracking dependency for Replication parallel propagation
+resource_limit	TRUE	master switch for resource limit
+resource_manage_goldengate	FALSE	goldengate resource manager enabled
+resource_manager_cpu_allocation	1	Resource Manager CPU allocation
+resource_manager_plan	SCHEDULER[0x4AC9]:DEFAULT_MAINTENANCE_PLAN	resource mgr top plan
+result_cache_max_result	5	maximum result size as percent of cache size
+result_cache_max_size	4030464	maximum amount of memory to be used by the cache
+result_cache_mode	MANUAL	result cache operator usage mode
+result_cache_remote_expiration	0	maximum life time (min) for any result using a remote object
+resumable_timeout	0	set resumable_timeout
+rollback_segments	null	undo segment list
+sec_case_sensitive_logon	TRUE	case sensitive password enabled for logon
+sec_max_failed_login_attempts	3	maximum number of failed login attempts on a connection
+sec_protocol_error_further_action	(DROP,3)	TTC protocol error continue action
+sec_protocol_error_trace_action	TRACE	TTC protocol error action
+sec_return_server_release_banner	FALSE	whether the server retruns the complete version information
+serial_reuse	disable	reuse the frame segments
+service_names	orcl	service names supported by the instance
+session_cached_cursors	50	Number of cursors to cache in a session.
+session_max_open_files	10	maximum number of open files allowed per session
+sessions	472	user and system sessions
+sga_max_size	805306368	max total SGA size
+sga_min_size	0	Minimum, guaranteed size of PDB's SGA
+sga_target	805306368	Target size of SGA
+shadow_core_dump	partial	Core Size for Shadow Processes
+shared_memory_address	0	SGA starting address (low order 32-bits on 64-bit platforms)
+shared_pool_reserved_size	9227468	size in bytes of reserved area of shared pool
+shared_pool_size	0	size in bytes of shared pool
+shared_server_sessions	null	max number of shared server sessions
+shared_servers	1	number of shared servers to start up
+shrd_dupl_table_refresh_rate	60	duplicated table refresh rate (in seconds)
+skip_unusable_indexes	TRUE	skip unusable indexes if set to TRUE
+smtp_out_server	null	utl_smtp server and port configuration parameter
+sort_area_retained_size	0	size of in-memory sort work area retained between fetch calls
+sort_area_size	65536	size of in-memory sort work area
+spatial_vector_acceleration	FALSE	enable spatial vector acceleration
+spfile	/u01/app/oracle/12.2.0.1/db1/dbs/spfileorcl.ora	server parameter file
+sql92_security	TRUE	require select privilege for searched update/delete
+sql_trace	FALSE	enable SQL trace
+sqltune_category	DEFAULT	Category qualifier for applying hintsets
+standby_archive_dest	?#/dbs/arch	standby database archivelog destination text string
+standby_db_preserve_states	NONE	Preserve state cross standby role transition
+standby_file_management	MANUAL	if auto then files are created/dropped automatically on standby
+star_transformation_enabled	FALSE	enable the use of star transformation
+statistics_level	TYPICAL	statistics level
+streams_pool_size	0	size in bytes of the streams pool
+tape_asynch_io	TRUE	Use asynch I/O requests for tape devices
+target_pdbs	0	Parameter is a hint to adjust certain attributes of the CDB
+temp_undo_enabled	FALSE	is temporary undo enabled
+thread	0	Redo thread to mount
+threaded_execution	FALSE	Threaded Execution Mode
+timed_os_statistics	0	internal os statistic gathering interval in seconds
+timed_statistics	TRUE	maintain internal timing statistics
+trace_enabled	TRUE	enable in memory tracing
+tracefile_identifier	null	trace file custom identifier
+transactions	519	max. number of concurrent active transactions
+transactions_per_rollback_segment	5	number of active transactions per rollback segment
+undo_management	AUTO	instance runs in SMU mode if TRUE, else in RBU mode
+undo_retention	900	undo retention in seconds
+undo_tablespace	UNDOTBS1	use/switch undo tablespace
+unified_audit_sga_queue_size	1048576	Size of Unified audit SGA Queue
+uniform_log_timestamp_format	TRUE	use uniform timestamp formats vs pre-12.2 formats
+use_dedicated_broker	FALSE	Use dedicated connection broker
+use_large_pages	TRUE	Use large pages if available (TRUE/FALSE/ONLY)
+user_dump_dest	/u01/app/oracle/12.2.0.1/db1/rdbms/log	User process dump directory
+utl_file_dir	null	utl_file accessible directories list
+workarea_size_policy	AUTO	policy used to size SQL working areas (MANUAL/AUTO)
+xml_db_events	enable	are XML DB events enabled

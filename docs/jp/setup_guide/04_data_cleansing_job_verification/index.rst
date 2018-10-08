@@ -1,5 +1,5 @@
-データベース登録ワークフローセットアップ
-========================================
+変更管理ワークフローセットアップ
+================================
 
 Contents:
 
@@ -7,7 +7,8 @@ Contents:
    :maxdepth: 1
 
    00_python_setup
-   01_hw_shipping
-   02_ip_address_stocktaking
-   03_monitoring_setup
-   04_mw_setup
+   01_python_setup_env
+   02_server_shipping
+   03_ip_address_stocktaking
+   04_monitoring_setup
+   05_mw_setup

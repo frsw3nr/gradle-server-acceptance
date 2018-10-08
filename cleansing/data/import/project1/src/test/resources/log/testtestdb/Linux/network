@@ -1,0 +1,12 @@
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0 
+    RX: bytes  packets  errors  dropped overrun mcast   
+    88842758   866422   0       0       0       0       
+    TX: bytes  packets  errors  dropped carrier collsns 
+    88842758   866422   0       0       0       0       
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0 
+    RX: bytes  packets  errors  dropped overrun mcast   
+    285424664  1179786  0       0       0       0       
+    TX: bytes  packets  errors  dropped carrier collsns 
+    711541645  1218867  0       0       0       0       

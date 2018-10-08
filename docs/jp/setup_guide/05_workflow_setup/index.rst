@@ -1,5 +1,8 @@
-インベントリ収集PCワークフローセットアップ
-==========================================
+Jenkins ジョブセットアップ
+==========================
+
+ :doc:`../04_data_cleansing_job_verification/index` で作成した各ワークフローを Jenkins ジョブに登録します。
+ 初めに、 :doc:`../04_data_cleansing_job_verification/02_server_shipping` のジョブを登録します。
 
 .. note::
 
@@ -11,6 +14,9 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   01_python_setup
-   02_jenkins_install
-   03_jenkins_wf_configuration
+   01_jenkins_install
+   02_jenkins_setup
+   03_git_project_setup
+   04_Jenkins_job_setup
+   05_jenkins_job_test
+

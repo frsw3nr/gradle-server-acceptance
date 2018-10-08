@@ -1,0 +1,38 @@
+
+CLI> show port-error
+Expander            Port    PHY    Status     Invalid  Disparity  Loss of Dword    PHY Reset
+                                              Dword    Error      Synchronization  Problem  
+------------------- ------- ------ ---------- -------  ---------  ---------------  ---------
+CM#0 EXP            Port#0  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  Link Up          0          0                0          0
+                            PHY#3  Link Up          0          0                0          0
+                    Port#1  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  N/A              -          -                -          -
+                            PHY#3  N/A              -          -                -          -
+CM#1 EXP            Port#0  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  Link Up          0          0                0          0
+                            PHY#3  Link Up          0          0                0          0
+                    Port#1  PHY#0  Link Up          2          2                0          0
+                            PHY#1  Link Up          2          2                0          0
+                            PHY#2  N/A              -          -                -          -
+                            PHY#3  N/A              -          -                -          -
+CM#0 IOC#0          Port#0  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  Link Up          0          0                0          0
+                            PHY#3  Link Up          0          0                0          0
+                    Port#1  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  N/A              -          -                -          -
+                            PHY#3  N/A              -          -                -          -
+CM#1 IOC#0          Port#0  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  Link Up          0          0                0          0
+                            PHY#3  Link Up          0          0                0          0
+                    Port#1  PHY#0  Link Up          0          0                0          0
+                            PHY#1  Link Up          0          0                0          0
+                            PHY#2  N/A              -          -                -          -
+                            PHY#3  N/A              -          -                -          -
+CLI> 

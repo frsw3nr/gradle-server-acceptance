@@ -1,0 +1,15 @@
+CLI> show raid-groups -rg-number 0
+RAID Group            RAID     Consist of     Assigned  Status                          Total        Free         Stripe    Fast Recovery
+No.  Name             Level    Fast Recovery  CM                                        Capacity(MB) Capacity(MB) Depth(KB) Disk
+---- ---------------- -------- -------------- --------- ------------------------------- ------------ ------------ --------- -------------
+   0 RG0              RAID1+0  -              CM#0      Available                            1678336            0        64 -
+<Disk List>
+  Disk           Status                        Usage               Mirroring     
+  -------------- ----------------------------- ------------------- --------------
+  CE-Disk#0      Available                     Data                CE-Disk#2
+  CE-Disk#1      Available                     Data                CE-Disk#3
+  CE-Disk#2      Available                     Data                CE-Disk#0
+  CE-Disk#3      Available                     Data                CE-Disk#1
+CLI> 
+CLI> 
+CLI> 

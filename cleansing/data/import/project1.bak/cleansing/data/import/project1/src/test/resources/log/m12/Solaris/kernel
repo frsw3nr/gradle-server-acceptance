@@ -1,0 +1,12 @@
+System = SunOS
+Node = m12-1-01
+Release = 5.11
+KernelID = 11.3
+Machine = sun4v
+BusType = <unknown>
+Serial = <unknown>
+Users = <unknown>
+OEM# = 0
+Origin# = 1
+NumCPU = 48
+

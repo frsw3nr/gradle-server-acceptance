@@ -1,0 +1,12 @@
+System = SunOS
+Node = m10-1-14
+Release = 5.10
+KernelID = Generic_150400-59
+Machine = sun4v
+BusType = <unknown>
+Serial = <unknown>
+Users = <unknown>
+OEM# = 0
+Origin# = 1
+NumCPU = 32
+

@@ -1,0 +1,8 @@
+﻿
+Name   Mac               DhcpEnabled IP             SubnetMask    DeviceName
+----   ---               ----------- --             ----------    ----------
+vmnic0 00:1b:21:7d:20:1d False                                        vmnic0
+vmnic1 00:0e:04:13:10:80 False                                        vmnic1
+vmk0   00:1b:21:7d:20:1d False       192.168.10.100 255.255.255.0       vmk0
+
+

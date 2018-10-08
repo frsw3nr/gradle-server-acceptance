@@ -1,0 +1,42 @@
+
+CLI> show fc-parameters
+Port                          CM#0 CA#0 Port#0       CM#0 CA#0 Port#1       
+Port Mode                     CA                     CA                     
+Connection                    FC-AL                  FC-AL                  
+Loop ID Assign                Manual(0x00)           Manual(0x10)           
+Transfer Rate                 8Gbit/s                8Gbit/s                
+Frame Size                    2048 bytes             2048 bytes             
+Host Affinity                 Disable                Enable                 
+Host Response No.             0                      -                      
+Host Response Name            Default                                       
+Reset Scope                   I_T_L                  I_T_L                  
+Reserve Cancel at Chip Reset  Disable                Disable                
+REC Line No.                  -                      -                      
+REC Transfer Mode Sync        -                      -                      
+REC Transfer Mode Stack       -                      -                      
+REC Transfer Mode Consistency -                      -                      
+REC Transfer Mode Through     -                      -                      
+TFO Transfer Mode             -                      -                      
+WWN Mode                      Default                Default                
+WWPN                          500000E0DA1A2220       500000E0DA1A2221       
+
+Port                          CM#1 CA#0 Port#0       CM#1 CA#0 Port#1       
+Port Mode                     CA                     CA                     
+Connection                    FC-AL                  FC-AL                  
+Loop ID Assign                Manual(0x00)           Manual(0x10)           
+Transfer Rate                 8Gbit/s                8Gbit/s                
+Frame Size                    2048 bytes             2048 bytes             
+Host Affinity                 Disable                Enable                 
+Host Response No.             0                      -                      
+Host Response Name            Default                                       
+Reset Scope                   I_T_L                  I_T_L                  
+Reserve Cancel at Chip Reset  Disable                Disable                
+REC Line No.                  -                      -                      
+REC Transfer Mode Sync        -                      -                      
+REC Transfer Mode Stack       -                      -                      
+REC Transfer Mode Consistency -                      -                      
+REC Transfer Mode Through     -                      -                      
+TFO Transfer Mode             -                      -                      
+WWN Mode                      Default                Default                
+WWPN                          500000E0DA1A2230       500000E0DA1A2231       
+CLI> 

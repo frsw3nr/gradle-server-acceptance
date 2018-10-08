@@ -1,0 +1,13 @@
+
+CLI> show cache-parameters
+Exclusive Read Cache(%) [0]
+
+Volume                                 Type      FP  PL   MWC(Range) PSDC SDDC SS   SDS  SPMC Cache Limit
+No.   Name                                                                                    Size (MB)  
+----- -------------------------------- --------- --- ---- ---------- ---- ---- ---- ---- ---- -----------
+    0 LUN_V#000                        Standard  OFF    8   2(1-  8)    5    5  128  128    1           -
+    1 LUN_V#001                        Standard  OFF    8   2(1-  8)    5    5  128  128    1           -
+    2 LUN_V#002                        Standard  OFF    8   2(1-  8)    5    5  128  128    1           -
+    3 LUN_V#003                        Standard  OFF    8   2(1-  8)    5    5  128  128    1           -
+    4 LUN_V#004                        Standard  OFF    8   4(1-  8)    5    5  128  128    1           -
+CLI> 

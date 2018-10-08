@@ -1,0 +1,41 @@
+﻿
+
+State                 : Connected
+ConnectionState       : Connected
+PowerState            : PoweredOn
+VMSwapfileDatastoreId : 
+VMSwapfilePolicy      : WithVM
+ParentId              : Folder-ha-folder-host
+IsStandalone          : True
+Manufacturer          : ASUS
+Model                 : All Series
+NumCpu                : 4
+CpuTotalMhz           : 12768
+CpuUsageMhz           : 539
+LicenseKey            : 0J68N-XXXXX-XXXXX-XXXXX-1T6L5
+MemoryTotalMB         : 24451.6796875
+MemoryTotalGB         : 23.87859344482421875
+MemoryUsageMB         : 8124
+MemoryUsageGB         : 7.93359375
+ProcessorType         : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+HyperthreadingActive  : False
+TimeZone              : UTC
+Version               : 5.5.0
+Build                 : 1331820
+Parent                : host
+VMSwapfileDatastore   : 
+StorageInfo           : HostStorageSystem-storageSystem
+NetworkInfo           : esxi:ostrich
+DiagnosticPartition   : 
+FirewallDefaultPolicy : VMHostFirewallDefaultPolicy:HostSystem-ha-host
+ApiVersion            : 5.5
+Name                  : 192.168.10.100
+CustomFields          : {}
+ExtensionData         : VMware.Vim.HostSystem
+Id                    : HostSystem-ha-host
+Uid                   : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/
+Client                : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+DatastoreIdList       : {Datastore-55cc793f-3926eac0-43f9-001b217d201d, Datastore-55cc35aa-46efadd8-29ed-001b217d201d}
+
+
+

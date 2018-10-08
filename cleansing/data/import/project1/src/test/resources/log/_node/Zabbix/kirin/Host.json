@@ -1,0 +1,13 @@
+[
+    {
+        "hostid": "10111",
+        "groups": "[Linux servers, Linux Servers - CLM]",
+        "parentTemplates": "[Template OS Linux, Template App Zabbix Server, Template App MySQL, Template OS Linux - CLM]",
+        "host": "kirin",
+        "name": "kirin",
+        "interfaces": "[192.168.10.4]",
+        "status": "Monitored",
+        "available": "Unavailable",
+        "error": "Get value from agent failed: cannot connect to [[192.168.10.4]:10050]: [4] Interrupted system call"
+    }
+]

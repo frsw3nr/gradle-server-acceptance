@@ -1,0 +1,3338 @@
+  / (picl, b700000001)
+  :PICLVersion	 1.100000 
+  :_class	 picl 
+  :name	 / 
+     platform (sun4v, b700000005)
+      :PlatformGroup	 sun4v 
+      :OS-Version	 Generic_150400-59 
+      :OS-Release	 5.10 
+      :HostName	 m10-1-14 
+      :OS-Name	 SunOS 
+      :#size-cells	 0x2 
+      :#address-cells	 0x2 
+      :compatible	 sun4v 
+      :device_type	 sun4v 
+      :breakpoint-trap	 0x7f 
+      :hv-api-groups	
+ 00  00  00  00  00  00  00  01  00  00  01  00  00  00  00  02  00  00  00  03 
+ 00  00  01  01  00  00  01  08  00  00  01  18  00  00  01  1d 
+      :stick-frequency	 0x5f5e100 
+      :banner-name	 SPARC M10-1 
+      :pcie-ari-supported
+      :scsi-initiator-id	 0x7 
+      :idprom	
+ 01  90  b0  99  28  9a  a5  0e  00  00  00  00  06  0e  0e  a7  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00 
+      :PAGESIZE	 0x2000 
+      :MMU_PAGESIZE	 0x2000 
+      :MMU_PAGEOFFSET	 0x1fff 
+      :relative-addressing	 0x1 
+      :fm-capable	 0x9 
+      :fm-ereport-capable
+      :fm-errcb-capable
+      :pm-hardware-state	 no-suspend-resume 
+      :devfs-path	 / 
+      :driver-name	 rootnex 
+      :binding-name	 ORCL,SPARC64-X 
+      :bus-addr	  
+      :instance	 -1 
+      :PlatformName	 ORCL,SPARC64-X 
+      :_class	 sun4v 
+      :name	 platform 
+         scsi_vhci (devctl, b700000024)
+          :scsi-enumeration	 0 
+          :scsi-options	 0x107ff8 
+          :scsi-reset-delay	 0xbb8 
+          :scsi-watchdog-tick	 0xa 
+          :scsi-selection-timeout	 0xfa 
+          :scsi-tag-age-limit	 0x2 
+          :scsi-initiator-id	 0x7 
+          :initiator-interconnect-type	 SPI 
+          :sym-opt-hdcfg	 0x1000000 
+          :device-type-scsi-options-list	(b700000036TBL) 
+           | TOSHIBA AL13SEB300 |
+           | sym-opt-hdcfg |
+           | TOSHIBA AL13SEB600 |
+           | sym-opt-hdcfg |
+           | TOSHIBA AL13SEB900 |
+           | sym-opt-hdcfg |
+           | TOSHIBA MBF2300RC |
+           | sym-opt-hdcfg |
+           | TOSHIBA MBF2600RC |
+           | sym-opt-hdcfg |
+           | TOSHIBA MK1001GRZB |
+           | sym-opt-hdcfg |
+           | TOSHIBA PX02SMF020 |
+           | sym-opt-hdcfg |
+           | TOSHIBA PX02SMF040 |
+           | sym-opt-hdcfg |
+           | TOSHIBA PX04SMB04FUJ400G |
+           | sym-opt-hdcfg |
+           | TOSHIBA MK2001GRZB |
+           | sym-opt-hdcfg |
+          :scsi-vhci-update-pathstate-on-reset	(b700000032TBL) 
+           | Pillar  Axiom |
+           | yes |
+          :auto-failback	 enable 
+          :load-balance	 round-robin 
+          :class	 root 
+          :fm-ereport-capable
+          :pm-want-child-notification?
+          :devfs-path	 /scsi_vhci 
+          :driver-name	 scsi_vhci 
+          :binding-name	 scsi_vhci 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 devctl 
+          :name	 scsi_vhci 
+             disk (fabric, b700000054)
+              :client-guid	 50000394083214e0 
+              :compatible	(b70000006cTBL) 
+               | scsiclass,00.vTOSHIBA.pMBF2600RC.r3706 |
+               | scsiclass,00.vTOSHIBA.pMBF2600RC |
+               | scsiclass,00 |
+               | scsiclass |
+              :inquiry-device-type	 0 
+              :inquiry-vendor-id	 TOSHIBA 
+              :inquiry-product-id	 MBF2600RC 
+              :inquiry-revision-id	 3706 
+              :class	 scsi 
+              :devid	 id1,sd@n50000394083214e0 
+              :ddi-kernel-ioctl
+              :ddi-failfast-supported
+              :pm-hardware-state	 needs-suspend-resume 
+              :pm-components	(b70000005eTBL) 
+               | NAME=spindle-motor |
+               | 0=off |
+               | 1=on |
+              :inquiry-serial-no	 EA25PC5007A5 
+              :devfs-path	 /scsi_vhci/disk@g50000394083214e0 
+              :driver-name	 sd 
+              :binding-name	 scsiclass,00 
+              :bus-addr	 g50000394083214e0 
+              :instance	 0 
+              :_class	 fabric 
+              :name	 disk 
+                 multipath (multipath, b700000072)
+                  :path-class	 primary 
+                  :phy-num	 0x1 
+                  :obp-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@w50000394083214e2,0 
+                  :target-port	 50000394083214e2 
+                  :lun	 0 
+                  :wwn	 50000394083214e0 
+                  :State	 online 
+                  :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/iport@f 
+                  :instance	 1 
+                  :_class	 multipath 
+                  :name	 multipath 
+             disk (fabric, b70000007e)
+              :client-guid	 5000039408321bbc 
+              :compatible	(b700000097TBL) 
+               | scsiclass,00.vTOSHIBA.pMBF2600RC.r3706 |
+               | scsiclass,00.vTOSHIBA.pMBF2600RC |
+               | scsiclass,00 |
+               | scsiclass |
+              :inquiry-device-type	 0 
+              :inquiry-vendor-id	 TOSHIBA 
+              :inquiry-product-id	 MBF2600RC 
+              :inquiry-revision-id	 3706 
+              :class	 scsi 
+              :devid	 id1,sd@n5000039408321bbc 
+              :ddi-kernel-ioctl
+              :ddi-failfast-supported
+              :pm-hardware-state	 needs-suspend-resume 
+              :pm-components	(b700000089TBL) 
+               | NAME=spindle-motor |
+               | 0=off |
+               | 1=on |
+              :inquiry-serial-no	 EA25PC5007BU 
+              :ddi-no-autodetach	 0x1 
+              :devfs-path	 /scsi_vhci/disk@g5000039408321bbc 
+              :driver-name	 sd 
+              :binding-name	 scsiclass,00 
+              :bus-addr	 g5000039408321bbc 
+              :instance	 1 
+              :_class	 fabric 
+              :name	 disk 
+                 multipath (multipath, b70000009d)
+                  :path-class	 primary 
+                  :phy-num	 0 
+                  :obp-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@w5000039408321bbe,0 
+                  :target-port	 5000039408321bbe 
+                  :lun	 0 
+                  :wwn	 5000039408321bbc 
+                  :State	 online 
+                  :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/iport@f 
+                  :instance	 1 
+                  :_class	 multipath 
+                  :name	 multipath 
+         memory (memory, b700000196)
+          :Size	 0x1f90000000 
+          :UnitAddress	 7e00,70000000 
+          :available	
+ 00  00  7e  1f  ff  fd  60  00  00  00  00  00  00  00  e0  00  00  00  7e  1f 
+ fb  3c  80  00  00  00  00  00  04  bd  80  00  00  00  7e  1f  fb  1a  a0  00 
+ 00  00  00  00  00  20  a0  00  00  00  7e  1f  fb  15  40  00  00  00  00  00 
+ 00  05  20  00  00  00  7e  1f  fb  10  60  00  00  00  00  00  00  00  20  00 
+ 00  00  7e  1f  fb  00  80  00  00  00  00  00  00  0f  c0  00  00  00  7e  1f 
+ fa  65  80  00  00  00  00  00  00  1a  80  00  00  00  7e  00  80  00  00  00 
+ 00  00  00  1e  be  35  40  00  00  00  7e  00  7f  e8  00  00  00  00  00  00 
+ 00  00  80  00  00  00  7e  00  70  40  00  00  00  00  00  00  0f  9d  e0  00 
+          :reg	 00  00  7e  00  70  00  00  00  00  00  00  1f  90  00  00  00 
+          :devfs-path	 /memory 
+          :binding-name	 memory 
+          :instance	 -1 
+          :_class	 memory 
+          :name	 memory 
+             memory-segment (memory-segment, b700000ae4)
+              :mirror-mode	 0 
+              :InterleaveFactor	 0x4 
+              :BaseAddress	 0x7e0000000000 
+              :Size	 0x2000000000 
+              :_class	 memory-segment 
+              :name	 memory-segment 
+                 memory-bank (memory-bank, b700000ae7)
+                  :ID	 0 
+                  :AddressMatch	 0x7e0000000000 
+                  :AddressMask	 0x7f0000000300 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, b700000aee)
+                      :Label	 MEM00A 
+                      :nac	 /SYS/MBU/CMP0/MEM00A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, b700000af3)
+                      :Label	 MEM01A 
+                      :nac	 /SYS/MBU/CMP0/MEM01A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                 memory-bank (memory-bank, b700000af8)
+                  :ID	 1 
+                  :AddressMatch	 0x7e0000000100 
+                  :AddressMask	 0x7f0000000300 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, b700000aff)
+                      :Label	 MEM02A 
+                      :nac	 /SYS/MBU/CMP0/MEM02A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, b700000b04)
+                      :Label	 MEM03A 
+                      :nac	 /SYS/MBU/CMP0/MEM03A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                 memory-bank (memory-bank, b700000b09)
+                  :ID	 2 
+                  :AddressMatch	 0x7e0000000200 
+                  :AddressMask	 0x7f0000000300 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, b700000b10)
+                      :Label	 MEM10A 
+                      :nac	 /SYS/MBU/CMP0/MEM10A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, b700000b15)
+                      :Label	 MEM11A 
+                      :nac	 /SYS/MBU/CMP0/MEM11A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                 memory-bank (memory-bank, b700000b1a)
+                  :ID	 3 
+                  :AddressMatch	 0x7e0000000300 
+                  :AddressMask	 0x7f0000000300 
+                  :Size	 0x800000000 
+                  :_class	 memory-bank 
+                  :name	 memory-bank 
+                     memory-module (memory-module, b700000b21)
+                      :Label	 MEM12A 
+                      :nac	 /SYS/MBU/CMP0/MEM12A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+                     memory-module (memory-module, b700000b26)
+                      :Label	 MEM13A 
+                      :nac	 /SYS/MBU/CMP0/MEM13A 
+                      :_class	 memory-module 
+                      :name	 memory-module 
+         virtual-devices (virtual-devices, b7000001af)
+          :UnitAddress	 c0000100,0 
+          :compatible	(b7000001bfTBL) 
+           | SUNW,sun4v-virtual-devices |
+           | SUNW,virtual-devices |
+          :device_type	 virtual-devices 
+          :#size-cells	 0 
+          :#address-cells	 0x1 
+          :reg	 c0  00  01  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  00  00  1f  00  ff  ff  ff  00  00  00  03 
+          :interrupt-map	 00  00  00  01  00  00  00  01  f0  29  89  5c  00  00  00  11 
+          :devfs-path	 /virtual-devices@100 
+          :driver-name	 vnex 
+          :binding-name	 SUNW,sun4v-virtual-devices 
+          :bus-addr	 100 
+          :instance	 0 
+          :_class	 virtual-devices 
+          :name	 virtual-devices 
+             rtc (obp-device, b7000001c2)
+              :UnitAddress	 5 
+              :reg	 00  00  00  05 
+              :compatible	 SUNW,sun4v-tod 
+              :devfs-path	 /virtual-devices@100/rtc 
+              :binding-name	 rtc 
+              :instance	 -1 
+              :_class	 obp-device 
+              :name	 rtc 
+             flashprom (flashprom, b7000001ca)
+              :UnitAddress	 0 
+              :reg	 00  00  00  00 
+              :devfs-path	 /virtual-devices@100/flashprom 
+              :binding-name	 flashprom 
+              :instance	 -1 
+              :_class	 flashprom 
+              :name	 flashprom 
+             console (serial, b7000001d1)
+              :UnitAddress	 1 
+              :interrupts	 00  00  00  01 
+              :compatible	 SUNW,sun4v-console 
+              :device_type	 serial 
+              :reg	 00  00  00  01 
+              :ddi-no-autodetach	 0x1 
+              :devfs-path	 /virtual-devices@100/console@1 
+              :driver-name	 qcn 
+              :binding-name	 SUNW,sun4v-console 
+              :bus-addr	 1 
+              :instance	 0 
+              :_class	 serial 
+              :name	 console 
+             channel-devices (channel-devices, b7000001de)
+              :UnitAddress	 200 
+              :device_type	 channel-devices 
+              :compatible	 SUNW,sun4v-channel-devices 
+              :reg	 00  00  02  00 
+              :#size-cells	 0 
+              :#address-cells	 0x1 
+              :devfs-path	 /virtual-devices@100/channel-devices@200 
+              :driver-name	 cnex 
+              :binding-name	 SUNW,sun4v-channel-devices 
+              :bus-addr	 200 
+              :instance	 0 
+              :_class	 channel-devices 
+              :name	 channel-devices 
+                 virtual-channel (obp-device, b7000001eb)
+                  :UnitAddress	 0 
+                  :reg	 00  00  00  00 
+                  :compatible	 SUNW,sun4v-channel 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel@0 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 0 
+                  :instance	 0 
+                  :_class	 obp-device 
+                  :name	 virtual-channel 
+                 virtual-channel (obp-device, b7000001f5)
+                  :UnitAddress	 3 
+                  :reg	 00  00  00  03 
+                  :compatible	 SUNW,sun4v-channel 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel@3 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 3 
+                  :instance	 3 
+                  :_class	 obp-device 
+                  :name	 virtual-channel 
+                 virtual-channel-client (obp-device, b7000001ff)
+                  :UnitAddress	 1 
+                  :reg	 00  00  00  01 
+                  :compatible	 SUNW,sun4v-channel 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel-client@1 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 1 
+                  :instance	 1 
+                  :_class	 obp-device 
+                  :name	 virtual-channel-client 
+                 virtual-channel-client (obp-device, b700000209)
+                  :UnitAddress	 2 
+                  :reg	 00  00  00  02 
+                  :compatible	 SUNW,sun4v-channel 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-channel-client@2 
+                  :driver-name	 vldc 
+                  :binding-name	 SUNW,sun4v-channel 
+                  :bus-addr	 2 
+                  :instance	 2 
+                  :_class	 obp-device 
+                  :name	 virtual-channel-client 
+                 pciv-communication (obp-device, b700000213)
+                  :UnitAddress	 0 
+                  :reg	 00  00  00  00 
+                  :compatible	 SUNW,sun4v-pciv-comm 
+                  :ddi-forceattach	 0x1 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/pciv-communication@0 
+                  :driver-name	 vpci 
+                  :binding-name	 SUNW,sun4v-pciv-comm 
+                  :bus-addr	 0 
+                  :instance	 0 
+                  :_class	 obp-device 
+                  :name	 pciv-communication 
+                 virtual-domain-service (obp-device, b70000021e)
+                  :UnitAddress	 0 
+                  :reg	 00  00  00  00 
+                  :compatible	 SUNW,sun4v-domain-service 
+                  :devfs-path	 /virtual-devices@100/channel-devices@200/virtual-domain-service@0 
+                  :driver-name	 vlds 
+                  :binding-name	 SUNW,sun4v-domain-service 
+                  :bus-addr	 0 
+                  :instance	 0 
+                  :_class	 obp-device 
+                  :name	 virtual-domain-service 
+         cpu (cpu, b700000228)
+          :StateBegin	 Tue May 22 15:47:48 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 0 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 0 
+          :cpuid	 0 
+          :UnitAddress	 c0000000,0 
+          :reg	 c0  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000230TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000237)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 1 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 1 
+          :cpuid	 1 
+          :UnitAddress	 c0000001,0 
+          :reg	 c0  00  00  01  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000023fTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000246)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 2 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 2 
+          :cpuid	 2 
+          :UnitAddress	 c0000002,0 
+          :reg	 c0  00  00  02  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000024eTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000255)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 3 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 3 
+          :cpuid	 3 
+          :UnitAddress	 c0000003,0 
+          :reg	 c0  00  00  03  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000025dTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000264)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 4 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 4 
+          :cpuid	 4 
+          :UnitAddress	 c0000004,0 
+          :reg	 c0  00  00  04  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000026cTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000273)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 5 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 5 
+          :cpuid	 5 
+          :UnitAddress	 c0000005,0 
+          :reg	 c0  00  00  05  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000027bTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000282)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 6 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 6 
+          :cpuid	 6 
+          :UnitAddress	 c0000006,0 
+          :reg	 c0  00  00  06  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000028aTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000291)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 7 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 7 
+          :cpuid	 7 
+          :UnitAddress	 c0000007,0 
+          :reg	 c0  00  00  07  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000299TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002a0)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 8 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 8 
+          :cpuid	 8 
+          :UnitAddress	 c0000008,0 
+          :reg	 c0  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000002a8TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002af)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 9 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 9 
+          :cpuid	 9 
+          :UnitAddress	 c0000009,0 
+          :reg	 c0  00  00  09  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000002b7TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002be)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 10 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 10 
+          :cpuid	 10 
+          :UnitAddress	 c000000a,0 
+          :reg	 c0  00  00  0a  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000002c6TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002cd)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 11 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 11 
+          :cpuid	 11 
+          :UnitAddress	 c000000b,0 
+          :reg	 c0  00  00  0b  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000002d5TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002dc)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 12 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 12 
+          :cpuid	 12 
+          :UnitAddress	 c000000c,0 
+          :reg	 c0  00  00  0c  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000002e4TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002eb)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 13 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 13 
+          :cpuid	 13 
+          :UnitAddress	 c000000d,0 
+          :reg	 c0  00  00  0d  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000002f3TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000002fa)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 14 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 14 
+          :cpuid	 14 
+          :UnitAddress	 c000000e,0 
+          :reg	 c0  00  00  0e  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000302TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000309)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 15 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 15 
+          :cpuid	 15 
+          :UnitAddress	 c000000f,0 
+          :reg	 c0  00  00  0f  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000311TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000318)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 16 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 16 
+          :cpuid	 16 
+          :UnitAddress	 c0000010,0 
+          :reg	 c0  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000320TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000327)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 17 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 17 
+          :cpuid	 17 
+          :UnitAddress	 c0000011,0 
+          :reg	 c0  00  00  11  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000032fTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000336)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 18 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 18 
+          :cpuid	 18 
+          :UnitAddress	 c0000012,0 
+          :reg	 c0  00  00  12  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000033eTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000345)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 19 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 19 
+          :cpuid	 19 
+          :UnitAddress	 c0000013,0 
+          :reg	 c0  00  00  13  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000034dTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000354)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 20 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 20 
+          :cpuid	 20 
+          :UnitAddress	 c0000014,0 
+          :reg	 c0  00  00  14  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000035cTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000363)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 21 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 21 
+          :cpuid	 21 
+          :UnitAddress	 c0000015,0 
+          :reg	 c0  00  00  15  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000036bTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000372)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 22 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 22 
+          :cpuid	 22 
+          :UnitAddress	 c0000016,0 
+          :reg	 c0  00  00  16  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b70000037aTBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000381)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 23 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 23 
+          :cpuid	 23 
+          :UnitAddress	 c0000017,0 
+          :reg	 c0  00  00  17  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000389TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b700000390)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 24 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 24 
+          :cpuid	 24 
+          :UnitAddress	 c0000018,0 
+          :reg	 c0  00  00  18  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000398TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b70000039f)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 25 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 25 
+          :cpuid	 25 
+          :UnitAddress	 c0000019,0 
+          :reg	 c0  00  00  19  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000003a7TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000003ae)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 26 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 26 
+          :cpuid	 26 
+          :UnitAddress	 c000001a,0 
+          :reg	 c0  00  00  1a  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000003b6TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000003bd)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 27 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 27 
+          :cpuid	 27 
+          :UnitAddress	 c000001b,0 
+          :reg	 c0  00  00  1b  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000003c5TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000003cc)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 28 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 28 
+          :cpuid	 28 
+          :UnitAddress	 c000001c,0 
+          :reg	 c0  00  00  1c  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000003d4TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000003db)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 29 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 29 
+          :cpuid	 29 
+          :UnitAddress	 c000001d,0 
+          :reg	 c0  00  00  1d  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000003e3TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000003ea)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 30 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 30 
+          :cpuid	 30 
+          :UnitAddress	 c000001e,0 
+          :reg	 c0  00  00  1e  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b7000003f2TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         cpu (cpu, b7000003f9)
+          :StateBegin	 Tue May 22 15:47:49 2018 
+          :FPUType	 sparcv9 
+          :ProcessorType	 sparcv9 
+          :State	 on-line 
+          :ID	 31 
+          :dtlb-entries	 1024 
+          :itlb-entries	 1024 
+          :l1-dcache-line-size	 128 
+          :l1-dcache-size	 65536 
+          :l1-dcache-associativity	 4 
+          :l2-cache-line-size	 128 
+          :l2-cache-size	 23068672 
+          :l2-cache-associativity	 22 
+          :l1-icache-line-size	 128 
+          :l1-icache-size	 65536 
+          :l1-icache-associativity	 4 
+          :clock-frequency64	 0xbebc2000 
+          :portid	 31 
+          :cpuid	 31 
+          :UnitAddress	 c000001f,0 
+          :reg	 c0  00  00  1f  00  00  00  00  00  00  00  00  00  00  00  00 
+          :device_type	 cpu 
+          :compatible	(b700000401TBL) 
+           | SPARC64-X+ |
+           | SPARC64-X |
+           | SUNW,sun4v-cpu |
+           | sun4v |
+          :clock-frequency	 0xbebc2000 
+          :devfs-path	 /cpu 
+          :binding-name	 cpu 
+          :instance	 -1 
+          :_class	 cpu 
+          :name	 cpu 
+         pci (pciex, b700000408)
+          :UnitAddress	 c0008000,0 
+          :virtual-dma	 80  00  00  00  80  00  00  00 
+          :compatible	 SUNW,sun4v-pci 
+          :#size-cells	 0x2 
+          :#address-cells	 0x3 
+          :bus-parity-generated
+          :bus-range	 00  00  00  00  00  00  00  07 
+          :available-bus-range	 00  00  00  00  00  00  00  ff 
+          :hotplug-memsize	 0x70000000 
+          :hotplug-mem64size	 00  00  00  02  80  00  00  00 
+          :pcie-ber-factor	 0x61b 
+          :msi-address-ranges	
+ 00  00  00  00  7f  80  00  00  00  80  00  00  e0  00  00  00  3f  80  00  00 
+ 00  80  00  00 
+          :#msi	 0x400 
+          :msi-data-mask	 0x3ff 
+          :msi-ranges	 00  00  00  00  00  00  04  00 
+          :msi-eq-size	 0x400 
+          :msix-data-width	 0x20 
+          :#msi-eqs	 0x38 
+          :msi-eq-to-devino	 00  00  00  00  00  00  00  38  00  00  00  06 
+          :iommu-address-ranges	
+ 00  00  00  00  80  00  00  00  00  00  00  00  80  00  00  00  a0  00  00  00 
+ 00  00  00  00  01  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  00 
+ 01  00  00  00  00  00  00  00 
+          :iommu-pagesizes	 0xff 
+          :reg	 c0  00  80  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ranges	
+ 01  00  00  00  00  00  00  00  00  00  00  00  80  00  80  11  00  00  00  00 
+ 00  00  00  00  10  00  00  00  02  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  80  00  00  00  00  00  00  00  00  00  80  00  00  00  03  00  00  00 
+ 00  00  00  01  00  00  00  00  80  00  80  01  00  00  00  00  00  00  00  03 
+ 00  00  00  00 
+          :level2-hotplug-slot-count	 0xb 
+          :level1-hotplug-slot-count	 0x1 
+          :interrupts	 00  00  00  3f  00  00  00  3e 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  ff  f8  00  00  00  00  00  00  00  00  00  00  00  00  07 
+          :interrupt-map	
+ 00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  01  f0  29  ed  14 
+ 00  00  00  02  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  02 
+ f0  29  ed  14  00  00  00  03  00  00  08  00  00  00  00  00  00  00  00  00 
+ 00  00  00  03  f0  29  ed  14  00  00  00  04  00  00  08  00  00  00  00  00 
+ 00  00  00  00  00  00  00  04  f0  29  ed  14  00  00  00  01  00  00  10  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  f0  29  ed  14  00  00  00  03 
+ 00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  02  f0  29  ed  14 
+ 00  00  00  04  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  03 
+ f0  29  ed  14  00  00  00  01  00  00  10  00  00  00  00  00  00  00  00  00 
+ 00  00  00  04  f0  29  ed  14  00  00  00  02 
+          :available	
+ 81  00  00  00  00  00  00  00  00  00  20  00  00  00  00  00  0f  ff  e0  00 
+ 82  00  00  00  00  00  00  00  00  60  00  00  00  00  00  00  7f  a0  00  00 
+ c2  00  00  00  00  00  00  01  10  00  00  00  00  00  00  02  f0  00  00  00 
+          :ddi-intr-weight	 0x1 
+          :device_type	 pciex 
+          :pci-conf-indirect	 0x1 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :pm-want-child-notification?
+          :ddi-kernel-ioctl
+          :devfs-path	 /pci@8000 
+          :driver-name	 px 
+          :binding-name	 SUNW,sun4v-pci 
+          :bus-addr	 8000 
+          :instance	 0 
+          :_class	 pciex 
+          :name	 pci 
+             pci (pciex, b700000436)
+              :DeviceID	 0x4 
+              :UnitAddress	 4 
+              :vendor-id	 0x10cf 
+              :device-id	 0x16b7 
+              :revision-id	 0x2 
+              :class-code	 0x60400 
+              :cache-line-size	 0 
+              :port-type	 Root-Port 
+              :#size-cells	 0x2 
+              :#address-cells	 0x3 
+              :reg	
+ 00  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :compatible	(b70000044bTBL) 
+               | pciex10cf,16b7.2 |
+               | pciex10cf,16b7 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+              :bus-range	 00  00  00  01  00  00  00  ff 
+              :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  82  00  00  00  00  00  00  00 
+ 00  00  00  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  03  00  00  00  00 
+              :available	
+ 82  00  00  00  00  00  00  00  00  14  00  00  00  00  00  00  00  0c  00  00 
+              :ddi-forceattach	 0x1 
+              :fm-ereport-capable
+              :pm-want-child-notification?
+              :pm-components	(b700000440TBL) 
+               | NAME=PCIe switch/bridge PM |
+               | 0=Power Off (D3) |
+               | 3=Full Power D0 |
+              :device_type	 pciex 
+              :devfs-path	 /pci@8000/pci@4 
+              :driver-name	 pcieb 
+              :binding-name	 pciexclass,060400 
+              :bus-addr	 4 
+              :instance	 0 
+              :_class	 pciex 
+              :name	 pci 
+                 pci (pciex, b700000459)
+                  :DeviceID	 0 
+                  :UnitAddress	 0 
+                  :vendor-id	 0x10b5 
+                  :device-id	 0x8732 
+                  :revision-id	 0xca 
+                  :subsystem-id	 0x8732 
+                  :subsystem-vendor-id	 0x10b5 
+                  :class-code	 0x60400 
+                  :cache-line-size	 0x10 
+                  :interrupts	 00  00  00  01 
+                  :port-type	 Upstream-Port 
+                  :#size-cells	 0x2 
+                  :#address-cells	 0x3 
+                  :reg	
+ 00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                  :compatible	(b70000046aTBL) 
+                   | pciex10b5,8732.10b5.8732.ca |
+                   | pciex10b5,8732.10b5.8732 |
+                   | pciex10b5,8732.ca |
+                   | pciex10b5,8732 |
+                   | pciexclass,060400 |
+                   | pciexclass,0604 |
+                  :bus-range	 00  00  00  02  00  00  00  07 
+                  :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  20  00  82  00  00  00  00  00  00  00 
+ 00  20  00  00  82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00 
+ 00  40  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  00  10  00  00  00 
+                  :assigned-addresses	
+ 82  01  00  10  00  00  00  00  00  10  00  00  00  00  00  00  00  04  00  00 
+                  :ddi-forceattach	 0x1 
+                  :fm-ereport-capable
+                  :pm-want-child-notification?
+                  :device_type	 pciex 
+                  :pcie_ce_mask	 0x1 
+                  :devfs-path	 /pci@8000/pci@4/pci@0 
+                  :driver-name	 pcieb 
+                  :binding-name	 pciexclass,060400 
+                  :bus-addr	 0 
+                  :instance	 1 
+                  :_class	 pciex 
+                  :name	 pci 
+                     pci (pciex, b70000047d)
+                      :DeviceID	 0 
+                      :UnitAddress	 0 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :reg	
+ 00  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b70000048fTBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :ari-enabled
+                      :bus-range	 00  00  00  03  00  00  00  03 
+                      :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  82  00  00  00  00  00  00  00 
+ 00  20  00  00  82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00 
+ 00  10  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  00  10  00  00  00 
+                      :available	
+ 81  00  00  00  00  00  00  00  00  00  01  00  00  00  00  00  00  00  0f  00 
+ c2  00  00  00  00  00  00  01  00  01  00  00  00  00  00  00  00  03  00  00 
+ c2  00  00  00  00  00  00  01  00  08  00  00  00  00  00  00  0f  f8  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8000/pci@4/pci@0/pci@0 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 0 
+                      :instance	 2 
+                      :_class	 pciex 
+                      :name	 pci 
+                         scsi (scsi-sas, b7000004a2)
+                          :Label	 /SYS/MBU/SASHBA 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x1000 
+                          :device-id	 0x87 
+                          :revision-id	 0x5 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x187e 
+                          :class-code	 0x10700 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#address-cells	 0x4 
+                          :device_type	 scsi-sas 
+                          :wide	 0x10 
+                          :version	 1.00.56 
+                          :reg	
+ 00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 01  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00 
+ 03  03  00  14  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00  00 
+ 03  03  00  1c  00  00  00  00  00  00  00  00  00  00  00  00  00  04  00  00 
+ 02  03  00  30  00  00  00  00  00  00  00  00  00  00  00  00  00  10  00  00 
+                          :model	 LSI,2308_2 
+                          :compatible	(b7000004c1TBL) 
+                           | pciex10cf,87 |
+                           | pci10cf,87 |
+                           | pciex1000,87 |
+                           | pci1000,87 |
+                          :assigned-addresses	
+ 81  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00 
+ 83  03  00  14  00  00  00  01  00  00  00  00  00  00  00  00  00  01  00  00 
+ 83  03  00  1c  00  00  00  01  00  04  00  00  00  00  00  00  00  04  00  00 
+ 82  03  00  30  00  00  00  00  00  20  00  00  00  00  00  00  00  10  00  00 
+                          :local-wwid	 50  00  00  e0  e0  59  08  88 
+                          :mpt-version	 2.00 
+                          :ddi-intr-weight	 0xa 
+                          :ddi-config-driver-node
+                          :mpxio-disable	 no 
+                          :ddi-vhci-class	 scsi_vhci 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :pm-components	(b7000004b1TBL) 
+                           | NAME=mptsas0 |
+                           | 0=Off (PCI D3 State) |
+                           | 3=On (PCI D0 State) |
+                          :firmware-version	 17.0.0.0 
+                          :num-phys	 0x8 
+                          :scsi-iports	(b7000004abTBL) 
+                           | f |
+                           | v0 |
+                          :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0 
+                          :driver-name	 mpt_sas 
+                          :binding-name	 pciex1000,87 
+                          :bus-addr	 0 
+                          :instance	 0 
+                          :_class	 scsi-sas 
+                          :name	 scsi 
+                             iport (devctl, b7000004d5)
+                              :scsi-iport	 f 
+                              :compatible	 mpt_sas 
+                              :obp-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0 
+                              :scsi-enumeration	 0 
+                              :scsi-options	 0x107ff8 
+                              :scsi-reset-delay	 0xbb8 
+                              :scsi-watchdog-tick	 0xa 
+                              :scsi-selection-timeout	 0xfa 
+                              :scsi-tag-age-limit	 0x2 
+                              :scsi-initiator-id	 0x7 
+                              :initiator-interconnect-type	 SAS 
+                              :mpxio-disable	 no 
+                              :ddi-vhci-class	 scsi_vhci 
+                              :fm-ereport-capable
+                              :initiator-port	 500000e0e0590888 
+                              :phymask	 0xf 
+                              :dynamic-port	 0x1 
+                              :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/iport@f 
+                              :driver-name	 mpt_sas 
+                              :binding-name	 mpt_sas 
+                              :bus-addr	 f 
+                              :instance	 1 
+                              :_class	 devctl 
+                              :name	 iport 
+                                 smp (smp, b700000abc)
+                                  :smp-wwn	 500000e0e04c47ff 
+                                  :smp-device
+                                  :component	 LSI.00551.005 
+                                  :inquiry-revision-id	 0d32 
+                                  :inquiry-product-id	 NBBEXP 
+                                  :inquiry-vendor-id	 FUJITSU 
+                                  :devid	 id1,smp@w500000e0e04c47ff 
+                                  :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/iport@f/smp@w500000e0e04c47ff 
+                                  :driver-name	 smp 
+                                  :binding-name	 smp 
+                                  :bus-addr	 w500000e0e04c47ff 
+                                  :instance	 0 
+                                  :_class	 smp 
+                                  :name	 smp 
+                                 enclosure (scsi, b700000acb)
+                                  :lun	 0 
+                                  :compatible	(b700000adeTBL) 
+                                   | scsiclass,0d.vFUJITSU.pNBBEXP.r0d32 |
+                                   | scsiclass,0d.vFUJITSU.pNBBEXP |
+                                   | scsiclass,0d |
+                                   | scsiclass |
+                                  :target-port	 500000e0e04c47fd 
+                                  :port-wwn	 50  00  00  e0  e0  4c  47  fd 
+                                  :sas-mpt
+                                  :phy-num	 0x14 
+                                  :class	 scsi 
+                                  :inquiry-device-type	 0xd 
+                                  :inquiry-vendor-id	 FUJITSU 
+                                  :inquiry-product-id	 NBBEXP 
+                                  :inquiry-revision-id	 0d32 
+                                  :pm-hardware-state	 needs-suspend-resume 
+                                  :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/iport@f/enclosure@w500000e0e04c47fd,0 
+                                  :driver-name	 ses 
+                                  :binding-name	 scsiclass,0d 
+                                  :bus-addr	 w500000e0e04c47fd,0 
+                                  :instance	 0 
+                                  :_class	 scsi 
+                                  :name	 enclosure 
+                             iport (devctl, b700000a06)
+                              :scsi-iport	 v0 
+                              :compatible	 mpt_sas 
+                              :obp-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0 
+                              :scsi-enumeration	 0 
+                              :scsi-options	 0x107ff8 
+                              :scsi-reset-delay	 0xbb8 
+                              :scsi-watchdog-tick	 0xa 
+                              :scsi-selection-timeout	 0xfa 
+                              :scsi-tag-age-limit	 0x2 
+                              :scsi-initiator-id	 0x7 
+                              :initiator-interconnect-type	 SAS 
+                              :mpxio-disable	 no 
+                              :ddi-vhci-class	 scsi_vhci 
+                              :fm-ereport-capable
+                              :devfs-path	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/iport@v0 
+                              :driver-name	 mpt_sas 
+                              :binding-name	 mpt_sas 
+                              :bus-addr	 v0 
+                              :instance	 2 
+                              :_class	 devctl 
+                              :name	 iport 
+                     pci (pciex, b70000052c)
+                      :DeviceID	 0x1 
+                      :UnitAddress	 1 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :reg	
+ 00  02  08  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b70000053eTBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :ari-enabled
+                      :bus-range	 00  00  00  04  00  00  00  04 
+                      :ranges	
+ 81  00  00  00  00  00  00  00  00  00  10  00  81  00  00  00  00  00  00  00 
+ 00  00  10  00  00  00  00  00  00  00  10  00  82  00  00  00  00  00  00  00 
+ 00  30  00  00  82  00  00  00  00  00  00  00  00  30  00  00  00  00  00  00 
+ 00  20  00  00 
+                      :available	
+ 81  00  00  00  00  00  00  00  00  00  10  40  00  00  00  00  00  00  0f  c0 
+ 82  00  00  00  00  00  00  00  00  34  80  00  00  00  00  00  00  01  80  00 
+ 82  00  00  00  00  00  00  00  00  46  00  00  00  00  00  00  00  0a  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8000/pci@4/pci@0/pci@1 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 1 
+                      :instance	 3 
+                      :_class	 pciex 
+                      :name	 pci 
+                         network (network, b700000551)
+                          :Label	 /SYS/MBU/NET0 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x10c9 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x1780 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x8 
+                          :initial-vfs	 0x8 
+                          :total-vfs	 0x8 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  98  8b  a0 
+                          :reg	
+ 00  04  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 02  04  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00  00 
+ 01  04  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 02  04  00  1c  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :compatible	(b700000563TBL) 
+                           | pciex8086,10c9.10cf.1780.1 |
+                           | pciex8086,10c9.10cf.1780 |
+                           | pciex8086,10c9.1 |
+                           | pciex8086,10c9 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 02  04  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 02  04  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ 82  04  00  10  00  00  00  00  00  30  00  00  00  00  00  00  00  02  00  00 
+ 82  04  00  14  00  00  00  00  00  32  00  00  00  00  00  00  00  02  00  00 
+ 81  04  00  18  00  00  00  00  00  00  10  00  00  00  00  00  00  00  00  20 
+ 82  04  00  1c  00  00  00  00  00  34  00  00  00  00  00  00  00  00  40  00 
+ 82  04  00  30  00  00  00  00  00  36  00  00  00  00  00  00  00  02  00  00 
+                          :vf-assigned-addresses	
+ 82  04  00  00  00  00  00  00  00  38  00  00  00  00  00  00  00  00  40  00 
+ 82  04  00  03  00  00  00  00  00  3a  00  00  00  00  00  00  00  00  40  00 
+                          :ddi-intr-weight	 0x23 
+                          :tx_head_wb_enable	 0 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :devfs-path	 /pci@8000/pci@4/pci@0/pci@1/network@0 
+                          :driver-name	 igb 
+                          :binding-name	 pciex8086,10c9 
+                          :bus-addr	 0 
+                          :instance	 0 
+                          :_class	 network 
+                          :name	 network 
+                         network (network, b70000057d)
+                          :Label	 /SYS/MBU/NET1 
+                          :DeviceID	 0 
+                          :UnitAddress	 0,1 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x10c9 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x1780 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  02 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x8 
+                          :initial-vfs	 0x8 
+                          :total-vfs	 0x8 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  98  8b  a1 
+                          :reg	
+ 00  04  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 02  04  01  10  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00  00 
+ 01  04  01  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 02  04  01  1c  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :compatible	(b70000058fTBL) 
+                           | pciex8086,10c9.10cf.1780.1 |
+                           | pciex8086,10c9.10cf.1780 |
+                           | pciex8086,10c9.1 |
+                           | pciex8086,10c9 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 02  04  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 02  04  01  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ 82  04  01  10  00  00  00  00  00  3c  00  00  00  00  00  00  00  02  00  00 
+ 82  04  01  14  00  00  00  00  00  3e  00  00  00  00  00  00  00  02  00  00 
+ 81  04  01  18  00  00  00  00  00  00  10  20  00  00  00  00  00  00  00  20 
+ 82  04  01  1c  00  00  00  00  00  34  40  00  00  00  00  00  00  00  40  00 
+ 82  04  01  30  00  00  00  00  00  40  00  00  00  00  00  00  00  02  00  00 
+                          :vf-assigned-addresses	
+ 82  04  01  00  00  00  00  00  00  42  00  00  00  00  00  00  00  00  40  00 
+ 82  04  01  03  00  00  00  00  00  44  00  00  00  00  00  00  00  00  40  00 
+                          :ddi-intr-weight	 0x23 
+                          :tx_head_wb_enable	 0 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :devfs-path	 /pci@8000/pci@4/pci@0/pci@1/network@0,1 
+                          :driver-name	 igb 
+                          :binding-name	 pciex8086,10c9 
+                          :bus-addr	 0,1 
+                          :instance	 1 
+                          :_class	 network 
+                          :name	 network 
+                     pci (pciex, b7000005a9)
+                      :DeviceID	 0x2 
+                      :UnitAddress	 2 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :reg	
+ 00  02  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b7000005b9TBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :bus-range	 00  00  00  05  00  00  00  06 
+                      :ranges	
+ 82  00  00  00  00  00  00  00  00  50  00  00  82  00  00  00  00  00  00  00 
+ 00  50  00  00  00  00  00  00  00  10  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8000/pci@4/pci@0/pci@2 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 2 
+                      :instance	 4 
+                      :_class	 pciex 
+                      :name	 pci 
+                         pci (pci, b7000005cc)
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x10b5 
+                          :device-id	 0x8112 
+                          :revision-id	 0xaa 
+                          :class-code	 0x60400 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-PCI/PCIX-Bridge 
+                          :#size-cells	 0x2 
+                          :#address-cells	 0x3 
+                          :reg	
+ 00  05  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                          :compatible	(b7000005deTBL) 
+                           | pciex10b5,8112.aa |
+                           | pciex10b5,8112 |
+                           | pciexclass,060400 |
+                           | pciexclass,0604 |
+                          :bus-range	 00  00  00  06  00  00  00  06 
+                          :ranges	
+ 82  00  00  00  00  00  00  00  00  50  00  00  82  00  00  00  00  00  00  00 
+ 00  50  00  00  00  00  00  00  00  10  00  00 
+                          :suggested-mrrs	 0x80 
+                          :available	
+ 82  00  00  00  00  00  00  00  00  50  40  00  00  00  00  00  00  0f  c0  00 
+                          :ddi-forceattach	 0x1 
+                          :fm-ereport-capable
+                          :pm-want-child-notification?
+                          :device_type	 pci 
+                          :pcie_ce_mask	 0x1 
+                          :devfs-path	 /pci@8000/pci@4/pci@0/pci@2/pci@0 
+                          :driver-name	 pcieb 
+                          :binding-name	 pciexclass,060400 
+                          :bus-addr	 0 
+                          :instance	 6 
+                          :_class	 pci 
+                          :name	 pci 
+                             usb (ohci, b7000005ed)
+                              :DeviceID	 0x4 
+                              :UnitAddress	 4 
+                              :vendor-id	 0x1033 
+                              :device-id	 0x35 
+                              :revision-id	 0x44 
+                              :subsystem-vendor-id	 0x1033 
+                              :subsystem-id	 0x35 
+                              :class-code	 0xc0310 
+                              :cache-line-size	 0x10 
+                              :interrupts	 00  00  00  01 
+                              :min-grant	 0x1 
+                              :max-latency	 0x2a 
+                              :latency-timer	 0x40 
+                              :devsel-speed	 0x1 
+                              :device_type	 ohci 
+                              :#address-cells	 0x1 
+                              :#size-cells	 0 
+                              :reg	
+ 00  06  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 02  06  20  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  10  00 
+                              :compatible	(b7000005feTBL) 
+                               | pci1033,35.1033.35.44 |
+                               | pci1033,35.1033.35 |
+                               | pci1033,35 |
+                               | pci1033,35.44 |
+                               | pci1033,35 |
+                               | pciclass,0c0310 |
+                               | pciclass,0c03 |
+                              :assigned-addresses	
+ 82  06  20  10  00  00  00  00  00  50  00  00  00  00  00  00  00  00  20  00 
+                              :root-hub
+                              :driver-major	 0x2 
+                              :driver-minor	 0 
+                              :pm-want-child-notification?
+                              :ddi-forceattach	 0x1 
+                              :fm-ereport-capable
+                              :fm-errcb-capable
+                              :devfs-path	 /pci@8000/pci@4/pci@0/pci@2/pci@0/usb@4 
+                              :driver-name	 ohci 
+                              :binding-name	 pciclass,0c0310 
+                              :bus-addr	 4 
+                              :instance	 0 
+                              :_class	 ohci 
+                              :name	 usb 
+                             usb (ehci, b700000616)
+                              :DeviceID	 0x4 
+                              :UnitAddress	 4,1 
+                              :vendor-id	 0x1033 
+                              :device-id	 0xe0 
+                              :revision-id	 0x5 
+                              :subsystem-vendor-id	 0x1033 
+                              :subsystem-id	 0xe0 
+                              :class-code	 0xc0320 
+                              :cache-line-size	 0x10 
+                              :interrupts	 00  00  00  01 
+                              :min-grant	 0x10 
+                              :max-latency	 0x22 
+                              :latency-timer	 0x40 
+                              :devsel-speed	 0x1 
+                              :device_type	 ehci 
+                              :#address-cells	 0x1 
+                              :#size-cells	 0 
+                              :reg	
+ 00  06  21  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 02  06  21  10  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00 
+                              :compatible	(b700000627TBL) 
+                               | pci1033,e0.1033.e0.5 |
+                               | pci1033,e0.1033.e0 |
+                               | pci1033,e0 |
+                               | pci1033,e0.5 |
+                               | pci1033,e0 |
+                               | pciclass,0c0320 |
+                               | pciclass,0c03 |
+                              :assigned-addresses	
+ 82  06  21  10  00  00  00  00  00  50  20  00  00  00  00  00  00  00  20  00 
+                              :root-hub
+                              :driver-major	 0x2 
+                              :driver-minor	 0 
+                              :pm-want-child-notification?
+                              :ddi-forceattach	 0x1 
+                              :fm-ereport-capable
+                              :fm-errcb-capable
+                              :devfs-path	 /pci@8000/pci@4/pci@0/pci@2/pci@0/usb@4,1 
+                              :driver-name	 ehci 
+                              :binding-name	 pciclass,0c0320 
+                              :bus-addr	 4,1 
+                              :instance	 0 
+                              :_class	 ehci 
+                              :name	 usb 
+                     pci (pciex, b70000063f)
+                      :Label	 /SYS/PCI0 
+                      :DeviceID	 0x8 
+                      :UnitAddress	 8 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :physical-slot#	 0 
+                      :reg	
+ 00  02  40  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b700000650TBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :slot-implemented?
+                      :bus-range	 00  00  00  07  00  00  00  07 
+                      :slot-names	 00  00  00  01  50  43  49  23  30  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8000/pci@4/pci@0/pci@8 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 8 
+                      :instance	 5 
+                      :_class	 pciex 
+                      :name	 pci 
+         pci (pciex, b700000664)
+          :UnitAddress	 c0008100,0 
+          :virtual-dma	 80  00  00  00  80  00  00  00 
+          :compatible	 SUNW,sun4v-pci 
+          :#size-cells	 0x2 
+          :#address-cells	 0x3 
+          :bus-parity-generated
+          :bus-range	 00  00  00  00  00  00  00  05 
+          :available-bus-range	 00  00  00  00  00  00  00  ff 
+          :hotplug-memsize	 0x70000000 
+          :hotplug-mem64size	 00  00  00  02  80  00  00  00 
+          :pcie-ber-factor	 0x61b 
+          :msi-address-ranges	
+ 00  00  00  00  7f  80  00  00  00  80  00  00  e0  00  00  00  3f  80  00  00 
+ 00  80  00  00 
+          :#msi	 0x400 
+          :msi-data-mask	 0x3ff 
+          :msi-ranges	 00  00  00  00  00  00  04  00 
+          :msi-eq-size	 0x400 
+          :msix-data-width	 0x20 
+          :#msi-eqs	 0x38 
+          :msi-eq-to-devino	 00  00  00  00  00  00  00  38  00  00  00  06 
+          :iommu-address-ranges	
+ 00  00  00  00  80  00  00  00  00  00  00  00  80  00  00  00  a0  00  00  00 
+ 00  00  00  00  01  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  00 
+ 01  00  00  00  00  00  00  00 
+          :iommu-pagesizes	 0xff 
+          :reg	 c0  00  81  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ranges	
+ 01  00  00  00  00  00  00  00  00  00  00  00  80  00  80  31  00  00  00  00 
+ 00  00  00  00  10  00  00  00  02  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  80  20  00  00  00  00  00  00  00  00  80  00  00  00  03  00  00  00 
+ 00  00  00  01  00  00  00  00  80  00  80  21  00  00  00  00  00  00  00  03 
+ 00  00  00  00 
+          :level2-hotplug-slot-count	 0xb 
+          :level1-hotplug-slot-count	 0x2 
+          :interrupts	 00  00  00  3f  00  00  00  3e 
+          :#interrupt-cells	 0x1 
+          :interrupt-map-mask	 00  ff  f8  00  00  00  00  00  00  00  00  00  00  00  00  07 
+          :interrupt-map	
+ 00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  01  f0  2a  b6  84 
+ 00  00  00  02  00  00  08  00  00  00  00  00  00  00  00  00  00  00  00  02 
+ f0  2a  b6  84  00  00  00  03  00  00  08  00  00  00  00  00  00  00  00  00 
+ 00  00  00  03  f0  2a  b6  84  00  00  00  04  00  00  08  00  00  00  00  00 
+ 00  00  00  00  00  00  00  04  f0  2a  b6  84  00  00  00  01  00  00  10  00 
+ 00  00  00  00  00  00  00  00  00  00  00  01  f0  2a  b6  84  00  00  00  03 
+ 00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  02  f0  2a  b6  84 
+ 00  00  00  04  00  00  10  00  00  00  00  00  00  00  00  00  00  00  00  03 
+ f0  2a  b6  84  00  00  00  01  00  00  10  00  00  00  00  00  00  00  00  00 
+ 00  00  00  04  f0  2a  b6  84  00  00  00  02 
+          :available	
+ 81  00  00  00  00  00  00  00  00  00  10  00  00  00  00  00  0f  ff  f0  00 
+ 82  00  00  00  00  00  00  00  00  40  00  00  00  00  00  00  7f  c0  00  00 
+ c2  00  00  00  00  00  00  01  00  00  00  00  00  00  00  03  00  00  00  00 
+          :ddi-intr-weight	 0x1 
+          :device_type	 pciex 
+          :pci-conf-indirect	 0x1 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :pm-want-child-notification?
+          :ddi-kernel-ioctl
+          :devfs-path	 /pci@8100 
+          :driver-name	 px 
+          :binding-name	 SUNW,sun4v-pci 
+          :bus-addr	 8100 
+          :instance	 1 
+          :_class	 pciex 
+          :name	 pci 
+             pci (pciex, b700000692)
+              :DeviceID	 0x4 
+              :UnitAddress	 4 
+              :vendor-id	 0x10cf 
+              :device-id	 0x16b7 
+              :revision-id	 0x2 
+              :class-code	 0x60400 
+              :cache-line-size	 0 
+              :port-type	 Root-Port 
+              :#size-cells	 0x2 
+              :#address-cells	 0x3 
+              :reg	
+ 00  00  20  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :compatible	(b7000006a7TBL) 
+               | pciex10cf,16b7.2 |
+               | pciex10cf,16b7 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+              :bus-range	 00  00  00  01  00  00  00  ff 
+              :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  01  00  00  00  00  82  00  00  00  00  00  00  00 
+ 00  00  00  00  82  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 80  00  00  00  c3  00  00  00  00  00  00  01  00  00  00  00  c3  00  00  00 
+ 00  00  00  01  00  00  00  00  00  00  00  03  00  00  00  00 
+              :available	
+ 82  00  00  00  00  00  00  00  00  14  00  00  00  00  00  00  00  0c  00  00 
+              :ddi-forceattach	 0x1 
+              :fm-ereport-capable
+              :pm-want-child-notification?
+              :pm-components	(b70000069cTBL) 
+               | NAME=PCIe switch/bridge PM |
+               | 0=Power Off (D3) |
+               | 3=Full Power D0 |
+              :device_type	 pciex 
+              :devfs-path	 /pci@8100/pci@4 
+              :driver-name	 pcieb 
+              :binding-name	 pciexclass,060400 
+              :bus-addr	 4 
+              :instance	 7 
+              :_class	 pciex 
+              :name	 pci 
+                 pci (pciex, b7000006b5)
+                  :DeviceID	 0 
+                  :UnitAddress	 0 
+                  :vendor-id	 0x10b5 
+                  :device-id	 0x8732 
+                  :revision-id	 0xca 
+                  :subsystem-id	 0x8732 
+                  :subsystem-vendor-id	 0x10b5 
+                  :class-code	 0x60400 
+                  :cache-line-size	 0x10 
+                  :interrupts	 00  00  00  01 
+                  :port-type	 Upstream-Port 
+                  :#size-cells	 0x2 
+                  :#address-cells	 0x3 
+                  :reg	
+ 00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                  :compatible	(b7000006c6TBL) 
+                   | pciex10b5,8732.10b5.8732.ca |
+                   | pciex10b5,8732.10b5.8732 |
+                   | pciex10b5,8732.ca |
+                   | pciex10b5,8732 |
+                   | pciexclass,060400 |
+                   | pciexclass,0604 |
+                  :bus-range	 00  00  00  02  00  00  00  05 
+                  :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  82  00  00  00  00  00  00  00 
+ 00  20  00  00  82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00 
+ 00  20  00  00 
+                  :assigned-addresses	
+ 82  01  00  10  00  00  00  00  00  10  00  00  00  00  00  00  00  04  00  00 
+                  :ddi-forceattach	 0x1 
+                  :fm-ereport-capable
+                  :pm-want-child-notification?
+                  :device_type	 pciex 
+                  :pcie_ce_mask	 0x1 
+                  :devfs-path	 /pci@8100/pci@4/pci@0 
+                  :driver-name	 pcieb 
+                  :binding-name	 pciexclass,060400 
+                  :bus-addr	 0 
+                  :instance	 8 
+                  :_class	 pciex 
+                  :name	 pci 
+                     pci (pciex, b7000006d9)
+                      :DeviceID	 0 
+                      :UnitAddress	 0 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :reg	
+ 00  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b7000006ebTBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :ari-enabled
+                      :bus-range	 00  00  00  03  00  00  00  03 
+                      :ranges	
+ 81  00  00  00  00  00  00  00  00  00  00  00  81  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  10  00  82  00  00  00  00  00  00  00 
+ 00  20  00  00  82  00  00  00  00  00  00  00  00  20  00  00  00  00  00  00 
+ 00  20  00  00 
+                      :available	
+ 81  00  00  00  00  00  00  00  00  00  00  40  00  00  00  00  00  00  0f  c0 
+ 82  00  00  00  00  00  00  00  00  24  80  00  00  00  00  00  00  01  80  00 
+ 82  00  00  00  00  00  00  00  00  36  00  00  00  00  00  00  00  0a  00  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8100/pci@4/pci@0/pci@0 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 0 
+                      :instance	 9 
+                      :_class	 pciex 
+                      :name	 pci 
+                         network (network, b7000006fe)
+                          :Label	 /SYS/MBU/NET2 
+                          :DeviceID	 0 
+                          :UnitAddress	 0 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x10c9 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x1780 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  01 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x8 
+                          :initial-vfs	 0x8 
+                          :total-vfs	 0x8 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  98  8b  a2 
+                          :reg	
+ 00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 02  03  00  10  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00  00 
+ 01  03  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 02  03  00  1c  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :compatible	(b700000710TBL) 
+                           | pciex8086,10c9.10cf.1780.1 |
+                           | pciex8086,10c9.10cf.1780 |
+                           | pciex8086,10c9.1 |
+                           | pciex8086,10c9 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 02  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 02  03  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ 82  03  00  10  00  00  00  00  00  20  00  00  00  00  00  00  00  02  00  00 
+ 82  03  00  14  00  00  00  00  00  22  00  00  00  00  00  00  00  02  00  00 
+ 81  03  00  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 82  03  00  1c  00  00  00  00  00  24  00  00  00  00  00  00  00  00  40  00 
+ 82  03  00  30  00  00  00  00  00  26  00  00  00  00  00  00  00  02  00  00 
+                          :vf-assigned-addresses	
+ 82  03  00  00  00  00  00  00  00  28  00  00  00  00  00  00  00  00  40  00 
+ 82  03  00  03  00  00  00  00  00  2a  00  00  00  00  00  00  00  00  40  00 
+                          :ddi-intr-weight	 0x23 
+                          :tx_head_wb_enable	 0 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/network@0 
+                          :driver-name	 igb 
+                          :binding-name	 pciex8086,10c9 
+                          :bus-addr	 0 
+                          :instance	 2 
+                          :_class	 network 
+                          :name	 network 
+                         network (network, b70000072a)
+                          :Label	 /SYS/MBU/NET3 
+                          :DeviceID	 0 
+                          :UnitAddress	 0,1 
+                          :vendor-id	 0x8086 
+                          :device-id	 0x10c9 
+                          :revision-id	 0x1 
+                          :subsystem-vendor-id	 0x10cf 
+                          :subsystem-id	 0x1780 
+                          :class-code	 0x20000 
+                          :cache-line-size	 0x10 
+                          :interrupts	 00  00  00  02 
+                          :port-type	 PCIE-Endpoint 
+                          :#vfs	 0x8 
+                          :initial-vfs	 0x8 
+                          :total-vfs	 0x8 
+                          :first-vf-offset	 0x80 
+                          :vf-stride	 0x2 
+                          :device_type	 network 
+                          :address-bits	 0x30 
+                          :max-frame-size	 0x10000 
+                          :local-mac-address	 b0  99  28  98  8b  a3 
+                          :reg	
+ 00  03  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 02  03  01  10  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00  00 
+ 01  03  01  18  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  20 
+ 02  03  01  1c  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :compatible	(b70000073cTBL) 
+                           | pciex8086,10c9.10cf.1780.1 |
+                           | pciex8086,10c9.10cf.1780 |
+                           | pciex8086,10c9.1 |
+                           | pciex8086,10c9 |
+                           | pciexclass,020000 |
+                           | pciexclass,0200 |
+                          :vf-reg	
+ 02  03  01  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+ 02  03  01  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  40  00 
+                          :assigned-addresses	
+ 82  03  01  10  00  00  00  00  00  2c  00  00  00  00  00  00  00  02  00  00 
+ 82  03  01  14  00  00  00  00  00  2e  00  00  00  00  00  00  00  02  00  00 
+ 81  03  01  18  00  00  00  00  00  00  00  20  00  00  00  00  00  00  00  20 
+ 82  03  01  1c  00  00  00  00  00  24  40  00  00  00  00  00  00  00  40  00 
+ 82  03  01  30  00  00  00  00  00  30  00  00  00  00  00  00  00  02  00  00 
+                          :vf-assigned-addresses	
+ 82  03  01  00  00  00  00  00  00  32  00  00  00  00  00  00  00  00  40  00 
+ 82  03  01  03  00  00  00  00  00  34  00  00  00  00  00  00  00  00  40  00 
+                          :ddi-intr-weight	 0x23 
+                          :tx_head_wb_enable	 0 
+                          :fm-ereport-capable
+                          :fm-errcb-capable
+                          :fm-dmachk-capable
+                          :fm-accchk-capable
+                          :devfs-path	 /pci@8100/pci@4/pci@0/pci@0/network@0,1 
+                          :driver-name	 igb 
+                          :binding-name	 pciex8086,10c9 
+                          :bus-addr	 0,1 
+                          :instance	 3 
+                          :_class	 network 
+                          :name	 network 
+                     pci (pciex, b700000756)
+                      :Label	 /SYS/PCI1 
+                      :DeviceID	 0x1 
+                      :UnitAddress	 1 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :physical-slot#	 0x1 
+                      :reg	
+ 00  02  08  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b700000767TBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :slot-implemented?
+                      :bus-range	 00  00  00  04  00  00  00  04 
+                      :slot-names	 00  00  00  01  50  43  49  23  31  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8100/pci@4/pci@0/pci@1 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 1 
+                      :instance	 10 
+                      :_class	 pciex 
+                      :name	 pci 
+                     pci (pciex, b70000077b)
+                      :Label	 /SYS/PCI2 
+                      :DeviceID	 0x9 
+                      :UnitAddress	 9 
+                      :vendor-id	 0x10b5 
+                      :device-id	 0x8732 
+                      :revision-id	 0xca 
+                      :subsystem-id	 0x8732 
+                      :subsystem-vendor-id	 0x10b5 
+                      :class-code	 0x60400 
+                      :cache-line-size	 0x10 
+                      :interrupts	 00  00  00  01 
+                      :port-type	 Downstream-Port 
+                      :#size-cells	 0x2 
+                      :#address-cells	 0x3 
+                      :physical-slot#	 0x2 
+                      :reg	
+ 00  02  48  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+                      :compatible	(b70000078cTBL) 
+                       | pciex10b5,8732.10b5.8732.ca |
+                       | pciex10b5,8732.10b5.8732 |
+                       | pciex10b5,8732.ca |
+                       | pciex10b5,8732 |
+                       | pciexclass,060400 |
+                       | pciexclass,0604 |
+                      :slot-implemented?
+                      :bus-range	 00  00  00  05  00  00  00  05 
+                      :slot-names	 00  00  00  01  50  43  49  23  32  00 
+                      :ddi-forceattach	 0x1 
+                      :fm-ereport-capable
+                      :pm-want-child-notification?
+                      :device_type	 pciex 
+                      :pcie_ce_mask	 0x1 
+                      :devfs-path	 /pci@8100/pci@4/pci@0/pci@9 
+                      :driver-name	 pcieb 
+                      :binding-name	 pciexclass,060400 
+                      :bus-addr	 9 
+                      :instance	 11 
+                      :_class	 pciex 
+                      :name	 pci 
+         pci-performance-counters (obp-device, b7000007a0)
+          :UnitAddress	 c0008000,0 
+          :compatible	 FJSV,titania-pr 
+          :reg	 c0  00  80  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ddi-forceattach	 0x1 
+          :devfs-path	 /pci-performance-counters@8000 
+          :driver-name	 iospc 
+          :binding-name	 FJSV,titania-pr 
+          :bus-addr	 8000 
+          :instance	 0 
+          :_class	 obp-device 
+          :name	 pci-performance-counters 
+         pci-performance-counters (obp-device, b7000007ab)
+          :UnitAddress	 c0008100,0 
+          :compatible	 FJSV,titania-pr 
+          :reg	 c0  00  81  00  00  00  00  00  00  00  00  00  00  00  00  00 
+          :ddi-forceattach	 0x1 
+          :devfs-path	 /pci-performance-counters@8100 
+          :driver-name	 iospc 
+          :binding-name	 FJSV,titania-pr 
+          :bus-addr	 8100 
+          :instance	 1 
+          :_class	 obp-device 
+          :name	 pci-performance-counters 
+         os-io (console, b7000007b6)
+          :device_type	 console 
+          :devfs-path	 /os-io 
+          :binding-name	 os-io 
+          :instance	 -1 
+          :_class	 console 
+          :name	 os-io 
+         pseudo (devctl, b7000007d8)
+          :class	 root 
+          :devfs-path	 /pseudo 
+          :driver-name	 pseudo 
+          :binding-name	 pseudo 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 devctl 
+          :name	 pseudo 
+             zconsnex (devctl, b7000007e1)
+              :valid-children	 zcons 
+              :devfs-path	 /pseudo/zconsnex@1 
+              :driver-name	 pseudo 
+              :binding-name	 zconsnex 
+              :bus-addr	 1 
+              :instance	 1 
+              :_class	 devctl 
+              :name	 zconsnex 
+     obp (picl, b700000021)
+      :_class	 picl 
+      :name	 obp 
+         packages (packages, b7000000a9)
+          :devfs-path	 /packages 
+          :binding-name	 packages 
+          :instance	 -1 
+          :_class	 packages 
+          :name	 packages 
+             SUNW,builtin-drivers (SUNW,builtin-drivers, b7000000af)
+              :builtin-drivers	(b7000000b6TBL) 
+               | class010802 |
+               | nvme |
+               | pci1000,87 |
+               | pci1000,87 |
+               | pciex1000,87 |
+               | pci1000,87 |
+               | pciex1000,87.10cf.177f |
+               | pci1000,87 |
+               | pciex1000,87.10cf.187e |
+               | pci1000,87 |
+               | pciex1000,86 |
+               | pci1000,87 |
+               | pciex1000,86.1000.3000 |
+               | pci1000,87 |
+               | class060400 |
+               | class060400 |
+               | pci14e4,1656 |
+               | pci14e4,1656 |
+               | pciex14e4,1656 |
+               | pci14e4,1656 |
+               | pciex14e4,1656.10cf.165a |
+               | pci14e4,1656 |
+               | pciex8086,10c9.8086.0 |
+               | ophir |
+               | pciex8086,10c9.108e.4848 |
+               | ophir |
+               | pciex8086,10c9.108e.10c9 |
+               | ophir |
+               | pciex8086,10c9.108e.450c |
+               | ophir |
+               | pciex8086,10c9.10cf.1770 |
+               | ophir |
+               | pciex8086,10c9.10cf.1780 |
+               | ophir |
+               | pciex8086,10ca.10cf.1780 |
+               | ophir |
+               | pci1033,35 |
+               | ohci |
+               | pci1033,35.1033.35 |
+               | ohci |
+               | pci1033,e0 |
+               | ehci |
+               | pci1033,e0.1033.e0 |
+               | ehci |
+              :devfs-path	 /packages/SUNW,builtin-drivers 
+              :binding-name	 SUNW,builtin-drivers 
+              :instance	 -1 
+              :_class	 SUNW,builtin-drivers 
+              :name	 SUNW,builtin-drivers 
+             SUNW,probe-error-handler (SUNW,probe-error-handler, b7000000e3)
+              :devfs-path	 /packages/SUNW,probe-error-handler 
+              :binding-name	 SUNW,probe-error-handler 
+              :instance	 -1 
+              :_class	 SUNW,probe-error-handler 
+              :name	 SUNW,probe-error-handler 
+             deblocker (deblocker, b7000000e9)
+              :disk-write-fix
+              :lba64
+              :devfs-path	 /packages/deblocker 
+              :binding-name	 deblocker 
+              :instance	 -1 
+              :_class	 deblocker 
+              :name	 deblocker 
+             disk-label (disk-label, b7000000f1)
+              :supported-labels	(b7000000f9TBL) 
+               | gpt |
+               | sun |
+               | mbr |
+              :gpt
+              :devfs-path	 /packages/disk-label 
+              :binding-name	 disk-label 
+              :instance	 -1 
+              :_class	 disk-label 
+              :name	 disk-label 
+             terminal-emulator (terminal-emulator, b7000000fd)
+              :iso6429-1983-colors
+              :devfs-path	 /packages/terminal-emulator 
+              :binding-name	 terminal-emulator 
+              :instance	 -1 
+              :_class	 terminal-emulator 
+              :name	 terminal-emulator 
+             dropins (dropins, b700000104)
+              :source	 /flashprom: 
+              :devfs-path	 /packages/dropins 
+              :binding-name	 dropins 
+              :instance	 -1 
+              :_class	 dropins 
+              :name	 dropins 
+             SUNW,asr (SUNW,asr, b70000010b)
+              :devfs-path	 /packages/SUNW,asr 
+              :binding-name	 SUNW,asr 
+              :instance	 -1 
+              :_class	 SUNW,asr 
+              :name	 SUNW,asr 
+             kbd-translator (kbd-translator, b700000111)
+              :devfs-path	 /packages/kbd-translator 
+              :binding-name	 kbd-translator 
+              :instance	 -1 
+              :_class	 kbd-translator 
+              :name	 kbd-translator 
+             obp-tftp (obp-tftp, b700000117)
+              :devfs-path	 /packages/obp-tftp 
+              :binding-name	 obp-tftp 
+              :instance	 -1 
+              :_class	 obp-tftp 
+              :name	 obp-tftp 
+             ufs-file-system (ufs-file-system, b70000011d)
+              :devfs-path	 /packages/ufs-file-system 
+              :binding-name	 ufs-file-system 
+              :instance	 -1 
+              :_class	 ufs-file-system 
+              :name	 ufs-file-system 
+             hsfs-file-system (hsfs-file-system, b700000123)
+              :devfs-path	 /packages/hsfs-file-system 
+              :binding-name	 hsfs-file-system 
+              :instance	 -1 
+              :_class	 hsfs-file-system 
+              :name	 hsfs-file-system 
+         chosen (chosen, b700000129)
+          :stdout-#lines	 0xffffffff 
+          :stdin	 0xfeddffb8 
+          :stdout	 0xfeddfdb0 
+          :memory	 0xffb0c290 
+          :mmu	 0xffb0c080 
+          :openboot-reserved	 0x40000000 
+          :bootpath	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@w5000039408321bbe,0:a 
+          :bootargs	 0 
+          :fstype	 ufs 
+          :bootfs	 0xfedde9c8 
+          :bootarchive	 /ramdisk-root 
+          :archive-fstype	 hsfs 
+          :archfs	 0xfeddd9c8 
+          :elfheader-address	 0x50000000 
+          :elfheader-length	 0x202000 
+          :impl-arch-name	 sun4v 
+          :whoami	 /platform/sun4v/kernel/sparcv9/unix 
+          :fs-package	 hsfs-file-system 
+          :devfs-path	 /chosen 
+          :binding-name	 chosen 
+          :instance	 -1 
+          :_class	 chosen 
+          :name	 chosen 
+         openprom (openprom, b700000141)
+          :relative-addressing
+          :aligned-allocator
+          :model	 SUNW,4.38.5[ 2.23.0 ] 
+          :version	 OBP 4.38.5 2017/04/13 16:40 
+          :devfs-path	 /openprom 
+          :binding-name	 openprom 
+          :instance	 -1 
+          :_class	 openprom 
+          :name	 openprom 
+             client-services (client-services, b70000014b)
+              :devfs-path	 /openprom/client-services 
+              :binding-name	 client-services 
+              :instance	 -1 
+              :_class	 client-services 
+              :name	 client-services 
+         options (options, b700000151)
+          :error-reset-recovery	 boot 
+          :nvramrc
+          :use-nvramrc?	 false 
+          :boot-device-index	 0 
+          :multipath-boot?	 false 
+          :boot-device	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@w5000039408321bbe,0:a disk net 
+          :boot-file
+          :boot-command	 boot 
+          :network-boot-arguments
+          :os-root-device
+          :auto-boot?	 true 
+          :load-base	 16384 
+          :auto-boot-on-error?	 false 
+          :input-device	 virtual-console 
+          :output-device	 virtual-console 
+          :ttya-mode	 9600,8,n,1,- 
+          :screen-#rows	 34 
+          :screen-#columns	 80 
+          :ansi-terminal?	 true 
+          :oem-banner?	 false 
+          :oem-banner
+          :oem-logo?	 false 
+          :oem-logo
+          :scsi-initiator-id	 0x37 
+          :fcode-debug?	 false 
+          :local-mac-address?	 true 
+          :diag-switch?	 false 
+          :security-#badlogins	 0 
+          :security-password
+          :security-mode	 none 
+          :reboot-command
+          :keyboard-layout	 US-English 
+          :ttya-ignore-cd	 true 
+          :ttya-rts-dtr-off	 false 
+          :class	 root 
+          :ttymodes	
+ 00  00  25  02  00  00  18  05  00  00  00  bd  00  00  8a  3b  03  1c  7f  15 
+ 04  00  00  00  11  13  1a  19  12  0f  17  16  00  00  00  00 
+          :devfs-path	 /options 
+          :driver-name	 options 
+          :binding-name	 options 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 options 
+          :name	 options 
+         aliases (aliases, b70000017d)
+          :virtual-console	 /virtual-devices@100/console@1 
+          :disk	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p0,0 
+          :disk0	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p0,0 
+          :disk1	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p1,0 
+          :disk2	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p2,0 
+          :disk3	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p3,0 
+          :disk4	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p4,0 
+          :disk5	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p5,0 
+          :disk6	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p6,0 
+          :disk7	 /pci@8000/pci@4/pci@0/pci@0/scsi@0/disk@p7,0 
+          :net	 /pci@8000/pci@4/pci@0/pci@1/network@0 
+          :net0	 /pci@8000/pci@4/pci@0/pci@1/network@0 
+          :net1	 /pci@8000/pci@4/pci@0/pci@1/network@0,1 
+          :cdrom	 /pci@8000/pci@4/pci@0/pci@2/pci@0/usb@4,1/cdrom@2/disk@0 
+          :cdrom0	 /pci@8000/pci@4/pci@0/pci@2/pci@0/usb@4,1/cdrom@1/disk@0 
+          :cdrom1	 /pci@8000/pci@4/pci@0/pci@2/pci@0/usb@4,1/cdrom@2/disk@0 
+          :rcdrom	 /pci@8000/pci@4/pci@0/pci@2/pci@0/usb@4,1/storage@3/disk@0 
+          :net2	 /pci@8100/pci@4/pci@0/pci@0/network@0 
+          :net3	 /pci@8100/pci@4/pci@0/pci@0/network@0,1 
+          :devfs-path	 /aliases 
+          :binding-name	 aliases 
+          :instance	 -1 
+          :_class	 aliases 
+          :name	 aliases 
+         virtual-memory (virtual-memory, b70000019e)
+          :page-size	 0x2000 
+          :available	
+ ff  ff  f8  00  00  00  00  00  00  00  07  fc  00  00  00  00  00  00  07  00 
+ 90  00  00  00  00  00  00  ff  70  00  00  00  00  00  03  00  09  79  c0  00 
+ 00  00  03  ff  f6  86  40  00  00  00  03  00  08  26  c0  00  00  00  00  00 
+ 00  00  20  00  00  00  03  00  08  1f  40  00  00  00  00  00  00  03  00  00 
+ 00  00  03  00  08  1b  c0  00  00  00  00  00  00  00  80  00  00  00  03  00 
+ 08  18  40  00  00  00  00  00  00  02  a0  00  00  00  03  00  08  0f  40  00 
+ 00  00  00  00  00  00  40  00  00  00  03  00  08  0b  80  00  00  00  00  00 
+ 00  02  40  00  00  00  03  00  00  64  60  00  00  00  00  00  00  02  00  00 
+ 00  00  03  00  00  53  80  00  00  00  00  00  00  00  40  00  00  00  03  00 
+ 00  4f  c0  00  00  00  00  00  00  00  60  00  00  00  03  00  00  38  20  00 
+ 00  00  00  00  00  00  40  00  00  00  03  00  00  34  60  00  00  00  00  00 
+ 00  00  a0  00  00  00  03  00  00  2c  00  00  00  00  00  00  00  00  60  00 
+ 00  00  00  01  00  00  00  00  00  00  02  ff  00  00  20  00  00  00  00  00 
+ ff  ff  00  00  00  00  00  00  00  00  e0  00  00  00  00  00  7b  e0  c0  00 
+ 00  00  00  00  74  1f  40  00  00  00  00  00  7b  b7  00  00  00  00  00  00 
+ 00  29  00  00  00  00  00  00  70  4c  00  00  00  00  00  00  0b  54  00  00 
+ 00  00  00  00  24  80  00  00  00  00  00  00  4b  80  00  00  00  00  00  00 
+ 03  10  00  00  00  00  00  00  00  30  00  00  00  00  00  00  01  c0  00  00 
+ 00  00  00  00  00  40  00  00  00  00  00  00  01  40  00  00  00  00  00  00 
+ 00  40  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00  00  00 
+ 00  00  00  00  fe  e2  80  00  00  00  00  00  00  00  20  00  00  00  00  00 
+ fe  e0  40  00  00  00  00  00  00  01  20  00  00  00  00  00  fe  d5  c0  00 
+ 00  00  00  00  00  07  20  00  00  00  00  00  fe  d0  40  00  00  00  00  00 
+ 00  00  e0  00  00  00  00  00  f8  20  00  00  00  00  00  00  06  ab  a0  00 
+          :existing	
+ 00  00  00  00  00  00  00  00  00  00  08  00  00  00  00  00  ff  ff  f8  00 
+ 00  00  00  00  00  00  08  00  00  00  00  00 
+          :translations	
+ 00  00  00  00  00  00  20  00  00  00  00  00  00  9f  e0  00  80  00  7e  00 
+ 70  40  27  40  00  00  00  00  01  00  00  00  00  00  00  00  00  40  00  00 
+ 80  00  7e  1f  fa  c0  07  40  00  00  00  00  01  80  00  00  00  00  00  00 
+ 00  40  00  00  80  00  7e  1f  fa  80  07  40  00  00  00  00  02  00  00  00 
+ 00  00  00  00  01  00  00  00  80  00  7e  1f  f9  00  07  40  00  00  00  00 
+ 03  00  00  00  00  00  00  00  00  10  00  00  80  00  7e  1f  fa  50  07  40 
+ 00  00  00  00  03  40  00  00  00  00  00  00  21  40  00  00  80  00  7e  1f 
+ d7  c0  07  40  00  00  00  00  70  00  00  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  36  47  40  00  00  00  00  70  00  20  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fb  00  07  40  00  00  00  00  70  00  40  00 
+ 00  00  00  00  00  0f  e0  00  80  00  7e  1f  fa  3a  e7  40  00  00  00  00 
+ 70  10  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  00  07  40 
+ 00  00  00  00  70  10  40  00  00  00  00  00  00  02  c0  00  80  00  7e  1f 
+ d0  36  67  40  00  00  00  00  70  13  00  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  d0  35  47  40  00  00  00  00  70  13  40  00  00  00  00  00 
+ 00  00  80  00  80  00  7e  1f  d0  34  47  40  00  00  00  00  70  13  c0  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  d0  33  27  40  00  00  00  00 
+ 70  14  20  00  00  00  00  00  00  01  20  00  80  00  7e  1f  d0  2f  67  40 
+ 00  00  00  00  70  15  40  00  00  00  00  00  00  02  60  00  80  00  7e  1f 
+ d0  1f  e7  40  00  00  00  00  70  17  a0  00  00  00  00  00  00  00  a0  00 
+ 80  00  7e  1f  d0  1d  c7  40  00  00  00  00  70  18  40  00  00  00  00  00 
+ 00  01  00  00  80  00  7e  1f  d0  18  27  40  00  00  00  00  70  19  40  00 
+ 00  00  00  00  00  01  60  00  80  00  7e  1f  d0  15  67  40  00  00  00  00 
+ 70  1a  a0  00  00  00  00  00  00  00  e0  00  80  00  7e  1f  d0  0e  a7  40 
+ 00  00  00  00  70  1b  80  00  00  00  00  00  00  01  40  00  80  00  7e  1f 
+ d0  0c  07  40  00  00  00  00  70  1c  c0  00  00  00  00  00  00  02  20  00 
+ 80  00  7e  1f  d0  08  67  40  00  00  00  00  70  1e  e0  00  00  00  00  00 
+ 00  0b  80  00  80  00  7e  1f  3f  9e  a7  40  00  00  00  00  70  2a  60  00 
+ 00  00  00  00  00  01  80  00  80  00  7e  1f  3f  9d  27  40  00  00  00  00 
+ 70  2b  e0  00  00  00  00  00  00  20  20  00  80  00  7e  1f  3f  6d  47  40 
+ 00  00  00  00  7b  a0  00  00  00  00  00  00  00  13  80  00  80  00  7e  1f 
+ 3f  ba  27  40  00  00  00  00  7b  b3  80  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  3f  9c  e7  40  00  00  00  00  7b  b3  c0  00  00  00  00  00 
+ 00  01  80  00  80  00  7e  1f  3f  9b  67  40  00  00  00  00  7b  b5  40  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  3f  99  27  40  00  00  00  00 
+ 7b  b5  80  00  00  00  00  00  00  00  40  00  80  00  7e  1f  3f  98  27  40 
+ 00  00  00  00  7b  b5  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ 3f  97  c7  40  00  00  00  00  7b  b5  e0  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  3f  8e  27  40  00  00  00  00  7b  b6  40  00  00  00  00  00 
+ 00  00  40  00  80  00  7e  1f  3f  8d  e7  40  00  00  00  00  7b  b6  80  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  3f  8d  67  40  00  00  00  00 
+ 7b  e0  00  00  00  00  00  00  00  00  c0  00  80  00  7e  1f  3f  cd  a7  40 
+ 00  00  00  00  f0  00  00  00  00  00  00  00  00  40  00  00  80  00  7e  00 
+ 70  00  07  50  00  00  00  00  fe  cb  a0  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  3e  35  47  50  00  00  00  00  fe  cc  00  00  00  00  00  00 
+ 00  00  c0  00  80  00  7e  1f  3e  36  07  50  00  00  00  00  fe  cc  c0  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  3e  37  27  50  00  00  00  00 
+ fe  cd  40  00  00  00  00  00  00  00  80  00  80  00  7e  1f  3e  37  c7  50 
+ 00  00  00  00  fe  cd  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  63  47  50  00  00  00  00  fe  cd  e0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  3e  37  a7  50  00  00  00  00  fe  ce  00  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fb  00  47  50  00  00  00  00  fe  ce  20  00 
+ 00  00  00  00  00  02  20  00  80  00  7e  1f  fa  63  67  50  00  00  00  00 
+ fe  d1  20  00  00  00  00  00  00  04  a0  00  80  00  7e  1f  fb  10  87  50 
+ 00  00  00  00  fe  dc  e0  00  00  00  00  00  00  03  60  00  80  00  7e  1f 
+ ff  fa  07  50  00  00  00  00  fe  e1  60  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  ff  fe  87  50  00  00  00  00  fe  e1  c0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  ff  ff  47  50  00  00  00  00  fe  e1  e0  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  ff  fe  e7  50  00  00  00  00 
+ fe  e2  40  00  00  00  00  00  00  00  40  00  80  00  7e  1f  ff  ff  67  50 
+ 00  00  00  00  fe  e2  a0  00  00  00  00  00  00  00  60  00  80  00  7e  1f 
+ ff  ff  a7  50  00  00  00  00  fe  e3  00  00  00  00  00  00  00  0a  20  00 
+ 80  00  7e  00  7f  dd  e7  50  00  00  00  00  fe  ed  20  00  00  00  00  00 
+ 00  04  20  00  80  00  7e  00  7f  e8  87  50  00  00  00  00  fe  f1  80  00 
+ 00  00  00  00  00  0d  a0  00  80  00  7e  00  7f  f0  67  50  00  00  00  00 
+ fe  ff  20  00  00  00  00  00  00  00  20  00  80  00  7e  00  7f  fe  47  50 
+ 00  00  00  00  fe  ff  40  00  00  00  00  00  00  00  c0  00  80  00  7e  00 
+ 7f  fe  a7  50  00  00  00  00  ff  b0  00  00  00  00  00  00  00  02  00  00 
+ 80  00  7e  00  70  1e  07  50  00  00  03  00  00  00  20  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  3a  c7  40  00  00  03  00  00  00  40  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  3a  67  40  00  00  03  00 
+ 00  00  60  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  3a  47  40 
+ 00  00  03  00  00  00  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  3a  27  40  00  00  03  00  00  00  a0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  3a  07  40  00  00  03  00  00  00  c0  00  00  00  00  00 
+ 00  00  40  00  80  00  7e  1f  fa  39  c7  40  00  00  03  00  00  01  00  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  fa  38  67  40  00  00  03  00 
+ 00  01  40  00  00  00  00  00  00  00  40  00  80  00  7e  1f  fa  37  27  40 
+ 00  00  03  00  00  01  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  36  67  40  00  00  03  00  00  01  a0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  36  07  40  00  00  03  00  00  01  c0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  35  e7  40  00  00  03  00  00  01  e0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  14  87  40  00  00  03  00 
+ 00  02  00  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  10  07  40 
+ 00  00  03  00  00  02  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  0e  27  40  00  00  03  00  00  02  40  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  0e  07  40  00  00  03  00  00  02  60  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  0d  c7  40  00  00  03  00  00  02  80  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  0d  67  40  00  00  03  00 
+ 00  02  a0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  0a  27  40 
+ 00  00  03  00  00  02  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  00  47  40  00  00  03  00  00  02  e0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d7  a1  87  40  00  00  03  00  00  03  00  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d7  a1  67  40  00  00  03  00  00  03  20  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d7  a0  47  40  00  00  03  00 
+ 00  03  40  00  00  00  00  00  00  00  20  00  80  00  7e  1f  d0  36  07  40 
+ 00  00  03  00  00  03  60  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d0  33  e7  40  00  00  03  00  00  03  80  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  27  a7  40  00  00  03  00  00  03  a0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d0  15  47  40  00  00  03  00  00  03  c0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d0  01  47  40  00  00  03  00 
+ 00  03  e0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  3f  95  27  40 
+ 00  00  03  00  00  04  00  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ 3e  38  67  40  00  00  03  00  00  04  20  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  39  a7  40  00  00  03  00  00  04  40  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  39  87  40  00  00  03  00  00  04  60  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  39  67  40  00  00  03  00 
+ 00  04  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  39  47  40 
+ 00  00  03  00  00  04  a0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  39  27  40  00  00  03  00  00  04  c0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  39  07  40  00  00  03  00  00  04  e0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  38  e7  40  00  00  03  00  00  05  00  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  38  c7  40  00  00  03  00 
+ 00  05  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  38  a7  40 
+ 00  00  03  00  00  05  40  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  38  47  40  00  00  03  00  00  05  60  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  38  27  40  00  00  03  00  00  05  80  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  38  07  40  00  00  03  00  00  05  a0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  37  e7  40  00  00  03  00 
+ 00  05  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  37  c7  40 
+ 00  00  03  00  00  05  e0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  37  a7  40  00  00  03  00  00  06  00  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  37  87  40  00  00  03  00  00  06  20  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  37  67  40  00  00  03  00  00  06  40  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  37  07  40  00  00  03  00 
+ 00  06  60  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  36  e7  40 
+ 00  00  03  00  00  06  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  36  c7  40  00  00  03  00  00  06  a0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  36  a7  40  00  00  03  00  00  06  c0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  36  87  40  00  00  03  00  00  06  e0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  35  c7  40  00  00  03  00 
+ 00  07  00  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  35  a7  40 
+ 00  00  03  00  00  07  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  35  87  40  00  00  03  00  00  07  40  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  35  67  40  00  00  03  00  00  07  60  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  15  27  40  00  00  03  00  00  07  80  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  15  07  40  00  00  03  00 
+ 00  07  a0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  14  e7  40 
+ 00  00  03  00  00  07  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  14  c7  40  00  00  03  00  00  07  e0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  14  a7  40  00  00  03  00  00  08  00  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  14  67  40  00  00  03  00  00  08  20  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  36  27  40  00  00  03  00 
+ 00  08  40  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  35  47  40 
+ 00  00  03  00  00  08  60  00  00  00  00  00  00  10  00  00  80  00  7e  1f 
+ fa  25  47  40  00  00  03  00  00  18  60  00  00  00  00  00  00  10  00  00 
+ 80  00  7e  1f  fa  15  47  40  00  00  03  00  00  28  60  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  14  47  40  00  00  03  00  00  28  80  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  14  27  40  00  00  03  00 
+ 00  28  a0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  14  07  40 
+ 00  00  03  00  00  28  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  13  e7  40  00  00  03  00  00  28  e0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  13  c7  40  00  00  03  00  00  29  00  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  13  a7  40  00  00  03  00  00  29  20  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  13  87  40  00  00  03  00 
+ 00  29  40  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  0f  27  40 
+ 00  00  03  00  00  29  60  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  0e  a7  40  00  00  03  00  00  29  80  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  0d  e7  40  00  00  03  00  00  29  a0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  0d  a7  40  00  00  03  00  00  29  c0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  0d  87  40  00  00  03  00 
+ 00  29  e0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  0d  47  40 
+ 00  00  03  00  00  2a  00  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ fa  0d  27  40  00  00  03  00  00  2a  20  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  0c  87  40  00  00  03  00  00  2a  40  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  0c  07  40  00  00  03  00  00  2a  60  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  fa  0b  e7  40  00  00  03  00 
+ 00  2a  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  05  67  40 
+ 00  00  03  00  00  2a  a0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d7  b4  67  40  00  00  03  00  00  2a  c0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d7  a2  e7  40  00  00  03  00  00  2a  e0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d7  a1  e7  40  00  00  03  00  00  2b  00  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d7  a1  47  40  00  00  03  00 
+ 00  2b  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f  d7  a1  27  40 
+ 00  00  03  00  00  2b  40  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d7  a0  67  40  00  00  03  00  00  2b  60  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d7  9f  07  40  00  00  03  00  00  2b  80  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d0  2d  27  40  00  00  03  00  00  2b  a0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d0  28  87  40  00  00  03  00 
+ 00  2b  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  d0  24  27  40 
+ 00  00  03  00  00  2b  e0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d0  0f  87  40  00  00  03  00  00  2c  60  00  00  00  00  00  00  00  a0  00 
+ 80  00  7e  1f  fa  0f  67  40  00  00  03  00  00  2d  00  00  00  00  00  00 
+ 00  03  60  00  80  00  7e  1f  fa  10  27  40  00  00  03  00  00  30  60  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d7  b4  87  40  00  00  03  00 
+ 00  30  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f  fa  00  27  40 
+ 00  00  03  00  00  30  a0  00  00  00  00  00  00  01  80  00  80  00  7e  1f 
+ fa  01  c7  40  00  00  03  00  00  32  20  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  fa  0a  07  40  00  00  03  00  00  32  40  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  fa  0a  47  40  00  00  03  00  00  32  a0  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  fa  0c  27  40  00  00  03  00 
+ 00  33  00  00  00  00  00  00  00  00  80  00  80  00  7e  1f  fa  0c  a7  40 
+ 00  00  03  00  00  33  80  00  00  00  00  00  00  00  60  00  80  00  7e  1f 
+ fa  0e  47  40  00  00  03  00  00  33  e0  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  fa  0e  c7  40  00  00  03  00  00  34  40  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  fa  0f  47  40  00  00  03  00  00  35  00  00 
+ 00  00  00  00  00  01  40  00  80  00  7e  1f  d0  01  e7  40  00  00  03  00 
+ 00  36  40  00  00  00  00  00  00  00  a0  00  80  00  7e  1f  d0  14  27  40 
+ 00  00  03  00  00  36  e0  00  00  00  00  00  00  01  40  00  80  00  7e  1f 
+ fa  0a  a7  40  00  00  03  00  00  38  60  00  00  00  00  00  00  04  80  00 
+ 80  00  7e  1f  fa  05  87  40  00  00  03  00  00  3c  e0  00  00  00  00  00 
+ 00  01  80  00  80  00  7e  1f  fa  03  e7  40  00  00  03  00  00  3e  60  00 
+ 00  00  00  00  00  06  40  00  80  00  7e  1f  d7  b9  c7  40  00  00  03  00 
+ 00  44  a0  00  00  00  00  00  00  05  20  00  80  00  7e  1f  d7  b4  a7  40 
+ 00  00  03  00  00  49  c0  00  00  00  00  00  00  00  a0  00  80  00  7e  1f 
+ fa  03  47  40  00  00  03  00  00  4a  60  00  00  00  00  00  00  01  60  00 
+ 80  00  7e  1f  fa  00  67  40  00  00  03  00  00  4b  c0  00  00  00  00  00 
+ 00  00  80  00  80  00  7e  1f  d0  28  a7  40  00  00  03  00  00  4c  40  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d0  2a  47  40  00  00  03  00 
+ 00  4c  60  00  00  00  00  00  00  00  20  00  80  00  7e  1f  d0  2a  a7  40 
+ 00  00  03  00  00  4c  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d0  2b  07  40  00  00  03  00  00  4c  a0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  2b  67  40  00  00  03  00  00  4c  c0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d0  2b  c7  40  00  00  03  00  00  4c  e0  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  d0  2c  27  40  00  00  03  00 
+ 00  4d  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f  d0  2c  a7  40 
+ 00  00  03  00  00  4d  40  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d0  2d  07  40  00  00  03  00  00  4d  60  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  2d  87  40  00  00  03  00  00  4d  80  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d0  2d  e7  40  00  00  03  00  00  4d  a0  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  d0  2e  67  40  00  00  03  00 
+ 00  4d  e0  00  00  00  00  00  00  00  40  00  80  00  7e  1f  d0  34  07  40 
+ 00  00  03  00  00  4e  20  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d7  a2  07  40  00  00  03  00  00  4e  40  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  d7  a1  a7  40  00  00  03  00  00  4e  80  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  d7  a2  27  40  00  00  03  00  00  4e  a0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d7  a2  c7  40  00  00  03  00 
+ 00  4e  c0  00  00  00  00  00  00  00  a0  00  80  00  7e  1f  d7  b3  07  40 
+ 00  00  03  00  00  4f  60  00  00  00  00  00  00  00  60  00  80  00  7e  1f 
+ d7  b4  07  40  00  00  03  00  00  50  20  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  3e  35  a7  40  00  00  03  00  00  50  80  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  3e  36  c7  40  00  00  03  00  00  50  e0  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  3f  9b  07  40  00  00  03  00 
+ 00  51  40  00  00  00  00  00  00  00  60  00  80  00  7e  1f  d0  1b  27  40 
+ 00  00  03  00  00  51  a0  00  00  00  00  00  00  00  c0  00  80  00  7e  1f 
+ d0  26  67  40  00  00  03  00  00  52  60  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  d0  29  e7  40  00  00  03  00  00  52  c0  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  d0  33  87  40  00  00  03  00  00  53  20  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  d7  b3  a7  40  00  00  03  00 
+ 00  53  c0  00  00  00  00  00  00  10  00  00  80  00  7e  1f  d7  a3  07  40 
+ 00  00  03  00  00  63  c0  00  00  00  00  00  00  00  80  00  80  00  7e  1f 
+ d7  a2  47  40  00  00  03  00  00  64  40  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d7  a1  07  40  00  00  03  00  00  66  60  00  00  00  00  00 
+ 00  00  80  00  80  00  7e  1f  3f  6c  c7  40  00  00  03  00  00  66  e0  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  d0  14  c7  40  00  00  03  00 
+ 00  67  60  00  00  00  00  00  00  00  80  00  80  00  7e  1f  d0  34  c7  40 
+ 00  00  03  00  00  67  e0  00  00  00  00  00  00  00  80  00  80  00  7e  1f 
+ d7  a0  87  40  00  00  03  00  00  68  60  00  00  00  00  00  00  01  20  00 
+ 80  00  7e  1f  d7  9f  27  40  00  00  03  00  00  69  80  00  00  00  00  00 
+ 07  00  00  00  80  00  7e  1f  d0  9f  07  40  00  00  03  00  07  69  80  00 
+ 00  00  00  00  00  60  00  00  80  00  7e  1f  d0  3d  47  40  00  00  03  00 
+ 07  c9  80  00  00  00  00  00  00  04  00  00  80  00  7e  1f  d0  39  27  40 
+ 00  00  03  00  07  cd  80  00  00  00  00  00  00  00  40  00  80  00  7e  1f 
+ d0  07  c7  40  00  00  03  00  07  cd  c0  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  d0  1b  87  40  00  00  03  00  07  ce  00  00  00  00  00  00 
+ 00  00  40  00  80  00  7e  1f  d0  1c  47  40  00  00  03  00  07  ce  40  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  d0  29  a7  40  00  00  03  00 
+ 07  ce  80  00  00  00  00  00  00  00  40  00  80  00  7e  1f  d0  2a  67  40 
+ 00  00  03  00  07  ce  c0  00  00  00  00  00  00  00  40  00  80  00  7e  1f 
+ d0  2a  c7  40  00  00  03  00  07  cf  00  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  d0  2b  27  40  00  00  03  00  07  cf  40  00  00  00  00  00 
+ 00  00  40  00  80  00  7e  1f  d0  2b  87  40  00  00  03  00  07  cf  80  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  d0  2b  e7  40  00  00  03  00 
+ 07  cf  c0  00  00  00  00  00  00  00  40  00  80  00  7e  1f  d0  2c  67  40 
+ 00  00  03  00  07  d0  00  00  00  00  00  00  00  00  40  00  80  00  7e  1f 
+ d0  2c  c7  40  00  00  03  00  07  d0  40  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  d0  2d  47  40  00  00  03  00  07  d0  80  00  00  00  00  00 
+ 00  00  40  00  80  00  7e  1f  d0  2d  a7  40  00  00  03  00  07  d0  c0  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  d0  35  87  40  00  00  03  00 
+ 07  d1  40  00  00  00  00  00  00  00  40  00  80  00  7e  1f  d0  36  27  40 
+ 00  00  03  00  07  d1  80  00  00  00  00  00  00  00  60  00  80  00  7e  1f 
+ d0  32  c7  40  00  00  03  00  07  d1  e0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  32  a7  40  00  00  03  00  07  d2  00  00  00  00  00  00 
+ 00  00  80  00  80  00  7e  1f  d0  32  27  40  00  00  03  00  07  d2  80  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  d0  31  c7  40  00  00  03  00 
+ 07  d2  e0  00  00  00  00  00  00  01  40  00  80  00  7e  1f  d0  30  87  40 
+ 00  00  03  00  07  d4  20  00  00  00  00  00  00  00  40  00  80  00  7e  1f 
+ d0  2f  27  40  00  00  03  00  07  d4  60  00  00  00  00  00  00  00  80  00 
+ 80  00  7e  1f  d0  2e  a7  40  00  00  03  00  07  d4  e0  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  d0  2e  07  40  00  00  03  00  07  d5  40  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  d0  29  27  40  00  00  03  00 
+ 07  d5  c0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  d0  06  a7  40 
+ 00  00  03  00  07  d5  e0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d0  0b  e7  40  00  00  03  00  07  d6  00  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  0e  87  40  00  00  03  00  07  d6  20  00  00  00  00  00 
+ 00  01  e0  00  80  00  7e  1f  d0  22  47  40  00  00  03  00  07  d8  00  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  d0  24  47  40  00  00  03  00 
+ 07  d8  80  00  00  00  00  00  00  00  80  00  80  00  7e  1f  d0  27  27  40 
+ 00  00  03  00  07  d9  00  00  00  00  00  00  00  00  c0  00  80  00  7e  1f 
+ d0  27  c7  40  00  00  03  00  07  d9  c0  00  00  00  00  00  00  01  80  00 
+ 80  00  7e  1f  d0  24  e7  40  00  00  03  00  07  db  40  00  00  00  00  00 
+ 00  30  40  00  80  00  7e  1f  3f  cf  c7  40  00  00  03  00  08  0d  c0  00 
+ 00  00  00  00  00  01  80  00  80  00  7e  1f  d0  1e  67  40  00  00  03  00 
+ 08  0f  80  00  00  00  00  00  00  00  80  00  80  00  7e  1f  d0  1d  47  40 
+ 00  00  03  00  08  10  00  00  00  00  00  00  00  00  c0  00  80  00  7e  1f 
+ d0  1c  87  40  00  00  03  00  08  10  c0  00  00  00  00  00  00  00  80  00 
+ 80  00  7e  1f  d0  1b  c7  40  00  00  03  00  08  11  40  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  d0  1a  c7  40  00  00  03  00  08  11  a0  00 
+ 00  00  00  00  00  00  20  00  80  00  7e  1f  d0  1a  a7  40  00  00  03  00 
+ 08  11  c0  00  00  00  00  00  00  00  60  00  80  00  7e  1f  d0  1a  47  40 
+ 00  00  03  00  08  12  20  00  00  00  00  00  00  01  20  00  80  00  7e  1f 
+ d0  19  27  40  00  00  03  00  08  13  40  00  00  00  00  00  00  01  60  00 
+ 80  00  7e  1f  d0  16  c7  40  00  00  03  00  08  14  a0  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  d0  13  c7  40  00  00  03  00  08  15  00  00 
+ 00  00  00  00  00  00  c0  00  80  00  7e  1f  d0  13  07  40  00  00  03  00 
+ 08  15  c0  00  00  00  00  00  00  00  40  00  80  00  7e  1f  d0  12  c7  40 
+ 00  00  03  00  08  16  00  00  00  00  00  00  00  00  c0  00  80  00  7e  1f 
+ d0  12  07  40  00  00  03  00  08  16  c0  00  00  00  00  00  00  01  80  00 
+ 80  00  7e  1f  d0  10  87  40  00  00  03  00  08  1a  e0  00  00  00  00  00 
+ 00  00  e0  00  80  00  7e  1f  d0  0f  a7  40  00  00  03  00  08  1c  40  00 
+ 00  00  00  00  00  00  60  00  80  00  7e  1f  d0  0e  27  40  00  00  03  00 
+ 08  1c  a0  00  00  00  00  00  00  00  e0  00  80  00  7e  1f  d0  0d  47  40 
+ 00  00  03  00  08  1d  80  00  00  00  00  00  00  00  40  00  80  00  7e  1f 
+ d0  0b  a7  40  00  00  03  00  08  1d  c0  00  00  00  00  00  00  01  20  00 
+ 80  00  7e  1f  d0  0a  87  40  00  00  03  00  08  1e  e0  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  d0  08  07  40  00  00  03  00  08  22  40  00 
+ 00  00  00  00  00  01  00  00  80  00  7e  1f  d0  06  c7  40  00  00  03  00 
+ 08  23  40  00  00  00  00  00  00  00  40  00  80  00  7e  1f  d0  06  67  40 
+ 00  00  03  00  08  23  80  00  00  00  00  00  00  01  00  00  80  00  7e  1f 
+ d0  05  67  40  00  00  03  00  08  24  80  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  05  47  40  00  00  03  00  08  24  a0  00  00  00  00  00 
+ 00  00  80  00  80  00  7e  1f  d0  04  c7  40  00  00  03  00  08  25  20  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  d0  04  47  40  00  00  03  00 
+ 08  25  a0  00  00  00  00  00  00  00  a0  00  80  00  7e  1f  d0  03  a7  40 
+ 00  00  03  00  08  26  40  00  00  00  00  00  00  00  80  00  80  00  7e  1f 
+ d0  03  27  40  00  00  03  00  08  26  e0  00  00  00  00  00  00  01  a0  00 
+ 80  00  7e  1f  3f  93  87  40  00  00  03  00  08  28  80  00  00  00  00  00 
+ 00  01  80  00  80  00  7e  1f  3f  95  47  40  00  00  03  00  08  2a  00  00 
+ 00  00  00  00  00  00  40  00  80  00  7e  1f  3f  97  87  40  00  00  03  00 
+ 08  2a  40  00  00  00  00  00  00  00  40  00  80  00  7e  1f  3f  99  67  40 
+ 00  00  03  00  08  2a  80  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ d0  00  07  40  00  00  03  00  08  2a  a0  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  d0  01  c7  40  00  00  03  00  08  2a  c0  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  d0  01  67  40  00  00  03  00  08  2b  20  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  d0  00  c7  40  00  00  03  00 
+ 08  2b  a0  00  00  00  00  00  00  00  80  00  80  00  7e  1f  d0  00  47  40 
+ 00  00  03  00  08  2c  20  00  00  00  00  00  00  00  60  00  80  00  7e  1f 
+ 3f  cf  67  40  00  00  03  00  08  2c  80  00  00  00  00  00  00  00  a0  00 
+ 80  00  7e  1f  3f  ce  c7  40  00  00  03  00  08  2d  20  00  00  00  00  00 
+ 00  00  60  00  80  00  7e  1f  3f  ce  67  40  00  00  03  00  08  2d  80  00 
+ 00  00  00  00  00  10  00  00  80  00  7e  1f  3f  aa  27  40  00  00  03  00 
+ 08  3d  80  00  00  00  00  00  00  00  60  00  80  00  7e  1f  3f  9a  a7  40 
+ 00  00  03  00  08  3d  e0  00  00  00  00  00  00  00  c0  00  80  00  7e  1f 
+ 3f  99  e7  40  00  00  03  00  08  3e  a0  00  00  00  00  00  00  00  40  00 
+ 80  00  7e  1f  3f  99  a7  40  00  00  03  00  08  3e  e0  00  00  00  00  00 
+ 00  00  40  00  80  00  7e  1f  3f  98  e7  40  00  00  03  00  08  3f  20  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  3f  98  67  40  00  00  03  00 
+ 08  3f  a0  00  00  00  00  00  00  00  40  00  80  00  7e  1f  3f  97  e7  40 
+ 00  00  03  00  08  3f  e0  00  00  00  00  00  00  00  20  00  80  00  7e  1f 
+ 3f  97  67  40  00  00  03  00  08  40  00  00  00  00  00  00  00  00  a0  00 
+ 80  00  7e  1f  3f  96  c7  40  00  00  03  00  08  40  a0  00  00  00  00  00 
+ 00  01  e0  00  80  00  7e  1f  3f  91  a7  40  00  00  03  00  08  42  80  00 
+ 00  00  00  00  00  01  80  00  80  00  7e  1f  3f  90  27  40  00  00  03  00 
+ 08  44  00  00  00  00  00  00  00  00  20  00  80  00  7e  1f  3f  90  07  40 
+ 00  00  03  00  08  44  20  00  00  00  00  00  00  01  20  00  80  00  7e  1f 
+ 3f  8e  e7  40  00  00  03  00  08  45  40  00  00  00  00  00  00  00  60  00 
+ 80  00  7e  1f  3f  8e  87  40  00  00  03  00  08  45  a0  00  00  00  00  00 
+ 00  00  20  00  80  00  7e  1f  3f  6c  a7  40  00  00  03  00  08  45  c0  00 
+ 00  00  00  00  00  00  80  00  80  00  7e  1f  3f  6c  27  40  00  00  03  00 
+ 08  46  40  00  00  00  00  00  00  00  60  00  80  00  7e  1f  3f  6b  c7  40 
+ 00  00  03  00  08  46  a0  00  00  00  00  00  00  00  80  00  80  00  7e  1f 
+ 3f  6b  47  40  00  00  03  00  08  47  20  00  00  00  00  00  00  00  20  00 
+ 80  00  7e  1f  3f  6b  27  40  00  00  03  00  08  47  40  00  00  00  00  00 
+ 00  00  80  00  80  00  7e  1f  3f  6a  a7  40  00  00  03  00  08  47  c0  00 
+ 00  00  00  00  01  31  e0  00  80  00  7e  1f  3e  38  c7  40  00  00  03  00 
+ 09  79  a0  00  00  00  00  00  00  00  20  00  80  00  7e  1f  3e  38  47  40 
+          :devfs-path	 /virtual-memory 
+          :binding-name	 virtual-memory 
+          :instance	 -1 
+          :_class	 virtual-memory 
+          :name	 virtual-memory 
+         iscsi-hba (iscsi-hba, b7000001a8)
+          :compatible	 SUNW,iscsi-hba 
+          :devfs-path	 /iscsi-hba 
+          :binding-name	 iscsi-hba 
+          :instance	 -1 
+          :_class	 iscsi-hba 
+          :name	 iscsi-hba 
+         iscsi (iscsi, b7000007bd)
+          :scsi-enumeration	 0 
+          :scsi-options	 0x107ff8 
+          :scsi-reset-delay	 0xbb8 
+          :scsi-watchdog-tick	 0xa 
+          :scsi-selection-timeout	 0xfa 
+          :scsi-tag-age-limit	 0x2 
+          :scsi-initiator-id	 0x7 
+          :initiator-interconnect-type	 iSCSI 
+          :mpxio-disable	 no 
+          :ddi-forceattach	 0x1 
+          :so-rcvbuf	 0x40000 
+          :so-sndbuf	 0x40000 
+          :tcp-nodelay	 0 
+          :tcp-conn-notify-threshold	 0x7d0 
+          :tcp-conn-abort-threshold	 0x2710 
+          :tcp-abort-threshold	 0x7530 
+          :config-storm-delay	 0x5 
+          :fm-ereport-capable
+          :initiator-port	 iqn.1986-03.com.sun:01:b099289aa50e.5b03bd16,4000002a00ff 
+          :devfs-path	 /iscsi 
+          :driver-name	 iscsi 
+          :binding-name	 iscsi 
+          :bus-addr	  
+          :instance	 0 
+          :_class	 iscsi 
+          :name	 iscsi 
+     physical-platform (picl, b700000b37)
+      :_class	 picl 
+      :name	 physical-platform 
+         SYS (chassis, b700000b3a)
+          :FRU
+          :ModelName	 M10-1 
+          :MfgName	 Fujitsu Limited 
+          :SerialNumber	 TZ11425021 
+          :FW-version	 2351 
+          :Label	 SYS 
+          :Description	 SPARC M10-1 
+          :OperationalStatus	 enabled 
+          :_class	 chassis 
+          :name	 SYS 

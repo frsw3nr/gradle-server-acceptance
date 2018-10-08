@@ -1,0 +1,17 @@
+Name	Usage	Count Currently Used	Version
+Audit Options	1	True	11.2.0.1.0
+Automatic Undo Management	1	True	11.2.0.1.0
+Automatic Maintenance - Space Advisor	1	True	11.2.0.1.0
+Automatic Maintenance - Optimizer Statistics Gathering	1	True	11.2.0.1.0
+Automatic Maintenance - SQL Tuning Advisor	1	True	11.2.0.1.0
+Automatic Segment Space Management (system)	1	True	11.2.0.1.0
+Oracle Java Virtual Machine (system)	1	True	11.2.0.1.0
+Locally Managed Tablespaces (user)	1	True	11.2.0.1.0
+Locally Managed Tablespaces (system)	1	True	11.2.0.1.0
+Automatic Memory Tuning	1	True	11.2.0.1.0
+Server Parameter File	1	True	11.2.0.1.0
+Recovery Area	1	True	11.2.0.1.0
+Partitioning (system)	1	True	11.2.0.1.0
+SecureFiles (system)	1	True	11.2.0.1.0
+Character Set	1	True	11.2.0.1.0
+HeapCompression	1	True	11.2.0.1.0

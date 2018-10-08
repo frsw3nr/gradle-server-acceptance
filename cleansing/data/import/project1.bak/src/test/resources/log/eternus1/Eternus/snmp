@@ -1,0 +1,8 @@
+
+CLI> show snmp
+SNMP [Enable]
+Port [MNT]
+Authentication Failure [Enable]
+Engine ID [0x800000d380500000e0da1a2200] (Default)
+MIB-II RFC Version [RFC1213]
+CLI> 

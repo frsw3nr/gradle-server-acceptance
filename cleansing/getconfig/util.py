@@ -157,6 +157,12 @@ class Util(object):
         if yymm2:
             return("%s-%s-1" % (yymm2[0]))
 
+    def reform_zenkaku(self, str):
+        if (isinstance(str, float) and math.isnan(str)):
+            return
+        else
+            return zenhan.z2h(str)
+
     def analogize_tracker(self, domain):
         if re.search("(Linux|Windows)", domain):
             return 'IAサーバ'

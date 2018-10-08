@@ -1,0 +1,21 @@
+Param(
+    [string]\$log_dir
+  , [string]\$ip
+  , [string]\$server
+  , [string]\$user
+  , [string]\$password
+)
+\$log_dir = Convert-Path \$log_dir
+\$secure   = ConvertTo-SecureString \$password -asplaintext -force
+\$cred     = New-Object System.Management.Automation.PsCredential \$user, \$secure
+
+<%
+commands.each { command ->
+%>\
+\$log_path = Join-Path \$log_dir "<%= command.test_id %>"
+    <%= command.line %> `
+| Out-File \$log_path -Encoding UTF8
+<%
+}
+%>\
+

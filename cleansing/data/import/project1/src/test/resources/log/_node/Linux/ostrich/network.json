@@ -1,0 +1,10 @@
+[
+    {
+        "device": "eth0",
+        "ip": "NaN",
+        "mtu": "1500",
+        "state": "UP",
+        "mac": "00:0c:29:ca:44:db",
+        "subnet": "NaN"
+    }
+]

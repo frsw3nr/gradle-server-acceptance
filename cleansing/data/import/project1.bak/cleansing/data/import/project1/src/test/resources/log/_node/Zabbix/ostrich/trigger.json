@@ -1,0 +1,162 @@
+[
+    {
+        "priority": "Information",
+        "description": "Host name of zabbix_agentd was changed on {HOST.NAME}",
+        "expression": "{13341}>0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Zabbix agent on {HOST.NAME} is unreachable for 5 minutes",
+        "expression": "{13342}=1",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Version of zabbix_agent(d) was changed on {HOST.NAME}",
+        "expression": "{13343}>0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Configured max number of opened files is too low on {HOST.NAME}",
+        "expression": "{13344}<1024",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Configured max number of processes is too low on {HOST.NAME}",
+        "expression": "{13345}<256",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "SystemLog Error",
+        "expression": "{13346}=1",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Too many processes running on {HOST.NAME}",
+        "expression": "{13347}>30",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Too many processes on {HOST.NAME}",
+        "expression": "{13348}>300",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Processor load is too high on {HOST.NAME}",
+        "expression": "{13349}>5",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Disk I/O is overloaded on {HOST.NAME}",
+        "expression": "{13350}>20",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Hostname was changed on {HOST.NAME}",
+        "expression": "{13351}>0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Lack of free swap space on {HOST.NAME}",
+        "expression": "{13352}<50",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "Host information was changed on {HOST.NAME}",
+        "expression": "{13353}>0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Information",
+        "description": "{HOST.NAME} has just been restarted",
+        "expression": "{13354}<0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "/etc/passwd has been changed on {HOST.NAME}",
+        "expression": "{13355}>0",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free inodes is less than 20% on volume /",
+        "expression": "{13359}<20",
+        "flags": "4",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free inodes is less than 20% on volume /boot",
+        "expression": "{13360}<20",
+        "flags": "4",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free disk space is less than 20% on volume /",
+        "expression": "{13361}<20",
+        "flags": "4",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Warning",
+        "description": "Free disk space is less than 20% on volume /boot",
+        "expression": "{13362}<20",
+        "flags": "4",
+        "state": "0",
+        "status": "Enabled"
+    },
+    {
+        "priority": "Average",
+        "description": "Lack of available memory on server {HOST.NAME}",
+        "expression": "{13356}<20M",
+        "flags": "0",
+        "state": "0",
+        "status": "Enabled"
+    }
+]

@@ -11,3 +11,4 @@ Contents:
    03_database_setup/index
    04_data_cleansing_job_verification/index
    05_workflow_setup/index
+   06_workflow_setup_etc/index

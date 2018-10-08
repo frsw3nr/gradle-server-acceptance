@@ -1,0 +1,22 @@
+
+CLI> show firewall
+MNT port
+ http                 [Open]
+ https                [Open]
+ telnet               [Open]
+ SSH                  [Open]
+ Maintenance-Secure   [Open]
+ ICMP                 [Open]
+ SNMP                 [Open]
+ RCIL                 [Closed]
+ ETERNUS DX Discovery [Open]
+
+RMT port
+ http                 [Open]
+ https                [Open]
+ telnet               [Open]
+ SSH                  [Open]
+ Maintenance-Secure   [Open]
+ ICMP                 [Open]
+ SNMP                 [Open]
+CLI> 

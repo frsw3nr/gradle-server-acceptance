@@ -1,0 +1,17 @@
+
+CLI> show enclosure-status
+Enclosure View
+ Storage System Name               [DX60S3#2]
+ Model Upgrade Status              [Not Upgraded]
+ Model Name                        [ET063A]
+ Serial Number                     [4601451439]
+ Device Identification Number      [281A22]
+ Status                            [Normal]
+ Cache Mode                        [Write Back Mode]
+ Remote Support                    [Not yet Set]
+ Operation Mode                    [Normal]
+ CLI Connecting Controller Module  [CM#0]
+ Firmware Version                  [V10L60-4000]
+
+ Controller Enclosure (2.5")       [Normal]
+CLI> 
