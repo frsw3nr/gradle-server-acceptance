@@ -8,6 +8,7 @@
 /libdeps/
 # /resource/
 /config/.secret/
+/config/cmdb.groovy
 build/*
 node/*
 cleansing/data/work/

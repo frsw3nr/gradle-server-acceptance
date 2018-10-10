@@ -23,43 +23,46 @@ class LinuxSpec extends LinuxSpecBase {
         super.finish()
     }
 
-    // def packages(session, test_item) {
-    //     def lines = exec('packages') {
-    //         def command = "rpm -qa --qf "
-    //         def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
-    //         run_ssh_command(session, "${command} ${argument}", 'packages')
-    //     }
-    //     def package_info = [:].withDefault{'unkown'}
-    //     def infos = [:].withDefault{'unkown'}
-    //     def distributions = [:].withDefault{0}
-    //     def csv = []
-    //     lines.eachLine {
-    //         def arr = it.split(/\t/)
-    //         def packagename = arr[0]
-    //         def release = arr[3]
-    //         def release_label = 'COMMON'
-    //         if (release =~ /el5/) {
-    //             release_label = 'RHEL5'
-    //         } else if (release =~ /el6/) {
-    //             release_label = 'RHEL6'
-    //         } else if (release =~ /el7/) {
-    //             release_label = 'RHEL7'
-    //         }
-    //         def install_time = Long.decode(arr[4]) * 1000L
-    //         arr[4] = new Date(install_time).format("yyyy/MM/dd HH:mm:ss")
-    //         csv << arr
-    //         def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
-    //         distributions[release_label] ++
-    //         package_info['packages.' + packagename] = arr[2]
-    //         infos[packagename] = arr[2]
-    //     }
-    //     def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
-    //     package_info['packages'] = distributions.toString()
-    //     println test_item.target_info('packages')
-    //     test_item.devices(csv, headers)
-    //     test_item.results(package_info)
-    //     test_item.verify_text_search_list('packages', package_info)
-    // }
+    def packages(session, test_item) {
+        def lines = exec('packages') {
+            def command = "rpm -qa --qf "
+            def argument = '"%{NAME}\t%|EPOCH?{%{EPOCH}}:{0}|\t%{VERSION}\t%{RELEASE}\t%{INSTALLTIME}\t%{ARCH}\n"'
+            run_ssh_command(session, "${command} ${argument}", 'packages')
+        }
+        def package_info = [:].withDefault{'unkown'}
+        def infos = [:].withDefault{'unkown'}
+        def distributions = [:].withDefault{0}
+        def csv = []
+        lines.eachLine {
+            def arr = it.split(/\t/)
+            def packagename = arr[0]
+            def release = arr[3]
+            def release_label = 'COMMON'
+            if (release =~ /el5/) {
+                release_label = 'RHEL5'
+            } else if (release =~ /el6/) {
+                release_label = 'RHEL6'
+            } else if (release =~ /el7/) {
+                release_label = 'RHEL7'
+            }
+            def install_time = Long.decode(arr[4]) * 1000L
+            arr[4] = new Date(install_time).format("yyyy/MM/dd HH:mm:ss")
+            csv << arr
+            def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
+            distributions[release_label] ++
+            package_info['packages.' + packagename] = arr[2]
+            infos[packagename] = arr[2]
+        }
+        def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
+        package_info['packages'] = distributions.toString()
+
+        def package_list = test_item.target_info('packages')
+        package_info['packages.requirements'] = "${package_list.keySet()}"
+
+        test_item.devices(csv, headers)
+        test_item.results(package_info)
+        test_item.verify_text_search_list('packages', package_info)
+    }
 
 
     // def packages(session, test_item) {
