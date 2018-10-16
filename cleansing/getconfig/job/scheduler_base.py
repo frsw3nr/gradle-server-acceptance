@@ -45,6 +45,40 @@ class SchedulerBase(metaclass=ABCMeta):
         self.inventory_dir = env.get_inventory_dir()
         self.master_dir    = env.get_master_dir()
 
+    @abstractmethod
+    def transfer(self, **kwargs):
+        """
+        インベントリ変換データと台帳のつき合わせをする。
+
+        入力データ：'data/transfer'下のインベントリデータ(前処理で実施)
+        出力データ：'data/classify'下のCSV
+
+        前処理で抽出したインベントリデータと、台帳データを読み込み、
+        データのつき合わせ(マージ)を行う。
+        つき合わせをした結果は'data/classify'下に保存する。
+        """
+        pass
+
+    @abstractmethod
+    def classify(self, **kwargs):
+        """
+        前処理のつき合わせ結果からデータの分類をする
+
+        入力データ：'data/classify'下のデータつき合わせ結果
+        出力データ：'data/regist 下のCSV
+        """
+        pass
+
+    @abstractmethod
+    def regist(self, **kwargs):
+        """
+        前処理のデータ分類結果をデータベースに登録する
+
+        入力データ：'data/work/regist'下のデータ分類結果
+        出力データ： Redmine データベース
+        """
+        pass
+
     def parser(self):
         """
         コマンド実行オプションの解析
@@ -57,6 +91,12 @@ class SchedulerBase(metaclass=ABCMeta):
         argparser.add_argument('-d', '--default-site', type=str,
                                dest='default_site',
                                help='Redmine default project(site)')
+        argparser.add_argument('-r', '--rows', type=int,
+                               dest='rows',
+                               help='Update first rows')
+        argparser.add_argument('-g', '--grep', type=str,
+                               dest='grep',
+                               help='Grep keyword')
         argparser.add_argument('-s', '--skip-regist', action='store_true',
                                dest='skip_regist', 
                                help='Skip regist')
@@ -143,37 +183,6 @@ class SchedulerBase(metaclass=ABCMeta):
             if tracker == 'ソフトウェア':
                 return TicketSoftware()
 
-    def transfer():
-        """
-        インベントリ変換データと台帳のつき合わせをする。
-
-        入力データ：'data/transfer'下のインベントリデータ(前処理で実施)
-        出力データ：'data/classify'下のCSV
-
-        前処理で抽出したインベントリデータと、台帳データを読み込み、
-        データのつき合わせ(マージ)を行う。
-        つき合わせをした結果は'data/classify'下に保存する。
-        """
-        pass
-
-    def classify():
-        """
-        前処理のつき合わせ結果からデータの分類をする
-
-        入力データ：'data/classify'下のデータつき合わせ結果
-        出力データ：'data/regist 下のCSV
-        """
-        pass
-
-    def regist():
-        """
-        前処理のデータ分類結果をデータベースに登録する
-
-        入力データ：'data/work/regist'下のデータ分類結果
-        出力データ： Redmine データベース
-        """
-        pass
-
     def main(self):
         """
         メイン処理。インベントリデータの変換とデータベース登録
@@ -192,15 +201,19 @@ class SchedulerBase(metaclass=ABCMeta):
         self.clear_work_directory()
         self.extract_inventory_data(args.inventory_names)
         self.transfer()
-        self.classify()
+        self.classify(keyword=args.grep)
         Stat().show()
         if args.skip_regist:
             return
-        try:
-            redmine_stat = RedmineStatistics()
-            redmine_stat.reset()
-            self.regist(default_site = args.default_site)
-            redmine_stat.show()
-        except Exception as e:
-              print("Database registration error :{}".format(e.args))
+        # try:
+        #     redmine_stat = RedmineStatistics()
+        #     redmine_stat.reset()
+        #     self.regist(default_site = args.default_site, rows = args.rows)
+        #     redmine_stat.show()
+        # except Exception as e:
+        #       print("Database registration error :{}".format(e.args))
 
+        redmine_stat = RedmineStatistics()
+        redmine_stat.reset()
+        self.regist(default_site = args.default_site, rows = args.rows)
+        redmine_stat.show()

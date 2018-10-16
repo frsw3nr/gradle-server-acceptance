@@ -4,6 +4,23 @@
 
 * Redmine チケットの更新と更新データのキャッシュを管理します
 * Redmine チケット更新前にキャッシュデータを検索し変更がなければ、Redmine更新をスキップします
+
+Notes:
+
+* Redmine カスタムフィールドの真偽値(bool_cf)は文字列の"0"か"1"を返す必要がある
+
+デバッグ
+
+cd C:\\Users\\Administrator\\Desktop\\cleansing_sample\\ip_address_cleansing
+
+ステータスが運用でなく、計画になる問題
+python .\\getconfig\\job\\template\\scheduler_network2.py -d Y6 -g 10.154.161.38
+
+台帳つき合わせ済みの既存のIPの更新でステータスが変わる問題
+python .\\getconfig\\job\\template\\scheduler_network2.py -d Y6 -g 10.154.32.127
+
+共通で、真偽のカスタムフィールドですべてFalseで登録されてしまう
+
 """
 
 import math
@@ -196,6 +213,26 @@ class Ticket(metaclass=ABCMeta):
     def get_custom_field_default_value(self, field_name, row, **kwargs):
         pass
 
+    def get_issue_status_id(self, issue, **kwargs):
+        """
+        チケットのステータスID取得。
+        既存の場合は、issue['status']['id']を、新規の場合はissue.status_id を返す
+
+        :param Issue issue: チケット
+        :param boolean use_cache: キャッシュを使用するか
+        """
+        # print(type(issue))
+        if issue == None or type(issue) is str:
+            return 0
+        if hasattr(issue, 'status_id'):
+            return issue.status_id or 0
+        else:
+            issue_dict = dict(issue)
+            status = issue_dict.get('status')            
+            if status == None:
+                return 0
+            return status.get('id', 0) or 0
+
     def get_user_updated_fields(self, issue):
         """
         チケットカスタムフィールドのユーザ更新有無をチェックする。
@@ -340,7 +377,6 @@ class Ticket(metaclass=ABCMeta):
             if len(issues) > 0:
                 issue = issues[0]
                 user_updated_fields = self.get_user_updated_fields(issue)
-
         """
         Redmineにチケットがないなら、チケットを一時的に生成。
         Redmine登録するかは後のコードで判断
@@ -366,10 +402,12 @@ class Ticket(metaclass=ABCMeta):
         issue.tracker_id = self.tracker_id
         issue.priority_id = kwargs.get('priority_id', 1)  # 優先度 低め(1)
         custom_fields, validated = self.make_custom_fields(row, issue_cache, user_updated_fields)
-        # print("チケットステータス:{},{}".format(subject, validated))
         if custom_fields:
             issue.custom_fields = custom_fields
-        issue.status_id = validated
+        # if self.get_issue_status_id(issue) < validated:
+        #     issue.status_id = validated
+        # print("TEST1 {}:{} => {}".format(subject, self.get_issue_status_id(issue), validated))
+        # print("TEST1")
         # if validated:
         #     issue.status_id  = self.Status.IN_OPERATION.value
         # else:
@@ -379,8 +417,22 @@ class Ticket(metaclass=ABCMeta):
             _logger.debug("チケット登録:{}".format(subject))
             is_succeed = False
             issue_cache['Error'] = ''
+            # _logger.info("■ チケット登録 {}:{}".format(subject, issue.status_id))
+            # print("TEST2")
+            # res = issue.save()
+            # # print("TEST3 : {},{}".format(res.id, self.get_issue_status_id(issue)))
+            # status_id = self.get_issue_status_id(issue)
+            # if status_id < validated:
+            #     self.redmine.issue.update(res.id, status_id=status_id)
+            # is_succeed = True
+            issue_cache['id'] = issue.id
             try:
                 res = issue.save()
+                # issue.save()ではstatus_idの更新がされない問題があったため、status_idのみを再更新
+                status_id = self.get_issue_status_id(issue)
+                _logger.info("status : {} => {}".format(status_id, validated))
+                if status_id < validated:
+                    self.redmine.issue.update(res.id, status_id=validated)
                 is_succeed = True
                 issue_cache['id'] = issue.id
             except ValidationError as e:

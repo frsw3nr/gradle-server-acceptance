@@ -157,12 +157,6 @@ class Util(object):
         if yymm2:
             return("%s-%s-1" % (yymm2[0]))
 
-    def reform_zenkaku(self, str):
-        if (isinstance(str, float) and math.isnan(str)):
-            return
-        else
-            return zenhan.z2h(str)
-
     def analogize_tracker(self, domain):
         if re.search("(Linux|Windows)", domain):
             return 'IAサーバ'
@@ -193,10 +187,20 @@ class Util(object):
         return '仮想マシン' if row.get('ベンダー') == 'VMware, Inc.' else 'オンプレ'
 
     def analogize_master_check(self, field_name, row):
-        return False
+        return "1"
+
+    def analogize_ip_check(self, field_name, row):
+        monitor_target = None
+        if row['VENDOR'] == 'Toshiba' or row['Category'] == 'Etc' or row['Category'] == 'Network' or row['設置場所'] == 'CR':
+            monitor_target = "1"
+        host_name = row.get('ホスト名')
+        if host_name:
+            if host_name != 'NOT FOUND 1':
+                monitor_target = "1"
+        return monitor_target
 
     def analogize_admin_ip(self, field_name, row):
-        return row.get('AdminIP') == True
+        return "1" if row.get('AdminIP') == True else "0"
 
 if __name__ == '__main__':
     # sqlite3 report.db "select * from jobs"

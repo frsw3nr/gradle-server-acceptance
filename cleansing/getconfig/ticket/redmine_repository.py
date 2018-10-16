@@ -50,7 +50,6 @@ class RedmineRepository():
         except AuthError as e:
             _logger.error(e)
             sys.exit("Redmine login failed")
-
         # プロジェクトリストを取得。使用例: print (self.project_ids['PJ1'])
         self.set_project_ids()
         # トラッカーを取得。使用例: print (self.tracker_ids['IAサーバー'])

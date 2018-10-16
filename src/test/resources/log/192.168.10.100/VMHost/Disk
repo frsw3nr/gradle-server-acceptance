@@ -1,0 +1,49 @@
+﻿
+
+Id            : HostSystem-ha-host/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV//vmfs/dev
+                ices/disks/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV
+DeviceName    : /vmfs/devices/disks/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV
+Cylinders     : 364801
+Heads         : 255
+Sectors       : 63
+TotalSectors  : 5860533168
+VMHost        : 192.168.10.100
+ScsiLun       : t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV
+Uid           : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____WDC_WD30EZRX2D00D8
+                PB0_________________________WD2DWMC4N0K6TKCV/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10
+                .ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV/
+ExtensionData : VMware.Vim.HostDiskPartitionInfo
+Client        : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id            : HostSystem-ha-host/t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___//vmfs/devi
+                ces/disks/t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___
+DeviceName    : /vmfs/devices/disks/t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___
+Cylinders     : 30401
+Heads         : 255
+Sectors       : 63
+TotalSectors  : 488397168
+VMHost        : 192.168.10.100
+ScsiLun       : t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___
+Uid           : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____HFS250G32TND2DN1A2
+                A______________________EJ75N535710705F34___/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.
+                ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___/
+ExtensionData : VMware.Vim.HostDiskPartitionInfo
+Client        : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id            : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/devic
+                es/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+DeviceName    : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Cylinders     : 15566
+Heads         : 255
+Sectors       : 63
+TotalSectors  : 250069680
+VMHost        : 192.168.10.100
+ScsiLun       : t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid           : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ128G
+                CSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t10.A
+                TA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/
+ExtensionData : VMware.Vim.HostDiskPartitionInfo
+Client        : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+
+
