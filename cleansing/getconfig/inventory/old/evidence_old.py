@@ -10,13 +10,15 @@ import numpy as np
 import pandas as pd
 import dataset as ds
 from dataset.types import Types
+from getconfig.config import Config
 from getconfig.util import Util
+# from getconfig.master_data.master_data import MasterData
 
 """
 Getconfig エビデンスデータ登録用テンプレートクラス
 """
 
-class GetconfigEvidenceV1(metaclass=ABCMeta):
+class GetconfigEvidence(metaclass=ABCMeta):
 
     export_dir = 'build'
 
@@ -31,7 +33,7 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
         検査エビデンスサマリーシート読み込み
         """
         _logger = logging.getLogger(__name__)
-        _logger.info("sheet : %s" % (sheet_name))
+        _logger.debug("sheet : ", sheet_name)
         df = self.xls.parse(sheet_name, skiprows=range(0,3))
         columns = list(df.columns.values)
         column_heads = []
@@ -46,7 +48,7 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
                   inplace=True)
         df = df.dropna(subset=['value'])
         df = Util().delete_the_synonym_hostname_suffix(df, column='node_name', 
-                                                             nocategory=True)
+                                                       nocategory=True)
         return df
 
     def analyze_metrics(self):
@@ -70,7 +72,7 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
         df.rename(columns={'server_name': 'node_name'}, inplace=True)
         df = df.fillna("NaN")
         df = Util().delete_the_synonym_hostname_suffix(df, column='node_name', 
-                                                             nocategory=True)
+                                                       nocategory=True)
         return df
 
     def load(self):
@@ -83,18 +85,19 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
         read_phase = None
         _logger.info("Read sheet : {}".format(self.excel_file))
         for sheet_name in self.xls.sheet_names:
-            if sheet_name == 'チェック対象' or sheet_name == 'Target':
+            print("シート:{}".format(sheet_name))
+            if sheet_name == 'チェック対象':
                 read_phase = 'Summary'
                 continue
-            if sheet_name == '検査ルール' or sheet_name == 'Rule':
+            if sheet_name == '検査ルール':
                 read_phase = 'Device'
                 continue
             if read_phase == 'Summary':
-                _logger.debug("サマリシート読み込み:{}".format(sheet_name))
+                _logger.info("サマリシート読み込み:{}".format(sheet_name))
                 df = self.parse_excel_summary_sheet(sheet_name)
                 df_summary = pd.concat([df_summary, df])
             elif read_phase == 'Device':
-                _logger.debug("詳細シート読み込み:{}".format(sheet_name))
+                _logger.info("詳細シート読み込み:{}".format(sheet_name))
                 df = self.parse_excel_device_sheet(sheet_name)
                 if not df_devices.get(sheet_name):
                     df_devices[sheet_name] = pd.DataFrame()
@@ -136,6 +139,7 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
         """
         エビデンスサマリシートの全ロード結果をJSONファイルに変換して保存する
         """
+        print(self.df_summary.columns)
         df = self.df_summary.groupby(by=['domain', 'node_name'])
         for idx, set in df.first().iterrows():
             (domain, node_name) = idx
@@ -179,9 +183,8 @@ if __name__ == '__main__':
     )
     logger = logging.getLogger(__name__)
 
-    excel_file = 'data/import/old1/build/check_sheet_20170512_143424.xlsx'
-    # excel_file = 'data/import/old1/build/iLOチェックシート_20180201_114341.xlsx'
-    db = GetconfigEvidenceV1(excel_file, export_dir='build/tmp')
+    excel_file = 'getconfig/4at00vx_y/build/iLOチェックシート_20170626_140157.xlsx'
+    db = GetconfigEvidence(excel_file, export_dir='build/tmp')
     db.load()
     db.export()
     # db.analyze_metrics()
