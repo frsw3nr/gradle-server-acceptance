@@ -3,6 +3,82 @@ Python環境設定
 
 各ワークフローで使用する共有ディレクトリ、環境変数の設定をします。
 
+
+モジュール共通化構成
+
+::
+
+   c:\getconfig_cleansing\cleansing
+   c:\getconfig_cleansing\jobs
+   c:\getconfig_cleansing\jobs\ip_address_cleansing
+   c:\getconfig_cleansing\jobs\server_shipping
+
+共通モジュール配布
+
+::
+
+   mkdir c:\getconfig_cleansing
+   cd c:\getconfig_cleansing
+   git clone http://{構成管理DB}/git/getconfig/cleansing.git
+
+ジョブ配布
+
+::
+
+   mkdir c:\getconfig_cleansing\jobs
+   cd c:\getconfig_cleansing\jobs
+   git clone http://{構成管理DB}/git/getconfig/server_shipping.git
+   git clone http://{構成管理DB}/git/getconfig/ip_address_cleansing.git
+   git clone http://{構成管理DB}/git/getconfig/zabbix_monitor_setup.git
+   git clone http://{構成管理DB}/git/getconfig/mw_setup.git
+
+データディレクトリ
+
+::
+
+   cd c:\
+   git clone http://{構成管理DB}/git/getconfig/cleansing_data.git
+
+環境変数
+
+::
+
+   GETCONFIG_CLEANSING_HOME C:\getconfig_cleansing\cleansing
+   [System.Environment]::SetEnvironmentVariable("GETCONFIG_CLEANSING_HOME", "C:\getconfig_cleansing\cleansing", "Machine")
+   [System.Environment]::SetEnvironmentVariable("PYTHONPATH", "C:\getconfig_cleansing\cleansing;.", "Machine")
+   $inventory_dir = "C:\cleansing_data\import"
+   [System.Environment]::SetEnvironmentVariable("GETCONFIG_INVENTORY_DIR", $inventory_dir, "Machine")
+   $master_dir = "C:\cleansing_data\master"
+   [System.Environment]::SetEnvironmentVariable("GETCONFIG_MASTER_DIR", $master_dir, "Machine")
+   $redmine_api_key="{APIキー}"
+   [System.Environment]::SetEnvironmentVariable("REDMINE_API_KEY", $redmine_api_key, "Machine")
+   $redmine_url="http://{構成管理DB}:8080/redmine/"
+   [System.Environment]::SetEnvironmentVariable("REDMINE_URL", $redmine_url, "Machine")
+
+テスト
+
+::
+
+   cd $env:GETCONFIG_CLEANSING_HOME
+   python getconfig/job/template/scheduler_network2.py -d {サイト} -s
+
+共通モジュールホームでの実行は可
+
+::
+
+   notepad++ ip_address_cleansing.bat
+   cd /d %~dp0
+   python.exe %GETCONFIG_CLEANSING_HOME%\getconfig\job\template\scheduler_network2.py %*
+   cd
+
+バッチジョブでの実行
+
+::
+
+   cd C:\getconfig_cleansing\jobs\ip_address_cleansing
+   .\ip_address_cleansing.bat -d {サイト} -s
+
+
 データソースディレクトリ作成
 ----------------------------
 
