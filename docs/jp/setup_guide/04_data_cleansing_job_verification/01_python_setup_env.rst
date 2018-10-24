@@ -1,19 +1,47 @@
 Python環境設定
 ==============
 
+.. note::
+
+   ToDo : 以下内容の動作確認をして、手順をまとめる。
+
 各ワークフローで使用する共有ディレクトリ、環境変数の設定をします。
 
 
-モジュール共通化構成
+ディレクトリ構成
+----------------
 
-::
+* 共通モジュールのホームディレクトリ
 
-   c:\getconfig_cleansing\cleansing
-   c:\getconfig_cleansing\jobs
-   c:\getconfig_cleansing\jobs\ip_address_cleansing
-   c:\getconfig_cleansing\jobs\server_shipping
+   ::
+
+      GETCONFIG_CLEANSING_HOME=c:\getconfig_cleansing\cleansing
+
+* 各 Jenkins ワークフローのホームディレクトリ
+
+   
+
+   ::
+
+      c:\getconfig_cleansing\jobs
+      c:\getconfig_cleansing\jobs\ip_address_cleansing
+      c:\getconfig_cleansing\jobs\server_shipping
+
+* 入力データのホームディレクトリ
+
+   C:\cleansing_data に各種台帳、インベントリデータを保存します。
+
+   ::
+
+      GETCONFIG_INVENTORY_DIR=C:\cleansing_data\import
+      GETCONFIG_MASTER_DIR=C:\cleansing_data\master
 
 共通モジュール配布
+
+Getconfig 本体の clenasing ディレクトリをc:\\getconfig_cleansing の下にコピーする。
+clenasing ディレクトリ下でスクリプトのカスタマイズをする。
+カスタマイズした版を Git リポジトリに登録する。
+Git リポジトリは Gitbucket サイトに登録する。
 
 ::
 
@@ -22,6 +50,12 @@ Python環境設定
    git clone http://{構成管理DB}/git/getconfig/cleansing.git
 
 ジョブ配布
+
+clensing ディレクトリ下の jobs ディレクトリを c:\\getconfig_cleansing\\jobs の下にコピーする。
+作業毎にディレクトリを分けて、個々のディレクトリに分けて Git リポジトリに登録する。
+Jenkins パイプラインの Web フックをつかって、個々の Git リポジトリのバッチを実行できるようにする。
+管理するファイルは Jenkinfile と Python スクリプトのラッパースクリプトで、
+実際の実行は、共通モジュールの　Ｐｙｔｈｏｎスクリプトとなる。
 
 ::
 
@@ -34,12 +68,17 @@ Python環境設定
 
 データディレクトリ
 
+c:\\cleansing_data を Git リポジトリ化して、各種データを管理する。
+
 ::
 
    cd c:\
    git clone http://{構成管理DB}/git/getconfig/cleansing_data.git
 
-環境変数
+環境変数の設定
+-----------------
+
+各種 Windows 環境変数に上記ディレクトリパスを設定する。
 
 ::
 
@@ -50,33 +89,36 @@ Python環境設定
    [System.Environment]::SetEnvironmentVariable("GETCONFIG_INVENTORY_DIR", $inventory_dir, "Machine")
    $master_dir = "C:\cleansing_data\master"
    [System.Environment]::SetEnvironmentVariable("GETCONFIG_MASTER_DIR", $master_dir, "Machine")
+
+Redmine データベース接続設定。
+
+::
+
    $redmine_api_key="{APIキー}"
    [System.Environment]::SetEnvironmentVariable("REDMINE_API_KEY", $redmine_api_key, "Machine")
    $redmine_url="http://{構成管理DB}:8080/redmine/"
    [System.Environment]::SetEnvironmentVariable("REDMINE_URL", $redmine_url, "Machine")
 
-テスト
+動作確認
+---------
+
+共通モジュールのホームディレクトリでの実行確認。
 
 ::
 
    cd $env:GETCONFIG_CLEANSING_HOME
    python getconfig/job/template/scheduler_network2.py -d {サイト} -s
 
-共通モジュールホームでの実行は可
-
-::
-
-   notepad++ ip_address_cleansing.bat
-   cd /d %~dp0
-   python.exe %GETCONFIG_CLEANSING_HOME%\getconfig\job\template\scheduler_network2.py %*
-   cd
-
-バッチジョブでの実行
+各 Jenkins ジョブディレクトリでの、バッチスクリプトでの実行確認。
 
 ::
 
    cd C:\getconfig_cleansing\jobs\ip_address_cleansing
    .\ip_address_cleansing.bat -d {サイト} -s
+
+
+
+以上、
 
 
 データソースディレクトリ作成

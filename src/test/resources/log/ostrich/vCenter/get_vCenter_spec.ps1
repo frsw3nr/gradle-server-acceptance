@@ -8,6 +8,7 @@ Param(
 )
 $log_dir = Convert-Path $log_dir
 $ErrorActionPreference = "Stop"
+echo "TESTTESTTEST"
 try {
   if ( !(Get-PSSnapin -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue ) ) {
     if ( !(Get-Module -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue) ) {
