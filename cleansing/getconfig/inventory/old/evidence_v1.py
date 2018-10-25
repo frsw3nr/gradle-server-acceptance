@@ -170,6 +170,84 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
         self.export_json_evidence_summary()
         self.export_json_evidence_device()
 
+    def export_json_evidence_summary2(self, results):
+        """
+        エビデンスサマリシートのロード結果をv2仕様のディクショナリに変換する
+        """
+        df = self.df_summary.groupby(by=['domain', 'node_name'])
+        for idx, set in df.first().iterrows():
+            (domain, node_name) = idx
+            node_key = "{}__{}".format(node_name, domain)
+            results[node_name,domain] = dict()
+
+            metrics = df.get_group(idx)
+            # 取得した index を再構築し、"Try using .loc" エラーメッセージ回避
+            metrics = metrics.dropna(subset=['value'])
+            metrics.reset_index()
+            metrics['domain'] = domain
+            metrics = metrics.loc[:, ['test_id', 'domain', 'value']]
+            metrics_dicts = metrics.to_dict('records')
+
+            for metrics_dict in metrics_dicts:
+                test_id = metrics_dict['test_id']
+                results[node_name,domain][test_id] = {
+                    "name": test_id,
+                    "value": metrics_dict['value']
+                }
+
+    def export_json_evidence_device2(self, results):
+        """
+        デバイス詳細シートの全ロード結果をv2仕様のディクショナリに変換する
+        """
+        for sheet_name, df_summary in self.df_devices.items():
+            match = re.match(r"^(.+?)_(.+)$", sheet_name)
+            if not match:
+                continue
+            domain = match.group(1)
+            metric_name = match.group(2)
+
+            df = df_summary.groupby(by=['node_name'])
+            for node_name, set in df.first().iterrows():
+                metrics = df.get_group(node_name)
+                metrics_dict = metrics.to_dict('split')
+                # device = {
+                #     "csv" : metrics_dict['data'],
+                #     "headers" : metrics_dict['columns']
+                # }
+                results[node_name, domain][metric_name]["devices"] = {
+                    "csv" : metrics_dict['data'],
+                    "headers" : metrics_dict['columns']
+                }
+                # print(results[node_name, domain][metric_name]["devices"])
+                # self.write_json_evidence_detail(domain, node_name, metric_name,
+                #                                 metrics_dict)
+
+    def write_json_evidence2(self, results):
+        """
+        エビデンスサマリシートのロード結果をJSONファイルに変換して保存する
+        """
+        _logger = logging.getLogger(__name__)
+        for idx, result in results.items():
+            (node_name, domain) = idx
+            target_dir = os.path.join(self.export_dir, node_name)
+            if not os.path.isdir(target_dir):
+                os.makedirs(target_dir)
+            json_file  = "{}.json".format(domain)
+            json_path  = os.path.join(target_dir, json_file)
+            
+            _logger.info("Put json : {}".format(json_path))
+            with open(json_path,'w') as f:
+                json.dump(result, f, ensure_ascii=False, indent=4, sort_keys=True)
+
+    def export2(self):
+        _logger = logging.getLogger(__name__)
+        results = dict()
+        self.export_json_evidence_summary2(results)
+        self.export_json_evidence_device2(results)
+        self.write_json_evidence2(results)
+
+        # print(results)
+
 if __name__ == '__main__':
     # ログの初期化
     logging.basicConfig(
@@ -183,7 +261,8 @@ if __name__ == '__main__':
     # excel_file = 'data/import/old1/build/iLOチェックシート_20180201_114341.xlsx'
     db = GetconfigEvidenceV1(excel_file, export_dir='build/tmp')
     db.load()
-    db.export()
+    # db.export()
+    db.export2()
     # db.analyze_metrics()
     # print(db.domains)
     # print(db.nodes)
