@@ -216,7 +216,7 @@ class GetconfigEvidenceV1(metaclass=ABCMeta):
                 # }
                 results[node_name, domain][metric_name]["devices"] = {
                     "csv" : metrics_dict['data'],
-                    "headers" : metrics_dict['columns']
+                    "header" : metrics_dict['columns']
                 }
                 # print(results[node_name, domain][metric_name]["devices"])
                 # self.write_json_evidence_detail(domain, node_name, metric_name,

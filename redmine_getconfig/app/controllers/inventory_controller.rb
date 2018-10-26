@@ -15,7 +15,9 @@ class InventoryController < ApplicationController
     @metric   = params[:metric] || '%'
 
     # # @project = Project.find(session[:query][:project_id])
-    @project = Project.find(params[:id] || session[:project_id])
+    # binding.pry
+    # @project = Project.find(1)
+    @project = Project.find(params[:id] || session[:project_id] || 1)
     session[:project_id] = @project.id
 
     node_ids   = Node.joins(:tenant).where(

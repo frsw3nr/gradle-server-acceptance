@@ -2,15 +2,8 @@ Changes for 0.1.31 (2018-10-29)
 ------------------------------------------------------------------------------
 New features:
 * データクレンジングジョブの共通モジュール化
-* 旧インベントリデータロード
-    * node/{ホスト名}/{プラットフォーム}.json に保存する
-    * josn[メトリック]["name"|"value"] の形式でサマリ情報を保存
-    * デバイスは、json[メトリック]["devices"]["csv"|"header"]の形式で保存
-    * 旧インベントリロードモジュールを連携
-    * getconfig/inventory/old/evidence_v1.py のメイン処理を参考
-    * 上記使用で、evidence_v1 に export_v1() を作成する
-    * python getconfig/inventory/old/evidence_v1.py で動作確認
-    * 実行モジュール cleansing/getconfig/job/exp_getconfig.py 追加
+* 旧インベントリデータのロード／JSONファイルエクスポート機能追加
+    * cleansing/getconfig/job/exp_getconfig.py
 
 ToDo:
 
@@ -22,6 +15,7 @@ ToDo:
 
 Bug fixes:
 * Jenkins ジョブで Python スクリプトの UTF-8出力が文字化けする問題対処
+* Redmine 3.4で、プラグインのプロジェクトIDセッションデータが取得できない問題対象
 
 Changes for 0.1.30 (2018-10-16)
 ------------------------------------------------------------------------------

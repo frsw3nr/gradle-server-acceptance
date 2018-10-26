@@ -12,13 +12,14 @@ import datetime
 from argparse import ArgumentParser
 from getconfig.config import Config
 from getconfig.stat import Stat
-from getconfig.inventory.old.evidence_old import GetconfigEvidence
+# from getconfig.inventory.old.evidence_old import GetconfigEvidence
+from getconfig.inventory.old.evidence_v1 import GetconfigEvidenceV1
 
 def parser():
     """
     実行オプション解析
     """
-    usage = 'python {} [-s <./getconfig>] [-t <./build/log>][--help]'\
+    usage = 'python {} [-s <./getconfig>] [-t <./node>][--help]'\
             .format(__file__)
     argparser = ArgumentParser(usage=usage)
     argparser.add_argument('-s', '--source', type=str,
@@ -28,7 +29,7 @@ def parser():
                            dest='export_dir',
                            help='JSON export directory')
     argparser.set_defaults(source_dir='getconfig')
-    argparser.set_defaults(export_dir='build/log')
+    argparser.set_defaults(export_dir='node')
     return argparser.parse_args()
 
 def main():
@@ -51,9 +52,10 @@ def main():
             print("excel_file {}".format(excel_path))
             # export_dir = os.path.join(project_home, 'src/test/resources/log')
             print("export_dir: {}".format(export_dir))
-            db = GetconfigEvidence(excel_path, export_dir=export_dir)
+            db = GetconfigEvidenceV1(excel_path, export_dir=export_dir)
             db.load()
-            db.export()
+            # db.export()
+            db.export2()
 
     # excel_file = 'tests/resources/getconfig/4at012x/build/チェックシート_20170623_155523.xlsx'
     # db = GetconfigEvidence(excel_file, export_dir='build/tmp')
