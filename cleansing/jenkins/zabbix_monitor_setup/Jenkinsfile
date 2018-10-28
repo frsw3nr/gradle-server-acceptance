@@ -2,11 +2,9 @@ node {
     stage('scm') {
         checkout scm
         bat 'git submodule update --init'
-        // bat 'python cleansing/delete_ticket.py'
     }
     stage('transfer') {
-        // def workspace = pwd()
-        def inventory_projects = get_inventory_projects(20)
+        def inventory_projects = get_inventory_projects(100)
         def redmine_projects   = get_redmine_projects()
 
         def v = input message: 'インベントリ名を入力してください',
@@ -37,7 +35,7 @@ node {
         }
 
         bat """
-        python getconfig/job/template/scheduler_shipping2.py ${cleansing_args}
+        zabbix_monitor_setup.bat ${cleansing_args}
         """
     }
     stage('rapup') {
@@ -46,37 +44,41 @@ node {
 }
 
 def get_inventory_projects(limit = 5) {
-    def outputs = bat script : "python getconfig/job/get_inventory_projects.py -n ${limit}",
-                      returnStdout : true
+    dir (env.GETCONFIG_CLEANSING_HOME) {
+        def outputs = bat script : "python getconfig/job/get_inventory_projects.py -n ${limit}",
+                          returnStdout : true
 
-    def projects = []
-    def output_lines = outputs.split("\n")
-    output_lines.each {
-        ( it =~ /^project : (.+)$/ ).each { column ->
-            projects.add(column[1])
+        def projects = []
+        def output_lines = outputs.split("\n")
+        output_lines.each {
+            ( it =~ /^project : (.+)$/ ).each { column ->
+                projects.add(column[1])
+            }
         }
+        if (projects.size() == 0) {
+           error "プロジェクトが取得できません : ${outputs}"
+        }
+        return projects
     }
-    if (projects.size() == 0) {
-       error "プロジェクトが取得できません : ${outputs}"
-    }
-    return projects
 }
 
 def get_redmine_projects() {
-    def outputs = bat script : "python getconfig/job/get_redmine_projects.py",
-                      returnStdout : true
+    dir (env.GETCONFIG_CLEANSING_HOME) {
+        def outputs = bat script : "python getconfig/job/get_redmine_projects.py",
+                          returnStdout : true
 
-    def projects = []
-    def output_lines = outputs.split("\n")
-    output_lines.each {
-        ( it =~ /^project : (.+)$/ ).each { column ->
-            projects.add(column[1])
+        def projects = []
+        def output_lines = outputs.split("\n")
+        output_lines.each {
+            ( it =~ /^project : (.+)$/ ).each { column ->
+                projects.add(column[1])
+            }
         }
+        if (projects.size() == 0) {
+           error "プロジェクトが取得できません : ${outputs}"
+        }
+        return projects
     }
-    if (projects.size() == 0) {
-       error "プロジェクトが取得できません : ${outputs}"
-    }
-    return projects
 }
 
 def getBranches() {

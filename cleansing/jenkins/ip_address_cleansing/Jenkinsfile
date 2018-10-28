@@ -2,20 +2,13 @@ node {
     stage('scm') {
         checkout scm
         bat 'git submodule update --init'
-        // bat 'python cleansing/delete_ticket.py'
     }
     stage('transfer') {
-        // def workspace = pwd()
-        def inventory_projects = get_inventory_projects(20)
         def redmine_projects   = get_redmine_projects()
 
         def v = input message: 'インベントリ名を入力してください',
             ok: 'レポート実行',
             parameters: [
-              [$class: 'ChoiceParameterDefinition',
-                  choices: inventory_projects.join("\n"),
-                  description: 'どのインベントリをインポートしますか？ ※必須',
-                  name: 'inventory'],
               [$class: 'ChoiceParameterDefinition',
                   choices: redmine_projects.join("\n"),
                   description: '既定のRedmineプロジェクト名を入力してください ※必須',
@@ -28,16 +21,16 @@ node {
            error '選択してください'
         }
 
-        def cleansing_args = v['inventory']
+        def cleansing_args = ''
         if (v['project']) {
-            cleansing_args += ' -d ' + v['project']
+            cleansing_args += ' -d ' + v['project1']
         }
         if (v['-s']) {
             cleansing_args += ' -s '
         }
 
         bat """
-        python getconfig/job/template/scheduler_software1.py ${cleansing_args}
+        ip_address_cleansing.bat ${cleansing_args}
         """
     }
     stage('rapup') {
@@ -46,37 +39,40 @@ node {
 }
 
 def get_inventory_projects(limit = 5) {
-    def outputs = bat script : "python getconfig/job/get_inventory_projects.py -n ${limit}",
-                      returnStdout : true
-
-    def projects = []
-    def output_lines = outputs.split("\n")
-    output_lines.each {
-        ( it =~ /^project : (.+)$/ ).each { column ->
-            projects.add(column[1])
+    dir (env.GETCONFIG_CLEANSING_HOME) {
+        def outputs = bat script : "python getconfig/job/get_inventory_projects.py -n ${limit}",
+                          returnStdout : true
+        def projects = []
+        def output_lines = outputs.split("\n")
+        output_lines.each {
+            ( it =~ /^project : (.+)$/ ).each { column ->
+                projects.add(column[1])
+            }
         }
+        if (projects.size() == 0) {
+           error "プロジェクトが取得できません : ${outputs}"
+        }
+        return projects
     }
-    if (projects.size() == 0) {
-       error "プロジェクトが取得できません : ${outputs}"
-    }
-    return projects
 }
 
 def get_redmine_projects() {
-    def outputs = bat script : "python getconfig/job/get_redmine_projects.py",
-                      returnStdout : true
+    dir (env.GETCONFIG_CLEANSING_HOME) {
+        def outputs = bat script : "python getconfig/job/get_redmine_projects.py",
+                          returnStdout : true
 
-    def projects = []
-    def output_lines = outputs.split("\n")
-    output_lines.each {
-        ( it =~ /^project : (.+)$/ ).each { column ->
-            projects.add(column[1])
+        def projects = []
+        def output_lines = outputs.split("\n")
+        output_lines.each {
+            ( it =~ /^project : (.+)$/ ).each { column ->
+                projects.add(column[1])
+            }
         }
+        if (projects.size() == 0) {
+           error "プロジェクトが取得できません : ${outputs}"
+        }
+        return projects
     }
-    if (projects.size() == 0) {
-       error "プロジェクトが取得できません : ${outputs}"
-    }
-    return projects
 }
 
 def getBranches() {

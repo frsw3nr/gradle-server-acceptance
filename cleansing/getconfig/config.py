@@ -48,11 +48,16 @@ from getconfig.singleton import singleton
 @singleton
 class Config():
 
-    def __init__(self, config_path = 'cleansing.ini'):
+    def __init__(self, config_file = 'cleansing.ini'):
         config = configparser.ConfigParser()
+        config_path = self.find_config_path(config_file)
+        if not config_path:
+            raise ValueError("could not find :{}".format(config_file))
+
         with open(config_path, 'r', encoding='shift_jis') as f:
             config.read_file(f)
-        self.config = config
+        self.config           = config
+        self.config_path      = config_path
         self.getconfig_home   = os.environ.get('GETCONFIG_HOME') or \
                                 self.get_with_default('Getconfig', 'GETCONFIG_HOME', \
                                     '/opt/server-acceptance')
@@ -72,6 +77,15 @@ class Config():
             self.get_with_default('Redmine', 'CMDB', None)
         self.dry_run          = False
         self.filter_inventory = None
+
+    def find_config_path(self, config_file):
+        if os.path.exists(config_file):
+            return config_file
+        for environ_home in ['GETCONFIG_CLEANSING_HOME', 'GETCONFIG_HOME']:
+            home = os.environ.get(environ_home)
+            config_path = os.path.join(home, config_file)
+            if os.path.exists(config_path):
+                return config_path
 
     def set(self, section_name, parameter_name, value):
         self.config[section_name][parameter_name] = value
