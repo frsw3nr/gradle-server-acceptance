@@ -47,6 +47,8 @@ class TestRunner {
                 argName: 'config.groovy'
             g longOpt: 'generate', args: 1, 'Generate project directory',
                 argName: '/work/project'
+            gd longOpt: 'generate-detail', args: 1, 'Generate project directory with test',
+                argName: '/work/project'
             a longOpt: 'archive',   args: 1, 'Archive project zip file',
                 argName: '/work/project.zip'
             e longOpt: 'excel',    args: 1, 'Excel sheet path',
@@ -84,6 +86,11 @@ class TestRunner {
         if (options.g) {
             def site_home = options.g
             new ProjectBuilder(getconfig_home, site_home).generate()
+            System.exit(0)
+        }
+        if (options.gd) {
+            def site_home = options.gd
+            new ProjectBuilder(getconfig_home, site_home).generate('detail')
             System.exit(0)
         }
         if (options.u) {

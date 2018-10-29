@@ -37,7 +37,12 @@ class ProjectBuilder {
             throw new IllegalArgumentException("'${target_dir}' exists.")
         }
         // Create an empty directory
-        ['config', 'build', 'node', 'src/test/resources/log'].each { base ->
+        def create_directories = ['config', 'build', 'node']
+        if (mode == 'detail') {
+            create_directories << 'src/test/resources/log'
+        }
+        // ['config', 'build', 'node', 'src/test/resources/log'].each { base ->
+        create_directories.each { base ->
             def target_path =  new File("${target_dir}/${base}")
             target_path.mkdirs()
             new File("${target_path}/.gitkeep").createNewFile()
@@ -48,7 +53,13 @@ class ProjectBuilder {
                                new File("${target_dir}/config/${base}"))
         }
         // Copy all files under the directory
-        ['lib', 'image', 'template', 'src/test/resources/log'].each { base ->
+        def copy_directories = ['lib', 'image', 'template']
+        if (mode == 'detail') {
+            copy_directories << 'src/test/resources/log'
+        }
+        // ['config', 'build', 'node', 'src/test/resources/log'].each { base ->
+        copy_directories.each { base ->
+        // ['lib', 'image', 'template', 'src/test/resources/log'].each { base ->
             FileUtils.copyDirectory(new File("${home}/${base}"),
                                     new File("${target_dir}/${base}"))
         }
