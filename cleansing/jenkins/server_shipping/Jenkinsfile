@@ -26,17 +26,16 @@ node {
            error '‘I‘ð‚µ‚Ä‚­‚¾‚³‚¢'
         }
 
-        def cleansing_args = v['inventory']
+        def cleansing_args = '"' + v['inventory'] + '"'
         if (v['project']) {
-            cleansing_args += ' -d ' + v['project']
+            cleansing_args += ' -d "' + v['project'] + '"'
         }
         if (v['-s']) {
             cleansing_args += ' -s '
         }
-
-        bat """
-        server_shipping.bat ${cleansing_args}
-        """
+        def cmd = "server_shipping.bat ${cleansing_args}"
+        writeFile file: "test.bat", text: cmd,  encoding: "MS932"
+        bat 'test.bat'
     }
     stage('rapup') {
         archiveArtifacts "data/work/**/*.*"

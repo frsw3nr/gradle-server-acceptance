@@ -23,15 +23,14 @@ node {
 
         def cleansing_args = ''
         if (v['project']) {
-            cleansing_args += ' -d ' + v['project1']
+            cleansing_args += ' -d "' + v['project'] + '"'
         }
         if (v['-s']) {
             cleansing_args += ' -s '
         }
-
-        bat """
-        ip_address_cleansing.bat ${cleansing_args}
-        """
+        def cmd = "ip_address_cleansing.bat ${cleansing_args}"
+        writeFile file: "test.bat", text: cmd,  encoding: "MS932"
+        bat 'test.bat'
     }
     stage('rapup') {
         archiveArtifacts "data/work/**/*.*"
