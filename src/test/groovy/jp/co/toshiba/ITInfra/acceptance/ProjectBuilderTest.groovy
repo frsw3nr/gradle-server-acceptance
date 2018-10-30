@@ -5,9 +5,22 @@ import jp.co.toshiba.ITInfra.acceptance.*
 
 class ProjectBuilderTest extends Specification {
 
+    def getBlankSheetAll(File rootDir, java.util.regex.Pattern filter) {
+        def results = []
+        rootDir.traverse(
+            type         : groovy.io.FileType.FILES,
+            nameFilter   : filter
+        ) { it -> results << it
+            // groovy.io.FileVisitResult.TERMINATE
+        }
+        results
+    }
+
     def ダミーテスト() {
         when:
         println 'Test'
+
+        println getBlankSheetAll(new File('.'), ~/blank_.*\.xlsx/)
 
         then:
         1 == 1
