@@ -11,8 +11,8 @@ class ProjectBuilder {
     String target
 
     ProjectBuilder(String home, String target = null) {
-        this.home = home
-        this.target = target
+        this.home = home.replaceAll(/[\s\/\\]+\z/,"")
+        this.target = target.replaceAll(/[\s\/\\]+\z/,"")
     }
 
     def generate(String mode = null) {
@@ -64,13 +64,59 @@ class ProjectBuilder {
                                     new File("${target_dir}/${base}"))
         }
         // Copy Excel file under home
-        new File(home).eachFileMatch(FileType.FILES, ~/.+.xlsx/) {
-            FileUtils.copyFile(it, new File("${target_dir}/${it.name}"))
-        }
+        if (mode == 'detail') {
+            new File(home).eachFileMatch(FileType.FILES, ~/.+.xlsx/) {
+                FileUtils.copyFile(it, new File("${target_dir}/${it.name}"))
+            }
+        } else {
+            // Search "blank_*.xlsx" and copy it with the file name excluding "blank_".
+            this.copy_all_blank_template_sheet()
+            new File(home).eachFileMatch(FileType.FILES, ~/blank_.+.xlsx/) {
+                def target_name = it.name.replaceFirst(/blank_/, "")
+                FileUtils.copyFile(it, new File("${target_dir}/${target_name}"))
+            }
+        } 
         // Copy by specifying file name
         ['.gitignore', 'Changes.txt', 'Readme.md', 'LICENSE.txt'].each { base ->
             FileUtils.copyFile(new File("${home}/${base}"),
                                new File("${target_dir}/${base}"))
+        }
+    }
+
+    def get_all_blank_sheet(String rootDir) {
+        def results = []
+        new File(rootDir).traverse(
+            type         : groovy.io.FileType.FILES,
+            nameFilter   : ~/blank_.*\.xlsx/
+        ) { 
+            it -> results << it
+        }
+        return results
+    }
+
+    def copy_all_blank_template_sheet() throws IOException {
+        def template_dir = new File(this.home, 'template')
+        log.debug("template_dir: ${template_dir}")
+        template_dir.traverse(
+            type        : groovy.io.FileType.FILES,
+            nameFilter  : ~/blank_.*\.xlsx/) { source ->
+            // target_path = target_path.replaceFirst(this.home, this.target)
+            def target_dir_path = source.getParent().replace(this.home, this.target)
+            log.debug("target_dir: ${target_dir_path}")
+            def target_dir  = new File(target_dir_path)
+            if (!target_dir.exists()){
+                target_dir.mkdirs()
+            } else {
+                def unused_sheet = new File(target_dir_path, source.name)
+                log.debug("Remove: ${unused_sheet}")
+                if (unused_sheet.exists()) {
+                    unused_sheet.delete()
+                }
+            }
+            def target_file = source.name.replaceFirst(/blank_/, "")
+            def target = new File(target_dir, target_file)
+            log.debug("Copy ${source} ${target}")
+            FileUtils.copyFile(source, target)
         }
     }
 
