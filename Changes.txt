@@ -19,6 +19,7 @@ New features:
     * cleansing/getconfig/job/exp_getconfig.py
 * 新規プロジェクト作成の規定設定をテストデータなしに変更。従来のテストデータありは、
   -gd オプションを指定する
+* 各Excel検査シートに利用手順を追加
 
 Bug fixes:
 * Jenkins ジョブで Python スクリプトの UTF-8出力が文字化けする問題対処
