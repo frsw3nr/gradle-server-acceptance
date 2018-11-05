@@ -1,0 +1,78 @@
+Virusbuster インベントリ収集
+============================
+
+方式調査
+---------
+
+* Web管理コンソールから自動操作でクライアントリストをCSVエクスポート
+* CodeBase データベースへの SQL 検索
+* Utility ディレクトリ下のコマンド有無調査
+
+エクスポートサンプル
+---------------------
+
+ドメイン    Workgroup\
+エンドポイント WIN-P6LVNROINF4
+IPアドレス  192.168.0.12
+待機ポート   20278
+ドメイン階層  Workgroup\
+接続ステータス オンライン
+GUID    05473c4b-b923-4a1e-8163-4e2389e8ed58
+検索方法    スマートスキャン
+ファイルレピュテーションサービスのステータス  利用可能
+ファイルレピュテーションサービスのURL    http://192.168.0.12:8081/tmcss/
+Webレピュテーションサービスのステータス   利用可能
+WebレピュテーションサービスのURL http://192.168.0.12:8081/
+検出されたウイルス/不正プログラム   0
+スパイウェア/グレーウェア   0
+OPP 無効
+アップデートエージェントコンポーネント 無効
+アップデートエージェント設定  無効
+アップデートエージェントプログラムとHotFix    無効
+プラットフォーム    Windows Server 2016 10.0.14393
+アーキテクチャ x64
+MACアドレス 00-0C-29-03-8C-4F
+クライアントプログラム 12.0.1406
+スマートスキャンエージェントパターンファイル  14.605.00
+
+Util ディレクトリ調査
+----------------------
+
+/c/Program Files (x86)/Trend Micro/OfficeScan/PCCSRV/Admin/Utility/
+
+CodeBaseデータベース
+--------------------
+
+サーバはCodeBaseというデータベースを使用しています。
+
+ウイルスバスター Corp. で使用しているCodeBaseのサイズ制限は4GBとなっています。このサイズ制限は、データベースフォルダ「HTTPDB」以下に存在する各データベースファイル（※）の最大ファイルサイズを指しています。
+
+
+Selenium 試行
+-------------
+
+https://192.168.0.12:4343/officescan/default.htm
+root/P@ssw0rd
+
+chrome拡張「tampermonkey」
+
+chromedriver.exe（selenium）
+
+https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+pip install selenium
+
+cd C:\Users\frsw3\Documents\local\chrome
+
+python hello.py
+
+from selenium import webdriver # さっきpip install seleniumで入れたseleniumのwebdriverというやつを使う
+
+driver = webdriver.Chrome("./chromedriver.exe") # さっきDLしたchromedriver.exeを使う
+driver.get("http://www.yahoo.co.jp/") #chrome起動してyahooに移動
+searchBox = driver.find_element_by_css_selector("#srchtxt") #検索入力ボックスのhtmlを探す
+searchBox.send_keys("世の中 憎い") #その検索ボックスで　「世の中 憎い」と打つ
+kensakuBotan = driver.find_element_by_css_selector("#srchbtn") #htmlから検索ボタンを探す
+kensakuBotan.click() #検索ボタンをクリック
+
+Selenium IDEを検索することで該当のページが表示され、「Chromeに追加」
