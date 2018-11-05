@@ -15,7 +15,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 
 @Slf4j
 @InheritConstructors
-class ZabbixSpec extends InfraTestSpec {
+class ZabbixServerSpec extends InfraTestSpec {
 
     static final def zabbix_labels = [
         'status' : [
@@ -52,14 +52,14 @@ class ZabbixSpec extends InfraTestSpec {
     String url
     String token
     int    timeout = 30
-    def host_ids = [:]
     def hostnames = [:]
 
     def init() {
         super.init()
 
         def os_account       = test_platform.os_account
-        this.zabbix_ip       = os_account['server']
+        // this.zabbix_ip       = os_account['server']
+        this.zabbix_ip       = test_platform.test_target.ip
         this.zabbix_user     = os_account['user']
         this.zabbix_password = os_account['password']
         this.target_server   = test_platform.test_target.name
@@ -127,10 +127,45 @@ class ZabbixSpec extends InfraTestSpec {
         }
     }
 
-    def HostGroup(test_item) {
-        if (target_server)
-            return true
+    def getHostGroup() {
+        def lines = exec('HostGroup') {
 
+            def json = JsonOutput.toJson(
+                [
+                    jsonrpc: "2.0",
+                    method: "HostGroup.get",
+                    params: [
+                        output: "extend",
+                    ],
+                    id: "1",
+                    auth: token,
+                ]
+            )
+            Webb webb = Webb.create();
+            JSONObject result = webb.post(url)
+                                        .header("Content-Type", "application/json")
+                                        .useCaches(false)
+                                        .body(json)
+                                        .ensureSuccess()
+                                        .asJsonObject()
+                                        .getBody();
+
+            def content = result.getString("result")
+            new File("${local_dir}/HostGroup").text = content
+            return content
+        }
+
+        def jsonSlurper = new JsonSlurper()
+        def host_groups = jsonSlurper.parseText(lines)
+
+        def host_group_ids = [:]
+        host_groups.each { host_group ->
+            host_group_ids[host_group['name']] = host_group['groupid']
+        }
+        return host_group_ids
+    }
+
+    def HostGroup(test_item) {
         def lines = exec('HostGroup') {
 
             def json = JsonOutput.toJson(
@@ -176,9 +211,6 @@ class ZabbixSpec extends InfraTestSpec {
     }
 
     def User(test_item) {
-        if (target_server)
-            return true
-
         def lines = exec('User') {
 
             def json = JsonOutput.toJson(
@@ -240,276 +272,10 @@ class ZabbixSpec extends InfraTestSpec {
         test_item.results(csv.size().toString())
     }
 
-    def Host(test_item) {
-        def lines = exec('Host') {
-
-            def params = [
-                output: "extend",
-                selectInterfaces: "extend",
-                selectGroups: "extend",
-                selectMacros: "extend",
-                selectParentTemplates: "extend",
-            ]
-            if (target_server) {
-                params['filter'] = [
-                    'host' : target_server
-                ]
-            }
-
-            def json = JsonOutput.toJson(
-                [
-                    jsonrpc: "2.0",
-                    method: "Host.get",
-                    params: params,
-                    id: "1",
-                    auth: token,
-                ]
-            )
-            Webb webb = Webb.create();
-            JSONObject result = webb.post(url)
-                                        .header("Content-Type", "application/json")
-                                        .useCaches(false)
-                                        .body(json)
-                                        .ensureSuccess()
-                                        .asJsonObject()
-                                        .getBody();
-
-            def content = result.getString("result")
-            new File("${local_dir}/Host").text = content
-            return content
-        }
-
-        def jsonSlurper = new JsonSlurper()
-        def hosts = jsonSlurper.parseText(lines)
-
-        def headers = ['hostid', 'groups', 'macros', 'parentTemplates', 'host', 'name',
-                       'interfaces', 'status', 'available', 'error']
-        def csv = []
-        def host_info = [:]
-        hosts.each { host ->
-            def columns = []
-            headers.each {
-                def value = 'NaN'
-                if (it == 'groups') {
-                    def groups = []
-                    host[it].each { group ->
-                        groups.add(group['name'])
-                    }
-                    value = groups.toString()
-
-                } else if (it == 'macros') {
-                    def macros = [:]
-                    host[it].each { macro ->
-                        def new_test_id = 'Host.' + macro['macro']
-                    def desc = test_platform?.test_metrics['Host']?.description
-                        this.test_platform.add_test_metric(new_test_id, desc)
-                        host_info[new_test_id] = macro['value']
-                        macros[macro['macro']] = macro['value']
-                    }
-                    value = macros.size()
-
-                } else if (it == 'parentTemplates') {
-                    def templates = []
-                    host[it].each { template ->
-                        templates.add(template['name'])
-                    }
-                    value = templates.toString()
-
-                } else if (it == 'interfaces') {
-                    def addresses = []
-                    host[it].each { addr ->
-                        addresses.add((addr['useip'] == '1') ? addr['ip'] : addr['dns'])
-                    }
-                    value = addresses.toString()
-
-                } else if (it == 'status' || it == 'available') {
-                    def id = host[it]
-                    value = zabbix_labels[it][id]
-
-                } else {
-                    value = host[it]
-                }
-                if (it == 'hostid') {
-                    host_ids[target_server] = value
-                    hostnames[value] = host['host']
-                }
-                host_info[it] = value
-                columns.add(value)
-            }
-            csv << columns
-        }
-        test_item.devices(csv, headers)
-        host_info['Host'] = (hosts.size() == 1) ? hosts[0]['host'] : ''
-        test_item.results(host_info)
-        // println "ZABBIX_STATUS: ${host_info['status']}"
-        test_item.verify_text_search('status', host_info['status'])
-        test_item.verify_text_search('available', host_info['available'])
-    }
-
-    def syslog(test_item) {
-        if(target_server && !host_ids.containsKey(target_server)) {
-            log.error "Can't find host_id of ${target_server}, 'syslog' test needs 'Host' test before."
-        }
-
-        def lines = exec('syslog') {
-
-            def params = [
-                output: "extend",
-                selectHosts: "extend",
-                search: [
-                    name: "log",
-                ],
-            ]
-            if (target_server) {
-                params['hostids'] = [
-                    host_ids[target_server]
-                ]
-            }
-            def json = JsonOutput.toJson(
-                [
-                    jsonrpc: "2.0",
-                    method: "Item.get",
-                    params: params,
-                    id: "1",
-                    auth: token,
-                ]
-            )
-            Webb webb = Webb.create();
-            JSONObject result = webb.post(url)
-                                        .header("Content-Type", "application/json")
-                                        .useCaches(false)
-                                        .body(json)
-                                        .ensureSuccess()
-                                        .asJsonObject()
-                                        .getBody();
-
-            def content = result.getString("result")
-            new File("${local_dir}/syslog").text = content
-            return content
-        }
-
-        def jsonSlurper = new JsonSlurper()
-        def results = jsonSlurper.parseText(lines)
-        if (results.size() > 0) {
-            def message = 'NotSupport'
-            def lastlogsize = 0
-            def csv   = []
-            results.each { result ->
-                def hostid   = result['hostid']
-                def hostname = hostnames[hostid] ?: null
-                def itemname = result['name']
-                if (hostname && result['value_type'] == '2') {
-                    if (result['status'])
-                        message = zabbix_labels['status'][result['status']]
-                    def logsize  = NumberUtils.toDouble(result['lastlogsize'])
-                    csv << [hostname, itemname, logsize]
-                    lastlogsize += logsize
-                }
-            }
-            def headers = ['Hostname', 'ItemName', 'LastLogSize']
-            test_item.devices(csv, headers)
-            test_item.results(message)
-            test_item.verify_text_search('syslog', message)
-        }
-    }
-
-    def trigger(test_item) {
-        if(target_server && !host_ids.containsKey(target_server)) {
-            log.error "Can't find host_id of ${target_server}, 'trigger' test needs 'Host' test before."
-        }
-
-        def lines = exec('trigger') {
-
-            def params = [
-                output: "extend",
-                // selectHosts: "extend",
-                // selectHosts: "extend",
-            ]
-            if (target_server) {
-                params['hostids'] = [
-                    host_ids[target_server]
-                ]
-            }
-            def json = JsonOutput.toJson(
-                [
-                    jsonrpc: "2.0",
-                    method: "Trigger.get",
-                    params: params,
-                    id: "1",
-                    auth: token,
-                ]
-            )
-            Webb webb = Webb.create();
-            JSONObject result = webb.post(url)
-                                        .header("Content-Type", "application/json")
-                                        .useCaches(false)
-                                        .body(json)
-                                        .ensureSuccess()
-                                        .asJsonObject()
-                                        .getBody();
-
-            def content = result.getString("result")
-            new File("${local_dir}/trigger").text = content
-            return content
-        }
-
-        def jsons = new JsonSlurper().parseText(lines)
-
-        def headers = ['priority', 'description', 'expression', 'flags', 'state', 'status']
-        def csv   = []
-        def results = [:].withDefault{0}
-        def zabbix_info = [:]
-        def result = 'NotFoundError'
-        jsons.each { json ->
-            def columns = []
-            def label_statuses = [:]
-            def description = 'NaN'
-            headers.each { item_name ->
-                def value = json[item_name]
-                if (item_name == 'state' || item_name == 'status') {
-                    label_statuses[item_name] = value
-                    if (value != '0') {
-                        def id = "${item_name}."
-                        id += zabbix_labels["trigger.${item_name}"][value]
-                        results[id] += 1
-                    }
-
-                } else if (item_name == 'priority' || item_name == 'status') {
-                    value = zabbix_labels["trigger.${item_name}"][value]
-
-                } else if (item_name == 'description') {
-                    description = value
-                }
-                columns.add(value)
-            }
-            def label_status = (label_statuses['status'] == '0') ? 'Enabled' : 'Disabled'
-            if (label_statuses['state'] != '0') {
-                label_status = 'Error'
-                result = 'ErrorFound'
-            }
-            def new_test_id = 'trigger.' + description
-
-            // If the Excel comment set multibyte, garbled characters will occur,
-            // so set the metric's description
-            def desc = test_platform?.test_metrics['trigger']?.description
-            this.test_platform.add_test_metric(new_test_id, desc)
-            zabbix_info[new_test_id] = label_status
-            csv << columns
-        }
-        // def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
-        test_item.results(result)
-        // zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
-        test_item.results(zabbix_info)
-        test_item.verify_text_search('trigger', result)
-        test_item.devices(csv, headers)
-    }
-
-    def action(test_item) {
-        if (target_server)
-            return true
-
-        def lines = exec('User') {
-
+    def Action(test_item) {
+        def lines = exec('Action') {
+            def host_group_ids = this.getHostGroup()
+            println host_group_ids
             def json = JsonOutput.toJson(
                 [
                     "jsonrpc": "2.0",
@@ -518,9 +284,10 @@ class ZabbixSpec extends InfraTestSpec {
                         "output": "extend",
                         "selectOperations": "extend",
                         "selectFilter": "extend",
-                        "filter": [
-                            "eventsource": 1
-                        ]
+                        "groupids": 2,
+                        // "filter": [
+                        //     "groupids": 2
+                        // ]
                     ],
                     "auth": token,
                     "id": 1
@@ -547,7 +314,9 @@ class ZabbixSpec extends InfraTestSpec {
                                         .getBody();
 
             def content = result.getString("result")
-            new File("${local_dir}/action").text = content
+            // println content
+            println JsonOutput.prettyPrint(content)
+            new File("${local_dir}/Action").text = content
             return content
         }
 
@@ -632,31 +401,33 @@ class ZabbixSpec extends InfraTestSpec {
 //     "id": 1
 // }
 
-        def headers = ['userid', 'usrgrps', 'alias', 'name', 'medias']
+        def headers = ['actionid', 'name', 'status', 'filter', 'operations']
         def csv = []
-        users.each { user ->
+        actions.each { action ->
             def columns = []
             headers.each {
-                if (it == 'usrgrps') {
-                    def usrgrps = []
-                    user[it].each { usrgrp ->
-                        usrgrps.add(usrgrp['name'])
-                    }
-                    columns.add(usrgrps.toString())
+                // if (it == 'operations') {
+                //     def operations = []
+                //     action[it].each { operation ->
+                //         operations.add(operation['name'])
+                //     }
+                //     columns.add(usrgrps.toString())
 
-                } else if (it == 'medias') {
-                    def medias = []
-                    user[it].each { media ->
-                        medias.add(media['sendto'])
-                    }
-                    columns.add(medias.toString())
+                // } else if (it == 'medias') {
+                //     def medias = []
+                //     user[it].each { media ->
+                //         medias.add(media['sendto'])
+                //     }
+                //     columns.add(medias.toString())
 
-                } else {
-                    columns.add(user[it] ?: 'NaN')
-                }
+                // } else {
+                //     columns.add(user[it] ?: 'NaN')
+                // }
+                columns.add(action[it].toString() ?: 'NaN')
             }
             csv << columns
         }
+        println csv
         test_item.devices(csv, headers)
         test_item.results(csv.size().toString())
     }
