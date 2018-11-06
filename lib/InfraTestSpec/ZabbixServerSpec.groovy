@@ -165,6 +165,34 @@ class ZabbixServerSpec extends InfraTestSpec {
         return host_group_ids
     }
 
+
+    def apiinfo(test_item) {
+        def lines = exec('apiinfo') {
+
+            def json = JsonOutput.toJson(
+                [
+                    jsonrpc: "2.0",
+                    method: "apiinfo.version",
+                    params: [],
+                    id: "1",
+                    // auth: token,
+                ]
+            )
+            Webb webb = Webb.create();
+            JSONObject result = webb.post(url)
+                                        .header("Content-Type", "application/json")
+                                        .useCaches(false)
+                                        .body(json)
+                                        .ensureSuccess()
+                                        .asJsonObject()
+                                        .getBody();
+            def content = result.getString("result")
+            new File("${local_dir}/apiinfo").text = content
+            return content
+        }
+        test_item.results(lines)
+    }
+
     def HostGroup(test_item) {
         def lines = exec('HostGroup') {
 
@@ -274,54 +302,45 @@ class ZabbixServerSpec extends InfraTestSpec {
 
     def Action(test_item) {
         def lines = exec('Action') {
+
             def host_group_ids = this.getHostGroup()
             println host_group_ids
-            def json = JsonOutput.toJson(
-                [
-                    "jsonrpc": "2.0",
-                    "method": "action.get",
-                    "params": [
-                        "output": "extend",
-                        "selectOperations": "extend",
-                        "selectFilter": "extend",
-                        "groupids": 2,
-                        // "filter": [
-                        //     "groupids": 2
-                        // ]
-                    ],
-                    "auth": token,
-                    "id": 1
-                ]
-                // [
-                //     jsonrpc: "2.0",
-                //     method: "User.get",
-                //     params: [
-                //         output: "extend",
-                //         selectMedias: "extend",
-                //         selectUsrgrps: "extend",
-                //     ],
-                //     id: "1",
-                //     auth: token,
-                // ]
-            )
-            Webb webb = Webb.create();
-            JSONObject result = webb.post(url)
-                                        .header("Content-Type", "application/json")
-                                        .useCaches(false)
-                                        .body(json)
-                                        .ensureSuccess()
-                                        .asJsonObject()
-                                        .getBody();
-
-            def content = result.getString("result")
+            def results = [:]
+            host_group_ids.each { host_group, group_id ->
+                def json = JsonOutput.toJson(
+                    [
+                        "jsonrpc": "2.0",
+                        "method": "action.get",
+                        "params": [
+                            "output": "extend",
+                            "selectOperations": "extend",
+                            "selectFilter": "extend",
+                            "groupids": group_id,
+                        ],
+                        "auth": token,
+                        "id": 1
+                    ]
+                )
+                Webb webb = Webb.create();
+                JSONObject result = webb.post(url)
+                                            .header("Content-Type", "application/json")
+                                            .useCaches(false)
+                                            .body(json)
+                                            .ensureSuccess()
+                                            .asJsonObject()
+                                            .getBody();
+                results[host_group] = result.getString("result")
+            }
+            println results
+            def content = results.toString()
             // println content
             println JsonOutput.prettyPrint(content)
-            new File("${local_dir}/Action").text = content
+            // new File("${local_dir}/Action").text = content
             return content
         }
 
-        def jsonSlurper = new JsonSlurper()
-        def actions = jsonSlurper.parseText(lines)
+        // def jsonSlurper = new JsonSlurper()
+        // def actions = jsonSlurper.parseText(lines)
 
 // {
 //     "jsonrpc": "2.0",
@@ -403,31 +422,31 @@ class ZabbixServerSpec extends InfraTestSpec {
 
         def headers = ['actionid', 'name', 'status', 'filter', 'operations']
         def csv = []
-        actions.each { action ->
-            def columns = []
-            headers.each {
-                // if (it == 'operations') {
-                //     def operations = []
-                //     action[it].each { operation ->
-                //         operations.add(operation['name'])
-                //     }
-                //     columns.add(usrgrps.toString())
+        // actions.each { action ->
+        //     def columns = []
+        //     headers.each {
+        //         // if (it == 'operations') {
+        //         //     def operations = []
+        //         //     action[it].each { operation ->
+        //         //         operations.add(operation['name'])
+        //         //     }
+        //         //     columns.add(usrgrps.toString())
 
-                // } else if (it == 'medias') {
-                //     def medias = []
-                //     user[it].each { media ->
-                //         medias.add(media['sendto'])
-                //     }
-                //     columns.add(medias.toString())
+        //         // } else if (it == 'medias') {
+        //         //     def medias = []
+        //         //     user[it].each { media ->
+        //         //         medias.add(media['sendto'])
+        //         //     }
+        //         //     columns.add(medias.toString())
 
-                // } else {
-                //     columns.add(user[it] ?: 'NaN')
-                // }
-                columns.add(action[it].toString() ?: 'NaN')
-            }
-            csv << columns
-        }
-        println csv
+        //         // } else {
+        //         //     columns.add(user[it] ?: 'NaN')
+        //         // }
+        //         columns.add(action[it].toString() ?: 'NaN')
+        //     }
+        //     csv << columns
+        // }
+        // println csv
         test_item.devices(csv, headers)
         test_item.results(csv.size().toString())
     }
