@@ -225,6 +225,7 @@ class ZabbixServerSpec extends InfraTestSpec {
         def host_groups = jsonSlurper.parseText(lines)
 
         def headers = ['groupid', 'name']
+        def results = [:]
         def csv = []
         def name
         host_groups.each { host_group ->
@@ -232,10 +233,11 @@ class ZabbixServerSpec extends InfraTestSpec {
             headers.each {
                 columns.add(host_group[it] ?: 'NaN')
             }
+            results[host_group['groupid']] = host_group['name']
             csv << columns
         }
         test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        test_item.results(results.toString())
     }
 
     def User(test_item) {
@@ -272,6 +274,7 @@ class ZabbixServerSpec extends InfraTestSpec {
         def users = jsonSlurper.parseText(lines)
 
         def headers = ['userid', 'usrgrps', 'alias', 'name', 'medias']
+        def results = [:]
         def csv = []
         users.each { user ->
             def columns = []
@@ -294,10 +297,11 @@ class ZabbixServerSpec extends InfraTestSpec {
                     columns.add(user[it] ?: 'NaN')
                 }
             }
+            results[user['userid']] = user['name']
             csv << columns
         }
         test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        test_item.results(results.toString())
     }
 
     def UserGroup(test_item) {
@@ -333,15 +337,17 @@ class ZabbixServerSpec extends InfraTestSpec {
 
         def headers = ['usrgrpid', 'name', 'gui_access', 'users_status']
         def csv = []
+        def results = [:]
         users.each { user ->
             def columns = []
             headers.each {
                 columns.add(user[it] ?: 'NaN')
             }
+            results[user['usrgrpid']] = user['name']
             csv << columns
         }
         test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        test_item.results(results.toString())
     }
 
     def Action(test_item) {
@@ -387,6 +393,7 @@ class ZabbixServerSpec extends InfraTestSpec {
 
         def headers = ['actionid', 'host_group', 'name', 'status']
         def csv = []
+        def results = [:]
         action_lists.each { host_group, action_list ->
             if (action_list.size() > 0) {
                 action_list.each { action ->
@@ -407,11 +414,12 @@ class ZabbixServerSpec extends InfraTestSpec {
                         }
                         columns.add(result)
                     }
+                    results[host_group] = action_list['name']
                     csv << columns
                 }
             } 
         }
         test_item.devices(csv, headers)
-        test_item.results(csv.size().toString())
+        test_item.results(results.toString())
     }
 }
