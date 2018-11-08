@@ -300,12 +300,56 @@ class ZabbixServerSpec extends InfraTestSpec {
         test_item.results(csv.size().toString())
     }
 
+    def UserGroup(test_item) {
+        def lines = exec('UserGroup') {
+
+            def json = JsonOutput.toJson(
+                [
+                    jsonrpc: "2.0",
+                    method: "usergroup.get",
+                    params: [
+                        output: "extend",
+                    ],
+                    id: "1",
+                    auth: token,
+                ]
+            )
+            Webb webb = Webb.create();
+            JSONObject result = webb.post(url)
+                                        .header("Content-Type", "application/json")
+                                        .useCaches(false)
+                                        .body(json)
+                                        .ensureSuccess()
+                                        .asJsonObject()
+                                        .getBody();
+
+            def content = result.getString("result")
+            new File("${local_dir}/UserGroup").text = content
+            return content
+        }
+
+        def jsonSlurper = new JsonSlurper()
+        def users = jsonSlurper.parseText(lines)
+
+        def headers = ['usrgrpid', 'name', 'gui_access', 'users_status']
+        def csv = []
+        users.each { user ->
+            def columns = []
+            headers.each {
+                columns.add(user[it] ?: 'NaN')
+            }
+            csv << columns
+        }
+        test_item.devices(csv, headers)
+        test_item.results(csv.size().toString())
+    }
+
     def Action(test_item) {
         def lines = exec('Action') {
 
             def host_group_ids = this.getHostGroup()
-            println host_group_ids
-            def results = [:]
+
+            def results = new JSONObject()
             host_group_ids.each { host_group, group_id ->
                 def json = JsonOutput.toJson(
                     [
@@ -329,124 +373,44 @@ class ZabbixServerSpec extends InfraTestSpec {
                                             .ensureSuccess()
                                             .asJsonObject()
                                             .getBody();
-                results[host_group] = result.getString("result")
+                results.put(host_group, result.get("result"))
             }
-            println results
             def content = results.toString()
             // println content
-            println JsonOutput.prettyPrint(content)
-            // new File("${local_dir}/Action").text = content
+            // println JsonOutput.prettyPrint(content)
+            new File("${local_dir}/Action").text = content
             return content
         }
 
         // def jsonSlurper = new JsonSlurper()
-        // def actions = jsonSlurper.parseText(lines)
+        def action_lists = new JsonSlurper().parseText(lines)
 
-// {
-//     "jsonrpc": "2.0",
-//     "result": [
-//         {
-//             "actionid": "2",
-//             "name": "Auto discovery. Linux servers.",
-//             "eventsource": "1",
-//             "status": "1",
-//             "esc_period": "0",
-//             "def_shortdata": "",
-//             "def_longdata": "",
-//             "recovery_msg": "0",
-//             "r_shortdata": "",
-//             "r_longdata": "",
-//             "filter": {
-//                 "evaltype": "0",
-//                 "formula": "",
-//                 "conditions": [
-//                     {
-//                         "conditiontype": "10",
-//                         "operator": "0",
-//                         "value": "0",
-//                         "formulaid": "B"
-//                     },
-//                     {
-//                         "conditiontype": "8",
-//                         "operator": "0",
-//                         "value": "9",
-//                         "formulaid": "C"
-//                     },
-//                     {
-//                         "conditiontype": "12",
-//                         "operator": "2",
-//                         "value": "Linux",
-//                         "formulaid": "A"
-//                     }
-//                 ],
-//                 "eval_formula": "A and B and C"
-//             },
-//             "operations": [
-//                 {
-//                     "operationid": "1",
-//                     "actionid": "2",
-//                     "operationtype": "6",
-//                     "esc_period": "0",
-//                     "esc_step_from": "1",
-//                     "esc_step_to": "1",
-//                     "evaltype": "0",
-//                     "opconditions": [],
-//                     "optemplate": [
-//                         {
-//                             "operationid": "1",
-//                             "templateid": "10001"
-//                         }
-//                     ]
-//                 },
-//                 {
-//                     "operationid": "2",
-//                     "actionid": "2",
-//                     "operationtype": "4",
-//                     "esc_period": "0",
-//                     "esc_step_from": "1",
-//                     "esc_step_to": "1",
-//                     "evaltype": "0",
-//                     "opconditions": [],
-//                     "opgroup": [
-//                         {
-//                             "operationid": "2",
-//                             "groupid": "2"
-//                         }
-//                     ]
-//                 }
-//             ]
-//         }
-//     ],
-//     "id": 1
-// }
-
-        def headers = ['actionid', 'name', 'status', 'filter', 'operations']
+        def headers = ['actionid', 'host_group', 'name', 'status']
         def csv = []
-        // actions.each { action ->
-        //     def columns = []
-        //     headers.each {
-        //         // if (it == 'operations') {
-        //         //     def operations = []
-        //         //     action[it].each { operation ->
-        //         //         operations.add(operation['name'])
-        //         //     }
-        //         //     columns.add(usrgrps.toString())
-
-        //         // } else if (it == 'medias') {
-        //         //     def medias = []
-        //         //     user[it].each { media ->
-        //         //         medias.add(media['sendto'])
-        //         //     }
-        //         //     columns.add(medias.toString())
-
-        //         // } else {
-        //         //     columns.add(user[it] ?: 'NaN')
-        //         // }
-        //         columns.add(action[it].toString() ?: 'NaN')
-        //     }
-        //     csv << columns
-        // }
-        // println csv
+        action_lists.each { host_group, action_list ->
+            if (action_list.size() > 0) {
+                action_list.each { action ->
+                    // println "Action1:\n ${action}"
+                    def columns = []
+                    headers.each {
+                        def result = 'NaN'
+                        if (it == 'host_group') {
+                            result = host_group
+                        } else if (it == 'status') {
+                            if (action[it] == '0') {
+                                result = 'Enabled'
+                            } else if (action[it] == '1') {
+                                result = 'Disabled'
+                            }
+                        } else if (action.get(it)) {
+                            result = action.get(it).toString()
+                        }
+                        columns.add(result)
+                    }
+                    csv << columns
+                }
+            } 
+        }
         test_item.devices(csv, headers)
         test_item.results(csv.size().toString())
     }
