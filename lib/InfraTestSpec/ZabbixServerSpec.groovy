@@ -297,7 +297,7 @@ class ZabbixServerSpec extends InfraTestSpec {
                     columns.add(user[it] ?: 'NaN')
                 }
             }
-            results[user['userid']] = user['name']
+            results[user['userid']] = user['alias']
             csv << columns
         }
         test_item.devices(csv, headers)

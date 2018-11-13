@@ -7,6 +7,7 @@ Contents:
    :maxdepth: 1
 
    00_preparation
+   01_PreparationIntranet
    01_package_install
    02_powershell_setup
    03_powercli_install

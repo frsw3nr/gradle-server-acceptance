@@ -6,7 +6,7 @@ PowerCLIインストール
 
 ::
 
-   choco install vmware-powercli-psmodule --version 6.5.4.7155375
+   choco install -y vmware-powercli-psmodule --version 6.5.4.7155375
 
 .. note::
 

@@ -12,58 +12,6 @@ Redmine を構成管理データベースとしてカスタマイズします。
 * GitBucket サーバとのバッティングを避けるため、接続ポートは 8080 にします
 * Passenger で /sbin/httpd と連動。URL は http://{DBサーバのIP}:8080/redmine
 
-システム要件
-------------
-
-以下の設定をしたCentOS環境を想定します。
-
-* CentOSは 6.x を使用
-* CPU 1 Core以上 / Memory 4 GB以上 / Disk 100 GB以上のHWリソースが必要です
-* SELinuxは無効化されていること
-* イントラネット環境の場合、プロキシーの設定がされていること
-
-.. note:: SELinux の無効化
-
-   インストールするソフトウェアの設定は SELinux が機能しない設定となっているため、
-   SELinux を無効にしてください。 root で以下を実行してください。
-
-   getenforce コマンドで SELinux の動作状況を調べます。
-
-   ::
-
-       getenforce
-
-   Enforcing と出力された場合は、SELinux が有効となっています。
-   以下のコマンドで SELinux を無効化します。
-
-   ::
-
-       setenforce 0 
-
-   /etc/selinux/config を編集し、再起動時の SELinux 状態を無効にします。
-
-   ::
-
-       vi /etc/selinux/config
-
-   SELINUX の値を disabled に変更して保存します。
-
-   ::
-
-       SELINUX=disabled
-
-.. note:: Firewall の許可設定
-
-   Firewall の設定がされている場合は、これらポートのアクセス許可設定をします。
-   設定は iptables の設定ファイルを編集して行いますが、ここでは簡略化のため、
-   iptables 自体を停止して全ポートのアクセス許可設定をします。
-
-   ::
-
-       /etc/rc.d/init.d/iptables stop 
-       chkconfig iptables off 
-       chkconfig ip6tables off 
-
 yumパッケージインストール
 -------------------------
 
@@ -92,7 +40,7 @@ MySQL をインストールします。
 
 ::
 
-   sudo -E yum install mysql-server mysql-devel --enablerepo=remi
+   sudo -E yum -y install mysql-server mysql-devel --enablerepo=remi
 
 MySQL を起動し、自動起動設定をします。
 
@@ -115,7 +63,7 @@ Ruby インストール
 
 ::
 
-   sudo -E yum -y install gcc make openssl-devel libffi-devel readline-devel git ImageMagick-devel
+   sudo -E yum -y install make openssl-devel libffi-devel readline-devel git ImageMagick-devel
 
 GitHub サイトから rbenv をダウンロードします。
 
@@ -149,7 +97,7 @@ GitHub サイトから rbenv をダウンロードします。
    source /etc/profile
    rbenv -v
 
-rbenv を利用して ruby 2.5.1 をインストール。インストール可能なrubyのバージョンを確認します。
+rbenv を利用して ruby 2.5.3 をインストール。インストール可能なrubyのバージョンを確認します。
 
 ::
 
@@ -159,13 +107,13 @@ rbenv を利用して ruby 2.5.1 をインストール。インストール可�
 
 ::
 
-   rbenv install 2.5.1
+   rbenv install 2.5.3
 
-2.5.1 をシステム標準のバージョンとして設定
+2.5.3 をシステム標準のバージョンとして設定
 
 ::
 
-   rbenv global 2.5.1
+   rbenv global 2.5.3
    ruby -v
 
 /opt/rbenb 下のオーナーを管理ユーザ psadmin に変更します。
@@ -303,10 +251,10 @@ httpdモジュールインストールします。
 
 ::
 
-   LoadModule passenger_module /opt/rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/passenger-5.3.4/buildout/apache2/mod_passenger.so
+   LoadModule passenger_module /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.4/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
-     PassengerRoot /opt/rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/passenger-5.3.4
-     PassengerDefaultRuby /opt/rbenv/versions/2.5.1/bin/ruby
+     PassengerRoot /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.4
+     PassengerDefaultRuby /opt/rbenv/versions/2.5.3/bin/ruby
    </IfModule>
 
 passenger用http設定ファイルを編集します。
@@ -321,10 +269,10 @@ passenger用http設定ファイルを編集します。
 
 ::
 
-   LoadModule passenger_module /opt/rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/passenger-5.3.4/buildout/apache2/mod_passenger.so
+   LoadModule passenger_module /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.4/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
-     PassengerRoot /opt/rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/passenger-5.3.4
-     PassengerDefaultRuby /opt/rbenv/versions/2.5.1/bin/ruby
+     PassengerRoot /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.4
+     PassengerDefaultRuby /opt/rbenv/versions/2.5.3/bin/ruby
    </IfModule>
 
    # Passengerが追加するHTTPヘッダを削除するための設定（任意）。

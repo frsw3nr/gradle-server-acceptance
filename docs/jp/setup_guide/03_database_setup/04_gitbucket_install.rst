@@ -33,7 +33,6 @@ GitBucket開発サイトからリリース情報を確認します。
 
 ::
 
-   https://github.com/gitbucket/gitbucket
    https://github.com/gitbucket/gitbucket/releases
 
 releaseから最新版のgitbucket.warをダウンロードします。
@@ -42,24 +41,38 @@ root ユーザにスイッチ後、ダウンロードします。
 
 ::
 
-   sudo -E su -
-   mkdir -p /usr/share/gitbucket/lib
-   cd /usr/share/gitbucket/lib
-   wget https://github.com/gitbucket/gitbucket/releases/download/4.28.0/gitbucket.war
+   cd /tmp
+   wget https://github.com/gitbucket/gitbucket/releases/download/4.29.0/gitbucket.war
+   sudo mkdir -p /usr/share/gitbucket/lib
+   sudo cp /tmp/gitbucket.war /usr/share/gitbucket/lib
 
 起動スクリプトをダウンロードします。
 
+.. note::
+
+   現在、TLSセキュリティの制約により、スクリプトのダウンロードが出来ないため、
+   ブラウザから以下URLを開いてテキストをコピーします
+
+   ::
+
+      https://github.com/gitbucket/gitbucket/blob/master/contrib/gitbucket.init
+
+   ::
+
+      vi /tmp/gitbucket.init
+      chmod a+x /tmp/gitbucket.init
 ::
    
-   mkdir -p /var/lib/gitbucket
-   cd /var/lib/gitbucket
+   cd /tmp
    wget https://raw.githubusercontent.com/gitbucket/gitbucket/master/contrib/gitbucket.init
+   sudo mkdir -p /var/lib/gitbucket
+   sudo cp /tmp/gitbucket.init /var/lib/gitbucket
 
 ダウンロードした起動スクリプトを編集します。
 
 ::
 
-   vi gitbucket.init
+   sudo vi /var/lib/gitbucket/gitbucket.init
 
 「set -e」の行をコメントアウトします。
 
@@ -78,20 +91,20 @@ GITBUCKET_WAR_FILEの行の下に、「GITBUCKET_PORT=80」を追加します。
 
 ::
 
-   cp -p gitbucket.init /etc/init.d/gitbucket
-   chmod a+x /etc/init.d/gitbucket
+   sudo cp -p /var/lib/gitbucket/gitbucket.init /etc/init.d/gitbucket
+   sudo chmod a+x /etc/init.d/gitbucket
 
 自動起動設定をします。
 
 ::
 
-   chkconfig gitbucket on
+   sudo chkconfig gitbucket on
 
 GitBucket を起動します。
 
 ::
 
-   /etc/init.d/gitbucket start
+   sudo /etc/init.d/gitbucket start
 
 管理者パスワードの変更
 ----------------------
