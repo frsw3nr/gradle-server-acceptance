@@ -251,9 +251,9 @@ httpdモジュールインストールします。
 
 ::
 
-   LoadModule passenger_module /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.4/buildout/apache2/mod_passenger.so
+   LoadModule passenger_module /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.7/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
-     PassengerRoot /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.4
+     PassengerRoot /opt/rbenv/versions/2.5.3/lib/ruby/gems/2.5.0/gems/passenger-5.3.7
      PassengerDefaultRuby /opt/rbenv/versions/2.5.3/bin/ruby
    </IfModule>
 
