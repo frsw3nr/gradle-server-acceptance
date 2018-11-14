@@ -11,7 +11,8 @@
 プロキシー環境の設定
 ~~~~~~~~~~~~~~~~~~~~
 
-これからの作業はGetperf管理ユーザで行います。プロキシーサーバを
+社内プロキシーの設定を行います。
+プロキシーサーバを
 proxy.your.company.co.jp、接続ポートを 8080　を例にして設定手順を記します。
 
 1. Internet Exploler を起動します。
@@ -24,19 +25,20 @@ proxy.your.company.co.jp、接続ポートを 8080　を例にして設定手順
 
 * 「LANにプロキシーサーバを使用する」をチェックします。
 
-* プロキシサーバーの「アドレス」に社内プロキシーサーバアドレスを入力します。
+* プロキシサーバーの「アドレス」に社内プロキシーサーバアドレス
+  (proxy.your.company.co.jp)を入力します。
 
-* プロキシーサーバの「ポート」にプロキシーサーバ接続ポート番号を入力します。
+* プロキシーサーバの「ポート」にプロキシーサーバ接続ポート番号(8080)を入力します。
 
 * 「ローカルアドレスにはプロキシーサーバを使用しない」をチェックします。
 
 * 「詳細設定」をクリックします。
 
-* 「次で始まるアドレスにはプロキシーを使用しない」に、構成管理DBサーバのアドレスを入力します。
+* 「次で始まるアドレスにはプロキシーを使用しない」に、プロキシーサーバと、構成管理DBサーバのアドレスを';' 区切りで続けて入力します。
 
     ::
 
-        {プロキシーサーバのアドレス};{構成管理DBサーバのアドレス}
+        proxy.your.company.co.jp;{構成管理DBサーバのアドレス}
 
 hosts ファイル編集
 ~~~~~~~~~~~~~~~~~~
@@ -54,9 +56,9 @@ hosts ファイル編集
 
 ::
 
-    XX.XX.XX.XX    自身のサーバのホスト名
-    YY.YY.YY.YY    プロキシーサーバ名
-    ZZ.ZZ.ZZ.ZZ    構成管理DBサーバ名
+    XX.XX.XX.XX    {自身のサーバのホスト名}
+    YY.YY.YY.YY    proxy.your.company.co.jp   # プロキシーサーバ
+    ZZ.ZZ.ZZ.ZZ    {構成管理DBサーバ名}
 
 社内認証局の証明書インポート
 ----------------------------
@@ -67,7 +69,7 @@ hosts ファイル編集
 
 1. intra_ssl_cert.cer のインポート
 
-以下例では、intra_ssl_cert.cer という証明書をダウンロードして、インポートする例を記します。
+intra_ssl_cert.cer という証明書をダウンロードして、インポートする例を記します。
 
 * 証明書を右クリックで選択し、「証明書のインストール」を選択します。
 
@@ -77,20 +79,19 @@ hosts ファイル編集
 
 * 証明書ストアに「信頼されたルート証明機関」をクリックします。
 
-2. Java 用証明書セットアップ
+.. 2. Java 用証明書セットアップ
 
+.. keytool を用いて、上記でダウンロードした証明書をJavaにインストールします。
 
-keytool を用いて、上記でダウンロードした証明書をJavaにインストールします。
+.. ::
 
-::
+..     keytool -import -alias IntraRootCA -keystore /etc/pki/java/cacerts -file /etc/pki/tls/certs/intra_ssl_cert.cer
 
-    keytool -import -alias IntraRootCA -keystore /etc/pki/java/cacerts -file /etc/pki/tls/certs/intra_ssl_cert.cer
+.. Enter keystore password:と聞かれる場合は、CentOS
+.. JDKデフォルトの"changeit"を入力します
 
-Enter keystore password:と聞かれる場合は、CentOS
-JDKデフォルトの"changeit"を入力します
+.. .. note::
 
-.. note::
-
-    keytool が入っていない場合は、 sudo -E yum -y install
-    java-1.7.0-openjdk-devel で JDK をインストールしてください
+..     keytool が入っていない場合は、 sudo -E yum -y install
+..     java-1.7.0-openjdk-devel で JDK をインストールしてください
 
