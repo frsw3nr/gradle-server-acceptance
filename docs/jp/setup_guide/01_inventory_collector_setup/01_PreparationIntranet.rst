@@ -32,13 +32,24 @@ proxy.your.company.co.jp、接続ポートを 8080　を例にして設定手順
 
 * 「ローカルアドレスにはプロキシーサーバを使用しない」をチェックします。
 
+   .. figure:: ./image/01_proxy_setup1.png
+      :align: center
+      :alt: Target Sheet
+      :width: 320px
+
 * 「詳細設定」をクリックします。
 
-* 「次で始まるアドレスにはプロキシーを使用しない」に、プロキシーサーバと、構成管理DBサーバのアドレスを';' 区切りで続けて入力します。
+* 「次で始まるアドレスにはプロキシーを使用しない」に、プロキシーサーバ、構成管理DBサーバ、vCenterサーバのアドレスを ; 区切りで続けて入力します。
 
     ::
 
-        proxy.your.company.co.jp;{構成管理DBサーバのアドレス}
+        proxy.your.company.co.jp;{構成管理DBサーバのアドレス};{vCenterサーバのアドレス}
+
+   .. figure:: ./image/01_proxy_setup2.png
+      :align: center
+      :alt: Target Sheet
+      :width: 320px
+
 
 hosts ファイル編集
 ~~~~~~~~~~~~~~~~~~

@@ -334,17 +334,14 @@ class LinuxSpec extends LinuxSpecBase {
     def block_device(session, test_item) {
         def lines = exec('block_device') {
             def command = """\
-            |egrep '.*' /sys/block/*/size                      >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/removable                 >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/device/model              >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/device/rev                >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/device/state              >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/device/timeout            >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/device/vendor             >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/device/queue_depth        >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/queue/rotational          >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/queue/physical_block_size >> ${work_dir}/block_device
-            |egrep '.*' /sys/block/*/queue/logical_block_size  >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/size                      >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/removable                 >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/device/model              >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/device/rev                >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/device/state              >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/device/timeout            >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/device/vendor             >> ${work_dir}/block_device
+            |egrep -H '.*' /sys/block/*/device/queue_depth        >> ${work_dir}/block_device
             """
             session.execute command.stripMargin()
             session.get from: "${work_dir}/block_device", into: local_dir
@@ -798,7 +795,14 @@ class LinuxSpec extends LinuxSpecBase {
 
     def crash_size(session, test_item) {
         def lines = exec('crash_size') {
-            run_ssh_command(session, 'cat /sys/kernel/kexec_crash_size', 'crash_size')
+            def command = """\
+            |cat /sys/kernel/kexec_crash_size 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Unkown crash_size. kdump:'
+            |   cat /sys/kernel/kexec_crash_loaded
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'crash_size')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
@@ -806,7 +810,13 @@ class LinuxSpec extends LinuxSpecBase {
 
     def kdump_path(session, test_item) {
         def lines = exec('kdump_path') {
-            run_ssh_command(session, "egrep -e '^path' /etc/kdump.conf", 'kdump_path')
+            def command = """\
+            |egrep -e '^path' /etc/kdump.conf 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'path /var/crash'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'kdump_path')
         }
         def path = 'Unkown'
         lines.eachLine {
@@ -874,7 +884,13 @@ class LinuxSpec extends LinuxSpecBase {
 
     def resolve_conf(session, test_item) {
         def lines = exec('resolve_conf') {
-            run_ssh_command(session, 'grep nameserver /etc/resolv.conf', 'resolve_conf')
+            def command = """\
+            |grep nameserver /etc/resolv.conf 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'NotFound'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'resolve_conf')
         }
         def nameservers = [:]
         def nameserver_number = 1

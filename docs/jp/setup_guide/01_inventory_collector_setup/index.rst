@@ -8,7 +8,7 @@ Contents:
 
    00_preparation
    01_PreparationIntranet
-   01_package_install
    02_powershell_setup
-   03_powercli_install
-   04_getconfig_install
+   03_package_install
+   04_powercli_install
+   06_getconfig_install

@@ -12,6 +12,11 @@ PowerCLIインストール
 
    2018/2/17から Chocolatey は、 VMware PowerCLI をサポートするようになりました。
 
+OSの再起動
+----------
+
+一旦、ここでOSを再起動します。
+
 .. VMware PowerCLI のインストールは Chocolatey がまだ未サポートのため、手動でインストールします。
 
 .. VMWareサイトから PowerCLI モジュールをダウンロードしてインストールします。
