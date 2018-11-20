@@ -29,6 +29,7 @@ Bug fixes:
 * Windows シナリオで仮想プロセッサ数を取得できない問題対処
 * LinuxシナリオでRedHat5系でエラーとなる以下の検査項目を修正
   meminfo / block_device / crash_size / kdump_path / resolve_conf
+* Solaris シナリオでネットワークサブネット解析時のエラーメッセージを見直し
 
 Changes for 0.1.31 (2018-10-29)
 ------------------------------------------------------------------------------

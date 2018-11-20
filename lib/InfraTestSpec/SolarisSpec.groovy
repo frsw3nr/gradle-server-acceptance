@@ -154,7 +154,7 @@ class SolarisSpec extends InfraTestSpec {
         }
         info['System'] += info['Release']
         info['kernel'] = info.toString()
-        println prettyPrint(toJson(info))
+        // println prettyPrint(toJson(info))
 
         test_item.results(info)
         test_item.verify_text_search('System', info['System'])
@@ -260,7 +260,6 @@ class SolarisSpec extends InfraTestSpec {
         def device_ip = [:]
         def net_subnet = [:]
         lines.eachLine {
-            // println it
             // e1000g0: flags=1000843<UP,BROADCAST,RUNNING,MULTICAST,IPv4> mtu 1500 index 2
             //         inet 192.168.10.3 netmask ffffff00 broadcast 192.168.10.255
             (it =~  /^(.+?): (.+)<(.+)> (.+)$/).each { m0,m1,m2,m3,m4->
@@ -293,7 +292,7 @@ class SolarisSpec extends InfraTestSpec {
                     // network[device]['subnet'] = subnet.getNetmask()
                     // net_subnet[device] = network[device]['subnet']
                 } catch (IllegalArgumentException e) {
-                    log.error "[SolarisTest] subnet convert : m1\n" + e
+                    log.error "[SolarisTest] subnet convert : '$m1', Skip.\n" + e
                 }
             }
 
