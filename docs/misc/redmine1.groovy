@@ -12,7 +12,7 @@ def manager = RedmineManagerFactory.createWithApiKey(redmine_uri, redmine_api_ke
 
 // override default page size if needed
 manager.setObjectsPerPage(100);
-List<Issue> issues = manager.getIssueManager().getIssues(1, "");
+List<Issue> issues = manager.getIssueManager().getIssues("cmdb", null);
 for (Issue issue : issues) {
     System.out.println(issue.toString());
 }
