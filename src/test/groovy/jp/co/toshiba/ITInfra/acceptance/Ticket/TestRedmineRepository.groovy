@@ -70,7 +70,7 @@ class TestRedmineRepository extends Specification {
         manager = RedmineManagerFactory.createWithApiKey(redmine_uri, redmine_api_key);
     }
 
-    def "デモ1"() {
+    def "チケット一覧1"() {
         when:
         // override default page size if needed
         manager.setObjectsPerPage(100);
@@ -83,7 +83,7 @@ class TestRedmineRepository extends Specification {
         1 == 1
     }
 
-    def "デモ2"() {
+    def "チケット登録1"() {
         when:
         def projectManager = manager.getProjectManager();
         def project = projectManager.getProjectByKey("cmdb");
@@ -113,5 +113,35 @@ class TestRedmineRepository extends Specification {
         1 == 1
     }
 
+    def "チケット検索1"() {
+        when:
+        def issue_manager = manager.getIssueManager();
+        // def issue = issue_manager.getIssueById(40);
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put("status_id","*");
+        params.put("subject", "test123");
+
+        // List<Issue> issues = issue_manager.getIssues(params);
+        // for (Issue issue : issues) {
+        //     System.out.println(issue.toString());
+        // }
+        def issues = issue_manager.getIssues(params);
+        println issues.getResults()
+        issues.getResults().each { issue ->
+            println issue
+        }
+        then:
+        1 == 1
+    }
+
+    def "プロジェクト検索1"() {
+        when:
+        def projects = manager.getProjectManager().getProjects();
+        println projects
+
+        then:
+        1 == 1
+    }
 
 }
