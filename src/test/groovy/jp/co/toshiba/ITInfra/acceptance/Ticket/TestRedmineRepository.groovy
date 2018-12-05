@@ -8,7 +8,7 @@ import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
 // setenv REDMINE_URL=http://localhost/redmine
 // setenv REDMINE_API_KEY={APIキー}
-// gradle --daemon test --tests "TestRedmineRepository.デモ1"
+// gradle --daemon test --tests "TestRedmineRepository.チケット検索1"
 
 /*
 ToDo
@@ -118,7 +118,7 @@ class TestRedmineRepository extends Specification {
         def issue_manager = manager.getIssueManager();
         // def issue = issue_manager.getIssueById(40);
 
-        Map<String,String> params = new HashMap<String,String>();
+        def params = new HashMap<String,String>();
         params.put("status_id","*");
         params.put("subject", "test123");
 
@@ -144,4 +144,74 @@ class TestRedmineRepository extends Specification {
         1 == 1
     }
 
+    def "カスタムフィールド検索1"() {
+// List<CustomFieldDefinition> customFieldDefinitions = mgr.getCustomFieldManager().getCustomFieldDefinitions();
+// // sample implementation for getCustomFieldByName() is in CustomFieldResolver (test class).
+// // in prod code you would typically know the custom field name or id already 
+// CustomFieldDefinition customField1 = getCustomFieldByName(customFieldDefinitions, "my_custom_1");
+// String custom1Value = "some value 123";
+// issue.addCustomField(CustomFieldFactory.create(customField1.getId(), customField1.getName(), custom1Value));
+// issueManager.update(issue);
+        when:
+        def custom_field_ids = [:]
+        def custom_fields = manager.getCustomFieldManager().getCustomFieldDefinitions()
+        custom_fields.each { custom_field ->
+            // println "CustomField:${custom_field.id},${custom_field.name}"
+            custom_field_ids[custom_field.name] = custom_field.id
+        }
+        println "CustomFieldIds: ${custom_field_ids}"
+        def result = CustomFieldFactory.create(custom_field_ids['OS名'], 'OS名', 'CentOS 6.9')
+        println "CustomField(OS名): ${result}"
+
+        then:
+        1 == 1
+    }
+
+    def get_issues_by_subject(String subject) {
+        def issue_manager = manager.getIssueManager();
+        // def issue = issue_manager.getIssueById(40);
+
+        def params = new HashMap<String,String>();
+        params.put("status_id","*");
+        params.put("subject", subject);
+
+        def results = issue_manager.getIssues(params).getResults()
+        return (results.size() == 0) ? Null : results[0]
+    }
+
+    def "カスタムフィールド登録1"() {
+        when:
+        def projectManager = manager.getProjectManager();
+        def project = projectManager.getProjectByKey("cmdb");
+        println "Project:${project}"
+
+        def issue_manager = manager.getIssueManager();
+        def issue = get_issues_by_subject("test_server_123")
+        println "Issue:${issue}"
+        if (!issue) {
+            issue = IssueFactory.create(null);
+        }
+
+        // プロジェクト
+        issue.setProjectId(project.id);
+
+        // 題名
+        issue.setSubject("test_server_123");
+        // トラッカー
+        issue.setTracker(project.getTrackerByName("IAサーバ"));
+        // カスタムフィールド
+        def custom_field_ids = [:]
+        def custom_fields = manager.getCustomFieldManager().getCustomFieldDefinitions()
+        custom_fields.each { custom_field ->
+            custom_field_ids[custom_field.name] = custom_field.id
+        }
+        issue.addCustomField(CustomFieldFactory.create(custom_field_ids['OS名'], 'OS名', 'CentOS 7.2'))
+
+        // チケット登録
+        // def new_issue = issue_manager.createIssue(issue);
+        issue_manager.update(issue);
+
+        then:
+        1 == 1
+    }
 }
