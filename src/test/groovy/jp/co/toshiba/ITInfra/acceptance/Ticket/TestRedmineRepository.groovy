@@ -11,16 +11,73 @@ import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 // gradle --daemon test --tests "TestRedmineRepository.チケット検索1"
 
 /*
-ToDo
-=====
+Redmine Java API 調査
 
-Redmine I/F作成
+* チケット作成の場合
+
+  def new_issue = issue_manager.createIssue(issue); // 引数をリファレンスに発番
+
+* チケット更新の場合
+
+  issue_manager.update(issue); // issue を更新
+
+更新の場合は名前でカスタムフィールドの指定ができるが、
+作成の場合はカスタムフィールドID、名前、値の指定で登録が必要。
+
+* カスタムフィールドの検索(Redmine 全体)
+
+  def custom_fields = manager.getCustomFieldManager().getCustomFieldDefinitions()
+
+* チケットの検索
+
+  def params = new HashMap<String,String>();
+  params.put("status_id","*");
+  params.put("subject", subject);
+  def results = issue_manager.getIssues(params).getResults()
+
+* チケットのカスタムフィールド更新(新規チケットの場合)
+
+  かなり複雑。一旦カスタムフィールドなしのチケットを作成してから次の更新をした方が良い
+
+  # 事前にカスタムフィールドを辞書化
+  def custom_field_ids = [:]
+  def custom_fields = manager.getCustomFieldManager().getCustomFieldDefinitions()
+  custom_fields.each { custom_field ->
+      custom_field_ids[custom_field.name] = custom_field.id
+  }
+  # 辞書からフィールドidをつき合わせして、カスタムフィールド定義を追加
+  issue.addCustomField(CustomFieldFactory.create(custom_field_ids['OS名'], 'OS名', 'CentOS 6.10'))
+  def new_issue = issue_manager.createIssue(issue);
+
+* チケットのカスタムフィールド更新(既存チケットの場合)
+
+  def custom_field = issue.getCustomFieldByName("OS名")
+  custom_field.setValue('CentOS 6.9')
+  issue_manager.update(issue);
+
+* チケット削除
+
+  mgr.getIssueManager().deleteIssue(0)
+
+* リレーション登録
+
+  def relations =[]
+  def relation = issue_manager.createRelation(new_issue.id, issue_to.id, 'relates')
+  relations << relation
+  new_issue.addRelations(relations)
+  issue_manager.update(new_issue)
+
+* リレーション検索
+
+  def relations = issue2.getRelations()
+
+Redmine I/F検討
 ---------------
 
 redmine_repository.py RedmineRepository
 redmine_field.py      RedmineField
-redmine_stat.py       RedmineStatistics 必要？
-redmine_cache.py      RedmineStatistics 必要？
+redmine_stat.py       RedmineStatistics 廃止
+redmine_cache.py      RedmineStatistics 廃止
 
 ticket.py　メイン処理
 
@@ -44,6 +101,15 @@ ticket.py　メイン処理
     def regist(self, fab, key, row, **kwargs):
         Redmine チケットの登録。use_cache, skip_redmine オプションの条件により処理が変わる
 
+ToDo
+=====
+
+サーバ機器モデルプロト
+----------------------
+
+実行オプション追加
+Redmine APIスクリプト追加
+
 単体テスト
 ----------
 
@@ -58,8 +124,11 @@ lib/Ticket/Eternus
 lib/Ticket/HitachiVSP
 lib/Ticket/iLO
 lib/Ticket/Linux
-*/
 
+結合テスト
+----------
+
+*/
 
 class TestRedmineRepository extends Specification {
     def manager
@@ -135,6 +204,46 @@ class TestRedmineRepository extends Specification {
         1 == 1
     }
 
+    def "チケット削除"() {
+        when:
+        def issue_manager = manager.getIssueManager();
+        // def issue = issue_manager.getIssueById(40);
+
+        def params = new HashMap<String,String>();
+        params.put("status_id","*");
+        // params.put("subject", "test123%");
+        params.put("subject", "test123");
+
+        def issues = issue_manager.getIssues(params);
+        // println issues.getResults()
+        issues.getResults().each { issue ->
+            issue_manager.deleteIssue(issue.id)
+        }
+
+        then:
+        1 == 1
+    }
+
+    def "チケット削除2"() {
+        when:
+        def issue_manager = manager.getIssueManager();
+        // def issue = issue_manager.getIssueById(40);
+
+        def params = new HashMap<String,String>();
+        params.put("status_id","*");
+        // params.put("subject", "test123%");
+        params.put("subject", "test123b");
+
+        def issues = issue_manager.getIssues(params);
+        // println issues.getResults()
+        issues.getResults().each { issue ->
+            issue_manager.deleteIssue(issue.id)
+        }
+
+        then:
+        1 == 1
+    }
+
     def "プロジェクト検索1"() {
         when:
         def projects = manager.getProjectManager().getProjects();
@@ -145,13 +254,6 @@ class TestRedmineRepository extends Specification {
     }
 
     def "カスタムフィールド検索1"() {
-// List<CustomFieldDefinition> customFieldDefinitions = mgr.getCustomFieldManager().getCustomFieldDefinitions();
-// // sample implementation for getCustomFieldByName() is in CustomFieldResolver (test class).
-// // in prod code you would typically know the custom field name or id already 
-// CustomFieldDefinition customField1 = getCustomFieldByName(customFieldDefinitions, "my_custom_1");
-// String custom1Value = "some value 123";
-// issue.addCustomField(CustomFieldFactory.create(customField1.getId(), customField1.getName(), custom1Value));
-// issueManager.update(issue);
         when:
         def custom_field_ids = [:]
         def custom_fields = manager.getCustomFieldManager().getCustomFieldDefinitions()
@@ -176,7 +278,13 @@ class TestRedmineRepository extends Specification {
         params.put("subject", subject);
 
         def results = issue_manager.getIssues(params).getResults()
-        return (results.size() == 0) ? Null : results[0]
+        println "RESULTS:${results}"
+        println(results.isEmpty()); 
+        // if (results.isEmpty()) 
+        //     return null 
+        // else
+        //     return results[0]
+        return (results.isEmpty()) ? null : results[0]
     }
 
     def "カスタムフィールド登録1"() {
@@ -186,17 +294,19 @@ class TestRedmineRepository extends Specification {
         println "Project:${project}"
 
         def issue_manager = manager.getIssueManager();
-        def issue = get_issues_by_subject("test_server_123")
+        def issue = get_issues_by_subject("test123")
         println "Issue:${issue}"
         if (!issue) {
+            println "CREATE"
             issue = IssueFactory.create(null);
         }
+        println "Issue2:${issue}"
 
         // プロジェクト
         issue.setProjectId(project.id);
 
         // 題名
-        issue.setSubject("test_server_123");
+        issue.setSubject("test123");
         // トラッカー
         issue.setTracker(project.getTrackerByName("IAサーバ"));
         // カスタムフィールド
@@ -205,11 +315,91 @@ class TestRedmineRepository extends Specification {
         custom_fields.each { custom_field ->
             custom_field_ids[custom_field.name] = custom_field.id
         }
-        issue.addCustomField(CustomFieldFactory.create(custom_field_ids['OS名'], 'OS名', 'CentOS 7.2'))
+        issue.addCustomField(CustomFieldFactory.create(custom_field_ids['OS名'], 'OS名', 'CentOS 6.10'))
 
         // チケット登録
-        // def new_issue = issue_manager.createIssue(issue);
+        def new_issue = issue_manager.createIssue(issue);
+        // issue_manager.update(new_issue);
+
+        then:
+        1 == 1
+    }
+
+    def "チケット更新1"() {
+        when:
+        def projectManager = manager.getProjectManager();
+        def project = projectManager.getProjectByKey("cmdb");
+        println "Project:${project}"
+
+        def issue_manager = manager.getIssueManager();
+        def issue = get_issues_by_subject("test123")
+
+        then:
+        issue != null
+
+        when:
+        def custom_field = issue.getCustomFieldByName("OS名")
+        custom_field.setValue('CentOS 6.9')
+
+        // チケット登録
         issue_manager.update(issue);
+
+        then:
+        1 == 1
+    }
+
+    def "リレーション登録1"() {
+        when:
+        def projectManager = manager.getProjectManager();
+        def project = projectManager.getProjectByKey("cmdb");
+        def tracker = project.getTrackerByName("サポート");
+        def issue_manager = manager.getIssueManager();
+        def issue = IssueFactory.create(null);
+
+        issue.setProjectId(project.id);     // プロジェクト
+        issue.setSubject("test123b");       // 題名
+        issue.setTracker(tracker);          // トラッカー
+
+        // チケット登録
+        def new_issue = issue_manager.createIssue(issue);
+        // issue_manager.update(new_issue);
+
+        // リレーションチケット検索
+        def issue_to = get_issues_by_subject("test123")
+
+        // リレーション登録
+        // public void addRelations(Collection<IssueRelation> collection) {
+        //     storage.get(RELATIONS).addAll(collection);
+        // }
+        // リレーション:[IssueRelation [getId()=4139, issueId=4275, issueToId=4276, type=relates, delay=0]]
+        def relations =[]
+        def relation = issue_manager.createRelation(new_issue.id, issue_to.id, 'relates')
+        relations << relation
+        println "リレーション：${relations}"
+        // List <IssueRelation
+        // def relations = CustomRelation
+        new_issue.addRelations(relations)
+        issue_manager.update(new_issue)
+
+        then:
+        1 == 1
+    }
+
+    def "リレーション検索1"() {
+        when:
+        def projectManager = manager.getProjectManager();
+        def project = projectManager.getProjectByKey("cmdb");
+
+        def issue_manager = manager.getIssueManager();
+        def issue = get_issues_by_subject("test123b")
+        def issue2 = issue_manager.getIssueById(issue.id, Include.relations);
+        println "チケット2:${issue2}"
+        def relations = issue2.getRelations()
+        println "リレーション:${relations}"
+
+        // リレーションを削除する場合
+        // issue_manager.deleteIssueRelations(issue2)
+        // リレーション:[IssueRelation [getId()=4139, issueId=4275, issueToId=4276, type=relates, delay=0]]
 
         then:
         1 == 1
