@@ -8,7 +8,7 @@ import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
 // setenv REDMINE_URL=http://localhost/redmine
 // setenv REDMINE_API_KEY={APIキー}
-// gradle --daemon test --tests "TestRedmineRepository.チケット検索1"
+// gradle --daemon test --tests "TestRedmineRepository.*"
 
 /*
 Redmine Java API 調査
@@ -39,13 +39,13 @@ Redmine Java API 調査
 
   かなり複雑。一旦カスタムフィールドなしのチケットを作成してから次の更新をした方が良い
 
-  # 事前にカスタムフィールドを辞書化
+  # 事前にカスタムフィールドの辞書作成
   def custom_field_ids = [:]
   def custom_fields = manager.getCustomFieldManager().getCustomFieldDefinitions()
   custom_fields.each { custom_field ->
       custom_field_ids[custom_field.name] = custom_field.id
   }
-  # 辞書からフィールドidをつき合わせして、カスタムフィールド定義を追加
+  # 辞書からフィールドidをつき合わせし、カスタムフィールドを登録
   issue.addCustomField(CustomFieldFactory.create(custom_field_ids['OS名'], 'OS名', 'CentOS 6.10'))
   def new_issue = issue_manager.createIssue(issue);
 
@@ -79,27 +79,48 @@ redmine_field.py      RedmineField
 redmine_stat.py       RedmineStatistics 廃止
 redmine_cache.py      RedmineStatistics 廃止
 
-ticket.py　メイン処理
+ticket.py　廃止メソッド
 
     def set_custom_fields(self):
         Redmine カスタムフィールドのIDリストと、カスタムフィールドからCSVカラム名の逆引きリストの生成
+        廃止。issue.getCustomFieldByName(フィールド名)を使用
+        def custom_field = issue.getCustomFieldByName("OS名")
+        custom_field.setValue('CentOS 6.9')
     def get_issue_cache(self, key, **kwargs):
-        SQLite3 キャッシュからキーを指定してチケット検索
+        SQLite3 キャッシュからキーを指定してチケット検索 ⇒ 廃止
     def reset_record_statistics(self):
-        チケット登録処理統計の初期化
+        チケット登録処理統計の初期化 ⇒ 廃止
+        チケットカスタムフィールドのユーザ更新有無をチェックする。 ⇒ 廃止
+    def make_custom_fields(self, row, csv, user_updated_fields = {}):
+        登録するチケットのカスタムフィールド値を設定 ⇒ 廃止
+    def get_difference_with_cache(self, issue_cache, csv):
+        チケット属性のキャッシュ値とCSV値の比較をする。 ⇒ 廃止
+    def get_custom_field_default_value(self, field_name, row, **kwargs):  ※未使用
+
+ticket.py　移行メソッド
+
     def validate_custom_fileds(self):
         チケット登録処理統計から、全カスタムフィールドが設定されているかを返す
-    def get_difference_with_cache(self, issue_cache, csv):
-        チケット属性のキャッシュ値とCSV値の比較をする。
-    def get_custom_field_default_value(self, field_name, row, **kwargs):  ※未使用
     def get_issue_status_id(self, issue, **kwargs):
         チケットのステータスID取得。
     def get_user_updated_fields(self, issue):
-        チケットカスタムフィールドのユーザ更新有無をチェックする。
-    def make_custom_fields(self, row, csv, user_updated_fields = {}):
-        登録するチケットのカスタムフィールド値を設定
     def regist(self, fab, key, row, **kwargs):
         Redmine チケットの登録。use_cache, skip_redmine オプションの条件により処理が変わる
+
+ticket.py regist() 移行検討
+
+前処理：
+プロジェクト検索
+トラッカー検索
+
+メイン：
+サブジェクト名でチケットを検索
+ない場合
+    チケット新規作成
+チケットステータス検索
+カスタムフィールドのセット
+カスタムフィールドバリデーション⇒チケットステータス更新
+チケット更新
 
 ToDo
 =====
@@ -339,7 +360,7 @@ class TestRedmineRepository extends Specification {
 
         when:
         def custom_field = issue.getCustomFieldByName("OS名")
-        custom_field.setValue('CentOS 6.9')
+        custom_field.setValue('CentOS 7.2')
 
         // チケット登録
         issue_manager.update(issue);
