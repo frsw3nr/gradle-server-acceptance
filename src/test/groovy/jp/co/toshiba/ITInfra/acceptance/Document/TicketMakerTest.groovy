@@ -13,9 +13,38 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "ReportMakerTest.実行結果変換"
+// gradle --daemon test --tests "TicketMakerTest.実行結果変換"
 
-class ReportMakerTest extends Specification {
+/*
+
+Redmine チケット登録処理フロー
+-------------------------------
+
+* 実行オプション解析追加。regist[-r] {プロジェクト名}
+* Excel 検査レポート解析
+    * トラッカー、カスタムフィールド抽出し、TicketSummaryに登録
+* ポートリストと、サマリ項目のデータ抽出
+* Redmineリポジトリ検索
+* 抽出データを順に登録
+    * 設備チケットRedmine登録
+    * ポートリストRedmine登録
+
+ToDo:Linuxプロトタイピング
+---------------------------
+
+* ネットワーク検査シナリオからポートリスト(PortList) を登録できるようにする
+* Excel検査レポートからチケット情報を解析して、TIcketSummaryに登録できるようにする
+* Document/TIcketMaker作成
+   * 検査結果から設備チケット登録データを抽出できるようにする
+   * 検査結果からポートリストデータを抽出する
+* Ticket/RedmineRegistor作成
+   * Redmieからプロジェクトを検索できるようにする
+   * TicketMaker抽出データを順にチケット登録
+       * 設備チケットの登録
+       * ポートリストの登録
+*/
+
+class TicketMakerTest extends Specification {
 
     def config_file = 'src/test/resources/config.groovy'
     def excel_file = 'src/test/resources/check_sheet.xlsx'
@@ -32,12 +61,11 @@ class ReportMakerTest extends Specification {
         def test_result_reader = new TestResultReader(result_dir: result_dir)
         test_result_reader.read_entire_result(test_scenario)
 
-        report_maker = new ReportMaker()
+        report_maker = new TicketMaker()
 
         def test_env = ConfigTestEnvironment.instance
         test_env.read_config(config_file)
         test_env.accept(report_maker)
-        println "ITEM_MAP:${report_maker.item_map}"
     }
 
     def "実行結果変換"() {
