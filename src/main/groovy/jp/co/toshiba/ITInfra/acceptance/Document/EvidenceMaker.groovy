@@ -23,6 +23,16 @@ class SheetDeviceResult {
 
 @Slf4j
 @ToString(includePackage = false)
+class TicketInfo {
+    String tracker
+    String subject
+    String status
+    LinkedHashMap<String,String> custom_fields = [:]
+    LinkedHashMap<String,PortList> port_lists = [:]
+}
+
+@Slf4j
+@ToString(includePackage = false)
 class EvidenceMaker {
     LinkedHashMap<String,SheetSummary> summary_sheets = [:]
     LinkedHashMap<String,SheetDeviceResult> device_result_sheets = [:]

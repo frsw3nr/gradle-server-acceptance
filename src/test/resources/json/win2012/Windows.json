@@ -17,15 +17,6 @@
         "verify": null,
         "comparision": null
     },
-    "cpu_total": {
-        "name": "cpu_total",
-        "value": "1",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": "OK",
-        "comparision": null
-    },
     "cpu_socket": {
         "name": "cpu_socket",
         "value": "1",
@@ -41,7 +32,16 @@
         "error_msg": null,
         "compare_server": null,
         "status": null,
-        "verify": "OK",
+        "verify": "NG",
+        "comparision": null
+    },
+    "cpu_total": {
+        "name": "cpu_total",
+        "value": null,
+        "error_msg": "0 != 1.0",
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
         "comparision": null
     },
     "virtual_memory": {

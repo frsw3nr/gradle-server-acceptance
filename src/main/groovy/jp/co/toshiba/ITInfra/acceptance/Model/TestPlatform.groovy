@@ -11,6 +11,7 @@ class TestPlatform extends SpecModel {
     TestTarget test_target
     RunStatus platform_status = RunStatus.INIT
     LinkedHashMap<String,TestResult> test_results  = [:]
+    LinkedHashMap<String,PortList> port_lists  = [:]
     LinkedHashMap<String,TestMetric> test_metrics  = [:]
     LinkedHashMap<String,TestMetric> added_test_metrics  = [:]
     TestRule test_rule

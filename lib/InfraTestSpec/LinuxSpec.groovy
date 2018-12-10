@@ -226,6 +226,8 @@ class LinuxSpec extends LinuxSpecBase {
                 try {
                     SubnetInfo subnet = new SubnetUtils(m1).getInfo()
                     network[device]['subnet'] = subnet.getNetmask()
+                    // Regist Port List
+                    test_item.port_list(subnet.getAddress(), device)
                     net_subnet[device] = network[device]['subnet']
                 } catch (IllegalArgumentException e) {
                     log.error "[LinuxTest] subnet convert : m1\n" + e
@@ -256,6 +258,11 @@ class LinuxSpec extends LinuxSpecBase {
         )
         test_item.devices(csv, headers)
         test_item.verify_text_search_list('net_ip', net_ip)
+        println "NET_IP:${net_ip}"
+        println "NET_SUBNET:${net_subnet}"
+        println "NETWORK:${network}"
+
+
         // test_item.verify_text_search_map('net_ip', net_ip)
     }
 

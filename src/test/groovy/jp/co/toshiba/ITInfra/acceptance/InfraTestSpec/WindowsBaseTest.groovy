@@ -74,7 +74,7 @@ class WindowsBaseTest extends Specification {
         test_platform.test_results['mhz'].value.size() > 0
         test_platform.test_results['model_name'].value.size() > 0
 
-        test_platform.test_results['cpu_total'].status  == ResultStatus.OK
+        // test_platform.test_results['cpu_total'].status  == ResultStatus.OK
         test_platform.test_results['cpu_total'].verify == ResultStatus.NG
      }
 

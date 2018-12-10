@@ -12,8 +12,8 @@ ToDo:
     * REST APIプロトタイプ② チケット登録 [x]
     * REST APIプロトタイプ③ チケット差分更新 [x]
 * REST API Linux プロトタイピング
-    * Linux検査スクリプトからポートリスト(PortList) を抽出できるようにする [ ]
-    * 実行オプション解析追加。regist[-r] {プロジェクト名} [ ]
+    * Linux検査スクリプトからポートリスト(PortList) を抽出できるようにする [x]
+    * 実行オプション解析追加。regist[-r] {プロジェクト名} [x]
     * Excel「検査レポート」からチケット情報を解析して、TicketSummary に登録 [ ]
     * Document.TicketMaker クラス作成 [ ]
        * 検査結果から設備チケットデータを抽出 [ ]

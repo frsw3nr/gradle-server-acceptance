@@ -14,6 +14,7 @@ class TestItem {
     Boolean verify_test
     def server_info = [:]
     LinkedHashMap<String,TestResult> test_results = [:]
+    LinkedHashMap<String,PortList> port_lists = [:]
 
     @ToString(includePackage = false)
     class CheckResult {
@@ -81,6 +82,12 @@ class TestItem {
         status_oks.each { metric_name, status_ok ->
             this.make_status(metric_name, status_ok)
         }
+    }
+
+    def port_list(String ip, String netmask, String device = null) {
+        def _port_list = this.port_lists?."${ip}" ?:
+                          new PortList(ip: ip, description: device)
+        this.port_lists[ip] = _port_list
     }
 
     def error_msg(String error_msg) {

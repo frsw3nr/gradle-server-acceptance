@@ -53,7 +53,8 @@ class PlatformTester {
                                          verify_test : this.test_platform?.verify_test,
                                          test_id : metric_name,
                                          server_info : server_info,
-                                         test_results : this.test_platform?.test_results)
+                                         test_results : this.test_platform?.test_results,
+                                         port_lists : this.test_platform?.port_lists)
             test_items << test_item
         }
         this.test_items = test_items

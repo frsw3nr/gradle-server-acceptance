@@ -10,7 +10,7 @@ import org.apache.commons.cli.Option
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
 enum RunnerCommand {
-  SCHEDULER, EXPORT, ARCHIVE, GENERATE
+  SCHEDULER, EXPORT, ARCHIVE, GENERATE, REGIST_REDMINE
 }
 
 @Slf4j
@@ -27,6 +27,7 @@ class TestRunner {
     String filter_server
     String filter_metric
     String export_type
+    String redmine_project_name
     int parallel_degree
     int snapshot_level
     Boolean dry_run
@@ -57,6 +58,7 @@ class TestRunner {
                 argName: 'build/check_sheet.xlsx'
             l longOpt: 'snapshot-level',args: 1, 'Level of the test item to filter',
                 argName: 'level'
+            r longOpt: 'redmine',  args: 1, 'Redmine project name to register'
             s longOpt: 'server',   args: 1, 'Keyword of target server'
             t longOpt: 'test',     args: 1, 'Keyword of test metric'
             u longOpt: 'update',   args: 1, 'Update node config',
@@ -97,6 +99,11 @@ class TestRunner {
             this.export_type = options.u
             this.command = RunnerCommand.EXPORT
         }
+        if (options.r) {
+            this.redmine_project_name = options.r
+            this.command = RunnerCommand.REGIST_REDMINE
+        }
+
         if (options.archive) {
             def archive_file = options.archive
             new ProjectBuilder(project_home).xport(archive_file)
@@ -215,6 +222,18 @@ class TestRunner {
                     test_env.accept(CMDBModel.instance)
                 }
                 evidence_manager.update(test_runner.export_type)
+            } catch (Exception e) {
+                log.error "Fatal error : " + e
+                 e.printStackTrace()
+                System.exit(1)
+            }
+        } else if (test_runner.command == RunnerCommand.REGIST_REDMINE) {
+            def evidence_manager = new EvidenceManager()
+            test_env.get_cmdb_config()
+            test_env.accept(evidence_manager)
+            try {
+                println "REGIST REDMINE: ${test_runner.redmine_project_name}"
+// /                evidence_manager.update(test_runner.export_type)
             } catch (Exception e) {
                 log.error "Fatal error : " + e
                  e.printStackTrace()

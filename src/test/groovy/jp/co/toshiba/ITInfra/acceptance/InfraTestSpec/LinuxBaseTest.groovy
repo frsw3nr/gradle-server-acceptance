@@ -113,6 +113,9 @@ class LinuxBaseTest extends Specification {
         platform_tester.run()
 
         then:
+        def json = JsonOutput.toJson(test_platform.port_lists)
+        println JsonOutput.prettyPrint(json)
+        test_platform.port_lists.size() > 0
         test_platform.test_results['network'].devices.csv.size() > 0
         test_platform.test_results['network'].devices.header.size() > 0
     }

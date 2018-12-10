@@ -90,11 +90,11 @@ class TicketMakerTest extends Specification {
         // def json = new groovy.json.JsonBuilder()
         // json(report_maker.report_sheet)
         // println json.toPrettyString()
-        def excel_sheet_maker = new ExcelSheetMaker(
-                                    excel_parser: excel_parser,
-                                    report_maker: report_maker,
-                                    evidence_maker: evidence_maker)
-        excel_sheet_maker.output('build/check_sheet.xlsx')
+        // def excel_sheet_maker = new ExcelSheetMaker(
+        //                             excel_parser: excel_parser,
+        //                             report_maker: report_maker,
+        //                             evidence_maker: evidence_maker)
+        // excel_sheet_maker.output('build/check_sheet.xlsx')
 
         then:
         1 == 1
