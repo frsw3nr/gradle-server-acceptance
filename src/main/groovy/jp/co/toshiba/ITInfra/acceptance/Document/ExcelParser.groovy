@@ -332,6 +332,11 @@ class ExcelParser {
             if (line['no'] == 'map') {
                 def platform    = (line['備考'] == '_base') ? 'common' : line['備考']
                 def metric_type = (line['備考'] == '_base') ? 'target' : 'platform'
+                def tracker = null
+                (line['備考'] =~ /^_redmine:(.+)$/).each { m0, m1 ->
+                    metric_type = 'redmine_ticket'
+                    tracker = m1
+                }
                 line.each { header_name, value ->
                     header_names[header_name] = 1
                     if (!value || header_name == 'no' || header_name == '備考')
@@ -343,6 +348,11 @@ class ExcelParser {
                     map_info[header_name]['default_name'] = value
                     if (metric_type == 'platform')
                         platform_metrics[header_name][platform] = value
+                    if (tracker) {
+                        map_info[header_name]['redmine_ticket_field'] =
+                            new RedmineTicketField(tracker : tracker,
+                                                   field_name : value)
+                    }
                 }
             }
         }

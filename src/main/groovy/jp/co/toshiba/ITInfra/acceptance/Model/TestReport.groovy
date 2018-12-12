@@ -9,6 +9,7 @@ class TestReport extends SpecModel {
     String name
     String metric_type
     String default_name
+    RedmineTicketField redmine_ticket_field
     Map platform_metrics
 
     def count() { return 1 }

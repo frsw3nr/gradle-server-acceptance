@@ -13,6 +13,7 @@ public class ReportMaker {
     String result_dir
     SheetSummary report_sheet
     SheetDeviceResult error_report_sheet
+    RedmineTicket redmine_ticket
     def metrics = [:].withDefault{[:]}
     def platform_metrics = [:].withDefault{[:]}
     def report_info = [:].withDefault{[:].withDefault{[:]}}
@@ -46,6 +47,17 @@ public class ReportMaker {
         sheet.cols[metric] = sheet.cols[metric] ?: sheet.cols.size() + 1
         sheet.results[target][metric] = test_result
         this.report_sheet = sheet
+    }
+
+    def add_redmine_result(String target, TestReport test_report,
+                           TestResult test_result) {
+        def redmine_ticket = this.redmine_ticket ?: new RedmineTicket()
+        def redmine_ticket_field = test_report.redmine_ticket_field
+        redmine_ticket.regist(redmine_ticket_field.tracker,
+                              target,
+                              redmine_ticket_field.field_name,
+                              test_result.value)
+        this.redmine_ticket = redmine_ticket
     }
 
     def add_test_error_result(target, platform, metric, test_result) {
@@ -116,6 +128,7 @@ public class ReportMaker {
                 }
             }
         }
+        // test_result.redmine_ticket_field = test_report.redmine_ticket_field
         log.debug "TEST_RESULT:${test_target.name}, ${report_name}, ${test_result}"
         return test_result ?: new TestResult(value: "", status : ResultStatus.UNKOWN)
     }
@@ -205,14 +218,17 @@ public class ReportMaker {
                 //     return
                 test_reports.each {report_name, test_report ->
                     def test_result = get_test_result(test_report, test_target)
-                    println "TEST_RESULT:$report_name, $test_result"
+                    println "TEST_RESULT:$report_name, $test_result.value"
                     add_summary_result(target, report_name, test_result)
-                    def redmine_ticket = get_redmine_ticket(test_report)
+                    def redmine_ticket = test_report.redmine_ticket_field
                     println "REDMINE_TICKET:$redmine_ticket"
+                    if (test_report.redmine_ticket_field) {
+                        add_redmine_result(target, test_report, test_result)
+                    }
                 }
             }
         }
-        // println "REPORT_INFO: ${this.report_info}"
+        println "REDMINE_TICKET: ${this.redmine_ticket}"
         this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start
         log.info "Finish report maker, Elapse : ${elapse} ms"

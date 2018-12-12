@@ -22,38 +22,12 @@ public class TicketMaker {
         this.result_dir = env.get_node_dir()
     }
 
-    // def convert_test_item() {
-    //     item_map.each { report_type, result_names ->
-    //         if (report_type == 'target') {
-    //             result_names.each { metric_name, result_name ->
-    //                 this.metrics[metric_name]['report_type'] = 'target'
-    //                 this.metrics[metric_name]['result_name'] = result_name
-    //             }
-    //         } else if (report_type == 'platform') {
-    //             result_names.each { platform_name, platform_metrics ->
-    //                 platform_metrics.each { metric_name, result_name ->
-    //                     this.metrics[metric_name]['report_type'] = 'platform'
-    //                     this.platform_metrics[metric_name][platform_name] = result_name
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
     def add_summary_result(String target, String metric, TestResult test_result) {
         def sheet = this.report_sheet ?: new SheetSummary()
         sheet.rows[target] = sheet.rows[target] ?: sheet.rows.size() + 1
         sheet.cols[metric] = sheet.cols[metric] ?: sheet.cols.size() + 1
         sheet.results[target][metric] = test_result
         this.report_sheet = sheet
-    }
-
-    def add_test_error_result(target, platform, metric, test_result) {
-        def sheet_key = ['target': target, 'platform': platform, 'id': metric]
-        def sheet = this.error_report_sheet ?: new SheetDeviceResult()
-        sheet.rows[sheet_key] = sheet.rows[sheet_key] ?: sheet.rows.size() + 1
-        sheet.results[sheet_key] = test_result
-        this.error_report_sheet = sheet
     }
 
     TestResult get_test_result_from_json(TestReport test_report, TestTarget test_target) {

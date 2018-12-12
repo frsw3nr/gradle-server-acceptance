@@ -14,9 +14,9 @@ New features:
 * REST API Linux プロトタイピング
     * Linux検査スクリプトからポートリスト(PortList) を抽出できるようにする [x]
     * 実行オプション解析追加。regist[-r] {プロジェクト名} [x]
-    * Excel「検査レポート」からチケット情報を解析して、TicketSummary に登録 [ ]
-    * Document.TicketMaker クラス作成 [ ]
-       * 検査結果から設備チケットデータを抽出 [ ]
+    * Excel「検査レポート」からチケット情報を解析して、RedmineTicketField に登録 [x]
+    * Document.ReportMaker クラス作成 [x]
+       * 検査結果から設備チケットデータを抽出 [x]
        * 検査結果からポートリストチケットデータを抽出 [ ]
     * Ticket.RedmineMaker クラス作成 [ ]
        * Redmine からプロジェクトを検索できるようにする [ ]
@@ -32,14 +32,16 @@ New features:
     * ユーザガイドドキュメント作成 [ ]
 
 ToDo:
-Excel「検査レポート」からチケット情報を解析して、TicketSummary に登録
+* Excel「検査レポート」からチケット情報を解析して、TicketSummary に登録 [ ]
 
 gradle --daemon test --tests "ReportMakerTest.実行結果変換"
 
-visit_test_scenario()内
-
-TEST_RESULT:os名, TestResult(os, CentOS release 6.7, null, cent7, OK, OK, UNMATCH, null)
-REDMINE_TICKET:[tracker:IAサーバ, custom_field:OS名]
+* TicketMaker 実装
+    * TestTicketMaker テスト追加
+    * "TicketMakerTest.実行結果変換" テストの処理を、TicketMaker に追加
+    * TestScheduler の finish()処理と同様に ReportMakerをアクセプトする
+    * アクセプトした ReportMaker から順にチケットを抽出する
+    * 抽出したチケットを順にRedmine に登録
 
 Changes for 0.1.32 (2018-11-19)
 ------------------------------------------------------------------------------
