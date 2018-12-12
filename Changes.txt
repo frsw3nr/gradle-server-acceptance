@@ -1,7 +1,7 @@
 Changes for 0.1.33 (2018-12-19)
 ------------------------------------------------------------------------------
 
-ToDo:
+New features:
 * REST API化 [x]
     * Rails REST API調査 [x]
         * リファレンス調査 [x]
@@ -30,6 +30,16 @@ ToDo:
     * セットアップガイドはモジュール共通化部分の変更内容反映 [ ]
     * ユーザガイドは想定ユーザ検討後、目次作成 [ ]
     * ユーザガイドドキュメント作成 [ ]
+
+ToDo:
+Excel「検査レポート」からチケット情報を解析して、TicketSummary に登録
+
+gradle --daemon test --tests "ReportMakerTest.実行結果変換"
+
+visit_test_scenario()内
+
+TEST_RESULT:os名, TestResult(os, CentOS release 6.7, null, cent7, OK, OK, UNMATCH, null)
+REDMINE_TICKET:[tracker:IAサーバ, custom_field:OS名]
 
 Changes for 0.1.32 (2018-11-19)
 ------------------------------------------------------------------------------
