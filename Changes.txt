@@ -43,6 +43,35 @@ gradle --daemon test --tests "ReportMakerTest.実行結果変換"
     * アクセプトした ReportMaker から順にチケットを抽出する
     * 抽出したチケットを順にRedmine に登録
 
+gradle --daemon test --tests "TicketMakerTest.実行結果変換"
+
+Todo 1
+
+ポートリストをJSON保存対象にする。以下の何れかのJSONファイルに保存
+
+more src/test/resources/json/cent7/Linux.json
+more src/test/resources/json/cent7__Linux.json
+
+
+Todo 2
+
+TicketMaker 内 run() 処理追加
+チケット抽出リストを順に Redmine に登録
+
+        excel_parser = new ExcelParser(excel_file)
+        excel_parser.scan_sheet()
+        test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+        def test_result_reader = new TestResultReader(result_dir: result_dir)
+        test_result_reader.read_entire_result(test_scenario)
+
+        ticket_maker = new TicketMaker()
+        def test_env = ConfigTestEnvironment.instance
+        test_env.read_config(config_file)
+        test_env.accept(ticket_maker)
+
+
+
 Changes for 0.1.32 (2018-11-19)
 ------------------------------------------------------------------------------
 New features:

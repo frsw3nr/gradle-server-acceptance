@@ -21,7 +21,7 @@ $ErrorActionPreference = "Continue"
 
 $log_path = Join-Path $log_dir "cpu"
 Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject Win32_Processor `
+    Get-WmiObject -Class Win32_Processor | Format-List DeviceID, Name, MaxClockSpeed, SocketDesignation, NumberOfCores, NumberOfLogicalProcessors `
 } | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "memory"
 Invoke-Command -Session $session -ScriptBlock { `
@@ -149,14 +149,6 @@ Invoke-Command -Session $session -ScriptBlock { `
 $log_path = Join-Path $log_dir "feature"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WindowsFeature | ?{$_.InstallState -eq [Microsoft.Windows.ServerManager.Commands.InstallState]::Installed} | FL `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "system_log"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-EventLog system | Where-Object { $_.EntryType -eq "Error" } | FL `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "apps_log"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-EventLog application | Where-Object { $_.EntryType -eq "Error" } | FL `
 } | Out-File $log_path -Encoding UTF8
 
 Remove-PSSession $session

@@ -20,6 +20,17 @@ Chrome から Jenkins サイトに接続します。
 
 「Insutall suggested plugins」 を選択します。
 
+.. note::
+
+   イントラネット環境で「this jenkins instance appears to be offline」という
+   メッセージが出力され、プロキシー設定の更新をしても同様のメッセージで
+   先に進まない場合があります。
+   その場合、以下の記事の通り、 hudson.model.UpdateCenter.xml を編集し、
+   デフォルトの "https://xxx" を "http://xxx" に変更して Jenkins を再起動する
+   ことで回避できました。
+
+   https://stackoverflow.com/questions/42408703/
+
 以下を入力して、管理者ユーザを登録します。
 
 * ユーザ名 : admin

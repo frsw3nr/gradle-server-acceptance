@@ -112,6 +112,7 @@ public class ReportMaker {
                 // println "GET_TEST_RESULT:${test_platforms}"
                 def platform_metrics = test_report.platform_metrics
                 test_platforms.find { platform_name, test_platform ->
+                    println "PORT_LISTS: ${test_platform.port_lists}"
                     if (platform_metrics.containsKey(platform_name)) {
                         def result_name = platform_metrics[platform_name]
                         if (test_platform.test_results.containsKey(result_name)) {
@@ -183,26 +184,6 @@ public class ReportMaker {
     //     }
     // }
 
-    def get_redmine_ticket(TestReport test_report) {
-        // os名:TestReport(os名, platform, os_caption, 
-        //     [_redmine:IAサーバ:OS名, Linux:os, Windows:os_caption]
-        // ),
-        // String name
-        // String metric_type
-        // String default_name
-        // Map platform_metrics
-        def redmine_ticket = [:]
-        test_report?.platform_metrics?.each {
-            // println "CHECK:$it"
-            // _redmine:IAサーバ=OS名
-            (it =~/^_redmine:(.+?)=(.+?)$/).each { m0, tracker, custom_field ->
-                // println "HIT!!!!: $tracker, $custom_field"
-                redmine_ticket = [tracker: tracker, custom_field: custom_field]
-            }
-        }
-        return redmine_ticket
-    }
-
     def visit_test_scenario(TestScenario test_scenario) {
         long start = System.currentTimeMillis()
 
@@ -218,10 +199,10 @@ public class ReportMaker {
                 //     return
                 test_reports.each {report_name, test_report ->
                     def test_result = get_test_result(test_report, test_target)
-                    println "TEST_RESULT:$report_name, $test_result.value"
+                    // println "TEST_RESULT:$report_name, $test_result.value"
                     add_summary_result(target, report_name, test_result)
-                    def redmine_ticket = test_report.redmine_ticket_field
-                    println "REDMINE_TICKET:$redmine_ticket"
+                    // def redmine_ticket = test_report.redmine_ticket_field
+                    // println "REDMINE_TICKET:$redmine_ticket"
                     if (test_report.redmine_ticket_field) {
                         add_redmine_result(target, test_report, test_result)
                     }

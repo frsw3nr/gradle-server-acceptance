@@ -51,31 +51,39 @@ class TicketMakerTest extends Specification {
     def result_dir = 'src/test/resources/json'
     def excel_parser
     def test_scenario
-    def report_maker
+    def ticket_maker
 
     def setup() {
-        excel_parser = new ExcelParser(excel_file)
-        excel_parser.scan_sheet()
-        test_scenario = new TestScenario(name: 'root')
-        test_scenario.accept(excel_parser)
-        def test_result_reader = new TestResultReader(result_dir: result_dir)
-        test_result_reader.read_entire_result(test_scenario)
+        // excel_parser = new ExcelParser(excel_file)
+        // excel_parser.scan_sheet()
+        // test_scenario = new TestScenario(name: 'root')
+        // test_scenario.accept(excel_parser)
+        // def test_result_reader = new TestResultReader(result_dir: result_dir)
+        // test_result_reader.read_entire_result(test_scenario)
 
-        report_maker = new TicketMaker()
-
+        String[] args = ['-c', 'src/test/resources/config.groovy',
+                        '-e', 'src/test/resources/check_sheet.xlsx',
+                        ]
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
         def test_env = ConfigTestEnvironment.instance
-        test_env.read_config(config_file)
-        test_env.accept(report_maker)
+        test_env.read_from_test_runner(test_runner)
+
+        ticket_maker = new TicketMaker()
+        test_env.accept(ticket_maker)
     }
 
     def "実行結果変換"() {
         when:
-        test_scenario.accept(report_maker)
+        ticket_maker.run()
+        def json = new groovy.json.JsonBuilder()
+        json(ticket_maker.report_maker.redmine_ticket)
+        println json.toPrettyString()
 
         then:
-        def json = new groovy.json.JsonBuilder()
-        json(report_maker.report_sheet)
-        println json.toPrettyString()
+        // def json = new groovy.json.JsonBuilder()
+        // json(ticket_maker.report_maker)
+        // println json.toPrettyString()
 
         1 == 1
     }
