@@ -13,7 +13,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "TicketMakerTest.実行結果変換"
+// gradle --daemon test --tests "TicketRegistorTest.実行結果変換"
 
 /*
 
@@ -39,19 +39,19 @@ ToDo:Linuxプロトタイピング
    * 検査結果からポートリストデータを抽出する
 * Ticket/RedmineRegistor作成
    * Redmieからプロジェクトを検索できるようにする
-   * TicketMaker抽出データを順にチケット登録
+   * TicketRegistor抽出データを順にチケット登録
        * 設備チケットの登録
        * ポートリストの登録
 */
 
-class TicketMakerTest extends Specification {
+class TicketRegistorTest extends Specification {
 
     def config_file = 'src/test/resources/config.groovy'
     def excel_file = 'src/test/resources/check_sheet.xlsx'
     def result_dir = 'src/test/resources/json'
     def excel_parser
     def test_scenario
-    def ticket_maker
+    def ticket_registor
 
     def setup() {
         // excel_parser = new ExcelParser(excel_file)
@@ -69,23 +69,21 @@ class TicketMakerTest extends Specification {
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
 
-        ticket_maker = new TicketMaker()
-        test_env.accept(ticket_maker)
+        ticket_registor = new TicketRegistor()
+        test_env.accept(ticket_registor)
     }
 
     def "実行結果変換"() {
         when:
-        ticket_maker.run()
+        ticket_registor.run()
         def json = new groovy.json.JsonBuilder()
-        json(ticket_maker.report_maker.redmine_ticket)
-        println json.toPrettyString()
+        def redmine_data = ticket_registor.get_redmine_data()
+        json(redmine_data)
+        println "REDMINE_DATA: ${json.toPrettyString()}"
 
         then:
-        // def json = new groovy.json.JsonBuilder()
-        // json(ticket_maker.report_maker)
-        // println json.toPrettyString()
-
-        1 == 1
+        redmine_data.get_ticket_dict().size() > 0
+        redmine_data.get_port_list_dict().size() > 0
     }
 
     def "Excel 出力"() {

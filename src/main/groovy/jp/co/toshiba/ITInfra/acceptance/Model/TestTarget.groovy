@@ -27,6 +27,7 @@ class TestTarget extends SpecModel {
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
     LinkedHashMap<String,TestTemplate> test_templates = [:]
     LinkedHashMap<String,TestRule> test_rules = [:]
+    LinkedHashMap<String,PortList> port_list = [:]
 
     def trim_template_config_with_null(Map template_config) {
         template_config.find { platform, sub_config ->

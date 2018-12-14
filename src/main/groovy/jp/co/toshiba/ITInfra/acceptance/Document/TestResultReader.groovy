@@ -50,6 +50,15 @@ class TestResultReader {
         return test_platform
     }
 
+    def read_port_list(String target_name, String domain_name) 
+                       throws IOException {
+        def json_file = new File("${result_dir}/${target_name}__${domain_name}.json")
+        if(!json_file.exists())
+            return
+        def results_json = new JsonSlurper().parseText(json_file.text)
+        return results_json?.port_list
+    }
+
     def read_test_target_result(TestScenario test_scenario, String target_name) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def target_domains = test_scenario.test_targets.get(target_name)
@@ -73,6 +82,7 @@ class TestResultReader {
             domain_targets.each { domain, test_target ->
                 if (test_target.target_status == RunStatus.INIT &&
                     test_target.comparision == true) {
+                    test_target.port_list = this.read_port_list(target_name, domain)
                     def platform_metrics = domain_metrics[domain].get_all()
                     platform_metrics.each { platform_name, platform_metric ->
                         def test_platform = this.read_test_platform_result(target_name,
@@ -87,12 +97,13 @@ class TestResultReader {
         }
     }
 
-    def  read_entire_result(TestScenario test_scenario) {
+    def read_entire_result(TestScenario test_scenario) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def targets = test_scenario.test_targets.get_all()
 
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
+                test_target.port_list = this.read_port_list(target_name, domain)
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform_name, platform_metric ->
                     def test_platform = this.read_test_platform_result(target_name,

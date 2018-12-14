@@ -60,6 +60,12 @@ public class ReportMaker {
         this.redmine_ticket = redmine_ticket
     }
 
+    def add_redmine_port_list(String target, LinkedHashMap<String, PortList> port_lists) {
+        def redmine_ticket = this.redmine_ticket ?: new RedmineTicket()
+        redmine_ticket.regist_port_list(target, port_lists)
+        this.redmine_ticket = redmine_ticket
+    }
+
     def add_test_error_result(target, platform, metric, test_result) {
         def sheet_key = ['target': target, 'platform': platform, 'id': metric]
         def sheet = this.error_report_sheet ?: new SheetDeviceResult()
@@ -109,10 +115,8 @@ public class ReportMaker {
         } else if (test_report.metric_type == 'platform') {
             def test_platforms = test_target?.test_platforms
             if (test_platforms) {
-                // println "GET_TEST_RESULT:${test_platforms}"
                 def platform_metrics = test_report.platform_metrics
                 test_platforms.find { platform_name, test_platform ->
-                    println "PORT_LISTS: ${test_platform.port_lists}"
                     if (platform_metrics.containsKey(platform_name)) {
                         def result_name = platform_metrics[platform_name]
                         if (test_platform.test_results.containsKey(result_name)) {
@@ -189,7 +193,6 @@ public class ReportMaker {
 
         // this.convert_test_item()
         def test_reports = test_scenario.test_reports.get_all()
-        println "TEST_REPORTS:$test_reports"
         def domain_targets = test_scenario.get_domain_targets()
 
         domain_targets.each { domain, domain_target ->
@@ -197,6 +200,10 @@ public class ReportMaker {
                 // if (test_target.target_status == RunStatus.INIT ||
                 //     test_target.target_status == RunStatus.READY)
                 //     return
+                println "PORT_LIST: ${test_target.port_list}"
+                if (test_target.port_list) {
+                    add_redmine_port_list(target, test_target.port_list)
+                }
                 test_reports.each {report_name, test_report ->
                     def test_result = get_test_result(test_report, test_target)
                     // println "TEST_RESULT:$report_name, $test_result.value"
@@ -209,7 +216,7 @@ public class ReportMaker {
                 }
             }
         }
-        println "REDMINE_TICKET: ${this.redmine_ticket}"
+        // println "REDMINE_TICKET: ${this.redmine_ticket}"
         this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start
         log.info "Finish report maker, Elapse : ${elapse} ms"

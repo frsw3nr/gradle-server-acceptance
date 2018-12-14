@@ -227,7 +227,10 @@ class LinuxSpec extends LinuxSpecBase {
                     SubnetInfo subnet = new SubnetUtils(m1).getInfo()
                     network[device]['subnet'] = subnet.getNetmask()
                     // Regist Port List
-                    test_item.port_list(subnet.getAddress(), device)
+                    def address = subnet.getAddress()
+                    if (address && address != '127.0.0.1') {
+                        test_item.port_list(subnet.getAddress(), device)
+                    }
                     net_subnet[device] = network[device]['subnet']
                 } catch (IllegalArgumentException e) {
                     log.error "[LinuxTest] subnet convert : m1\n" + e

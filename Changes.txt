@@ -49,9 +49,11 @@ Todo 1
 
 ポートリストをJSON保存対象にする。以下の何れかのJSONファイルに保存
 
+getconfig -c src/test/resources/config.groovy -e src/test/resources/check_sheet_rep.xlsx -d
+getconfig -c src/test/resources/config.groovy -e src/test/resources/check_sheet_rep.xlsx -u local
+
 more src/test/resources/json/cent7/Linux.json
 more src/test/resources/json/cent7__Linux.json
-
 
 Todo 2
 

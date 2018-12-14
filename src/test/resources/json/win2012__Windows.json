@@ -7,5 +7,8 @@
     "platforms": [
         "vCenter",
         "Windows"
-    ]
+    ],
+    "port_list": {
+        
+    }
 }

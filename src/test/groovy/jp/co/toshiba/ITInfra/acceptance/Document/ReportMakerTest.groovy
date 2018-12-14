@@ -46,7 +46,7 @@ class ReportMakerTest extends Specification {
 
         then:
         def json = new groovy.json.JsonBuilder()
-        json(report_maker.report_sheet)
+        json(report_maker.redmine_ticket)
         println json.toPrettyString()
 
         1 == 1

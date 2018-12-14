@@ -32,9 +32,20 @@ class TestResultWriter {
             def json = JsonOutput.toJson(result_info)
             it.text = JsonOutput.prettyPrint(json)
 
+
             // def json = new JsonBuilder(test_platform.test_results)
             // it.text = json.toString()
         }
+    }
+
+    def get_port_lists(TestTarget test_target) {
+        def port_list_info = [:]
+        test_target.test_platforms.each { platform, test_platform ->
+            test_platform?.port_lists.each { address, port_list ->
+                port_list_info[address] = port_list.asMap()
+            }
+        }
+        return port_list_info
     }
 
     def write_test_target(String target_name, TestTarget test_target)
@@ -49,10 +60,12 @@ class TestResultWriter {
             target_info['compare_server'] = it.compare_server
             target_info['target_status']  = it.target_status
             target_info['platforms']      = it.test_platforms.keySet()
+            target_info['port_list']      = get_port_lists(it)
         }
         def json = JsonOutput.toJson(target_info)
         new File("${result_dir}/${target_name}__${domain}.json").with {
             it.text = JsonOutput.prettyPrint(json)
+            // println "TARGET JSON OUTPUT: ${JsonOutput.prettyPrint(json)}"
         }
     }
 
