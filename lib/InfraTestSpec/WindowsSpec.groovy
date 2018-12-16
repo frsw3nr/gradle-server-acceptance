@@ -286,6 +286,7 @@ class WindowsSpec extends WindowsSpecBase {
                     columns.add( network_info[row][header] ?: '')
                 }
                 csv << columns
+                def service_name = parse_ip(network_info[row]['ServiceName'])
                 def ip_address   = parse_ip(network_info[row]['IPAddress'])
                 def gateway      = parse_ip(network_info[row]['DefaultIPGateway'])
                 def subnet       = parse_ip(network_info[row]['IPSubnet'])
@@ -293,6 +294,11 @@ class WindowsSpec extends WindowsSpecBase {
                 ip_addresses << ip_address
                 gateways     << gateway
                 subnets      << subnet
+
+                if (ip_address && ip_address != '127.0.0.1') {
+                    test_item.port_list(ip_address, service_name)
+                }
+
             }
 
             test_item.devices(csv, headers)

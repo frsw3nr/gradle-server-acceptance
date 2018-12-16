@@ -86,25 +86,5 @@ class TicketRegistorTest extends Specification {
         redmine_data.get_port_list_dict().size() > 0
     }
 
-    def "Excel 出力"() {
-        setup:
-        def evidence_maker = new EvidenceMaker()
-        test_scenario.accept(evidence_maker)
-
-        when:
-        test_scenario.accept(report_maker)
-        // def json = new groovy.json.JsonBuilder()
-        // json(report_maker.report_sheet)
-        // println json.toPrettyString()
-        // def excel_sheet_maker = new ExcelSheetMaker(
-        //                             excel_parser: excel_parser,
-        //                             report_maker: report_maker,
-        //                             evidence_maker: evidence_maker)
-        // excel_sheet_maker.output('build/check_sheet.xlsx')
-
-        then:
-        1 == 1
-    }
-
 }
 
