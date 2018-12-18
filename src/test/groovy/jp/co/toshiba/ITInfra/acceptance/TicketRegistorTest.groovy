@@ -64,7 +64,7 @@ class TicketRegistorTest extends Specification {
 
     def "実行結果変換"() {
         when:
-        ticket_registor.run()
+        ticket_registor.run('cmdb')
         def json = new groovy.json.JsonBuilder()
         def redmine_data = ticket_registor.get_redmine_data()
         json(redmine_data)

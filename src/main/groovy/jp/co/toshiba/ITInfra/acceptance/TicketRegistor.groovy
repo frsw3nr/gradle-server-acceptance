@@ -41,7 +41,7 @@ public class TicketRegistor {
         test_scenario.accept(report_maker)
     }
 
-    def regist_redmine_ticket() {
+    def regist_redmine_ticket(String project_name) {
         def redmine_data = this.get_redmine_data()
         def tickets = redmine_data.get_ticket_dict()
         tickets.each { tracker, subjects ->
@@ -72,10 +72,10 @@ public class TicketRegistor {
         }
     }
 
-    def run() {
+    def run(String project_name) {
         long start = System.currentTimeMillis()
         this.read_redmine_data()
-        this.regist_redmine_ticket()
+        this.regist_redmine_ticket(project_name)
         long elapse = System.currentTimeMillis() - start
         log.info "Finish ticket maker, Elapse : ${elapse} ms"
     }
