@@ -1,0 +1,154 @@
+{
+    "NumCpu": {
+        "name": "NumCpu",
+        "value": "1",
+        "error_msg": "1 != 2.0",
+        "compare_server": null,
+        "status": "OK",
+        "verify": "NG",
+        "comparision": null
+    },
+    "PowerState": {
+        "name": "PowerState",
+        "value": "PoweredOn",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "MemoryGB": {
+        "name": "MemoryGB",
+        "value": "4",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "OK",
+        "comparision": null
+    },
+    "VMHost": {
+        "name": "VMHost",
+        "value": "192.168.10.100",
+        "error_msg": "'192.168.10.100' !=~ /esx/",
+        "compare_server": null,
+        "status": "OK",
+        "verify": "NG",
+        "comparision": null
+    },
+    "vm": {
+        "name": "vm",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
+        "comparision": null
+    },
+    "datastore": {
+        "name": "datastore",
+        "value": "[datastore2]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "datastore2",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
+                    "VMFS",
+                    "Available"
+                ]
+            ],
+            "header": [
+                "Name",
+                "DatastoreBrowserPath",
+                "Type",
+                "State"
+            ]
+        }
+    },
+    "VMNetwork": {
+        "name": "VMNetwork",
+        "value": "[StartConnected]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "LIVING-LAN",
+                    "e1000e",
+                    "Connected, GuestControl, StartConnected"
+                ]
+            ],
+            "header": [
+                "NetworkName",
+                "Type",
+                "ConnectionState"
+            ]
+        }
+    },
+    "vmwaretool": {
+        "name": "vmwaretool",
+        "value": "NotInstalled",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmwaretool.version": {
+        "name": "vmwaretool.version",
+        "value": "[internalversion:0, requiredversion:9344]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_timesync": {
+        "name": "vm_timesync",
+        "value": "[TimeSync:False]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_iops_limit": {
+        "name": "vm_iops_limit",
+        "value": "[IOLimit1:-1]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_storage": {
+        "name": "vm_storage",
+        "value": "[Thin:40]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "[datastore2] w2012/w2012.vmdk",
+                    "Thin",
+                    "40"
+                ]
+            ],
+            "header": [
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
+            ]
+        }
+    }
+}

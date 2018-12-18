@@ -1,0 +1,10 @@
+{
+    "name": "m10",
+    "ip": "10.20.129.20",
+    "template_id": "XSCF",
+    "compare_server": null,
+    "target_status": "FINISH",
+    "platforms": [
+        "XSCF"
+    ]
+}

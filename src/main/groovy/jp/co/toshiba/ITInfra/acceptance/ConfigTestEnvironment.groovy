@@ -75,6 +75,14 @@ class ConfigTestEnvironment {
         }
     }
 
+    def get_redmine_uri() {
+        return this.config?.redmine_uri ?: System.getenv("REDMINE_URL") ?: "http://localhost/redmine";
+    }
+
+    def get_redmine_api_key() {
+        return this.config?.api_key ?: System.getenv("REDMINE_API_KEY") ?: "";
+    }
+
     def get_getconfig_home() {
         return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
     }

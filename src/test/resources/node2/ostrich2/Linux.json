@@ -1,0 +1,611 @@
+{
+    "arch": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "arch",
+        "status": null,
+        "value": null,
+        "verify": "NG"
+    },
+    "block_device": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": "Not found",
+        "name": "block_device",
+        "status": "WARNING",
+        "value": "[:]",
+        "verify": null
+    },
+    "cores": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "cores",
+        "status": "OK",
+        "value": "0",
+        "verify": null
+    },
+    "cpu": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "cpu",
+        "status": "OK",
+        "value": "0 0 CPU",
+        "verify": null
+    },
+    "cpu_core": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "cpu_core",
+        "status": "OK",
+        "value": "0",
+        "verify": null
+    },
+    "cpu_real": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "cpu_real",
+        "status": "OK",
+        "value": "0",
+        "verify": "NG"
+    },
+    "cpu_total": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "cpu_total",
+        "status": "OK",
+        "value": "0",
+        "verify": "NG"
+    },
+    "crash_size": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "crash_size",
+        "status": "OK",
+        "value": "{}",
+        "verify": null
+    },
+    "error_messages": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": {
+            "csv": [
+                [
+                    "{}"
+                ]
+            ],
+            "custom_fields": {
+                
+            },
+            "header": [
+                "message"
+            ]
+        },
+        "error_msg": null,
+        "name": "error_messages",
+        "status": "OK",
+        "value": "Message found",
+        "verify": null
+    },
+    "filesystem": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": {
+            "csv": [
+                
+            ],
+            "custom_fields": {
+                
+            },
+            "header": [
+                "name",
+                "maj:min",
+                "rm",
+                "size",
+                "ro",
+                "type",
+                "mountpoint"
+            ]
+        },
+        "error_msg": null,
+        "name": "filesystem",
+        "status": "OK",
+        "value": null,
+        "verify": "NG"
+    },
+    "fips": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "fips",
+        "status": "OK",
+        "value": "False",
+        "verify": null
+    },
+    "fstab": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "fstab",
+        "status": "OK",
+        "value": "NotFound",
+        "verify": null
+    },
+    "hostname": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "hostname",
+        "status": "OK",
+        "value": "{}",
+        "verify": null
+    },
+    "hostname_fqdn": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "hostname_fqdn",
+        "status": "OK",
+        "value": "[NotConfigured]",
+        "verify": null
+    },
+    "hw_address": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": "Not found",
+        "name": "hw_address",
+        "status": "WARNING",
+        "value": "[]",
+        "verify": null
+    },
+    "kdump_path": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "kdump_path",
+        "status": "OK",
+        "value": "Unkown",
+        "verify": null
+    },
+    "kernel": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "kernel",
+        "status": null,
+        "value": null,
+        "verify": "NG"
+    },
+    "language": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "language",
+        "status": "OK",
+        "value": "NotConfigured",
+        "verify": null
+    },
+    "lsb": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "lsb",
+        "status": "OK",
+        "value": "[{}]",
+        "verify": null
+    },
+    "lvm": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": {
+            "csv": [
+                
+            ],
+            "custom_fields": {
+                
+            },
+            "header": [
+                "vg_name",
+                "lv_name",
+                "mountpoint"
+            ]
+        },
+        "error_msg": null,
+        "name": "lvm",
+        "status": "OK",
+        "value": "[lvm:NotConfigured, devices:[:]]",
+        "verify": null
+    },
+    "machineid": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "machineid",
+        "status": "OK",
+        "value": "{}",
+        "verify": null
+    },
+    "mdadb": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "mdadb",
+        "status": "OK",
+        "value": "{}",
+        "verify": null
+    },
+    "mem_total": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "mem_total",
+        "status": null,
+        "value": null,
+        "verify": "NG"
+    },
+    "model_name": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "model_name",
+        "status": "OK",
+        "value": "0",
+        "verify": null
+    },
+    "mount_iso": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "mount_iso",
+        "status": "OK",
+        "value": "no mount",
+        "verify": null
+    },
+    "nameservers": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": "Not found",
+        "name": "nameservers",
+        "status": "WARNING",
+        "value": "[:]",
+        "verify": null
+    },
+    "net_bond": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "net_bond",
+        "status": "OK",
+        "value": "[bonding:NotConfigured, devices:[], options:[]]",
+        "verify": null
+    },
+    "net_onboot": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": "Not found",
+        "name": "net_onboot",
+        "status": "WARNING",
+        "value": "[:]",
+        "verify": "NG"
+    },
+    "net_route": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": "Not found",
+        "name": "net_route",
+        "status": "WARNING",
+        "value": "[:]",
+        "verify": "NG"
+    },
+    "network": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": {
+            "csv": [
+                
+            ],
+            "custom_fields": {
+                
+            },
+            "header": [
+                "device",
+                "ip",
+                "mtu",
+                "state",
+                "mac",
+                "subnet"
+            ]
+        },
+        "error_msg": "Not found",
+        "name": "network",
+        "status": "WARNING",
+        "value": "[]",
+        "verify": null
+    },
+    "ntp": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "ntp",
+        "status": "OK",
+        "value": "[ntp:NotConfigured, server:[]]",
+        "verify": null
+    },
+    "ntp_slew": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "ntp_slew",
+        "status": "OK",
+        "value": "NotFound",
+        "verify": null
+    },
+    "oracle": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "oracle",
+        "status": "OK",
+        "value": "NotFound",
+        "verify": null
+    },
+    "oracle_module": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "oracle_module",
+        "status": "NG",
+        "value": null,
+        "verify": null
+    },
+    "os": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "os",
+        "status": null,
+        "value": null,
+        "verify": "NG"
+    },
+    "packages": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "packages",
+        "status": "NG",
+        "value": null,
+        "verify": null
+    },
+    "proxy_global": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "proxy_global",
+        "status": "OK",
+        "value": "{}",
+        "verify": null
+    },
+    "resolve_conf": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "resolve_conf",
+        "status": "OK",
+        "value": "off",
+        "verify": null
+    },
+    "runlevel": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "runlevel",
+        "status": "OK",
+        "value": "{}",
+        "verify": null
+    },
+    "service": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": {
+            "csv": [
+                
+            ],
+            "custom_fields": {
+                
+            },
+            "header": [
+                "Name",
+                "Status"
+            ]
+        },
+        "error_msg": null,
+        "name": "service",
+        "status": "OK",
+        "value": "0",
+        "verify": "NG"
+    },
+    "sestatus": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "sestatus",
+        "status": null,
+        "value": null,
+        "verify": "NG"
+    },
+    "snmp_trap": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "snmp_trap",
+        "status": "OK",
+        "value": "[snmp_trap:NotConfigured, trapsink:[]]",
+        "verify": null
+    },
+    "user": {
+        "comparision": "UNMATCH",
+        "custom_fields": {
+            
+        },
+        "devices": {
+            "csv": [
+                
+            ],
+            "custom_fields": {
+                
+            },
+            "header": [
+                "UserName",
+                "UserID",
+                "GroupID",
+                "Group",
+                "Home",
+                "Shell"
+            ]
+        },
+        "error_msg": "Not found",
+        "name": "user",
+        "status": "WARNING",
+        "value": "[]",
+        "verify": "NG"
+    },
+    "virturization": {
+        "comparision": "MATCH",
+        "custom_fields": {
+            
+        },
+        "devices": null,
+        "error_msg": null,
+        "name": "virturization",
+        "status": "OK",
+        "value": "no KVM",
+        "verify": null
+    }
+}

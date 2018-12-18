@@ -1,0 +1,19 @@
+{
+    "name": "win2012",
+    "ip": "192.168.0.24",
+    "template_id": "Windows",
+    "compare_server": null,
+    "target_status": "FINISH",
+    "platforms": [
+        "vCenter",
+        "Windows"
+    ],
+    "port_list": {
+        "192.168.0.24": {
+            "ip": "192.168.0.24",
+            "description": null,
+            "port_type": null,
+            "online": null
+        }
+    }
+}

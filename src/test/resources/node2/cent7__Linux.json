@@ -1,0 +1,25 @@
+{
+    "name": "cent7",
+    "ip": "192.168.0.20",
+    "template_id": "RH7",
+    "compare_server": null,
+    "target_status": "COMPARED",
+    "platforms": [
+        "vCenter",
+        "Linux"
+    ],
+    "port_list": {
+        "192.168.0.20": {
+            "ip": "192.168.0.20",
+            "description": null,
+            "port_type": null,
+            "online": null
+        },
+        "172.17.0.1": {
+            "ip": "172.17.0.1",
+            "description": null,
+            "port_type": null,
+            "online": null
+        }
+    }
+}

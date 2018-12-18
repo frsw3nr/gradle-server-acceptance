@@ -17,8 +17,8 @@ New features:
     * Excel「検査レポート」からチケット情報を解析して、RedmineTicketField に登録 [x]
     * Document.ReportMaker クラス作成 [x]
        * 検査結果から設備チケットデータを抽出 [x]
-       * 検査結果からポートリストチケットデータを抽出 [ ]
-    * Ticket.RedmineMaker クラス作成 [ ]
+       * 検査結果からポートリストチケットデータを抽出 [x]
+    * Ticket.TicketMaker クラス作成 [x]
        * Redmine からプロジェクトを検索できるようにする [ ]
        * TicketMaker抽出データを順にチケット登録 [ ]
            * 設備チケットの登録 [ ]
@@ -30,6 +30,11 @@ New features:
     * セットアップガイドはモジュール共通化部分の変更内容反映 [ ]
     * ユーザガイドは想定ユーザ検討後、目次作成 [ ]
     * ユーザガイドドキュメント作成 [ ]
+
+Bug fixes:
+* config.groovy ファイルがなくてもDB登録や予行演習は出来るようにする
+* getconfig -u local を実行しないと対象比較が機能しない問題対処
+* 富士通PRIMERGY で HTTPS 通信でAPIアクセスが出来ない問題対処
 
 ToDo:
 * Excel「検査レポート」からチケット情報を解析して、TicketSummary に登録 [ ]
@@ -72,6 +77,50 @@ TicketMaker 内 run() 処理追加
         test_env.read_config(config_file)
         test_env.accept(ticket_maker)
 
+チケット登録
+------------
+
+設備
+
+gradle --daemon test --tests "TestRedmineManager.チケット登録1"
+
+ポートリスト
+
+gradle --daemon test --tests "TestRedmineManager.ポートリスト登録1"
+
+RedmineManager作成
+
+    def setup() {
+        def redmine_uri = System.getenv("REDMINE_URL") ?: "http://localhost/redmine";
+        def redmine_api_key = System.getenv("REDMINE_API_KEY") ?: "";
+        redmine_manager = RedmineManagerFactory.createWithApiKey(redmine_uri,
+                                                                 redmine_api_key);
+    }
+
+    Issue get_issues_by_subject(String subject) {
+    def delete_ticket(String subject) {
+    Issue regist_ticket(String project_name, String tracker_name, String subject,
+                      Map custom_fields = [:]) {
+
+    def "ポートリスト登録1"() {
+        when:
+        def issue_manager = redmine_manager.getIssueManager();
+        // IAサーバ, ostrich, 設備検索
+        def server1 = get_issues_by_subject('ostrich')
+
+        // ポートリスト登録
+        def port_list1 = regist_ticket('cmdb', 'ポートリスト', '192.168.10.1')
+        def port_list2 = regist_ticket('cmdb', 'ポートリスト', '192.168.98.130')
+
+        def relations =[]
+        relations << issue_manager.createRelation(server1.id, port_list1.id, 'relates')
+        relations << issue_manager.createRelation(server1.id, port_list2.id, 'relates')
+        server1.addRelations(relations)
+        issue_manager.update(server1)
+
+単体テスト
+
+gradle --daemon test --tests "TestTicketManager.初期化"
 
 
 Changes for 0.1.32 (2018-11-19)

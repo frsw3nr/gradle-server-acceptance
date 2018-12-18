@@ -1,0 +1,314 @@
+{
+    "hardconf": {
+        "name": "hardconf",
+        "value": "Normal",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "Partition#0 PPAR_",
+                    "Running",
+                    "Running;"
+                ],
+                [
+                    "MBU",
+                    "Normal",
+                    "Normal; Ver:2351h; Serial:TZ1422A00U  ; "
+                ],
+                [
+                    "CPU#0",
+                    "Normal",
+                    "Normal; Ver:4142h; Serial:00050322; "
+                ],
+                [
+                    "MEM#00A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#01A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#02A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#03A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#10A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#11A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#12A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "MEM#13A",
+                    "Normal",
+                    "Normal; "
+                ],
+                [
+                    "OPNL",
+                    "Normal",
+                    "Normal; Ver:0101h; Serial:TZ1333F01Z  ; "
+                ],
+                [
+                    "PSUBP",
+                    "Normal",
+                    "Normal; Ver:0101h; Serial:TZ1416P070  ; "
+                ],
+                [
+                    "PSU#0",
+                    "Normal",
+                    "Normal; Ver:303141h; Serial:GWSD1416000541; "
+                ],
+                [
+                    "+ Power_",
+                    "ON",
+                    "ON; AC:100 V; "
+                ],
+                [
+                    "PSU#1",
+                    "Normal",
+                    "Normal; Ver:303141h; Serial:GWSD1416000516; "
+                ],
+                [
+                    "+ Power_",
+                    "ON",
+                    "ON; AC:100 V; "
+                ],
+                [
+                    "FANU#0",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ],
+                [
+                    "FANU#1",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ],
+                [
+                    "FANU#2",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ],
+                [
+                    "FANU#3",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ],
+                [
+                    "FANU#4",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ],
+                [
+                    "FANU#5",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ],
+                [
+                    "FANU#6",
+                    "Normal",
+                    "Normal; Type: A ; "
+                ]
+            ],
+            "header": [
+                "target",
+                "node",
+                "status",
+                "description"
+            ]
+        }
+    },
+    "cpu_activate": {
+        "name": "cpu_activate",
+        "value": "[installed:16, assigned for PPAR 0:16]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "fwversion": {
+        "name": "fwversion",
+        "value": "[XCP0 (Reserve):[2351], CMU:[02.35.0001, 02.35.0001], POST:[3.13.0, 3.13.0], OpenBoot PROM:[4.38.5+2.23.0, 4.38.5+2.23.0], Hypervisor:[1.5.18, 1.5.18], XSCF:[02.35.0001, 02.35.0001], XCP1 (Current):[2351]]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "XCP0 (Reserve)",
+                    "2351"
+                ],
+                [
+                    "CMU",
+                    "02.35.0001"
+                ],
+                [
+                    "POST",
+                    "3.13.0"
+                ],
+                [
+                    "OpenBoot PROM",
+                    "4.38.5+2.23.0"
+                ],
+                [
+                    "Hypervisor",
+                    "1.5.18"
+                ],
+                [
+                    "XSCF",
+                    "02.35.0001"
+                ],
+                [
+                    "XCP1 (Current)",
+                    "2351"
+                ],
+                [
+                    "CMU",
+                    "02.35.0001"
+                ],
+                [
+                    "POST",
+                    "3.13.0"
+                ],
+                [
+                    "OpenBoot PROM",
+                    "4.38.5+2.23.0"
+                ],
+                [
+                    "Hypervisor",
+                    "1.5.18"
+                ],
+                [
+                    "XSCF",
+                    "02.35.0001"
+                ]
+            ],
+            "header": [
+                "target",
+                "node",
+                "version"
+            ]
+        }
+    },
+    "network": {
+        "name": "network",
+        "value": "[10.20.129.20:1]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "OK",
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    1,
+                    "10.20.129.20",
+                    "B0:99:28:9B:D2:1C  ",
+                    "255.255.0.0"
+                ],
+                [
+                    2,
+                    "NaN",
+                    "B0:99:28:9B:D2:1D  ",
+                    "NaN"
+                ]
+            ],
+            "header": [
+                "target",
+                "device",
+                "ip",
+                "mac",
+                "subnet"
+            ]
+        }
+    },
+    "snmp": {
+        "name": "snmp",
+        "value": "Disabled",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "NG",
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "Disabled",
+                    "None",
+                    "161",
+                    "None",
+                    "NaN",
+                    "NaN"
+                ]
+            ],
+            "header": [
+                "target",
+                "status",
+                "version",
+                "agent_port",
+                "host",
+                "host_port",
+                "community"
+            ]
+        }
+    },
+    "snmp_status": {
+        "name": "snmp_status",
+        "value": null,
+        "error_msg": "'Disabled' !=~ /Enabled/",
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
+        "comparision": null
+    },
+    "snmp_address": {
+        "name": "snmp_address",
+        "value": null,
+        "error_msg": "'host2' not in 'None'",
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
+        "comparision": null
+    },
+    "snmp_community": {
+        "name": "snmp_community",
+        "value": null,
+        "error_msg": "'public' not in 'null'",
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
+        "comparision": null
+    },
+    "snmp_version": {
+        "name": "snmp_version",
+        "value": null,
+        "error_msg": "'v2' not in 'None'",
+        "compare_server": null,
+        "status": null,
+        "verify": "NG",
+        "comparision": null
+    }
+}

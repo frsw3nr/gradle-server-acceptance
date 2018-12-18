@@ -46,21 +46,9 @@ ToDo:Linuxプロトタイピング
 
 class TicketRegistorTest extends Specification {
 
-    def config_file = 'src/test/resources/config.groovy'
-    def excel_file = 'src/test/resources/check_sheet.xlsx'
-    def result_dir = 'src/test/resources/json'
-    def excel_parser
-    def test_scenario
     def ticket_registor
 
     def setup() {
-        // excel_parser = new ExcelParser(excel_file)
-        // excel_parser.scan_sheet()
-        // test_scenario = new TestScenario(name: 'root')
-        // test_scenario.accept(excel_parser)
-        // def test_result_reader = new TestResultReader(result_dir: result_dir)
-        // test_result_reader.read_entire_result(test_scenario)
-
         String[] args = ['-c', 'src/test/resources/config.groovy',
                         '-e', 'src/test/resources/check_sheet.xlsx',
                         ]
@@ -70,6 +58,7 @@ class TicketRegistorTest extends Specification {
         test_env.read_from_test_runner(test_runner)
 
         ticket_registor = new TicketRegistor()
+        test_env.config.node_dir = './src/test/resources/node2/'
         test_env.accept(ticket_registor)
     }
 

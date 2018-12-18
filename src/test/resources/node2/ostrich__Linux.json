@@ -1,0 +1,25 @@
+{
+    "name": "ostrich",
+    "ip": "192.168.10.1",
+    "template_id": "Linux",
+    "compare_server": "cent7",
+    "target_status": "FINISH",
+    "platforms": [
+        "vCenter",
+        "Linux"
+    ],
+    "port_list": {
+        "192.168.10.1": {
+            "ip": "192.168.10.1",
+            "description": null,
+            "port_type": null,
+            "online": null
+        },
+        "192.168.10.4": {
+            "ip": "192.168.10.4",
+            "description": null,
+            "port_type": null,
+            "online": null
+        }
+    }
+}

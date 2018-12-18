@@ -1,0 +1,10 @@
+{
+    "name": "ostrich",
+    "ip": "192.168.1.148",
+    "template_id": "iLO",
+    "compare_server": null,
+    "target_status": "FINISH",
+    "platforms": [
+        "iLO"
+    ]
+}

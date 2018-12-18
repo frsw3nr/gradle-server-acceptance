@@ -1,0 +1,10 @@
+{
+    "name": "aix1",
+    "ip": "10.152.12.36",
+    "template_id": "AIX",
+    "compare_server": null,
+    "target_status": "FINISH",
+    "platforms": [
+        "AIX"
+    ]
+}
