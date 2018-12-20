@@ -68,7 +68,7 @@ class TicketRegistorTest extends Specification {
         def json = new groovy.json.JsonBuilder()
         def redmine_data = ticket_registor.get_redmine_data()
         json(redmine_data)
-        println "REDMINE_DATA: ${json.toPrettyString()}"
+        // println "REDMINE_DATA: ${json.toPrettyString()}"
 
         then:
         redmine_data.get_ticket_dict().size() > 0

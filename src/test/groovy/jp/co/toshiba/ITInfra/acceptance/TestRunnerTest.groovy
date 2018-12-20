@@ -34,6 +34,26 @@ class TestRunnerTest extends Specification {
         1 == 1
     }
 
+    def "チケット登録オプション"() {
+        setup:
+        def test_runner = new TestRunner()
+
+        when:
+        String[] args = ['-c', 'src/test/resources/config.groovy',
+                        '-e', 'src/test/resources/check_sheet.xlsx',
+                        '-r'
+                        ]
+        test_runner.parse(args)
+        def test_env = ConfigTestEnvironment.instance
+        test_env.read_from_test_runner(test_runner)
+        def ticket_registor = new TicketRegistor()
+        test_env.accept(ticket_registor)
+
+        then:
+        ticket_registor.redmine_project == 'cmdb'
+        // 1 == 1
+    }
+
     def "ドライランオプション"() {
         setup:
         def test_runner = new TestRunner()

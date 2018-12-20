@@ -113,7 +113,10 @@ class TicketManager {
         params.put("status_id","*");
         params.put("subject", subject);
         def results = this.issue_manager.getIssues(params).getResults()
-        return (results.isEmpty()) ? null : results[0]
+        // getIssues()だと、リレーションの検索が出来ないため、再度getIssueById()で検索する
+        return (results.isEmpty()) ? null : 
+                                     this.issue_manager.getIssueById(results[0].id, 
+                                                                     Include.relations)
     }
 
     Project get_project(String project_name) {
@@ -175,7 +178,7 @@ class TicketManager {
                 log.error(msg)
                 throw new NotFoundException(msg)
             }
-            log.info "Regist ticket : '${tracker_name}:${subject}(${project_name})'"
+            log.info "Regist '${tracker_name}:${subject}(${project_name})'"
         } catch (NotFoundException e) {
             def msg = "Ticket regist failed '${tracker_name}:${subject}'."
             log.error(msg)
@@ -190,19 +193,31 @@ class TicketManager {
 
     Boolean link(Issue ticket_from, List<Integer> ticket_to_ids) {
         Boolean isok = false
+        // 関連するチケットIDの洗い出し
+        def existing_relations = [:]
+        ticket_from.getRelations().each { issue ->
+            existing_relations[issue.issueId] = true
+            existing_relations[issue.issueToId] = true
+        }
+        // println "EXISTING_RELATIONS:${existing_relations}"
         def relations =[]
         try {
             ticket_to_ids.each { ticket_to_id ->
-                relations << this.issue_manager.createRelation(ticket_from.id, 
-                                                               ticket_to_id,
-                                                               'relates')
+                if (!existing_relations.containsKey(ticket_to_id)) {
+                    relations << this.issue_manager.createRelation(ticket_from.id, 
+                                                                   ticket_to_id,
+                                                                   'relates')
+                }
             }
-            ticket_from.addRelations(relations)
-            this.issue_manager.update(ticket_from)
+            // println "RELATIONS:${relations}"
+            if (relations.size() > 0) {
+                ticket_from.addRelations(relations)
+                this.issue_manager.update(ticket_from)
+            }
             isok = true
         } catch (RedmineProcessingException e) {
             def msg = "Redmine link error '${ticket_from}' to '${ticket_to_ids}' : ${e}."
-            log.error(msg)
+            log.info(msg)
         }
         return isok
     }

@@ -83,6 +83,11 @@ class ConfigTestEnvironment {
         return this.config?.api_key ?: System.getenv("REDMINE_API_KEY") ?: "";
     }
 
+    def get_redmine_project() {
+        return this.config?.redmine_project_name ?: System.getenv("REDMINE_PROJECT") ?:
+               this.config?.ticket?.redmine_project ?: "cmdb";
+    }
+
     def get_getconfig_home() {
         return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
     }

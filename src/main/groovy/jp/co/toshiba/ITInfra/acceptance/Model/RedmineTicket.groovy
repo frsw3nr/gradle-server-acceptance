@@ -15,7 +15,7 @@ class RedmineTicket extends SpecModel {
     }
 
     def regist_port_list(String target, LinkedHashMap<String, PortList> port_lists) {
-        println "REGIST_PORT_LIST:$target, ${port_lists}"
+        // println "REGIST_PORT_LIST:$target, ${port_lists}"
         this.port_list_dict[target] = port_lists
         // port_lists.each { address, port_list ->
         //     port_list_dict[target] << address

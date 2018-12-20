@@ -1,4 +1,4 @@
-package jp.co.toshiba.ITInfra.acceptance.Document;
+package jp.co.toshiba.ITInfra.acceptance;
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
@@ -6,6 +6,7 @@ import com.taskadapter.redmineapi.*
 import com.taskadapter.redmineapi.bean.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
 @Slf4j
@@ -15,6 +16,7 @@ public class TicketRegistor {
     // ConfigObject item_map
     String excel_file
     String result_dir
+    String redmine_project
     ReportMaker report_maker = new ReportMaker()
     TicketManager ticket_manager = TicketManager.instance
 
@@ -22,6 +24,8 @@ public class TicketRegistor {
         // this.item_map = env.get_item_map()
         this.excel_file = env.get_excel_file()
         this.result_dir = env.get_node_dir()
+        this.redmine_project = env.get_redmine_project()
+        println "REDMINE_PROJECT:${this.redmine_project}"
         env.accept(this.report_maker)
         env.accept(this.ticket_manager)
         this.ticket_manager.init()
@@ -46,7 +50,7 @@ public class TicketRegistor {
         def tickets = redmine_data.get_ticket_dict()
         tickets.each { tracker, subjects ->
             subjects.each { subject, custom_fields ->
-                println "REGIST: ${tracker}, ${subject}, ${custom_fields}"
+                // println "REGIST: ${tracker}, ${subject}, ${custom_fields}"
                 Issue issue = this.ticket_manager.regist('cmdb',
                                                          tracker, 
                                                          subject, 
@@ -56,15 +60,15 @@ public class TicketRegistor {
                     if (port_lists) {
                         List<Integer> port_list_ids = []
                         port_lists.each { ip, port_list ->
-                            println "REGIST_PORT_IP: ${ip}"
+                            // println "REGIST_PORT_IP: ${ip}"
                             Issue port_list_issue = this.ticket_manager.regist_port_list('cmdb', ip)
-                            println "PORT_LIST_ISSUE: ${port_list_issue}"
+                            // println "PORT_LIST_ISSUE: ${port_list_issue}"
                             if (!port_list_issue) {
                                 return
                             }
                             port_list_ids << port_list_issue.id
-                            this.ticket_manager.link(issue, port_list_ids)
                         }
+                        this.ticket_manager.link(issue, port_list_ids)
                     }
                 }
 

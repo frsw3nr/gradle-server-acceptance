@@ -5,7 +5,9 @@ import groovy.transform.ToString
 import org.apache.commons.lang.math.NumberUtils
 import groovy.util.CliBuilder
 import org.apache.commons.cli.Option
-
+// import jp.co.toshiba.ITInfra.acceptance.*
+// import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
+// import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
 // gradle shadowJar
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
@@ -58,7 +60,8 @@ class TestRunner {
                 argName: 'build/check_sheet.xlsx'
             l longOpt: 'snapshot-level',args: 1, 'Level of the test item to filter',
                 argName: 'level'
-            r longOpt: 'redmine',  args: 1, 'Redmine project name to register'
+            r longOpt: 'redmine', 'Regist redmine ticket'
+            rp longOpt: 'redmine-project', args: 1, 'Regist redmine ticket specified project'
             s longOpt: 'server',   args: 1, 'Keyword of target server'
             t longOpt: 'test',     args: 1, 'Keyword of test metric'
             u longOpt: 'update',   args: 1, 'Update node config',
@@ -99,8 +102,10 @@ class TestRunner {
             this.export_type = options.u
             this.command = RunnerCommand.EXPORT
         }
-        if (options.r) {
-            this.redmine_project_name = options.r
+        if (options.r || options.rp) {
+            if (options.rp) {
+                this.redmine_project_name = options.rp
+            }
             this.command = RunnerCommand.REGIST_REDMINE
         }
 
@@ -228,11 +233,16 @@ class TestRunner {
                 System.exit(1)
             }
         } else if (test_runner.command == RunnerCommand.REGIST_REDMINE) {
-            def evidence_manager = new EvidenceManager()
-            test_env.get_cmdb_config()
-            test_env.accept(evidence_manager)
+            def ticket_registor = new TicketRegistor()
+            test_env.accept(ticket_registor)
             try {
-                println "REGIST REDMINE: ${test_runner.redmine_project_name}"
+                // println "REGIST REDMINE: ${ticket_registor.redmine_project}"
+
+                ticket_registor.run()
+                // def json = new groovy.json.JsonBuilder()
+                // def redmine_data = ticket_registor.get_redmine_data()
+                // json(redmine_data)
+                // println "REDMINE_DATA: ${json.toPrettyString()}"
 // /                evidence_manager.update(test_runner.export_type)
             } catch (Exception e) {
                 log.error "Fatal error : " + e

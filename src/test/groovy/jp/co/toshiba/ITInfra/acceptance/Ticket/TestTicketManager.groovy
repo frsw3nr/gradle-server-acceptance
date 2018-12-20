@@ -112,11 +112,17 @@ class TestTicketManager extends Specification {
 
         // ポートリスト登録
         def port_list1 = ticket_manager.regist('cmdb', 'ポートリスト', '192.168.10.1')
-        def port_list2 = ticket_manager.regist('cmdb', 'ポートリスト', '192.168.98.130')
+        def port_list2 = ticket_manager.regist('cmdb', 'ポートリスト', '192.168.10.4')
         def result = ticket_manager.link(server1, [port_list1.id, port_list2.id])
 
         then:
         result == true
+
+        when:
+        def result2 = ticket_manager.link(server1, [port_list1.id, port_list2.id])
+
+        then:
+        result2 == true
     }
 
     def "リンク異常"() {

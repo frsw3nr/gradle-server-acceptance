@@ -200,7 +200,7 @@ public class ReportMaker {
                 // if (test_target.target_status == RunStatus.INIT ||
                 //     test_target.target_status == RunStatus.READY)
                 //     return
-                println "PORT_LIST: ${test_target.port_list}"
+                // println "PORT_LIST: ${test_target.port_list}"
                 if (test_target.port_list) {
                     add_redmine_port_list(target, test_target.port_list)
                 }
