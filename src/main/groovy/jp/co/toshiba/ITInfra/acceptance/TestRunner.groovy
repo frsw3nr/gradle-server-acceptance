@@ -233,6 +233,7 @@ class TestRunner {
                 System.exit(1)
             }
         } else if (test_runner.command == RunnerCommand.REGIST_REDMINE) {
+<<<<<<< HEAD
             def ticket_registor = new TicketRegistor()
             test_env.accept(ticket_registor)
             try {
@@ -249,6 +250,23 @@ class TestRunner {
                  e.printStackTrace()
                 System.exit(1)
             }
+=======
+            // def evidence_manager = new EvidenceManager()
+//             def ticket_registor = new TicketRegistor()
+//             // def ticket_registor = TicketRegistor.instance
+//             // test_env.get_cmdb_config()
+//             // test_env.accept(evidence_manager)
+//             test_env.accept(ticket_registor)
+//             try {
+//                 println "REGIST REDMINE: ${test_runner.redmine_project_name}"
+//                 ticket_registor.run(test_runner.redmine_project_name)
+// // /                evidence_manager.update(test_runner.export_type)
+//             } catch (Exception e) {
+//                 log.error "Fatal error : " + e
+//                  e.printStackTrace()
+//                 System.exit(1)
+//             }
+>>>>>>> 673270b494795556fe4aa2205429e251579fe6bb
         }
         long elapsed = System.currentTimeMillis() - start
         log.info "Total, Elapsed : ${elapsed} ms"

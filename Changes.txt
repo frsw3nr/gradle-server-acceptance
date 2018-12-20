@@ -10,11 +10,10 @@ Bug fixes:
 
 Changes for 0.1.33 (2018-12-19)
 ------------------------------------------------------------------------------
-
 New features:
 * Redmine REST API Linux プロトタイピング
     * Linux検査スクリプトからポートリスト(PortList) を抽出できるようにする
-    * 実行オプション解析追加。regist[-r] {プロジェクト名}
+    * 実行オプション解析追加。regist[-r|-rp {プロジェクト名}]
     * Excel「検査レポート」からチケット情報を解析して、RedmineTicketField に登録
 
 Changes for 0.1.32 (2018-11-19)

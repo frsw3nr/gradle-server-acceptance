@@ -21,7 +21,7 @@ class ProjectBuilderTest extends Specification {
         println 'Test'
 
         // def project_builder = new ProjectBuilder(".", "/tmp")
-        def project_builder = new ProjectBuilder("/home/psadmin/work/gradle-server-acceptance", "/tmp")
+        def project_builder = new ProjectBuilder(".", "/tmp")
         def blank_spec_sheets = project_builder.get_all_blank_sheet(project_builder.home)
         // getBlankSheetAll(new File('.'), ~/blank_.*\.xlsx/)
         // def blank_spec_sheets = getBlankSheetAll(new File('.'), ~/blank_.*\.xlsx/)
@@ -47,7 +47,7 @@ class ProjectBuilderTest extends Specification {
         println 'Test'
 
         // def project_builder = new ProjectBuilder(".", "/tmp")
-        def project_builder = new ProjectBuilder("/home/psadmin/work/gradle-server-acceptance", "/tmp")
+        def project_builder = new ProjectBuilder(".", "/tmp")
         project_builder.copy_all_blank_template_sheet()
 
         then:
