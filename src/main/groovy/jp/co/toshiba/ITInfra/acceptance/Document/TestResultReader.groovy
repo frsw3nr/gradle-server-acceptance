@@ -50,6 +50,21 @@ class TestResultReader {
         return test_platform
     }
 
+    def read_port_lists(String target_name) throws IOException {
+        LinkedHashMap<String, PortList> port_lists = [:]
+        new File(result_dir).eachFile { 
+            ( it.name =~ /${target_name}__(.+).json/ ).each { json_file, domain ->
+                def results_json = new JsonSlurper().parseText(it.text)
+                def port_list = results_json?.port_list
+                if (port_list) {
+                    port_lists << port_list
+                }
+            }
+        }
+        // println "RESULT: ${target_name}, ${port_lists}"
+        return port_lists
+    }
+
     def read_port_list(String target_name, String domain_name) 
                        throws IOException {
         def json_file = new File("${result_dir}/${target_name}__${domain_name}.json")
@@ -79,10 +94,12 @@ class TestResultReader {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
+            def port_lists = this.read_port_lists(target_name)
             domain_targets.each { domain, test_target ->
                 if (test_target.target_status == RunStatus.INIT &&
                     test_target.comparision == true) {
-                    test_target.port_list = this.read_port_list(target_name, domain)
+                    test_target.port_list = port_lists
+                    // this.read_port_list(target_name, domain)
                     def platform_metrics = domain_metrics[domain].get_all()
                     platform_metrics.each { platform_name, platform_metric ->
                         def test_platform = this.read_test_platform_result(target_name,
@@ -102,8 +119,10 @@ class TestResultReader {
         def targets = test_scenario.test_targets.get_all()
 
         targets.each { target_name, domain_targets ->
+            def port_lists = this.read_port_lists(target_name)
             domain_targets.each { domain, test_target ->
-                test_target.port_list = this.read_port_list(target_name, domain)
+                test_target.port_list = port_lists
+                // test_target.port_list = this.read_port_list(target_name, domain)
                 def platform_metrics = domain_metrics[domain].get_all()
                 platform_metrics.each { platform_name, platform_metric ->
                     def test_platform = this.read_test_platform_result(target_name,

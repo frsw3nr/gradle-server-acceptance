@@ -13,12 +13,12 @@ class PortList extends SpecModel {
     String ip
     String description
     String netmask
-    PortType port_type
     Boolean online
+    PortType port_type
 
     public Map asMap() {
-        def map = [ip : ip, description : description,
-                   port_type : port_type, online : online]
+        def map = [ip : ip, description : description, netmask: netmask,
+                   online : online, port_type : port_type]
         map << this.custom_fields
 
         return map

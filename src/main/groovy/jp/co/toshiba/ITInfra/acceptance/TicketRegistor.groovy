@@ -25,7 +25,6 @@ public class TicketRegistor {
         this.excel_file = env.get_excel_file()
         this.result_dir = env.get_node_dir()
         this.redmine_project = env.get_redmine_project()
-        println "REDMINE_PROJECT:${this.redmine_project}"
         env.accept(this.report_maker)
         env.accept(this.ticket_manager)
         this.ticket_manager.init()
@@ -78,6 +77,7 @@ public class TicketRegistor {
 
     def run(String project_name) {
         long start = System.currentTimeMillis()
+        log.info "Redmine Project : ${this.redmine_project}"
         this.read_redmine_data()
         this.regist_redmine_ticket(project_name)
         long elapse = System.currentTimeMillis() - start

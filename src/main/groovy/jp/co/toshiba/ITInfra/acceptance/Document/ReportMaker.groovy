@@ -192,11 +192,13 @@ public class ReportMaker {
         long start = System.currentTimeMillis()
 
         // this.convert_test_item()
+        log.info "Read results : ${this.result_dir}"
         def test_reports = test_scenario.test_reports.get_all()
         def domain_targets = test_scenario.get_domain_targets()
 
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
+                // println "VISIT ReportMaker:$domain, $target"
                 // if (test_target.target_status == RunStatus.INIT ||
                 //     test_target.target_status == RunStatus.READY)
                 //     return
