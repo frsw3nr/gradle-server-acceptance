@@ -321,17 +321,21 @@ class iLOSpecBase extends InfraTestSpec {
                 }
             }
             nic_infos.each { id, nic_info ->
+                def ip_address = nic_info?.'IP_ADDRESS'?.toString()
+                def port       = nic_info?.'NETWORK_PORT'?.toString()
                 csv << [
                     nic_info?.'type'?.toString(), 
-                    nic_info?.'NETWORK_PORT'?.toString(), 
-                    nic_info?.'PORT_DESCRIPTION'?.toString(),
+                    ip_address, 
+                    port,
                     nic_info?.'LOCATION'?.toString(), 
                     nic_info?.'MAC_ADDRESS'?.toString(), 
                     nic_info?.'IP_ADDRESS'?.toString(),
                     nic_info?.'STATUS'?.toString(),
                 ] as String[]
-                if (nic_info['IP_ADDRESS'] ==~ /^\d.+/)
-                    nic_ips << nic_info['IP_ADDRESS']
+                if (ip_address ==~ /^\d.+/) {
+                    test_item.port_list(ip_address, port)
+                    nic_ips << ip_address
+                }
             }
             def headers = ['type', 'port', 'desc', 'location', 'mac', 'ip', 'status']
             test_item.devices(csv, headers)

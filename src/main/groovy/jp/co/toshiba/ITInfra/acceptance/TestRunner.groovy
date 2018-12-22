@@ -236,12 +236,7 @@ class TestRunner {
             def ticket_registor = new TicketRegistor()
             test_env.accept(ticket_registor)
             try {
-                // println "REGIST REDMINE: ${ticket_registor.redmine_project}"
                 ticket_registor.run()
-                // def json = new groovy.json.JsonBuilder()
-                // def redmine_data = ticket_registor.get_redmine_data()
-                // json(redmine_data)
-                // println "REDMINE_DATA: ${json.toPrettyString()}"
             } catch (Exception e) {
                 log.error "Fatal error : " + e
                  e.printStackTrace()

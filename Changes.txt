@@ -8,6 +8,29 @@ Bug fixes:
 * getconfig -u local を実行しないと対象比較が機能しない問題対処
 * 富士通PRIMERGY で HTTPS 通信でAPIアクセスが出来ない問題対処
 
+ToDo:
+
+シナリオ見直し [ ]
+    SPARC/XSCF [ ]
+    ETERNUS [ ]
+    VSP [ ]
+    ESXi [ ]
+デモ環境準備 [ ]
+    Windows仮想マシン N台 [ ]
+    Linux仮想マシン N台 [ ]
+    オンプレ NetApp Data ONTAP シミュレータ [ ]
+    Cisco UCS エミュレーター [ ]
+    モバイル端末 Android [ ]
+    モバイル端末 Windows7(WinRM) [ ]
+デモシナリオ準備 [ ]
+    比較機能のデモ [ ]
+    ポートリストデモ [ ]
+        スイッチ名:XX-XXX-XXXXX,ポート名:Gi0/1,MACアドレス:XXXX.XXXXX.XXXX.XXXXX,タイプ:上位/下位 [ ]
+英語対応 [ ]
+    Excelパーサーコード調査 [ ]
+    マルチバイトコーディング箇所修正 [ ]
+    検査スクリプト/検査シート作成見直し [ ]
+
 Changes for 0.1.33 (2018-12-19)
 ------------------------------------------------------------------------------
 New features:

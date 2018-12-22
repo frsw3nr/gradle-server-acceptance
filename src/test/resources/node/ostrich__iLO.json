@@ -1,0 +1,19 @@
+{
+    "name": "ostrich",
+    "ip": "192.168.1.148",
+    "template_id": "iLO",
+    "compare_server": null,
+    "target_status": "FINISH",
+    "platforms": [
+        "iLO"
+    ],
+    "port_list": {
+        "192.168.1.148": {
+            "ip": "192.168.1.148",
+            "description": "Port 1",
+            "netmask": null,
+            "online": null,
+            "port_type": null
+        }
+    }
+}

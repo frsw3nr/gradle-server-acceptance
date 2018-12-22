@@ -84,9 +84,15 @@ class TestItem {
         }
     }
 
-    def port_list(String ip, String netmask, String device = null) {
+    def port_list(String ip, String description = null, String netmask = null,
+                  Boolean online = null, PortType port_type = null) {
         def _port_list = this.port_lists?."${ip}" ?:
-                          new PortList(ip: ip, description: device)
+                          new PortList(ip: ip, 
+                                       description: description, 
+                                       netmask: netmask,
+                                       online: online,
+                                       port_type: port_type, 
+                                       )
         this.port_lists[ip] = _port_list
     }
 
