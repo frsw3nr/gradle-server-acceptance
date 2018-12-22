@@ -14,12 +14,13 @@ evidence.staging_dir='./build/log'
 evidence.result_dir='./src/test/resources/json'
 
 // 並列化しないタスク
-
 test.serialization.tasks = ['vCenter']
 
 // DryRunモードログ保存先
-
 test.dry_run_staging_dir = './src/test/resources/log/'
+
+// 既定のRedmineプロジェクト名
+ticket.redmine_project = 'cmdb'
 
 // コマンド採取のタイムアウト
 // Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
