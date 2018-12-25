@@ -1,0 +1,5 @@
+<<LDEV Capacity Information>>
+Volume Kind,Allocated LDEV Capacity(GB),Unallocated LDEV Capacity(GB),Reserved Capacity(GB),Total Volume Capacity(GB),Free Space(GB),Total Capacity(GB)
+Internal OPEN Volumes,14625,0,0,14625,11588,26214
+External OPEN Volumes,0,0,0,0,0,0
+Total OPEN Volumes,14625,0,0,14625,11588,26214

@@ -1,0 +1,109 @@
+<!--
+  ***************************************************************************
+  Hitachi Co,Ltd. Proprientary Information
+  The information contained herein is confidental proprientary of
+  Hitachi Co,Ltd.
+  Reproduction,use,modification,or disclosure otherwise than
+  permitted in the Agreement is stricity prohibited.
+  ***************************************************************************
+  All Right reserved,Copyright(C), 2009 - 2010 Hitachi Co,Ltd.
+  ***************************************************************************
+-->
+
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-style-type" content="text/css" />
+<link rel="stylesheet" type="text/css" href="../../common/css/contentsBody.css" />
+
+<script src="../../common/flex/AC_OETags.js" language="javascript"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+// -----------------------------------------------------------------------------
+// Globals
+// Major version of Flash required
+//var requiredMajorVersion = 9; // W7235194579
+var requiredMajorVersion = 10; // W7235194579
+// Minor version of Flash required
+//var requiredMinorVersion = 0; // W7235194579
+var requiredMinorVersion = 1; // W7235194579
+// Minor version of Flash required
+//var requiredRevision = 28; // W7235194579
+var requiredRevision = 0; // W7235194579
+// -----------------------------------------------------------------------------
+// -->
+</script>
+</head>
+
+<body scroll="no">
+<script language="JavaScript" type="text/javascript">
+<!--
+// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+var hasProductInstall = DetectFlashVer(6, 0, 65);
+
+// Version check based upon the values defined in globals
+var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+
+if ( hasProductInstall && !hasRequestedVersion ) {
+	// DO NOT MODIFY THE FOLLOWING FOUR LINES
+	// Location visited after installation is complete if installation is required
+	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+	var MMredirectURL = window.location;
+    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+    var MMdoctitle = document.title;
+
+	AC_FL_RunContent(
+		"src", "../../common/flex/playerProductInstall",
+		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+		"width", "100%",
+		"height", "100%",
+		"align", "middle",
+		"id", "CVSReader",
+		"quality", "high",
+		"bgcolor", "#869ca7",
+		"name", "CVSReader",
+		"allowScriptAccess","sameDomain",
+		"type", "application/x-shockwave-flash",
+		"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+} else if (hasRequestedVersion) {
+	// if we've detected an acceptable version
+	// embed the Flash Content SWF when all tests are passed
+	AC_FL_RunContent(
+			"src", "../../common/flex/CVSReader",
+			"FlashVars", "FILEPATH=../data/Physicaldevice.csv&POS=0:left,1:na,2:left,3:na,4:left,5:na,6:left,7:na,8:left,9:na,10:right,11:na,12:left,13:na,14:right,15:na,16:right,17:na,18:left,19:na,20:left,21:na,22:left,23:na,24:left,25:na,26:left,27:na,28:left,29:na,30:left,31:na,32:left,33:na,34:left,35:na,36:left,37:na,38:left,39:na&ALLSORTOFF=true&SORTON=0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39&SORTTYPE=0:charSort,1:charSort,2:charSort,3:charSort,4:PARITY,5:charSort,6:charSort,7:charSort,8:charSort,9:charSort,10:numSort,11:charSort,12:charSort,13:charSort,14:numSort,15:charSort,16:BYTE,17:charSort,18:charSort,19:charSort,20:charSort,21:charSort,22:charSort,23:charSort,24:numSort,25:charSort,26:MIX,27:charSort,28:charSort,29:charSort,30:charSort,31:charSort,32:charSort,33:charSort,34:charSort,35:charSort,36:numSort,37:charSort,38:charSort,39:charSort&SORTKEY=true",
+			"width", "100%",
+			"height", "100%",
+			"align", "middle",
+			"id", "CVSReader",
+			"quality", "high",
+			"bgcolor", "#869ca7",
+			"name", "CVSReader",
+			"allowScriptAccess","sameDomain",
+			"type", "application/x-shockwave-flash",
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+  } else {  // flash is too old or we can't detect the plugin
+    var alternateContent = 'Alternate HTML content should be placed here. '
+  	+ 'This content requires the Adobe Flash Player. '
+   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
+    document.write(alternateContent);  // insert non-flash content
+  }
+// -->
+</script>
+
+</body>
+</html>

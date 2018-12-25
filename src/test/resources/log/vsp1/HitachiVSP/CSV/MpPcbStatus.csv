@@ -1,0 +1,6 @@
+<<MP Pcb Status>>
+MPU ID,Auto Assignment,MPU Status,MP#00,MP#01,MP#02,MP#03
+MPU-10,Enabled,1,1,1,1,1
+MPU-11,Enabled,1,1,1,1,1
+MPU-20,Enabled,1,1,1,1,1
+MPU-21,Enabled,1,1,1,1,1

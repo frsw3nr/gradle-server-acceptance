@@ -1,0 +1,5 @@
+<<LDEV Count Information>>
+Volume Kind,Allocated OPEN LDEVs,Unallocated OPEN LDEVs,Reserved OPEN LDEVs,V-VOL,Total(All LDEVs),ECC Groups
+Internal Volumes,46,0,0,,46,2
+External Volumes,0,0,0,,0,0
+Total Volumes,46,0,0,0,46,2

@@ -1,0 +1,2 @@
+<<iSCSI Port Information>>
+Port,IPv4 | IP Address,IPv4 | Subnet Mask,IPv4 | Default Gateway,IPv6 | Mode,IPv6 | Link Local Address,IPv6 | Global Address,IPv6 | Assigned Default Gateway,Channel Speed,Security Switch,TCP Port Number,Ethernet MTU Size(Byte) | MTU,Keep Alive Timer(sec.),Selective ACK,Delayed ACK,Maximum Window Size(KB),iSNS Server | Mode,iSNS Server | IP Address,iSNS Server | TCP Port Number,VLAN | Tagging Mode,VLAN | ID,Resource Group ID (Port),Resource Group Name (Port),iSCSI Name,CHAP User Name

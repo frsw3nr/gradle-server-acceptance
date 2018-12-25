@@ -1,0 +1,25 @@
+@charset "utf-8";
+/*
+//  ***************************************************************************
+//  Hitachi Co,Ltd. Proprientary Information
+//  The information contained herein is confidental proprientary of
+//  Hitachi Co,Ltd.
+//  Reproduction,use,modification,or disclosure otherwise than
+//  permitted in the Agreement is stricity prohibited.
+//  ***************************************************************************
+//  All Right reserved,Copyright(C), 2009 - 2010 Hitachi Co,Ltd.
+//  ***************************************************************************
+*/
+@import url(style.css);
+
+body {
+	background: #ffffff url(../img/header_bg.png) repeat;
+}
+
+h1 {
+	font-family: Arial, "‚l‚r ‚oƒSƒVƒbƒN";
+	font-size: 22px;
+	color: #000000;
+	padding-top: 8px;
+	padding-left: 8px;
+}

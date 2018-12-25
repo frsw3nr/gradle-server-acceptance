@@ -1,0 +1,30 @@
+<<PP Information>>
+Program Product Name,Install,Key Type,Permitted Volumes(TB),Expiration Date,Status
+Data Retention Utility,Enabled,Permanent,Unlimited,,Installed
+Dynamic Provisioning,Enabled,Permanent,Unlimited,,Installed
+Dynamic Tiering,Disabled,Not Installed,,,Not Installed
+active flash,Disabled,Not Installed,,,Not Installed
+Thin Image,Enabled,Permanent,Unlimited,,Installed
+Open Volume Management,Enabled,Permanent,Unlimited,,Installed
+LUN Manager,Enabled,Permanent,Unlimited,,Installed
+Performance Monitor,Enabled,Permanent,Unlimited,,Installed
+Server Priority Manager,Enabled,Permanent,Unlimited,,Installed
+Volume Migration,Disabled,Not Installed,,,Not Installed
+Volume Migration V2,Disabled,Not Installed,,,Not Installed
+ShadowImage,Enabled,Permanent,Unlimited,,Installed
+HDvM/Storage Navigator,Enabled,Permanent,Unlimited,,Installed
+SNMP Agent,Enabled,Permanent,Unlimited,,Installed
+JAVA API,Enabled,Permanent,Unlimited,,Installed
+TrueCopy,Disabled,Not Installed,,,Not Installed
+Universal Replicator,Disabled,Not Installed,,,Not Installed
+Disaster Recovery Extended,Disabled,Not Installed,,,Not Installed
+Universal Volume Manager,Disabled,Not Installed,,,Not Installed
+Virtual Partition Manager,Disabled,Not Installed,,,Not Installed
+Volume Shredder,Disabled,Not Installed,,,Not Installed
+Encryption License Key,Disabled,Not Installed,,,Not Installed
+SMI-S Provider,Enabled,Permanent,Unlimited,,Installed
+Resource Partition Manager,Enabled,Permanent,Unlimited,,Installed
+nondisruptive migration,Disabled,Not Installed,,,Not Installed
+global-active device,Disabled,Not Installed,,,Not Installed
+Model upgrade license,Disabled,Not Installed,,,Not Installed
+All Flash Array,Enabled,Permanent,Unlimited,,Installed

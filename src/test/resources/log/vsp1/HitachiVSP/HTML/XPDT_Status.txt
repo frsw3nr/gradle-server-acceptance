@@ -1,0 +1,19 @@
+20520-109001
+Arrayglobal.html     , 20520-107100
+Physical.html        , 20520-107100
+Cachedetail.html     , 20520-107100
+Cha.html             , 20520-107100
+Port.html            , 20520-107100
+Hostgroup.html       , 20520-107100
+Host.html            , 20520-107100
+Lun.html             , 20520-107100
+Chapuser.html        , 20520-107100
+Logicaldevice.html   , 20520-107100
+Physicaldevice.html  , 20520-107100
+Arraygroup.html      , 20520-107100
+Mpblade.html         , 20520-107100
+Mpbladedetail.html   , 20520-107100
+Dka.html             , 20520-107100
+Ssdendurance.html    , 20520-107100
+Sparedisk.html       , 20520-107100
+Powerconsumption.html, 20520-107100

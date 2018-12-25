@@ -1,0 +1,4 @@
+<<Logical Partitioning>>
+CLPR#,CLPR Name,Cache Size(MB),ECC Group, LDEV#(V-VOL)
+0,CLPR0,88320,1-1,
+0,CLPR0,88320,1-2,

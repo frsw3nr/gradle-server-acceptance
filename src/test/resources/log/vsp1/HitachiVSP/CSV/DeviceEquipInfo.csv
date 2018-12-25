@@ -1,0 +1,20 @@
+<<Device Equipment Information>>
+Device Location,Equip Status,Status
+DKCPS1,Equipped,Normal
+DKCPS2,Equipped,Normal
+DBPS00-1,Equipped,Normal
+DBPS00-2,Equipped,Normal
+BAT-F10,Not Equipped,
+BAT-B11,Equipped,Normal
+BAT-O11,Not Equipped,
+BAT-B12,Equipped,Normal
+BAT-O12,Not Equipped,
+BAT-B13,Equipped,Normal
+BAT-O13,Not Equipped,
+BAT-F20,Not Equipped,
+BAT-B21,Equipped,Normal
+BAT-O21,Not Equipped,
+BAT-B22,Equipped,Normal
+BAT-O22,Not Equipped,
+BAT-B23,Equipped,Normal
+BAT-O23,Not Equipped,

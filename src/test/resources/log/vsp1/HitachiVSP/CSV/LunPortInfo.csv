@@ -1,0 +1,18 @@
+<<LUN Port Information>>
+Port,Security Switch,Port Address,Loop ID,Fabric,Connection,Channel Speed,WWN,CHB Location,Package Type,T10 PI Mode
+1A,Off,ef,0,On,Point to Point,8G,50060e80122db600,CHB-1A,8FC4 (CHB),
+3A,Off,e8,1,On,Point to Point,8G,50060e80122db620,CHB-1A,8FC4 (CHB),
+5A,Off,e4,2,On,Point to Point,8G,50060e80122db640,CHB-1A,8FC4 (CHB),
+7A,Off,e2,3,On,Point to Point,8G,50060e80122db660,CHB-1A,8FC4 (CHB),
+1B,Off,e1,4,On,Point to Point,8G,50060e80122db601,CHB-1B,8FC4 (CHB),
+3B,Off,e0,5,On,Point to Point,8G,50060e80122db621,CHB-1B,8FC4 (CHB),
+5B,Off,dc,6,On,Point to Point,8G,50060e80122db641,CHB-1B,8FC4 (CHB),
+7B,Off,da,7,On,Point to Point,8G,50060e80122db661,CHB-1B,8FC4 (CHB),
+2A,Off,d9,8,On,Point to Point,8G,50060e80122db610,CHB-2A,8FC4 (CHB),
+4A,Off,d6,9,On,Point to Point,8G,50060e80122db630,CHB-2A,8FC4 (CHB),
+6A,Off,d5,10,On,Point to Point,8G,50060e80122db650,CHB-2A,8FC4 (CHB),
+8A,Off,d4,11,On,Point to Point,8G,50060e80122db670,CHB-2A,8FC4 (CHB),
+2B,Off,d3,12,On,Point to Point,8G,50060e80122db611,CHB-2B,8FC4 (CHB),
+4B,Off,d2,13,On,Point to Point,8G,50060e80122db631,CHB-2B,8FC4 (CHB),
+6B,Off,d1,14,On,Point to Point,8G,50060e80122db651,CHB-2B,8FC4 (CHB),
+8B,Off,ce,15,On,Point to Point,8G,50060e80122db671,CHB-2B,8FC4 (CHB),

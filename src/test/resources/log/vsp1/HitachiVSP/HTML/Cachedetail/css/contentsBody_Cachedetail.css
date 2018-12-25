@@ -1,0 +1,282 @@
+@charset "utf-8";
+/*
+//  ***************************************************************************
+//  Hitachi Co,Ltd. Proprientary Information
+//  The information contained herein is confidental proprientary of
+//  Hitachi Co,Ltd.
+//  Reproduction,use,modification,or disclosure otherwise than
+//  permitted in the Agreement is stricity prohibited.
+//  ***************************************************************************
+//  All Right reserved,Copyright(C), 2009 - 2014 Hitachi Co,Ltd.
+//  ***************************************************************************
+*/
+* {
+	margin:0px;
+	padding:0px;
+	font-weight: normal;
+	font-size:10px;
+	font-family: Verdana, "ＭＳ Ｐゴシック";
+	letter-spacing:0px;
+}
+
+html {
+	overflow-x: auto;
+	overflow-y: scroll;
+	/* ↓W7235194130 */
+	border-style: solid;
+	border-color: #d4d0c8;
+	border-width: thin 0 0 0;
+	/* ↑W7235194130 */
+}
+
+body {
+	background-color:#FFFFFF;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+p {
+	color:#000000;
+	margin:4px 15px 8px;
+}
+
+div {
+	position:absolute;
+	color:#000000;
+}
+
+/* ------------------------------------------------------ */
+/* Cachedetail.html                                       */
+/* ------------------------------------------------------ */
+/*
+div.cachedkc {
+	background-image:url(../img/DKC_cache.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:6px;
+	width:624px;
+	height:417px;
+}
+*/
+/*
+div.cachedkc {
+	background-image:url(../img/DKC_cache.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:6px;
+	width:624px;
+	height:209px;
+}
+*/
+
+div.hmcachedkcS {
+	/* ↓Z81G5192592
+	background-image:url(../img/CacheS.png);
+	*/
+	background-image:url(../img/cacheS.png);
+	/* ↑Z81G5192592 */
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:313px;
+	height:97px;
+}
+
+div.hmcachedkcM {
+	background-image:url(../img/cache_memories.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:313px;
+	height:219px;
+}
+
+div.hmcachedkcH {
+	background-image:url(../img/cache_memories.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:313px;
+	height:219px;
+}
+
+div.cachelrS {
+	background-image:url(../img/CachrrS.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:63px;
+}
+
+div.cachelrM {
+	background-image:url(../img/CachrrM.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:183px;
+}
+
+div.cachelrH {
+	background-image:url(../img/CachrrH.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:183px;
+}
+
+div.cachelrni {
+	background-image:url(../img/Not_Installed.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:183px;
+	color:#ffffff;
+}
+
+/* ↓Z81G5190254 */
+div.cachelrniS {
+	background-image:url(../img/Not_InstalledS.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:63px;
+	color:#ffffff;
+}
+
+div.cachelrniM {
+	background-image:url(../img/Not_Installed.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:183px;
+	color:#ffffff;
+}
+
+div.cachelrniH {
+	background-image:url(../img/Not_Installed.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:183px;
+	color:#ffffff;
+}
+/* ↑Z81G5190254 */
+
+div.cachelrnir {
+	background-image:url(../img/Not_Installed_r.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:145px;
+	height:173px;
+	color:#ffffff;
+}
+
+div.cachelrnitext {
+	text-align:left;
+	top:92px;
+	left:40px;
+	color:#ffffff;
+}
+
+/* ↓Z81G5190254 */
+div.cachelrnitextS {
+	text-align:left;
+	top:32px;
+	left:40px;
+	color:#ffffff;
+}
+
+div.cachelrnitextM {
+	text-align:left;
+	top:92px;
+	left:40px;
+	color:#ffffff;
+}
+
+div.cachelrnitextH {
+	text-align:left;
+	top:92px;
+	left:40px;
+	color:#ffffff;
+}
+/* ↑Z81G5190254 */
+
+div.cache2gb {
+	background-image:url(../img/2GB_cache.png);
+	text-align:center;
+	padding-top:3px;
+	width:138px;
+	height:15px;
+}
+
+div.cache4gb {
+	background-image:url(../img/4GB_cache.png);
+	text-align:center;
+	padding-top:3px;
+	color:#ffffff;
+	width:138px;
+	height:15px;
+}
+
+div.cache8gb {
+	background-image:url(../img/8GB_cache.png);
+	text-align:center;
+	padding-top:3px;
+	color:#ffffff;
+	width:138px;
+	height:15px;
+}
+
+/* ↓X73F5190965 */
+div.cache16gb {
+	background-image:url(../img/16GB_cache.png);
+	text-align:center;
+	padding-top:3px;
+	color:#000000;
+	width:138px;
+	height:15px;
+}
+/* ↑X73F5190965 */
+
+/* ↓Y8235190001 */
+div.cache32gb {
+	/* ↓Z81G5192592
+	background-image:url(../img/32GB_cache.png);
+	*/
+	background-image:url(../img/32GB_Cache.png);
+	/* ↑Z81G5192592 */
+	text-align:center;
+	padding-top:3px;
+	color:#ffffff;
+	width:138px;
+	height:15px;
+}
+/* ↑Y8235190001 */
+
+div.cacheni {
+	background-image:url(../img/Not_Installed_cache.png);
+	text-align:center;
+	padding-top:3px;
+	width:138px;
+	height:15px;
+	color:#ffffff;
+}
+div.hmcachedkc {
+	background-image:url(../img/cache_memories.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:6px;
+	width:312px;
+	height:218px;
+}
+

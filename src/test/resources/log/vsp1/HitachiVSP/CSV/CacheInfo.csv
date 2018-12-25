@@ -1,0 +1,4 @@
+<<Cache>>
+Location,CMG#0 Size(GB),CMG#1 Size(GB),Cache Size(GB),SM Size(MB),CFM#0 Type,CFM#1 Type,Unified Hypervisor Cache Size(GB)
+CTL1,64,,64,21376,BM20,BM20,0
+CTL2,64,,64,21376,BM20,BM20,0
