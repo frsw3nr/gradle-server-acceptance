@@ -147,7 +147,7 @@ class PrimergySpec extends LinuxSpecBase {
             mac_infos[port['ModuleName']] << port['MacAddress']
         }
         def ip = test_item.target_info('ip')
-        // println "IP:${ip}"
+        test_item.port_list(ip, 'iRMC-NIC')
         test_item.devices(csv, headers)
         test_item.results(['nic': mac_infos.toString(), 'nic_ip': ip])
         test_item.verify_text_search('nic_ip', ip)

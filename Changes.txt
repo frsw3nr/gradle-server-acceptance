@@ -11,8 +11,8 @@ Bug fixes:
 ToDo:
 
 シナリオ見直し [ ]
-    SPARC/XSCF [ ]
-    ETERNUS [ ]
+    SPARC/XSCF [x]
+    ETERNUS [x]
     VSP [ ]
     ESXi [ ]
 デモ環境準備 [ ]

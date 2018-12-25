@@ -305,6 +305,10 @@ class XSCFSpec extends InfraTestSpec {
                 def value = items[it] ?: 'NaN'
                 columns.add(value)
             }
+            def ip_address = infos[device_id]['ip']
+            if (ip_address && ip_address != '127.0.0.1') {
+                test_item.port_list(ip_address, "${device_id}")
+            }
             csv << columns
         }
         def headers = ['device', 'ip', 'mac', 'subnet']
