@@ -88,6 +88,10 @@ class ConfigTestEnvironment {
                this.config?.ticket?.redmine_project ?: "cmdb";
     }
 
+    def get_custom_field_inventory() {
+        return this.config?.ticket?.custom_field?.inventory ?: "インベントリ";
+    }
+
     def get_getconfig_home() {
         return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
     }

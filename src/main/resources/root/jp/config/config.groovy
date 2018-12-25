@@ -23,6 +23,10 @@ test.serialization.tasks = ['vCenter']
 
 test.dry_run_staging_dir = './src/test/resources/log/'
 
+// インベントリ用チケットカスタムフィールド名
+
+ticket.custom_field.inventory = 'インベントリ'
+
 // コマンド採取のタイムアウト
 // Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
 

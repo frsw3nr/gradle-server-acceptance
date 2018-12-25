@@ -85,6 +85,7 @@ class TicketManager {
 
     String redmine_uri
     String redmine_api_key
+    String inventory_field
     RedmineManager redmine_manager
     IssueManager   issue_manager
     ProjectManager project_manager
@@ -92,6 +93,7 @@ class TicketManager {
     def set_environment(ConfigTestEnvironment env) {
         this.redmine_uri     = env.get_redmine_uri()
         this.redmine_api_key = env.get_redmine_api_key()
+        this.inventory_field = env.get_custom_field_inventory()
     }
 
     def init() {
@@ -170,6 +172,10 @@ class TicketManager {
                     throw new NotFoundException(msg)
                 }
                 custom_field.setValue(value)
+            }
+            def custom_field_inventory = issue.getCustomFieldByName(this.inventory_field)
+            if (custom_field_inventory) {
+                custom_field_inventory.setValue(subject)
             }
             try {
                 this.issue_manager.update(issue)
