@@ -1,0 +1,18 @@
+<<PK>>
+CHB Location,Port#,Port,Package Type,SFP Kind,SFP Status,Fabric,Connection,Port Address,Resource Group ID (Port),Resource Group Name (Port),Port Internal WWN,T10 PI Mode
+CHB-1A,00,1A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,ef,0,meta_resource,50060e80122db600,
+CHB-1A,01,3A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,e8,0,meta_resource,50060e80122db620,
+CHB-1A,02,5A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,e4,0,meta_resource,50060e80122db640,
+CHB-1A,03,7A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,e2,0,meta_resource,50060e80122db660,
+CHB-1B,04,1B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,e1,0,meta_resource,50060e80122db601,
+CHB-1B,05,3B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,e0,0,meta_resource,50060e80122db621,
+CHB-1B,06,5B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,dc,0,meta_resource,50060e80122db641,
+CHB-1B,07,7B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,da,0,meta_resource,50060e80122db661,
+CHB-2A,20,2A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d9,0,meta_resource,50060e80122db610,
+CHB-2A,21,4A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d6,0,meta_resource,50060e80122db630,
+CHB-2A,22,6A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d5,0,meta_resource,50060e80122db650,
+CHB-2A,23,8A,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d4,0,meta_resource,50060e80122db670,
+CHB-2B,24,2B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d3,0,meta_resource,50060e80122db611,
+CHB-2B,25,4B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d2,0,meta_resource,50060e80122db631,
+CHB-2B,26,6B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,d1,0,meta_resource,50060e80122db651,
+CHB-2B,27,8B,8FC4 (CHB),Short Wave,Normal,On,Point to Point,ce,0,meta_resource,50060e80122db671,

@@ -25,6 +25,7 @@ class VMHostSpec extends vCenterSpecBase {
 
     def VMHost(test_item) {
         run_script('Get-VMHost $vm | Format-List') {
+            println "VMHost:${local_dir}"
             def lines = exec('VMHost') {
                 new File("${local_dir}/VMHost")
             }
@@ -98,6 +99,10 @@ class VMHostSpec extends vCenterSpecBase {
                             } catch (IllegalArgumentException e) {
                                 log.error "[ESXiVMHostTest] subnet convert : m1\n" + e
                             }
+                            if (address && address != '127.0.0.1') {
+                                test_item.port_list(address, device)
+                            }
+                            println "IP:${address},${device}"
 
                         }
                         csv << [m1, m2, m3, m4, m5, m6]*.trim()

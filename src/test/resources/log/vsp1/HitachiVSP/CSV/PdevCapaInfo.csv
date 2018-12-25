@@ -1,0 +1,5 @@
+<<PDEV Capacity Information>>
+PDEV Kind,SAS Drive,Spare Drive,SSD Drive,Free Drive
+OPEN System(TB),0.00,,450.36,
+Total Capacity(TB),0.00,112.59,450.36,0.00
+Number of PDEVs,0,2,8,0

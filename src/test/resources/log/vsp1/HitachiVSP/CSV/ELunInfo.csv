@@ -1,0 +1,2 @@
+<<External LUN Information>>
+VDEV#,Characteristic1,Characteristic2,Device,Capacity(blocks),Cache Mode,ECC Group,Current MPU,Setting MPU,Vendor,Product Name,Serial Number#,Path Mode,Port,WWN,LUN,Priority,Status,IO TOV,QDepth,Resource Group ID (ECC Group),Resource Group Name (ECC Group),Load Balance Mode,Path Mode on Profile,ALUA Settable,ALUA Permitted,Target Port Asymmetric Access State,Package Type,IP Address,TCP Port Number,iSCSI Target Name

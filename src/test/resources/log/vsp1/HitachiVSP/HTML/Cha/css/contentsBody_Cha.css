@@ -1,0 +1,335 @@
+@charset "utf-8";
+/*
+//  ***************************************************************************
+//  Hitachi Co,Ltd. Proprientary Information
+//  The information contained herein is confidental proprientary of
+//  Hitachi Co,Ltd.
+//  Reproduction,use,modification,or disclosure otherwise than
+//  permitted in the Agreement is stricity prohibited.
+//  ***************************************************************************
+//  All Right reserved,Copyright(C), 2009 - 2015 Hitachi Co,Ltd.
+//  ***************************************************************************
+*/
+* {
+	margin:0px;
+	padding:0px;
+	font-weight: normal;
+	font-size:10px;
+	font-family: Verdana, "ＭＳ Ｐゴシック";
+	letter-spacing:0px;
+}
+
+html {
+	overflow-x: auto;
+	overflow-y: scroll;
+	/* ↓W7235194130 */
+	border-style: solid;
+	border-color: #d4d0c8;
+	border-width: thin 0 0 0;
+	/* ↑W7235194130 */
+}
+
+body {
+	background-color:#FFFFFF;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+p {
+	color:#000000;
+	margin:4px 15px 8px;
+}
+
+div {
+	position:absolute;
+	color:#000000;
+}
+
+/* ------------------------------------------------------ */
+/* Cha.html                                               */
+/* ------------------------------------------------------ */
+div.chadkc {
+	background-image:url(../img/CHA_DKC.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:690px;
+	height:352px;
+}
+
+div.charl {
+	background-image:url(../img/CHArl.png);
+	padding-top:2px;
+	padding-left:2px;
+	line-height:1.0;
+	width:52px;
+	height:324px;
+}
+
+div.chani {
+	background-image:url(../img/CHA_Not_Installed.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:49px;
+	height:324px;
+}
+
+div.chanit {
+	background-image:url(../img/not_installed.png);
+	text-align:left;
+	width:8px;
+	height:68px;
+}
+
+div.chanitext {
+	color:#ffffff;
+	text-align:left;
+	top:18px;
+	left:133px;
+}
+
+div.partsgreen {
+	background-image:url(../img/green.png);
+	text-align:center;
+	padding-top:4px;
+	width:42px;
+	height:14px;
+	color:#ffffff;
+}
+
+div.partsgray {
+	background-image:url(../img/gray.png);
+	text-align:center;
+	padding-top:4px;
+	width:42px;
+	height:14px;
+	color:#ffffff;
+}
+/* Z84R5193157↓ */
+div.partshnas {
+	background-image:url(../img/hnas_gray.png);
+	text-align:center;
+	padding-top:4px;
+	width:42px;
+	height:14px;
+	color:#ffffff;
+}
+/* Z84R5193157↑ */
+
+p.chadetail {
+	color:#000000;
+	margin:8px 14px;
+}
+
+p.chadetailhm {
+	color:#000000;
+	margin:0px;
+}
+
+div.hmchadkc {
+	background-image:url(../img/channel_adapters.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:690px;
+	height:200px;
+}
+
+/* ↓Z81G5190018 */
+div.hmchadkcS {
+	background-image:url(../img/CHA_DKC_S.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:373px;
+	height:129px;
+}
+
+div.hmchadkcM {
+	background-image:url(../img/CHA_DKC_M.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:745px;
+	height:237px;
+}
+
+div.hmchadkcH {
+	background-image:url(../img/CHA_DKC_H.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:745px;
+	height:237px;
+}
+
+/* ↓Z85W5193753 */
+div.hmchbb {
+	background-image:url(../img/channel_boardbox.png);
+	text-align:left;
+	padding-top:9px;
+	padding-left:5px;
+	width:745px;
+	height:129px;
+}
+/* ↑Z85W5193753 */
+
+div.hmcharlS {
+	background-image:url(../img/CHArl_S.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:175px;
+	height:46px;
+}
+
+div.hmcharlM {
+	background-image:url(../img/CHArl_M.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:175px;
+	height:46px;
+}
+
+div.hmcharlH {
+	background-image:url(../img/CHArl_H.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:175px;
+	height:46px;
+}
+/* Z84R5193157↓ */
+div.hmcharlHNAS {
+	background-image:url(../img/hnas_gray.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:733px;
+	height:46px;
+}
+/* Z84R5193157↑ */
+div.hmchani {
+	background-image:url(../img/CHA_Not_Installed_hm.png);
+	text-align:left;
+	width:180px;
+	height:48px;
+
+}
+
+div.hmchanitext {
+	color:#ffffff;
+	text-align:left;
+	top:18px;
+	left:54px;
+}
+
+div.hmchanitS {
+	background-image:url(../img/CHA_Not_Installed_S.png);
+	text-align:left;
+	width:180px;
+	height:48px;
+}
+
+div.hmchanitM {
+	background-image:url(../img/CHA_Not_Installed_M.png);
+	text-align:left;
+	width:180px;
+	height:48px;
+}
+
+div.hmchanitH {
+	background-image:url(../img/CHA_Not_Installed_H.png);
+	text-align:left;
+	width:180px;
+	height:48px;
+}
+
+/* ↑Z81G5190018 */
+
+div.hmcharl {
+	background-image:url(../img/fepk.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:50px;
+	height:172px;
+}
+
+/* ↓Z81G5190018
+div.hmchani {
+	background-image:url(../img/CHA_Not_Installed_hm.png);
+	text-align:left;
+	width:54px;
+	height:174px;
+}
+div.hmchanit {
+	background-image:url(../img/not_installed.png);
+	text-align:left;
+	width:8px;
+	height:68px;
+}
+   ↑Z81G5190018 */
+div h3 {
+	margin: 0px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	font-size: 14px;
+}
+
+div table {
+	background-color: #222222;
+	table-layout: fixed;
+}
+
+div table.summaryType1 {
+	width: 331px;
+}
+
+div table.summaryType2 {
+	width: 331px;
+}
+
+div table th,
+div table td {
+	padding-left: 8px;
+	padding-right: 8px;
+	height: 20px;
+}
+
+div table th {
+	background-color: #bfbfbf;
+	font-weight: bold;
+	vertical-align: center;
+	text-align: left;
+	width: 105px;
+}
+
+div table th.fixHeader {
+	width: 125px;
+}
+
+div table td {
+	background-color: #ffffff;
+}
+
+div.rcharl {
+	background-image:url(../img/fepk.png);
+	padding-top:2px;
+	padding-left:5px;
+	line-height:1.0;
+	width:50px;
+	height:315px;
+}
+
+div.rchani {
+	background-image:url(../img/fepk_not_installed.png);
+	text-align:left;
+	width:54px;
+	height:174px;
+}
+

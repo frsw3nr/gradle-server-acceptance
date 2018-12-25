@@ -1,0 +1,2 @@
+<<iSCSI Target Information>>
+Port,iSCSI Target Alias,iSCSI Target ID,iSCSI Target Name,Host Mode,Host Mode Option,Security Switch,Authentication | Method,Authentication | Mutual CHAP,Authentication | User Name,Resource Group ID (iSCSI Target),Resource Group Name (iSCSI Target)

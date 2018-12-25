@@ -1,0 +1,168 @@
+﻿
+
+Id              : HostSystem-ha-host/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV//vmfs/d
+                  evices/disks/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV/1:2048-586053
+                  2223
+PartitionNumber : 1
+Attributes      : 0
+Logical         : False
+StartSector     : 2048
+EndSector       : 5860532223
+Type            : Vmfs
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____WDC_WD30EZRX2D00
+                  D8PB0_________________________WD2DWMC4N0K6TKCV/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash
+                  ;t10.ATA_____WDC_WD30EZRX2D00D8PB0_________________________WD2DWMC4N0K6TKCV/VMHostDiskPartition=1:204
+                  8-5860532223/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___//vmfs/de
+                  vices/disks/t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___/1:2048-48839679
+                  9
+PartitionNumber : 1
+Attributes      : 0
+Logical         : False
+StartSector     : 2048
+EndSector       : 488396799
+Type            : Vmfs
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____HFS250G32TND2DN1
+                  A2A______________________EJ75N535710705F34___/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;
+                  t10.ATA_____HFS250G32TND2DN1A2A______________________EJ75N535710705F34___/VMHostDiskPartition=1:2048-
+                  488396799/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/1:64-8191
+PartitionNumber : 1
+Attributes      : -128
+Logical         : False
+StartSector     : 64
+EndSector       : 8191
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=1:64-8191
+                  /
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/2:7086080-1547263
+                  9
+PartitionNumber : 2
+Attributes      : 0
+Logical         : False
+StartSector     : 7086080
+EndSector       : 15472639
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=2:7086080
+                  -15472639/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/3:15472640-250069
+                  646
+PartitionNumber : 3
+Attributes      : 0
+Logical         : False
+StartSector     : 15472640
+EndSector       : 250069646
+Type            : Vmfs
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=3:1547264
+                  0-250069646/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/5:8224-520191
+PartitionNumber : 5
+Attributes      : 0
+Logical         : False
+StartSector     : 8224
+EndSector       : 520191
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=5:8224-52
+                  0191/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/6:520224-1032191
+PartitionNumber : 6
+Attributes      : 0
+Logical         : False
+StartSector     : 520224
+EndSector       : 1032191
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=6:520224-
+                  1032191/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/7:1032224-1257471
+PartitionNumber : 7
+Attributes      : 0
+Logical         : False
+StartSector     : 1032224
+EndSector       : 1257471
+Type            : VmkDiagnostic
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=7:1032224
+                  -1257471/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/8:1257504-1843199
+PartitionNumber : 8
+Attributes      : 0
+Logical         : False
+StartSector     : 1257504
+EndSector       : 1843199
+Type            : Unknown
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=8:1257504
+                  -1843199/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+Id              : HostSystem-ha-host/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW//vmfs/dev
+                  ices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/9:1843200-7086079
+PartitionNumber : 9
+Attributes      : 0
+Logical         : False
+StartSector     : 1843200
+EndSector       : 7086079
+Type            : VmkDiagnostic
+VMHostDisk      : /vmfs/devices/disks/t10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW
+Uid             : /VIServer=test_user@192.168.10.100:443/VMHost=HostSystem-ha-host/ScsiLun=t10.ATA_____TOSHIBA_THNSNJ12
+                  8GCSU___________________________44SS108GT7RW/VMHostDisk=&slash;vmfs&slash;devices&slash;disks&slash;t
+                  10.ATA_____TOSHIBA_THNSNJ128GCSU___________________________44SS108GT7RW/VMHostDiskPartition=9:1843200
+                  -7086079/
+ExtensionData   : VMware.Vim.HostDiskPartitionAttributes
+Client          : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+
+

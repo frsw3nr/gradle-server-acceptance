@@ -1,0 +1,45 @@
+@charset "utf-8";
+/*
+//  ***************************************************************************
+//  Hitachi Co,Ltd. Proprientary Information
+//  The information contained herein is confidental proprientary of
+//  Hitachi Co,Ltd.
+//  Reproduction,use,modification,or disclosure otherwise than
+//  permitted in the Agreement is stricity prohibited.
+//  ***************************************************************************
+//  All Right reserved,Copyright(C), 2009 - 2010 Hitachi Co,Ltd.
+//  ***************************************************************************
+*/
+@import url(style.css);
+
+body {
+	background-color: #ffffff;
+}
+
+div {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+li {
+	font-weight: 600;
+	margin-top: 4px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+img {
+	vertical-align: middle;
+}
+
+a:link, a:visited {
+	color: #0000ff;
+}
+
+a:hover, a:active {
+	color: #ff0000;
+}

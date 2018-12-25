@@ -1,0 +1,12 @@
+<<PDEV>>
+ECC Group,Emulation Type,CR#,PDEV Location,Device Type,RPM,Device Type-Code,Device Size,Device Capacity,Drive Version,DKB1,DKB2,Serial Number#,RAID Level,RAID Concatenation#0,RAID Concatenation#1,RAID Concatenation#2,Resource Group ID (ECC Group),Resource Group Name (ECC Group),Encryption,Accelerated Compression
+1-1,OPEN-V,00/00,HDD00-00,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH003SV,RAID1(2D+2D),1-2,,,0,meta_resource,Disabled,Disabled
+1-1,OPEN-V,00/01,HDD00-01,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH003SS,RAID1(2D+2D),1-2,,,0,meta_resource,Disabled,Disabled
+1-1,OPEN-V,00/02,HDD00-02,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH003SQ,RAID1(2D+2D),1-2,,,0,meta_resource,Disabled,Disabled
+1-1,OPEN-V,00/03,HDD00-03,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH00436,RAID1(2D+2D),1-2,,,0,meta_resource,Disabled,Disabled
+1-2,OPEN-V,00/04,HDD00-04,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH003ST,RAID1(2D+2D),1-1,,,0,meta_resource,Disabled,Disabled
+1-2,OPEN-V,00/05,HDD00-05,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH003SR,RAID1(2D+2D),1-1,,,0,meta_resource,Disabled,Disabled
+1-2,OPEN-V,00/06,HDD00-06,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH00435,RAID1(2D+2D),1-1,,,0,meta_resource,Disabled,Disabled
+1-2,OPEN-V,00/07,HDD00-07,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH001LC,RAID1(2D+2D),1-1,,,0,meta_resource,Disabled,Disabled
+Spare Drive,,00/08,HDD00-08,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH0026M,,,,,,,Disabled,
+Spare Drive,,00/09,HDD00-09,SSD,,NFHAE-Q6R4SS,,6.4TB,E560,DKB-1H,DKB-2H,0009 NJH000W1,,,,,,,Disabled,

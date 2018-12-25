@@ -1,0 +1,137 @@
+[CnfPoutStatus]
+Status = 0
+[FileNo0]
+FileName = MicroVersion.csv
+Status = 0
+[FileNo1]
+FileName = SsidInfo.csv
+Status = 0
+[FileNo2]
+FileName = DkcInfo.csv
+Status = 0
+[FileNo3]
+FileName = CacheInfo.csv
+Status = 0
+[FileNo4]
+FileName = SysoptInfo.csv
+Status = 0
+[FileNo5]
+FileName = PpInfo.csv
+Status = 0
+[FileNo6]
+FileName = PkInfo.csv
+Status = 0
+[FileNo7]
+FileName = LunInfo.csv
+Status = 0
+[FileNo8]
+FileName = WwnInfo.csv
+Status = 0
+[FileNo9]
+FileName = LdevInfo.csv
+Status = 0
+[FileNo10]
+FileName = PdevInfo.csv
+Status = 0
+[FileNo11]
+FileName = ChaStatus.csv
+Status = 0
+[FileNo12]
+FileName = DkaStatus.csv
+Status = 0
+[FileNo13]
+FileName = MpPathStatus.csv
+Status = 0
+[FileNo14]
+FileName = PdevStatus.csv
+Status = 0
+[FileNo15]
+FileName = LdevStatus.csv
+Status = 0
+[FileNo16]
+FileName = LunPortInfo.csv
+Status = 0
+[FileNo17]
+FileName = ELunInfo.csv
+Status = 0
+[FileNo18]
+FileName = LPartition.csv
+Status = 0
+[FileNo19]
+FileName = SMfundat.csv
+Status = 0
+[FileNo20]
+FileName = ModePerLpr.csv
+Status = 0
+[FileNo21]
+FileName = FcSpNameInfo.csv
+Status = 0
+[FileNo22]
+FileName = FcSpPortInfo.csv
+Status = 0
+[FileNo23]
+FileName = DeviceEquipInfo.csv
+Status = 0
+[FileNo24]
+FileName = LdevCapaInfo.csv
+Status = 0
+[FileNo25]
+FileName = LdevCountInfo.csv
+Status = 0
+[FileNo26]
+FileName = PdevCapaInfo.csv
+Status = 0
+[FileNo27]
+FileName = PcbRevInfo.csv
+Status = 0
+[FileNo28]
+FileName = DkaInfo.csv
+Status = 0
+[FileNo29]
+FileName = MpPcbStatus.csv
+Status = 0
+[FileNo30]
+FileName = HduInfo.csv
+Status = 0
+[FileNo31]
+FileName = JnlInfo.csv
+Status = 0
+[FileNo32]
+FileName = SsdDriveInfo.csv
+Status = 0
+[FileNo33]
+FileName = MlcEnduranceInfo.csv
+Status = 0
+[FileNo34]
+FileName = IscsiTargetInfo.csv
+Status = 0
+[FileNo35]
+FileName = IscsiHostInfo.csv
+Status = 0
+[FileNo36]
+FileName = ChapUserInfo.csv
+Status = 0
+[FileNo37]
+FileName = IscsiPortInfo.csv
+Status = 0
+[FileNo38]
+FileName = EnvMonInfo.csv
+Status = 0
+[FileNo39]
+FileName = PECBInfo.csv
+Status = 0
+[FileNo40]
+FileName = DkuTempInfo.csv
+Status = 0
+[FileNo41]
+FileName = DkuTempAveInfo.csv
+Status = 0
+[FileNo42]
+FileName = DkuTempMaxInfo.csv
+Status = 0
+[FileNo43]
+FileName = DkuTempMinInfo.csv
+Status = 0
+[FileNo44]
+FileName = AllConf.csv
+Status = 0

@@ -1,0 +1,58 @@
+@charset "utf-8";
+/*
+//  ***************************************************************************
+//  Hitachi Co,Ltd. Proprientary Information
+//  The information contained herein is confidental proprientary of
+//  Hitachi Co,Ltd.
+//  Reproduction,use,modification,or disclosure otherwise than
+//  permitted in the Agreement is stricity prohibited.
+//  ***************************************************************************
+//  All Right reserved,Copyright(C), 2009 - 2010 Hitachi Co,Ltd.
+//  ***************************************************************************
+*/
+@import url(style.css);
+
+/* ------------------------------------------------------ */
+/* Common                                                 */
+/* ------------------------------------------------------ */
+body {
+	background-color: #ffffff;
+}
+
+h2 {
+	font-size: 20px;
+	color: #222222;
+	padding-top: 7px;
+	padding-left: 10px;
+}
+
+div#explanation {
+	padding-left: 10px;
+}
+
+/* ------------------------------------------------------ */
+/* Physical.html                                          */
+/* ------------------------------------------------------ */
+div#physical {
+	display: inline;
+}
+
+div#physical h2 div {
+	font-size: 10px;
+	margin-left: 40px;
+	display: inline;
+}
+
+div#physical h2 div span {
+	margin-right: 10px;
+}
+
+div#physical h2 div span a:link, 
+div#physical h2 div span a:visited {
+	color: #0000ff;
+}
+
+div#physical h2 div span a:hover,
+div#physical h2 div span a:active {
+	color: #ff0000;
+}

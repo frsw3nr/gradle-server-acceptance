@@ -21,7 +21,7 @@ try {
       }
     }
   } else {
-    # Add-PSSnapin VMware.VimAutomation.Core
+    Add-PSSnapin VMware.VimAutomation.Core
   }
   Connect-VIServer -User $user -Password $password -Server $vcenter -Force
 } catch [Exception] {

@@ -1,0 +1,18 @@
+<<FC-SP Port Information>>
+Port,Time out(Sec),Refusal Intvl.(Min),Refusal Freq.(Counts),Switch Port Username,Mode,Authentication of Fabric Switch
+1A,45,3,3,,bi-directional,Disabled
+3A,45,3,3,,bi-directional,Disabled
+5A,45,3,3,,bi-directional,Disabled
+7A,45,3,3,,bi-directional,Disabled
+1B,45,3,3,,bi-directional,Disabled
+3B,45,3,3,,bi-directional,Disabled
+5B,45,3,3,,bi-directional,Disabled
+7B,45,3,3,,bi-directional,Disabled
+2A,45,3,3,,bi-directional,Disabled
+4A,45,3,3,,bi-directional,Disabled
+6A,45,3,3,,bi-directional,Disabled
+8A,45,3,3,,bi-directional,Disabled
+2B,45,3,3,,bi-directional,Disabled
+4B,45,3,3,,bi-directional,Disabled
+6B,45,3,3,,bi-directional,Disabled
+8B,45,3,3,,bi-directional,Disabled

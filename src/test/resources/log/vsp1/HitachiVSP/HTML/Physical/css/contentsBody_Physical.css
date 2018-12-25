@@ -1,0 +1,1062 @@
+@charset "utf-8";
+/*
+//  ***************************************************************************
+//  Hitachi Co,Ltd. Proprientary Information
+//  The information contained herein is confidental proprientary of
+//  Hitachi Co,Ltd.
+//  Reproduction,use,modification,or disclosure otherwise than
+//  permitted in the Agreement is stricity prohibited.
+//  ***************************************************************************
+//  All Right reserved,Copyright(C), 2009 - 2016 Hitachi Co,Ltd.
+//  ***************************************************************************
+*/
+* {
+	margin:0px;
+	padding:0px;
+	font-weight: normal;
+	font-size:10px;
+	font-family: Verdana, "ＭＳ Ｐゴシック";
+	letter-spacing:0px;
+}
+
+html {
+	overflow-x: auto;
+	overflow-y: scroll;
+	/* ↓W7235194130 */
+	border-style: solid;
+	border-color: #d4d0c8;
+	border-width: thin 0 0 0;
+	/* ↑W7235194130 */
+}
+
+body {
+	background-color:#FFFFFF;
+}
+
+p {
+	color:#000000;
+	margin:4px 15px 8px;
+}
+
+div {
+	position:absolute;
+	color:#000000;
+}
+
+/* ------------------------------------------------------ */
+/* Physical.html                                          */
+/* ------------------------------------------------------ */
+div.hduorparts {
+	text-align:center;
+	color:#ffffff;
+}
+
+div.SAS1w {
+	background-image:url(../img/SAS_1w.png);
+	width:13px;
+	height:32px;
+}
+
+div.SAS2w {
+	background-image:url(../img/SAS_2w.png);
+	width:22px;
+	height:32px;
+}
+
+div.SAS3w {
+	background-image:url(../img/hdd_2-5_sas.png);
+	width:13px;
+	height:39px;
+}
+
+div.SAS4w {
+	background-image:url(../img/hdd_3-5_sas.png);
+	width:78px;
+	height:13px;
+}
+
+div.SAS5w_DENSE {
+	background-image:url(../img/hdd_3-5_dense_sas.png);
+	width:13px;
+	height:39px;
+}
+
+div.SSD1w {
+	background-image:url(../img/SSD_1w.png);
+	width:13px;
+	height:32px;
+}
+
+div.SSD2w {
+	background-image:url(../img/SSD_2w.png);
+	width:22px;
+	height:32px;
+}
+
+div.SSD3w {
+	background-image:url(../img/hdd_2-5_ssd.png);
+	width:13px;
+	height:39px;
+}
+
+div.SSD4w {
+	background-image:url(../img/hdd_3-5_ssd.png);
+	width:78px;
+	height:13px;
+}
+
+div.SSD5w_DENSE {
+	background-image:url(../img/hdd_3-5_dense_ssd.png);
+	width:13px;
+	height:39px;
+}
+
+div.SSDNF {
+	background-image:url(../img/SSD_NF.png);
+	color:#ffffff;
+	text-align:center;
+	width:40px;
+	height:12px;
+}
+
+div.SSDHMNF {
+	background-image:url(../img/hdd_NF_ssd.png);
+	width:104px;
+	height:13px;
+}
+
+/* ↓Z88D5194781 */
+div.SSDDBF2 {
+	background-image:url(../img/SSD_DBF2.png);
+	width:104px;
+	height:13px;
+}
+
+div.SSDHMDBF2 {
+	background-image:url(../img/hdd_DBF2_ssd.png);
+	width:104px;
+	height:13px;
+}
+/* ↑Z88D5194781 */
+
+div.Spare1w {
+	background-image:url(../img/spare_1w.png);
+	width:13px;
+	height:32px;
+}
+
+div.Spare2w {
+	background-image:url(../img/spare_2w.png);
+	width:22px;
+	height:32px;
+}
+
+div.Spare3w {
+	background-image:url(../img/hdd_2-5_spare.png);
+	width:13px;
+	height:39px;
+}
+
+div.Spare4w {
+	background-image:url(../img/hdd_3-5_spare.png);
+	width:78px;
+	height:13px;
+}
+
+div.Spare5w_DENSE {
+	background-image:url(../img/hdd_3-5_dense_spare.png);
+	width:13px;
+	height:39px;
+}
+
+div.SpareNF {
+	background-image:url(../img/spare_NF.png);
+	width:40px;
+	height:12px;
+}
+
+div.SpareHMNF {
+	background-image:url(../img/hdd_NF_spare.png);
+	width:104px;
+	height:13px;
+}
+
+/* ↓Z88D5194781 */
+div.SpareHMDBF2 {
+	background-image:url(../img/hdd_DBF2_spare.png);
+	width:104px;
+	height:13px;
+}
+/* ↑Z88D5194781 */
+
+/* ↓Z81G5190018 */
+div.Free3w {
+	background-image:url(../img/hdd_2-5_free.png);
+	width:13px;
+	height:39px;
+}
+
+div.Free4w {
+	background-image:url(../img/hdd_3-5_free.png);
+	width:78px;
+	height:13px;
+}
+
+div.Free5w_DENSE {
+	background-image:url(../img/hdd_3-5_dense_free.png);
+	width:13px;
+	height:39px;
+}
+
+div.FreeHMNF {
+	background-image:url(../img/hdd_NF_free.png);
+	width:104px;
+	height:13px;
+}
+/* ↑Z81G5190018 */
+
+/* ↓Z88D5194781 */
+div.FreeHMDBF2 {
+	background-image:url(../img/hdd_DBF2_free.png);
+	width:104px;
+	height:13px;
+}
+/* ↑Z88D5194781 */
+
+div.None1w {
+	background-image:url(../img/none_1w.png);
+	width:13px;
+	height:32px;
+}
+
+div.None2w {
+	background-image:url(../img/none_2w.png);
+	width:22px;
+	height:32px;
+}
+
+div.None3w {
+	background-image:url(../img/hdd_2-5_not_installed.png);
+	width:13px;
+	height:39px;
+}
+
+div.None4w {
+	background-image:url(../img/hdd_3-5_not_installed.png);
+	width:78px;
+	height:13px;
+}
+
+div.None5w_DENSE {
+	background-image:url(../img/hdd_3-5_dense_not_installed.png);
+	width:13px;
+	height:39px;
+}
+
+div.NoneNF {
+	background-image:url(../img/none_NF.png);
+	width:40px;
+	height:12px;
+}
+
+div.NoneHMNF {
+	background-image:url(../img/hdd_NF_not_installed.png);
+	width:104px;
+	height:13px;
+}
+
+/* ↓Z88D5194781 */
+div.NoneHMDBF2 {
+	background-image:url(../img/hdd_DBF2_not_installed.png);
+	width:104px;
+	height:13px;
+}
+/* ↑Z88D5194781 */
+
+img.c1-4 {
+	position:absolute;
+	top:24px;
+}
+
+img.c2-4 {
+	position:absolute;
+	top:17px;
+}
+
+img.c3-4 {
+	position:absolute;
+	top: 10px;
+}
+
+img.c4-4 {
+	position:absolute;
+	top: 3px;
+}
+
+img.c1-3 {
+	position:absolute;
+	top:20px;
+}
+
+img.c2-3 {
+	position:absolute;
+	top:13px;
+}
+
+img.c3-3 {
+	position:absolute;
+	top: 6px;
+}
+
+img.c1-2 {
+	position:absolute;
+	top:16px;
+}
+
+img.c2-2 {
+	position:absolute;
+	top:9px;
+}
+
+/* ↓Z81G5190018 */
+img.hmc1-4 {
+	position:absolute;
+	top:27px;
+}
+
+img.hmc2-4 {
+	position:absolute;
+	top:20px;
+}
+
+img.hmc3-4 {
+	position:absolute;
+	top:13px;
+}
+
+img.hmc4-4 {
+	position:absolute;
+	top:6px;
+}
+/* ↑Z81G5190018 */
+
+img.hmc1-3 {
+	position:absolute;
+	top:24px;
+}
+
+img.hmc2-3 {
+	position:absolute;
+	top:17px;
+}
+
+img.hmc3-3 {
+	position:absolute;
+	top:10px;
+}
+
+img.hmc1-2 {
+	position:absolute;
+	top:20px;
+}
+
+img.hmc2-2 {
+	position:absolute;
+	top:13px;
+}
+
+img.rc1-4 {
+	position:absolute;
+	top:27px;
+}
+
+img.rc2-4 {
+	position:absolute;
+	top:20px;
+}
+
+img.rc3-4 {
+	position:absolute;
+	top: 13px;
+}
+
+img.rc4-4 {
+	position:absolute;
+	top: 6px;
+}
+
+img.rc1-3 {
+	position:absolute;
+	top:24px;
+}
+
+img.rc2-3 {
+	position:absolute;
+	top:17px;
+}
+
+img.rc3-3 {
+	position:absolute;
+	top:10px;
+}
+
+img.rc1-2 {
+	position:absolute;
+	top:20px;
+}
+
+img.rc2-2 {
+	position:absolute;
+	top:13px;
+}
+
+img.fepk {
+	position:absolute;
+	left:9px;
+	top:28px;
+}
+
+div.SAS1w img,
+div.SSD1w img {
+	position:absolute;
+	left:3px;
+}
+
+div.SAS2w img,
+div.SSD2w img {
+	position:absolute;
+	left:7px;
+}
+div.SAS3w img,
+div.SSD3w img {
+	position:absolute;
+	left:3px;
+}
+
+div.SAS4w img,
+div.SSD4w img {
+	position:absolute;
+	left:7px;
+}
+
+div.SAS5w_DENSE img,
+div.SSD5w_DENSE img {
+	position:absolute;
+	left:3px;
+}
+
+div.SSDHMNF img {
+	position:absolute;
+	left:3px;
+}
+
+/* ↓Z88D5194781 */
+div.SSDDBF2 img {
+	position:absolute;
+	left:3px;
+}
+
+div.SSDHMDBF2 img {
+	position:absolute;
+	left:3px;
+}
+
+/* ↑Z88D5194781 */
+
+div.rk {
+	background-image:url(../img/RK.png);
+	text-align:center;
+	padding-top:541px;
+	width:254px;
+	height:14px;
+}
+
+div.dkudkc {
+	background-image:url(../img/DKUDKC.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:4px;
+	width:250px;
+	height:179px;
+}
+
+div.dkc {
+	background-image:url(../img/DKUDKC.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:250px;
+	height:177px;
+}
+
+div.hmdkc {
+	background-image:url(../img/dkc.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:320px;
+	height:120px;
+}
+
+div.hmdkcS {
+	background-image:url(../img/dkc_S.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:320px;
+	height:59px;
+}
+
+
+/* ↓Z85W5193753 */
+div.chbb {
+	background-image:url(../img/channelboardbox.png);
+	text-align:left;
+	padding-top:4px;
+	padding-left:4px;
+	width:320px;
+	height:67px;
+}
+/* ↑Z85W5193753 */
+div.hdu6 {
+	background-image:url(../img/HDU6.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:117px;
+	height:80px;
+}
+
+div.hdu6ni {
+	color:#ffffff;
+	background-image:url(../img/HDU6NotInstalled.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:117px;
+	height:80px;
+}
+
+div.hmhdu {
+	background-image:url(../img/hdu.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:62px;
+}
+
+div.hmhduni {
+	color:#ffffff;
+	background-image:url(../img/hdu_not_installed.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:308px;
+	height:39px;
+}
+
+div.hmhdunitext {
+	color:#ffffff;
+	text-align:left;
+	top:12px;
+	left:120px;
+}
+
+div.hdu6nitext {
+	color:#ffffff;
+	text-align:left;
+	top:38px;
+	left:25px;
+}
+
+div.dkc-w2h1 {
+	background-image:url(../img/dkc_1h2w.png);
+	color:#ffffff;
+	text-align:center;
+	width:244px;
+	height:13px;
+}
+
+div.dkc-w2h1ui {
+	color:#ffffff;
+	background-image:url(../img/Not_Installed_1h2w.png);
+	text-align:center;
+	width:244px;
+	height:13px;
+}
+
+div.dkc-w1h2 {
+	background-image:url(../img/dkc_2h1w.png);
+	color:#ffffff;
+	text-align:center;
+	padding-top:7px;
+	width:122px;
+	height:19px;
+}
+
+div.dkc-w1h2ui {
+	color:#ffffff;
+	background-image:url(../img/Not_Installed_2h1w.png);
+	text-align:center;
+	padding-top:7px;
+	width:122px;
+	height:19px;
+}
+
+div.dkudkcni {
+	background-image:url(../img/Not_Installed.png);
+	color:#ffffff;
+	text-align:left;
+	padding-top:1px;
+	padding-left:4px;
+	width:250px;
+	height:179px;
+}
+
+div.dkudkcnitext {
+	color:#ffffff;
+	text-align:left;
+	top:86px;
+	left:89px;
+}
+div.NFbacktext {
+	color:#000000;
+	text-align:left;
+	top:86px;
+	left:72px;
+}
+
+div.mppk {
+	background-image:url(../img/mppk.png);
+	color:#ffffff;
+	text-align:center;
+	width:150px;
+	height:44px;
+}
+
+div.mppkstr {
+	color:#ffffff;
+}
+
+div.mppkni {
+	color:#ffffff;
+	background-image:url(../img/mppk_not_installed.png);
+	text-align:center;
+	width:150px;
+	height:44px;
+}
+
+div.mppknistr {
+	color:#ffffff;
+}
+
+div.fepk {
+	background-image:url(../img/fepk.png);
+	color:#ffffff;
+	text-align:center;
+	padding-top:7px;
+	width:25px;
+	height:93px;
+}
+
+div.fepkni {
+	color:#ffffff;
+	background-image:url(../img/fepk_not_installed.png);
+	text-align:center;
+	padding-top:7px;
+	width:25px;
+	height:93px;
+}
+
+div.fepkback {
+	background-image:url(../img/fepkback.png);
+	color:#ffffff;
+	text-align:center;
+	padding-top:7px;
+	width:18px;
+	height:93px;
+}
+
+div.fepkniback {
+	color:#ffffff;
+	background-image:url(../img/fepkback_not_installed.png);
+	text-align:center;
+	padding-top:7px;
+	width:18px;
+	height:93px;
+}
+
+div.fepknit {
+	background-image:url(../img/fepknit_not_installed.png);
+	text-align:left;
+	width:8px;
+	height:68px;
+}
+
+div.hmhdudense {
+	background-image:url(../img/hdu_dense.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:205px;
+}
+
+div.hmhdudense2 {
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:205px;
+}
+
+/* ↓Z81G5190018 */
+div.hmhdu60dense {
+	background-image:url(../img/hdu_dense_60.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:243px;
+}
+/* ↑Z81G5190018 */
+
+div.hduNF {
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+}
+
+div.hmhduNF {
+	background-image:url(../img/hdu_NF.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:75px;
+}
+
+/* ↓Z88D5194781 */
+div.hmhduDBF2 {
+	background-image:url(../img/hdu_DBF2.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:75px;
+}
+/* ↑Z88D5194781 */
+
+div.dkcfront {
+	background-image:url(../img/dkcfront.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:206px;
+	height:123px;
+}
+
+div.dkcfrontni {
+	background-image:url(../img/Not_Installed_dkcfront.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:206px;
+	height:123px;
+	color:#ffffff;
+}
+
+div.dkcfrontnitext {
+	color:#ffffff;
+	text-align:left;
+	top:61px;
+	left:70px;
+}
+
+div.dkcback {
+	background-image:url(../img/dkcback.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:222px;
+	height:123px;
+}
+
+div.dkcbackS {
+	background-image:url(../img/dkcback_S.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:222px;
+	height:123px;
+}
+
+div.dkcbackM {
+	background-image:url(../img/dkcback_M.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:222px;
+	height:123px;
+}
+
+div.dkcbackH {
+	background-image:url(../img/dkcback_H.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:222px;
+	height:123px;
+}
+
+div.dkcbackni {
+	background-image:url(../img/Not_Installed_dkcback.png);
+	text-align:left;
+	padding-top:3px;
+	padding-left:4px;
+	width:222px;
+	height:123px;
+	color:#ffffff;
+}
+
+div.dkcbacknitext {
+	color:#ffffff;
+	text-align:left;
+	top:61px;
+	left:75px;
+}
+
+div.dku {
+	background-image:url(../img/dku.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:405px;
+}
+
+div.dkuni {
+	background-image:url(../img/Not_Installed_dku.png);
+	color:#ffffff;
+	text-align:left;
+	padding-top:1px;
+	padding-left:4px;
+	width:308px;
+	height:381px;
+}
+
+div.hdunir {
+	color:#ffffff;
+	background-image:url(../img/hdu_not_installed.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:308px;
+	height:39px;
+}
+
+div.hdunitext {
+	color:#ffffff;
+	text-align:left;
+	top:12px;
+	left:120px;
+}
+
+div.dkunitext {
+	color:#ffffff;
+	text-align:left;
+	top:177px;
+	left:120px;
+}
+
+div.dkuraidnf {
+	background-image:url(../img/dku_raid_nf.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:320px;
+	height:261px;
+}
+
+div.hduraidnfni {
+	color:#ffffff;
+	background-image:url(../img/hdu_raid_nf_not_installed.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:308px;
+	height:52px;
+}
+
+div.hduraidnfnitext {
+	color:#ffffff;
+	text-align:left;
+	top:20px;
+	left:119px;
+}
+
+div.dkuraidnfni {
+	color:#ffffff;
+	background-image:url(../img/dku_raid_nf_not_installed.png);
+	text-align:left;
+	padding-top:1px;
+	padding-left:5px;
+	width:308px;
+	height:237px;
+}
+
+div.dkuraidnfnitext {
+	color:#ffffff;
+	text-align:left;
+	top:115px;
+	left:119px;
+}
+
+div.dkcfepk {
+	color:#ffffff;
+	background-image:url(../img/fepk.png);
+	text-align:center;
+	padding-top:7px;
+	width:73px;
+	height:13px;
+}
+
+div.dkcfepkni {
+	color:#ffffff;
+	background-image:url(../img/fepk_notinstalled.png);
+	text-align:center;
+	padding-top:7px;
+	width:73px;
+	height:13px;
+}
+
+div.dkcfepkhm {
+	color:#ffffff;
+	background-image:url(../img/fepkhm.png);
+	text-align:center;
+	padding-top:7px;
+	width:73px;
+	height:13px;
+}
+
+div.dkcfepkhmni {
+	color:#ffffff;
+	background-image:url(../img/fepkhm_notinstalled.png);
+	text-align:center;
+	padding-top:7px;
+	width:73px;
+	height:13px;
+}
+
+div.fepkS {
+	background-image:url(../img/fepkhm_S.png);
+	color:#ffffff;
+	text-align:center;
+	width:150px;
+	height:15px;
+}
+
+div.fepkSstr {
+	color:#ffffff;
+}
+
+div.fepkniS {
+	color:#ffffff;
+	background-image:url(../img/fepkhm_S_not_installed.png);
+	text-align:center;
+	width:150px;
+	height:15px;
+}
+
+div.fepknitS {
+	color:#ffffff;
+}
+
+div.fepktS {
+	color:#ffffff;
+}
+
+div.fepkM {
+	background-image:url(../img/fepkhm_M.png);
+	color:#ffffff;
+	text-align:center;
+	width:73px;
+	height:20px;
+}
+/* ↓Z84R5193157 */
+div.fepkHNAS {
+	background-image:url(../img/fepkhm_HNAS.png);
+	color:#ffffff;
+	text-align:center;
+	width:310px;
+	height:20px;
+}
+
+div.fepktHNAS {
+	color:#ffffff;
+	text-align:center;
+}
+/* ↑Z84R5193157 */
+
+div.fepkMstr {
+	color:#ffffff;
+}
+
+div.fepkniM {
+	color:#ffffff;
+	background-image:url(../img/fepkhm_M_not_installed.png);
+	text-align:center;
+	width:73px;
+	height:20px;
+}
+
+div.fepknitM {
+	color:#ffffff;
+	/* ↓Z81G5192592 */
+	font-size: 9px;
+	text-align:center;
+	/* ↑Z81G5192592 */
+
+}
+
+div.fepktM {
+	color:#ffffff;
+}
+
+div.fepkH {
+	background-image:url(../img/fepkhm_H.png);
+	color:#ffffff;
+	text-align:center;
+	width:73px;
+	height:20px;
+}
+
+div.fepkHstr {
+	color:#ffffff;
+
+}
+
+div.fepkniH {
+	color:#ffffff;
+	background-image:url(../img/fepkhm_H_not_installed.png);
+	text-align:center;
+	width:73px;
+	height:20px;
+}
+
+div.fepknitH {
+	color:#ffffff;
+	/* ↓Z81G5192592 */
+	font-size: 9px;
+	text-align:center;
+	/* ↑Z81G5192592 */
+}
+
+div.fepktH {
+	color:#ffffff;
+}
+
+div.fepkhmniSstr {
+	color:#ffffff;
+}

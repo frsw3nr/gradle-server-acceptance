@@ -10,11 +10,15 @@ Bug fixes:
 
 ToDo:
 
-シナリオ見直し [ ]
+シナリオ見直し [x]
     SPARC/XSCF [x]
     ETERNUS [x]
-    VSP [ ]
-    ESXi [ ]
+    VSP [x]
+    ESXi [x]
+"インベントリ"カスタムフィールド登録 [ ]
+    config.groovy 項目設定 [ ]
+    TicketMaker 登録 [ ]
+シート「検査レポート」 13行ハードコーディング見直し [ ]
 デモ環境準備 [ ]
     Windows仮想マシン N台 [ ]
     Linux仮想マシン N台 [ ]

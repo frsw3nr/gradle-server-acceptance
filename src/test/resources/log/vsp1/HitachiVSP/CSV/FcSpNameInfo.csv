@@ -1,0 +1,18 @@
+<<FC-SP Name Information>>
+Port,Host Group,Target Username,Authentication of Group,Initiator Username,Protocol
+1A,1A-G00,50060e80122db600,Disabled,,
+3A,3A-G00,50060e80122db620,Disabled,,
+5A,5A-G00,50060e80122db640,Disabled,,
+7A,7A-G00,50060e80122db660,Disabled,,
+1B,1B-G00,50060e80122db601,Disabled,,
+3B,3B-G00,50060e80122db621,Disabled,,
+5B,5B-G00,50060e80122db641,Disabled,,
+7B,7B-G00,50060e80122db661,Disabled,,
+2A,2A-G00,50060e80122db610,Disabled,,
+4A,4A-G00,50060e80122db630,Disabled,,
+6A,6A-G00,50060e80122db650,Disabled,,
+8A,8A-G00,50060e80122db670,Disabled,,
+2B,2B-G00,50060e80122db611,Disabled,,
+4B,4B-G00,50060e80122db631,Disabled,,
+6B,6B-G00,50060e80122db651,Disabled,,
+8B,8B-G00,50060e80122db671,Disabled,,
