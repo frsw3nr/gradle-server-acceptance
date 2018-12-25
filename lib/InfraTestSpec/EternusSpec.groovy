@@ -508,8 +508,13 @@ class EternusSpec extends LinuxSpecBase {
             }
             (it=~/^(.+?) \[(.+?)\]$/).each {m0, item, value ->
                 item = item.trim()
-                if (item == 'Master IP Address')
-                    net_ip[port]   = value
+                if (item == 'Master IP Address') {
+                    def ip_address = value
+                    if (ip_address && ip_address != '127.0.0.1') {
+                        test_item.port_list(ip_address, port)
+                    }
+                    net_ip[port]   = ip_address
+                }
                 if (item == 'Subnet Mask')
                     net_subnet[port]   = value
                 if (item == 'Gateway')
