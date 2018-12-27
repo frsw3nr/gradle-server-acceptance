@@ -4,7 +4,7 @@ import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
 enum PortType {
-  UPPER, LOWER
+  UPPER, LOWER, MANAGED
 }
 
 @Slf4j
@@ -12,13 +12,26 @@ enum PortType {
 class PortList extends SpecModel {
     String ip
     String description
+    String mac
+    String vendor
+    String switch_name
     String netmask
+    String device_type
     Boolean online
     PortType port_type
 
     public Map asMap() {
-        def map = [ip : ip, description : description, netmask: netmask,
-                   online : online, port_type : port_type]
+        def map = [
+                ip : ip, 
+                description : description, 
+                mac         : mac, 
+                vendor      : vendor, 
+                switch_name : switch_name, 
+                netmask     : netmask, 
+                device_type : device_type,
+                online      : online, 
+                port_type   : port_type
+            ]
         map << this.custom_fields
 
         return map

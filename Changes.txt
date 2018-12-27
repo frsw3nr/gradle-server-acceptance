@@ -19,8 +19,10 @@ ToDo:
     config.groovy 項目設定 [x]
     TicketMaker 登録 [x]
 ポートリスト検査シナリオ見直し [ ]
-    検査レポート作成 [ ]
-    テンプレートチェック [ ]
+    検査レポート作成 [x]
+    テンプレートチェック [x]
+        getconfig -c ./template/Router/config_rtx.groovy -r
+        getconfig -c ./template/VMWare_ESXi/config_esxi.groovy -r
     サブネットの取得 [ ]
     ポートリスト作成(IPアドレス,サブネット,MACアドレス,Vendor) [ ]
 検査シートの英語化対応 [ ]

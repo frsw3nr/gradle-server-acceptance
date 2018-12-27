@@ -86,6 +86,8 @@ class TicketManager {
     String redmine_uri
     String redmine_api_key
     String inventory_field
+    String tracker_port_list
+    LinkedHashMap<String,String> port_list_custom_fields = [:]
     RedmineManager redmine_manager
     IssueManager   issue_manager
     ProjectManager project_manager
@@ -94,6 +96,8 @@ class TicketManager {
         this.redmine_uri     = env.get_redmine_uri()
         this.redmine_api_key = env.get_redmine_api_key()
         this.inventory_field = env.get_custom_field_inventory()
+        this.tracker_port_list = env.get_tracker_port_list()
+        this.port_list_custom_fields = env.get_port_list_custom_fields()
     }
 
     def init() {
@@ -193,8 +197,31 @@ class TicketManager {
         return issue
     }
 
+    LinkedHashMap<String,String> get_port_list_custom_fields(Map custom_fields) {
+        LinkedHashMap<String,String> fields = [:]
+        this.port_list_custom_fields.each { redmine_name, test_item_name ->
+            if (custom_fields.containsKey(test_item_name)) {
+                def value = custom_fields[test_item_name]
+                // println "PORT_LIST_CUSTOM_FIELDS:${test_item_name},${value}"
+                if (value != null) {
+                    fields[redmine_name] = value
+                }
+            }
+        }
+        return fields
+    }
+
     Issue regist_port_list(String project_name, String subject, Map custom_fields = [:]) {
-        return this.regist(project_name, 'ポートリスト', subject, custom_fields)
+        // println "CUSTOM_FIELDS:${custom_fields}"
+        // println "PORT_LIST_CUSTOM_FIELDS:${this.port_list_custom_fields}"
+        // println "TRACKER_PORT_LIST: ${this.tracker_port_list}"
+        if (this.port_list_custom_fields.size() == 0) {
+            def msg = "Redmine update error '${subject}' : Not found 'port_list_custom_fields'"
+            log.error(msg)
+            throw new NotFoundException(msg)
+        }
+        def fields = this.get_port_list_custom_fields(custom_fields)
+        return this.regist(project_name, this.tracker_port_list, subject, fields)
     }
 
     Boolean link(Issue ticket_from, List<Integer> ticket_to_ids) {

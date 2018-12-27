@@ -28,10 +28,12 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     ip           = IssueCustomField.find_or_create_by!(name: '接続IP',             field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     switch_name  = IssueCustomField.find_or_create_by!(name: 'スイッチ名',         field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     lan_category = IssueCustomField.find_or_create_by!(name: '上位/下位',          field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
+    device_type  = IssueCustomField.find_or_create_by!(name: '機器種別',           field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     port_no      = IssueCustomField.find_or_create_by!(name: 'ポート番号',         field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     net_category = IssueCustomField.find_or_create_by!(name: 'ネットワーク分類',   field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     mac_address  = IssueCustomField.find_or_create_by!(name: 'MACアドレス',        field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     mac_vendor   = IssueCustomField.find_or_create_by!(name: 'MACアドレスベンダー',field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
+    netmask      = IssueCustomField.find_or_create_by!(name: 'ネットマスク',       field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     host_found   = IssueCustomField.find_or_create_by!(name: '台帳つき合わせ',     field_format: 'bool',   is_required: false, editable: true, visible: true, is_for_all: true)
     location     = IssueCustomField.find_or_create_by!(name: '設置場所',           field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     admin_ip     = IssueCustomField.find_or_create_by!(name: '管理用',             field_format: 'bool',   is_required: false, editable: true, visible: true, is_for_all: true)
@@ -64,7 +66,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     }
 
     # ポートリストのカスタムフィールド設定
-    [switch_name, port_no, lan_category, mac_address, mac_vendor, host_found, location, admin_ip].each { |custom_field|
+    [switch_name, port_no, lan_category, netmask, mac_address, mac_vendor, device_type, host_found, location, admin_ip].each { |custom_field|
         portlist.custom_fields << custom_field
     }
 

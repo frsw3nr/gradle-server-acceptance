@@ -92,6 +92,14 @@ class ConfigTestEnvironment {
         return this.config?.ticket?.custom_field?.inventory ?: "インベントリ";
     }
 
+    def get_port_list_custom_fields() {
+        return this.cmdb_config?.port_list?.custom_fields;
+    }
+
+    def get_tracker_port_list() {
+        return this.cmdb_config?.port_list?.tracker ?: 'ポートリスト';
+    }
+
     def get_getconfig_home() {
         return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
     }

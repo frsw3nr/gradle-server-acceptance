@@ -44,13 +44,14 @@ public class TicketRegistor {
         test_scenario.accept(report_maker)
     }
 
-    def regist_redmine_ticket(String project_name) {
+    def regist_redmine_ticket() {
+        // println "PROJECT_NAME:${project_name}"
         def redmine_data = this.get_redmine_data()
         def tickets = redmine_data.get_ticket_dict()
         tickets.each { tracker, subjects ->
             subjects.each { subject, custom_fields ->
                 // println "REGIST: ${tracker}, ${subject}, ${custom_fields}"
-                Issue issue = this.ticket_manager.regist('cmdb',
+                Issue issue = this.ticket_manager.regist(this.redmine_project,
                                                          tracker, 
                                                          subject, 
                                                          custom_fields)
@@ -59,8 +60,10 @@ public class TicketRegistor {
                     if (port_lists) {
                         List<Integer> port_list_ids = []
                         port_lists.each { ip, port_list ->
-                            // println "REGIST_PORT_IP: ${ip}"
-                            Issue port_list_issue = this.ticket_manager.regist_port_list('cmdb', ip)
+                            // println "REGIST_PORT_IP: ${ip}, ${port_list}"
+                            Issue port_list_issue = this.ticket_manager.regist_port_list(this.redmine_project,
+                                                                                         ip,
+                                                                                         port_list)
                             // println "PORT_LIST_ISSUE: ${port_list_issue}"
                             if (!port_list_issue) {
                                 return
@@ -79,7 +82,7 @@ public class TicketRegistor {
         long start = System.currentTimeMillis()
         log.info "Redmine Project : ${this.redmine_project}"
         this.read_redmine_data()
-        this.regist_redmine_ticket(project_name)
+        this.regist_redmine_ticket()
         long elapse = System.currentTimeMillis() - start
         log.info "Finish ticket maker, Elapse : ${elapse} ms"
     }

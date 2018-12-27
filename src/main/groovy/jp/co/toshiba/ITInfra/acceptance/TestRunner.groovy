@@ -234,6 +234,7 @@ class TestRunner {
             }
         } else if (test_runner.command == RunnerCommand.REGIST_REDMINE) {
             def ticket_registor = new TicketRegistor()
+            test_env.get_cmdb_config()
             test_env.accept(ticket_registor)
             try {
                 ticket_registor.run()

@@ -6,7 +6,7 @@ import java.sql.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "CMDBModelTest.メトリック登録"
+// gradle --daemon test --tests "CMDBModelTest.カスタムフィールド読み込み"
 
 class CMDBModelTest extends Specification {
 
@@ -39,6 +39,17 @@ class CMDBModelTest extends Specification {
         cmdb_config.cmdb.dataSource.url == 'jdbc:h2:mem:'
         cmdb_config.cmdb.dataSource.username == 'sa'
         cmdb_config.cmdb.dataSource.password == 'sa'
+    }
+
+    def カスタムフィールド読み込み() {
+        when:
+        cmdb_config = test_env.get_cmdb_config()
+        def json = new groovy.json.JsonBuilder()
+        def port_list_custom_fields = test_env.get_port_list_custom_fields()
+        println port_list_custom_fields
+
+        then:
+        1 == 1
     }
 
     def "マスター登録"() {

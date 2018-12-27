@@ -8,7 +8,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
-// gradle --daemon test --tests "TestTicketManager.初期化"
+// gradle --daemon test --tests "TestTicketManager.ポートリスト登録2"
 
 class TestTicketManager extends Specification {
 
@@ -31,6 +31,7 @@ class TestTicketManager extends Specification {
 
     def setup() {
         def test_env = ConfigTestEnvironment.instance
+        test_env.get_cmdb_config()
         ticket_manager = TicketManager.instance
         test_env.accept(ticket_manager)
         ticket_manager.init()
@@ -123,6 +124,23 @@ class TestTicketManager extends Specification {
 
         then:
         result2 == true
+    }
+
+    def "ポートリスト登録2"() {
+        when:
+
+        // ポートリスト登録
+        def custom_fields = [
+            "ip": "192.168.10.100",
+            "description": "LAN3",
+            "mac": "00:1b:21:12:34:56",
+            "vendor": "Intel Corporate",
+            "switch_name": "router1",
+        ]
+        def port_list1 = ticket_manager.regist_port_list('cmdb', '192.168.10.100', custom_fields)
+
+        then:
+        1 == 1
     }
 
     def "リンク異常"() {

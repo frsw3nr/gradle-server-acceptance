@@ -44,6 +44,7 @@ class RouterRTXSpec extends InfraTestSpec {
     static String mac_vendor_oui = 'ieee-oui.txt'
     def mac_vendor_db = [:]
 
+    String switch_name
     String ip
     String os_user
     String os_password
@@ -53,6 +54,7 @@ class RouterRTXSpec extends InfraTestSpec {
     def init() {
         super.init()
 
+        this.switch_name  = test_platform.test_target.name ?: 'unkown'
         this.ip           = test_platform.test_target.ip ?: 'unkown'
         def os_account    = test_platform.os_account
         this.os_password  = os_account['password'] ?: 'unkown'
@@ -191,7 +193,6 @@ class RouterRTXSpec extends InfraTestSpec {
         def lines = exec('arp') {
             run_telnet_command('show arp', 'arp')
         }
-        println lines
         def row = 0
         def csv = []
         // Interface      IP address        MAC address       TTL(second)
@@ -206,9 +207,11 @@ class RouterRTXSpec extends InfraTestSpec {
             (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
                 def vendor = this.get_mac_vendor(mac)
                 csv << [device, ip, mac, vendor]
+                if (ip && ip != '127.0.0.1') {
+                    test_item.port_list(ip, device, mac, vendor, this.switch_name)
+                }
             }
         }
-        println csv
         test_item.results(csv.size())
         def headers = ['interface', 'ip', 'mac', 'vendor']
         test_item.devices(csv, headers)
