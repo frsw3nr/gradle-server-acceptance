@@ -23,8 +23,15 @@ class ConfigTestEnvironment {
         def test_runner_config = test_runner.getProperties() as Map
 
         this.config_file = test_runner.config_file ?: './config/config.groovy'
-        this.config = Config.instance.read(config_file)
-
+        try {
+            this.config = Config.instance.read(config_file)
+        } catch (Exception e) {
+            log.warn "Read error : " + e
+            // System.exit(1)
+        }
+        if (!this.config) {
+            this.config = new ConfigObject()
+        }
         test_runner.getProperties().findAll{ name, value ->
             if (name == 'class')
                 return
@@ -89,7 +96,7 @@ class ConfigTestEnvironment {
     }
 
     def get_custom_field_inventory() {
-        return this.config?.ticket?.custom_field?.inventory ?: "インベントリ";
+        return this.cmdb_config?.ticket?.custom_field?.inventory ?: "インベントリ";
     }
 
     def get_port_list_custom_fields() {

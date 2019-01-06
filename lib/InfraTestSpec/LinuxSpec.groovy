@@ -261,9 +261,9 @@ class LinuxSpec extends LinuxSpecBase {
         )
         test_item.devices(csv, headers)
         test_item.verify_text_search_list('net_ip', net_ip)
-        println "NET_IP:${net_ip}"
-        println "NET_SUBNET:${net_subnet}"
-        println "NETWORK:${network}"
+        // println "NET_IP:${net_ip}"
+        // println "NET_SUBNET:${net_subnet}"
+        // println "NETWORK:${network}"
 
 
         // test_item.verify_text_search_map('net_ip', net_ip)

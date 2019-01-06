@@ -61,9 +61,10 @@ public class TicketRegistor {
                         List<Integer> port_list_ids = []
                         port_lists.each { ip, port_list ->
                             // println "REGIST_PORT_IP: ${ip}, ${port_list}"
-                            Issue port_list_issue = this.ticket_manager.regist_port_list(this.redmine_project,
-                                                                                         ip,
-                                                                                         port_list)
+                            Issue port_list_issue = 
+                                this.ticket_manager.regist_port_list(this.redmine_project,
+                                                                     ip,
+                                                                     port_list)
                             // println "PORT_LIST_ISSUE: ${port_list_issue}"
                             if (!port_list_issue) {
                                 return
@@ -78,9 +79,24 @@ public class TicketRegistor {
         }
     }
 
+    def check_result_dir() {
+        def json_count = 0
+        new File(this.result_dir).eachFile {
+            ( it.name =~ /(.+).json/ ).each {
+                json_count ++
+            }
+        }
+        println "JSON_COUNT:${json_count}"
+        return (json_count > 0)
+    }
+
     def run(String project_name) {
         long start = System.currentTimeMillis()
         log.info "Redmine Project : ${this.redmine_project}"
+        if (!this.check_result_dir()) {
+            log.error "No json in '${this.result_dir}'. Execute 'getconfig -u local'"
+            return
+        }
         this.read_redmine_data()
         this.regist_redmine_ticket()
         long elapse = System.currentTimeMillis() - start

@@ -199,13 +199,8 @@ class TestRunner {
         def exit_code = 0
         def test_runner = new TestRunner()
         def test_env = ConfigTestEnvironment.instance
-        try {
-            test_runner.parse(args)
-            test_env.read_from_test_runner(test_runner)
-        } catch (Exception e) {
-            log.error "Fatal error : " + e
-            System.exit(1)
-        }
+        test_runner.parse(args)
+        test_env.read_from_test_runner(test_runner)
         if (test_runner.command == RunnerCommand.SCHEDULER) {
             def test_scheduler = new TestScheduler()
             test_env.accept(test_scheduler)

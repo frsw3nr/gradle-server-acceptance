@@ -1,0 +1,204 @@
+クラウド（インターネット接続）
+-----------------------------
+
+リファレンス
+
+http://tagutagu.com/?p=999
+
+ESXi側設定
+
+無差別モードを「承諾」に変更します。
+これをしないとwindows7のGNS3上で動作するルータ向けの通信が通りません。
+
+Window2012側設定
+
+ESXi側でwindows7 VMに１つNICを追加する
+Windows7側で認識されたNICを確認する。
+windows7側でNICの名前をLIVING-NETに変更する。
+
+
+ルータの設定を以下の通り実施します。
+
+R1#conf t
+R1(config)#int fa0/0
+R1(config-if)#ip add dhcp
+R1(config-if)#shut
+R1(config-if)#no shut
+R1(config-if)#end
+
+R1#sh dhcp lease
+
+疎通テストを実施します。
+R1#ping 8.8.8.8　←Google Public DNSです。
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 8.8.8.8, timeout is 2 seconds:
+!!!!!　←疎通OKです。
+Success rate is 100 percent (5/5), round-trip min/avg/max = 40/367/1620 ms
+R1#
+
+//GNS3の奥のネットワーク設定その1
+configure terminal
+RW01(config-if)#
+int fa1/0
+RW01(config-if)#
+ip address 172.16.10.254 255.255.255.0
+RW01(config-if)#
+no shutdown
+ 
+//GNS3の奥のネットワーク設定その2
+RW01(config-if)#int fa2/0
+RW01(config-if)#ip address 172.16.20.254 255.255.255.0
+RW01(config-if)#no shutdown
+ 
+//インターネット側ネットワークのOSPFに参加
+RW01(config-if)#router ospf 1
+RW01(config-router)#network 172.16.10.0 0.0.0.255 area 0
+RW01(config-router)#network 172.16.20.0 0.0.0.255 area 0
+RW01(config-router)#network 10.24.96.0 0.0.0.255 area 0
+ 
+//OSPF , Route確認
+RW01#show ip ospf neighbor
+ 
+Neighbor ID Pri State Dead Time Address Interface
+10.24.96.254 1 FULL/DR 00:00:31 10.24.96.254 FastEthernet0/0
+RW01#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+E1 - OSPF external type 1, E2 - OSPF external type 2
+i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+ia - IS-IS inter area, * - candidate default, U - per-user static route
+o - ODR, P - periodic downloaded static route
+ 
+Gateway of last resort is 10.24.96.254 to network 0.0.0.0
+ 
+172.16.0.0/24 is subnetted, 2 subnets
+C 172.16.20.0 is directly connected, FastEthernet2/0
+C 172.16.10.0 is directly connected, FastEthernet1/0
+O 192.168.200.0/24 [110/20] via 10.24.96.254, 00:06:13, FastEthernet0/0
+10.0.0.0/24 is subnetted, 1 subnets
+C 10.24.96.0 is directly connected, FastEthernet0/0
+O E2 192.168.254.0/24 [110/20] via 10.24.96.254, 00:06:13, FastEthernet0/0
+O E2 192.168.1.0/24 [110/20] via 10.24.96.254, 00:06:13, FastEthernet0/0
+O*E2 0.0.0.0/0 [110/10] via 10.24.96.254, 00:06:15, FastEthernet0/0
+
+仮想ネットワーク設定(VLAN100)
+-----------------------------
+
+
+DHCP設定 [ ]
+リモートアクセス設定(SSH2,特権モード) [ ]
+
+GNS3 VM設定
+-----------
+
+Webブラウザを使用してhttps://gns3.comにアクセスし 、[ マーケットプレイス ]メニュー項目をクリックします。
+
+以下コメントがあり保留
+
+インターネットアプライアンスはNATおよびクラウドオブジェクトのために使用されなくなりました。
+インターネットアプライアンスの使用は推奨されておらず、避けるべきです。
+
+GNS3仮想ネットワーク設定
+------------------------
+
+Windows VM の VM-Network 192.168.10.60 とクラウドを接続する
+
+イーサネット アダプター VM-Network:
+   IPv4 アドレス . . . . . . . . . . . .: 192.168.10.60
+   サブネット マスク . . . . . . . . . .: 255.255.255.0
+   デフォルト ゲートウェイ . . . . . . .: 192.168.10.254
+
+F0/0 を DHCP 接続に設定
+
+configure terminal
+interface FastEthernet0/0  
+ip address dhcp  
+duplex auto  
+speed auto  
+exit
+exit
+show running-config
+qを押して抜ける
+copy running-config startup-config
+
+configure terminal
+interface FastEthernet0/0
+ip address 192.168.10.61 255.255.255.0
+no shutdown
+exit
+
+Configure a default gateway:
+pend
+
+configure terminal
+
+ip domain-lookup
+ip name-server 192.168.10.254
+end
+
+Ping google.com:
+ping google.com
+
+
+Translating "google.com"...domain server (8.8.8.8) [OK]
+
+    Configuration on the routers:
+
+SSHユーザの作成
+----------------
+
+https://www.infraexpert.com/study/ciscorouter7.html
+
+Switch(config)#
+configure terminal
+username admin secret P@ssw0rd
+line vty 0 4
+login local
+transport input telnet ssh
+exit
+
+ホスト名、ドメイン名の設定、RSA鍵の作成
+
+hostname c3745
+ip domain-name c3745.local
+crypto key generate rsa
+
+このコマンドの入力後、鍵長サイズの指定を求めてくるのでそこでは1024と指定するようにします。
+
+SSHv2に変更
+
+ip ssh version 2
+特権パスワードの設定
+
+tc0001(config)#
+enable secret cisco
+
+ssh -l someuser 192.168.10.61
+cisco で接続
+
+The authenticity of host '192.168.10.61 (192.168.10.61)' can't be established.
+RSA1 key fingerprint is 09:fa:91:4c:92:85:d1:b1:f3:28:20:5b:69:ed:77:fa.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.10.61' (RSA1) to the list of known hosts.
+someuser@192.168.10.61's password:
+
+gp1-rt-001>
+
+VLAN設定
+---------
+
+
+VPCS設定
+--------
+
+4台の仮想マシンと接続する
+
+ルータを選んで、Configure⇒Slotsを選択
+NM-16ESWを追加
+
+f1/0 ～ f1/3 までを VPCS と接続
+
+
+

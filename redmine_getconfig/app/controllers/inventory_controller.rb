@@ -16,7 +16,18 @@ class InventoryController < ApplicationController
 
     # @project = Project.find(session[:query][:project_id])
     # @project = Project.find(1)
-    @project = Project.find(params[:id] || session[:project_id] || session[:issue_query][:project_id])
+    # @project = Project.find(params[:id] || session[:project_id] || session[:issue_query][:project_id])
+
+    # project_id をURLパラメータ、セッションから取得。取得できない場合は1をセット
+    project_id = params[:id] || session[:project_id]
+    if project_id.nil?
+      if session[:issue_query].present?
+        project_id = session[:issue_query][:project_id]
+      else
+        project_id = 1
+      end
+    end
+    @project = Project.find(project_id)
     session[:project_id] = @project.id
 
     node_ids   = Node.joins(:tenant).where(

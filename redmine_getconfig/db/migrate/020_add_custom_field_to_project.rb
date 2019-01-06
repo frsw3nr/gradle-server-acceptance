@@ -30,6 +30,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     lan_category = IssueCustomField.find_or_create_by!(name: '上位/下位',          field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     device_type  = IssueCustomField.find_or_create_by!(name: '機器種別',           field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     port_no      = IssueCustomField.find_or_create_by!(name: 'ポート番号',         field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
+    port_device  = IssueCustomField.find_or_create_by!(name: 'ポートデバイス',     field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     net_category = IssueCustomField.find_or_create_by!(name: 'ネットワーク分類',   field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     mac_address  = IssueCustomField.find_or_create_by!(name: 'MACアドレス',        field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     mac_vendor   = IssueCustomField.find_or_create_by!(name: 'MACアドレスベンダー',field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
@@ -66,7 +67,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     }
 
     # ポートリストのカスタムフィールド設定
-    [switch_name, port_no, lan_category, netmask, mac_address, mac_vendor, device_type, host_found, location, admin_ip].each { |custom_field|
+    [switch_name, lan_category, port_no, port_device, netmask, mac_address, mac_vendor, device_type, location, host_found, admin_ip].each { |custom_field|
         portlist.custom_fields << custom_field
     }
 
