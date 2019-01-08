@@ -1,0 +1,72 @@
+ssh 接続
+
+コントローラ集計
+
+プロセッサCPU%
+トータルIOPS
+
+stats show -r -i ${INT} -n ${NUM}
+
+スナップショット回数
+
+snap show
+
+トータルディスク容量
+#特定ノードで実行
+
+df 
+<追加>
+
+sysstat -x 10
+
+statistics show-periodic -object volume -instance vol0  -counter write_ops|read_ops|total_ops|read_latency|write_latency|avg_latency
+cluster1: volume.vol0: 1/7/2013 20:15:51
+      avg     read             total    write    write
+  latency  latency read_ops      ops  latency      ops
+ -------- -------- -------- -------- -------- --------
+    202us    218us        0       22    303us        7
+     97us     43us       31       71    149us       34
+
+cpu busy: Overall system utilization based on CPU utilization and subsystem utilization. Examples of subsystems include the storage subsystem and RAID subsystem.
+total ops: The number of total operations per second.
+nfs-ops: The number of NFS operations per second.
+cifs-ops: The number of CIFS operations per second.
+data busy: The percentage of time that data ports sent or received data.
+data recv: Network traffic received on data ports (KBps).
+data sent: Network traffic sent on data ports (KBps).
+cluster busy: The percentage of time that cluster ports sent or received data.
+cluster recv: Network traffic received on cluster ports (KBps).
+cluster sent: Network traffic sent on cluster ports (KBps).
+disk read: Data read from disk (KBps).
+disk write: Data written to disk (KBps).
+
+statistics show-periodic -node node1 
+
+  cpu    total                   data     data     data cluster  cluster  cluster     disk     disk
+ busy      ops  nfs-ops cifs-ops busy     recv     sent    busy     recv     sent     read    write
+ ---- -------- -------- -------- ---- -------- -------- ------- -------- -------- -------- --------
+  54%    10378    10378        0  59%   66.9MB   99.6MB     72%   78.8MB    172MB   8.25KB   24.7KB
+  49%     8156     8156        0  47%   48.0MB   82.0MB     79%   83.9MB    190MB   7.92KB   7.92KB
+  49%     6000     6000        0  54%   24.3MB   87.0MB     76%    109MB    182MB   15.8KB       0B
+
+ statistics show-periodic -object processor -instance processor1 -iteration 5
+ instance     node processor   elapsed       sk
+     name     name      busy      time switches
+ -------- -------- --------- --------- --------
+ processor0      -        2%         -     1022
+ processor0      -        1%         -      959
+ processor0      -        2%         -     1098
+
+statistics show-periodic -object processor -instance processor1 -iteration 5 -counter processor_busy|sk_switches
+ processor       sk
+      busy switches
+ --------- --------
+        5%     1267
+        4%     1163
+        7%     1512
+
+statistics disk show -sort-key latency
+
+LU集計
+
+

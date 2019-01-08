@@ -22,8 +22,6 @@ New features:
     * 検査スクリプト見直し [ ]
 
 Bug fixes:
-* config.groovy ファイルがなくてもDB登録や予行演習は出来るようにする
-* getconfig -u local を実行しないと対象比較が機能しない問題対処
 * 富士通PRIMERGY インベントリ収集で HTTPS アクセスが出来ない問題対処
 
 Changes for 0.1.34 (2019-1-7)
