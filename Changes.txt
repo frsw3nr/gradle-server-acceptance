@@ -21,6 +21,21 @@ New features:
     * 検査シート見直し [ ]
     * 検査スクリプト見直し [ ]
 
+ToDo:
+
+* RTX1100テンプレート [ ]
+        * VLAN(.10.0)環境セットアップ [ ]
+        * SNMP 設定/確認 [ ]
+        * NTP 設定/確認 [ ]
+    * Ciscoテンプレート移行 [ ]
+    * "ip route" 情報から netmask 抽出 [ ]
+    * ポートリスト登録 [ ]
+* TWSNMP調査 [ ]
+* NetApp セットアップ [ ]
+    * NetAppでNFSボリューム作成方法 [ ]
+    * Netapp NFS データストアマウント (VMware) [ ]
+* NetApp テンプレート作成 [ ]
+
 Bug fixes:
 * 富士通PRIMERGY インベントリ収集で HTTPS アクセスが出来ない問題対処
 
