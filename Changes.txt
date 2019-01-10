@@ -24,9 +24,9 @@ New features:
 ToDo:
 
 * RTX1100テンプレート [ ]
-        * VLAN(.10.0)環境セットアップ [ ]
-        * SNMP 設定/確認 [ ]
-        * NTP 設定/確認 [ ]
+        * VLAN(.10.0)環境セットアップ [x]
+        * SNMP 設定/確認 [x]
+        * NTP 設定/確認 [x]
     * Ciscoテンプレート移行 [ ]
     * "ip route" 情報から netmask 抽出 [ ]
     * ポートリスト登録 [ ]

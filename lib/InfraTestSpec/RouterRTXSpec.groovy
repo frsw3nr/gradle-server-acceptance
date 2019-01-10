@@ -178,6 +178,7 @@ class RouterRTXSpec extends InfraTestSpec {
     def run_telnet_command(command, test_id, share = false) {
         try {
             def log_path = (share) ? evidence_log_share_dir : local_dir
+            sendCommand("console lines infinity")
             def result = sendCommand(command)
             new File("${log_path}/${test_id}").text = result
         } catch (Exception e) {
@@ -187,6 +188,64 @@ class RouterRTXSpec extends InfraTestSpec {
 
     def trim(str){
         str.replaceAll(/\A[\s:]+/,"").replaceAll(/[\s]+\z/,"")
+    }
+
+    def config(test_item) {
+        def lines = exec('config') {
+            run_telnet_command('show config', 'config')
+        }
+        def row = 0
+        def csv = []
+        println lines
+        // // Interface      IP address        MAC address       TTL(second)
+        // // LAN1           192.168.0.27      64:b5:c6:bb:b5:f6  717
+        // lines.eachLine {
+        //     row ++
+        //     if (row < 3)
+        //         return
+        //     (it =~ /clock_MHz\s+(.+)/).each {m0,m1->
+        //         csv << [m1]
+        //     }
+        //     (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
+        //         def vendor = this.get_mac_vendor(mac)
+        //         csv << [device, ip, mac, vendor]
+        //         if (ip && ip != '127.0.0.1') {
+        //             test_item.port_list(ip, device, mac, vendor, this.switch_name)
+        //         }
+        //     }
+        // }
+        // test_item.results(csv.size())
+        // def headers = ['interface', 'ip', 'mac', 'vendor']
+        // test_item.devices(csv, headers)
+    }
+
+    def ip_route(test_item) {
+        def lines = exec('ip_route') {
+            run_telnet_command('show ip route', 'ip_route')
+        }
+        def row = 0
+        def csv = []
+        println lines
+        // // Interface      IP address        MAC address       TTL(second)
+        // // LAN1           192.168.0.27      64:b5:c6:bb:b5:f6  717
+        // lines.eachLine {
+        //     row ++
+        //     if (row < 3)
+        //         return
+        //     (it =~ /clock_MHz\s+(.+)/).each {m0,m1->
+        //         csv << [m1]
+        //     }
+        //     (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
+        //         def vendor = this.get_mac_vendor(mac)
+        //         csv << [device, ip, mac, vendor]
+        //         if (ip && ip != '127.0.0.1') {
+        //             test_item.port_list(ip, device, mac, vendor, this.switch_name)
+        //         }
+        //     }
+        // }
+        // test_item.results(csv.size())
+        // def headers = ['interface', 'ip', 'mac', 'vendor']
+        // test_item.devices(csv, headers)
     }
 
     def arp(test_item) {

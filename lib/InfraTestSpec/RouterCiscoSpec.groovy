@@ -54,6 +54,11 @@ class RouterCiscoSpec extends InfraTestSpec {
                 println "connect failed"
                 return
             }
+            // def session = con.openSession()
+            // println "OPEN"
+            // session.execCommand 'terminal length 0'
+            // // session.close()
+            // println "CLOSE"
         }
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
@@ -95,10 +100,15 @@ class RouterCiscoSpec extends InfraTestSpec {
             def log_path = (share) ? evidence_log_share_dir : local_dir
 
             def session = con.openSession()
+            println "OPEN"
+            // session.execCommand 'terminal length 0'
             session.execCommand command
+            println "COMMAND:${command}"
             def result = session.stdout.text
+            println "RESULT:${result}"
             new File("${log_path}/${test_id}").text = result
             session.close()
+            println "CLOSE"
 
             if (!dry_run) {
                 con.close()
@@ -140,6 +150,7 @@ class RouterCiscoSpec extends InfraTestSpec {
         def lines = exec('version') {
             run_ssh_command(session, 'show version', 'version')
         }
+        // println lines
         def row = 0
         def version_name = 'unkown'
         lines.eachLine {
@@ -155,7 +166,7 @@ class RouterCiscoSpec extends InfraTestSpec {
         def lines = exec('inventory') {
             run_ssh_command(session, 'show inventory', 'inventory')
         }
-        println lines
+        // println lines
         def row = 0
         def csv = []
         // NAME: "3745 chassis", DESCR: "3745 chassis"
