@@ -46,8 +46,11 @@ class DeviceInventoryController < ApplicationController
           @tables.append(record)
         end
     end
-    return head(:not_found) if @tables.blank?
-    @headers = @tables[0].keys
+    @headers = []
+    # return head(:not_found) if @tables.blank?
+    if !@tables.blank?
+      @headers = @tables[0].keys
+    end
 
     platform_name = Metric.find(@metric_id).platform.platform_name
     @devices = Metric.joins(:platform).where(
