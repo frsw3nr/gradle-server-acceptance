@@ -90,6 +90,8 @@ class TestItem {
                   String vendor      = null,
                   String switch_name = null,
                   String netmask     = null,
+                  String subnet      = null,
+                  String port_no     = null,
                   String device_type = null,
                   Boolean online     = null,
                   PortType port_type = null) {
@@ -100,6 +102,8 @@ class TestItem {
                                       vendor :      vendor, 
                                       switch_name : switch_name, 
                                       netmask :     netmask,
+                                      subnet :      subnet,
+                                      port_no :     port_no,
                                       device_type : device_type,
                                       online :      online,
                                       port_type :   port_type, 

@@ -1,2 +1,5 @@
+show snmp host
+Notification host: 192.168.0.20	udp-port: 162	type: trap
+user: public	security model: v2c
 
-Line has invalid autocommand "show snmp host"
+c3745

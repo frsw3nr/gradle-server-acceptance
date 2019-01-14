@@ -1,0 +1,9 @@
+show ip route
+Destination         Gateway          Interface       Kind  Additional Info.
+default             -                    PP[01]    static  
+61.115.19.36/32     -                    PP[01] temporary  
+192.168.0.0/24      192.168.0.254          LAN1  implicit  
+192.168.10.0/24     192.168.10.254         LAN3  implicit  
+211.132.129.56/32   -                    PP[01] temporary  
+219.103.130.56/32   -                    PP[01] temporary  
+> 

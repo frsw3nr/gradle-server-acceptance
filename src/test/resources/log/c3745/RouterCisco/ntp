@@ -1,0 +1,6 @@
+show ntp associations
+
+      address         ref clock     st  when  poll reach  delay  offset    disp
+*~133.243.238.243  .NICT.            1    13   256  377    18.9    4.53     7.1
+ * master (synced), # master (unsynced), + selected, - candidate, ~ configured
+c3745
