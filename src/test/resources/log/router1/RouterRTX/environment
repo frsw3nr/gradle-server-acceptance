@@ -1,0 +1,12 @@
+show environment
+RTX1000 Rev.8.01.29 (Fri Apr 15 11:50:44 2011)
+RTX1000 BootROM Ver. 1.04
+  main:  RTX1000 ver=b0 serial=N14005526 MAC-Address=00:a0:de:27:02:eb MAC-Addr
+ess=00:a0:de:27:02:ec MAC-Address=00:a0:de:27:02:ed
+CPU:   2%(5sec)   2%(1min)   2%(5min)    Memory: 26% used
+Firmware: internal  Config. file: 0  
+Boot time: 1984/02/17 03:41:27 +09:00
+Current time: 2019/01/13 07:14:48 +09:00
+Elapsed time from boot: 12749days 03:33:21
+Security Class: 1, Type: ON, TELNET: OFF
+> 

@@ -7,19 +7,9 @@ import groovy.transform.InheritConstructors
 import ch.ethz.ssh2.Connection
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
+import sun.net.util.IPAddressUtil
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
-
-// import groovy.util.logging.Slf4j
-// import groovy.transform.ToString
-// import groovy.transform.InheritConstructors
-// import org.apache.commons.io.FileUtils.*
-// import static groovy.json.JsonOutput.*
-// import org.hidetake.groovy.ssh.Ssh
-// import org.hidetake.groovy.ssh.session.execution.*
-// import jp.co.toshiba.ITInfra.acceptance.*
-// import org.apache.commons.net.util.SubnetUtils
-// import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 import org.apache.commons.net.telnet.EchoOptionHandler
 import org.apache.commons.net.telnet.SuppressGAOptionHandler
@@ -27,10 +17,6 @@ import org.apache.commons.net.telnet.TelnetClient
 import org.apache.commons.net.telnet.TerminalTypeOptionHandler
 import java.io.InputStream
 import java.io.PrintStream
-
-// import jp.co.toshiba.ITInfra.acceptance.*
-// import jp.co.toshiba.ITInfra.acceptance.Document.*
-// import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
 @InheritConstructors
@@ -50,6 +36,7 @@ class RouterRTXSpec extends InfraTestSpec {
     String os_password
     String work_dir
     int    timeout = 30
+    def    subnets = []
 
     def init() {
         super.init()
@@ -195,28 +182,72 @@ class RouterRTXSpec extends InfraTestSpec {
             run_telnet_command('show config', 'config')
         }
         def row = 0
+        def infos = [:]
+        def ntp_hosts = []
         def csv = []
-        println lines
-        // // Interface      IP address        MAC address       TTL(second)
-        // // LAN1           192.168.0.27      64:b5:c6:bb:b5:f6  717
-        // lines.eachLine {
-        //     row ++
-        //     if (row < 3)
-        //         return
-        //     (it =~ /clock_MHz\s+(.+)/).each {m0,m1->
-        //         csv << [m1]
-        //     }
-        //     (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
-        //         def vendor = this.get_mac_vendor(mac)
-        //         csv << [device, ip, mac, vendor]
-        //         if (ip && ip != '127.0.0.1') {
-        //             test_item.port_list(ip, device, mac, vendor, this.switch_name)
-        //         }
-        //     }
-        // }
-        // test_item.results(csv.size())
-        // def headers = ['interface', 'ip', 'mac', 'vendor']
-        // test_item.devices(csv, headers)
+        lines.eachLine {
+            row ++
+            // # RTX1000 Rev.8.01.29 (Fri Apr 15 11:50:44 2011)
+            (it =~ /^#\s+(.+)(Rev.+?) /).each {m0, m1, m2 ->
+                infos['config'] = m1
+                infos['config.version'] = m2
+            }
+            (it =~ /^snmp (host|community|trap host) (.+)$/).each {
+                m0, m1, m2 ->
+                infos["snmp.${m1}"] = m2
+            }
+            // schedule at 1 * 01:00 * ntpdate ntp.nict.jp
+            // schedule at 2 * 13:00 * ntpdate ntp.jst.mfeed.ad.jp
+           (it =~ /^schedule (.+?) ntpdate (.+)$/).each {
+                m0, m1, m2 ->
+                ntp_hosts << m2
+            }
+            csv << [it]
+        }
+        infos['ntpupdate'] = "${ntp_hosts}"
+        test_item.results(infos)
+        def headers = ['message']
+        test_item.devices(csv, headers)
+    }
+
+// show environment
+// RTX1000 Rev.8.01.29 (Fri Apr 15 11:50:44 2011)
+// RTX1000 BootROM Ver. 1.04
+//   main:  RTX1000 ver=b0 serial=N14005526 MAC-Address=00:a0:de:27:02:eb MAC-Addr
+// ess=00:a0:de:27:02:ec MAC-Address=00:a0:de:27:02:ed
+// CPU:   4%(5sec)   3%(1min)   3%(5min)    Memory: 27% used
+// Firmware: internal  Config. file: 0
+// Boot time: 1984/02/17 03:41:27 +09:00
+// Current time: 2019/01/13 04:47:16 +09:00
+// Elapsed time from boot: 12749days 01:05:49
+// Security Class: 1, Type: ON, TELNET: OFF
+
+    def environment(test_item) {
+        def lines = exec('environment') {
+            run_telnet_command('show environment', 'environment')
+        }
+        def row = 0
+        def infos = [:]
+        def timestamps = []
+        lines.eachLine {
+            row ++
+            //   main:  RTX1000 ver=b0 serial=N14005526
+            (it =~ /serial=(.+?)\s/).each { m0, m1 ->
+                infos['environment.serial'] = m1 
+            }
+            (it =~ /^Firmware: (.+)$/).each { m0, m1 ->
+                infos['environment.firmware'] = m1 
+            }
+            (it =~ /^Security Class: (.+)$/).each { m0, m1 ->
+                infos['environment.security_class'] = m1 
+            }
+            (it =~ /^(Boot|Current) time: (.+)$/).each { m0, m1, m2 ->
+                timestamps << "${m1}:${m2}"
+            }
+        }
+        infos['environment'] = "${timestamps}"
+        println "$infos"
+        test_item.results(infos)
     }
 
     def ip_route(test_item) {
@@ -224,34 +255,48 @@ class RouterRTXSpec extends InfraTestSpec {
             run_telnet_command('show ip route', 'ip_route')
         }
         def row = 0
-        def csv = []
-        println lines
-        // // Interface      IP address        MAC address       TTL(second)
-        // // LAN1           192.168.0.27      64:b5:c6:bb:b5:f6  717
-        // lines.eachLine {
-        //     row ++
-        //     if (row < 3)
-        //         return
-        //     (it =~ /clock_MHz\s+(.+)/).each {m0,m1->
-        //         csv << [m1]
-        //     }
-        //     (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
-        //         def vendor = this.get_mac_vendor(mac)
-        //         csv << [device, ip, mac, vendor]
-        //         if (ip && ip != '127.0.0.1') {
-        //             test_item.port_list(ip, device, mac, vendor, this.switch_name)
-        //         }
-        //     }
-        // }
-        // test_item.results(csv.size())
-        // def headers = ['interface', 'ip', 'mac', 'vendor']
-        // test_item.devices(csv, headers)
+        def csv   = []
+        def cidrs = []
+        lines.eachLine {
+            row ++
+            if (row <= 2)
+                return
+            def values = it.split(/\s+/)
+            if (values.size() >= 4) {
+                csv << values
+                def cidr = values[0]
+                try {
+                    SubnetInfo subnet = new SubnetUtils(cidr).getInfo()
+                    this.subnets << subnet
+                    cidrs << cidr
+                } catch (IllegalArgumentException e) {
+                    log.info "[RouterRTX] subnet convert : ${cidr}\n" + e
+                }
+            }
+        }
+        test_item.results("$cidrs")
+        def headers = ['Destination', 'Gateway', 'Interface', 'Info']
+        test_item.devices(csv, headers)
+    }
+
+    SubnetInfo get_subnet_network(String ip) {
+        def subnet_network = null
+        subnets.find { subnet ->
+            if (subnet.isInRange(ip)) {
+                subnet_network = subnet
+                return true
+            }
+        }
+        return subnet_network
     }
 
     def arp(test_item) {
         def lines = exec('arp') {
             run_telnet_command('show arp', 'arp')
         }
+        if (subnets.size() == 0)
+            this.ip_route(test_item)
+
         def row = 0
         def csv = []
         // Interface      IP address        MAC address       TTL(second)
@@ -260,19 +305,22 @@ class RouterRTXSpec extends InfraTestSpec {
             row ++
             if (row < 3)
                 return
-            (it =~ /clock_MHz\s+(.+)/).each {m0,m1->
-                csv << [m1]
-            }
             (it =~ /^(.+?)\s+(.+?)\s+(.+?)\s+(\d+)$/).each {m0,device,ip,mac,ttl->
                 def vendor = this.get_mac_vendor(mac)
-                csv << [device, ip, mac, vendor]
+                def subnet_network = this.get_subnet_network(ip)
+                def netmask = subnet_network?.getNetmask()
+                def subnet  = subnet_network?.getNetworkAddress() 
+                // println "IP:${ip}, ${subnet_network}"
+                csv << [device, ip, netmask, subnet,  mac, vendor]
+
                 if (ip && ip != '127.0.0.1') {
-                    test_item.port_list(ip, device, mac, vendor, this.switch_name)
+                    test_item.port_list(ip, null, mac, vendor, this.switch_name,
+                                        netmask, subnet, device)
                 }
             }
         }
         test_item.results(csv.size())
-        def headers = ['interface', 'ip', 'mac', 'vendor']
+        def headers = ['interface', 'ip', 'netmask', 'subnet', 'mac', 'vendor']
         test_item.devices(csv, headers)
     }
 }

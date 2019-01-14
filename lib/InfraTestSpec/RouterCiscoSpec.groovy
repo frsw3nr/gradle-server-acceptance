@@ -6,6 +6,9 @@ import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 // import org.hidetake.groovy.ssh.Ssh
 import ch.ethz.ssh2.Connection
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
+import static net.sf.expectit.matcher.Matchers.contains
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.lang.math.NumberUtils
@@ -19,6 +22,7 @@ class RouterCiscoSpec extends InfraTestSpec {
     static String mac_vendor_dir = 'template/Router/mac-vendor'
     static String mac_vendor_oui = 'ieee-oui.txt'
     def mac_vendor_db = [:]
+    def subnets = []
 
     String switch_name
     String ip
@@ -54,11 +58,6 @@ class RouterCiscoSpec extends InfraTestSpec {
                 println "connect failed"
                 return
             }
-            // def session = con.openSession()
-            // println "OPEN"
-            // session.execCommand 'terminal length 0'
-            // // session.close()
-            // println "CLOSE"
         }
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
@@ -79,42 +78,46 @@ class RouterCiscoSpec extends InfraTestSpec {
         if (!dry_run) {
             con.close()
         }
-        test_items.each { test_item ->
-            if (test_item.test_id == 'logon_test') {
-                _logon_test(test_item)
-            }
-        }
     }
 
-    def run_ssh_command(con2, command, test_id, share = false) {
+    def run_ssh_command(con2, command, test_id, admin_mode = false, share = false) {
         def con
+        def ok_prompt = (admin_mode) ? "#" : ">";
         try {
-            if (!dry_run) {
-                con = new Connection(this.ip, 22)
-                con.connect()
-                if (!con.authenticateWithPassword(this.os_user, this.os_password)) {
-                    println "connect failed"
-                    return
-                }
+            con = new Connection(this.ip, 22)
+            con.connect()
+            if (!con.authenticateWithPassword(this.os_user, this.os_password)) {
+                println "connect failed"
+                return
             }
             def log_path = (share) ? evidence_log_share_dir : local_dir
 
             def session = con.openSession()
-            println "OPEN"
-            // session.execCommand 'terminal length 0'
-            session.execCommand command
-            println "COMMAND:${command}"
-            def result = session.stdout.text
-            println "RESULT:${result}"
+            session.requestDumbPTY();
+            session.startShell();
+            Expect expect = new ExpectBuilder()
+                    .withOutput(session.getStdin())
+                    .withInputs(session.getStdout(), session.getStderr())
+                            // .withEchoOutput(System.out)
+                            // .withEchoInput(System.out)
+                    .build();
+            if (admin_mode) {
+                expect.sendLine('enable');
+                expect.expect(contains('Password:'));
+                expect.sendLine(this.os_password);
+            }
+            expect.expect(contains(ok_prompt)); 
+            expect.sendLine('terminal length 0'); 
+            expect.expect(contains(ok_prompt)); 
+            expect.sendLine(command); 
+            String result = expect.expect(contains(ok_prompt)).getBefore(); 
+
+            // println "COMMAND:${command}\nRESULT:${result}\nLEN:${result.size()}"
             new File("${log_path}/${test_id}").text = result
             session.close()
-            println "CLOSE"
+            con.close()
+            expect.close()
 
-            if (!dry_run) {
-                con.close()
-            }
-            // println("SLEEP")
-            // sleep(20000)
             return result
 
         } catch (Exception e) {
@@ -143,9 +146,6 @@ class RouterCiscoSpec extends InfraTestSpec {
     }
 
 
-// show ntp associations
-// %NTP is not enabled.
-
     def version(session, test_item) {
         def lines = exec('version') {
             run_ssh_command(session, 'show version', 'version')
@@ -153,13 +153,30 @@ class RouterCiscoSpec extends InfraTestSpec {
         // println lines
         def row = 0
         def version_name = 'unkown'
+        def infos = [:]
+        def disks = [:]
+        // Cisco IOS Software, 3700 Software (C3745-ADVENTERPRISEK9_IVS-M), 
+        // Version 12.4(15)T8, RELEASE SOFTWARE (fc3)
+        // Cisco 3745 (R7000) processor (revision 2.0) with 249856K/12288K bytes of memory.
+        // Processor board ID FTX0945W0MY
         lines.eachLine {
             row ++
-            if (row == 1) {
-                version_name = it
+            (it =~ /^(.+), Version (.+?),/).each {m0, m1, m2 ->
+                infos['ios.rom'] = m1
+                infos['version'] = m2
+            }
+            (it =~ /with (.+?) bytes of memory/).each {m0, m1 ->
+                infos['ios.memory'] = m1
+            }
+            (it =~ /^Processor board ID (.+)$/).each {m0, m1 ->
+                infos['ios.serial'] = m1
+            }
+            (it =~ /^(.+?) bytes of (.+?) CompactFlash/).each {m0, m1, m2 ->
+                disks[m2] = m1
             }
         }
-        test_item.results(version_name)
+        infos['ios.disk'] = "${disks}"
+        test_item.results(infos)
     }
 
     def inventory(session, test_item) {
@@ -193,21 +210,43 @@ class RouterCiscoSpec extends InfraTestSpec {
             run_ssh_command(session, 'show ip route', 'ip_route')
         }
         def row = 0
-        def csv = []
+        def csv   = []
+        def cidrs = []
         lines.eachLine {
-            println it
+            (it =~ /\s([0-9].+?) is (.+)$/).each { m0, m1, m2 ->
+                try {
+                    SubnetInfo subnet = new SubnetUtils(m1).getInfo()
+                    this.subnets << subnet
+                    cidrs << m1
+                } catch (IllegalArgumentException e) {
+                    log.info "[RouterIOS] subnet convert : ${m1}\n" + e
+                }
+            }
             row ++
             csv << [it]
         }
-        test_item.results(csv.size())
+        test_item.results("${cidrs}")
         def headers = ['body']
         test_item.devices(csv, headers)
+    }
+
+    SubnetInfo get_subnet_network(String ip) {
+        def subnet_network = null
+        subnets.find { subnet ->
+            if (subnet.isInRange(ip)) {
+                subnet_network = subnet
+                return true
+            }
+        }
+        return subnet_network
     }
 
     def arp(session, test_item) {
         def lines = exec('arp') {
             run_ssh_command(session, 'show arp', 'arp')
         }
+        if (this.subnets.size() == 0)
+            this.ip_route(session, test_item)
         def row = 0
         def csv = []
         // 0         1                2          3               4      5
@@ -223,34 +262,49 @@ class RouterCiscoSpec extends InfraTestSpec {
             def ip     = values[1]
             def mac    = values[3]
             def vendor = this.get_mac_vendor(mac)
-            csv << [device, ip, mac, vendor]
-            test_item.port_list(ip, device, mac, vendor, this.switch_name)
+            def subnet_network = this.get_subnet_network(ip)
+            def netmask = subnet_network?.getNetmask()
+            def subnet  = subnet_network?.getNetworkAddress() 
+            csv << [device, ip, netmask, subnet, mac, vendor]
+            if (ip && ip != '127.0.0.1') {
+                test_item.port_list(ip, null, mac, vendor, this.switch_name,
+                                    netmask, subnet, device)
+            }
         }
         test_item.results(csv.size())
-        def headers = ['interface', 'ip', 'mac', 'vendor']
+        // println csv
+        def headers = ['interface', 'ip', 'netmask', 'subnet', 'mac', 'vendor']
         test_item.devices(csv, headers)
     }
 
+    // Notification host: 192.168.0.20 udp-port: 162   type: trap
+    // user: public    security model: v2c
     def snmp_trap(session, test_item) {
         def lines = exec('snmp_trap') {
-            run_ssh_command(session, 'show snmp host', 'snmp_trap')
+            run_ssh_command(session, 'show snmp host', 'snmp_trap', true)
         }
-        println lines
-        def status = ''
+        def infos = [:]
+        // println lines
         lines.eachLine {
-            if (it.size() > 0) {
-                status += it + ' '
+            (it=~/host: (.+)\s+udp-port: (.+)\s+type/).each { m0, m1, m2 ->
+                infos["snmp_trap.host"] = m1
+                infos["snmp_trap.port"] = m2
+            }
+            (it=~/user: (.+?)\s+security model: (.+)/).each { m0, m1, m2 ->
+                infos["snmp_trap.community"] = m1
+                infos["snmp_trap.version"] = m2
             }
         }
-        println status
-        test_item.results(status)
+        def check_count = infos.size()
+        infos['snmp_trap'] = (check_count == 4) ? "OK" : "NG"
+        test_item.results(infos)
     }
 
     def ntp(session, test_item) {
         def lines = exec('ntp') {
             run_ssh_command(session, 'show ntp associations', 'ntp')
         }
-        println lines
+        // println lines
         def row = 0
         def ntp_status = 'unkown'
         lines.eachLine {

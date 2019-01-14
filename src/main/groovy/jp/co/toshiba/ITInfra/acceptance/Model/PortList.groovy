@@ -16,6 +16,8 @@ class PortList extends SpecModel {
     String vendor
     String switch_name
     String netmask
+    String subnet
+    String port_no
     String device_type
     Boolean online
     PortType port_type
@@ -28,6 +30,8 @@ class PortList extends SpecModel {
                 vendor      : vendor, 
                 switch_name : switch_name, 
                 netmask     : netmask, 
+                subnet      : subnet, 
+                port_no     : port_no,
                 device_type : device_type,
                 online      : online, 
                 port_type   : port_type
