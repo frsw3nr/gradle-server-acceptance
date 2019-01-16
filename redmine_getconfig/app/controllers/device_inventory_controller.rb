@@ -11,6 +11,7 @@ class DeviceInventoryController < ApplicationController
     @node     = params[:node]   || '%'
     @platform = params[:platform] || '%'
 
+# binding.pry
     # @project = Project.find(session[:query][:project_id])
     @project = Project.find(session[:project_id])
 
@@ -22,6 +23,7 @@ class DeviceInventoryController < ApplicationController
     return head(:not_found) if nodes.ids.blank?
 
     @metric_id = params[:device][:id]
+# binding.pry
     @rows = DeviceResult.where(
                 node_id: nodes.ids, metric_id: @metric_id
             ).select(
