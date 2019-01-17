@@ -9,7 +9,7 @@ New features:
     * PRIMERGY
     * c7200
 * Redmine 4 サポート
-* UML ドキュメント更新
+* UML ドキュメント更新 [x]
 * マルチバイト対応
 
 Changes for 0.1.36a (2019-1-28)
@@ -36,10 +36,14 @@ ToDo:
     * Netapp NFS データストアマウント (VMware) [ ]
 * NetApp テンプレート作成 [ ]
 * Zabbix Redmine登録動作確認 [ ]
+    * "_redmine:update" 定義解析 [ ]
+    * "subject" からチケット検索をして該当トラッカーを取得 [ ]
+    * 検索でヒットしない場合はスキップする [ ]
 
 Bug fixes:
 * 富士通PRIMERGY インベントリ収集で HTTPS アクセスが出来ない問題対処
-* getconfig -g で作成したプロジェクト下でRedmineチケット登録が空振りする問題対処
+* getconfig -g で作成したプロジェクト下でRedmineチケット登録が空振りする問題対処 [x]
+* Zabbix監視設定の Redmine登録で IAサーバ以外のプラットフォームの指定が出来ない問題対処 [ ]
 
 Changes for 0.1.35 (2019-1-15)
 ------------------------------------------------------------------------------

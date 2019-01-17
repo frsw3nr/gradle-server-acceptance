@@ -13,7 +13,7 @@ class AddCustomFieldToProject < ActiveRecord::Migration
     disk         = IssueCustomField.find_or_create_by!(name: 'ディスク構成',       field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     # inventory    = IssueCustomField.find_or_create_by!(name: 'インベントリ',       field_format: 'link',   url_pattern: '/redmine/inventory?node=%value%&id=%project_identifier%' , is_required: false, editable: true, visible: true, is_for_all: true)
     inventory    = IssueCustomField.find_or_create_by!(name: 'インベントリ',       field_format: 'link',   is_required: false, editable: true, visible: true, is_for_all: true)
-    hostgroup    = IssueCustomField.find_or_create_by!(name: 'ホストグループ',     field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
+    hostgroup    = IssueCustomField.find_or_create_by!(name: 'ホストグループ',     field_format: 'link',   is_required: false, editable: true, visible: true, is_for_all: true)
     templete     = IssueCustomField.find_or_create_by!(name: '監視テンプレート',   field_format: 'string', is_required: false, editable: true, visible: true, is_for_all: true)
     ship_date    = IssueCustomField.find_or_create_by!(name: '搬入日',             field_format: 'date',   is_required: false, editable: true, visible: true, is_for_all: true)
     due_date     = IssueCustomField.find_or_create_by!(name: '引渡し日',           field_format: 'date',   is_required: false, editable: true, visible: true, is_for_all: true)
