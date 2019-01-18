@@ -87,6 +87,7 @@ class TicketManager {
     String redmine_api_key
     String inventory_field
     String tracker_port_list
+    int in_operation_status_id
     LinkedHashMap<String,String> port_list_custom_fields = [:]
     RedmineManager redmine_manager
     IssueManager   issue_manager
@@ -97,6 +98,7 @@ class TicketManager {
         this.redmine_api_key = env.get_redmine_api_key()
         this.inventory_field = env.get_custom_field_inventory()
         this.tracker_port_list = env.get_tracker_port_list()
+        this.in_operation_status_id = env.get_in_operation_status_id()
         this.port_list_custom_fields = env.get_port_list_custom_fields()
     }
 
@@ -147,7 +149,7 @@ class TicketManager {
     }
 
     Issue regist(String project_name, String tracker_name, String subject,
-                 Map custom_fields = [:]) {
+                 Map custom_fields = [:], Boolean in_operation = false) {
         Issue issue = null
         try {
             def project = this.get_project(project_name)
@@ -168,33 +170,52 @@ class TicketManager {
             issue.setProjectId(project.id)
             issue.setSubject(subject)
             issue.setTracker(tracker)
-            custom_fields.each { field_name, value ->
-                def custom_field = issue.getCustomFieldByName(field_name)
-                if (!custom_field) {
-                    def msg = "Not found Redmine custom field '${field_name}' in '${tracker_name}'"
-                    log.error(msg)
-                    throw new NotFoundException(msg)
-                }
-                custom_field.setValue(value)
+            if (in_operation) {
+                issue.setStatusId(this.in_operation_status_id)
             }
-            def custom_field_inventory = issue.getCustomFieldByName(this.inventory_field)
-            if (custom_field_inventory) {
-                custom_field_inventory.setValue(subject)
-            }
-            try {
-                this.issue_manager.update(issue)
-            } catch (RedmineProcessingException e) {
-                def msg = "Redmine update error '${tracker_name}:${subject}' set to '${custom_fields}' : ${e}."
-                log.error(msg)
-                throw new NotFoundException(msg)
-            }
-            log.info "Regist '${tracker_name}:${subject}(${project_name})'"
+            update_custom_fields(issue, custom_fields)
+            // log.info "Regist '${tracker_name}:${subject}(${project_name})'"
         } catch (NotFoundException e) {
             def msg = "Ticket regist failed '${tracker_name}:${subject}'."
             log.error(msg)
             issue = null
         }
         return issue
+    }
+
+    def update_custom_fields(Issue issue, Map custom_fields = [:]) {
+        def tracker_name = issue.getTracker().getName()
+        def project_name = issue.getProjectName()
+        def subject  = issue.getSubject()
+        custom_fields.each { field_name, value ->
+            // println "UPDATE_CUSTOM_FIELDS:${field_name}, ${value}, ${value.getClass()}"
+            def custom_field = issue.getCustomFieldByName(field_name)
+            if (!custom_field) {
+                def msg = "Not found Redmine custom field '${field_name}' in '${tracker_name}'"
+                log.error(msg)
+                throw new NotFoundException(msg)
+            }
+            // Redmine カスタムフィールドの真偽値(bool_cf)は文字列の"0"か"1"を返す必要がある
+            if (value in Boolean) {
+                def redmine_bool = (value) ? "1" : "0"
+                custom_field.setValue(redmine_bool)
+
+            } else {
+                custom_field.setValue(value)
+            }
+        }
+        def custom_field_inventory = issue.getCustomFieldByName(this.inventory_field)
+        if (custom_field_inventory) {
+            custom_field_inventory.setValue(subject)
+        }
+        try {
+            this.issue_manager.update(issue)
+        } catch (RedmineProcessingException e) {
+            def msg = "Redmine update error '${tracker_name}:${subject}' set to '${custom_fields}' : ${e}."
+            log.error(msg)
+            throw new NotFoundException(msg)
+        }
+        log.info "Regist '${tracker_name}:${subject}(${project_name})'"
     }
 
     LinkedHashMap<String,String> get_port_list_custom_fields(Map custom_fields) {
@@ -211,6 +232,10 @@ class TicketManager {
         return fields
     }
 
+    Boolean check_lookuped_port_list(Map custom_fields = [:]) {
+        return (custom_fields.containsKey('lookup') && custom_fields['lookup'] == true)
+    }
+
     Issue regist_port_list(String project_name, String subject, Map custom_fields = [:]) {
         // println "CUSTOM_FIELDS:${custom_fields}"
         // println "PORT_LIST_CUSTOM_FIELDS:${this.port_list_custom_fields}"
@@ -221,7 +246,8 @@ class TicketManager {
             throw new NotFoundException(msg)
         }
         def fields = this.get_port_list_custom_fields(custom_fields)
-        return this.regist(project_name, this.tracker_port_list, subject, fields)
+        def lookuped = this.check_lookuped_port_list(custom_fields)
+        return this.regist(project_name, this.tracker_port_list, subject, fields, lookuped)
     }
 
     Boolean link(Issue ticket_from, List<Integer> ticket_to_ids) {

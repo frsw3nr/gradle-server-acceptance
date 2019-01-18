@@ -229,7 +229,10 @@ class LinuxSpec extends LinuxSpecBase {
                     // Regist Port List
                     def ip_address = subnet.getAddress()
                     if (ip_address && ip_address != '127.0.0.1') {
-                        test_item.port_list(ip_address, device)
+                        // test_item.port_list(ip_address, device)
+                        // test_item.port_list(ip_address, device,
+                        //                     null, null, null, null, null, null, null, true)
+                        test_item.lookuped_port_list(ip_address, device)
                     }
                     net_subnet[device] = network[device]['subnet']
                 } catch (IllegalArgumentException e) {

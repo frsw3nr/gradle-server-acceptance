@@ -140,7 +140,7 @@ class HitachiVSPSpec extends WindowsSpecBase {
                 if (metric == 'IP') {
                     def ip_address = row[colnum]
                     if (ip_address && ip_address != '127.0.0.1') {
-                        test_item.port_list(ip_address, "${rownum}")
+                        test_item.lookuped_port_list(ip_address, "${rownum}")
                     }
                 }
                 if (metric == 'Subnet')
@@ -152,7 +152,7 @@ class HitachiVSPSpec extends WindowsSpecBase {
         ['ip', 'ip2'].each {
             def ip = test_item.target_info(it)
             if (ip) {
-                test_item.port_list(ip, it)
+                test_item.lookuped_port_list(ip, it)
                 networks << ip
             }
         }

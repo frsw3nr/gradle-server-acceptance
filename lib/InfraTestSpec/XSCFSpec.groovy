@@ -307,7 +307,7 @@ class XSCFSpec extends InfraTestSpec {
             }
             def ip_address = infos[device_id]['ip']
             if (ip_address && ip_address != '127.0.0.1') {
-                test_item.port_list(ip_address, "${device_id}")
+                test_item.admin_port_list(ip_address, "${device_id}")
             }
             csv << columns
         }

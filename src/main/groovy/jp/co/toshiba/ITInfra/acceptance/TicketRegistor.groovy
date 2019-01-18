@@ -45,33 +45,41 @@ public class TicketRegistor {
     }
 
     def regist_redmine_ticket() {
-        // println "PROJECT_NAME:${project_name}"
         def redmine_data = this.get_redmine_data()
         def tickets = redmine_data.get_ticket_dict()
         tickets.each { tracker, subjects ->
             subjects.each { subject, custom_fields ->
                 // println "REGIST: ${tracker}, ${subject}, ${custom_fields}"
-                Issue issue = this.ticket_manager.regist(this.redmine_project,
-                                                         tracker, 
-                                                         subject, 
-                                                         custom_fields)
-                if (issue) {
-                    def port_lists = redmine_data.get_port_lists(subject)
-                    if (port_lists) {
-                        List<Integer> port_list_ids = []
-                        port_lists.each { ip, port_list ->
-                            // println "REGIST_PORT_IP: ${ip}, ${port_list}"
-                            Issue port_list_issue = 
-                                this.ticket_manager.regist_port_list(this.redmine_project,
-                                                                     ip,
-                                                                     port_list)
-                            // println "PORT_LIST_ISSUE: ${port_list_issue}"
-                            if (!port_list_issue) {
-                                return
+                if (tracker == '_Multi') {
+                    Issue exist_issue = this.ticket_manager.get_issue(subject)
+                    if (exist_issue) {
+                        this.ticket_manager.update_custom_fields(exist_issue, custom_fields)
+                    } else {
+                        log.info "Ticket not found '${subject}', skip."
+                    }
+                } else {
+                    Issue issue = this.ticket_manager.regist(this.redmine_project,
+                                                             tracker, 
+                                                             subject, 
+                                                             custom_fields)
+                    if (issue) {
+                        def port_lists = redmine_data.get_port_lists(subject)
+                        if (port_lists) {
+                            List<Integer> port_list_ids = []
+                            port_lists.each { ip, port_list ->
+                                // println "REGIST_PORT_IP: ${ip}, ${port_list}"
+                                Issue port_list_issue = 
+                                    this.ticket_manager.regist_port_list(this.redmine_project,
+                                                                         ip,
+                                                                         port_list)
+                                // println "PORT_LIST_ISSUE: ${port_list_issue}"
+                                if (!port_list_issue) {
+                                    return
+                                }
+                                port_list_ids << port_list_issue.id
                             }
-                            port_list_ids << port_list_issue.id
+                            this.ticket_manager.link(issue, port_list_ids)
                         }
-                        this.ticket_manager.link(issue, port_list_ids)
                     }
                 }
 

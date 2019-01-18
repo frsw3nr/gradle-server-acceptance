@@ -333,7 +333,7 @@ class iLOSpecBase extends InfraTestSpec {
                     nic_info?.'STATUS'?.toString(),
                 ] as String[]
                 if (ip_address ==~ /^\d.+/) {
-                    test_item.port_list(ip_address, port)
+                    test_item.admin_port_list(ip_address, port)
                     nic_ips << ip_address
                 }
             }

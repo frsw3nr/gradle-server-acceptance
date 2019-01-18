@@ -8,7 +8,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
-// gradle --daemon test --tests "TestTicketManager.ポートリスト登録2"
+// gradle --daemon test --tests "TestTicketManager.ポートリスト登録3"
 
 class TestTicketManager extends Specification {
 
@@ -138,6 +138,34 @@ class TestTicketManager extends Specification {
             "switch_name": "router1",
         ]
         def port_list1 = ticket_manager.regist_port_list('cmdb', '192.168.10.100', custom_fields)
+
+        then:
+        1 == 1
+    }
+
+    def "ポートリスト登録3"() {
+        when:
+
+        // ポートリスト登録
+        def custom_fields = [
+            "ip": "192.168.0.100",
+            "lookup": true,
+        ]
+        def port_list1 = ticket_manager.regist_port_list('cmdb', '192.168.0.100', custom_fields)
+
+        then:
+        1 == 1
+    }
+
+    def "ポートリスト登録4"() {
+        when:
+
+        // ポートリスト登録
+        def custom_fields = [
+            "ip": "192.168.0.100",
+            "lookup": false,
+        ]
+        def port_list1 = ticket_manager.regist_port_list('cmdb', '192.168.0.100', custom_fields)
 
         then:
         1 == 1

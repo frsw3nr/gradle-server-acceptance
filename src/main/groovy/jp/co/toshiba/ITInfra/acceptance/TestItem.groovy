@@ -93,7 +93,8 @@ class TestItem {
                   String subnet      = null,
                   String port_no     = null,
                   String device_type = null,
-                  Boolean online     = null,
+                  Boolean lookup     = null,
+                  Boolean managed    = null,
                   PortType port_type = null) {
         def _port_list = this.port_lists?."${ip}" ?:
                          new PortList(ip : ip, 
@@ -105,10 +106,35 @@ class TestItem {
                                       subnet :      subnet,
                                       port_no :     port_no,
                                       device_type : device_type,
-                                      online :      online,
+                                      lookup :      lookup,
+                                      managed :     managed,
                                       port_type :   port_type, 
                                      )
         this.port_lists[ip] = _port_list
+    }
+
+    def lookuped_port_list(String ip, 
+                         String description = null,
+                         String mac         = null,
+                         String vendor      = null,
+                         String switch_name = null,
+                         String netmask     = null,
+                         String subnet      = null,
+                         String port_no     = null,
+                         String device_type = null) {
+        this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true)
+    }
+
+    def admin_port_list(String ip, 
+                        String description = null,
+                        String mac         = null,
+                        String vendor      = null,
+                        String switch_name = null,
+                        String netmask     = null,
+                        String subnet      = null,
+                        String port_no     = null,
+                        String device_type = null) {
+        this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true, true)
     }
 
     def error_msg(String error_msg) {

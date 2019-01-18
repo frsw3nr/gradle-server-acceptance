@@ -100,7 +100,7 @@ class VMHostSpec extends vCenterSpecBase {
                                 log.error "[ESXiVMHostTest] subnet convert : m1\n" + e
                             }
                             if (address && address != '127.0.0.1') {
-                                test_item.port_list(address, device)
+                                test_item.lookuped_port_list(address, device)
                             }
                             println "IP:${address},${device}"
 

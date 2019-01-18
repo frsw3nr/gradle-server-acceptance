@@ -296,7 +296,7 @@ class WindowsSpec extends WindowsSpecBase {
                 subnets      << subnet
 
                 if (ip_address && ip_address != '127.0.0.1') {
-                    test_item.port_list(ip_address, service_name)
+                    test_item.lookuped_port_list(ip_address, service_name)
                 }
 
             }

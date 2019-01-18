@@ -511,7 +511,7 @@ class EternusSpec extends LinuxSpecBase {
                 if (item == 'Master IP Address') {
                     def ip_address = value
                     if (ip_address && ip_address != '127.0.0.1') {
-                        test_item.port_list(ip_address, port)
+                        test_item.lookuped_port_list(ip_address, port)
                     }
                     net_ip[port]   = ip_address
                 }

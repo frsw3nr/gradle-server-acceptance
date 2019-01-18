@@ -19,7 +19,8 @@ class PortList extends SpecModel {
     String subnet
     String port_no
     String device_type
-    Boolean online
+    Boolean lookup
+    Boolean managed
     PortType port_type
 
     public Map asMap() {
@@ -33,7 +34,8 @@ class PortList extends SpecModel {
                 subnet      : subnet, 
                 port_no     : port_no,
                 device_type : device_type,
-                online      : online, 
+                lookup      : lookup, 
+                managed     : managed,
                 port_type   : port_type
             ]
         map << this.custom_fields

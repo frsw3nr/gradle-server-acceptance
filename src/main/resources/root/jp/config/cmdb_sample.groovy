@@ -37,13 +37,21 @@ ticket.custom_field.inventory = 'インベントリ'
 
 port_list.tracker = 'ポートリスト'
 
+// ポートリスト運用ステータスID
+// Redmine チケットステータスから検索
+
+port_list.in_operation_status_id = 10
+
 // ポートリストチケットカスタムフィールドリスト
 
 port_list.custom_fields = [
-    'ポート番号' : 'description',
+    'ポート番号' : 'port_no',
+    'ポートデバイス' : 'description',
     'MACアドレス' : 'mac',
     'MACアドレスベンダー' : 'vendor',
     'スイッチ名' : 'switch_name',
     'ネットマスク' : 'netmask',
     '機器種別' : 'device_type',
+    '台帳つき合わせ' : 'lookup',
+    '管理用' : 'managed',
 ]

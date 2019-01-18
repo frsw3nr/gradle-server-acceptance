@@ -107,6 +107,10 @@ class ConfigTestEnvironment {
         return this.cmdb_config?.port_list?.tracker ?: 'ポートリスト';
     }
 
+    def get_in_operation_status_id() {
+        return this.cmdb_config?.port_list?.in_operation_status_id ?: 10;
+    }
+
     def get_getconfig_home() {
         return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
     }
