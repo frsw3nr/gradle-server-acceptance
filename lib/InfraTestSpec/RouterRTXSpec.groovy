@@ -141,8 +141,6 @@ class RouterRTXSpec extends InfraTestSpec {
  
     public static void write(String value) {
         try {
-            // tout.println(value);
-            tout.println(value);
             tout.flush();
             // System.out.println(value);
         }
@@ -202,6 +200,21 @@ class RouterRTXSpec extends InfraTestSpec {
                 m0, m1, m2 ->
                 ntp_hosts << m2
             }
+            // ip lan1 address 192.168.0.254/24
+           (it =~ /^ip (.+?) address (.+)$/).each {
+                m0, m1, m2 ->
+                try {
+                    SubnetInfo subnet = new SubnetUtils(m2).getInfo()
+                    def netmask = subnet?.getNetmask()
+                    def subnet_address = subnet?.getNetworkAddress() 
+                    test_item.lookuped_port_list(subnet.getAddress(), m1,
+                                                 null, null, this.switch_name,
+                                                 netmask, subnet_address, m1)
+                } catch (IllegalArgumentException e) {
+                    log.info "[RouterRTX] subnet convert : ${m2}\n" + e
+                }
+            }
+
             csv << [it]
         }
         infos['ntpupdate'] = "${ntp_hosts}"
@@ -246,7 +259,7 @@ class RouterRTXSpec extends InfraTestSpec {
             }
         }
         infos['environment'] = "${timestamps}"
-        println "$infos"
+        // println "$infos"
         test_item.results(infos)
     }
 

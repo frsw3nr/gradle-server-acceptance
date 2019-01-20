@@ -1,0 +1,10 @@
+Subsystem         Health
+----------------- ------------------
+SAS-connect       ok
+Switch-Health     ok
+CIFS-NDO          ok
+MetroCluster      ok
+MetroCluster_Node ok
+FHM-Switch        ok
+FHM-Bridge        ok
+7 entries were displayed.

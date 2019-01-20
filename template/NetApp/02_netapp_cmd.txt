@@ -1,0 +1,152 @@
+リファレンス
+
+管理者ガイド(クラスタ管理)
+https://library.netapp.com/ecm/ecm_download_file/ECMP1719718
+
+
+set -showseparator "," -units GB
+rows 0
+storage disk show
+
+?instanceパラメータをshowコマンドに指定して詳細を表示
+
+storage disk show -instance
+
+showコマンドの?fieldsパラメータを使用すると、指定した情
+
+チートシート
+https://cmdref.net/hardware/cdot/index.html
+
+system health status show
+Status
+---------------
+ok
+
+system health subsystem show
+Subsystem         Health
+----------------- ------------------
+SAS-connect       ok
+Switch-Health     ok
+CIFS-NDO          ok
+MetroCluster      ok
+MetroCluster_Node ok
+FHM-Switch        ok
+FHM-Bridge        ok
+7 entries were displayed.
+
+storage failover show
+                              Takeover
+Node           Partner        Possible State Description
+-------------- -------------- -------- -------------------------------------
+netapp1-01     -              -        Non-HA mode
+
+network interface show
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+Cluster
+            cluster1-01_clus1 up/up 169.254.33.234/16 cluster1-01  e0a     true
+            cluster1-01_clus2 up/up 169.254.33.244/16 cluster1-01  e0b     true
+cluster1
+            cluster1-01_mgmt1 up/up 192.168.0.40/24  cluster1-01   e0c     true
+            cluster_mgmt up/up    192.168.0.41/24    cluster1-01   e0d     true
+svm2
+            svm2_admin_lif1 up/up 192.168.0.42/24    cluster1-01   e0c     true
+5 entries were displayed.
+
+aggr show -owner-name *
+
+
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0          1GB       0GB   48% online       1 cluster1-01      raid_dp,
+                                                                   normal
+aggr1          2GB       2GB    2% online       3 cluster1-01      raid_dp,
+                                                                   normal
+2 entries were displayed.
+
+ボリュームによって使用されているスペースの量
+
+volume show -fields size,used,available,percent-used
+vserver,volume,size,available,used,percent-used,
+Vserver Name,Volume Name,Volume Size,Available Size,Used Size,Used Percentage,
+cluster1-01,vol0,0GB,0GB,0GB,82%,
+svm1,svm1_root,0GB,0GB,0GB,5%,
+svm1,vol_20012019_055536_10,1GB,0GB,0GB,0%,
+svm2,svm2_root,0GB,0GB,0GB,5%,
+
+df
+Filesystem              kbytes       used      avail capacity  Mounted on                 Vserver
+/vol/vol0/              785324     642448     142876      82%  ---                        cluster1-01
+/vol/vol0/.snapshot      41332     229652          0     556%  ---                        cluster1-01
+/vol/svm1_root/          19456        200      19256       1%  /                          svm1
+/vol/svm1_root/.snapshot  1024         56        968       5%  //.snapshot                svm1
+/vol/vol_20012019_055536_10/ 1048576  324    1048252       0%  ---                        svm1
+/vol/vol_20012019_055536_10/.snapshot 0 120        0       0%  ---                        svm1
+/vol/svm2_root/          19456        200      19256       1%  /                          svm2
+/vol/svm2_root/.snapshot  1024         56        968       5%  //.snapshot                svm2
+8 entries were displayed.
+
+バージョン
+
+version
+NetApp Release 9.1: Thu Dec 22 23:05:58 UTC 2016
+
+システム構成
+
+cluster1::> system node run -node local -command sysconfig -a
+        NetApp Release 9.1: Thu Dec 22 15:21:04 PST 2016
+        System ID: 4082368507 (cluster1-01)
+        System Serial Number: 4082368-50-7 (cluster1-01)
+        System Storage Configuration: Unknown
+        System ACP Connectivity: NA
+        All-Flash Optimized: false
+        slot 0: System Board 3.2 GHz (NetApp VSim)
+                Model Name:         SIMBOX
+                Serial Number:      999999
+                Loader version:     1.0
+                Processors:         2
+                Processor ID:       0x306c3
+                Microcode Version:  0x19
+                Memory Size:        5120 MB
+                Memory Attributes:  None
+                Virtual NVRAM Size: 256 MB
+        slot 0: 10/100/1000 Ethernet Controller V
+                e0a MAC Address:    00:0c:29:0e:21:ea (auto-1000t-fd-up)
+                e0b MAC Address:    00:0c:29:0e:21:f4 (auto-1000t-fd-up)
+                e0c MAC Address:    00:0c:29:0e:21:fe (auto-1000t-fd-up)
+                e0d MAC Address:    00:0c:29:0e:21:08 (auto-1000t-fd-up)
+                Device Type:        Rev 1
+                Firmware Version:   15.15
+
+【システム構成情報の確認】
+NetApp > sysconfig [-A|-c|-d|-h|-m|-r|-t|-V]
+
+-A 全ての項目を表示
+-c 各PCIスロットの構成をチェック
+-d ディスクに関する情報を表示
+-m テープ装置のjukeboxに関する情報を表示
+-t テープ装置のDriveに関する情報を表示
+-r RAIDに関する情報を表示
+-V ボリュームに関する情報を表示
+
+ timezone
+    Timezone: Etc/UTC
+
+cluster1::> vserver show
+                               Admin      Operational Root
+Vserver     Type    Subtype    State      State       Volume     Aggregate
+----------- ------- ---------- ---------- ----------- ---------- ----------
+cluster1    admin   -          -          -           -          -
+cluster1-01 node    -          -          -           -          -
+svm1        data    default    running    running     svm1_root  aggr1
+svm2        data    default    running    running     svm2_root  aggr1
+4 entries were displayed.
+
+
+チュートリアル
+https://www.youtube.com/watch?v=hY6cBZilEDE
+https://library.netapp.com/ecmdocs/ECMP1659139/html/GUID-7E03800E-D309-4878-B964-2477CFFA8C83.html
+
+パフォーマンスは前回調査のコマンドを用いる
+

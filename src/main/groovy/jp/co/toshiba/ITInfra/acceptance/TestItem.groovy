@@ -110,6 +110,10 @@ class TestItem {
                                       managed :     managed,
                                       port_type :   port_type, 
                                      )
+        if (lookup != null)
+            _port_list.lookup = lookup
+        if (managed != null)
+            _port_list.managed = managed
         this.port_lists[ip] = _port_list
     }
 

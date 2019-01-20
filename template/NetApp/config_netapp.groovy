@@ -1,11 +1,11 @@
 // 検査仕様シート定義
 
-evidence.source = './template/Router/CiscoIOSチェックシート.xlsx'
+evidence.source = './template/NetApp/DataONTAPチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/CiscoIOSチェックシート_<date>.xlsx'
-evidence.target='./build/ios_check_sheet.xlsx'
+evidence.target='./build/DataONTAPチェックシート_<date>.xlsx'
+// evidence.target='./build/eternus_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 
@@ -27,20 +27,17 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // コマンド採取のタイムアウト
 // Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
 
-test.RouterCisco.timeout = 30
+test.NetAppDataONTAP.timeout = 300
 
 // コマンド採取のデバッグモード
 
-test.RouterCisco.debug  = false
+ test.NetAppDataONTAP.debug  = false
 
 // DryRun 予行演習モード
 
-test.RouterCisco.dry_run   = false
+test.NetAppDataONTAP.dry_run   = false
 
-// RouterCisco 接続情報
+// NetAppDataONTAP 接続情報
 
-account.RouterCisco.Test.user      = 'admin'
-account.RouterCisco.Test.password  = 'P@ssw0rd'
-account.RouterCisco.Test.admin_password  = 'P@ssw0rd'
-account.RouterCisco.Test.work_dir  = '/tmp/gradle_test'
-
+account.NetAppDataONTAP.Test.user      = 'admin'
+account.NetAppDataONTAP.Test.password  = 'password0'

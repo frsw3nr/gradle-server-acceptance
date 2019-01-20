@@ -1,0 +1,12 @@
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+Cluster
+            cluster1-01_clus1 up/up 169.254.33.234/16 cluster1-01  e0a     true
+            cluster1-01_clus2 up/up 169.254.33.244/16 cluster1-01  e0b     true
+cluster1
+            cluster1-01_mgmt1 up/up 192.168.0.40/24  cluster1-01   e0c     true
+            cluster_mgmt up/up    192.168.0.41/24    cluster1-01   e0d     true
+svm2
+            svm2_admin_lif1 up/up 192.168.0.42/24    cluster1-01   e0c     true
+5 entries were displayed.

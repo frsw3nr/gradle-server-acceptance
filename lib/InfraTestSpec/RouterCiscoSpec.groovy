@@ -28,19 +28,21 @@ class RouterCiscoSpec extends InfraTestSpec {
     String ip
     String os_user
     String os_password
+    String admin_password
     String work_dir
     int    timeout = 30
 
     def init() {
         super.init()
 
-        this.switch_name  = test_platform.test_target.name ?: 'unkown'
-        this.ip           = test_platform.test_target.ip ?: 'unkown'
-        def os_account    = test_platform.os_account
-        this.os_user      = os_account['user'] ?: 'unkown'
-        this.os_password  = os_account['password'] ?: 'unkown'
-        this.work_dir     = os_account['work_dir'] ?: '/tmp'
-        this.timeout      = test_platform.timeout
+        this.switch_name    = test_platform.test_target.name ?: 'unkown'
+        this.ip             = test_platform.test_target.ip ?: 'unkown'
+        def os_account      = test_platform.os_account
+        this.os_user        = os_account['user'] ?: 'unkown'
+        this.os_password    = os_account['password'] ?: 'unkown'
+        this.admin_password = os_account['admin_password'] ?: 'unkown'
+        this.work_dir       = os_account['work_dir'] ?: '/tmp'
+        this.timeout        = test_platform.timeout
     }
 
     def setup_exec(TestItem[] test_items) {
@@ -104,7 +106,7 @@ class RouterCiscoSpec extends InfraTestSpec {
             if (admin_mode) {
                 expect.sendLine('enable');
                 expect.expect(contains('Password:'));
-                expect.sendLine(this.os_password);
+                expect.sendLine(this.admin_password);
             }
             expect.expect(contains(ok_prompt)); 
             expect.sendLine('terminal length 0'); 
@@ -300,6 +302,10 @@ class RouterCiscoSpec extends InfraTestSpec {
         test_item.results(infos)
     }
 
+// c3745#show ip interface
+// FastEthernet0/0 is up, line protocol is up
+//   Internet address is 192.168.0.33/24
+
     def ntp(session, test_item) {
         def lines = exec('ntp') {
             run_ssh_command(session, 'show ntp associations', 'ntp')
@@ -314,5 +320,57 @@ class RouterCiscoSpec extends InfraTestSpec {
             row ++
         }
         test_item.results(ntp_status)
+    }
+
+    def ip_interface(session, test_item) {
+        def lines = exec('ip_interface') {
+            run_ssh_command(session, 'show ip interface', 'ip_interface')
+        }
+        def row = 0
+        def csv = []
+        def infos = [:].withDefault{[:]}
+        // FastEthernet0/0 is up, line protocol is up
+        //   Internet address is 192.168.0.33/24
+        //   Broadcast address is 255.255.255.255
+
+        // FastEthernet1/0 is up, line protocol is up
+        //   Internet address is 10.1.2.1/24
+        //   Broadcast address is 255.255.255.255
+        //   Address determined by non-volatile memory
+        def port_no = null
+        lines.eachLine {
+            row ++
+            (it =~ /^(\w.+?) (.+?),/).each { m0, m1, m2 ->
+                // println "port_no: $m1, $m2"
+                port_no = m1
+                infos[port_no]['status'] = m2
+            }
+            (it =~ /^  Internet address is (\w.+?)$/).each { m0, m1 ->
+                // println "IP: $m1"
+                try {
+                    SubnetInfo subnet = new SubnetUtils(m1).getInfo()
+                    infos[port_no]['ip']             = subnet?.getAddress()
+                    infos[port_no]['netmask']        = subnet?.getNetmask()
+                    infos[port_no]['subnet_address'] = subnet?.getNetworkAddress() 
+                } catch (IllegalArgumentException e) {
+                    log.info "[RouterRTX] subnet convert : ${m2}\n" + e
+                }
+            }
+        }
+        infos.each { device, info ->
+            def columns = [device]
+            ['ip', 'netmask', 'subnet_address', 'status'].each {
+                columns.add(info[it] ?: 'NaN')
+            }
+            csv << columns
+            if (info.containsKey('ip')) {
+                test_item.lookuped_port_list(info['ip'], device,
+                                             null, null, this.switch_name,
+                                             info['netmask'], info['subnet_address'], device)
+            }
+        }
+        test_item.results(csv.size())
+        def headers = ['device', 'ip', 'netmask', 'subnet_address', 'status']
+        test_item.devices(csv, headers)
     }
 }

@@ -1,0 +1,10 @@
+Filesystem              kbytes       used      avail capacity  Mounted on                 Vserver
+/vol/vol0/              785324     718396      66928      91%  ---                        cluster1-01
+/vol/vol0/.snapshot      41332     254808          0     616%  ---                        cluster1-01
+/vol/svm1_root/          19456        208      19248       1%  /                          svm1
+/vol/svm1_root/.snapshot  1024        936         88      91%  //.snapshot                svm1
+/vol/vol_20012019_055536_10/ 1048576 1984    1046592       0%  ---                        svm1
+/vol/vol_20012019_055536_10/.snapshot 0 1656       0       0%  ---                        svm1
+/vol/svm2_root/          19456        208      19248       1%  /                          svm2
+/vol/svm2_root/.snapshot  1024        936         88      91%  //.snapshot                svm2
+8 entries were displayed.
