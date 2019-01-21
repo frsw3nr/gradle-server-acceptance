@@ -2,22 +2,25 @@ package InfraTestSpec
 
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
-import org.apache.commons.io.FileUtils.*
-import static groovy.json.JsonOutput.*
-import org.hidetake.groovy.ssh.Ssh
-import org.hidetake.groovy.ssh.session.execution.*
+// import org.hidetake.groovy.ssh.Ssh
+import ch.ethz.ssh2.Connection
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
+import static net.sf.expectit.matcher.Matchers.contains
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 @Slf4j
 @InheritConstructors
-class NetAppDataONTAP extends LinuxSpecBase {
+class NetAppDataONTAP extends InfraTestSpec {
 
     String ip
     String os_user
     String os_password
+    String admin_password
     int    timeout = 30
 
     def init() {
@@ -27,65 +30,80 @@ class NetAppDataONTAP extends LinuxSpecBase {
         def os_account    = test_platform.os_account
         this.os_user      = os_account['user'] ?: 'unkown'
         this.os_password  = os_account['password'] ?: 'unkown'
-    }
-
-    def finish() {
-        super.finish()
+        this.admin_password = os_account['admin_password'] ?: 'unkown'
     }
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
 
-        test_items.each { test_item ->
-            def ssh = Ssh.newService()
-            ssh.remotes {
-                ssh_host {
-                    host       = this.ip
-                    port       = 22
-                    user       = this.os_user
-                    password   = this.os_password
-                    knownHosts = allowAnyHosts
+        def con
+        def result
+        if (!dry_run) {
+            con = new Connection(this.ip, 22)
+            con.connect()
+            result = con.authenticateWithPassword(this.os_user, this.os_password)
+
+            if (!result) {
+                println "connect failed"
+                return
+            }
+        }
+        test_items.each {
+            def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
+            if (method) {
+                log.debug "Invoke command '${method.name}()'"
+                try {
+                    long start = System.currentTimeMillis();
+                    method.invoke(this, con, it)
+                    long elapsed = System.currentTimeMillis() - start
+                    log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
+                    // it.succeed = 1
+                } catch (Exception e) {
+                    it.verify(false)
+                    log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
                 }
             }
-            ssh.settings {
-                dryRun     = this.dry_run
-                timeoutSec = this.timeout
-            }
-            ssh.run {
-                session(ssh.remotes.ssh_host) {
-                    // if (this.dry_run) {
-                    //     execute('set -showseparator "<|>" -units GB')
-                    //     execute('set -rows 0')
-                    //     execute('set -showallfields true')
-                    // }
-                    def method = this.metaClass.getMetaMethod(test_item.test_id, Object, TestItem)
-                    if (method) {
-                        log.debug "Invoke command '${method.name}()'"
-                        try {
-                            long start = System.currentTimeMillis();
-                            method.invoke(this, delegate, test_item)
-                            long elapsed = System.currentTimeMillis() - start
-                            log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-                            // test_item.succeed = 1
-                        } catch (Exception e) {
-                            test_item.status(false)
-                            log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
-                        }
-                    }
-                }
-            }
+        }
+        if (!dry_run) {
+            con.close()
         }
     }
 
-    def run_script = { String command, Closure closure ->
-        if (mode == RunMode.prepare) {
-            // Trim line endings
-            command = command.replaceAll(/(\s|\r|\n)*$/, "")
-            log.debug "Invoke WMI command : ${command}"
-            return command
-        } else {
-            return closure.call()
+    def run_ssh_command(con, command, test_id, admin_mode = false, share = false) {
+        def ok_prompt = (admin_mode) ? "::#" : "::>";
+        try {
+            def log_path = (share) ? evidence_log_share_dir : local_dir
+
+            def session = con.openSession()
+            session.requestDumbPTY();
+            session.startShell();
+            Expect expect = new ExpectBuilder()
+                    .withOutput(session.getStdin())
+                    .withInputs(session.getStdout(), session.getStderr())
+                            // .withEchoOutput(System.out)
+                            // .withEchoInput(System.out)
+                    .build();
+            if (admin_mode) {
+                expect.sendLine('enable');
+                expect.expect(contains('Password:'));
+                expect.sendLine(this.admin_password);
+            }
+            expect.expect(contains(ok_prompt)); 
+            expect.sendLine('set -showallfields true -rows 0 -showseparator "<|>"');
+            expect.expect(contains(ok_prompt)); 
+            expect.sendLine(command); 
+            String result = expect.expect(contains(ok_prompt)).getBefore(); 
+            new File("${log_path}/${test_id}").text = result
+            session.close()
+            expect.close()
+            return result
+        } catch (Exception e) {
+            log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
         }
+    }
+
+    def finish() {
+        super.finish()
     }
 
     // ToDo: 各メソッドで result 結果のパーサー実装
@@ -115,54 +133,57 @@ class NetAppDataONTAP extends LinuxSpecBase {
 
     def subsystem_health(session, test_item) {
         def lines = exec('subsystem_health') {
-            def command = 'system health subsystem show'
-// フォーマット整形用に事前に環境変数をセットする
-// シェル操作が必要
-// リファレンス
-// https://gradle-ssh-plugin.github.io/docs/#_execute_a_shell
-// 8.3. Execute a shell
-            // def command_with_option = """\
-            // |set -showseparator "<|>" -units GB
-            // |set -rows 0
-            // |set -showallfields true
-            // |${command}
-            // """.stripMargin()
-            // session.execute 'set -showallfields true -rows 0 -showseparator "<|>" -units GB'
-            def result = session.execute command
-            // def result = session.executeScript  command_with_option
-            new File("${local_dir}/subsystem_health").text = result
-            return result
+            run_ssh_command(session, 'system health subsystem show', 'subsystem_health')
         }
+
         def result = 'OK'
         def infos = [:].withDefault{[:]}
+        def csv = []
+        // def headers = []
+        def headers = ['Subsystem', 'Health', 'Initialization State', 'Number of Outstanding Alerts', 'Number of Suppressed Alerts', 'Node', 'Subsystem Refresh Interval']
+        def rows = 0
+        def is_body = true
         lines.eachLine {
-            println it
-            (it =~ /^(\w.+?)\s+(\w+?)$/).each { m0, m1, m2->
-                infos[m1]['status'] = m2
-                if (m2 != 'ok') {
-                    result = 'NG'
+            rows ++
+            if (it == '')
+                is_body = false;
+            if (is_body) {
+                String[] columns = it.split(/<\|>/)
+                // println "$rows:${is_body}:$columns:${columns.size()}"
+                if (rows == 3) {
+                    // headers = columns
+                } else if (rows > 3) {
+                // if (rows > 3) {
+                    // println "${rows}:CLASS:${columns.getClass()}"
+                    csv << columns
                 }
             }
+            // (it =~ /^(\w.+?)\s+(\w+?)$/).each { m0, m1, m2->
+            //     infos[m1]['status'] = m2
+            //     if (m2 != 'ok') {
+            //         result = 'NG'
+            //     }
+            // }
         }
-        def csv = []
-        def headers = ['status']
-        infos.each { subsystem, info ->
-            def values = [subsystem]
-            headers.each {
-                values << info[it] ?: 'Unkown'
-            }
-            csv << values
-        }
-        println csv
+        // infos.each { subsystem, info ->
+        //     def values = [subsystem]
+        //     headers.each {
+        //         values << info[it] ?: 'Unkown'
+        //     }
+        //     csv << values
+        // }
+        println "HEADERS:$headers"
+        println "CSV:${csv[0]}"
         test_item.devices(csv, headers)
         test_item.results(result)
     }
 
     def storage_failover(session, test_item) {
         def lines = exec('storage_failover') {
-            def result = session.execute 'storage failover show'
-            new File("${local_dir}/storage_failover").text = result
-            return result
+            run_ssh_command(session, 'storage failover show', 'storage_failover')
+            // def result = session.execute 'storage failover show'
+            // new File("${local_dir}/storage_failover").text = result
+            // return result
         }
         def result = 'OK'
         def infos = [:].withDefault{[:]}
