@@ -1,0 +1,35 @@
+Cisco UCS
+---------
+
+SSH接続確認
+-----------
+
+ssh admin@{UCSサーバ}
+
+admin@{UCSサーバ}'s password:
+No entry for terminal type "screen";
+using dumb terminal settings.
+
+Warningメッセージ発生。時間が掛かるけど接続できる
+
+リファレンス
+------------
+
+使用例を参考にインベントリ収集コマンドを調査する
+
+https://www.cisco.com/c/ja_jp/td/docs/unified_computing/ucs/sw/cli/config/guide/2-2/b_UCSM_CLI_System_Monitoring_Guide_2_2/b_UCSM_CLI_System_Monitoring_Guide_2_2_chapter_010.html
+
+REST API
+--------
+
+REST クライアントは、API 要求および応答を解析して表示するための便利なウィジェットです。
+
+Chrome Web Store から Advanced REST クライアントをダウンロード。
+
+API アクセスキーの準備
+
+Cisco UCS DirectorSDK
+---------------------
+
+PowerShell のライブラリ
+

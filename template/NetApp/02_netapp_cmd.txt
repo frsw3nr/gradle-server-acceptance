@@ -3,9 +3,10 @@
 管理者ガイド(クラスタ管理)
 https://library.netapp.com/ecm/ecm_download_file/ECMP1719718
 
+set -showseparator "<|>" -units GB
+set -rows 0
+set -showallfields true
 
-set -showseparator "," -units GB
-rows 0
 storage disk show
 
 ?instanceパラメータをshowコマンドに指定して詳細を表示
@@ -142,6 +143,15 @@ cluster1-01 node    -          -          -           -          -
 svm1        data    default    running    running     svm1_root  aggr1
 svm2        data    default    running    running     svm2_root  aggr1
 4 entries were displayed.
+
+
+ntp
+
+cluster time-service ntp server show
+
+snmp
+
+system snmp show
 
 
 チュートリアル

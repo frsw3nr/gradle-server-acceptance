@@ -53,7 +53,11 @@ class NetAppDataONTAP extends LinuxSpecBase {
             }
             ssh.run {
                 session(ssh.remotes.ssh_host) {
-
+                    // if (this.dry_run) {
+                    //     execute('set -showseparator "<|>" -units GB')
+                    //     execute('set -rows 0')
+                    //     execute('set -showallfields true')
+                    // }
                     def method = this.metaClass.getMetaMethod(test_item.test_id, Object, TestItem)
                     if (method) {
                         log.debug "Invoke command '${method.name}()'"
@@ -87,7 +91,14 @@ class NetAppDataONTAP extends LinuxSpecBase {
     // ToDo: 各メソッドで result 結果のパーサー実装
     def run_eternus_show_command(session, test_item, command) {
         def lines = exec(test_item.test_id) {
-            def result = session.execute command
+            def command_with_option = """\
+            |set -showseparator "<|>" -units GB
+            |set -rows 0
+            |set -showallfields true
+            |${command}
+            """.stripMargin()
+
+            def result = session.execute command_with_option
             new File("${local_dir}/${test_item.test_id}").text = result
             return result
         }
@@ -104,7 +115,21 @@ class NetAppDataONTAP extends LinuxSpecBase {
 
     def subsystem_health(session, test_item) {
         def lines = exec('subsystem_health') {
-            def result = session.execute 'system health subsystem show'
+            def command = 'system health subsystem show'
+// フォーマット整形用に事前に環境変数をセットする
+// シェル操作が必要
+// リファレンス
+// https://gradle-ssh-plugin.github.io/docs/#_execute_a_shell
+// 8.3. Execute a shell
+            // def command_with_option = """\
+            // |set -showseparator "<|>" -units GB
+            // |set -rows 0
+            // |set -showallfields true
+            // |${command}
+            // """.stripMargin()
+            // session.execute 'set -showallfields true -rows 0 -showseparator "<|>" -units GB'
+            def result = session.execute command
+            // def result = session.executeScript  command_with_option
             new File("${local_dir}/subsystem_health").text = result
             return result
         }
@@ -323,6 +348,68 @@ class NetAppDataONTAP extends LinuxSpecBase {
         def lines = exec('system_node') {
             def result = session.execute 'system node run -node local -command sysconfig -a'
             new File("${local_dir}/system_node").text = result
+            return result
+        }
+        def result = 'OK'
+        def infos = [:].withDefault{[:]}
+        lines.eachLine {
+            println it
+            (it =~ /^(\w.+?)\s+(\w+?)$/).each { m0, m1, m2->
+                infos[m1]['status'] = m2
+                if (m2 != 'ok') {
+                    result = 'NG'
+                }
+            }
+        }
+        def csv = []
+        def headers = ['status']
+        infos.each { subsystem, info ->
+            def values = [subsystem]
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+        }
+        println csv
+        test_item.devices(csv, headers)
+        test_item.results(result)
+    }
+
+    def snmp(session, test_item) {
+        def lines = exec('snmp') {
+            def result = session.execute 'system snmp show'
+            new File("${local_dir}/snmp").text = result
+            return result
+        }
+        def result = 'OK'
+        def infos = [:].withDefault{[:]}
+        lines.eachLine {
+            println it
+            (it =~ /^(\w.+?)\s+(\w+?)$/).each { m0, m1, m2->
+                infos[m1]['status'] = m2
+                if (m2 != 'ok') {
+                    result = 'NG'
+                }
+            }
+        }
+        def csv = []
+        def headers = ['status']
+        infos.each { subsystem, info ->
+            def values = [subsystem]
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+        }
+        println csv
+        test_item.devices(csv, headers)
+        test_item.results(result)
+    }
+
+    def ntp(session, test_item) {
+        def lines = exec('ntp') {
+            def result = session.execute 'cluster time-service ntp server show'
+            new File("${local_dir}/ntp").text = result
             return result
         }
         def result = 'OK'
@@ -789,242 +876,6 @@ class NetAppDataONTAP extends LinuxSpecBase {
         def headers = ['Port', 'Protocol', 'Status']
         test_item.devices(csv, headers)
         test_item.results(results.toString())
-    }
-
-// SNMP [Enable]
-// Port [MNT]
-// Authentication Failure [Enable]
-// Engine ID [0x800000d380500000e0da1a2200] (Default)
-// MIB-II RFC Version [RFC1213]
-
-    def snmp(session, test_item) {
-        def lines = exec('snmp') {
-            def result = session.execute 'show snmp'
-            new File("${local_dir}/snmp").text = result
-            return result
-        }
-        def results = 'NG'
-        def csv = []
-        lines.eachLine {
-            (it=~/^(.+?) \[(.+?)\]/).each {m0, m1, m2 ->
-                csv << [m1.trim(), m2]
-                if (m1 == 'SNMP') {
-                    results = m2
-                }
-            }
-        }
-        def headers = ['Item', 'Value']
-        test_item.devices(csv, headers)
-        test_item.results(results.toString())
-    }
-
-    def snmp_manager(session, test_item) {
-        run_eternus_show_command(session, test_item, 'show snmp-manager')
-        def lines = exec('snmp_manager') {
-            def result = session.execute 'show snmp-manager'
-            new File("${local_dir}/snmp_manager").text = result
-            return result
-        }
-
-        // No.  IP address
-        // ---  -------------------------------------------
-        //  1   10.20.5.1
-        def results = []
-        def csv   = []
-        def csize = []
-        def row   = -1
-        lines.eachLine {
-            (it =~ /^(-+ *?) (-.+?)$/).each {
-                m0, m1, m2 ->
-                row = 0
-                csize = [m1.size(), m2.size()]
-            }
-            if (row > 0 && it.size() > 0) {
-                (it =~ /^(.{${csize[0]}}) (.+)$/).each {
-                    m0, m1, m2 ->
-                    // csv << [m1, m2]*.trim()
-                    results << m2.trim()
-                }
-            }
-            if (row >= 0)
-                row ++;
-        }
-        // def headers = ['No', 'IP']
-        // test_item.devices(csv, headers)
-        test_item.results(results.toString())
-    }
-
-
-    def snmp_trap(session, test_item) {
-        def lines = exec('snmp_trap') {
-            def result = session.execute 'show snmp-trap'
-            new File("${local_dir}/snmp_trap").text = result
-            return result
-        }
-
-        // Trap SNMP    Manager IP                                      Community                          User                               Port
-        // No.  Version Number  Address                                 Name                               Name                               Number
-        // ---- ------- ------- --------------------------------------- ---------------------------------- ---------------------------------- ------
-        //    1 v1            1 10.20.5.1                               "public"                                                              162
-
-        def results = []
-        def csv   = []
-        def csize = []
-        def row   = -1
-        lines.eachLine {
-            (it =~ /^(-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-.+?)$/).each {
-                m0, m1, m2, m3, m4, m5, m6, m7 ->
-                row = 0
-                csize = [m1.size(), m2.size(), m3.size(), m4.size(),
-                         m5.size(), m6.size(), m7.size()]
-            }
-            if (row > 0 && it.size() > 0) {
-                (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}}) (.{${csize[4]}}) (.{${csize[5]}}) (.+)$/).each {
-                    m0, m1, m2, m3, m4, m5, m6, m7 ->
-                    csv << [m1, m2, m3, m4, m5, m6, m7]*.trim()
-                    results << "${m2.trim()} ${m4.trim()} ${m5.trim()}"
-                }
-            }
-            if (row >= 0)
-                row ++;
-        }
-        def headers = ['No', 'SNMPVersion', 'Manager', 'IP', 'Community', 'User', 'Port']
-        test_item.devices(csv, headers)
-        test_item.results(results.toString())
-        test_item.verify_text_search_list('snmp_trap', results)
-    }
-
-    def snmp_user(session, test_item) {
-        def lines = exec("snmp_user") {
-            def result = session.execute 'show snmp-user'
-            new File("${local_dir}/snmp_user").text = result
-            return result
-        }
-        def headers = ['Result']
-        def csv = []
-        lines.eachLine {
-            if (!(it =~ /^CLI>/) && it.size() > 0) {
-                csv << [it]
-            }
-        }
-        test_item.devices(csv, headers)
-        test_item.results(lines.size().toString())
-    }
-
-    def email_notification(session, test_item) {
-        def lines = exec('email_notification') {
-            def result = session.execute 'show email-notification'
-            new File("${local_dir}/email_notification").text = result
-            return result
-        }
-        def results = 'NG'
-        def csv   = []
-        def csize = []
-        def row   = -1
-        lines.eachLine {
-            (it =~ /^(Send E-Mail *?) (.+?)$/).each {
-                m0, m1, m2 ->
-                row = 0
-                csize = [m1.size(), m2.size()]
-                results = m2.trim()
-            }
-            if (row >= 0 && it.size() > 0) {
-                (it =~ /^(.{${csize[0]}}) (.*)$/).each { m0, m1, m2 ->
-                    csv << [m1, m2]*.trim()
-                    // results << "${m2.trim()} ${m4.trim()} ${m5.trim()}"
-                }
-            }
-            if (row >= 0)
-                row ++;
-        }
-        def headers = ['Name', 'Value']
-        test_item.devices(csv, headers)
-        test_item.results(results.toString())
-    }
-
-
-    def event_notification(session, test_item) {
-        def lines = exec('event_notification') {
-            def result = session.execute 'show event-notification'
-            new File("${local_dir}/event_notification").text = result
-            return result
-        }
-
-        // [Severity: Error Level]                                E-Mail             SNMP               Host               REMCS              Syslog
-        //  ----------------------------------------------------- ------------------ ------------------ ------------------ ------------------ ------------------
-        //  Parts Error                                           Notify             Notify             Notify(OPMSG)      -                  Do not notify
-        //  Disk Error                                            Notify             Notify             Notify             -                  Do not notify
-        //  Disk Error (HDD Shield)                               Do not notify      Do not notify      Do not notify      Do not notify      Do not notify
-        def results = [:].withDefault{0}
-        def csv   = []
-        def csize = []
-        def row   = -1
-        def severity = 'Unkown'
-        lines.eachLine {
-            (it =~ /(-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-.+?)$/).each {
-                m0, m1, m2, m3, m4, m5, m6 ->
-                row = 0
-                csize = [m1.size(), m2.size(), m3.size(), m4.size(),
-                         m5.size(), m6.size()]
-            }
-            (it =~ /\[Severity: (.+?) Level\]/).each { m0, m1 ->
-                severity = m1
-            }
-            if (row > 0 && it.size() > 0) {
-                (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}}) (.{${csize[4]}}) (.+)$/).each {
-                    m0, m1, m2, m3, m4, m5, m6 ->
-                    csv << [severity, m1, m2, m3, m4, m5, m6]*.trim()
-                    results[severity] += 1
-                }
-            }
-            if (row >= 0)
-                row ++;
-        }
-        def headers = ['Severity', 'Event', 'EMail', 'SNMP', 'Host', 'REMCS', 'Syslog']
-        test_item.devices(csv, headers)
-        test_item.results(results.toString())
-
-    }
-
-
-    def smi_s(session, test_item) {
-        def lines = exec('smi_s') {
-            def result = session.execute 'show smi-s'
-            new File("${local_dir}/smi_s").text = result
-            return result
-        }
-        def results = []
-        def csv = []
-        lines.eachLine {
-            (it=~/^(.+?)\s+\[(.+?)\]$/).each {m0, m1, m2 ->
-                csv << [m1.trim(), m2]
-                results << m2
-            }
-        }
-        // def headers = ['Item', 'Value']
-        // test_item.devices(csv, headers)
-        test_item.results(results.toString())
-    }
-
-    def ntp(session, test_item) {
-        def lines = exec('ntp') {
-            def result = session.execute 'show ntp'
-            new File("${local_dir}/ntp").text = result
-            return result
-        }
-        def results = 'NG'
-        def csv = []
-        lines.eachLine {
-            (it=~/^(.+?)\s+\[(.+?)\]$/).each {m0, m1, m2 ->
-                csv << [m1.trim(), m2]
-                if (m1 == 'NTP') {
-                    results = m2
-                }
-            }
-        }
-        def headers = ['Item', 'Value']
-        test_item.devices(csv, headers)
-        test_item.results(results)
     }
 
     def storage_system_name(session, test_item) {

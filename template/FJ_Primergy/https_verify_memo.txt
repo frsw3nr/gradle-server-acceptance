@@ -1,0 +1,145 @@
+Groovy HTTPS通信調査
+====================
+
+リファレンス調査
+----------------
+
+証明書の認証をバイパスする
+
+https://github.com/hatRiot/clusterd/blob/master/src/lib/jboss/jmxinvoke_deploy/TrustModifier.java
+
+Ignoring Self-Signed Certificates in Java
+http://www.obsidianscheduler.com/blog/ignoring-self-signed-certificates-in-java/
+
+現行のdavid-webb ライブラリを使用する場合に使用する
+バイパスするコーディングが必要で複雑度が増す
+
+Groovy の RESTClient だと標準で無視するメソッドが実装されている
+
+RESTサンプル
+https://github.com/electric-cloud/REST-Samples/blob/master/getProjectDescription.groovy
+
+RESTClientにignoreSSLIssues()というメソッドがある
+
+def flow = new RESTClient( 'https://' + _server + ':8443/rest/v1.0/' )
+flow.ignoreSSLIssues()
+
+PrimergySpec 内 API を全面的に見直す必要がある
+
+davit-webb に変えた背景
+
+レスポンスの xml 解析で stackoverflow エラーが出るため、
+あえてネイティブライブラリの davit-webb に変えた経緯あり
+
+調査
+----
+
+primergy5.groovy
+
+@Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
+@Grab('oauth.signpost:signpost-core:1.2.1.2')
+@Grab('oauth.signpost:signpost-commonshttp4:1.2.1.2')
+
+import groovyx.net.http.RESTClient
+
+def client = new RESTClient()
+client.ignoreSSLIssues()
+def result = client.get(uri: "http://testgit004:8080/redmine/projects.xml?key=${key}")
+println "RESULT:${result}"
+
+// Basic認証する場合
+
+// Basic Authentication
+// Basic auth isn't terribly complicated in Apache HttpClient, but it's dead-simple in HTTPBuilder:
+
+       // return new RESTClient("https://api.github.com/").with {
+       //      headers.'User-Agent' = 'Mozilla/5.0'
+
+       //      if (username && password) {
+       //          headers['Authorization'] = 'Basic '+"${username}:${password}".getBytes('iso-8859-1').encodeBase64()
+       //      }
+
+       //      it
+       //  }
+
+// HTTPBuilder で認証する場合
+
+// https://github.com/jgritman/httpbuilder/wiki/Authentication
+
+//     def authSite = new HTTPBuilder( 'https://some-protected-site.com/' )
+//     authSite.auth.basic 'myUserName', 'myPassword'
+     
+//     secrets = authSite.get( path:'secret-info.txt' )
+
+David Webb をカスタマイズする場合
+
+primergy1.groovy
+
+@GrabConfig( systemClassLoader=true )
+@Grapes( 
+@Grab(group='com.goebl', module='david-webb', version='1.3.0'))
+
+
+import java.net.*;
+import javax.net.ssl.*;
+import java.security.*;
+import java.security.cert.*;
+import com.goebl.david.Webb
+
+// wget --no-proxy https://localhost:57443/
+// wget --no-proxy https://10.46.15.203:57443/  --no-check-certificate 
+// wget --no-proxy https://10.46.15.203:57443/ --ca-certificate=ca.crt
+// wget --no-proxy https://10.152.32.104:57443/ --ca-certificate=ca.crt
+
+// wget https://www.googleapis.com/oauth2/v1/certs 
+
+Webb webb = Webb.create()
+webb.setBaseUri(null);
+
+class TrustingHostnameVerifier implements HostnameVerifier {
+    public boolean verify(String hostname, SSLSession session) {
+        return true;
+    }
+}
+
+def trustAllCerts = [
+    new X509TrustManager() {
+        public X509Certificate[] getAcceptedIssuers() {
+            return null
+        }
+
+        public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+        }
+
+        public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+        }
+    }
+] as TrustManager[] 
+SSLContext sslContext = SSLContext.getInstance("TLS");
+sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+
+webb.setSSLSocketFactory(sslContext.getSocketFactory());
+webb.setHostnameVerifier(new TrustingHostnameVerifier());
+
+def response = webb.get("https://10.152.32.104:57443/").asVoid();
+// Response<Void> response = webb.get("https://10.152.32.104:57443/").asVoid();
+
+println response.isSuccess()
+println response.getStatusCode()
+
+vi ~/.groovy/startup
+
+#export JAVA_OPTS="-DproxyHost=proxy.toshiba.co.jp -DproxyPort=8080"
+export JAVA_OPTS=""
+
+
+Caught: com.goebl.david.WebbException: javax.net.ssl.SSLHandshakeException: 
+java.security.cert.CertificateException: Certificates do not conform to algorithm constraints
+com.goebl.david.WebbException: javax.net.ssl.SSLHandshakeException: 
+java.security.cert.CertificateException: 
+Certificates do not conform to algorithm constraints
+
+Caused by: java.security.cert.CertPathValidatorException: Algorithm constraints check failed on 
+signature algorithm: MD5withRSA
+
+Certificates do not conform to algorithm constraints MD5withRSA
