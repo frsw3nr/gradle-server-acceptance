@@ -160,3 +160,26 @@ https://library.netapp.com/ecmdocs/ECMP1659139/html/GUID-7E03800E-D309-4878-B964
 
 パフォーマンスは前回調査のコマンドを用いる
 
+* ディスク容量
+* コントローラ I/O統計
+* ボリューム I/O統計
+
+ディスク容量は df -A (アグリゲート)コマンドを使用
+コントローラ I/O 統計
+
+# ノードリストを検索
+statistics node show
+
+# 各ノードでコマンド実行
+
+set -showallfields true -rows 0 -showseparator "<|>" -units GB
+
+run -node {ノード名}  sysstat -x 10
+
+# setコマンドの反映はされない
+
+ボリューム I/O統計
+
+run -node {ノード名} stats show -i 1 -n 5 volume:*:read_data volume:*:read_latency volume:*:read_ops volume:*:write_data volume:*:write_latency volume:*:write_ops volume:*:other_latency volume:*:other_ops
+
+

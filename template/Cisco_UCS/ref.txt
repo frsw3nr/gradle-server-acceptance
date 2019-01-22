@@ -1,0 +1,20 @@
+Cisco UCS リファレンス調査
+==========================
+
+Cisco UCS PE導入手順
+
+https://vmiss.net/2016/07/19/setup-and-use-of-the-cisco-ucs-platform-emulator/
+
+Tips
+
+https://vmiss.net/2017/02/21/tips-and-tricks-for-using-the-ucs-platform-emulator/
+
+シャーシーの廃棄と構築
+
+http://mm2911.hatenablog.com/entry/2018/03/24/235817
+
+NEC UCS Manager 運用ガイド
+
+https://jpn.nec.com/websam/sigmasystemcenter/download/3_2/SSC_UCS_32_ja-1.pdf
+
+
