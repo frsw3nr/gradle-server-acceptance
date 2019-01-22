@@ -119,7 +119,7 @@ class NetAppDataONTAP extends InfraTestSpec {
         lines.eachLine {
             rows ++
             String[] columns = it.split(/<\|>/)
-            if (rows == 3) {
+            if (rows == 3 && columns.size() > 1) {
                 result.headers = columns as ArrayList
                 header_index['key'] = result.headers.findIndexOf { it == header_key }
                 header_index['val'] = result.headers.findIndexOf { it == header_value }
@@ -229,6 +229,58 @@ class NetAppDataONTAP extends InfraTestSpec {
         def csv_result = this.parse_csv(test_item, lines, 
                                         'NTP Server Host Name, IPv4 or IPv6 Address',
                                         'NTP Version for Server (default: auto)')
+        test_item.devices(csv_result.csv, csv_result.headers)
+        test_item.results("${csv_result.infos}")
+    }
+
+    def memory(session, test_item) {
+        def lines = exec('memory') {
+            this.run_ssh_command(session,
+                                 'cluster time-service memory server show',
+                                 'memory')
+        }
+        def csv_result = this.parse_csv(test_item, lines, 
+                                        'NTP Server Host Name, IPv4 or IPv6 Address',
+                                        'NTP Version for Server (default: auto)')
+        test_item.devices(csv_result.csv, csv_result.headers)
+        test_item.results("${csv_result.infos}")
+    }
+
+    def license(session, test_item) {
+        def lines = exec('license') {
+            this.run_ssh_command(session,
+                                 'system license show',
+                                 'license')
+        }
+        def csv_result = this.parse_csv(test_item, lines, 
+                                        'Package',
+                                        'Type')
+        test_item.devices(csv_result.csv, csv_result.headers)
+        test_item.results("${csv_result.infos}")
+    }
+
+    def processor(session, test_item) {
+        def lines = exec('processor') {
+            this.run_ssh_command(session,
+                                 'system service-processor show',
+                                 'processor')
+        }
+        def csv_result = this.parse_csv(test_item, lines, 
+                                        'Type of Device',
+                                        'Status')
+        test_item.devices(csv_result.csv, csv_result.headers)
+        test_item.results("${csv_result.infos}")
+    }
+
+    def volume(session, test_item) {
+        def lines = exec('volume') {
+            this.run_ssh_command(session,
+                                 'volume show',
+                                 'volume')
+        }
+        def csv_result = this.parse_csv(test_item, lines, 
+                                        'Type of Device',
+                                        'Status')
         test_item.devices(csv_result.csv, csv_result.headers)
         test_item.results("${csv_result.infos}")
     }
