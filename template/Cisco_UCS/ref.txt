@@ -18,3 +18,44 @@ NEC UCS Manager 運用ガイド
 https://jpn.nec.com/websam/sigmasystemcenter/download/3_2/SSC_UCS_32_ja-1.pdf
 
 
+インベントリ採取
+-----------------
+
+https://community.cisco.com/t5/unified-computing-system/collect-full-ucs-inventory/td-p/1708413
+
+Collect full UCS Inventory
+In the Admin tab, go to Communication Services. From there, check out the Call Home section. There's an option to send a full inventory to an email address. It's an XML file which you'll have to write a small parser for or import into a tool that can interpret it (you could simply load it into your web browser).
+
+From the CLI you can also "scope chassis N" and do "show inventory expand". You can easily script this to loop through all your chassis.
+
+scope chassis N
+show inventory expand
+
+
+ucspe# show chassis
+
+Chassis:
+    Chassis    Overall Status           Admin State          Chassis Profile
+    ---------- ------------------------ -------------------- ---------------
+             3 Operable                 Acknowledged
+             4 Operable                 Acknowledged
+             5 Operable                 Acknowledged
+             6 Operable                 Acknowledged
+
+terminal length 0
+scope chassis 3
+show inventory expand
+end
+
+プロセッサ、メモリ、シリアル、型番
+
+PowerShell インベントリ収集スクリプト
+
+UcsInventoryCollection.zip
+
+https://github.com/smitmartijn/Cisco-UCS-Inventory-Script
+
+サンプル
+
+http://lostdomain.org/wp-content/uploads/2014/06/UIS-example.html
+
