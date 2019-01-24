@@ -3,28 +3,44 @@
         "@Version": "1.01",
         "SystemConfig": {
             "IrmcConfig": {
-                "@Version": "1.02",
+                "@Version": "1.05",
                 "NetworkServices": {
+                    "Redfish": {
+                        "AuthFailureLoggingThreshold": 1,
+                        "AccountLockoutDuration": 30,
+                        "SessionTimeout": 300,
+                        "ExternallyAccessible": true,
+                        "Enabled": true,
+                        "AccountLockoutCounterResetAfter": 30,
+                        "AccountLockoutThreshold": 5
+                    },
                     "Proxy": {
                         "Authentication": {
-                            "Username": null,
+                            "Username": "",
                             "Password": {
-                                "#text": null,
                                 "@Encryption": "IRMC"
                             }
                         },
-                        "Port": null,
-                        "Hostname": null
+                        "Port": "",
+                        "Hostname": ""
                     },
                     "IpmiOverLanEnabled": true,
                     "Cim": {
                         "LogLanguage": 1033,
                         "CimManagementEnabled": false
                     },
+                    "HostAccess": {
+                        "IPv4AddrBmc": "49.54.57.46",
+                        "IPv4AddrHost": "49.54.57.46",
+                        "Enabled": false,
+                        "IPv4NetMask": "50.53.53.46",
+                        "MacAddrHostOUI": "12:20",
+                        "MacAddrBmcOUI": "16:20"
+                    },
                     "Snmp": {
                         "ServicePort": 161,
                         "SnmpV3": {
-                            "EngineID": null,
+                            "EngineID": "",
                             "TrapUserIndex": 0
                         },
                         "PagingEnabled": false,
@@ -32,38 +48,38 @@
                             "TrapDestination": [
                                 {
                                     "@TrapDestinationIdx": 0,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 },
                                 {
                                     "@TrapDestinationIdx": 1,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 },
                                 {
                                     "@TrapDestinationIdx": 2,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 },
                                 {
                                     "@TrapDestinationIdx": 3,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 },
                                 {
                                     "@TrapDestinationIdx": 4,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 },
                                 {
                                     "@TrapDestinationIdx": 5,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 },
                                 {
                                     "@TrapDestinationIdx": 6,
-                                    "Protocol": null,
-                                    "Name": null
+                                    "Protocol": "SnmpV1",
+                                    "Name": ""
                                 }
                             ]
                         },
@@ -97,7 +113,8 @@
                             "Port": 3172,
                             "Enabled": false
                         }
-                    }
+                    },
+                    "SsdpEnabled": false
                 }
             }
         }

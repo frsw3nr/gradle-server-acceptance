@@ -1,9 +1,5 @@
 package InfraTestSpec
 
-import java.net.*
-import javax.net.ssl.*
-import java.security.*
-import java.security.cert.*
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.apache.commons.lang.math.NumberUtils
@@ -20,12 +16,6 @@ import jp.co.toshiba.ITInfra.acceptance.*
 @Slf4j
 @InheritConstructors
 class PrimergySpec extends LinuxSpecBase {
-
-    class TrustingHostnameVerifier implements HostnameVerifier {
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
-        }
-    }
 
     String ip
     String os_user
@@ -55,27 +45,6 @@ class PrimergySpec extends LinuxSpecBase {
         (arr['#text'] && arr['@Unit']) ? "${arr['#text']}${arr['@Unit']}" : 'Unkown'
     }
 
-    def allow_all_https_protocol(webb) {
-        def trustAllCerts = [
-            new X509TrustManager() {
-                public X509Certificate[] getAcceptedIssuers() {
-                    return null
-                }
-                public void checkServerTrusted(X509Certificate[] certs, String authType) 
-                    throws CertificateException {
-                }
-                public void checkClientTrusted(X509Certificate[] certs, String authType) 
-                    throws CertificateException {
-                }
-            }
-        ] as TrustManager[] 
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-
-        webb.setSSLSocketFactory(sslContext.getSocketFactory());
-        webb.setHostnameVerifier(new TrustingHostnameVerifier());
-    }
-
     def setup_exec(TestItem[] test_items) {
 
         def credentials = os_user + ":" + os_password
@@ -83,13 +52,12 @@ class PrimergySpec extends LinuxSpecBase {
 
         String auth = "Basic " + encoded
         webb = Webb.create();
-        allow_all_https_protocol(webb);
         webb.setDefaultHeader(Webb.HDR_AUTHORIZATION, auth);
 
         // サーバのシリアル番号を取得
         if (!dry_run) {
             JSONObject result = webb
-                    .get("https://${ip}/redfish/v1/Systems/")
+                    .get("http://${ip}/redfish/v1/Systems/")
                     .header("Content-Type", "application/json")
                     .useCaches(false)
                     .ensureSuccess()
@@ -98,7 +66,7 @@ class PrimergySpec extends LinuxSpecBase {
             (result["Members"]?.get(0)["@odata.id"] =~ /.+\/(.+?)$/).each {m0, m1->
                 serial_no = m1
             }
-            log.info "SERIAL_NO:$serial_no"
+            println "serial_no:$serial_no"
         }
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
@@ -120,8 +88,7 @@ class PrimergySpec extends LinuxSpecBase {
 
     def fwver(test_item) {
         def lines = exec('fwver') {
-            def url = "https://${ip}/redfish/v1/Systems/${serial_no}/Oem/ts_fujitsu/FirmwareInventory"
-
+            def url = "http://${ip}/redfish/v1/Systems/${serial_no}/Oem/Fujitsu/FirmwareInventory"
             JSONObject result = webb
                                 .get(url)
                                 .header("Content-Type", "application/json")
@@ -129,7 +96,6 @@ class PrimergySpec extends LinuxSpecBase {
                                 .ensureSuccess()
                                 .asJsonObject()
                                 .getBody();
-
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/fwver").text = content
             return content
@@ -154,7 +120,7 @@ class PrimergySpec extends LinuxSpecBase {
 
     def nic(test_item) {
         def lines = exec('nic') {
-            def url = "https://${ip}/redfish/v1/Systems/${serial_no}/Oem/ts_fujitsu/FirmwareInventory/NIC"
+            def url = "http://${ip}/redfish/v1/Systems/${serial_no}/Oem/Fujitsu/FirmwareInventory/NIC"
             JSONObject result = webb
                                 .get(url)
                                 .header("Content-Type", "application/json")
@@ -180,74 +146,31 @@ class PrimergySpec extends LinuxSpecBase {
             csv << columns
             mac_infos[port['ModuleName']] << port['MacAddress']
         }
+        def ip = test_item.target_info('ip')
+        // println "IP:${ip}"
         test_item.devices(csv, headers)
         test_item.results(['nic': mac_infos.toString(), 'nic_ip': ip])
         test_item.verify_text_search('nic_ip', ip)
     }
 
-    def network(test_item) {
-        def lines = exec('network') {
-            def url = "https://${ip}/redfish/v1/Managers/iRMC/EthernetInterfaces/0"
-            JSONObject result = webb
-                                .get(url)
-                                .header("Content-Type", "application/json")
-                                .useCaches(false)
-                                .ensureSuccess()
-                                .asJsonObject()
-                                .getBody();
-            def content = JsonOutput.prettyPrint(result.toString())
-            new File("${local_dir}/network").text = content
-            return content
-        }
-        def jsonSlurper = new JsonSlurper()
-        def network_infos = jsonSlurper.parseText(lines)
-        def headers = ['Address', 'SubnetMask', 'Gateway', 'AddressOrigin']
-        def aliases = ['IP', 'Mask', 'GW', 'Mode']
-        def infos = []
-        def csv = []
-        def rows = 0
-        network_infos['IPv4Addresses'].each { port ->
-            rows ++
-            def columns = []
-            def info = [:]
-            def cols = 0
-            headers.each {
-                def value = port[it] ?: 'NaN'
-                columns.add(value)
-                info[aliases[cols]] = value
-                cols ++
-                if (it == 'Address' && value != '127.0.0.1') {
-                    test_item.admin_port_list(ip, "iRMC-network${rows}")
-                }
-            }
-            csv << columns
-            infos << info
-        }
-        test_item.devices(csv, headers)
-        test_item.results("$infos")
-        test_item.verify_text_search('network_ip', ip)
-    }
-
     def disk(test_item) {
         def lines = exec('disk') {
-            webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
-            def url = "https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/HWConfigurationIrmc/Adapters/RAIDAdapter"
-            def result1 = webb.post(url)
+            def url = "http://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/HWConfigurationIrmc/Adapters/RAIDAdapter"
+            webb.post(url)
                     .ensureSuccess()
                     .asJsonObject()
                     .getBody();
 
             //  1分ほど待ち(*)、Profileを表示(添付disk.txt)
-            log.info "Wait ${profile_wait} seconds to create a Disk Profile ..."
             sleep(profile_wait * 1000)
 
             JSONObject result = webb
-                    .get("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter")
+                    .get("http://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter")
                     .asJsonObject()
                     .getBody();
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/disk").text = content
-            def result3 = webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
+            webb.delete("http://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
             return content
         }
         // println lines
@@ -308,24 +231,23 @@ class PrimergySpec extends LinuxSpecBase {
 
     def snmp(test_item) {
         def lines = exec('snmp') {
-            webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid();
-            def url = "https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/SystemConfig/IrmcConfig/NetworkServices"
+            def url = "http://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/SystemConfig/IrmcConfig/NetworkServices"
+
             webb.post(url)
                     .ensureSuccess()
                     .asJsonObject()
                     .getBody();
 
             //  1分ほど待ち(*)、Profileを表示(添付snmp.txt)
-            log.info "Wait ${profile_wait} seconds to create a SNMP Profile ..."
             sleep(profile_wait * 1000)
 
             JSONObject result = webb
-                    .get("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices")
+                    .get("http://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices")
                     .asJsonObject()
                     .getBody();
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/snmp").text = content
-            webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid()
+            webb.delete("http://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid()
             return content
         }
         def jsonSlurper = new JsonSlurper()

@@ -1,30 +1,35 @@
 {
-    "SystemBIOS": "V5.0.0.11 R1.15.0 for D3279-B1x",
+    "SystemBIOS": "V5.0.0.12 R1.28.0 for D3383-A1x",
+    "BMCBaseFirmware": "1.60.P",
     "iSCSI": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/iSCSI"
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/iSCSI"
     },
-    "BMCFirmware": "8.67F",
-    "@odata.type": null,
-    "SDRRVersion": "3.04",
+    "BMCFirmwareRunning": "LowFWImage",
+    "BMCFirmware": "1.60P",
+    "@odata.type": "http://ts.fujitsu.com/redfish-schemas/v1/FTSSchema.v1_0_0#FTSFirmwareInventory.v1_0_0.FTSFirmwareInventory",
+    "SDRRVersion": "3.48",
+    "@odata.etag": "1548081295",
     "NIC": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/NIC"
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/NIC"
     },
-    "SDRRId": "0464",
-    "@odata.context": null,
-    "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory",
+    "SDRRId": "0514 RX2530M4",
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/0/Oem/ts_fujitsu/FirmwareInventory(SystemBIOS,BMCFirmware,BMCBaseFirmware,BMCFirmwareBuildDate,BMCFirmwareRunning,SDRRVersion,SDRRId,NIC,iSCSI,RoCE,FC,FCoE,IB,Storage)",
+    "BMCFirmwareBuildDate": "2018-10-24T23:32:59",
+    "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory",
     "FCoE": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/FCoE"
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/FCoE"
     },
     "Storage": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/Storage"
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/Storage"
     },
     "RoCE": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/RoCE"
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/RoCE"
     },
     "IB": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/IB"
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/IB"
     },
     "FC": {
-        "@odata.id": "/redfish/v1/Systems/MA6B002221/Oem/Fujitsu/FirmwareInventory/FC"
-    }
+        "@odata.id": "/redfish/v1/Systems/0/Oem/ts_fujitsu/FirmwareInventory/FC"
+    },
+    "@Redfish.Copyright": "Copyright 2017-2018 FUJITSU LIMITED"
 }

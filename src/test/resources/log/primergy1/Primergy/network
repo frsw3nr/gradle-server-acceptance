@@ -1,0 +1,75 @@
+{
+    "MTUSize": 1500,
+    "@odata.type": "#EthernetInterface.v1_3_1.EthernetInterface",
+    "PermanentMACAddress": "90:1B:0E:A9:A3:8B",
+    "VLAN": {
+        "VLANId": 0,
+        "VLANEnable": false
+    },
+    "Name": "Manager Ethernet Interface",
+    "@odata.id": "/redfish/v1/Managers/iRMC/EthernetInterfaces/0",
+    "SpeedMbps": null,
+    "InterfaceEnabled": true,
+    "NameServers": [
+        "",
+        "",
+        ""
+    ],
+    "@Redfish.Copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright.",
+    "HostName": "iRMCA9A38B",
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled",
+        "Oem": {
+            
+        }
+    },
+    "IPv6Addresses": [
+        
+    ],
+    "IPv6DefaultGateway": "::",
+    "Actions": {
+        "Oem": {
+            
+        }
+    },
+    "FullDuplex": null,
+    "IPv6StaticAddresses": [
+        {
+            "Address": "2880::64",
+            "Oem": {
+                
+            },
+            "PrefixLength": null
+        }
+    ],
+    "@odata.etag": "1548164902",
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/iRMC/EthernetInterfaces/Members/$entity(Actions,Oem,Id,Name,Status,InterfaceEnabled,PermanentMACAddress,MACAddress,SpeedMbps,AutoNeg,FullDuplex,MTUSize,HostName,FQDN,MaxIPv6StaticAddresses,IPv4Addresses,IPv6AddressPolicyTable,IPv6Addresses,IPv6StaticAddresses,IPv6DefaultGateway,NameServers,Links,VLAN)",
+    "MACAddress": "90:1B:0E:A9:A3:8B",
+    "AutoNeg": true,
+    "FQDN": "iRMCA9A38B",
+    "IPv4Addresses": [
+        {
+            "Address": "10.40.6.11",
+            "Gateway": null,
+            "AddressOrigin": "Static",
+            "SubnetMask": "255.255.255.0"
+        }
+    ],
+    "Oem": {
+        
+    },
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/0"
+        },
+        "Oem": {
+            
+        }
+    },
+    "Id": "0",
+    "IPv6AddressPolicyTable": [
+        
+    ],
+    "MaxIPv6StaticAddresses": 1
+}
