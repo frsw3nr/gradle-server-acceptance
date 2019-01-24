@@ -140,7 +140,7 @@ class CMDBModel {
 
         new File(node_config_source).eachDir { node_dir ->
             def node_name = node_dir.name
-            log.info "Regist node ${node_name}"
+            // log.info "Regist node ${node_name}"
             def node_id = registMaster("nodes",
                                        [node_name: node_name,
                                         tenant_id: tenant_id])
@@ -149,6 +149,8 @@ class CMDBModel {
             def set_flag_sql = 'update metrics set device_flag = true where id = ?'
             node_dir.eachFile { 
                 ( it.name =~ /(.+).json/ ).each { json_file, platform_name ->
+                    log.info "Regist node ${node_name}:${platform_name}"
+
                     def platform_id = registMaster("platforms", [platform_name: platform_name])
                     def metrics = new JsonSlurper().parseText(it.text)
                     metrics.each { metric_name, metric ->

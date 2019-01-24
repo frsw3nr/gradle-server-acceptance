@@ -380,7 +380,7 @@ class ExcelSheetMaker {
         device_sheet.with { sheet ->
             device_result_sheet.results.each { target, test_result ->
                 // println "target : ${target}"
-                def header = test_result?.devices?.header
+                def header = test_result?.devices?.header.clone()
                 def csv    = test_result?.devices?.csv
                 // println "header : ${header}"
                 // println "csv : ${csv}"

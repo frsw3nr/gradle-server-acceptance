@@ -50,7 +50,7 @@ class TestRunner {
                 argName: 'config.groovy'
             g longOpt: 'generate', args: 1, 'Generate project directory',
                 argName: '/work/project'
-            gd longOpt: 'generate-detail', args: 1, 'Generate project directory with test',
+            gd longOpt: 'generate-dryrun', args: 1, 'Generate project directory with test',
                 argName: '/work/project'
             a longOpt: 'archive',   args: 1, 'Archive project zip file',
                 argName: '/work/project.zip'

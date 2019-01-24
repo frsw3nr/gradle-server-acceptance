@@ -36,5 +36,6 @@ test.Primergy.dry_run   = false
 
 // PrimergyÚ‘±î•ñ
 
+account.Primergy.Test.irmc     = 5
 account.Primergy.Test.user     = 'admin'
 account.Primergy.Test.password = 'admin'

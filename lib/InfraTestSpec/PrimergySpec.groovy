@@ -31,18 +31,24 @@ class PrimergySpec extends LinuxSpecBase {
     String os_user
     String os_password
     String url
-    int  timeout      = 30
-    int  profile_wait = 120
-    def  serial_no    = null
-    Webb webb         = null
+    int iRMC           = 5
+    int  timeout       = 30
+    int  profile_wait  = 120
+    def  serial_no     = null
+    Webb webb          = null
+    def  http_type     = 'https'
+    def  label_fujitsu = 'ts_fujitsu'
 
     def init() {
         super.init()
 
-        def os_account   = test_platform.os_account
-        this.ip          = test_platform.test_target.ip ?: 'unkown'
-        this.os_user     = os_account['user']
-        this.os_password = os_account['password']
+        def os_account     = test_platform.os_account
+        this.ip            = test_platform.test_target.ip ?: 'unkown'
+        this.os_user       = os_account['user']
+        this.os_password   = os_account['password']
+        this.iRMC          = os_account['iRMC'] ?: 5
+        this.http_type     = (this.iRMC >= 5) ? 'https' : 'http'
+        this.label_fujitsu = (this.iRMC >= 5) ? 'ts_fujitsu' : 'Fujitsu'
         // this.script_path = local_dir + '/get_hpilo_spec.ps1'
         this.timeout     = test_platform.timeout
     }
@@ -83,13 +89,16 @@ class PrimergySpec extends LinuxSpecBase {
 
         String auth = "Basic " + encoded
         webb = Webb.create();
-        allow_all_https_protocol(webb);
-        webb.setDefaultHeader(Webb.HDR_AUTHORIZATION, auth);
+
+        if (this.iRMC >= 5) {
+            allow_all_https_protocol(webb);
+            webb.setDefaultHeader(Webb.HDR_AUTHORIZATION, auth);
+        }
 
         // サーバのシリアル番号を取得
         if (!dry_run) {
             JSONObject result = webb
-                    .get("https://${ip}/redfish/v1/Systems/")
+                    .get("${http_type}://${ip}/redfish/v1/Systems/")
                     .header("Content-Type", "application/json")
                     .useCaches(false)
                     .ensureSuccess()
@@ -120,7 +129,7 @@ class PrimergySpec extends LinuxSpecBase {
 
     def fwver(test_item) {
         def lines = exec('fwver') {
-            def url = "https://${ip}/redfish/v1/Systems/${serial_no}/Oem/ts_fujitsu/FirmwareInventory"
+            def url = "${http_type}://${ip}/redfish/v1/Systems/${serial_no}/Oem/${label_fujitsu}/FirmwareInventory"
 
             JSONObject result = webb
                                 .get(url)
@@ -154,7 +163,7 @@ class PrimergySpec extends LinuxSpecBase {
 
     def nic(test_item) {
         def lines = exec('nic') {
-            def url = "https://${ip}/redfish/v1/Systems/${serial_no}/Oem/ts_fujitsu/FirmwareInventory/NIC"
+            def url = "${http_type}://${ip}/redfish/v1/Systems/${serial_no}/Oem/${label_fujitsu}/FirmwareInventory/NIC"
             JSONObject result = webb
                                 .get(url)
                                 .header("Content-Type", "application/json")
@@ -187,7 +196,7 @@ class PrimergySpec extends LinuxSpecBase {
 
     def network(test_item) {
         def lines = exec('network') {
-            def url = "https://${ip}/redfish/v1/Managers/iRMC/EthernetInterfaces/0"
+            def url = "${http_type}://${ip}/redfish/v1/Managers/iRMC/EthernetInterfaces/0"
             JSONObject result = webb
                                 .get(url)
                                 .header("Content-Type", "application/json")
@@ -230,8 +239,8 @@ class PrimergySpec extends LinuxSpecBase {
 
     def disk(test_item) {
         def lines = exec('disk') {
-            webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
-            def url = "https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/HWConfigurationIrmc/Adapters/RAIDAdapter"
+            webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
+            def url = "${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/HWConfigurationIrmc/Adapters/RAIDAdapter"
             def result1 = webb.post(url)
                     .ensureSuccess()
                     .asJsonObject()
@@ -242,12 +251,12 @@ class PrimergySpec extends LinuxSpecBase {
             sleep(profile_wait * 1000)
 
             JSONObject result = webb
-                    .get("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter")
+                    .get("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter")
                     .asJsonObject()
                     .getBody();
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/disk").text = content
-            def result3 = webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
+            def result3 = webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
             return content
         }
         // println lines
@@ -308,8 +317,8 @@ class PrimergySpec extends LinuxSpecBase {
 
     def snmp(test_item) {
         def lines = exec('snmp') {
-            webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid();
-            def url = "https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/SystemConfig/IrmcConfig/NetworkServices"
+            webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid();
+            def url = "${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/SystemConfig/IrmcConfig/NetworkServices"
             webb.post(url)
                     .ensureSuccess()
                     .asJsonObject()
@@ -320,12 +329,12 @@ class PrimergySpec extends LinuxSpecBase {
             sleep(profile_wait * 1000)
 
             JSONObject result = webb
-                    .get("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices")
+                    .get("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices")
                     .asJsonObject()
                     .getBody();
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/snmp").text = content
-            webb.delete("https://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid()
+            webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid()
             return content
         }
         def jsonSlurper = new JsonSlurper()

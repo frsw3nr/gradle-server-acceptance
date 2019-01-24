@@ -17,6 +17,12 @@ YAML 形式の出力に変更。show ～ detail の出力が YAML になる
 
 set cli output yaml
 
+PEの場合は chassis/server の 3/1 を選んで確認
+
+scope chassis 3
+scope server 1
+terminal length 0
+
 出力が長文の場合のページングの無効化設定もなさそう
 YAML 指定するとページングしなくなる？
 
@@ -27,28 +33,65 @@ BIOSの確認
 
 show bios detail
 
+Server 3/1:
+    Model: UCSB-EX-M4-1
+    Revision: 0
+    Serial:
+    Vendor:
+    Running-Vers: B00.3.1.2.1.477390817263
+    Package-Vers:
+    Init Sequence:
+    Init Time: Never
+
 バージョンの確認
 
 show version detail
+Server 3/1:
+    CIMC:
+        Running-Vers: 3.1(2b)
+        Package-Vers:
+        Update-Status: Ready
 
 LED 確認
 
- show led
+show led
 
+コマンドなし
 
 プロセッサの確認
 
 scope chassis
-show cpu
+show cpu detail
+
+CPU:
+    ID: 1
+    Presence: Equipped
+    Architecture: Xeon
+    Socket: CPU1
+    Cores: 5
+    Cores Enabled: 5
+    Speed (GHz): 0.002000
+    Stepping: 8
+    Product Name: Intel(R) Xeon(R) E7-2880 v2
+    PID: UCS-CPU-E72880B
+<中略>
 
 メモリの確認
 
 show dimm
 
+show memoryに変わっている
+
+show memory detail
+
 ハードディスクの確認
 
 scope chassis
 show hdd-pid detail
+
+show server storage
+
+コマンドなし
 
 内臓ストレージ
 ---------

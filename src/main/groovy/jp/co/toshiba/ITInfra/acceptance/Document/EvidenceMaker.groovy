@@ -39,7 +39,7 @@ class EvidenceMaker {
     LinkedHashMap<String,SheetDeviceResult> device_result_sheets = [:]
 
     def add_added_test_metric(domain, platform, metric, test_metric) {
-        println "ADD: $domain, $platform, $metric, $test_metric"
+        // println "ADD: $domain, $platform, $metric, $test_metric"
         def sheet = this.summary_sheets[domain] ?: new SheetSummary()
         sheet.added_rows[[platform, metric]] = test_metric
         this.summary_sheets[domain] = sheet

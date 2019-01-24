@@ -1,0 +1,96 @@
+show raid-controller detail expand
+
+RAID Controller:
+    ID: 1
+    Type: SAS
+    PCI Addr: 01:00.0
+    Vendor: LSI Corp.
+    Model: LSI 6G MegaRAID 9265-8i
+    Serial: SRVCTLR124
+    HW Rev: 0
+    Raid Support: RAID0, RAID1, RAID5, RAID6, RAID10, RAID50, RAID60
+    OOB Interface Supported: Yes
+    Mode: Unknown
+    Rebuild Rate: 0
+    Controller Status: Optimal
+    Config State: Not Applied
+    Pinned Cache Status: Unknown
+    Sub OEM ID: 0
+    Supported Strip Sizes: Unknown
+    Default Strip Size: Unknown
+    PCI Slot: SAS
+    Product Variant: default
+    Product Name: LSI 6G MegaRAID 9265-8i card (RAID 0,1,5,6,10,60) - 512WC
+    PID: UCS-RAID-9265CV
+    VID: V01
+    Part Number:
+    Storage Controller Admin State: Unspecified
+    Vendor Id: 0x1000
+    Subvendor Id: 0x1000
+    Device Id: 0x5b
+    Subdevice Id: 0x9268
+    Current Task:
+
+    Local Disk:
+        ID: 1
+        Block Size: 512
+        Physical Block Size: Unknown
+        Blocks: 879097856
+        Raw Size: Not Applicable
+        Size: 429247
+        Technology: HDD
+        Operability: Operable
+        Oper Qualifier Reason: N/A
+        Presence: Equipped
+        Connection Protocol: SAS
+        Product Variant: default
+        Product Name: 450GB 6G/12G SAS 15K RPM SFF HDD
+        PID: UCS-HD450G15K12G
+        VID: V01
+        Vendor: TOSHIBA
+        Model: AL13SXB45EN
+        Vendor Description: Toshiba
+        Serial: SRVDISK170
+        HW Rev: 0
+        Drive State: Unconfigured Good
+        Power State: Active
+        Link Speed: 6 Gbps
+        Enclosure Association Type: Expander Attached
+        Device Version: 0374
+        Device Type: HDD
+        Thermal: N/A
+        Admin State Type: N/A
+        Admin Virtual Drive ID: Unspecified
+        Current Task:
+
+        ID: 2
+        Block Size: 512
+        Physical Block Size: Unknown
+        Blocks: 879097856
+        Raw Size: Not Applicable
+        Size: 429247
+        Technology: HDD
+        Operability: Operable
+        Oper Qualifier Reason: N/A
+        Presence: Equipped
+        Connection Protocol: SAS
+        Product Variant: default
+        Product Name: 450GB 6G/12G SAS 15K RPM SFF HDD
+        PID: UCS-HD450G15K12G
+        VID: V01
+        Vendor: TOSHIBA
+        Model: AL13SXB45EN
+        Vendor Description: Toshiba
+        Serial: SRVDISK171
+        HW Rev: 0
+        Drive State: Unconfigured Good
+        Power State: Active
+        Link Speed: 6 Gbps
+        Enclosure Association Type: Expander Attached
+        Device Version: 0374
+        Device Type: HDD
+        Thermal: N/A
+        Admin State Type: N/A
+        Admin Virtual Drive ID: Unspecified
+        Current Task:
+ucspe /chassis/server 
