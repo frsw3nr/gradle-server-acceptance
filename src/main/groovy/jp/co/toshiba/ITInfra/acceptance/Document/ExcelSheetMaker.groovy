@@ -380,12 +380,13 @@ class ExcelSheetMaker {
         device_sheet.with { sheet ->
             device_result_sheet.results.each { target, test_result ->
                 // println "target : ${target}"
-                def header = test_result?.devices?.header.clone()
+                def header_source = test_result?.devices?.header
                 def csv    = test_result?.devices?.csv
-                // println "header : ${header}"
+                // println "header_source : ${header_source}"
                 // println "csv : ${csv}"
-                if (header == null || csv == null)
+                if (header_source == null || csv == null)
                     return
+                def header = header_source.clone()
                 if (rownum == 0) {
                     Row header_row = sheet.createRow(rownum)
                     def colnum = 0

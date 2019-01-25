@@ -37,7 +37,8 @@ New features:
     * "subject" からチケット検索をして該当トラッカーを取得
 * Redmine ポートリスト登録で「台帳突合せ」、「管理用」フラグの判別処理追加
 * ネットワーク機器の Redmine チケット登録テンプレート追加
-* 富士通PRIMERGY iRMC5 対応
+* 富士通PRIMERGY iRMC S5 (Redfish)対応
+* 各プラットフォーム検査シートのドメイン列をプルダウンで選択する形式に平行
 
 Bug fixes:
 * getconfig -g で作成したプロジェクト下でRedmineチケット登録が空振りする問題対処

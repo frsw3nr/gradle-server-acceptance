@@ -14,6 +14,7 @@ import org.json.JSONObject
 import org.json.JSONException
 import groovy.json.*
 import com.goebl.david.Webb
+import com.goebl.david.WebbException
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 
@@ -194,6 +195,59 @@ class PrimergySpec extends LinuxSpecBase {
         test_item.verify_text_search('nic_ip', ip)
     }
 
+    def ntp0(test_item) {
+        def lines = exec('ntp0') {
+            // v1/Managers/iRMC/Oem/ts_fujitsu/iRMCConfiguration/Time/NtpServers
+            def url = "${http_type}://${ip}/redfish/v1/Managers/iRMC/Oem/${label_fujitsu}/iRMCConfiguration/Time/NtpServers/0"
+            JSONObject result = webb
+                                .get(url)
+                                .header("Content-Type", "application/json")
+                                .useCaches(false)
+                                .ensureSuccess()
+                                .asJsonObject()
+                                .getBody();
+            def content = JsonOutput.prettyPrint(result.toString())
+            new File("${local_dir}/ntp0").text = content
+            return content
+        }
+        def jsonSlurper = new JsonSlurper()
+        def ntp_infos = jsonSlurper.parseText(lines)
+        def ntp_server = ntp_infos?.'NtpServerName' ?: 'unkown'
+        test_item.results(ntp_server)
+    }
+
+    def ntp1(test_item) {
+        def lines = exec('ntp1') {
+            // v1/Managers/iRMC/Oem/ts_fujitsu/iRMCConfiguration/Time/NtpServers
+            def url = "${http_type}://${ip}/redfish/v1/Managers/iRMC/Oem/${label_fujitsu}/iRMCConfiguration/Time/NtpServers/1"
+            JSONObject result = webb
+                                .get(url)
+                                .header("Content-Type", "application/json")
+                                .useCaches(false)
+                                .ensureSuccess()
+                                .asJsonObject()
+                                .getBody();
+            def content = JsonOutput.prettyPrint(result.toString())
+            new File("${local_dir}/ntp1").text = content
+            return content
+        }
+        def jsonSlurper = new JsonSlurper()
+        def ntp_infos = jsonSlurper.parseText(lines)
+        def ntp_server = ntp_infos?.'NtpServerName' ?: 'unkown'
+        test_item.results(ntp_server)
+    }
+
+    def report_xml(test_item) {
+        def lines = exec('report_xml') {
+            def url = "${http_type}://${ip}/report.xml"
+            def result = webb.get(url).asString().getBody();
+            new File("${local_dir}/report_xml").text = result
+            return result
+        }
+        def isok = (lines.size() > 0) ? 'OK':'NG'
+        test_item.results(isok)
+    }
+
     def network(test_item) {
         def lines = exec('network') {
             def url = "${http_type}://${ip}/redfish/v1/Managers/iRMC/EthernetInterfaces/0"
@@ -239,24 +293,56 @@ class PrimergySpec extends LinuxSpecBase {
 
     def disk(test_item) {
         def lines = exec('disk') {
-            webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
-            def url = "${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/HWConfigurationIrmc/Adapters/RAIDAdapter"
-            def result1 = webb.post(url)
-                    .ensureSuccess()
-                    .asJsonObject()
-                    .getBody();
-
-            //  1分ほど待ち(*)、Profileを表示(添付disk.txt)
+            def profile_url = "${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement"
+            def session_id
+            def result1
+            (1..10).find { wait_count ->
+                def url = "${profile_url}/get?PARAM_PATH=Server/HWConfigurationIrmc/Adapters/RAIDAdapter"
+                result1 = webb.post(url)
+                        .asJsonObject()
+                        .getBody();
+                if (result1) {
+                    session_id = result1?.'Session'?.'Id'
+                    return true
+                }
+                sleep(5 * 1000)
+            }
+            if (session_id == null) {
+                log.info "Profile create session failed, skip : ${url}"
+                return
+            }
+            log.info "Create profile sesson : ${session_id}."
             log.info "Wait ${profile_wait} seconds to create a Disk Profile ..."
-            sleep(profile_wait * 1000)
-
+            def session_status = 'running'
+            def elapse = 0
+            (1..100).find { wait_count ->
+                def result2 = webb
+                        .get("${http_type}://${ip}/sessionInformation/${session_id}/status")
+                        .header("Content-Type", "application/json")
+                        .useCaches(false)
+                        .asJsonObject()
+                        .getBody();
+                session_status = result2?.'Session'?.'Status'
+                if (session_status.toLowerCase() != 'running')
+                    return true;
+                sleep(5 * 1000)
+                elapse += 5
+                if (elapse > profile_wait)
+                    return true;
+            }
+            if (session_status == 'running') {
+                log.info "Create profile timeout."
+                return
+            }
             JSONObject result = webb
-                    .get("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter")
+                    .get("${profile_url}/RAIDAdapter")
                     .asJsonObject()
                     .getBody();
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/disk").text = content
-            def result3 = webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/RAIDAdapter").asVoid();
+            def result3 = webb.delete("${profile_url}/RAIDAdapter").asVoid();
+            def result4 = webb.delete("${http_type}://${ip}/sessionInformation/${session_id}/remove").asVoid();
+ 
             return content
         }
         // println lines
@@ -311,30 +397,63 @@ class PrimergySpec extends LinuxSpecBase {
                 csv << ['drive_physical', physical_disks[it['@Number']]]
             }
         }
+        // print "RESULT:$results"
         test_item.devices(csv, headers)
         test_item.results(results)
     }
 
     def snmp(test_item) {
         def lines = exec('snmp') {
-            webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid();
-            def url = "${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/get?PARAM_PATH=Server/SystemConfig/IrmcConfig/NetworkServices"
-            webb.post(url)
-                    .ensureSuccess()
-                    .asJsonObject()
-                    .getBody();
-
-            //  1分ほど待ち(*)、Profileを表示(添付snmp.txt)
+            def profile_url = "${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement"
+            def session_id
+            def result1
+            (1..10).find { wait_count ->
+                def url = "${profile_url}/get?PARAM_PATH=Server/SystemConfig/IrmcConfig/NetworkServices"
+                result1 = webb.post(url)
+                        .asJsonObject()
+                        .getBody();
+                if (result1) {
+                    session_id = result1?.'Session'?.'Id'
+                    return true
+                }
+                sleep(5 * 1000)
+            }
+            if (session_id == null) {
+                log.info "Profile create session failed, skip : ${result1}"
+                return
+            }
+            log.info "Create profile sesson : ${session_id}."
             log.info "Wait ${profile_wait} seconds to create a SNMP Profile ..."
-            sleep(profile_wait * 1000)
-
+            def session_status = 'running'
+            def elapse = 0
+            (1..100).find { wait_count ->
+                def result2 = webb
+                        .get("${http_type}://${ip}/sessionInformation/${session_id}/status")
+                        .header("Content-Type", "application/json")
+                        .useCaches(false)
+                        .asJsonObject()
+                        .getBody();
+                session_status = result2?.'Session'?.'Status'
+                if (session_status.toLowerCase() != 'running')
+                    return true;
+                sleep(5 * 1000)
+                elapse += 5
+                if (elapse > profile_wait)
+                    return true;
+            }
+            if (session_status == 'running') {
+                log.info "Create profile timeout."
+                return
+            }
             JSONObject result = webb
-                    .get("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices")
+                    .get("${profile_url}/NetworkServices")
                     .asJsonObject()
                     .getBody();
             def content = JsonOutput.prettyPrint(result.toString())
             new File("${local_dir}/snmp").text = content
-            webb.delete("${http_type}://${ip}/rest/v1/Oem/eLCM/ProfileManagement/NetworkServices").asVoid()
+            def result3 = webb.delete("${profile_url}/NetworkServices").asVoid();
+            def result4 = webb.delete("${http_type}://${ip}/sessionInformation/${session_id}/remove").asVoid();
+ 
             return content
         }
         def jsonSlurper = new JsonSlurper()
