@@ -11,15 +11,31 @@
     "port_list": {
         "192.168.0.20": {
             "ip": "192.168.0.20",
-            "description": null,
-            "port_type": null,
-            "online": null
+            "description": "ens160",
+            "mac": null,
+            "vendor": null,
+            "switch_name": null,
+            "netmask": null,
+            "subnet": null,
+            "port_no": null,
+            "device_type": null,
+            "lookup": true,
+            "managed": null,
+            "port_type": null
         },
         "172.17.0.1": {
             "ip": "172.17.0.1",
-            "description": null,
-            "port_type": null,
-            "online": null
+            "description": "docker0",
+            "mac": null,
+            "vendor": null,
+            "switch_name": null,
+            "netmask": null,
+            "subnet": null,
+            "port_no": null,
+            "device_type": null,
+            "lookup": true,
+            "managed": null,
+            "port_type": null
         }
     }
 }

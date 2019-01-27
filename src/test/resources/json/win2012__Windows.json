@@ -12,8 +12,16 @@
         "192.168.0.24": {
             "ip": "192.168.0.24",
             "description": null,
-            "port_type": null,
-            "online": null
+            "mac": null,
+            "vendor": null,
+            "switch_name": null,
+            "netmask": null,
+            "subnet": null,
+            "port_no": null,
+            "device_type": null,
+            "lookup": true,
+            "managed": null,
+            "port_type": null
         }
     }
 }

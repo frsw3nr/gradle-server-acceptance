@@ -1000,7 +1000,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "DeviceClass",
                 "DeviceID",
                 "DeviceName",
@@ -1026,7 +1025,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "device_id",
                 "size_gb"
             ]
@@ -1065,7 +1063,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "UserName",
                 "DontExpirePasswd",
                 "AccountDisable",
@@ -1815,7 +1812,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "Name",
                 "DisplayName",
                 "Status"
@@ -4308,7 +4304,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "name",
                 "vendor",
                 "version"
@@ -5622,7 +5617,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "ServiceName",
                 "MacAddress",
                 "IPAddress",
@@ -5688,7 +5682,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "Name",
                 "InterfaceAlias",
                 "InterfaceIndex",
@@ -5929,7 +5922,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "Name",
                 "DisplayGroup",
                 "DisplayName",
@@ -6039,7 +6031,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "task_name",
                 "last_result",
                 "missed_runs",
@@ -6144,7 +6135,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "ip",
                 "host_name"
             ]
@@ -6282,7 +6272,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "Name",
                 "DisplayName",
                 "Path",

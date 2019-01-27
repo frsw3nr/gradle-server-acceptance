@@ -68,7 +68,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "Name",
                 "DatastoreBrowserPath",
                 "Type",
@@ -93,7 +92,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "NetworkName",
                 "Type",
                 "ConnectionState"
@@ -158,7 +156,6 @@
                 ]
             ],
             "header": [
-                "target",
                 "Filename",
                 "StorageFormat",
                 "CapacityGB"
