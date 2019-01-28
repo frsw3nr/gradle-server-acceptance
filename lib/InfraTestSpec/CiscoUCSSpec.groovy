@@ -7,6 +7,8 @@ import ch.ethz.ssh2.Connection
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
+import org.jvyaml.YAML
+// import org.ho.yaml.Yaml
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.lang.math.NumberUtils
@@ -222,14 +224,25 @@ class CiscoUCS extends InfraTestSpec {
             def commands = [
                 'scope chassis 3',
                 'scope server 1',
-                'show bios',
+                'show bios detail',
             ]
             run_ssh_command(session, commands, 'bios', true)
         }
-        println "RESULT:${lines}"
-        def csv_result = this.parse_csv(test_item, lines, 'Server', 'Running-Vers')
-        test_item.devices(csv_result.csv, csv_result.headers)
-        test_item.results("${csv_result.infos}")
+        def row = 0
+        def yaml_text = ''
+        lines.eachLine { 
+            row ++
+            if (row > 1) {
+                yaml_text += it + "\n";
+            }
+        }
+        println "RESULT:${yaml_text}"
+  // http://d.hatena.ne.jp/masanobuimai/20080126/1201360029
+        def yaml = YAML.load(yaml_text)
+        println "YAML:$yaml"
+        // def csv_result = this.parse_csv(test_item, lines, 'Server', 'Running-Vers')
+        // test_item.devices(csv_result.csv, csv_result.headers)
+        // test_item.results("${csv_result.infos}")
     }
 
     def system(session, test_item) {
