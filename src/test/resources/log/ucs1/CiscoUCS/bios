@@ -1,0 +1,14 @@
+show bios detail
+---
+    bios-version: C240M4.3.0.4a.0.0226182314
+    bios-backup-version: C240M4.3.0.4a.0.0226182314
+    boot-order: (none)
+    fw-status: None, OK
+    secure-boot: disabled
+    boot-mode: None
+    act-boot-mode: Legacy
+    last-upd-cfg: BIOS
+    one-time-boot-device: (none)
+
+...
+yqdli601-mgt

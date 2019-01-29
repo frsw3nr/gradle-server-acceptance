@@ -7,6 +7,9 @@ import ch.ethz.ssh2.Connection
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
+import org.jvyaml.YAML
+import org.yaml.snakeyaml.Yaml
+// import org.ho.yaml.Yaml
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.lang.math.NumberUtils
@@ -23,6 +26,7 @@ class CiscoUCS extends InfraTestSpec {
     String admin_password
     Boolean use_ucs_platform_emulator
     int    timeout = 30
+    def storage_adapter
 
     def init() {
         super.init()
@@ -116,8 +120,13 @@ class CiscoUCS extends InfraTestSpec {
                 expect.sendLine("terminal length 0")
                 expect.expect(contains(ok_prompt))
             } else {
-                expect.sendLine("set cli output yaml")
+                println "TEST1:$ok_prompt"
                 expect.expect(contains(ok_prompt))
+                println "TEST2"
+                expect.sendLine("set cli output yaml")
+                println "TEST3"
+                expect.expect(contains(ok_prompt))
+                println "TEST4"
             }
 
 
@@ -223,17 +232,373 @@ class CiscoUCS extends InfraTestSpec {
     //     return result
     // }
 
+    def extract_yaml(String lines) {
+        def is_body = false
+        def yaml = []
+        lines.eachLine {
+            it = it.replaceAll(/::/, "'::'")
+            (it =~ /^---/).each {
+                is_body = true
+            }
+            if (is_body) {
+                yaml << it
+            }
+            // println "$is_body:$it"
+            (it =~ /^\.\.\./).each {
+                is_body = false
+            }
+        }
+        // Delete invalid last line
+        if (yaml[-1] != '...' && yaml[-1] != '') {
+            yaml.pop()
+        }
+        def yaml_text = yaml.join("\n")
+        return yaml_text
+    }
+
     def bios(session, test_item) {
         def lines = exec('bios') {
             def commands = [
+                'top',
                 'show bios detail',
             ]
             run_ssh_command(session, commands, 'bios', true)
         }
-        println "RESULT:${lines}"
-        // def csv_result = this.parse_csv(test_item, lines, 'Server', 'Running-Vers')
-        // test_item.devices(csv_result.csv, csv_result.headers)
-        // test_item.results("${csv_result.infos}")
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+        Map yaml = (Map) yaml_manager.load(yaml_text)
+        infos['bios']         = yaml?.'bios-version' ?: 'unkown'
+        infos['secure-boot']  = yaml?.'secure-boot' ?: 'unkown'
+        infos['boot-mode']    = yaml?.'boot-mode' ?: 'unkown'
+        // println "BIOS : $infos"
+        test_item.results(infos)
+    }
+
+    def cimc(session, test_item) {
+        def lines = exec('cimc') {
+            def commands = [
+                'top',
+                'show cimc detail',
+            ]
+            run_ssh_command(session, commands, 'cimc', true)
+        }
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+        Map yaml = (Map) yaml_manager.load(yaml_text)
+        infos['cimc']     = yaml?.'version' ?: 'unkown'
+        infos['timezone'] = yaml?.'timezone' ?: 'unkown'
+        // println "CIMC:$infos"
+        test_item.results(infos)
+    }
+
+    def cpu(session, test_item) {
+        def lines = exec('cpu') {
+            def commands = [
+                'top',
+                'scope chassis',
+                'show cpu detail',
+            ]
+            run_ssh_command(session, commands, 'cpu', true)
+        }
+        def csv = []
+        def infos = [:].withDefault{0}
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+            def keys = ['version', 'thread-count', 'core-count']
+            def title = info.subMap(keys).values().join('/')
+            infos[title] += 1
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def memory(session, test_item) {
+        def lines = exec('memory') {
+            def commands = [
+                'top',
+                'scope chassis',
+                'show dimm-summary',
+           ]
+            run_ssh_command(session, commands, 'memory', true)
+        }
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+        Map yaml = (Map) yaml_manager.load(yaml_text)
+        infos['memory']      = yaml?.'totalmemory' ?: 'unkown'
+        infos['memoryspeed'] = yaml?.'memoryspeed' ?: 'unkown'
+        test_item.results(infos)
+    }
+
+    def hdd(session, test_item) {
+        def lines = exec('hdd') {
+            def commands = [
+                'top',
+                'scope chassis',
+                'show hdd-pid detail',
+           ]
+            run_ssh_command(session, commands, 'hdd', true)
+        }
+        def csv = []
+        def infos = [:].withDefault{0}
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+            // println info
+            if (info.containsKey('Description')) {
+                infos[info['Description']] += 1
+            }
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def storageadapter(session, test_item) {
+        def lines = exec('storageadapter') {
+            def commands = [
+                'top',
+                'scope chassis',
+                'show storageadapter detail',
+           ]
+            run_ssh_command(session, commands, 'storageadapter', true)
+        }
+        def csv = []
+        def infos = [:].withDefault{0}
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+            if (info.containsKey('product-name')) {
+                infos[info['product-name']] += 1
+            }
+            if (info.containsKey('controller')) {
+                storage_adapter = info['controller']
+            }
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def physical_drive(session, test_item) {
+        if (!this.storage_adapter) {
+            this.storageadapter(session, test_item)
+        }
+        def lines = exec('physical_drive') {
+            def commands = [
+                'top',
+                'scope chassis',
+                "scope storageadapter ${this.storage_adapter}",
+                'show physical-drive detail',
+           ]
+            run_ssh_command(session, commands, 'physical_drive', true)
+        }
+        def csv = []
+        def infos = [:].withDefault{0}
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+            // println info
+            if (info.containsKey('raw-size')) {
+                infos[info['raw-size']] += 1
+            }
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def virtual_drive(session, test_item) {
+        if (!this.storage_adapter) {
+            this.storageadapter(session, test_item)
+        }
+        def lines = exec('virtual_drive') {
+            def commands = [
+                'top',
+                'scope chassis',
+                "scope storageadapter ${this.storage_adapter}",
+                'show virtual-drive detail',
+           ]
+            run_ssh_command(session, commands, 'virtual_drive', true)
+        }
+        def csv = []
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+            def keys = ['raid-level', 'physical-drives', 'size']
+            infos[info['name']] = info.subMap(keys)
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def network(session, test_item) {
+        def lines = exec('network') {
+            def commands = [
+                'top',
+                'show cimc/network detail',
+           ]
+            run_ssh_command(session, commands, 'network', true)
+        }
+        def csv = []
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            csv << values
+            def ip_address = info['v4-addr']
+            if (ip_address && ip_address != '127.0.0.1') {
+                test_item.lookuped_port_list(ip_address, "CiscoCIMC${rows}")
+            }
+            def keys = ['v4-addr', 'v4-netmask', 'v4-gateway']
+            infos[rows] = info.subMap(keys).values()
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def snmp(session, test_item) {
+        def lines = exec('snmp') {
+            def commands = [
+                'top',
+                'show snmp detail',
+           ]
+            run_ssh_command(session, commands, 'snmp', true)
+        }
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+        Map yaml = (Map) yaml_manager.load(yaml_text)
+        infos['snmp']             = yaml?.'enabled' ?: 'unkown'
+        infos['snmp-port']        = yaml?.'snmp-port' ?: 'unkown'
+        infos['sys-contact']      = yaml?.'sys-contact' ?: 'unkown'
+        infos['community-str']    = yaml?.'community-str' ?: 'unkown'
+        infos['community-access'] = yaml?.'community-access' ?: 'unkown'
+        test_item.results(infos)
+    }
+
+    def snmp_trap(session, test_item) {
+        def lines = exec('snmp_trap') {
+            def commands = [
+                'top',
+                'show snmp/trap-destinations detail',
+           ]
+            run_ssh_command(session, commands, 'snmp_trap', true)
+        }
+        def csv = []
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+
+        def rows = 0
+        def headers = []
+        yaml_manager.loadAll(yaml_text).each { info ->
+            rows ++
+            if (headers.size() == 0) {
+                headers = info.keySet() as ArrayList
+            }
+            def values = []
+            headers.each {
+                values << info[it] ?: 'Unkown'
+            }
+            if (info['enabled'] == true) {
+                csv << values
+                def keys = ['trap-addr']
+                infos[rows] = info.subMap(keys).values()
+            }
+        }
+        test_item.devices(csv, headers)
+        test_item.results("$infos")
+    }
+
+    def ntp(session, test_item) {
+        def lines = exec('ntp') {
+            def commands = [
+                'top',
+                'show /cimc/network/ntp detail',
+           ]
+            run_ssh_command(session, commands, 'ntp', true)
+        }
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+        Map yaml = (Map) yaml_manager.load(yaml_text)
+        infos['ntp']      = yaml?.'enabled' ?: 'unkown'
+        infos['server-1'] = yaml?.'server-1' ?: 'unkown'
+        infos['server-2'] = yaml?.'server-2' ?: 'unkown'
+        test_item.results(infos)
     }
 
     def system(session, test_item) {
