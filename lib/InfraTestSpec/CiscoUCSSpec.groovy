@@ -104,16 +104,22 @@ class CiscoUCS extends InfraTestSpec {
             Expect expect = new ExpectBuilder()
                     .withOutput(session.getStdin())
                     .withInputs(session.getStdout(), session.getStderr())
-                            // .withEchoOutput(System.out)
-                            // .withEchoInput(System.out)
+                            .withEchoOutput(System.out)
+                            .withEchoInput(System.out)
                     .build();
 
-            expect.sendLine("set cli table-field-delimiter comma")
-            expect.expect(contains(ok_prompt))
-            expect.sendLine("set cli suppress-field-spillover on")
-            expect.expect(contains(ok_prompt))
-            expect.sendLine("terminal length 0")
-            expect.expect(contains(ok_prompt))
+            if (this.use_ucs_platform_emulator) {
+                expect.sendLine("set cli table-field-delimiter comma")
+                expect.expect(contains(ok_prompt))
+                expect.sendLine("set cli suppress-field-spillover on")
+                expect.expect(contains(ok_prompt))
+                expect.sendLine("terminal length 0")
+                expect.expect(contains(ok_prompt))
+            } else {
+                expect.sendLine("set cli output yaml")
+                expect.expect(contains(ok_prompt))
+            }
+
 
             // if (admin_mode) {
             //     expect.sendLine('enable');
@@ -220,16 +226,14 @@ class CiscoUCS extends InfraTestSpec {
     def bios(session, test_item) {
         def lines = exec('bios') {
             def commands = [
-                'scope chassis 3',
-                'scope server 1',
-                'show bios',
+                'show bios detail',
             ]
             run_ssh_command(session, commands, 'bios', true)
         }
         println "RESULT:${lines}"
-        def csv_result = this.parse_csv(test_item, lines, 'Server', 'Running-Vers')
-        test_item.devices(csv_result.csv, csv_result.headers)
-        test_item.results("${csv_result.infos}")
+        // def csv_result = this.parse_csv(test_item, lines, 'Server', 'Running-Vers')
+        // test_item.devices(csv_result.csv, csv_result.headers)
+        // test_item.results("${csv_result.infos}")
     }
 
     def system(session, test_item) {

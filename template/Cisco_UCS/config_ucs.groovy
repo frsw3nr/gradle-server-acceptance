@@ -39,6 +39,10 @@ test.CiscoUCS.dry_run   = false
 
 // CiscoUCS ê⁄ë±èÓïÒ
 
-account.CiscoUCS.Test.use_emulator = true
-account.CiscoUCS.Test.user         = 'ucspe'
-account.CiscoUCS.Test.password     = 'ucspe'
+// account.CiscoUCS.Test.use_emulator = true
+// account.CiscoUCS.Test.user         = 'ucspe'
+// account.CiscoUCS.Test.password     = 'ucspe'
+
+account.CiscoUCS.Test.use_emulator = false
+account.CiscoUCS.Test.user         = 'admin'
+account.CiscoUCS.Test.password     = 'P@ssw0rd'
