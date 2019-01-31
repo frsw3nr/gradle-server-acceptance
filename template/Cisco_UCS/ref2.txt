@@ -33,6 +33,7 @@ BIOSの確認
 
 show bios detail
 
+
 Server 3/1:
     Model: UCSB-EX-M4-1
     Revision: 0

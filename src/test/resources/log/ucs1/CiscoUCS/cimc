@@ -1,0 +1,11 @@
+show cimc detail
+---
+    version: 3.0(4d)
+    time: Wed Jan 30 07:45:14 2019
+    uboot-version: 3.0(4d).36
+    local-time: Wed Jan 30 16:45:14 2019 JST +0900
+    timezone: Asia/Tokyo
+    cimcResetReason: ac-cycle
+
+...
+ucs1

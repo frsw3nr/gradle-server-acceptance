@@ -6,7 +6,7 @@ RAID Controller:
     PCI Addr: 01:00.0
     Vendor: LSI Corp.
     Model: LSI 6G MegaRAID 9265-8i
-    Serial: SRVCTLR124
+    Serial: CTLR124
     HW Rev: 0
     Raid Support: RAID0, RAID1, RAID5, RAID6, RAID10, RAID50, RAID60
     OOB Interface Supported: Yes
@@ -50,7 +50,7 @@ RAID Controller:
         Vendor: TOSHIBA
         Model: AL13SXB45EN
         Vendor Description: Toshiba
-        Serial: SRVDISK170
+        Serial: DISK170
         HW Rev: 0
         Drive State: Unconfigured Good
         Power State: Active
@@ -81,7 +81,7 @@ RAID Controller:
         Vendor: TOSHIBA
         Model: AL13SXB45EN
         Vendor Description: Toshiba
-        Serial: SRVDISK171
+        Serial: DISK171
         HW Rev: 0
         Drive State: Unconfigured Good
         Power State: Active

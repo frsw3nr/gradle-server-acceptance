@@ -1,0 +1,11 @@
+show /cimc/network/ntp detail
+---
+    enabled: no
+    server-1: 
+    server-2: 
+    server-3: 
+    server-4: 
+    status: ok
+
+...
+ucs1

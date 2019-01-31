@@ -1,0 +1,567 @@
+show physical-drive detail
+---
+    physical-drive: 1
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 19
+    lsi-drive-number: 1
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: TOSHIBA
+    product-id: PX05SMB040
+    predictive-failure-count: 0
+    product-revision-level: 0101
+    media-type: SSD
+    block-size: 512
+    physical-block-size: 4096
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: 100
+    wear-status-in-days: 1825
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 2019-01-30 16:23
+    operating-temperature: 24
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 781422768
+    raw-size: 381554 MB
+    non-coerced-size: 381042 MB
+    coerced-size: 380516 MB
+    sas-address-0: 58ce38ee2018fc1e
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 2
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 20
+    lsi-drive-number: 2
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: TOSHIBA
+    product-id: PX05SMB040
+    predictive-failure-count: 0
+    product-revision-level: 0101
+    media-type: SSD
+    block-size: 512
+    physical-block-size: 4096
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: 100
+    wear-status-in-days: 1825
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 2019-01-30 16:23
+    operating-temperature: 24
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 781422768
+    raw-size: 381554 MB
+    non-coerced-size: 381042 MB
+    coerced-size: 380516 MB
+    sas-address-0: 58ce38ee2018fc22
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 3
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 10
+    lsi-drive-number: 3
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0ad2691
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 4
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 11
+    lsi-drive-number: 4
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0ad4b61
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 5
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 12
+    lsi-drive-number: 5
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0d406c9
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 6
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 9
+    lsi-drive-number: 6
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0ad3fb1
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 7
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 21
+    lsi-drive-number: 7
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N003
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500998ff609
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 8
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 22
+    lsi-drive-number: 8
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N003
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c5009917ae89
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 9
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 23
+    lsi-drive-number: 9
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N003
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a09d255d
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 10
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 16
+    lsi-drive-number: 10
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0d40c4d
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 11
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 15
+    lsi-drive-number: 11
+    physical-drive-health: Good
+    physical-drive-status: Online
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0d40a4d
+    sas-address-1: 0x0
+    power-state: active
+
+---
+    physical-drive: 12
+    controller: SLOT-HBA
+    info-valid: Yes
+    error: 
+    enclosure-device-id: 8
+    device-id: 17
+    lsi-drive-number: 12
+    physical-drive-health: Good
+    physical-drive-status: Dedicated Hot Spare
+    is-boot-drive: false
+    vendor: SEAGATE
+    product-id: ST2000NX0433
+    predictive-failure-count: 0
+    product-revision-level: N0A3
+    media-type: HDD
+    block-size: 512
+    physical-block-size: 512
+    link-speed: 12.0 Gb/s
+    locator-led: false
+    fde-capable: 0
+    fde-enabled: 0
+    secured: 0
+    locked: 0
+    foreign-locked: 0
+    enclosure-association: Expander Attached
+    enclosure-logical-id: f60057
+    enclosure-sas-address-0: adf81bd
+    enclosure-sas-address-1: 0x0
+    power-cycle-count: Not Available
+    power-on-hours: Not Available
+    percentage-life-left: Not Available
+    wear-status-in-days: Not Available
+    percent-rsvd-capacity-consumed: Not Available
+    time-of-last-refresh: 
+    operating-temperature: Not Available
+    media-error-count: 0
+    other-error-count: 0
+    interface-type: SAS
+    block-count: 3907029168
+    raw-size: 1907729 MB
+    non-coerced-size: 1907217 MB
+    coerced-size: 1906394 MB
+    sas-address-0: 5000c500a0d44519
+    sas-address-1: 0x0
+    power-state: powersave
+
+...
+ucs1 /chassis/storageadapter 

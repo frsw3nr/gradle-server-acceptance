@@ -1,0 +1,25 @@
+show cpu detail
+---
+    name: CPU1
+    manufacturer: Intel(R) Corporation
+    family: Xeon
+    thread-count: 40
+    core-count: 20
+    version: Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz
+    current-speed: 2200
+    signature: Type 0, Family 6, Model 79, Stepping 1
+    cpu-status: Enabled
+
+---
+    name: CPU2
+    manufacturer: Intel(R) Corporation
+    family: Xeon
+    thread-count: 40
+    core-count: 20
+    version: Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz
+    current-speed: 2200
+    signature: Type 0, Family 6, Model 79, Stepping 1
+    cpu-status: Enabled
+
+...
+ucs1 /chassis 

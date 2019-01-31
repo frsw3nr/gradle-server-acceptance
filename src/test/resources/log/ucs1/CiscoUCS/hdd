@@ -1,0 +1,111 @@
+show hdd-pid detail
+---
+    Disk: 1
+    Controller: SLOT-HBA
+    Description: 400GB 2.5 inch Enterprise performance 12G SAS SSD (10X endurance)
+    PID: UCS-SD400G12S4-EP
+    Vendor: TOSHIBA
+    Model: PX05SMB040
+    SerialNumber: MFF
+
+---
+    Disk: 2
+    Controller: SLOT-HBA
+    Description: 400GB 2.5 inch Enterprise performance 12G SAS SSD (10X endurance)
+    PID: UCS-SD400G12S4-EP
+    Vendor: TOSHIBA
+    Model: PX05SMB040
+    SerialNumber: MFF
+
+---
+    Disk: 3
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E812EVCC
+
+---
+    Disk: 4
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E812DUNY
+
+---
+    Disk: 5
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E8178QDP
+
+---
+    Disk: 6
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E812EU9C
+
+---
+    Disk: 7
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E720PV14
+
+---
+    Disk: 8
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E715HQA7
+
+---
+    Disk: 9
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E812KB4G
+
+---
+    Disk: 10
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E8173Z0N
+
+---
+    Disk: 11
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E8178PWB
+
+---
+    Disk: 12
+    Controller: SLOT-HBA
+    Description: 2TB 12Gb SAS 7.2K RPM SFF HDD
+    PID: UCS-HD2T7K12G
+    Vendor: SEAGATE
+    Model: ST2000NX0433
+    SerialNumber: 000E8173VQR
+
+...
+ucs1 /chassis 

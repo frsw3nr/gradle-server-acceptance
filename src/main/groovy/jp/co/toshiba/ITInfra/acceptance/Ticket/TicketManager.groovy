@@ -195,8 +195,11 @@ class TicketManager {
                 log.error(msg)
                 throw new NotFoundException(msg)
             }
+            // 値が"No data"の場合は登録しない
+            if (value in String && value.toLowerCase() == 'no data') {
+                log.info "Skip 'No data' field update : '${field_name}'."
             // Redmine カスタムフィールドの真偽値(bool_cf)は文字列の"0"か"1"を返す必要がある
-            if (value in Boolean) {
+            } else if (value in Boolean) {
                 def redmine_bool = (value) ? "1" : "0"
                 custom_field.setValue(redmine_bool)
 

@@ -1,0 +1,153 @@
+show snmp/trap-destinations detail
+---
+    index: 1
+    enabled: yes
+    version: 2
+    type: trap
+    user: unknown
+    trap-addr: 10.20.5.1
+    trap-port: 162
+    delete: no
+
+---
+    index: 2
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 3
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 4
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 5
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 6
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 7
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 8
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 9
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 10
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 11
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 12
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 13
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 14
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+---
+    index: 15
+    enabled: no
+    version: 3
+    type: trap
+    user: unknown
+    trap-addr: 0.0.0.0
+    trap-port: 162
+    delete: no
+
+...
+ucs1

@@ -1,0 +1,15 @@
+show snmp detail
+---
+    snmp-port: 161
+    sys-contact: who@where
+    sys-location: unknown
+    community-str: public
+    engine-id-str: 
+    trap-community-str: public
+    community-access: disabled
+    enabled: yes
+    enable-serial-num: no
+    snmp-engine-id: 
+
+...
+ucs1

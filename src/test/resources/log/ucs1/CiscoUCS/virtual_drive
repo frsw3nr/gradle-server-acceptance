@@ -1,0 +1,55 @@
+show virtual-drive detail
+---
+    virtual-drive: 0
+    virtual-drive-health: Good
+    virtual-drive-status: Optimal
+    virtual-drive-visibility: Visible
+    name: 
+    size: 380516 MB
+    physical-drives: 1, 2
+    raid-level: RAID 1
+    is-boot-drive: true
+    fde-capable: 0
+    fde-enabled: 0
+    target-id: 0
+    strip-size: 64 KB
+    drives-per-span: 2
+    span-depth: 1
+    access-policy: Read-Write
+    cache-policy: Direct
+    read-ahead-policy: None
+    requested-write-cache-policy: Write Back Good BBU
+    current-write-cache-policy: Write Back
+    disk-cache-policy: Unchanged
+    auto-snapshot: false
+    auto-delete-oldest: true
+    allow-background-init: true
+
+---
+    virtual-drive: 1
+    virtual-drive-health: Good
+    virtual-drive-status: Optimal
+    virtual-drive-visibility: Visible
+    name: RAID5
+    size: 15251152 MB
+    physical-drives: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+    raid-level: RAID 5
+    is-boot-drive: false
+    fde-capable: 0
+    fde-enabled: 0
+    target-id: 1
+    strip-size: 64 KB
+    drives-per-span: 9
+    span-depth: 1
+    access-policy: Read-Write
+    cache-policy: Direct
+    read-ahead-policy: None
+    requested-write-cache-policy: Write Through
+    current-write-cache-policy: Write Through
+    disk-cache-policy: Unchanged
+    auto-snapshot: false
+    auto-delete-oldest: true
+    allow-background-init: true
+
+...
+ucs1 /chassis/storageadapter 

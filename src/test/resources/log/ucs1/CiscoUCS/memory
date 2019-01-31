@@ -1,0 +1,15 @@
+show dimm-summary
+---
+    memoryspeed: 2400 MHz
+    totalmemory: 262144 MB
+    effectivememory: 262144 MB
+    redundantmemory: 0 MB
+    failedmemory: 0 MB
+    ignoredmemory: 0 MB
+    numignoreddimms: 0
+    numfaileddimms: 0
+    raspossible: Independent Mirroring Lockstep
+    configuration: Independent
+
+...
+ucs1 /chassis 

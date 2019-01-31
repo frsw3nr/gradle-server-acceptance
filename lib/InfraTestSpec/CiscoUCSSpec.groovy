@@ -7,9 +7,7 @@ import ch.ethz.ssh2.Connection
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
-import org.jvyaml.YAML
 import org.yaml.snakeyaml.Yaml
-// import org.ho.yaml.Yaml
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.lang.math.NumberUtils
@@ -47,7 +45,9 @@ class CiscoUCS extends InfraTestSpec {
         def result
         if (!dry_run) {
             con = new Connection(this.ip, 22)
+            log.info "Connect CIMC"
             con.connect()
+            log.info "Open ssh session"
             result = con.authenticateWithPassword(this.os_user, this.os_password)
             if (!result) {
                 println "connect failed"
@@ -72,7 +72,9 @@ class CiscoUCS extends InfraTestSpec {
             }
         }
         if (!dry_run) {
+            log.info "Close ssh session"
             session.close()
+            con.close()
         }
     }
 
@@ -86,8 +88,8 @@ class CiscoUCS extends InfraTestSpec {
                 Expect expect = new ExpectBuilder()
                         .withOutput(session.getStdin())
                         .withInputs(session.getStdout(), session.getStderr())
-                                .withEchoOutput(System.out)
-                                .withEchoInput(System.out)
+                                // .withEchoOutput(System.out)
+                                // .withEchoInput(System.out)
                         .build();
                 expect.expect(contains(prompts['ok'])); 
                 expect.sendLine("c");  //  c: Login to  CLI shell
@@ -104,12 +106,11 @@ class CiscoUCS extends InfraTestSpec {
         def ok_prompt = (admin_mode) ? "# " : "> ";
         try {
             def log_path = (share) ? evidence_log_share_dir : local_dir
-            println "SSH:1"
             Expect expect = new ExpectBuilder()
                     .withOutput(session.getStdin())
                     .withInputs(session.getStdout(), session.getStderr())
-                            .withEchoOutput(System.out)
-                            .withEchoInput(System.out)
+                            // .withEchoOutput(System.out)
+                            // .withEchoInput(System.out)
                     .build();
 
             if (this.use_ucs_platform_emulator) {
@@ -120,31 +121,16 @@ class CiscoUCS extends InfraTestSpec {
                 expect.sendLine("terminal length 0")
                 expect.expect(contains(ok_prompt))
             } else {
-                println "TEST1:$ok_prompt"
                 expect.expect(contains(ok_prompt))
-                println "TEST2"
                 expect.sendLine("set cli output yaml")
-                println "TEST3"
                 expect.expect(contains(ok_prompt))
-                println "TEST4"
             }
 
-
-            // if (admin_mode) {
-            //     expect.sendLine('enable');
-            //     expect.expect(contains('Password:'));
-            //     expect.sendLine(this.admin_password);
-            // }
-            // expect.expect(contains(ok_prompt)); 
-            // expect.sendLine('set -showallfields true -rows 0 -showseparator "<|>" -units GB');
-            // expect.expect(contains(ok_prompt)); 
             String result
             commands.each { command ->
-                println "SSH:2:$command"
+                log.info "Execute[$test_id] : $command"
                 expect.sendLine(command); 
-                println "SSH:3:$ok_prompt"
                 result = expect.expect(contains(ok_prompt)).getBefore(); 
-                println "SSH:4:$result"
             }
             new File("${log_path}/${test_id}").text = result
             // session.close()
@@ -196,41 +182,11 @@ class CiscoUCS extends InfraTestSpec {
                 result.csv << columns
             }
         }
-        println "HEADERS: ${result.headers}"
-        println "CSV: ${result.csv}"
-        println "INFO: ${result.infos}\n"
+        // println "HEADERS: ${result.headers}"
+        // println "CSV: ${result.csv}"
+        // println "INFO: ${result.infos}\n"
         return result
     }
-
-    // def parse_csv2 = { TestItem test_item, String lines, Closure closure ->
-    //     def result = new CSVParseResult()
-    //     def header_index = [:]
-    //     def phase = 'HEADER'
-    //     def rows = 0
-    //     lines.eachLine {
-    //         def columns = split_eol_extended(it)
-    //         if (phase == 'HEADER' && columns.size() > 1) {
-    //             phase = 'SEPARATOR'
-    //             result.headers = columns as ArrayList
-    //             header_index['key'] = result.headers.findIndexOf { it == header_key }
-    //             header_index['val'] = result.headers.findIndexOf { it == header_value }
-    //         } else if (phase == 'SEPARATOR' && columns[0] =~ /---/) {
-    //             phase = 'BODY'
-    //         } else if (phase == 'BODY' && result.headers.size() == columns.size()) {
-    //             rows ++
-    //             def cols = 0
-    //             println "$rows:$columns"
-    //             if (header_index.containsKey('key') && header_index.containsKey('val')) {
-    //                 result.infos[columns[header_index['key']]] = columns[header_index['val']]
-    //             }
-    //             result.csv << columns
-    //         }
-    //     }
-    //     println "HEADERS: ${result.headers}"
-    //     println "CSV: ${result.csv}"
-    //     println "INFO: ${result.infos}\n"
-    //     return result
-    // }
 
     def extract_yaml(String lines) {
         def is_body = false
@@ -268,9 +224,9 @@ class CiscoUCS extends InfraTestSpec {
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
         Map yaml = (Map) yaml_manager.load(yaml_text)
-        infos['bios']         = yaml?.'bios-version' ?: 'unkown'
-        infos['secure-boot']  = yaml?.'secure-boot' ?: 'unkown'
-        infos['boot-mode']    = yaml?.'boot-mode' ?: 'unkown'
+        infos['bios']              = yaml?.'bios-version' ?: 'unkown'
+        infos['bios.secure-boot']  = yaml?.'secure-boot' ?: 'unkown'
+        infos['bios.boot-mode']    = yaml?.'boot-mode' ?: 'unkown'
         // println "BIOS : $infos"
         test_item.results(infos)
     }
@@ -487,7 +443,7 @@ class CiscoUCS extends InfraTestSpec {
             }
             csv << values
             def keys = ['raid-level', 'physical-drives', 'size']
-            infos[info['name']] = info.subMap(keys)
+            infos[info['virtual-drive']] = info.subMap(keys)
         }
         test_item.devices(csv, headers)
         test_item.results("$infos")
@@ -527,6 +483,7 @@ class CiscoUCS extends InfraTestSpec {
         }
         test_item.devices(csv, headers)
         test_item.results("$infos")
+        test_item.verify_text_search_list('network', infos)
     }
 
     def snmp(session, test_item) {
@@ -542,11 +499,12 @@ class CiscoUCS extends InfraTestSpec {
         Yaml yaml_manager = new Yaml()
         Map yaml = (Map) yaml_manager.load(yaml_text)
         infos['snmp']             = yaml?.'enabled' ?: 'unkown'
-        infos['snmp-port']        = yaml?.'snmp-port' ?: 'unkown'
-        infos['sys-contact']      = yaml?.'sys-contact' ?: 'unkown'
-        infos['community-str']    = yaml?.'community-str' ?: 'unkown'
-        infos['community-access'] = yaml?.'community-access' ?: 'unkown'
+        infos['snmp.snmp-port']        = yaml?.'snmp-port' ?: 'unkown'
+        infos['snmp.sys-contact']      = yaml?.'sys-contact' ?: 'unkown'
+        infos['snmp.community-str']    = yaml?.'community-str' ?: 'unkown'
+        infos['snmp.community-access'] = yaml?.'community-access' ?: 'unkown'
         test_item.results(infos)
+        test_item.verify_text_search_list('snmp', infos)
     }
 
     def snmp_trap(session, test_item) {
@@ -581,6 +539,7 @@ class CiscoUCS extends InfraTestSpec {
         }
         test_item.devices(csv, headers)
         test_item.results("$infos")
+        test_item.verify_text_search_list('snmp_trap', infos)
     }
 
     def ntp(session, test_item) {
@@ -596,8 +555,8 @@ class CiscoUCS extends InfraTestSpec {
         Yaml yaml_manager = new Yaml()
         Map yaml = (Map) yaml_manager.load(yaml_text)
         infos['ntp']      = yaml?.'enabled' ?: 'unkown'
-        infos['server-1'] = yaml?.'server-1' ?: 'unkown'
-        infos['server-2'] = yaml?.'server-2' ?: 'unkown'
+        infos['ntp.server-1'] = yaml?.'server-1' ?: 'unkown'
+        infos['ntp.server-2'] = yaml?.'server-2' ?: 'unkown'
         test_item.results(infos)
     }
 
@@ -640,7 +599,6 @@ class CiscoUCS extends InfraTestSpec {
         def id     = 'unkown'
         def phase  = 'unkown'
         lines.eachLine {
-            println it
             (it =~ /^\s+(RAID Controller|Local Disk):$/).each { m0, m1 ->
                 phase = m1
             }

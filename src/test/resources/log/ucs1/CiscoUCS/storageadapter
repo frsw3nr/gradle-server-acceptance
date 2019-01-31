@@ -1,0 +1,22 @@
+show storageadapter detail
+---
+    controller: SLOT-HBA
+    composite-health: Good
+    controller-status: Optimal
+    roc-temperature-w-units: 56 degrees C
+    product-name: Cisco 12G SAS Modular Raid Controller
+    serial-number: SK80774326
+    firmware-package-build: 24.12.1-0205
+    vendor: LSI Logic
+    battery-status: Optimal
+    nvram-size: 32 KB
+    memory-size: 2048 MB
+    flash-size: 32 MB
+    cache-memory-size: 1720 MB
+    boot-drive: 0
+    boot-drive-is-PD: false
+    tty-log-status: Not Downloaded
+    lock-key-assigned: 0
+    has-pinned-cache: false
+
+ucs1 /chassis 
