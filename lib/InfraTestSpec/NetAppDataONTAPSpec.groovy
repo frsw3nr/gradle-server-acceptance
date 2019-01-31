@@ -137,36 +137,94 @@ class NetAppDataONTAP extends InfraTestSpec {
         return result
     }
 
+    class CSVInfo {
+        def headers = []
+        def csv     = []
+        def rows    = []
+    }
+
+    def parse_csv2(String lines) {
+        def csv_info = new CSVInfo()
+        def header_index = [:]
+        def rownum = 0
+        lines.eachLine {
+            rownum ++
+            String[] columns = it.split(/<\|>/)
+            if (rownum == 3 && columns.size() > 1) {
+                csv_info.headers = columns as ArrayList
+            } else if (rownum > 3 && csv_info.headers.size() == columns.size()) {
+                def cols = 0
+                def row = [:]
+                columns.each { column ->
+                    row[csv_info.headers[cols]] = column
+                    cols ++
+                }
+                csv_info.rows << row
+                csv_info.csv << columns
+            }
+        }
+        println "HEADERS: ${csv_info.headers}"
+        println "CSV: ${csv_info.csv}"
+        println "INFO: ${csv_info.rows}\n"
+        return csv_info
+    }
+
     def subsystem_health(session, test_item) {
         def lines = exec('subsystem_health') {
             run_ssh_command(session, 'system health subsystem show', 'subsystem_health')
         }
-        def csv_result = this.parse_csv(test_item, lines, 'Subsystem', 'Health')
-        test_item.devices(csv_result.csv, csv_result.headers)
-        test_item.results("${csv_result.infos}")
+        // def csv_result = this.parse_csv(test_item, lines, 'Subsystem', 'Health')
+        def csv_info = this.parse_csv2(lines)
+        def infos = [:].withDefault{[]}
+        csv_info.rows.each { row ->
+            infos[row['Health']] << row['Subsystem']
+        }
+        test_item.devices(csv_info.csv, csv_info.headers)
+        test_item.results("${infos}")
     }
 
     def storage_failover(session, test_item) {
         def lines = exec('storage_failover') {
             this.run_ssh_command(session, 'storage failover show', 'storage_failover')
         }
-        def csv_result = this.parse_csv(test_item, lines, 'Node', 'Takeover Enabled')
-        test_item.devices(csv_result.csv, csv_result.headers)
-        test_item.results("${csv_result.infos}")
+        def csv_info = this.parse_csv2(lines)
+        def infos = [:].withDefault{[]}
+        csv_info.rows.each { row ->
+            if (row['Takeover Enabled'] != '-') {
+                infos[row['Takeover Enabled']] << row['Node']
+            }
+        }
+        println "INFOS:$infos"
+        test_item.devices(csv_info.csv, csv_info.headers)
+        test_item.results((infos.size() == 0) ? 'SingleNode' : "${infos}")
     }
 
     def network_interface(session, test_item) {
         def lines = exec('network_interface') {
             this.run_ssh_command(session, 'network interface show', 'network_interface')
         }
-        def csv_result = this.parse_csv(test_item, lines, 'Logical Interface Name', 'Network Address')
-        test_item.devices(csv_result.csv, csv_result.headers)
-        test_item.results("${csv_result.infos.size()} IP count")
-        csv_result.infos.each { device, ip_address ->
+        // def csv_result = this.parse_csv(test_item, lines, 'Logical Interface Name', 'Network Address')
+        // test_item.devices(csv_result.csv, csv_result.headers)
+        // test_item.results("${csv_result.infos.size()} IP count")
+        // csv_result.infos.each { device, ip_address ->
+        //     if (ip_address && ip_address != '127.0.0.1') {
+        //         test_item.lookuped_port_list(ip_address, device)
+        //     }
+        // }
+        def csv_info = this.parse_csv2(lines)
+        def infos = [:].withDefault{[]}
+        csv_info.rows.each { row ->
+            println "ROW:$row"
+            def ip_address = row['Network Address']
+            def device     = row['Logical Interface Name']
+            def netmask    = row['Bits in the Netmask']
             if (ip_address && ip_address != '127.0.0.1') {
                 test_item.lookuped_port_list(ip_address, device)
             }
+            // infos[row['Health']] << row['Subsystem']
         }
+        test_item.devices(csv_info.csv, csv_info.headers)
+        test_item.results("${infos}")
     }
 
     def aggregate_status(session, test_item) {
