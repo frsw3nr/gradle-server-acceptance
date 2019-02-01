@@ -1,0 +1,5 @@
+ system license show
+
+Error: show failed: No Base License installed in the cluster. Install a Base License, then try the operation again.
+
+cluster1

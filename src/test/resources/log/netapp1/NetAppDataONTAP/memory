@@ -1,0 +1,6 @@
+ system controller memory dimm show
+
+Warning: Unable to list entries on node cluster1-01. This command is not supported on this platform.
+Error: show failed: This command is not supported on this platform.
+
+cluster1

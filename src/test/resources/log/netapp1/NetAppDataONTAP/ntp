@@ -1,0 +1,5 @@
+ cluster time-service ntp server show
+
+Error: show failed: database cluster_ntp_rdb is not open
+
+cluster1

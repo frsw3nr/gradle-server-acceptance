@@ -1,0 +1,6 @@
+ version
+  (vserver services ndmp version)
+
+Error: show failed: database sequential_identifier_byname is not open
+
+cluster1

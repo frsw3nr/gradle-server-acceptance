@@ -1,0 +1,12 @@
+ system health subsystem show
+subsystem<|>health<|>init-state<|>outstanding-alert-count<|>suppressed-alert-count<|>node<|>refresh-interval<|>
+Subsystem<|>Health<|>Initialization State<|>Number of Outstanding Alerts<|>Number of Suppressed Alerts<|>Node<|>Subsystem Refresh Interval<|>
+SAS-connect<|>ok<|>initialized<|>0<|>0<|>cluster1-01,cluster1-01<|>30m,30m<|>
+Switch-Health<|>ok<|>initialized<|>0<|>0<|>cluster1-01<|>5m<|>
+CIFS-NDO<|>ok<|>initialized<|>0<|>0<|>cluster1-01<|>5m<|>
+MetroCluster<|>ok<|>initialized<|>0<|>0<|>cluster1-01<|>5m<|>
+MetroCluster_Node<|>ok<|>initialized<|>0<|>0<|>cluster1-01<|>15m<|>
+FHM-Switch<|>ok<|>initialized<|>0<|>0<|>cluster1-01<|>1h<|>
+FHM-Bridge<|>ok<|>initialized<|>0<|>0<|>cluster1-01<|>1h<|>
+
+cluster1

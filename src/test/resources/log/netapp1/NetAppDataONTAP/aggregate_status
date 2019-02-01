@@ -1,0 +1,6 @@
+ aggr show -owner-name *
+
+Warning: Only local entries can be displayed at this time. 
+Error: show failed: database aggr_trans_status_rdb is not open
+
+cluster1

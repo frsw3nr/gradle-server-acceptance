@@ -1,0 +1,42 @@
+ run * sysconfig -r
+1 entry was acted on.
+
+Node: cluster1-01
+Aggregate aggr1 (online, raid_dp) (block checksums)
+  Plex /aggr1/plex0 (online, normal, active, pool0)
+    RAID group /aggr1/plex0/rg0 (normal, block checksums)
+
+      RAID Disk	Device	HA  SHELF BAY CHAN Pool Type  RPM  Used (MB/blks)    Phys (MB/blks)
+      ---------	------	------------- ---- ---- ---- ----- --------------    --------------
+      dparity 	v0.20	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      parity  	v0.21	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      data    	v0.22	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      data    	v0.24	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      data    	v0.25	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+
+Aggregate aggr0 (online, raid_dp) (block checksums)
+  Plex /aggr0/plex0 (online, normal, active, pool0)
+    RAID group /aggr0/plex0/rg0 (normal, block checksums)
+
+      RAID Disk	Device	HA  SHELF BAY CHAN Pool Type  RPM  Used (MB/blks)    Phys (MB/blks)
+      ---------	------	------------- ---- ---- ---- ----- --------------    --------------
+      dparity 	v0.16	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      parity  	v0.17	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      data    	v0.18	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+      data    	v0.19	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+
+
+Pool1 spare disks (empty)
+
+Pool0 spare disks
+
+RAID Disk	Device	HA  SHELF BAY CHAN Pool Type  RPM  Used (MB/blks)    Phys (MB/blks)
+---------	------	------------- ---- ---- ---- ----- --------------    --------------
+Spare disks for block checksum
+spare   	v0.26	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+spare   	v0.27	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+spare   	v0.28	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+spare   	v0.29	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+spare   	v0.32	v0    -   -   FC:A   0  FCAL 15000 1020/2089984      1027/2104448 
+
+cluster1
