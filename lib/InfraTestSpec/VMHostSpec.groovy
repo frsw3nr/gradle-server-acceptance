@@ -16,7 +16,10 @@ class VMHostSpec extends vCenterSpecBase {
         super.init()
         def os_account  = test_platform.os_account
         this.vcenter_ip = os_account['vCenter']
-        this.vm = test_platform?.test_target?.name
+        this.vm = test_platform?.test_target?.remote_alias ?: ''
+        if (this.vm == '') {
+            this.vm = test_platform?.test_target?.name
+        }
     }
 
     def finish() {
@@ -25,7 +28,6 @@ class VMHostSpec extends vCenterSpecBase {
 
     def VMHost(test_item) {
         run_script('Get-VMHost $vm | Format-List') {
-            println "VMHost:${local_dir}"
             def lines = exec('VMHost') {
                 new File("${local_dir}/VMHost")
             }
@@ -35,6 +37,8 @@ class VMHostSpec extends vCenterSpecBase {
                     res[m1] = m2
                 }
             }
+            res['Version'] = 'ESXi ' + res['Version']
+            res['VMHost']  = (res.size() > 0) ? 'OK' : 'Not found'
             test_item.verify_number_equal('NumCpu', res['NumCpu'])
             test_item.verify_number_equal('MemoryGB', res['MemoryTotalGB'], 0.1)
             test_item.results(res)
@@ -66,7 +70,8 @@ class VMHostSpec extends vCenterSpecBase {
             }
             def headers = ['Name', 'Domain', 'Description', 'Server']
             test_item.devices(csv, headers)
-            test_item.results(row.toString())
+            def result = (row == -1) ? 'No account': "${row} account"
+            test_item.results(result)
         }
     }
 
@@ -102,7 +107,7 @@ class VMHostSpec extends vCenterSpecBase {
                             if (address && address != '127.0.0.1') {
                                 test_item.lookuped_port_list(address, device)
                             }
-                            println "IP:${address},${device}"
+                            // println "IP:${address},${device}"
 
                         }
                         csv << [m1, m2, m3, m4, m5, m6]*.trim()
@@ -119,6 +124,9 @@ class VMHostSpec extends vCenterSpecBase {
 
     def refVMHostDisk(device) {
         ( device =~ /__([^_].+?)__/ ).each { m0, m1 ->
+            device = m1
+        }
+        ( device =~ /\/\/(.+?)$/ ).each { m0, m1 ->
             device = m1
         }
         return device
@@ -139,7 +147,7 @@ class VMHostSpec extends vCenterSpecBase {
                         device = refVMHostDisk(m2)
                     } else if (m1 == 'TotalSectors') {
                         def size = Float.parseFloat(m2) * 512 / 1000000000
-                        devices[device] = (int)size
+                        devices[device] = "${(int)size}GB"
                         // println("SIZE:${device}:${size}")
                     } else if (m1 == 'Cylinders') {
                         row ++

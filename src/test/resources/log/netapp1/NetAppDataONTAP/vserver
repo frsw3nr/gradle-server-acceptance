@@ -1,8 +1,0 @@
-                               Admin      Operational Root
-Vserver     Type    Subtype    State      State       Volume     Aggregate
------------ ------- ---------- ---------- ----------- ---------- ----------
-cluster1    admin   -          -          -           -          -
-cluster1-01 node    -          -          -           -          -
-svm1        data    default    running    running     svm1_root  aggr1
-svm2        data    default    running    running     svm2_root  aggr1
-4 entries were displayed.

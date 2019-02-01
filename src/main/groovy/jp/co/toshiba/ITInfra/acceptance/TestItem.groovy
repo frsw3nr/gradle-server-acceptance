@@ -248,6 +248,48 @@ class TestItem {
         }
     }
 
+    def verify_number_lower(String item_name, Object value) {
+        if (!this.verify_test)
+            return
+        def test_value = this.target_info(item_name)
+        def test_value_double = this.to_number(test_value)
+        def value_double = this.to_number(value)
+        if (value_double == null) {
+            log.info "Value '$item_name' is not number : $value"
+            return
+        }
+        def check = (value_double <= test_value_double) as boolean
+        def isok = (check)?'OK':'NG'
+        log.info "Check ${item_name}, ${isok}"
+        def error_msg
+        if (!check) {
+            error_msg = "'${value}' <= '${test_value}'"
+            log.info "Check ${item_name}, ${isok}, ${error_msg}"
+        }
+        this.make_verify(item_name, check, error_msg)
+    }
+
+    def verify_number_higher(String item_name, Object value) {
+        if (!this.verify_test)
+            return
+        def test_value = this.target_info(item_name)
+        def test_value_double = this.to_number(test_value)
+        def value_double = this.to_number(value)
+        if (value_double == null) {
+            log.info "Value '$item_name' is not number : $value"
+            return
+        }
+        def check = (value_double >= test_value_double) as boolean
+        def isok = (check)?'OK':'NG'
+        log.info "Check ${item_name}, ${isok}"
+        def error_msg
+        if (!check) {
+            error_msg = "'${value}' >= '${test_value}'"
+            log.info "Check ${item_name}, ${isok}, ${error_msg}"
+        }
+        this.make_verify(item_name, check, error_msg)
+    }
+
     def verify_text_search_map(String item_name, Map values) {
         if (!this.verify_test)
             return

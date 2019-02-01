@@ -315,7 +315,7 @@ class SolarisSpec extends InfraTestSpec {
                 }
             }
             def ip_address = infos[device_id]['ip']
-            if (ip_address && ip_address != '127.0.0.1') {
+            if (ip_address && ip_address != '127.0.0.1'  && ip_address != '0.0.0.0') {
                 test_item.lookuped_port_list(ip_address, device_id)
             }
             csv << columns
