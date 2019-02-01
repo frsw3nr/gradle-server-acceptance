@@ -1,0 +1,6 @@
+ network interface show
+vserver<|>server<|>lif<|>vif<|>role<|>data-protocol<|>home-node<|>home-port<|>curr-node<|>curr-port<|>status-oper<|>status-extended<|>is-home<|>address<|>netmask<|>netmask-length<|>subnet-name<|>status-admin<|>failover-policy<|>firewall-policy<|>auto-revert<|>dns-zone<|>listen-for-dns-query<|>failover-group<|>wwpn<|>address-family<|>comment<|>ipspace<|>is-dns-update-enabled<|>
+Vserver Name<|>Vserver Name<|>Logical Interface Name<|>Logical Interface Name<|>Role<|>Data Protocol<|>Home Node<|>Home Port<|>Current Node<|>Current Port<|>Operational Status<|>Extended Status<|>Is Home<|>Network Address<|>Netmask<|>Bits in the Netmask<|>Subnet Name<|>Administrative Status<|>Failover Policy<|>Firewall Policy<|>Auto Revert<|>Fully Qualified DNS Zone Name<|>DNS Query Listen Enable<|>Failover Group Name<|>FCP WWPN<|>Address family<|>Comment<|>IPspace of LIF<|>Is Dynamic DNS Update Enabled?<|>
+cluster1<|>cluster1<|>cluster1-01_mgmt1<|>cluster1-01_mgmt1<|>node-mgmt<|>-<|>cluster1-01<|>e0c<|>cluster1-01<|>e0c<|>up<|>-<|>true<|>192.168.0.40<|>255.255.255.0<|>24<|>-<|>up<|>local-only<|>mgmt<|>-<|>none<|>-<|>""<|>-<|>ipv4<|>-<|>-<|>-<|>
+
+cluster1

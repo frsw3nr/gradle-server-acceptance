@@ -218,7 +218,7 @@ class TicketManager {
             log.error(msg)
             throw new NotFoundException(msg)
         }
-        log.info "Regist '${tracker_name}:${subject}(${project_name})'"
+        log.info "Regist '${tracker_name}:${subject}'"
     }
 
     LinkedHashMap<String,String> get_port_list_custom_fields(Map custom_fields) {

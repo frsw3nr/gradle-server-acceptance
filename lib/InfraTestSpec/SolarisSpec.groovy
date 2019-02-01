@@ -305,7 +305,9 @@ class SolarisSpec extends InfraTestSpec {
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
         def csv = []
         def infos = [:].withDefault{[:]}
-        network.each { device_id, items ->
+        network.find { device_id, items ->
+            if (items?.ip  =~ /(127\.0\.0\.1|0\.0\.0\.0)/)
+                return
             def columns = [device_id]
             ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
                 def value = items[it] ?: 'NaN'
@@ -315,7 +317,7 @@ class SolarisSpec extends InfraTestSpec {
                 }
             }
             def ip_address = infos[device_id]['ip']
-            if (ip_address && ip_address != '127.0.0.1'  && ip_address != '0.0.0.0') {
+            if (ip_address) {
                 test_item.lookuped_port_list(ip_address, device_id)
             }
             csv << columns
@@ -326,25 +328,6 @@ class SolarisSpec extends InfraTestSpec {
         // test_item.verify_text_search_map('network', device_ip)
         test_item.verify_text_search_list('net_ip', device_ip)
     }
-
-    // def net_onboot(session, test_item) {
-    //     def lines = exec('net_onboot') {
-    //         def command = """\
-    //         |cd /etc/sysconfig/network-scripts/
-    //         |grep ONBOOT ifcfg-* >> ${work_dir}/net_onboot
-    //         """.stripMargin()
-    //         session.execute command
-    //         session.get from: "${work_dir}/net_onboot", into: local_dir
-    //         new File("${local_dir}/net_onboot").text
-    //     }
-    //     def net_onboot = [:]
-    //     lines.eachLine {
-    //         (it =~ /^ifcfg-(.+):ONBOOT=(.+)$/).each {m0,m1,m2->
-    //             net_onboot[m1] = m2
-    //         }
-    //     }
-    //     test_item.results(net_onboot.toString())
-    // }
 
     def net_route(session, test_item) {
         def lines = exec('net_route') {
@@ -469,7 +452,9 @@ class SolarisSpec extends InfraTestSpec {
                     def mount = columns[4]
                     (size =~ /^[1-9]/).each { row ->
                         filesystems['filesystem.' + mount] = size
-                        infos[mount] = size
+                        if (!(mount =~ /^\/(etc|var|platform|system)\//)) {
+                            infos[mount] = size
+                        }
                         csv << columns
                     }
                 }
@@ -478,6 +463,7 @@ class SolarisSpec extends InfraTestSpec {
         def headers = ['size', 'used', 'avail', 'use%', 'mountpoint']
         test_item.devices(csv, headers)
         filesystems['filesystem'] = infos.toString()
+        println "INFO:$infos"
         test_item.results(filesystems)
         test_item.verify_text_search_map('filesystem', infos)
     }

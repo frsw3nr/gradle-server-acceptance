@@ -1,14 +1,11 @@
 show bios detail
----
-    bios-version: C240M4.3.0.4a.0.0226182314
-    bios-backup-version: C240M4.3.0.4a.0.0226182314
-    boot-order: (none)
-    fw-status: None, OK
-    secure-boot: disabled
-    boot-mode: None
-    act-boot-mode: Legacy
-    last-upd-cfg: BIOS
-    one-time-boot-device: (none)
-
-...
-ucs1
+Server 3/1:
+    Model: UCSB-EX-M4-1
+    Revision: 0
+    Serial:
+    Vendor:
+    Running-Vers: B00.3.1.2.1.477390817263
+    Package-Vers:
+    Init Sequence:
+    Init Time: Never
+ucspe /chassis/server 
