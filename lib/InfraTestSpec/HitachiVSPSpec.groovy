@@ -67,15 +67,15 @@ class HitachiVSPSpec extends WindowsSpecBase {
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
 
-        def script_path = './lib/template/get_HitachiVSP_spec.ps1'
-        def cmd = """\
-            |powershell -NonInteractive ${script_path}
-            |-log_dir '${local_dir}'
-            |-ip '${ip}' -server '${server_name}'
-            |-user '${os_user}' -password '${os_password}'
-        """.stripMargin()
-        log.info "Execute command:\n${cmd}"
-        execPowerShell(script_path, cmd)
+        // def script_path = './lib/template/get_HitachiVSP_spec.ps1'
+        // def cmd = """\
+        //     |powershell -NonInteractive ${script_path}
+        //     |-log_dir '${local_dir}'
+        //     |-ip '${ip}' -server '${server_name}'
+        //     |-user '${os_user}' -password '${os_password}'
+        // """.stripMargin()
+        // log.info "Execute command:\n${cmd}"
+        // execPowerShell(script_path, cmd)
         def report_tar = 'hitachi_vsp_raidinf_report.tgz'
         def report_dir = (dry_run) ?
             "${dry_run_staging_dir}/${server_name}/${platform}" :
