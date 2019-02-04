@@ -8,5 +8,5 @@ Contents:
 
    01_Overview
    02_UsageSummary
-   03_RedmineConfiguration/index
-   04_GetconfigCofiguration/index
+   .. 03_RedmineConfiguration/index
+   .. 04_GetconfigCofiguration/index

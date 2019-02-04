@@ -4,8 +4,8 @@ evidence.source = './template/Router/RTXチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/RTXチェックシート_<date>.xlsx'
-evidence.target='./build/rtx_check_sheet.xlsx'
+evidence.target='./build/RTXチェックシート_<date>.xlsx'
+// evidence.target='./build/rtx_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

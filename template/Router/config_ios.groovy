@@ -4,8 +4,8 @@ evidence.source = './template/Router/CiscoIOSチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/CiscoIOSチェックシート_<date>.xlsx'
-evidence.target='./build/ios_check_sheet.xlsx'
+evidence.target='./build/CiscoIOSチェックシート_<date>.xlsx'
+// evidence.target='./build/ios_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

@@ -8,6 +8,4 @@ Contents:
 
    01_ConfigurationManagement/index
    02_DatabaseUsage/index
-   03_Planning/index
-   04_ChangeManagementUsage/index
-   05_Appendix/index
+   03_ConfigurationManagementUsage/index
