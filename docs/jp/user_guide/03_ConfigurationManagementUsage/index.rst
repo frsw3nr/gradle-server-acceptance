@@ -6,6 +6,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   01_InventoryDataAndTemplates
-   02_DataRegistrationFlow
+   01_DataRegistrationFlow
+   02_InventoryDataAndTemplates
    03_ReferenceOfTemplate
+   04_JobTicket

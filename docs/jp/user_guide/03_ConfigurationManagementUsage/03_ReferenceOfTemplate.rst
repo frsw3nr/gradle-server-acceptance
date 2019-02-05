@@ -1,7 +1,12 @@
 Getconfig リファレンス
 ======================
 
-* 仮想マシン
+各インベントリ収集テンプレートの利用手順は、以下Excelファイル内シート「利用手順」に
+記載しています。
+「getconfig -g {プロジェクトディレクトリ}」で作成したプロジェクトディレクトリ下に
+各Excel ファイルがコピーされますので、本ファイルを参照して順に実行します。
+
+* 仮想マシン(VM)
 
    - vCenter/OS
 
@@ -14,7 +19,7 @@ Getconfig リファレンス
       + HP IAサーバ : template/HP_iLO/iLOチェックシート.xlsx
       + Cisco UCS : template/Cisco_UCS/UCSチェックシート.xlsx
       + 富士通 IAサーバ : template/FJ_Primergy/PRIMERGYチェックシート.xlsx
-
+      
    - OS
 
       + サーバチェックシート.xlsx
@@ -59,9 +64,12 @@ Getconfig リファレンス
 
       + template/Zabbix/Zabbix監視設定チェックシート.xlsx
 
-   - Zabbixサーバ設定
+.. note::
 
-      + template/Zabbix/ZabbixServer監視設定チェックシート.xlsx
+   * オンプレ IA サーバ、オンプレ SPARC サーバ、ESXi サーバの場合、HWとOSで
+     異なるインベントリ収集テンプレートを実行しますが、
+     その際の注意点としてシート「検査対象」の「対象サーバ」列の入力は、
+     HW, OS ともに同一名にしてください。
 
 .. template/Oracle/Oracle設定チェックシート.xlsx
 .. template/Router/RTXチェックシート.xlsx
