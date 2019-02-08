@@ -62,9 +62,12 @@ class ZabbixSpec extends InfraTestSpec {
         this.zabbix_ip       = os_account['server']
         this.zabbix_user     = os_account['user']
         this.zabbix_password = os_account['password']
-        this.target_server   = test_platform.test_target.name
         this.timeout         = test_platform.timeout
 
+        this.target_server = test_platform?.test_target?.remote_alias ?: ''
+        if (this.target_server == '') {
+            this.target_server = test_platform?.test_target?.name
+        }
         // println "ZABBIX_IP : ${this.zabbix_ip}"
         // println "ZABBIX_USER : ${this.zabbix_user}"
         // println "ZABBIX_PASSWORD : ${this.zabbix_password}"

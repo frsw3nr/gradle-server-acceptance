@@ -39,11 +39,7 @@ test.VMHost.dry_run   = false
 
 // ESXiÚ‘±î•ñ
 
-//account.VMHost.Test.vCenter  = '192.168.10.100'
-//account.VMHost.Test.user     = 'test_user'
-//account.VMHost.Test.password = 'P@ssword'
-
-account.VMHost.Test.vCenter  = '10.216.2.99'
-account.VMHost.Test.user     = 'kopt@vsphere.local'
-account.VMHost.Test.password = 'Operation24!'
+account.VMHost.Test.vCenter  = '192.168.10.100'
+account.VMHost.Test.user     = 'test_user'
+account.VMHost.Test.password = 'P@ssword'
 
