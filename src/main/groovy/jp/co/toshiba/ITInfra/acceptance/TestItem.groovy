@@ -252,6 +252,8 @@ class TestItem {
         if (!this.verify_test)
             return
         def test_value = this.target_info(item_name)
+        if (!test_value)
+            return
         def test_value_double = this.to_number(test_value)
         def value_double = this.to_number(value)
         if (value_double == null) {
@@ -273,6 +275,8 @@ class TestItem {
         if (!this.verify_test)
             return
         def test_value = this.target_info(item_name)
+        if (!test_value)
+            return
         def test_value_double = this.to_number(test_value)
         def value_double = this.to_number(value)
         if (value_double == null) {
