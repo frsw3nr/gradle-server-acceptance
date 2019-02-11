@@ -26,11 +26,18 @@ class DeviceInventoryController < ApplicationController
 # binding.pry
     @rows = DeviceResult.where(
                 node_id: nodes.ids, metric_id: @metric_id
+            ).page(
+                params[:page]
             ).select(
                 :node_id, :metric_id, :seq
-            ).uniq.page(
-                params[:page]
-            )
+            ).uniq
+    # @rows = DeviceResult.where(
+    #             node_id: nodes.ids, metric_id: @metric_id
+    #         ).select(
+    #             :node_id, :metric_id, :seq
+    #         ).uniq.page(
+    #             params[:page]
+    #         )
 
     @tables = []
     @rows.each do |row|

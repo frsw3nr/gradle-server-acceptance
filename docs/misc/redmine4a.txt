@@ -1,0 +1,98 @@
+Redmine4 調査
+=============
+
+* 有効なフィーチャーは #306 Full Text Search of files。4.1 で対応予定。
+* 4.0移行環境でPlugInで内部エラー発生。
+
+リファレンス調査
+----------------
+
+https://www.slideshare.net/g_maeda/redmine-4041
+
+添付ファイル内のテキスト検索 #306
+https://www.farend.co.jp/blog/2018/10/redmine-4/
+
+
+アップグレード
+--------------
+
+* バックアップ
+mysqldump -u root -p redmine > redmine.dmp
+mv redmine redmine.bak
+
+* 本体
+cd ~
+wget https://www.redmine.org/releases/redmine-4.0.1.tar.gz
+tar xvf redmine-4.0.1.tar.gz
+ln -s redmine-4.0.1 redmine
+cp redmine.bak/config/database.yml redmine/config/database.yml
+
+cd redmine
+bundle install --path vendor/bundle
+bundle exec rake generate_secret_token
+RAILS_ENV=production bundle exec rake db:migrate
+sudo /etc/init.d/httpd restart
+
+* プラグイン
+cp -r ~/redmine.bak/plugins/redmine_getconfig ~/redmine/plugins
+bundle install
+RAILS_ENV=production bundle exec bin/rake redmine:plugins:migrate
+
+デバイスメニューでエラー
+NoMethodError (undefined method `page' for #<Array:0x007f3508a7f618>):
+plugins/redmine_getconfig/app/controllers/device_inventory_controller.rb:31:in `index'
+
+# binding.pry
+    @rows = DeviceResult.where(
+                node_id: nodes.ids, metric_id: @metric_id
+            ).select(
+                :node_id, :metric_id, :seq
+            ).uniq.page(
+                params[:page]
+            )
+
+http://ostrich:3000/inventory?node=ostrich
+
+DeviceResult.where(
+    node_id: nodes.ids, metric_id: @metric_id
+).select(
+    :node_id, :metric_id, :seq
+).uniq.page(
+    params[:page]
+)
+
+DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq()
+.page(0)
+
+arr=DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq()
+arr.page がない
+arr2=DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq)
+arr2.page がない
+arr3=DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id)
+arr3.page はある
+
+DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).page(0).select(:node_id, :metric_id, :seq).uniq()
+
+メソッドの呼び出し順序の調整が必要。要調査
+
+戻し作業
+--------
+
+3.4最新の 3.4.8 に移行
+
+wget http://www.redmine.org/releases/redmine-3.4.8.tar.gz
+tar xvf redmine-3.4.8.tar.gz
+mv redmine redmine.bak
+ln -s redmine-3.4.8 redmine
+cp redmine.bak/config/database.yml redmine/config/database.yml
+cd redmine
+bundle install --path vendor/bundle
+bundle exec rake generate_secret_token
+RAILS_ENV=production bundle exec rake db:migrate
+sudo /etc/init.d/httpd restart
+cp -r ~/redmine.bak/plugins/redmine_getconfig ~/redmine/plugins
+bundle install
+RAILS_ENV=production bundle exec bin/rake redmine:plugins:migrate
+sudo /etc/init.d/httpd restart
+
+  

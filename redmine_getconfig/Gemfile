@@ -1,6 +1,7 @@
 # gem 'ajax-datatables-rails', '0.1.2'
 # gem 'jquery-datatables-rails'
 gem "kaminari"
+# gem 'kaminari', '~> 0.17.0'
 
 group :development do
   # 高機能コンソール
