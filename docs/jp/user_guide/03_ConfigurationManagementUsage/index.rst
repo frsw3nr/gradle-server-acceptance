@@ -10,3 +10,5 @@ Contents:
    02_InventoryDataAndTemplates
    03_ReferenceOfTemplate
    04_JobTicket
+   05_BaseTemplateCustomize
+   06_EditingEscalationRoute

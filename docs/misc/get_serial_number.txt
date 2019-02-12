@@ -1,0 +1,73 @@
+シリアル情報収集調査
+====================
+
+対象調査
+--------
+
+IAサーバ
+template/Cisco_UCS/config_ucs.groovy
+template/HP_iLO/config_ilo.groovy
+template/FJ_Primergy/config_primergy.groovy
+SPARCサーバ
+template/Solaris/config_xscf.groovy
+ストレージ
+template/Hitachi_VSP/config_vsp.groovy
+template/NetApp/config_netapp.groovy
+template/FJ_Eternus/config_eternus.groovy
+
+IAサーバ
+--------
+
+* Cisco UCS
+
+現テンプレートシナリオには該当項目なし
+以下コマンドで採取できそう
+
+show chassis detail
+Chassis:
+    Power: on
+    Serial Number: QCI140205ZG
+    Product Name: UCS C210 M2
+    PID : R210-2121605W
+    UUID: FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF
+    Locator LED: off
+    Description: 
+    Power Restore Policy: power-off
+    Power Delay Type: fixed
+    Power Delay Value(sec): 0
+
+* HP iLO
+
+現テンプレートシナリオには該当項目なし
+
+GET /redfish/v1/Chassis/?$expand=. (a collection with $expand abbreviated for clarity)
+
+{
+  "@odata.context": "/redfish/v1/$metadata#Chassis",
+  "@odata.etag": "W/\"C2E4D1CC\"",
+  "@odata.id": "/redfish/v1/Chassis/",
+  "@odata.type": "#ChassisCollection.ChassisCollection",
+  "Description": "Computer System Chassis View",
+  "MemberType": "#Chassis.v1_2_0.Chassis",
+  "Members": [
+    {
+      "@odata.context": "/redfish/v1/$metadata#Chassis/Members/$entity",
+      "@odata.etag": "W/\"5D370742\"",
+      "@odata.id": "/redfish/v1/Chassis/1/",
+      "@odata.type": "#Chassis.v1_2_0.Chassis",
+      "ChassisType": "RackMount",
+      "Id": "1",
+      "Manufacturer": "HPE",
+      "Model": "ProLiant ML350 Gen10",
+      "Name": "Computer System Chassis",
+      "SKU": "SKU NUMBER",
+      "SerialNumber": "SERIAL NUMBER",
+      "Status": {
+        "Health": "OK",
+        "State": "Starting"
+      }
+    }
+  ],
+  "Members@odata.count": 1,
+  "Name": "Computer System Chassis"
+}
