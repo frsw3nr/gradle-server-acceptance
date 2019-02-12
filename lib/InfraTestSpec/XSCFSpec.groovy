@@ -201,8 +201,15 @@ class XSCFSpec extends InfraTestSpec {
         // MBU Status:Normal; Ver:2351h; Serial:TZ1422A00U  ;
         def node_status = []
         def csvs = []
+        def results = [:]
         lines.eachLine {
             // println it
+            ( it =~ /^(\w.+?);\s*$/).each {m0, m1 ->
+                results['hardconf.system'] = m1
+            }
+            ( it =~ /^\s+\+\sSerial:(.+?);\s*/).each {m0, m1 ->
+                results['hardconf.serial'] = m1
+            }
             ( it =~ /(.+?)Status:(.+)/).each {m0, node, column_str->
                 node = trim(node)
                 def columns = column_str.split(/;/)
@@ -221,7 +228,8 @@ class XSCFSpec extends InfraTestSpec {
         if (node_status.size() > 0) {
             result = "${node_status}"
         }
-        test_item.results(result)
+        results['hardconf'] = result
+        test_item.results(results)
     }
 
     def cpu_activate(test_item) {

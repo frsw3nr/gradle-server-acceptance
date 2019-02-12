@@ -71,3 +71,57 @@ GET /redfish/v1/Chassis/?$expand=. (a collection with $expand abbreviated for cl
   "Members@odata.count": 1,
   "Name": "Computer System Chassis"
 }
+
+* 富士通PRIMERGY
+
+* Redfish
+
+The following code fragment shows an example of a request that retrieves the serial number from a
+Redfish service:
+
+rawData = urllib.urlopen('https://192.168.1.135/redfish/v1/Systems/1')
+jsonData = json.loads(rawData)
+print ('SN: ' + jsonData['SerialNumber'])
+
+example:
+SN: 1A87CA442K
+
+SPARCサーバ
+-----------
+
+showhardconfコマンドにシリアルあり
+
+showhardconf
+SPARC M10-1; 
+    + Serial:TZ11425021; Operator_Panel_Switch:Locked; 
+    + System_Power:On; System_Phase:Cabinet Power On;
+
+ストレージ
+----------
+
+* 富士通ETERNUS
+
+CLI> show enclosure-status
+Enclosure View
+ Storage System Name               [DX60S3#2]
+ Model Upgrade Status              [Not Upgraded]
+ Model Name                        [ET063A]
+ Serial Number                     [4601451439]
+ Device Identification Number      [281A22]
+ Status                            [Normal]
+
+検査レポートにアイテム追加
+
+enclosure.StorageSystemName : 機種
+enclosure.ModelName : 型番
+enclosure.SerialNumber : S/N
+
+* 日立VSP
+
+AllConf.csv 
+
+<<DKC Information>>
+Storage System Type,Serial Number#,IP Address,Subnet Mask,Number of CUs,Number of DKBs,Configuration Type,Model,Unified Mode
+VSP G400/G600 and VSP F400/F600,411702,126.255.0.15,255.255.0.0,16,2,H,M,Off
+
+

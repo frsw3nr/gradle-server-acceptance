@@ -157,6 +157,7 @@ class HitachiVSPSpec extends WindowsSpecBase {
             }
         }
         println("■IP:${networks}")
+        println("CSV:$csv")
         test_item.results(['DkcInfo':infos.toString(), 
                           'Type':infos['Type'], 'Serial':infos['Serial'],
                           'networks':networks.toString(), 'net_subnet':net_subnet.toString()])
