@@ -231,6 +231,25 @@ class CiscoUCS extends InfraTestSpec {
         test_item.results(infos)
     }
 
+    def chassis(session, test_item) {
+        def lines = exec('chassis') {
+            def commands = [
+                'top',
+                'show chassis detail',
+            ]
+            run_ssh_command(session, commands, 'chassis', true)
+        }
+        def infos = [:]
+        def yaml_text = this.extract_yaml(lines)
+        Yaml yaml_manager = new Yaml()
+        Map yaml = (Map) yaml_manager.load(yaml_text)
+        infos['chassis']             = yaml?.'powerstate' ?: 'unkown'
+        infos['chassis.productname'] = yaml?.'productname' ?: 'unkown'
+        infos['chassis.productid']   = yaml?.'productid' ?: 'unkown'
+        infos['chassis.sn']          = yaml?.'sn' ?: 'unkown'
+        test_item.results(infos)
+    }
+
     def cimc(session, test_item) {
         def lines = exec('cimc') {
             def commands = [

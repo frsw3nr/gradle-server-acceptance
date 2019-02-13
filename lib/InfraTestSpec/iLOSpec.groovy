@@ -51,6 +51,48 @@ class iLOSpecBase extends InfraTestSpec {
         return value.replaceAll(/\A[\s　]+/,"").replaceAll(/[\s　]+\z/,"")
     }
 
+    def FindHPiLO(TestItem test_item) {
+        def command = '''
+            |Find-HPiLO "\$ip" -Full `
+            | | FL'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('FindHPiLO') {
+                new File("${local_dir}/FindHPiLO")
+            }
+
+            def row = 0
+            def results = [:]
+            def infos = [:].withDefault{[:]}
+            lines.eachLine {
+                if (it.size() == 0) {
+                    row ++
+                }
+                (it =~/^(.+?)\s+:\s+(.+?)$/).each { m0, m1, m2 ->
+                    results[m1] = m2
+                    infos[row][m1] = m2
+                }
+            }
+            def headers = []
+            def csv = []
+            infos.each { index, info ->
+                def item_names  = []
+                def item_values = []
+                info.each { key, value ->
+                    item_names  << key
+                    item_values << value
+                }
+                csv << item_values
+                if (headers.size() == 0) {
+                    headers = item_names
+                }
+            }
+            results['FindHPiLO'] = (csv.size() > 0) ? 'Fw Info found' : 'No data'
+            test_item.devices(csv, headers)
+            test_item.results(results)
+        }
+    }
+
     def FwVersion(TestItem test_item) {
         def command = '''
             |\$xml = @"

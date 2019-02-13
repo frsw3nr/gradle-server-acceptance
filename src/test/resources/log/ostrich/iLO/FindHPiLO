@@ -1,0 +1,30 @@
+﻿
+
+IP                : 192.168.1.148
+HOSTNAME          : 
+HSI_SBSN          : CN3134540D
+HSI_SPN           : ProLiant DL360 Gen10
+HSI_UUID          : P06454CN3134540D
+HSI_SP            : 1
+HSI_cUUID         : 34363050-3435-4E43-3738-333130343044
+HSI_VIRTUAL_STATE : Inactive
+HSI_VIRTUAL_VID   : {@{BSN=; cUUID=}}
+HSI_PRODUCTID     :  P06454-291
+HSI_NICS          : 
+MP_ST             : 1
+MP_PN             : Integrated Lights-Out 5 (iLO 5)
+MP_FWRI           : 1.35
+MP_CID            : 0x3a8b2e07c1a6bfeb
+MP_BBLK           : 
+MP_HWRI           : ASIC: 21
+MP_SN             : ILOCN3134540D
+MP_UUID           : ILOP06454CN3134540D
+MP_IPM            : 1
+MP_SSO            : 0
+MP_PWRM           : 1.0.4
+MP_ERS            : 0
+MP_EALERT         : 1
+HEALTH_STATUS     : 2
+
+
+

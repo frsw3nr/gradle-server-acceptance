@@ -72,6 +72,26 @@ GET /redfish/v1/Chassis/?$expand=. (a collection with $expand abbreviated for cl
   "Name": "Computer System Chassis"
 }
 
+overview Ç…
+
+product_name: "ProLiant DL360 Gen10" : ã@éÌ
+serial_num: "" : S/N
+product_id: "P06454-291" : å^î‘
+
+Product name, model or version, and serial number
+website:
+http://www.hpe.com/support/hpesc
+
+Find-HPiLO 192.168.1.1 -Full
+
+HSI_SBSN          : XXXXXXXXXX  ÅFÉVÉäÉAÉã
+HSI_SPN           : ProLiant DL360 Gen10  ÅFã@éÌ
+HSI_PRODUCTID     :  P06454-291  ÅFå^î‘
+
+FindHPiLO.HSI_SBSN
+FindHPiLO.HSI_SPN
+FindHPiLO.HSI_PRODUCTID
+
 * ïxémí PRIMERGY
 
 * Redfish

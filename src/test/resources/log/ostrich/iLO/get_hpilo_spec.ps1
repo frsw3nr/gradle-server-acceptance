@@ -24,6 +24,11 @@ Invoke-HPiLORIBCLCommand -Server "$ip" -Credential $cred `
     -RIBCLCommand $xml `
     -DisableCertificateAuthentication -OutputType "ribcl" `
 | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "FindHPiLO"
+    
+Find-HPiLO "$ip" -Full `
+ | FL `
+| Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "BootMode"
     
 Get-HPiLOCurrentBootMode -Server "$ip" -Credential $cred -DisableCertificateAuthentication `
