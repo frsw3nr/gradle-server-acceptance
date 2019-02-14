@@ -30,6 +30,7 @@ class vCenterSpecBase extends InfraTestSpec {
         // vcenter_user     = remote_account['user']
         // vcenter_password = remote_account['password']
         // vm               = test_server.remote_alias
+        def test_target = test_platform?.test_target
         def remote_account = test_platform.os_account
         vcenter_ip       = remote_account?.server
         vcenter_user     = remote_account?.user

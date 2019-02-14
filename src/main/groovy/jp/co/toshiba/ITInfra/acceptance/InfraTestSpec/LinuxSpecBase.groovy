@@ -29,10 +29,13 @@ class LinuxSpecBase extends InfraTestSpec {
     def init() {
         super.init()
 
+        def test_target = test_platform?.test_target
+
         this.ip           = test_platform.test_target.ip ?: 'unkown'
         def os_account    = test_platform.os_account
         this.os_user      = os_account['user'] ?: 'unkown'
-        this.os_password  = os_account['password'] ?: 'unkown'
+        // this.os_password  = os_account['password'] ?: 'unkown'
+        this.os_password = test_target.specific_password ?: os_account['password'] ?: 'unkown'
         this.work_dir     = os_account['work_dir'] ?: '/tmp'
         this.timeout      = test_platform.timeout
     }

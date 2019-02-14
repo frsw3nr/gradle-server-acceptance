@@ -137,7 +137,7 @@ class CiscoUCS extends InfraTestSpec {
             expect.close()
             return result
         } catch (Exception e) {
-            log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
+            log.error "[SSH Test] Command error '$commands' in ${this.server_name} faild, skip.\n" + e
         }
     }
 
