@@ -12,3 +12,5 @@ Contents:
    04_JobTicket
    05_BaseTemplateCustomize
    06_EditingEscalationRoute
+   07_RegistRedmine
+
