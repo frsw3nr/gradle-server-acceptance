@@ -62,3 +62,4 @@ haproxy:x:188:
 someuser:x:503:
 jenkins:x:493:
 tomcat:x:91:
+docker:x:492:

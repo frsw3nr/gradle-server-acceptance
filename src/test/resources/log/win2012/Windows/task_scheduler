@@ -1,72 +1,64 @@
 ﻿
 
-LastRunTime        : 2018/06/25 7:12:12
+LastRunTime        : 2019/02/15 6:14:14
 LastTaskResult     : 0
-NextRunTime        : 2018/06/25 8:12:12
-NumberOfMissedRuns : 0
-TaskName           : GoogleUpdateTaskMachineUA
-TaskPath           : \
-PSComputerName     : 
-
-LastRunTime        : 2018/06/25 4:12:12
-LastTaskResult     : 0
-NextRunTime        : 2018/06/26 4:12:12
+NextRunTime        : 2019/02/16 4:12:12
 NumberOfMissedRuns : 0
 TaskName           : GoogleUpdateTaskMachineCore
 TaskPath           : \
 PSComputerName     : 
 
-LastRunTime        : 2018/06/24 13:00:00
+LastRunTime        : 2019/02/15 6:20:20
 LastTaskResult     : 2147488001
-NextRunTime        : 2018/06/25 8:00:00
+NextRunTime        : 2019/02/15 11:00:00
 NumberOfMissedRuns : 0
 TaskName           : Consolidator
 TaskPath           : \Microsoft\Windows\Customer Experience Improvement Program\
 PSComputerName     : 
 
-LastRunTime        : 2018/06/25 4:36:36
+LastRunTime        : 2019/02/15 6:20:20
 LastTaskResult     : 2147946720
-NextRunTime        : 2018/06/26 4:40:40
+NextRunTime        : 2019/02/16 5:23:23
 NumberOfMissedRuns : 0
 TaskName           : ServerCeipAssistant
 TaskPath           : \Microsoft\Windows\Customer Experience Improvement Program\Server\
 PSComputerName     : 
 
-LastRunTime        : 2018/06/13 4:29:29
+LastRunTime        : 2019/02/15 6:20:20
 LastTaskResult     : 0
-NextRunTime        : 2018/07/08 10:06:06
+NextRunTime        : 2019/02/18 5:18:18
 NumberOfMissedRuns : 0
 TaskName           : Data Integrity Scan
 TaskPath           : \Microsoft\Windows\Data Integrity Scan\
 PSComputerName     : 
 
-LastRunTime        : 2018/05/31 8:07:07
+LastRunTime        : 2018/09/04 8:05:05
 LastTaskResult     : 0
-NextRunTime        : 2018/06/26 7:38:38
+NextRunTime        : 2019/02/16 6:15:15
 NumberOfMissedRuns : 0
 TaskName           : SvcRestartTask
 TaskPath           : \Microsoft\Windows\SoftwareProtectionPlatform\
 PSComputerName     : 
 
-LastRunTime        : 2018/06/25 1:00:00
+LastRunTime        : 2019/02/15 6:20:20
 LastTaskResult     : 0
-NextRunTime        : 2018/06/26 1:00:00
+NextRunTime        : 2019/02/16 1:00:00
 NumberOfMissedRuns : 0
 TaskName           : Maintenance Configurator
 TaskPath           : \Microsoft\Windows\TaskScheduler\
 PSComputerName     : 
 
-LastRunTime        : 2018/06/25 3:19:19
+LastRunTime        : 2018/09/15 5:48:48
 LastTaskResult     : 0
-NextRunTime        : 2018/06/26 4:36:36
-NumberOfMissedRuns : 0
+NextRunTime        : 2019/02/16 5:59:59
+NumberOfMissedRuns : 153
 TaskName           : Regular Maintenance
 TaskPath           : \Microsoft\Windows\TaskScheduler\
 PSComputerName     : 
 
-LastRunTime        : 2018/06/24 8:11:11
+LastRunTime        : 2018/09/15 8:11:11
 LastTaskResult     : 0
-NextRunTime        : 2018/06/25 8:11:11
+NextRunTime        : 2019/02/16 6:11:11
 NumberOfMissedRuns : 0
 TaskName           : Scheduled Start
 TaskPath           : \Microsoft\Windows\WindowsUpdate\

@@ -7,7 +7,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Domain, Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : WS-Management による Windows リモート管理のための受信規則です。[TCP 5985]
 ElementName             : @FirewallAPI.dll,-30253
@@ -52,7 +52,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Public
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : WS-Management による Windows リモート管理のための受信規則です。[TCP 5985]
 ElementName             : @FirewallAPI.dll,-30253
@@ -97,7 +97,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 到達不可能な宛先のエラー メッセージは、パケットが通過するノードで、輻輳以外の理由でパケットを転送できないときに送信されます。
 ElementName             : @FirewallAPI.dll,-25110
@@ -142,7 +142,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 「パケットが大きすぎます」というエラー メッセージは、パケットがノードを通過するとき、次のリンクに対してパケットが大きすぎるために転送できない場合に任意のノードから送信されます。
 ElementName             : @FirewallAPI.dll,-25001
@@ -187,7 +187,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 時間超過のエラー メッセージは、パケットが通過するノードで、ホップ制限値がパスのいずれかの時点で 0 になるまで減少すると、生成されます。
 ElementName             : @FirewallAPI.dll,-25113
@@ -232,7 +232,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : パラメーターの問題のエラー メッセージは、パケットが適切に生成されなかったとき、ノードから送信されます。
 ElementName             : @FirewallAPI.dll,-25116
@@ -277,7 +277,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 近隣探索要請は、別のオンリンク IPv6 ノードのリンクレイヤー アドレスを探索するためにノードから送信されます。
 ElementName             : @FirewallAPI.dll,-25019
@@ -322,7 +322,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 近隣探索アドバタイズのメッセージは、他のノードにリンクレイヤー アドレスの変更を通知するために、または近隣探索要請の応答としてノードから送信されます。
 ElementName             : @FirewallAPI.dll,-25026
@@ -367,7 +367,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : ルーター アドバタイズ メッセージは、ステートレス自動構成を提供するためにルーターから他のノードに送信されます。
 ElementName             : @FirewallAPI.dll,-25012
@@ -412,7 +412,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : ルーター要請メッセージは、ステートレス自動構成を提供するルーターを検索するノードから送信されます。
 ElementName             : @FirewallAPI.dll,-25009
@@ -457,7 +457,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : IPv6 マルチキャスト対応ルーターでは、マルチキャスト リスナー クエリのメッセージを使用して、リンクでマルチキャスト グループ メンバーシップを検索します。
 ElementName             : @FirewallAPI.dll,-25061
@@ -502,7 +502,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : マルチキャスト リスナー レポートのメッセージは、特定のマルチキャスト アドレスでのマルチキャスト トラフィックの受信、またはマルチキャスト リスナー クエリに対する応答のいずれか求める
                           情報をすぐに報告するため、リスニング ノードで使用されます。
@@ -548,7 +548,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : マルチキャスト リスナー レポート v2 のメッセージは、特定のマルチキャスト アドレスでのマルチキャスト トラフィックの受信、またはマルチキャスト リスナー クエリに対する応答のいずれ
                           か求める情報をすぐに報告するため、リスニング ノードで使用されます。
@@ -594,7 +594,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : マルチキャスト リスナー完了のメッセージは、サブネット上の特定のマルチキャスト アドレスにメンバーがいないことをローカル ルーターに通知します。
 ElementName             : @FirewallAPI.dll,-25082
@@ -639,7 +639,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 到達不可能な宛先 - 断片化が必要というエラー メッセージは、パケットが通過するノードで、断片化が必要であるのに "don't fragment bit" が設定されているために転送でき
                           ない場合に送信されます。
@@ -685,7 +685,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : ノードで IGMP メッセージが送受信され、マルチキャストキャスト グループの作成、参加、離脱が行われます。
 ElementName             : @FirewallAPI.dll,-25376
@@ -730,7 +730,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : ステートフルな自動構成のための DHCP (動的ホスト構成プロトコル) メッセージを許可します。
 ElementName             : @FirewallAPI.dll,-25301
@@ -775,7 +775,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : DHCPV6 (IPv6 用動的ホスト構成プロトコル) メッセージをステートフルおよびステートレス構成に対して許可します。
 ElementName             : @FirewallAPI.dll,-25304
@@ -820,7 +820,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : Teredo エッジ トラバーサルを許可する受信 UDP 規則です。Teredo エッジ トラバーサルは、IPv6/IPv4 ホストが IPv4 ネットワーク アドレス変換器の後ろにある
                           場合に、ユニキャスト IPv6 トラフィックにアドレスの割り当てと自動トンネルを提供するテクノロジです。
@@ -866,7 +866,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : IPHTTPS トンネリング テクノロジを許可することによって、HTTP プロキシやファイアウォールを越える接続を提供する受信 TCP 規則です。
 ElementName             : @FirewallAPI.dll,-25426
@@ -911,7 +911,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : ISATAP (Intra-Site Automatic Tunnel Addressing Protocol) および 6to4 トンネリング サービスに対して IPv6 トラフィック
                           を許可するために必要な受信規則です。
@@ -957,7 +957,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 機能探索を介してデバイスを検出するためのネットワーク探索の受信規則です。[UDP 3702]
 ElementName             : @FirewallAPI.dll,-32809
@@ -1002,7 +1002,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : リンク ローカル マルチキャスト名前解決を許可するためのネットワーク探索の受信規則です。[UDP 5355]
 ElementName             : @FirewallAPI.dll,-32801
@@ -1047,7 +1047,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 機能探索を介してデバイスを検出するためのネットワーク探索の受信規則です。[UDP 3702]
 ElementName             : @FirewallAPI.dll,-32785
@@ -1092,7 +1092,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : Simple Service Discovery Protocol の使用を許可するためのネットワーク探索の受信規則です。[UDP 1900]
 ElementName             : @FirewallAPI.dll,-32753
@@ -1137,7 +1137,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 機能探索による WSDAPI イベントを許可するためのネットワーク探索の受信規則です。 [TCP 5357]
 ElementName             : @FirewallAPI.dll,-32817
@@ -1182,7 +1182,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 機能探索を介してセキュリティで保護された WSDAPI イベントを許可するためのネットワーク探索の受信規則です。 [TCP 5358]
 ElementName             : @FirewallAPI.dll,-32813
@@ -1227,7 +1227,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : NetBios データグラムの送受信を許可するためのネットワーク探索の受信規則です。[UDP 138]
 ElementName             : @FirewallAPI.dll,-32777
@@ -1272,7 +1272,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : NetBIOS 名前解決を許可するためのネットワーク探索の受信規則です。[UDP 137]
 ElementName             : @FirewallAPI.dll,-32769
@@ -1317,7 +1317,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : ユニバーサル プラグ アンド プレイの使用を許可するためのネットワーク探索の受信規則です。[TCP 2869]
 ElementName             : @FirewallAPI.dll,-32761
@@ -1362,7 +1362,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Domain, Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 既存のリモート デスクトップ セッションのシャドウ処理を許可するリモート デスクトップ サービスの受信規則です。(TCP 受信)
 ElementName             : @FirewallAPI.dll,-28778
@@ -1407,7 +1407,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Domain, Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : RDP トラフィックを許可するためのリモート デスクトップ サービスの受信規則です。[UDP 3389]
 ElementName             : @FirewallAPI.dll,-28776
@@ -1452,7 +1452,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Domain, Private
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : RDP トラフィックを許可するためのリモート デスクトップ サービスの受信規則です。[TCP 3389]
 ElementName             : @FirewallAPI.dll,-28775
@@ -1497,7 +1497,7 @@ Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : 
 ElementName             : Jenkins
@@ -1535,25 +1535,25 @@ RuleGroup               :
 Status                  : 規則は、ストアから正常に解析されました。
 StatusCode              : 65536
 
-Name                    : {96D8F135-3BB0-4695-A9E8-EF2BDFF344B9}
-ID                      : {96D8F135-3BB0-4695-A9E8-EF2BDFF344B9}
+Name                    : {BC235D0E-877E-4F5F-8D6E-53B37D41BC42}
+ID                      : {BC235D0E-877E-4F5F-8D6E-53B37D41BC42}
 Group                   : Google Chrome
 Platform                : {}
 LSM                     : False
 Profile                 : Any
 PSComputerName          : 192.168.0.24
-RunspaceId              : 1fe8eb40-d038-47f6-8e20-ede3fa69abc2
+RunspaceId              : bb85c62e-690f-49e9-95a2-6cea6c978073
 Caption                 : 
 Description             : mDNS トラフィックを許可する Google Chrome のインバウンド ルールです。
 ElementName             : Google Chrome（mDNS インバウンド）
-InstanceID              : {96D8F135-3BB0-4695-A9E8-EF2BDFF344B9}
+InstanceID              : {BC235D0E-877E-4F5F-8D6E-53B37D41BC42}
 CommonName              : 
 PolicyKeywords          : 
 Enabled                 : 1
 PolicyDecisionStrategy  : 2
 PolicyRoles             : 
 ConditionListType       : 3
-CreationClassName       : MSFT|FW|FirewallRule|{96D8F135-3BB0-4695-A9E8-EF2BDFF344B9}
+CreationClassName       : MSFT|FW|FirewallRule|{BC235D0E-877E-4F5F-8D6E-53B37D41BC42}
 ExecutionStrategy       : 2
 Mandatory               : 
 PolicyRuleName          : 

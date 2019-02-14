@@ -2,12 +2,12 @@
 
 Name                : AeLookupSvc
 DisplayName         : Application Experience
-Status              : Stopped
+Status              : Running
 DependentServices   : {}
 ServicesDependedOn  : {}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : False
+CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : ALG
@@ -142,12 +142,12 @@ ServiceType         : Win32ShareProcess
 
 Name                : COMSysApp
 DisplayName         : COM+ System Application
-Status              : Running
+Status              : Stopped
 DependentServices   : {}
 ServicesDependedOn  : {EventSystem, SENS, RpcSs}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : True
+CanStop             : False
 ServiceType         : Win32OwnProcess
 
 Name                : CryptSvc
@@ -602,12 +602,12 @@ ServiceType         : Win32ShareProcess
 
 Name                : Netman
 DisplayName         : Network Connections
-Status              : Running
+Status              : Stopped
 DependentServices   : {SharedAccess}
 ServicesDependedOn  : {RpcSs, nsi}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : True
+CanStop             : False
 ServiceType         : Win32ShareProcess
 
 Name                : netprofm
@@ -752,12 +752,12 @@ ServiceType         : Win32ShareProcess
 
 Name                : RemoteRegistry
 DisplayName         : Remote Registry
-Status              : Stopped
+Status              : Running
 DependentServices   : {}
 ServicesDependedOn  : {RPCSS}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : False
+CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : RpcEptMapper
@@ -1372,12 +1372,12 @@ ServiceType         : Win32OwnProcess
 
 Name                : WinHttpAutoProxySvc
 DisplayName         : WinHTTP Web Proxy Auto-Discovery Service
-Status              : Stopped
+Status              : Running
 DependentServices   : {NcaSvc, iphlpsvc}
 ServicesDependedOn  : {Dhcp}
 CanPauseAndContinue : False
 CanShutdown         : False
-CanStop             : False
+CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : Winmgmt
@@ -1442,12 +1442,12 @@ ServiceType         : Win32ShareProcess
 
 Name                : wuauserv
 DisplayName         : Windows Update
-Status              : Stopped
+Status              : Running
 DependentServices   : {}
 ServicesDependedOn  : {rpcss}
 CanPauseAndContinue : False
-CanShutdown         : False
-CanStop             : False
+CanShutdown         : True
+CanStop             : True
 ServiceType         : Win32ShareProcess
 
 Name                : wudfsvc
@@ -1459,6 +1459,16 @@ CanPauseAndContinue : False
 CanShutdown         : False
 CanStop             : False
 ServiceType         : Win32ShareProcess
+
+Name                : Zabbix Agent
+DisplayName         : Zabbix Agent
+Status              : Running
+DependentServices   : {}
+ServicesDependedOn  : {}
+CanPauseAndContinue : False
+CanShutdown         : True
+CanStop             : True
+ServiceType         : Win32OwnProcess
 
 
 

@@ -558,7 +558,7 @@ Version : 13.0.14500.10
 
 Name    : Google Chrome
 Vendor  : Google, Inc.
-Version : 67.0.3396.87
+Version : 68.0.3440.106
 
 Name    : Microsoft Visual Studio 2015 Shell (Isolated)
 Vendor  : Microsoft Corporation
@@ -754,7 +754,7 @@ DisplayVersion : 11.3.6540.0
 
 DisplayName    : Google Chrome
 Publisher      : Google, Inc.
-DisplayVersion : 67.0.3396.87
+DisplayVersion : 68.0.3440.106
 
 DisplayName    : Active Directory Authentication Library for SQL Server
 Publisher      : Microsoft Corporation

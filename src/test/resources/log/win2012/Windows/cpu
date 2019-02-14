@@ -1,12 +1,11 @@
 ﻿
 
-Caption           : Intel64 Family 6 Model 60 Stepping 3
-DeviceID          : CPU0
-Manufacturer      : GenuineIntel
-MaxClockSpeed     : 3193
-Name              : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
-SocketDesignation : CPU socket #0
-PSComputerName    : 192.168.0.24
+DeviceID                  : CPU0
+Name                      : Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+MaxClockSpeed             : 3193
+SocketDesignation         : CPU socket #0
+NumberOfCores             : 1
+NumberOfLogicalProcessors : 1
 
 
 

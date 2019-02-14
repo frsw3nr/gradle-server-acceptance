@@ -9,3 +9,8 @@
     inet 192.168.10.4/24 brd 192.168.10.255 scope global secondary eth0:1
     inet6 fe80::20c:29ff:feca:44db/64 scope link 
        valid_lft forever preferred_lft forever
+3: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN 
+    link/ether ce:54:66:04:b1:f5 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.42.1/16 scope global docker0
+    inet6 fe80::cc54:66ff:fe04:b1f5/64 scope link 
+       valid_lft forever preferred_lft forever

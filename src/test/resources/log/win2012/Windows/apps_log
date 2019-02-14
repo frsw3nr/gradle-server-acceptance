@@ -1,43 +1,105 @@
 ﻿
 
-Index              : 1744
+Index              : 94018
 EntryType          : Error
 InstanceId         : 3221233670
 Message            : ライセンス認証 (slui.exe) が失敗しました。エラー コード:
-                     hr=0x8007007B
+                     hr=0xC004E028
                      コマンド ライン引数:
-                     RuleId=eeba1977-569e-4571-b639-7623d8bfecc0;Action=AutoAct
-                     ivate;AppId=55c92734-d682-4d71-983e-d6ec3f16059f;SkuId=b3c
-                     a044e-a358-4d68-9883-aaa2941aca99;NotificationInterval=144
-                     0;Trigger=NetworkAvailable
+                     RuleId=31e71c49-8da7-4a2f-ad92-45d98a1c79ba;Action=AutoActivate;AppId=55c92734-d682-4d71-983e-d6ec
+                     3f16059f;SkuId=4fc45a88-26b5-4cf9-9eef-769ee3f0a016;NotificationInterval=1440;Trigger=UserLogon;Se
+                     ssionId=1
 Category           : (0)
 CategoryNumber     : 0
-ReplacementStrings : {hr=0x8007007B, RuleId=eeba1977-569e-4571-b639-7623d8bfecc
-                     0;Action=AutoActivate;AppId=55c92734-d682-4d71-983e-d6ec3f
-                     16059f;SkuId=b3ca044e-a358-4d68-9883-aaa2941aca99;Notifica
-                     tionInterval=1440;Trigger=NetworkAvailable}
+ReplacementStrings : {hr=0xC004E028, RuleId=31e71c49-8da7-4a2f-ad92-45d98a1c79ba;Action=AutoActivate;AppId=55c92734-d68
+                     2-4d71-983e-d6ec3f16059f;SkuId=4fc45a88-26b5-4cf9-9eef-769ee3f0a016;NotificationInterval=1440;Trig
+                     ger=UserLogon;SessionId=1}
 Source             : Software Protection Platform Service
-TimeGenerated      : 2017/07/20 22:15:02
-TimeWritten        : 2017/07/20 22:15:02
+TimeGenerated      : 2019/02/15 6:14:21
+TimeWritten        : 2019/02/15 6:14:21
 UserName           : 
 
-Index              : 1664
+Index              : 93973
 EntryType          : Error
-InstanceId         : 3221233670
-Message            : ライセンス認証 (slui.exe) が失敗しました。エラー コード:
-                     hr=0x8007007B
-                     コマンド ライン引数:
-                     RuleId=eeba1977-569e-4571-b639-7623d8bfecc0;Action=AutoAct
-                     ivate;AppId=55c92734-d682-4d71-983e-d6ec3f16059f;SkuId=b3c
-                     a044e-a358-4d68-9883-aaa2941aca99;NotificationInterval=144
-                     0;Trigger=NetworkAvailable
+InstanceId         : 3221226480
+Message            : ソース 'Perflib' のイベント ID '-1073740816' の説明が見つかりません。必要なレジストリ情報またはメッセージを表示するメッセージ DLL ファイルがローカル コンピュータ
+                     ーに存在しない可能性があります。または、これらのデータへのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'WmiApRpl', 'C:\Windows\s
+                     ystem32\wbem\wmiaprpl.dll', '8'
 Category           : (0)
 CategoryNumber     : 0
-ReplacementStrings : {hr=0x8007007B, RuleId=eeba1977-569e-4571-b639-7623d8bfecc
-                     0;Action=AutoActivate;AppId=55c92734-d682-4d71-983e-d6ec3f
-                     16059f;SkuId=b3ca044e-a358-4d68-9883-aaa2941aca99;Notifica
-                     tionInterval=1440;Trigger=NetworkAvailable}
-Source             : Software Protection Platform Service
-TimeGenerated      : 2017/07/20 20:45:23
-TimeWritten        : 2017/07/20 20:45:23
+ReplacementStrings : {WmiApRpl, C:\Windows\system32\wbem\wmiaprpl.dll, 8}
+Source             : Perflib
+TimeGenerated      : 2019/02/15 6:14:05
+TimeWritten        : 2019/02/15 6:14:05
 UserName           : 
+
+Index              : 93968
+EntryType          : Error
+InstanceId         : 3221227476
+Message            : ソース 'PerfNet' のイベント ID '-1073739820' の説明が見つかりません。必要なレジストリ情報またはメッセージを表示するメッセージ DLL ファイルがローカル コンピュータ
+                     ーに存在しない可能性があります。または、これらのデータへのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {}
+Source             : PerfNet
+TimeGenerated      : 2019/02/15 6:14:04
+TimeWritten        : 2019/02/15 6:14:04
+UserName           : 
+
+Index              : 93967
+EntryType          : Error
+InstanceId         : 3221226480
+Message            : ソース 'Perflib' のイベント ID '-1073740816' の説明が見つかりません。必要なレジストリ情報またはメッセージを表示するメッセージ DLL ファイルがローカル コンピュータ
+                     ーに存在しない可能性があります。または、これらのデータへのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'BITS', 'C:\Windows\Syste
+                     m32\bitsperf.dll', '8'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {BITS, C:\Windows\System32\bitsperf.dll, 8}
+Source             : Perflib
+TimeGenerated      : 2019/02/15 6:14:04
+TimeWritten        : 2019/02/15 6:14:04
+UserName           : 
+
+Index              : 93882
+EntryType          : Error
+InstanceId         : 3221226480
+Message            : ソース 'Perflib' のイベント ID '-1073740816' の説明が見つかりません。必要なレジストリ情報またはメッセージを表示するメッセージ DLL ファイルがローカル コンピュータ
+                     ーに存在しない可能性があります。または、これらのデータへのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'WmiApRpl', 'C:\Windows\s
+                     ystem32\wbem\wmiaprpl.dll', '8'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {WmiApRpl, C:\Windows\system32\wbem\wmiaprpl.dll, 8}
+Source             : Perflib
+TimeGenerated      : 2019/02/15 6:12:49
+TimeWritten        : 2019/02/15 6:12:49
+UserName           : 
+
+Index              : 93879
+EntryType          : Error
+InstanceId         : 3221227476
+Message            : ソース 'PerfNet' のイベント ID '-1073739820' の説明が見つかりません。必要なレジストリ情報またはメッセージを表示するメッセージ DLL ファイルがローカル コンピュータ
+                     ーに存在しない可能性があります。または、これらのデータへのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {}
+Source             : PerfNet
+TimeGenerated      : 2019/02/15 6:12:49
+TimeWritten        : 2019/02/15 6:12:49
+UserName           : 
+
+Index              : 93878
+EntryType          : Error
+InstanceId         : 3221226480
+Message            : ソース 'Perflib' のイベント ID '-1073740816' の説明が見つかりません。必要なレジストリ情報またはメッセージを表示するメッセージ DLL ファイルがローカル コンピュータ
+                     ーに存在しない可能性があります。または、これらのデータへのアクセス許可がユーザーに与えられていない可能性があります。次の情報はイベントの一部です:'BITS', 'C:\Windows\Syste
+                     m32\bitsperf.dll', '8'
+Category           : (0)
+CategoryNumber     : 0
+ReplacementStrings : {BITS, C:\Windows\System32\bitsperf.dll, 8}
+Source             : Perflib
+TimeGenerated      : 2019/02/15 6:12:49
+TimeWritten        : 2019/02/15 6:12:49
+UserName           : 
+
+
+

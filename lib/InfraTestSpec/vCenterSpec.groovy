@@ -37,6 +37,7 @@ class vCenterSpec extends vCenterSpecBase {
                     res[m1] = m2
                 }
             }
+            res['vm'] = res['PowerState'] ?: 'unkown'
             test_item.results(res)
             // Verify 'NumCpu', 'MemoryGB' and 'VMHost' with intermediate match
             test_item.verify_number_equal('NumCpu', res['NumCpu'])
@@ -78,6 +79,7 @@ class vCenterSpec extends vCenterSpecBase {
             }
             test_item.devices(csv, headers)
             test_item.results(datastore_names.toString())
+            test_item.verify_text_search('datastore', "${datastore_names}")
         }
     }
 
