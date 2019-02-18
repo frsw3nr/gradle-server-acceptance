@@ -20,6 +20,13 @@ https://www.farend.co.jp/blog/2018/10/redmine-4/
 mysqldump -u root -p redmine > redmine.dmp
 mv redmine redmine.bak
 
+   create database redmine4 default character set utf8;
+   grant all on redmine4.* to redmine4@localhost identified by 'password';
+   grant all privileges on redmine.* to redmine4@"%" identified by 'password' with grant option;
+   flush privileges;
+
+mysql -u redmine4 -p redmine4 < redmine.dmp
+
 * 本体
 cd ~
 wget https://www.redmine.org/releases/redmine-4.0.1.tar.gz
@@ -95,4 +102,23 @@ bundle install
 RAILS_ENV=production bundle exec bin/rake redmine:plugins:migrate
 sudo /etc/init.d/httpd restart
 
-  
+モデル調査
+-----------
+
+プラットフォーム検索
+
+
+@naopontan さんもおっしゃっていますが、  group_users テーブルに対して検索を行う方が早いと思います。
+
+class UserGroup < ApplicationRecord # GroupUser が rails に取られてたので、これで代用
+  self.table_name = 'group_users'
+end
+
+NodeConfig
+  .select(:platform_id)
+  .where(node: [user_a, user_b, user_c])
+  .group(:group_id)
+  .having('count(user_id) = 3')
+
+
+
