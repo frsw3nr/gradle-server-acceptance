@@ -122,3 +122,43 @@ NodeConfig
 
 
 
+
+Node.joins(:tenant).where('tenants.tenant_name like ? and node_name like ?',wildcard(@tenant),wildcard(@node))
+
+Node.joins(:platforms, :tenant).where('tenants.tenant_name like ? and node_name like ?',wildcard(@tenant),wildcard(@node))
+===> []
+
+Node.joins(:platforms).where('node_name like ?',wildcard(@node))
+===>
+SELECT `nodes`.* FROM `nodes` INNER JOIN `node_configs` ON `node_configs`.`node_id` = `nodes`.`id` INNER JOIN `platforms` ON `platforms`.`id` = `node_configs`.`platform_id` WHERE (node_name like '%%%')
+
+select distinct nodes.id, metrics.platform_id from nodes, test_results, metrics where nodes.id = test_results.node_id and metrics.id = test_results.metric_id;
+===> 20行
+
+select nodes.id, metrics.platform_id, metrics.metric_name from nodes, test_results, metrics where nodes.id = test_results.node_id and metrics.id = test_results.metric_id;
+===> 599行
+
+select nodes.id, metrics.platform_id, metrics.metric_name from nodes, test_results, metrics where nodes.id = test_results.node_id and metrics.id = test_results.metric_id and nodes.node_name like '%ostrich%';
+===>
++----+-------------+---------------------+
+| id | platform_id | metric_name         |
++----+-------------+---------------------+
+|  3 |           3 | MemoryGB            |
+|  3 |           3 | NumCpu              |
+|  3 |           3 | PowerState          |
+
+Node.joins(:metrics).where('node_name like ?',wildcard('ostrich'))
+
+Metric.joins(:platform).where('platforms.platform_name like ? and device_flag = 1', wildcard('Linux'))
+===> Linux プラットフォームのデバイスリスト
+
+pp Metric.joins(:nodes).where('nodes.node_name like ? and device_flag = 1', wildcard('ostrich'))
+===> ostrich ノードのデバイスリスト
+===>
+SELECT `metrics`.* FROM `metrics` INNER JOIN `device_results` ON `device_results`.`metric_id` = `metrics`.`id` INNER JOIN `nodes` ON `nodes`.`id` = `device_results`.`node_id` WHERE (nodes.node_name like '%router%' and device_flag = 1)
+
+(device_resultsをジョイン)
+
+pp Metric.joins(:nodes).where('nodes.node_name like ? and device_flag = 1', wildcard('eternus')).first
+
+Employer.joins({:people => {:household => {:suburb => :city}}}) 
