@@ -33,6 +33,22 @@ bundle exec rake generate_secret_token
 RAILS_ENV=production bundle exec rake db:migrate
 sudo /etc/init.d/httpd restart
 
+* Image Magic のエラー
+
+CentOSのyumリポジトリは 6.7.2。6.8.9 以上が必要
+(RMagick3をインストールするには)
+
+ wget http://www.imagemagick.org/download/ImageMagick.tar.gz
+ mv ./ImageMagick.tar.gz /usr/local/src/
+ cd /usr/local/src/
+ tar xfz ./ImageMagick.tar.gz
+ cd ImageMagick-6.8.7-7
+ ./configure
+ make
+ make install
+ convert -list format | egrep "GIF|JPEG|PNG"
+
+
 * プラグイン
 cp -r ~/redmine.bak/plugins/redmine_getconfig ~/redmine/plugins
 bundle install
