@@ -162,3 +162,68 @@ SELECT `metrics`.* FROM `metrics` INNER JOIN `device_results` ON `device_results
 pp Metric.joins(:nodes).where('nodes.node_name like ? and device_flag = 1', wildcard('eternus')).first
 
 Employer.joins({:people => {:household => {:suburb => :city}}}) 
+
+ページネーション調査
+--------------------
+
+pp params[:page]
+
+@rows = DeviceResult.where(
+            node_id: nodes.ids, metric_id: @metric_id
+        ).select(
+            :node_id, :metric_id, :seq
+        ).uniq.page(
+            params[:page]
+        )
+
+@rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq
+---> 9件
+@rows2 = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq)
+---> 9件
+uniqの必要性
+
+select node_id,metric_id, seq, count(*) from device_results group by node_id,metric_id, seq;
+
+|      13 |       531 |    4 |        8 |
+|      13 |       531 |    5 |        8 |
++---------+-----------+------+----------+
+8166 rows in set (0.04 sec)
+
+select * from device_results where node_id = 13 and metric_id = 531 and seq = 5;
++--------+---------+-----------+------+----------------+-----------+
+| id     | node_id | metric_id | seq  | item_name      | value     |
++--------+---------+-----------+------+----------------+-----------+
+| 134748 |      13 |       531 |    5 | CopyProtection | Disable   |
+| 134742 |      13 |       531 |    5 | Name           | LUN_V#004 |
+| 134741 |      13 |       531 |    5 | No             | 4         |
+| 134746 |      13 |       531 |    5 | RAIDGrName     | LUN_R#004 |
+| 134745 |      13 |       531 |    5 | RAIDGrNo       | 4         |
+| 134747 |      13 |       531 |    5 | Size           | 1116160   |
+| 134743 |      13 |       531 |    5 | Status         | Available |
+| 134744 |      13 |       531 |    5 | Type           | Standard  |
++--------+---------+-----------+------+----------------+-----------+
+
+@rows3 = @rows2.page(0)
+
+@rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq
+Kaminari.paginate_array(@rows).page(params[:page])
+
+デバイスメニュー
+----------------
+
+@devices.map
+|d| [d.platform.platform_name + ':' + d.metric_name, d.id]
+
+Node.joins(:platforms).where('node_name like ?',wildcard(@node))
+
+has_many through 検索
+
+merge と include がある
+
+merge: 複数の条件を併合（＝マージ）するメソッドです。
+ざっくり言うと、直前に行った条件に対して、さらに絞り込みを行いたい時に使います。
+
+inlude 調査
+
+u = User.includes([:attendances, :events]).find(1)
+rows = Node.includes([:platforms]).where('node_name like ?',wildcard(@node))

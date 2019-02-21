@@ -23,14 +23,14 @@ class DeviceInventoryController < ApplicationController
     return head(:not_found) if nodes.ids.blank?
 
     @metric_id = params[:device][:id]
-# binding.pry
-    @rows = DeviceResult.where(
+    device_rows = DeviceResult.where(
                 node_id: nodes.ids, metric_id: @metric_id
-            ).page(
-                params[:page]
             ).select(
                 :node_id, :metric_id, :seq
             ).uniq
+    # モデルから検索した配列に対してページ分割
+    @rows = Kaminari.paginate_array(device_rows).page(params[:page])
+    # binding.pry
     # @rows = DeviceResult.where(
     #             node_id: nodes.ids, metric_id: @metric_id
     #         ).select(
