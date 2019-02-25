@@ -178,6 +178,7 @@ SELECT `metrics`.* FROM `metrics` INNER JOIN `device_results` ON `device_results
 
 Employer.joins({:people => {:household => {:suburb => :city}}}) 
 
+<<<<<<< HEAD
 pp Metric.joins({:nodes => {:}}).where('nodes.node_name like ? and device_flag = 1', wildcard('eternus')).count
 
 node = Node.find(2)
@@ -197,4 +198,139 @@ Node.find(2).test_results[0].metric
 ===> Platform と紐づく。ループさせれば Platform id のリストは作れる
 
 select platform__id from nodes, test_results,
+=======
+ページネーション調査
+--------------------
+
+pp params[:page]
+
+@rows = DeviceResult.where(
+            node_id: nodes.ids, metric_id: @metric_id
+        ).select(
+            :node_id, :metric_id, :seq
+        ).uniq.page(
+            params[:page]
+        )
+
+@rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq
+---> 9件
+@rows2 = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq)
+---> 9件
+uniqの必要性
+
+select node_id,metric_id, seq, count(*) from device_results group by node_id,metric_id, seq;
+
+|      13 |       531 |    4 |        8 |
+|      13 |       531 |    5 |        8 |
++---------+-----------+------+----------+
+8166 rows in set (0.04 sec)
+
+select * from device_results where node_id = 13 and metric_id = 531 and seq = 5;
++--------+---------+-----------+------+----------------+-----------+
+| id     | node_id | metric_id | seq  | item_name      | value     |
++--------+---------+-----------+------+----------------+-----------+
+| 134748 |      13 |       531 |    5 | CopyProtection | Disable   |
+| 134742 |      13 |       531 |    5 | Name           | LUN_V#004 |
+| 134741 |      13 |       531 |    5 | No             | 4         |
+| 134746 |      13 |       531 |    5 | RAIDGrName     | LUN_R#004 |
+| 134745 |      13 |       531 |    5 | RAIDGrNo       | 4         |
+| 134747 |      13 |       531 |    5 | Size           | 1116160   |
+| 134743 |      13 |       531 |    5 | Status         | Available |
+| 134744 |      13 |       531 |    5 | Type           | Standard  |
++--------+---------+-----------+------+----------------+-----------+
+
+@rows3 = @rows2.page(0)
+
+@rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq
+Kaminari.paginate_array(@rows).page(params[:page])
+
+デバイスメニュー
+----------------
+
+@devices.map
+|d| [d.platform.platform_name + ':' + d.metric_name, d.id]
+
+Node.joins(:platforms).where('node_name like ?',wildcard(@node))
+
+has_many through 検索
+
+merge と include がある
+
+merge: 複数の条件を併合（＝マージ）するメソッドです。
+ざっくり言うと、直前に行った条件に対して、さらに絞り込みを行いたい時に使います。
+
+inlude 調査
+
+u = User.includes([:attendances, :events]).find(1)
+rows = Node.includes([:platforms]).where('node_name like ?',wildcard(@node))
+
+モデル再調査
+------------
+
+./bin/rails console
+
+Site.all
+⇒プロジェクトIDリスト検索
+
+Node.joins(:tenant).find_by(id: 2)
+⇒最初はNodeのみ検索
+
+x=Node.includes(:tenant).find_by(id: 1)
+x.tenant
+⇒最初にNodes と includes内テーブルも検索
+
+多対多
+
+@nodes=Node.eager_load(:sites).find_by(id: 2)
+pp @nodes.sites[0]
+
+@metrics=Node.eager_load(:metrics).find_by(id: 2)
+pp @metrics.metrics
+pp @metrics.metrics.length
+⇒ 4件
+
+@metrics=Node.includes(:metrics).find_by(id: 2)
+pp @metrics.metrics.length
+⇒ 194件 全件検索される
+
+デバイス付き検査結果
+
+@devices=Node.find_by(node_name:'ostrich').device_results
+@devices[0].metric.metric_name
+@devices[0].metric.platform.platform_name
+
+Node.find_by(node_name:'ostrich').device_results.select(:metric_id,:metric_name).distinct
+⇒ 18件 メトリックID
+
+
+Metric.joins(:nodes).where('nodes.node_name like ?  and device_flag = 1', 'ostrich').distinct.lengthevice_flag = 1', 'ostrich').distinct
+⇒ 18件
+
+Metric.eager_load(nodes: :platforms).where('nodes.node_name like ?  and device_flag = 1', 'ostrich').distinct.lengthevice_flag = 1', 'ostrich').distinct
+
+Metric.eager_load(platforms: :nodes).where('nodes.id = ?', 2)
+
+http://gijutsumemo.hatenadiary.jp/entry/2018/07/08/133747
+
+Metric.find_by(id: 1)
+⇒Account
+Metric.eager_load(:platform).find_by(id: 1)
+⇒Platform が返る
+Metric.eager_load(:nodes).find_by(id: 1)
+
+Metric.eager_load(platforms:).find_by(id: 1)
+.where('nodes.id = ?', 2)
+
+
+ビュー調査
+----------
+
+デバイスメニューリスト
+
+@devices
+
+    @devices = Metric.joins(:platform).where(
+                'platforms.platform_name like ? and device_flag = 1', wildcard(@platform))
+
+>>>>>>> aafc7d39e3e2be151ec075516a4237215a88fa99
 
