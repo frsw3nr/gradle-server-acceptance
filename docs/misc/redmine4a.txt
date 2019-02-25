@@ -44,8 +44,9 @@ sudo /etc/init.d/httpd restart
 
 CentOSのyumリポジトリは 6.7.2。6.8.9 以上が必要
 (RMagick3をインストールするには)
+7系が最新だが互換性が問題でインストールできなかったため、6系の最新をインストール
 
- wget http://www.imagemagick.org/download/ImageMagick.tar.gz
+wge http://www.imagemagick.org/download/ImageMagick-6.9.10-28.tar.xz
  mv ./ImageMagick.tar.gz /usr/local/src/
  cd /usr/local/src/
  tar xfz ./ImageMagick.tar.gz
@@ -136,9 +137,6 @@ NodeConfig
   .group(:group_id)
   .having('count(user_id) = 3')
 
-
-
-
 Node.joins(:tenant).where('tenants.tenant_name like ? and node_name like ?',wildcard(@tenant),wildcard(@node))
 
 Node.joins(:platforms, :tenant).where('tenants.tenant_name like ? and node_name like ?',wildcard(@tenant),wildcard(@node))
@@ -175,6 +173,28 @@ SELECT `metrics`.* FROM `metrics` INNER JOIN `device_results` ON `device_results
 
 (device_resultsをジョイン)
 
-pp Metric.joins(:nodes).where('nodes.node_name like ? and device_flag = 1', wildcard('eternus')).first
+
+===> 2051件
 
 Employer.joins({:people => {:household => {:suburb => :city}}}) 
+
+pp Metric.joins({:nodes => {:}}).where('nodes.node_name like ? and device_flag = 1', wildcard('eternus')).count
+
+node = Node.find(2)
+test_result = node.test_results[0]
+
+test_result.metric.platform
+
+test_result.metric.platform.platform_name
+===> "Linux"
+
+Node.find(2).test_results.first
+
+node.metrics.merge(TestResult)
+
+
+Node.find(2).test_results[0].metric
+===> Platform と紐づく。ループさせれば Platform id のリストは作れる
+
+select platform__id from nodes, test_results,
+
