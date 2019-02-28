@@ -26,8 +26,9 @@ class DeviceInventoryController < ApplicationController
     device_rows = DeviceResult.where(
                 node_id: nodes.ids, metric_id: @metric_id
             ).select(
-                :node_id, :metric_id, :seq
+                'distinct node_id, metric_id, seq'
             ).uniq
+    # binding.pry
     # モデルから検索した配列に対してページ分割
     @rows = Kaminari.paginate_array(device_rows).page(params[:page])
     # binding.pry
@@ -62,8 +63,25 @@ class DeviceInventoryController < ApplicationController
     end
 
     platform_name = Metric.find(@metric_id).platform.platform_name
-    @devices = Metric.joins(:platform).where(
-                'device_flag = 1', platform_name)
+    # @devices = Metric.joins(:platform).where(
+    #             'device_flag = 1', platform_name)
+    sql = <<-EOS
+    select distinct
+        metric_id,
+        platform_name,
+        metric_name
+    from
+        device_results,
+        metrics,
+        nodes,
+        platforms
+    where
+        device_results.metric_id = metrics.id
+    and metrics.platform_id = platforms.id
+    and device_results.node_id = nodes.id
+    and nodes.node_name like '%s'
+    EOS
+    @devices  = ActiveRecord::Base.connection.select_all(sql % [wildcard(@node)])
   end
 
 end
