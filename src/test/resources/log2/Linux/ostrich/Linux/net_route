@@ -1,0 +1,4 @@
+192.168.10.0/24 dev eth0  proto kernel  scope link  src 192.168.10.1 
+169.254.0.0/16 dev eth0  scope link  metric 1002 
+172.17.0.0/16 dev docker0  proto kernel  scope link  src 172.17.42.1 
+default via 192.168.10.254 dev eth0 
