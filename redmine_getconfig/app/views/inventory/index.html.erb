@@ -8,7 +8,7 @@
   <%= hidden_field_tag 'node',   @node %>
   <%= t('device') %>
   <%= select :device, :id,
-             @devices.map{|d| [d.platform.platform_name + ':' + d.metric_name, d.id]},
+             @devices.map{|d| [d['platform_name'] + ':' + d['metric_name'], d['metric_id']]},
              { :include_blank => true },
              {:onchange => "this.form.submit()", :id => "project_quick_jump_box" }
   %>

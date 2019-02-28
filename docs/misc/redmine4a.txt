@@ -296,4 +296,84 @@ Metric.eager_load(platforms:).find_by(id: 1)
     @devices = Metric.joins(:platform).where(
                 'platforms.platform_name like ? and device_flag = 1', wildcard(@platform))
 
+プラットフォームと結合
+Metric.eager_load(:platform).find_by(id: 1)
+Metric.eager_load(:platform).where('platform_id = ? and device_flag = 1', 1)
 
+ノードと結合
+Node.find_by(id:3)
+⇒ostrich
+TestResult.where(node_id:3)
+⇒ostrich のインベントリリスト
+TestResult.eager_load(:metric).where(node_id:3, metric.device_flag: 1)
+⇒ Unkown エラーが返る
+TestResult.eager_load(:metric).where('node_id = ? and device_flag= 1', 3)
+⇒metric_id: 303('Host' 1件のみ)
+DeviceResult.eager_load(:metric).where('node_id = ? and device_flag= 1', 3)
+⇒ 7459件(全件)
+DeviceResult.eager_load(:metric).where('node_id = ? and device_flag= 1', 3)
+DeviceResult.eager_load(:metric).where('node_id = ? and device_flag= 1', 3).select(:metric_id, :metric_name).uniq
+
+DeviceResult.eager_load(:metric).where(node_id: 3).select(:metric_id, :metric_name).uniq
+TestResult.eager_load(:metric).where(node_id: 3,  device_flag: 1)
+
+rows = TestResult.eager_load(:metric).where(node_id: 3)
+
+select metric_name, device_flag from test_results, metrics where test_results.metric_id = metrics.id and node_id = 3;
+⇒ Host しか 1が立っていない
+
+select distinct metric_name from device_results, metrics where device_results.metric_id = metrics.id and node_id = 3;
+⇒ 7459件、キー:18件
+
+select distinct platform_name, metric_name from device_results, metrics,platforms where device_results.metric_id = metrics.id and metrics.platform_id = platforms.id and node_id = 3;
+
+select distinct platform_name, metric_name from device_results, metrics,platforms where device_results.metric_id = metrics.id and metrics.platform_id = platforms.id and node_id = 3;
++---------------+----------------+
+| platform_name | metric_name    |
++---------------+----------------+
+| iLO           | FwInfo         |
+| iLO           | License        |
+| iLO           | Nic            |
+| iLO           | Processor      |
+
+rows = DeviceResult.eager_load(:metric).where(node_id: 3)
+
+    @devices = Metric.joins(:platform).where(
+                'platforms.platform_name like ? and device_flag = 1', wildcard(@platform))
+
+rows = ActiveRecord::Base.connection.execute("select distinct platform_name, metric_name from device_results, metrics,platforms where device_results.metric_id = metrics.id and metrics.platform_id = platforms.id and node_id = 3")
+⇒???
+
+DeviceResult.eager_load(:metric).where(node_id: 3).select('distinct metric_id')
+⇒効かない
+DeviceResult.select('metric_id').eager_load(:metric).where(node_id: 3)
+
+select('DISTINCT *')
+
+DeviceResult.eager_load(:metric).where(node_id: 3, metrics: { device_flag: 1})
+
+Blog.joins(:tags).where(tags: {id: [*1..3]})
+
+DeviceResult.where(node_id: 3).select('metric_id')
+
+DeviceResult.where(node_id: 3).select('metric_id').uniq
+⇒効かない
+DeviceResult.where(node_id: 3).select('distinct metric_id')
+⇒効いた。原因不明
+
+con = ActiveRecord::Base.connection
+
+result = ActiveRecord::Base.connection.select_all("select distinct metric_id, concat(platform_name, ':', metric_name) as name from device_results, metrics,platforms where device_results.metric_id = metrics.id and metrics.platform_id = platforms.id and node_id = 3")
+result.to_hash
+
+
+device_rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id, :seq).uniq
+
+device_rows.length
+=> 6588
+
+device_rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select(:node_id, :metric_id).uniq
+=> 6588
+
+device_rows = DeviceResult.where(node_id: nodes.ids, metric_id: @metric_id).select('distinct node_id, metric_id, seq')
+device_rows.length

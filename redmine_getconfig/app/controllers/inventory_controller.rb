@@ -43,8 +43,29 @@ class InventoryController < ApplicationController
                     ).includes(:node, :metric).page(params[:page])
     # @devices = Metric.joins(:platform).where(
     #            device_flag: true, id:@inventories.pluck(:metric_id))
-    @devices = Metric.joins(:platform).where(
-                'platforms.platform_name like ? and device_flag = 1', wildcard(@platform))
+    # @devices = Metric.joins(:platform).where(
+    #             'platforms.platform_name like ? and device_flag = 1', wildcard(@platform))
+
+    sql = <<-EOS
+    select distinct
+        metric_id,
+        platform_name,
+        metric_name
+    from
+        device_results,
+        metrics,
+        nodes,
+        platforms
+    where
+        device_results.metric_id = metrics.id
+    and metrics.platform_id = platforms.id
+    and device_results.node_id = nodes.id
+    and platforms.platform_name like '%s'
+    and nodes.node_name like '%s'
+    EOS
+    @devices  = ActiveRecord::Base.connection.select_all(sql % [wildcard(@platform),
+                                                                wildcard(@node)])
+    # binding.pry
   end
 
 end
