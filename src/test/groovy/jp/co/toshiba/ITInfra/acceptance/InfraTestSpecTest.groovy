@@ -65,41 +65,37 @@ class InfraTestSpecTest extends Specification {
     }
 
     def "古い検査ログ読込み"() {
-        // 既存ソース調査
-        // --------------
-
-        // exec 内で予行演習対象ログ読込み
-
-        //     def exec {
-        //         ...
-        //         def log_path = get_log_path(test_id, shared)
-
-        //     def get_log_path(String test_id, Boolean shared = false) {
-        //         def log_path = dry_run_staging_dir
-        //         if (shared == false) {
-        //             log_path += "/${server_name}/${platform}"
-        //         }
-        //         log_path += '/' + test_id
-        //         return log_path
-        //     }
-
-        // gradle --daemon test --tests "InfraTestSpecTest.古い検査ログ読込み"
-
-
-        // gradle test
-
-        // mkdir -p src/test/resources/log2/Linux/ostrich/Linux/
-
         setup:
         test_platform.dry_run_staging_dir = 'src/test/resources/log2'
         def spec = new InfraTestSpec(test_platform)
 
         when:
         def log_path = spec.get_log_path('hostname', false)
-        println log_path
+        // println log_path
 
         then:
-        new File(log_path).exists() == false
+        log_path == 'src/test/resources/log2/Linux/ostrich/Linux/hostname'
+    }
+
+    def "古い検査ログ読込み2"() {
+        setup:
+        test_target = new TestTarget(
+            name              : 'ostrich2',
+            domain            : 'Linux',
+        )
+        test_platform = new TestPlatform(
+            name         : 'Linux',
+            test_target  : test_target,
+            dry_run      : true,
+            dry_run_staging_dir : 'src/test/resources/log2',
+        )
+        def spec = new InfraTestSpec(test_platform)
+
+        when:
+        def log_path = spec.get_log_path('hostname', false)
+
+        then:
+        log_path == 'src/test/resources/log2/ostrich2/Linux/hostname'
     }
 
     // def "サーバ情報"() {

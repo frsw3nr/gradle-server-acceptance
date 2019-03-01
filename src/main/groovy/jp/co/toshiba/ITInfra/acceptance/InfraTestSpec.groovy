@@ -76,12 +76,39 @@ class InfraTestSpec {
         }
     }
 
+    def get_log_path_v1(String test_id, Boolean shared = false) {
+        def log_path = null
+        def staging_dir = new File(dry_run_staging_dir)
+        if (!staging_dir.exists())
+            return
+        staging_dir.eachDir { old_domain ->
+            def old_log_path = dry_run_staging_dir + '/' + old_domain.name
+            if (shared == false) {
+                old_log_path += "/${server_name}/${platform}"
+            }
+            old_log_path += '/' + test_id
+            println "CHECK:${old_log_path}"
+            if (new File(old_log_path).exists()) {
+                log_path = old_log_path
+            }
+        }
+        return log_path
+    }
+
     def get_log_path(String test_id, Boolean shared = false) {
         def log_path = dry_run_staging_dir
         if (shared == false) {
             log_path += "/${server_name}/${platform}"
         }
         log_path += '/' + test_id
+        println "LOG_PATH:${log_path}"
+        // new File(log_path).exists() == false
+        if (new File(log_path).exists()) {
+            println "HIT: $log_path"
+            return log_path
+        }
+        def log_path2 = get_log_path_v1(test_id, shared) ?: log_path
+        println "LOG_PATH2:${log_path2}"
         return log_path
     }
 

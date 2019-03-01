@@ -13,4 +13,5 @@ Contents:
    05_BaseTemplateCustomize
    06_EditingEscalationRoute
    07_RegistRedmine
+   08_CompareOldInventory
 
