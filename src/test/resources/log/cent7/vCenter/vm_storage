@@ -1,9 +1,9 @@
 ﻿
 
 Parent        : cent7
-Filename      : [datastore1] cent7/cent7.vmdk
-CapacityGB    : 16
-StorageFormat : Thick
+Filename      : [datastore2] cent7/cent7.vmdk
+CapacityGB    : 20.1474609375
+StorageFormat : EagerZeroedThick
 DiskType      : Flat
 
 Parent        : cent7

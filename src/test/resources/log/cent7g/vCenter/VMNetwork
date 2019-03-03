@@ -1,0 +1,17 @@
+﻿
+
+MacAddress       : 00:0c:29:07:fa:bf
+WakeOnLanEnabled : True
+NetworkName      : LIVING-LAN
+Type             : Vmxnet3
+ParentId         : VirtualMachine-74
+Parent           : cent7g
+Uid              : /VIServer=test_user@192.168.10.100:443/VirtualMachine=VirtualMachine-74/NetworkAdapter=4000/
+ConnectionState  : Connected, GuestControl, StartConnected
+ExtensionData    : VMware.Vim.VirtualVmxnet3
+Id               : VirtualMachine-74/4000
+Name             : Network adapter 1
+Client           : VMware.VimAutomation.ViCore.Impl.V1.VimClient
+
+
+

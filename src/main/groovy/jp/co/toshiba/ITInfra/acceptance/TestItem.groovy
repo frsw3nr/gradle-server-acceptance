@@ -381,7 +381,8 @@ class TestItem {
             def check = true
             def text_search_values = values.toString()
             test_values.find { test_key, test_value ->
-                def included = (text_search_values =~ /$test_key/) as boolean
+                def included = (text_search_values.contains(test_key)) as boolean
+                // def included = (text_search_values =~ /$test_key/) as boolean
                 if (!included) {
                     check = false
                     ng_msg = "'${test_key}' not in '${trim_values_text(values)}'"

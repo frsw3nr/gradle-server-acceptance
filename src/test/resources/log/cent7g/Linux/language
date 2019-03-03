@@ -1,0 +1,1 @@
+BOOT_IMAGE=/vmlinuz-3.10.0-957.5.1.el7.x86_64 root=/dev/mapper/centos-root ro crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet ipv6.disable=1 vga=791 LANG=ja_JP.UTF-8

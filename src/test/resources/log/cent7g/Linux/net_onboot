@@ -1,0 +1,2 @@
+ifcfg-ens192:ONBOOT="yes"
+ifcfg-lo:ONBOOT=yes

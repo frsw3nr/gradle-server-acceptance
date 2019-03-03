@@ -1,15 +1,15 @@
   UNIT                                                  LOAD      ACTIVE   SUB     DESCRIPTION
   auditd.service                                        loaded    active   running Security Auditing Service
+  auth-rpcgss-module.service                            loaded    inactive dead    Kernel Module supporting RPCSEC_GSS
   blk-availability.service                              loaded    active   exited  Availability of block devices
   brandbot.service                                      loaded    inactive dead    Flexible Branding Service
-Åú cloud-final.service                                   not-found inactive dead    cloud-final.service
+  containerd.service                                    loaded    active   running containerd container runtime
   cpupower.service                                      loaded    inactive dead    Configure CPU power related settings
   crond.service                                         loaded    active   running Command Scheduler
   dbus.service                                          loaded    active   running D-Bus System Message Bus
 Åú display-manager.service                               not-found inactive dead    display-manager.service
   dm-event.service                                      loaded    inactive dead    Device-mapper event daemon
   dmraid-activation.service                             loaded    inactive dead    Activation of DM RAID sets
-Åú docker-storage-setup.service                          loaded    failed   failed  Docker Storage Setup
   docker.service                                        loaded    active   running Docker Application Container Engine
   dracut-shutdown.service                               loaded    inactive dead    Restore /run/initramfs
   ebtables.service                                      loaded    inactive dead    Ethernet Bridge Filtering tables
@@ -19,6 +19,7 @@
 Åú fcoe.service                                          not-found inactive dead    fcoe.service
   firewalld.service                                     loaded    active   running firewalld - dynamic firewall daemon
   getty@tty1.service                                    loaded    active   running Getty on tty1
+  gssproxy.service                                      loaded    active   running GSSAPI Proxy Daemon
   httpd.service                                         loaded    active   running The Apache HTTP Server
 Åú ip6tables.service                                     not-found inactive dead    ip6tables.service
 Åú ipset.service                                         not-found inactive dead    ipset.service
@@ -43,12 +44,21 @@
   network.service                                       loaded    active   exited  LSB: Bring up/down networking
   NetworkManager-wait-online.service                    loaded    active   exited  Network Manager Wait Online
   NetworkManager.service                                loaded    active   running Network Manager
+  nfs-config.service                                    loaded    inactive dead    Preprocess NFS configuration
+  nfs-idmapd.service                                    loaded    inactive dead    NFSv4 ID-name mapping service
+  nfs-mountd.service                                    loaded    inactive dead    NFS Mount Daemon
+Åú nfs-secure-server.service                             not-found inactive dead    nfs-secure-server.service
+  nfs-server.service                                    loaded    inactive dead    NFS server and services
+  nfs-utils.service                                     loaded    inactive dead    NFS server and client services
+  ntpd.service                                          loaded    active   running Network Time Service
+  ntpdate.service                                       loaded    inactive dead    Set time via NTP
   plymouth-quit-wait.service                            loaded    inactive dead    Wait for Plymouth Boot Screen to Quit
   plymouth-quit.service                                 loaded    inactive dead    Terminate Plymouth Boot Screen
   plymouth-read-write.service                           loaded    inactive dead    Tell Plymouth To Write Out Runtime Data
   plymouth-start.service                                loaded    inactive dead    Show Plymouth Boot Screen
   polkit.service                                        loaded    active   running Authorization Manager
   postfix.service                                       loaded    active   running Postfix Mail Transport Agent
+Åú rbdmap.service                                        not-found inactive dead    rbdmap.service
   rc-local.service                                      loaded    inactive dead    /etc/rc.d/rc.local Compatibility
   rescue.service                                        loaded    inactive dead    Rescue Shell
   rhel-autorelabel-mark.service                         loaded    inactive dead    Mark the need to relabel after reboot
@@ -58,17 +68,25 @@
   rhel-import-state.service                             loaded    active   exited  Import network configuration from initramfs
   rhel-loadmodules.service                              loaded    inactive dead    Load legacy module configuration
   rhel-readonly.service                                 loaded    active   exited  Configure read-only root support
+  rpc-gssd.service                                      loaded    inactive dead    RPC security service for NFS client and server
+  rpc-statd-notify.service                              loaded    inactive dead    Notify NFS peers of a restart
+  rpc-statd.service                                     loaded    inactive dead    NFS status monitor for NFSv2/3 locking.
+  rpcbind.service                                       loaded    active   running RPC bind service
   rsyslog.service                                       loaded    active   running System Logging Service
   selinux-policy-migrate-local-changes@targeted.service loaded    inactive dead    Migrate local SELinux policy changes from the old store structure to the new structure
 Åú sendmail.service                                      not-found inactive dead    sendmail.service
 Åú slpd.service                                          not-found inactive dead    slpd.service
+  snmptrapd.service                                     loaded    active   running Simple Network Management Protocol (SNMP) Trap Daemon.
+  snmptt.service                                        loaded    active   running SNMP Trap Translator (SNMPTT)
+Åú sntp.service                                          not-found inactive dead    sntp.service
   sshd-keygen.service                                   loaded    inactive dead    OpenSSH Server Key Generation
   sshd.service                                          loaded    active   running OpenSSH server daemon
 Åú syslog.service                                        not-found inactive dead    syslog.service
+  sysstat.service                                       loaded    active   exited  Resets System Activity Logs
   systemd-ask-password-console.service                  loaded    inactive dead    Dispatch Password Requests to Console
   systemd-ask-password-plymouth.service                 loaded    inactive dead    Forward Password Requests to Plymouth
   systemd-ask-password-wall.service                     loaded    inactive dead    Forward Password Requests to Wall
-  systemd-binfmt.service                                loaded    inactive dead    Set Up Additional Binary Formats
+  systemd-binfmt.service                                loaded    active   exited  Set Up Additional Binary Formats
   systemd-firstboot.service                             loaded    inactive dead    First Boot Wizard
   systemd-fsck-root.service                             loaded    inactive dead    File System Check on Root Device
   systemd-hwdb-update.service                           loaded    inactive dead    Rebuild Hardware Database
@@ -104,10 +122,13 @@
   tomcat.service                                        loaded    active   running Apache Tomcat Web Application Container
   tuned.service                                         loaded    active   running Dynamic System Tuning Daemon
   vmware-tools.service                                  loaded    active   running SYSV: Manages the services needed to run VMware software
+  zabbix-agent.service                                  loaded    active   running Zabbix Agent
+  zabbix-java-gateway.service                           loaded    active   running Zabbix Java Gateway
+  zabbix-server.service                                 loaded    active   running Zabbix Server
 
 LOAD   = Reflects whether the unit definition was properly loaded.
 ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
 SUB    = The low-level unit activation state, values depend on unit type.
 
-105 loaded units listed.
+126 loaded units listed.
 To show all installed unit files use 'systemctl list-unit-files'.

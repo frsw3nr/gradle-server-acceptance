@@ -87,7 +87,7 @@ class InfraTestSpec {
                 old_log_path += "/${server_name}/${platform}"
             }
             old_log_path += '/' + test_id
-            println "CHECK:${old_log_path}"
+            // println "CHECK:${old_log_path}"
             if (new File(old_log_path).exists()) {
                 log_path = old_log_path
             }
@@ -101,15 +101,11 @@ class InfraTestSpec {
             log_path += "/${server_name}/${platform}"
         }
         log_path += '/' + test_id
-        println "LOG_PATH:${log_path}"
         // new File(log_path).exists() == false
         if (new File(log_path).exists()) {
-            println "HIT: $log_path"
             return log_path
         }
-        def log_path2 = get_log_path_v1(test_id, shared) ?: log_path
-        println "LOG_PATH2:${log_path2}"
-        return log_path
+        return get_log_path_v1(test_id, shared) ?: log_path
     }
 
     def get_target_path(String test_id, Boolean shared = false) {

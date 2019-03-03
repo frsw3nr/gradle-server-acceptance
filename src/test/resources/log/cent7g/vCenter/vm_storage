@@ -1,0 +1,10 @@
+﻿
+
+Parent        : cent7g
+Filename      : [datastore2] cent7gui/cent7gui.vmdk
+CapacityGB    : 16
+StorageFormat : Thin
+DiskType      : Flat
+
+
+

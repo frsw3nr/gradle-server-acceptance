@@ -11,6 +11,7 @@ ConnectionState  : Connected, GuestControl, StartConnected
 ExtensionData    : VMware.Vim.VirtualVmxnet3
 Id               : VirtualMachine-18/4000
 Name             : Network adapter 1
+Client           : VMware.VimAutomation.ViCore.Impl.V1.VimClient
 
 
 

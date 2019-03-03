@@ -1,0 +1,10 @@
+﻿
+
+NumCpu     : 1
+PowerState : PoweredOn
+MemoryGB   : 3
+VMHost     : 192.168.10.100
+Cluster    : 
+
+
+

@@ -29,3 +29,9 @@ mysql:x:27:27:MariaDB Server:/var/lib/mysql:/sbin/nologin
 elasticsearch:x:994:992:elasticsearch user:/usr/share/elasticsearch:/sbin/nologin
 fess:x:993:991:fess user:/var/lib/fess:/sbin/nologin
 someuser:x:1001:1001::/home/someuser:/bin/bash
+zabbix:x:992:990:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+ntp:x:38:38::/etc/ntp:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+snmptt:x:991:989:SNMP Trap Translator:/var/spool/snmptt:/sbin/nologin

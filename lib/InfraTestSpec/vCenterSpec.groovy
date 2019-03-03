@@ -41,7 +41,7 @@ class vCenterSpec extends vCenterSpecBase {
             test_item.results(res)
             // Verify 'NumCpu', 'MemoryGB' and 'VMHost' with intermediate match
             test_item.verify_number_equal('NumCpu', res['NumCpu'])
-            test_item.verify_number_equal('MemoryGB', res['MemoryGB'])
+            test_item.verify_number_equal('MemoryGB', res['MemoryGB'], 0.1)
             test_item.verify_text_search('VMHost', res['VMHost'])
         }
     }

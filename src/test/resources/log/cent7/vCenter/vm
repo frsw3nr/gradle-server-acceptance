@@ -2,7 +2,7 @@
 
 NumCpu     : 1
 PowerState : PoweredOn
-MemoryGB   : 2
+MemoryGB   : 3.984375
 VMHost     : 192.168.10.100
 Cluster    : 
 

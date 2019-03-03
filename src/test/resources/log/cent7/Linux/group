@@ -48,3 +48,12 @@ mysql:x:27:
 elasticsearch:x:992:
 fess:x:991:
 someuser:x:1001:
+zabbix:x:990:
+rpc:x:32:
+ntp:x:38:
+rpcuser:x:29:
+nfsnobody:x:65534:
+screen:x:84:
+slocate:x:21:
+snmptt:x:989:
+docker:x:988:psadmin

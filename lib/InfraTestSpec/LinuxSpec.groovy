@@ -197,6 +197,7 @@ class LinuxSpec extends LinuxSpecBase {
         def network    = [:].withDefault{[:]}
         def net_ip     = [:]
         def net_subnet = [:]
+        def ipv6       = 'Disabled'
         def device     = ''
         def hw_address = []
         lines.eachLine {
@@ -245,6 +246,9 @@ class LinuxSpec extends LinuxSpecBase {
                 network[device]['mac'] = m1
                 hw_address.add(m1)
             }
+            (it =~ /inet6/).each { m0 ->
+                ipv6 = 'Enabled'
+            }
         }
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
         network.each { device_id, items ->
@@ -260,6 +264,7 @@ class LinuxSpec extends LinuxSpecBase {
                 'network' : net_ip.keySet().toString(),
                 'net_ip': net_ip.toString(),
                 'net_subnet': net_subnet.toString(),
+                'ipv6_disable': ipv6,
                 'hw_address' : hw_address.toString()
         )
         test_item.devices(csv, headers)
@@ -533,6 +538,9 @@ class LinuxSpec extends LinuxSpecBase {
             csv << arr
             def arch    = (arr[5] == '(none)') ? 'noarch' : arr[5]
             distributions[release_label] ++
+            if (arch == 'i686') {
+                packagename += ".i686"
+            }
             package_info['packages.' + packagename] = arr[2]
             infos[packagename] = arr[2]
         }
@@ -543,7 +551,6 @@ class LinuxSpec extends LinuxSpecBase {
         if (package_list) {
             package_info['packages.requirements'] = "${package_list.keySet()}"
         }
-
         test_item.devices(csv, headers)
         test_item.results(package_info)
         test_item.verify_text_search_list('packages', package_info)
@@ -696,14 +703,16 @@ class LinuxSpec extends LinuxSpecBase {
             run_ssh_command(session, command, 'service')
         }
 
-        def services = [:].withDefault{'unkown'}
+        def services = [:].withDefault{'Not found'}
         def infos = [:]
         def csv = []
         def service_count = 0
         lines.eachLine {
             // For RHEL7
+            // println it
             // abrt-ccpp.service     loaded    active   exited  Install ABRT coredump hook
-            ( it =~ /^\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
+              // NetworkManager.service   loaded    inactive dead    Network Manager
+            ( it =~ /\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
                 def service_name = m1
                 def status = m2 + '.' + m3
                 services["service.${service_name}"] = status
@@ -918,6 +927,36 @@ class LinuxSpec extends LinuxSpecBase {
             'nameservers' : nameservers
         ])
     }
+
+    def grub(session, test_item) {
+        def lines = exec('ntp') {
+            def command = """\
+            |grep GRUB_CMDLINE_LINUX /etc/default/grub 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'vga')
+        }
+        def infos = [:].withDefault{'NotFound'}
+        lines.eachLine {
+            ( it =~ /^GRUB_CMDLINE_LINUX="(.+)"/).each {m0,m1->
+                def parameters = m1.split(/\s/)
+                parameters.each { parameter ->
+                    ( parameter =~ /^(.+)=(.+)$/).each {n0, n1, n2->
+                        infos["grub.${n1}"] = n2
+                    }
+                }
+            }
+        }
+        def key_values = ['ipv6.disable', 'vga'].collect {
+            def key = "grub.${it}"
+            "$it=${infos[key]}"
+        }
+        infos['grub'] = key_values.join(",")
+        test_item.results(infos)
+    }
+
 
     def ntp(session, test_item) {
         def lines = exec('ntp') {
