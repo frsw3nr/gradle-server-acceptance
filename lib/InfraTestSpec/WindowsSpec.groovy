@@ -49,7 +49,9 @@ class WindowsSpec extends WindowsSpecBase {
                     sockets[m1] = 1
                 }
             }
+            cpuinfo["cpu"] = [cpuinfo["model_name"], cpuinfo["cpu_total"]].join("/")
             cpuinfo["cpu_socket"] = sockets.size()
+            println cpuinfo
             test_item.results(cpuinfo)
             test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
         }
@@ -88,6 +90,35 @@ class WindowsSpec extends WindowsSpecBase {
         }
     }
 
+    def os_conf(TestItem test_item) {
+        def command = '''\
+            |Get-ItemProperty "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion" | `
+            |    Format-List
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('os_conf') {
+                new File("${local_dir}/os_conf")
+            }
+            def osinfo    = [:].withDefault{0}
+            lines.eachLine {
+                (it =~ /^CurrentVersion\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf.version'] = m1
+                }
+                (it =~ /^CurrentBuild\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf.build'] = m1
+                }
+                (it =~ /^ProductId\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf.product_id'] = m1
+                }
+                (it =~ /^BuildLab\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf'] = m1
+                }
+            }
+            test_item.results(osinfo)
+        }
+    }
+
     def memory(TestItem test_item) {
         def command = '''\
             |Get-WmiObject Win32_OperatingSystem | `
@@ -117,6 +148,7 @@ class WindowsSpec extends WindowsSpecBase {
                     meminfo['free_space'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
             }
+            meminfo['memory'] = meminfo['virtual_memory'] + meminfo['visible_memory']
             test_item.results(meminfo)
             test_item.verify_number_equal('visible_memory',
                                           meminfo['visible_memory'],
@@ -330,6 +362,122 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def results = ['teaming': teaming, 'devices': devices]
             test_item.results(results.toString())
+        }
+    }
+
+    def net_bind(TestItem test_item) {
+        run_script('Get-NetAdapterBinding | FL') {
+            def lines = exec('net_bind') {
+                new File("${local_dir}/net_bind")
+            }
+            def instance_number = 0
+            def bind_info = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    bind_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && bind_info[instance_number].size() > 0)
+                    instance_number ++
+            }
+            instance_number --
+            def headers = ['Name', 'Description', 'ComponentID', 'Enabled']
+
+            def csv = []
+            def bind_components = [:]
+            def infos = [:].withDefault{[]}
+            (0..instance_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( bind_info[row][header] ?: '')
+                }
+                csv << columns
+                def id = bind_info[row]['ComponentID']
+                def name = bind_info[row]['Name']
+                def enabled = bind_info[row]['Enabled']
+                infos["net_bind.${id}"] << "$name : $enabled"
+                if (enabled == 'True') {
+                    bind_components[id] = 1
+                }
+            }
+            infos['net_bind'] = "${bind_components.keySet()}"
+            test_item.devices(csv, headers)
+            test_item.results(infos)
+        }
+    }
+
+    def net_ip(TestItem test_item) {
+        run_script('Get-NetIPInterface | FL') {
+            def lines = exec('net_ip') {
+                new File("${local_dir}/net_ip")
+            }
+            def instance_number = 0
+            def ip_info = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    ip_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && ip_info[instance_number].size() > 0)
+                    instance_number ++
+            }
+            instance_number --
+            def headers = ['InterfaceAlias', 'AddressFamily', 'NlMtu(Bytes)', 'AutomaticMetric',
+                           'InterfaceMetric', 'Dhcp', 'ConnectionState', 'PolicyStore']
+
+            def csv = []
+            def connect_if = [:]
+            def infos = [:].withDefault{[]}
+            (0..instance_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( ip_info[row][header] ?: '')
+                }
+                csv << columns
+                def alias       = ip_info[row]['InterfaceAlias']
+                def auto_metric = ip_info[row]['AutomaticMetric']
+                def int_metric  = ip_info[row]['InterfaceMetric']
+                def status      = ip_info[row]['ConnectionState']
+                (alias =~ /Ethernet/).each {
+                    infos["net_ip.auto_metric"] << "$alias : $auto_metric"
+                    infos["net_ip.if_metric"]   << "$alias : $int_metric"
+                    if (status == 'Connected') {
+                        connect_if[alias] = 1
+                    }
+                }
+            }
+            infos['net_ip'] = "${connect_if.keySet()}"
+            test_item.devices(csv, headers)
+            test_item.results(infos)
+        }
+    }
+
+    def tcp(TestItem test_item) {
+        def command = '''\
+            |Get-ItemProperty "HKLM:SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters" | `
+            |    Format-List
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('tcp') {
+                new File("${local_dir}/tcp")
+            }
+            def setting = false
+            def tcpinfo    = [:].withDefault{0}
+            lines.eachLine {
+                (it =~ /^KeepAliveInterval\s*:\s+(.+)$/).each {m0,m1->
+                    tcpinfo['tcp.keepalive_interval'] = m1
+                    setting = true
+                }
+                (it =~ /^KeepAliveTime\s*:\s+(.+)$/).each {m0,m1->
+                    tcpinfo['tcp.keepalive_time'] = m1
+                    setting = true
+                }
+                (it =~ /^TcpMaxDataRetransmissions\s*:\s+(.+)$/).each {m0,m1->
+                    tcpinfo['tcp.max_data_retran'] = m1
+                    setting = true
+                }
+            }
+            tcpinfo['tcp'] = (setting) ? 'Configured' : 'NotConfigured'
+            test_item.results(tcpinfo)
         }
     }
 
@@ -648,6 +796,37 @@ class WindowsSpec extends WindowsSpecBase {
             def headers = ['item_name', 'value']
             test_item.devices(csv, headers)
             test_item.results((policy_number > 0) ? 'Policy found' : 'NG')
+        }
+    }
+
+    def monitor(TestItem test_item) {
+        run_script('Get-WmiObject Win32_DesktopMonitor | FL') {
+            def lines = exec('monitor') {
+                new File("${local_dir}/monitor")
+            }
+            def instance_number = 0
+            def monitor_info = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    monitor_info[instance_number][m1] = m2
+                }
+                if (it.size() == 0 && monitor_info[instance_number].size() > 0)
+                    instance_number ++
+            }
+            instance_number --
+
+            def monitor_names = [:]
+            def infos = [:].withDefault{[]}
+            (0..instance_number).each { row ->
+                def alias    = monitor_info[row]['Name']
+                def screen_y = monitor_info[row]['ScreenHeight'] ?: 'unkown'
+                def screen_x = monitor_info[row]['ScreenWidth'] ?: 'unkown'
+                monitor_names[alias] = 1
+                infos["monitor.height"] << screen_y
+                infos["monitor.width"]  << screen_x
+            }
+            infos['monitor'] = "${monitor_names.keySet()}"
+            test_item.results(infos)
         }
     }
 
