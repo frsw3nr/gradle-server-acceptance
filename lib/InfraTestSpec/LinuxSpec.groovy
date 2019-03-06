@@ -391,6 +391,18 @@ class LinuxSpec extends LinuxSpecBase {
     }
 
     def filesystem(session, test_item) {
+        def fstabs = exec('fstab') {
+            run_ssh_sudo(session, "cat /etc/fstab", 'fstab')
+        }
+        def fstypes = [:].withDefault{[]}
+        fstabs.eachLine {
+            (it =~/^([^#].+?)\s+(.+?)\s+(.+?)\s/).each {m0, m1, m2, m3 ->
+                def filter_fstype = m3 in ['tmpfs', 'devpts', 'sysfs', 'proc', 'swap']
+                if (!filter_fstype) {
+                    fstypes[m3] << m2
+                }
+            }
+        }
         def lines = exec('filesystem') {
             def existLsblk = session.execute('test -f /bin/lsblk ; echo $?')
             def command = (existLsblk == '0') ? '/bin/lsblk -i' : '/bin/df -k'
@@ -427,14 +439,16 @@ class LinuxSpec extends LinuxSpecBase {
                 def columns = [device, '', '', capacity, '', '', mount]
                 filesystems['filesystem.' + mount] = capacity
                 infos[mount] = capacity
+                // columns << fstypes[mount] ?: ''
                 csv << columns
             }
         }
-        def headers = ['name', 'maj:min', 'rm', 'size', 'ro', 'type', 'mountpoint']
+        def headers = ['name', 'maj:min', 'rm', 'size', 'ro', 'type', 'mountpoint', 'fstype']
         // println csv
         // println filesystems
         test_item.devices(csv, headers)
         filesystems['filesystem'] = infos.toString()
+        filesystems['fstype']     = fstypes.toString()
         test_item.results(filesystems)
         test_item.verify_text_search_map('filesystem', infos)
     }
@@ -474,14 +488,26 @@ class LinuxSpec extends LinuxSpecBase {
         def lines = exec('fstab') {
             run_ssh_command(session, 'cat /etc/fstab', 'fstab')
         }
-        def results = [:]
+        def mounts = [:]
+        def fstypes = [:].withDefault{[]}
         lines.eachLine {
             // /dev/mapper/vg_paas-lv_root /  ext4  defaults        1 1
-            (it =~ /^(\/.+?)\s+(.+?)\s+(.+?)\s+defaults\s/).each {m0,m1,m2,m3->
-                results[m2] = m1
+            (it =~ /^([^#].+?)\s+(.+?)\s+(.+?)\s+defaults\s/).each {m0,m1,m2,m3->
+                mounts[m2] = m1
+                def filter_fstype = m3 in ['tmpfs', 'devpts', 'sysfs', 'proc', 'swap']
+                if (!filter_fstype) {
+                    fstypes[m3] << m2
+                }
             }
         }
-        test_item.results((results.size() == 0) ? 'NotFound' : results.toString())
+        // println fstypes
+        // println mounts
+        def infos = [
+            'fstab' : (mounts.size() == 0) ? 'NotFound' : "${mounts.keySet()}",
+            'fstypes': "${fstypes}",
+        ]
+        // println infos
+        test_item.results(infos)
     }
 
     def fips(session, test_item) {
@@ -833,20 +859,28 @@ class LinuxSpec extends LinuxSpecBase {
     def kdump_path(session, test_item) {
         def lines = exec('kdump_path') {
             def command = """\
-            |egrep -e '^path' /etc/kdump.conf 2>/dev/null
+            |egrep -e '^(path|core_collector)' /etc/kdump.conf 2>/dev/null
             |if [ \$? != 0 ]; then
-            |   echo 'path /var/crash'
+            |   echo 'Not found'
             |fi
             """.stripMargin()
             run_ssh_command(session, command, 'kdump_path')
         }
-        def path = 'Unkown'
+        def path = '/var/crash'
+        def core_collector = 'unkown'
         lines.eachLine {
             ( it =~ /path\s+(.+?)$/).each {m0, m1->
                 path = m1
             }
+            ( it =~ /core_collector\s+(.+?)$/).each {m0, m1->
+                core_collector = m1
+            }
         }
-        test_item.results(path)
+        def infos = [
+            'kdump_path' : path,
+            'core_collector' : core_collector
+        ]
+        test_item.results(infos)
     }
 
     def iptables(session, test_item) {
@@ -1060,6 +1094,40 @@ class LinuxSpec extends LinuxSpecBase {
                 test_item.results(m2)
             }
         }
+    }
+
+
+    def vmwaretool_timesync(session, test_item) {
+        def lines = exec('vmwaretool_timesync') {
+            def command = """\
+            |LANG=c /usr/bin/vmware-toolbox-cmd timesync status 2>/dev/null
+            |if [ \$? == 127 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'vmwaretool_timesync')
+        }
+        test_item.results(lines)
+    }
+
+    def vmware_scsi_timeout(session, test_item) {
+        def lines = exec('vmware_scsi_timeout') {
+            def command = """\
+            |cat /etc/udev/rules.d/99-vmware-scsi-udev.rules 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not found'
+            |fi
+            """.stripMargin()
+            run_ssh_command(session, command, 'vmware_scsi_timeout')
+        }
+        // println lines
+        def result = ''
+        lines.eachLine {
+            (it =~/^([^#].+?)$/).each {m0, m1 ->
+                result += it
+            }
+        }
+        test_item.results(result)
     }
 
     def language(session, test_item) {
