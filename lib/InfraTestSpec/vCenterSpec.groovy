@@ -91,6 +91,7 @@ class vCenterSpec extends vCenterSpecBase {
             def instance_number = 0
             def network_info = [:].withDefault{[:]}
             def connections  = []
+            def nic_types  = []
             lines.eachLine {
                 (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
                     network_info[instance_number][m1] = m2
@@ -112,11 +113,16 @@ class vCenterSpec extends vCenterSpecBase {
                         csv << columns
                         def arrs = it['ConnectionState'].split(/,/)
                         connections << arrs[arrs.size() - 1].trim()
+                        nic_types << it['Type']
                     }
                 }
             }
+            def infos = [
+                'VMNetwork' : "${connections}",
+                'VMNetwork.type' : "${nic_types}",
+            ]
             test_item.devices(csv, headers)
-            test_item.results(connections.toString())
+            test_item.results(infos)
         }
     }
 
@@ -180,6 +186,44 @@ class vCenterSpec extends vCenterSpecBase {
         }
     }
 
+    def vm_conf(test_item) {
+
+        def command = '''\
+            |Get-VMResourceConfiguration -VM $vm | `
+            |FL
+        '''.stripMargin()
+        run_script(command) {
+            def lines = exec('vm_conf') {
+                new File("${local_dir}/vm_conf")
+            }
+
+            def res = [:]
+            def disk_id = 1
+            lines.eachLine {
+                (it =~ /^(CpuLimitMhz|MemLimitGB|CpuSharesLevel|MemSharesLevel|CpuAffinity|CpuAffinityList)\s+:\s*(.*)$/).each {m0, m1, m2->
+                    res[m1] = m2
+                }
+            }
+            def resource_limit = [
+                'CPU': res['CpuLimitMhz'] ?: 'unkown',
+                'Mem': res['MemLimitGB'] ?: 'unkown',
+            ]
+            def shares_level = [
+                'CPU': res['CpuSharesLevel'] ?: 'unkown',
+                'Mem': res['MemSharesLevel'] ?: 'unkown',
+            ]
+            def cpu_affinity = "${res['CpuAffinity']} ${res['CpuAffinityList']}"
+
+            def infos = [
+                'vm_conf' : (res.size() > 0) ? 'Found' : 'Not found',
+                'vm_conf.limit' : "${resource_limit}",
+                'vm_conf.shares_level' : "${shares_level}",
+                'vm_conf.cpu_affinity' : cpu_affinity,
+            ]
+            test_item.results(infos)
+        }
+    }
+
     def vm_storage(test_item) {
         run_script('Get-Harddisk -VM $vm | select Parent, Filename,CapacityGB, StorageFormat, DiskType') {
             def lines = exec('vm_storage') {
@@ -209,6 +253,28 @@ class vCenterSpec extends vCenterSpecBase {
             def headers = ['Filename', 'StorageFormat', 'CapacityGB']
             test_item.devices(csv, headers)
             test_item.results(utils.toString())
+        }
+    }
+
+    def vm_nic_limit(test_item) {
+            def command = '''\
+            |Get-VM $vm | Get-NetworkAdapter |
+            |sort Parent,{$_.ExtensionData.ResourceAllocation.Limit} |
+            |select Parent,Name,{$_.ExtensionData.ResourceAllocation.Limit}
+            '''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('vm_nic_limit') {
+                new File("${local_dir}/vm_nic_limit")
+            }
+
+            def res = []
+            lines.eachLine {
+                (it =~ /\s+(\d+)$/).each {m0, m1 ->
+                    res << m1
+                }
+            }
+            test_item.results((res.size() == 0) ? "No limit" : "${res}")
         }
     }
 
