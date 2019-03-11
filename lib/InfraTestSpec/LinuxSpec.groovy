@@ -392,7 +392,7 @@ class LinuxSpec extends LinuxSpecBase {
 
     def filesystem(session, test_item) {
         def fstabs = exec('fstab') {
-            run_ssh_sudo(session, "cat /etc/fstab", 'fstab')
+            run_ssh_command(session, "cat /etc/fstab", 'fstab')
         }
         def fstypes = [:].withDefault{[]}
         fstabs.eachLine {
