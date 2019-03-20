@@ -46,6 +46,28 @@ class vCenterSpec extends vCenterSpecBase {
         }
     }
 
+    def vm_hot_add(test_item) {
+        def command = '''\
+            |(Get-VM $vm | select ExtensionData).ExtensionData.config | `
+            | Select Name,CpuHotAddEnabled,MemoryReservationLockedToMax,MemoryHotAddEnabled | `
+            | Format-List
+        '''.stripMargin()
+        run_script(command) {
+            def lines = exec('vm_hot_add') {
+                new File("${local_dir}/vm_hot_add")
+            }
+
+            def res = [:]
+            lines.eachLine {
+                (it =~  /^(.+?)\s+:\s(.+?)$/).each { m0,m1,m2->
+                    res["vm.${m1}"] = m2
+                }
+            }
+            res['vm_hot_add'] = (res.size() == 0) ? 'NotFound' : 'Found'
+            test_item.results(res)
+        }
+    }
+
     def datastore(test_item) {
         run_script("Get-Datastore -VM $vm | FL") {
             def lines = exec('datastore') {
@@ -256,6 +278,28 @@ class vCenterSpec extends vCenterSpecBase {
         }
     }
 
+    def vm_floppy(test_item) {
+        def command = '''\
+            |Get-Vm $vm | Get-FloppyDrive | `
+            | Select Parent, Name, ConnectionState | `
+            | Format-List
+        '''.stripMargin()
+        run_script(command) {
+            def lines = exec('vm_floppy') {
+                new File("${local_dir}/vm_floppy")
+            }
+
+            def res = [:]
+            lines.eachLine {
+                (it =~  /^(.+?)\s+:\s(.+?)$/).each { m0,m1,m2->
+                    res[m1] = m2
+                }
+            }
+            // println res
+            test_item.results((res.size() == 0) ? 'NotFound' : "${res}")
+        }
+    }
+
     def vm_nic_limit(test_item) {
             def command = '''\
             |Get-VM $vm | Get-NetworkAdapter |
@@ -300,4 +344,25 @@ class vCenterSpec extends vCenterSpecBase {
         }
     }
 
+    def vm_video_ram(test_item) {
+        def command = '''\
+            |Get-VM $vm | `
+            | Select @{N="VideoRamSizeInKB";E={($_.ExtensionData.Config.Hardware.Device | `
+            | where {$_.key -eq 500}).VideoRamSizeInKB}} | Sort-Object Name | `
+            | Format-List
+        '''.stripMargin()
+        run_script(command) {
+            def lines = exec('vm_video_ram') {
+                new File("${local_dir}/vm_video_ram")
+            }
+
+            def res = [:]
+            lines.eachLine {
+                (it =~  /^(.+?)\s+:\s(.+?)$/).each { m0,m1,m2->
+                    res[m1] = m2
+                }
+            }
+            test_item.results((res.size() == 0) ? 'NotFound' : "${res}")
+        }
+    }
 }
