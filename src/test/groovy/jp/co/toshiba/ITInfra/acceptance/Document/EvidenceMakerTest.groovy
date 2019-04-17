@@ -103,5 +103,31 @@ class EvidenceMakerTest extends Specification {
         1 == 1
     }
 
+    def "グループ化"() {
+        setup:
+        def sheet_maker = new ExcelSheetMaker()
+
+        when:
+        def inp = new FileInputStream('./サーバチェックシート.xlsx')
+        def wb  = WorkbookFactory.create(inp)
+
+        // def sheet = wb.getSheet('CheckSheet(Linux)')
+        def sheet = wb.getSheetAt(4)
+
+        sheet.groupRow(3, 4);
+        sheet.groupRow(6, 9);
+        sheet.groupRow(3, 10);
+        sheet.groupRow(12, 14);
+        sheet.groupRow(16, 17);
+        sheet.groupRow(12, 18);
+        // sheet.groupRow(17, 19);
+
+        def fos = new FileOutputStream('build/test.xlsx')
+        wb.write(fos)
+        fos.close()
+
+        then:
+        1 == 1
+    }
 }
 

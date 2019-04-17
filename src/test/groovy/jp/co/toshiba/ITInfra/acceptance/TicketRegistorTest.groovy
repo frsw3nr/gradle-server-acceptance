@@ -56,7 +56,7 @@ class TicketRegistorTest extends Specification {
         test_runner.parse(args)
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
-
+        test_env.get_cmdb_config('src/test/resources/cmdb.groovy')
         ticket_registor = new TicketRegistor()
         test_env.config.node_dir = './src/test/resources/node2/'
         test_env.accept(ticket_registor)
@@ -68,7 +68,7 @@ class TicketRegistorTest extends Specification {
         def json = new groovy.json.JsonBuilder()
         def redmine_data = ticket_registor.get_redmine_data()
         json(redmine_data)
-        // println "REDMINE_DATA: ${json.toPrettyString()}"
+        println "REDMINE_DATA: ${json.toPrettyString()}"
 
         then:
         redmine_data.get_ticket_dict().size() > 0

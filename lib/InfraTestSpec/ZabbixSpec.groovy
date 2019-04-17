@@ -351,7 +351,8 @@ class ZabbixSpec extends InfraTestSpec {
 
     def syslog(test_item) {
         if(target_server && !host_ids.containsKey(target_server)) {
-            log.error "Can't find host_id of ${target_server}, 'syslog' test needs 'Host' test before."
+            log.info "Can't find host_id of ${target_server}, 'syslog' test needs 'Host' test before."
+            this.Host(test_item)
         }
 
         def lines = exec('syslog') {
@@ -360,9 +361,10 @@ class ZabbixSpec extends InfraTestSpec {
                 output: "extend",
                 selectHosts: "extend",
                 search: [
-                    name: "log",
+                    key_: "log", 
                 ],
             ]
+
             if (target_server) {
                 params['hostids'] = [
                     host_ids[target_server]
@@ -394,22 +396,33 @@ class ZabbixSpec extends InfraTestSpec {
         def jsonSlurper = new JsonSlurper()
         def results = jsonSlurper.parseText(lines)
         if (results.size() > 0) {
-            def message = 'NotSupport'
+            def message = 'Monitored'
             def lastlogsize = 0
             def csv   = []
             results.each { result ->
                 def hostid   = result['hostid']
                 def hostname = hostnames[hostid] ?: null
                 def itemname = result['name']
-                if (hostname && result['value_type'] == '2') {
-                    if (result['status'])
-                        message = zabbix_labels['status'][result['status']]
+                def error    = result['error']
+                def key_     = result['key_']
+                def state    = result['state'] ?: 0
+                def status   = result['status'] ?: 0
+
+                // Type of imformation is LOG : 2
+                if (hostname && result['value_type'] == '2') {  
+                    def label_state  = zabbix_labels['status'][state]
+                    def label_status = zabbix_labels['trigger.status'][status]
+                    if (label_state != 'Monitored' && label_status == 'Enabled') {
+                        message = 'Unmonitored'
+                    }
                     def logsize  = NumberUtils.toDouble(result['lastlogsize'])
-                    csv << [hostname, itemname, logsize]
+                    csv << [hostname, itemname, logsize, key_, label_status, 
+                            label_state, error]
                     lastlogsize += logsize
                 }
             }
-            def headers = ['Hostname', 'ItemName', 'LastLogSize']
+            def headers = ['Hostname', 'ItemName', 'LastLogSize', 'Key', 
+                           'Status', 'State', 'Error']
             test_item.devices(csv, headers)
             test_item.results(message)
             test_item.verify_text_search('syslog', message)
@@ -419,6 +432,7 @@ class ZabbixSpec extends InfraTestSpec {
     def trigger(test_item) {
         if(target_server && !host_ids.containsKey(target_server)) {
             log.error "Can't find host_id of ${target_server}, 'trigger' test needs 'Host' test before."
+            this.Host(test_item)
         }
 
         def lines = exec('trigger') {

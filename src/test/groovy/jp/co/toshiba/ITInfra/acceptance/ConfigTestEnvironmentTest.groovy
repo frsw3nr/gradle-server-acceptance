@@ -58,7 +58,10 @@ class ConfigTestEnvironmentTest extends Specification {
         test_env.set_account(test_platform)
 
         then:
-        test_platform.os_account.password == 'P@ssword2'
+        // ConfigTestEnvironment.groovy 内
+        // コメントアウトしている。特定パスワードは各シナリオで使用する仕様に変更
+        // test_env では使用しないため、既定の'P@ssword'が正しい
+        test_platform.os_account.password == 'P@ssword'
     }
 
     def "Linux環境セット"() {
