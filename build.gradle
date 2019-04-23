@@ -64,6 +64,14 @@ dependencies {
     compile "com.h2database:h2:1.3.157"
     compile "com.taskadapter:redmine-java-api:3.1.1"
 
+    // K-Means 法クラスタリング検証用(v4.42 α)
+    // リファレンス：
+    //      https://elki-project.github.io/tutorial/same-size_k_means
+    //      https://github.com/elki-project/elki
+    compile 'de.lmu.ifi.dbs.elki:elki:0.7.5'
+    compile 'de.lmu.ifi.dbs.elki:elki-core-util:0.7.5'
+    compile 'de.lmu.ifi.dbs.elki:elki-clustering:0.7.5'
+
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.12'
 }
