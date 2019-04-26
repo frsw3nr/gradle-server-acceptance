@@ -395,12 +395,14 @@ class LinuxSpec extends LinuxSpecBase {
             run_ssh_command(session, "cat /etc/fstab", 'fstab')
         }
         def fstypes = [:].withDefault{[]}
+        def fstypes2 = [:]
         fstabs.eachLine {
             (it =~/^([^#].+?)\s+(.+?)\s+(.+?)\s/).each {m0, m1, m2, m3 ->
                 def filter_fstype = m3 in ['tmpfs', 'devpts', 'sysfs', 'proc', 'swap']
                 if (!filter_fstype) {
                     fstypes[m3] << m2
                 }
+                fstypes2[m2] = m3
             }
         }
         def lines = exec('filesystem') {
@@ -420,16 +422,25 @@ class LinuxSpec extends LinuxSpecBase {
         def csv = []
         def filesystems = [:]
         def infos = [:]
+        def infos2 = [:]
+        println fstypes
         lines.eachLine {
             (it =~  /^(.+?)\s+(\d+:\d+\s.+)$/).each { m0,m1,m2->
                 def device = m1
                 def arr = [device]
                 def columns = m2.split(/\s+/)
                 if (columns.size() == 6) {
+                    println "COLUMNS:${columns}"
                     def mount    = columns[5]
                     def capacity = columns[2]
                     filesystems['filesystem.' + mount] = columns[2]
                     infos[mount] = capacity
+                    infos2[mount] = [
+                        'capacity' : capacity,
+                        'device'   : device,
+                        'type'     : columns[3],
+                        'fstype'   : fstypes2[mount] ?: ''
+                    ]
                 }
                 arr.addAll(columns)
                 csv << arr
@@ -440,6 +451,10 @@ class LinuxSpec extends LinuxSpecBase {
                 filesystems['filesystem.' + mount] = capacity
                 infos[mount] = capacity
                 // columns << fstypes[mount] ?: ''
+                infos2[mount] = [
+                    'capacity' : mount,
+                    'device' : device,
+                ]
                 csv << columns
             }
         }
@@ -449,6 +464,8 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.devices(csv, headers)
         filesystems['filesystem'] = infos.toString()
         filesystems['fstype']     = fstypes.toString()
+        // println filesystems
+        println "INFO2: ${infos2}"
         test_item.results(filesystems)
         test_item.verify_text_search_map('filesystem', infos)
     }

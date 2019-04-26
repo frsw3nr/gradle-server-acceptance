@@ -1,3 +1,96 @@
+Changes for 0.2.1 (2019-5-8)
+------------------------------------------------------------------------------
+ToDo:
+* 検査シナリオの階層化 [ ]
+    * Linux シナリオ見直し [ ]
+        * Linux Excel チェックシート変更 [x]
+        * 単体テスト LinuxScenarioTest.groovy ベース作成 [ ]
+        * シナリオ変更 [ ]
+            * vCenter [ ]
+                * ベース [ ]
+                * データストア [ ]
+                * ネットワーク [ ]
+                * ストレージ [ ]
+            * Linux [ ]
+                * ベース [ ]
+                * ネットワーク [ ]
+                * ストレージ [ ]
+                * ユーザ [ ]
+                * サービス [ ]
+                * パッケージ [ ]
+    * Windows シナリオ見直し [ ]
+        * Windows Excel チェックシート変更 [ ]
+        * 単体テスト WindowsScenarioTest.groovy ベース作成 [ ]
+        * シナリオ変更 [ ]
+            * vCenter レグレッション [ ]
+            * Windows [ ]
+                * ベース [ ]
+                * ネットワーク [ ]
+                * ファイルシステム [ ]
+                * ユーザ [ ]
+                * サービス [ ]
+                * パッケージ [ ]
+    * KPT [ ]
+* クラスター分析追加 [ ]
+    * コンペア仕様作成 [ ]
+        * サロゲートキー作成 [ ]
+        * ダミー変数作成 [ ]
+    * ELKI K-Means プロトタイプ [ ]
+    * クラスタ別結果シート作成 [ ]
+        * EvidenceMaker見直し [ ]
+        * ReportMaker 見直し [ ]
+
+V2.1 仕様検討
+-------------
+
+* Excelサマリシートレイアウト見直し
+    * Category, Metric, ID, Platform, Description の順にする
+    * 項目IDは、x.y.z 形式で階層構造を定義できるようにする
+    * 細部のリーフを先頭行にして、サマリのトランクを最後の行に配置する
+    * Category はテスト項目とマッピングする
+    * デバイス毎に動的に検査IDを追加する
+        * ディスク、ネットワーク構成の場合
+    * データグループ化レイアウト追加
+        * 項目IDのトランク毎に行グループを設定する
+        * 列配置はID,Platform,...,Descriptionは固定で列グループ設定
+* 項目IDの正規化
+    * 対象機器の構成により、デバイスのキーが異なる場合がある
+    * クラスター内対象機器で存在しないデバイスキーは表示しないように、シートの登録は省く
+    * 項目ID毎にデバイスキーのマーカーを設定設定する
+        * クラスターキー（サロゲートキー）の作成
+            例 : /,/home,[swap] : cent-a,cent-b,cent-c ===> cluster1
+               : /,/export/home,/tmp : sparc-1,sparc-2 ===> cluster2
+        * マーカーの作成
+            例 : /           : cluster1,2
+               : /home       : cluster1
+               : [swap]      : cluster1
+               : /export/home : cluster2
+               : /tmp         : cluster2
+        * シートの項目登録
+            例 : シートがcluster1 のみの場合は、/, /home,[swap]表示
+               : シートがcluster2 のみの場合は、/, /export/home,/tmp表示
+               : シートがcluster1,2 の場合は、/,/home,[swap],/export/home,/tmp 表示
+* 項目IDのマスキング
+    * メトリック毎にシートに項目IDを表示するかしないかを設定する
+    * クラスター分析には使用するが、シートには表示させたくない場合
+        * パッケージリストなど項目IDが膨大になる場合
+    * テンプレートに設定した、パッケージリストのみシートに表示させる
+* 変更範囲
+    * メトリックの階層化
+        * Model
+            * TestMetric.groovy   : 階層化タグ追加
+            * TestPlatform.groovy : add_test_metric()メソッド見直し
+            * TestResult.groovy   : 階層化タグ、クラスター分析用ダミー変数化
+        * Controller
+            * TestItem.groovy     : 諸々見直し
+    * ドキュメント
+        * View
+            * EvidenceMaker.groovy : 結果シート作成
+            * ReportMaker.groovy   : POI Excelドキュメント作成
+    * クラスター分析
+        * Controller
+            * DataComparator.groovy : EKLI K-Means分析
+
 Changes for 0.1.42 (2019-4-25)
 ------------------------------------------------------------------------------
 ToDo:
