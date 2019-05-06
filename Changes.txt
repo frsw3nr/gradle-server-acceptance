@@ -1,74 +1,6 @@
 Changes for 0.2.1 (2019-5-8)
 ------------------------------------------------------------------------------
 
-# デバイスの追加メトリック管理
-
-## add_test_metric(id, desc)
-
-    datastore.Name.datastore1
-    datastore.DatastoreBrowserPath.datastore1
-    datastore.Type.datastore1
-    datastore.State.datastore1
-
-## TestPlatform.groovy 内 
-
-新メトリック設定。added_test_metrics 配列に登録
-
-    def new_test_id = "datastore.${header}.${it['Name']}"
-    this.test_platform.add_test_metric(new_test_id, "")
-
-add_test_metric()内、 「added_test_metrics」 配列に新メトリック追加
-
-    test_metric = new TestMetric(name: metric, description: description,
-                                 platform: this.name,
-                                 enabled: true)
-    this.added_test_metrics[metric] = test_metric
-
-## EvidenceMaker.groovy内
-
-extract_added_test_metric() 内
-
-エビデンス作成。add_added_test_metric()内、sheet.added_rows 配列に登録
-
-    test_target.test_platforms.each { platform, test_platform ->
-        test_platform?.added_test_metrics.each { metric, test_metric ->
-            metric_set.add(test_metric)
-            add_added_test_metric(domain, platform, metric, test_metric)
-        }
-    }
-
-    def add_added_test_metric(domain, platform, metric, test_metric) {
-        // println "ADD: $domain, $platform, $metric, $test_metric"
-        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
-        sheet.added_rows[[platform, metric]] = test_metric
-        this.summary_sheets[domain] = sheet
-    }
-
-変更範囲検討
-
-* 追加メトリックの親メトリックとの関連追加。
-* ノード間の重複チェック。新規メトリックの場合、行カウントアップ
-
-## レポート作成
-
-ExcelSheetMaker.groovy内
-
-    def excel_sheet_maker = new ExcelSheetMaker(
-                                excel_parser: this.excel_parser,
-                                evidence_maker: evidence_maker,
-                                report_maker: report_maker)
-    excel_sheet_maker.output(this.output_evidence)
-
-write_sheet_summary()内、最終行に追加メトリック作成
-
-    def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
-
-変更範囲検討
-
-* メトリック列作成、新メトリック、基底メトリックの順に作成
-* ノード列
-    * sheet_summary.added_rows を、sheet_design.sheet_row に追加
-
 ToDo:
 * 検査シナリオの階層化 [ ]
     * 単体テスト
@@ -180,6 +112,74 @@ V2.1 仕様検討
     * クラスター分析
         * Controller
             * DataComparator.groovy : EKLI K-Means分析
+
+# デバイスの追加メトリック管理
+
+## add_test_metric(id, desc)
+
+    datastore.Name.datastore1
+    datastore.DatastoreBrowserPath.datastore1
+    datastore.Type.datastore1
+    datastore.State.datastore1
+
+## TestPlatform.groovy 内 
+
+新メトリック設定。added_test_metrics 配列に登録
+
+    def new_test_id = "datastore.${header}.${it['Name']}"
+    this.test_platform.add_test_metric(new_test_id, "")
+
+add_test_metric()内、 「added_test_metrics」 配列に新メトリック追加
+
+    test_metric = new TestMetric(name: metric, description: description,
+                                 platform: this.name,
+                                 enabled: true)
+    this.added_test_metrics[metric] = test_metric
+
+## EvidenceMaker.groovy内
+
+extract_added_test_metric() 内
+
+エビデンス作成。add_added_test_metric()内、sheet.added_rows 配列に登録
+
+    test_target.test_platforms.each { platform, test_platform ->
+        test_platform?.added_test_metrics.each { metric, test_metric ->
+            metric_set.add(test_metric)
+            add_added_test_metric(domain, platform, metric, test_metric)
+        }
+    }
+
+    def add_added_test_metric(domain, platform, metric, test_metric) {
+        // println "ADD: $domain, $platform, $metric, $test_metric"
+        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
+        sheet.added_rows[[platform, metric]] = test_metric
+        this.summary_sheets[domain] = sheet
+    }
+
+変更範囲検討
+
+* 追加メトリックの親メトリックとの関連追加。
+* ノード間の重複チェック。新規メトリックの場合、行カウントアップ
+
+## レポート作成
+
+ExcelSheetMaker.groovy内
+
+    def excel_sheet_maker = new ExcelSheetMaker(
+                                excel_parser: this.excel_parser,
+                                evidence_maker: evidence_maker,
+                                report_maker: report_maker)
+    excel_sheet_maker.output(this.output_evidence)
+
+write_sheet_summary()内、最終行に追加メトリック作成
+
+    def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
+
+変更範囲検討
+
+* メトリック列作成、新メトリック、基底メトリックの順に作成
+* ノード列
+    * sheet_summary.added_rows を、sheet_design.sheet_row に追加
 
 Changes for 0.1.42 (2019-4-25)
 ------------------------------------------------------------------------------
