@@ -374,4 +374,18 @@ class InfraTestSpec {
     def cleanup_exec() {
         log.debug("Cleanup infra test spec '${server_name}'")
     }
+
+    def summary_text(String test_id, Map results, Map result_labels) {
+        def result_summarys = [:]
+        result_labels.each { label_key, result_label ->
+            [label_key, "${test_id}.${label_key}"].find { result_label_key ->
+                def found = results?."${result_label_key}"
+                if (found != null) {
+                    result_summarys[result_label] = results[result_label_key]
+                    return true
+                }
+            }
+        }
+        return (result_summarys) ? "${result_summarys}" : "Not Found"
+    }
 }

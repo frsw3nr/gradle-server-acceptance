@@ -1,0 +1,24 @@
+﻿
+
+VirtualMachineId          : VirtualMachine-74
+VM                        : cent7g
+VMId                      : VirtualMachine-74
+NumCpuShares              : 1000
+CpuReservationMhz         : 0
+CpuLimitMhz               : -1
+CpuSharesLevel            : Normal
+NumMemShares              : 30720
+MemReservationMB          : 0
+MemReservationGB          : 0
+MemLimitMB                : -1
+MemLimitGB                : -1
+MemSharesLevel            : Normal
+DiskResourceConfiguration : {Normal:1000}
+HTCoreSharing             : Any
+CpuAffinity               : NoAffinity
+CpuAffinityList           : 
+Uid                       : /VIServer=test_user@192.168.10.100:443/VirtualMachine=VirtualMachine-74/VMResourceConfigura
+                            tion=/
+
+
+

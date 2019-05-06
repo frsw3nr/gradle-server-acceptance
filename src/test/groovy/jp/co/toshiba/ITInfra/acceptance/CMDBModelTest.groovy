@@ -6,7 +6,7 @@ import java.sql.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "CMDBModelTest.カスタムフィールド読み込み"
+// gradle --daemon test --tests "CMDBModelTest.設定読み込み"
 
 class CMDBModelTest extends Specification {
 
@@ -36,9 +36,9 @@ class CMDBModelTest extends Specification {
         println json.toPrettyString()
 
         then:
-        cmdb_config.cmdb.dataSource.url == 'jdbc:h2:mem:'
-        cmdb_config.cmdb.dataSource.username == 'sa'
-        cmdb_config.cmdb.dataSource.password == 'sa'
+        cmdb_config.cmdb.dataSource.url != null
+        cmdb_config.cmdb.dataSource.username != null
+        cmdb_config.cmdb.dataSource.password != null
     }
 
     def カスタムフィールド読み込み() {

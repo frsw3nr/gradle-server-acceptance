@@ -1,0 +1,24 @@
+﻿
+
+VirtualMachineId          : VirtualMachine-18
+VM                        : ostrich
+VMId                      : VirtualMachine-18
+NumCpuShares              : 1000
+CpuReservationMhz         : 0
+CpuLimitMhz               : -1
+CpuSharesLevel            : Normal
+NumMemShares              : 20480
+MemReservationMB          : 0
+MemReservationGB          : 0
+MemLimitMB                : -1
+MemLimitGB                : -1
+MemSharesLevel            : Normal
+DiskResourceConfiguration : {Normal:1000}
+HTCoreSharing             : Any
+CpuAffinity               : NoAffinity
+CpuAffinityList           : 
+Uid                       : /VIServer=test_user@192.168.10.100:443/VirtualMachine=VirtualMachine-18/VMResourceConfigura
+                            tion=/
+
+
+

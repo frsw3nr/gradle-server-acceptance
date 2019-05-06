@@ -37,7 +37,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 
-// gradle --daemon test --tests "ExcelParserTest.テンプレートパース"
+// gradle --daemon test --tests "ExcelParserTest.シート読み込み"
 
 class ExcelParserTest extends Specification {
 
@@ -83,10 +83,36 @@ class ExcelParserTest extends Specification {
             test_metric_sets[domain].count() > 0
 
             def metrics = test_metric_sets[domain].get_all()
-            def json = new groovy.json.JsonBuilder()
-            json(metrics)
-            println json.toPrettyString()
+            println "METRICS: ${domain}"
+            println metrics
+            // def json = new groovy.json.JsonBuilder()
+            // json(metrics)
+            // println json.toPrettyString()
         }
+    }
+
+    def "チェックシートパース2"() {
+        setup:
+        def domain = 'Linux'
+        def test_metric_sets = [:]
+
+        when:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def source = excel_parser.sheet_sources.check_sheet."$domain"
+        test_metric_sets[domain] = new TestMetricSet(name: domain)
+        test_metric_sets[domain].accept(excel_parser)
+
+        then:
+        test_metric_sets[domain].name == domain
+        test_metric_sets[domain].count() > 0
+
+        def metrics = test_metric_sets[domain].get_all()
+        println "METRICS: ${domain}"
+        println metrics
+        // def json = new groovy.json.JsonBuilder()
+        // json(metrics)
+        // println json.toPrettyString()
     }
 
     def "検査対象パース"() {

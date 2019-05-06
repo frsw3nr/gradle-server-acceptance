@@ -75,14 +75,15 @@ class vCenterSpecBase extends InfraTestSpec {
             def res = [:]
             lines.eachLine {
                 (it =~  /^(NumCpu|PowerState|MemoryGB|VMHost|Cluster)\s+:\s(.+)$/).each { m0,m1,m2->
-                    res[m1] = m2
+                    res["vm.${m1}"] = m2
                 }
             }
+            res["vm"] = "CPU:${res['vm.NumCpu']},Memory:${res['vm.MemoryGB']},Host:${res['vm.VMHost']}"
             test_item.results(res)
             // Verify 'NumCpu', 'MemoryGB' and 'VMHost' with intermediate match
-            test_item.verify_number_equal('NumCpu', res['NumCpu'])
-            test_item.verify_number_equal('MemoryGB', res['MemoryGB'])
-            test_item.verify_text_search('VMHost', res['VMHost'])
+            test_item.verify_number_equal('NumCpu',   res['vm.NumCpu'])
+            test_item.verify_number_equal('MemoryGB', res['vm.MemoryGB'])
+            test_item.verify_text_search('VMHost',    res['vm.VMHost'])
         }
     }
 

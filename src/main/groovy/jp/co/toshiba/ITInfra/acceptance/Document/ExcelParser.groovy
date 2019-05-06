@@ -56,8 +56,10 @@ class ExcelParser {
                             sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [3, 0],
                                 sheet_prefix: sheet_prefixes?.check_sheet ?: 'チェックシート',
-                                header_checks: ['test', 'id'],
-                                result_pos: [3, 6])),
+                                header_checks: ['test', 'category'],
+                                result_pos: [3, 7]),
+                            result_sheet_name_prefix: '検査結果', 
+                            ),
             'report' : new SheetDesign(name: 'report',
                             sheet_parser : new ExcelSheetParserHorizontal(
                                 header_pos: [2, 0],
@@ -197,18 +199,20 @@ class ExcelParser {
             sheet_row ++
             def id = line['id']
             def platform = line['platform']
-            sheet_design.sheet_row[[platform, id]] = sheet_row
-            if (!id && !platform)
-                return
             def snapshot_level = -1
             (line['test']=~/^Y(\d+)$/).each { m0, level ->
                 snapshot_level = level as Integer
             }
-            def test_metric = new TestMetric(name: id, description: line['metric'], 
+            def test_metric = new TestMetric(name: id, 
+                                             category: line['category'], 
+                                             description: line['metric'], 
                                              platform: platform,
                                              enabled: line['test'], 
+                                             comment: line['comment'], 
                                              snapshot_level: snapshot_level, 
                                              device_enabled: line['device'])
+            sheet_design.sheet_row[[platform, id]] = sheet_row
+            sheet_design.sheet_metrics[[platform, id]] = test_metric
             platform_tests[platform][id] = test_metric
             return
         }

@@ -1,19 +1,36 @@
 package jp.co.toshiba.ITInfra.acceptance.Model
+
+import groovy.transform.AutoClone
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
+@AutoClone
 @Slf4j
 @ToString(includePackage = false)
 class TestMetric extends SpecModel {
     String name
+    String category
     String description
     String platform
+    String comment
     Boolean enabled
     int snapshot_level = -1
     Boolean device_enabled
 
     def count() { return 1 }
+
+    def get_definitions() {
+        return [
+            (enabled)? 'Y':'',
+            category,
+            description,
+            name,
+            platform,
+            (device_enabled)? 'Y':'',
+            comment
+        ]
+    }
 }
 
 @Slf4j

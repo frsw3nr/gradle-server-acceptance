@@ -116,15 +116,19 @@ class ExcelSheetMaker {
             def error_report_sheet = this.report_maker?.error_report_sheet
             if (error_report_sheet) {
                 write_sheet_error_report(error_report_sheet, sheet_design)
-                // println "ERROR_REPORT_SHEET2: ${error_report_sheet?.rows}"
             }
         }
         def count_summary_sheet_update = 0
         excel_parser.sheet_sources['check_sheet'].each { domain, sheet_design ->
             evidence_maker.summary_sheets[domain].each { summary_sheet ->
-                write_sheet_summary(summary_sheet, sheet_design)
+                def sheet = create_sheet_summary(summary_sheet, sheet_design)
+                excel_parser.workbook.setSheetOrder(sheet.getSheetName(), 3 + count_summary_sheet_update)
                 count_summary_sheet_update ++
             }
+            // evidence_maker.summary_sheets[domain].each { summary_sheet ->
+            //     write_sheet_summary(summary_sheet, sheet_design)
+            //     count_summary_sheet_update ++
+            // }
         }
         log.info "Summary sheet updated : ${count_summary_sheet_update}"
 
@@ -210,11 +214,26 @@ class ExcelSheetMaker {
 
     def write_sheet_header(sheet, int[] position, String[] headers) {
         Row header_row = sheet.getRow(position[0])
+        if (header_row == null)
+            header_row = sheet.createRow(position[0])
+
         def colnum = 0
         headers.each { header ->
             Cell cell = header_row.createCell(colnum + position[1])
             cell.setCellValue(header)
             set_test_result_cell_style(cell, ResultCellStyle.TITLE)
+            colnum ++
+        }
+    }
+
+    def write_sheet_metric_definition(sheet, Row row, TestMetric sheet_metric) {
+        def values = sheet_metric.get_definitions()
+        // println "VALUES:$values"
+        def colnum = 0
+        values.each { value ->
+            Cell cell = row.createCell(colnum)
+            cell.setCellValue(value)
+            set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
             colnum ++
         }
     }
@@ -244,12 +263,46 @@ class ExcelSheetMaker {
                 if (!platform && !metric)
                     return
                 last_rownum = rownum
+                def added_metrics = sheet_summary.added_rows[platform, metric]
+                if (added_metrics) {
+                    println "ADD NEW METRIC: ${metric}, ${added_metrics}"
+                    added_metrics.each { platform_metric_key2, test_metric ->
+                        def platform2 = platform_metric_key2[0]
+                        def metric2 = platform_metric_key2[1]
+                        row = sheet.getRow(rownum)
+                        // Row row = sheet.getRow(rownum)
+                        if (row == null)
+                            row = sheet.createRow(rownum)
+                        def colnum = 0
+                        ['', '', '', metric2, platform2, '', test_metric.description].each { label ->
+                            Cell cell_metric = row.createCell(colnum)
+                            write_cell_summary(cell_metric, new TestResult(value: label), true)
+                            colnum ++
+                        }
+                        row.setRowStyle(row_style)
+                        sheet_summary.cols.each { target, column_index ->
+                            colnum = column_index + result_position[1] - 1
+                            sheet.setColumnWidth(colnum, evidence_cell_width)
+                            Cell cell = row.createCell(colnum)
+                            def test_result = summary_results[platform2][metric2][target] as TestResult
+                            println "ADDED SHEET2:$metric,$rownum, $target, $column_index, ${test_result}"
+                            try {
+                                write_cell_summary(cell, test_result)
+                            } catch (NullPointerException e) {
+                                log.debug "Not found row ${platform2},${metric2}"
+                            }
+                        }
+                        rownum ++
+                    }
+                }
                 row.setRowStyle(row_style)
+                println "SHEET:$metric,$rownum"
                 sheet_summary.cols.each { target, column_index ->
                     def colnum = column_index + result_position[1] - 1
                     sheet.setColumnWidth(colnum, evidence_cell_width)
                     Cell cell = row.createCell(colnum)
                     def test_result = summary_results[platform][metric][target] as TestResult
+                    println "SHEET2:$metric,$rownum, $target, $column_index, ${test_result}"
                     try {
                         write_cell_summary(cell, test_result)
                     } catch (NullPointerException e) {
@@ -258,32 +311,32 @@ class ExcelSheetMaker {
                 }
             }
             rownum = last_rownum + 1
-            sheet_summary.added_rows.each { platform_metric_key, test_metric ->
-                def platform = platform_metric_key[0]
-                def metric = platform_metric_key[1]
-                Row row = sheet.getRow(rownum)
-                if (row == null)
-                    row = sheet.createRow(rownum)
-                def colnum = 0
-                ['', metric, '', platform, '', test_metric.description].each { label ->
-                    Cell cell_metric = row.createCell(colnum)
-                    write_cell_summary(cell_metric, new TestResult(value: label), true)
-                    colnum ++
-                }
-                row.setRowStyle(row_style)
-                sheet_summary.cols.each { target, column_index ->
-                    colnum = column_index + result_position[1] - 1
-                    sheet.setColumnWidth(colnum, evidence_cell_width)
-                    Cell cell = row.createCell(colnum)
-                    def test_result = summary_results[platform][metric][target] as TestResult
-                    try {
-                        write_cell_summary(cell, test_result)
-                    } catch (NullPointerException e) {
-                        log.debug "Not found row ${platform},${metric}"
-                    }
-                }
-                rownum ++
-            }
+            // sheet_summary.added_rows.each { platform_metric_key, test_metric ->
+            //     def platform = platform_metric_key[0]
+            //     def metric = platform_metric_key[1]
+            //     Row row = sheet.getRow(rownum)
+            //     if (row == null)
+            //         row = sheet.createRow(rownum)
+            //     def colnum = 0
+            //     ['', metric, '', platform, '', test_metric.description].each { label ->
+            //         Cell cell_metric = row.createCell(colnum)
+            //         write_cell_summary(cell_metric, new TestResult(value: label), true)
+            //         colnum ++
+            //     }
+            //     row.setRowStyle(row_style)
+            //     sheet_summary.cols.each { target, column_index ->
+            //         colnum = column_index + result_position[1] - 1
+            //         sheet.setColumnWidth(colnum, evidence_cell_width)
+            //         Cell cell = row.createCell(colnum)
+            //         def test_result = summary_results[platform][metric][target] as TestResult
+            //         try {
+            //             write_cell_summary(cell, test_result)
+            //         } catch (NullPointerException e) {
+            //             log.debug "Not found row ${platform},${metric}"
+            //         }
+            //     }
+            //     rownum ++
+            // }
             // sheet_design.sheet_row.each { platform_metric_key, rownum ->
             //     Row row = sheet.getRow(rownum + result_position[0])
             //     if (row == null)
@@ -304,6 +357,133 @@ class ExcelSheetMaker {
             //     }
             // }
         }
+    }
+
+    // Write Summary sheet Header
+    def write_sheet_summary_header(sheet, SheetSummary sheet_summary, SheetDesign sheet_design) {
+        def result_position = sheet_design.sheet_parser.result_pos
+        def header_pos = sheet_design.sheet_parser.header_pos
+
+        def headers = sheet_design.get_headers() as String[]
+        write_sheet_header(sheet, header_pos, headers)
+        
+        def column_sizes = sheet_design.get_column_sizes()
+        def colnum = 0
+        column_sizes.each { column_size ->
+            sheet.setColumnWidth(colnum, column_size)
+            colnum ++
+        }
+
+        def targets = sheet_summary.cols.keySet() as String[]
+        write_sheet_header(sheet, result_position, targets)
+        colnum = result_position[1]
+        targets.each { target ->
+            sheet.setColumnWidth(colnum, evidence_cell_width)
+            colnum ++
+        }
+    }
+
+    def write_sheet_summary_values_line(Row row, List platform_metric,
+                                        SheetSummary sheet_summary,
+                                        SheetDesign sheet_design) {
+        def platform = platform_metric[0]
+        def metric   = platform_metric[1]
+
+        def result_position = sheet_design.sheet_parser.result_pos
+        def summary_results = sheet_summary.results
+        sheet_summary.cols.each { target, column_index ->
+            def colnum = column_index + result_position[1] - 1
+            Cell cell = row.createCell(colnum)
+            def test_result = summary_results[platform][metric][target] as TestResult
+            // println "SHEET2:$metric,$target, $column_index, ${test_result}"
+            try {
+                write_cell_summary(cell, test_result)
+            } catch (NullPointerException e) {
+                log.debug "Not found row ${platform},${metric}"
+            }
+        }
+    }
+
+    // Write Summary group
+    def write_sheet_summary_group(sheet, List categorys, SheetDesign sheet_design) {
+        def result_position = sheet_design.sheet_parser.result_pos
+        def category_temp
+        def group_positions = []
+        def rownum = result_position[0] + 1
+        categorys.each { category ->
+            if (category_temp != category) {
+                category_temp = category
+                group_positions << rownum
+            }
+            rownum ++
+        }
+        group_positions << rownum
+        def group_position_strat
+        group_positions.each { group_position ->
+            if (group_position_strat) {
+                def group_position_end = group_position - 2
+                if ((group_position - group_position_strat) > 0) {
+                    sheet.groupRow(group_position_strat, group_position_end)
+                    // sheet.setRowGroupCollapsed(group_position_strat, true)
+                }
+            }
+            group_position_strat = group_position
+        }
+    }
+
+    def get_sheet_summary_name(SheetSummary sheet_summary, SheetDesign sheet_design) {
+        return "${sheet_design.result_sheet_name_prefix}(${sheet_summary.sheet_name})"
+    }
+
+    def create_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
+        def workbook = excel_parser.workbook
+        // Font font = workbook.createFont();
+        // font.setFontName("ＭＳ Ｐゴシック");
+        def row_style  = workbook.createCellStyle().setWrapText(false)
+
+        def sheet_name = get_sheet_summary_name(sheet_summary, sheet_design)
+        def sheet = workbook.createSheet(sheet_name)
+        sheet.groupColumn(3, 6)
+        // sheet.setColumnGroupCollapsed(3, true)
+
+        write_sheet_summary_header(sheet, sheet_summary, sheet_design)
+
+        def rownum = sheet_design.sheet_parser.result_pos[0] + 1
+        def last_rownum = 0
+
+        def categorys = []
+        sheet_design.sheet_metrics.each { platform_metric, test_metric ->
+            def added_metrics = sheet_summary.added_rows[platform_metric]
+            if (added_metrics) {
+                // println "ADD NEW METRIC: ${platform_metric}, ${added_metrics}"
+                added_metrics.each { platform_metric2, test_metric2 ->
+                    categorys << test_metric2.category
+                    Row row = sheet.getRow(rownum)
+                    if (row == null)
+                        row = sheet.createRow(rownum)
+                    write_sheet_metric_definition(sheet, row, test_metric2)
+                    write_sheet_summary_values_line(row, platform_metric2, sheet_summary, sheet_design)
+                    rownum ++
+                }
+            }
+
+            Row row = sheet.getRow(rownum)
+            if (row == null)
+                row = sheet.createRow(rownum)
+
+            categorys << test_metric.category
+            def sheet_metric  = sheet_design.sheet_metrics[platform_metric]
+            // println "ROWNUM: $rownum, PLATFORM_METRIC: $platform_metric, SHEET_METRIC: $sheet_metric"
+            if (!sheet_metric)
+                return
+
+            write_sheet_metric_definition(sheet, row, sheet_metric)
+            write_sheet_summary_values_line(row, platform_metric, sheet_summary, sheet_design)
+            rownum ++
+            last_rownum = rownum
+        }
+        write_sheet_summary_group(sheet, categorys, sheet_design)
+        return sheet
     }
 
     def write_sheet_report(SheetSummary sheet_summary, SheetDesign sheet_design) {

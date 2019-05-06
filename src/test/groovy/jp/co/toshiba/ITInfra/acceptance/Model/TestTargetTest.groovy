@@ -81,7 +81,7 @@ class TestTargetTest extends Specification {
         then:
         println "SERVER_INFO 1 : ${server_info}"
         println "SERVER_INFO 2 : ${server_info['Linux']['net_ip']}"
-        server_info['Linux']['net_ip'].size() == 2
+        server_info['Linux']['net_ip'].size() == 3
         // server_info['mng_ip'] == '192.168.10.1'
     }
 

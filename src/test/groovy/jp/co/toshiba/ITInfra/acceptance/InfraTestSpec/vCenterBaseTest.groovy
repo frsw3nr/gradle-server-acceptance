@@ -58,12 +58,12 @@ class vCenterBaseTest extends Specification {
         def json = new groovy.json.JsonBuilder()
         json(test_platform.test_results)
         println json.toPrettyString()
-        test_platform.test_results['NumCpu'].status  == ResultStatus.OK
-        // test_platform.test_results['NumCpu'].verify == ResultStatus.OK
-        test_platform.test_results['MemoryGB'].status  == ResultStatus.OK
-        // test_platform.test_results['MemoryGB'].verify == ResultStatus.OK
-        test_platform.test_results['VMHost'].status  == ResultStatus.OK
-        // test_platform.test_results['VMHost'].verify == ResultStatus.OK
+        test_platform.test_results['vm.NumCpu'].status  == ResultStatus.OK
+        // test_platform.test_results['vm.NumCpu'].verify == ResultStatus.OK
+        test_platform.test_results['vm.MemoryGB'].status  == ResultStatus.OK
+        // test_platform.test_results['vm.MemoryGB'].verify == ResultStatus.OK
+        test_platform.test_results['vm.VMHost'].status  == ResultStatus.OK
+        // test_platform.test_results['vm.VMHost'].verify == ResultStatus.OK
      }
 
     def "vCenter テスト仕様 VMNetwork"() {

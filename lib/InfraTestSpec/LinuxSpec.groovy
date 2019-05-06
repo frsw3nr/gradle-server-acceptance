@@ -47,7 +47,7 @@ class LinuxSpec extends LinuxSpecBase {
             run_ssh_command(session, command, 'hostname_fqdn')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
-        def info = '[NotConfigured]'
+        def info = 'NotConfigured'
         lines.eachLine {
             if (it.indexOf('.') != -1)
                 info = it
@@ -193,13 +193,10 @@ class LinuxSpec extends LinuxSpecBase {
         def lines = exec('network') {
             run_ssh_command(session, '/sbin/ip addr', 'network')
         }
-        def csv        = []
-        def network    = [:].withDefault{[:]}
-        def net_ip     = [:]
-        def net_subnet = [:]
-        def ipv6       = 'Disabled'
-        def device     = ''
-        def hw_address = []
+        def network = [:].withDefault{[:]}
+        def device  = ''
+        def res     = [:]
+        def ipv6    = 'Disable'
         lines.eachLine {
             // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
             (it =~  /^(\d+): (.+): <(.+)> (.+)$/).each { m0,m1,m2,m3,m4->
@@ -230,12 +227,11 @@ class LinuxSpec extends LinuxSpecBase {
                     // Regist Port List
                     def ip_address = subnet.getAddress()
                     if (ip_address && ip_address != '127.0.0.1') {
-                        // test_item.port_list(ip_address, device)
-                        // test_item.port_list(ip_address, device,
-                        //                     null, null, null, null, null, null, null, true)
                         test_item.lookuped_port_list(ip_address, device)
+                        add_new_metric("network.ip.${device}", "ネットワーク.${device}.IP", ip_address, res)
+                        add_new_metric("network.subnet.${device}", "ネットワーク.${device}.subnet", 
+                                       network[device]['subnet'], res)
                     }
-                    net_subnet[device] = network[device]['subnet']
                 } catch (IllegalArgumentException e) {
                     log.error "[LinuxTest] subnet convert : m1\n" + e
                 }
@@ -243,14 +239,16 @@ class LinuxSpec extends LinuxSpecBase {
 
             // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
             (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
-                network[device]['mac'] = m1
-                hw_address.add(m1)
+                add_new_metric("network.mac.${device}", "ネットワーク.${device}.MAC", m1, res)
             }
             (it =~ /inet6/).each { m0 ->
                 ipv6 = 'Enabled'
             }
         }
+        add_new_metric("network.ipv6_enabled", "ネットワーク.IPv6", ipv6, res)
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
+        def csv        = []
+        def net_ip     = [:]
         network.each { device_id, items ->
             def columns = [device_id]
             ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
@@ -260,21 +258,10 @@ class LinuxSpec extends LinuxSpecBase {
             net_ip[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
-        test_item.results(
-                'network' : net_ip.keySet().toString(),
-                'net_ip': net_ip.toString(),
-                'net_subnet': net_subnet.toString(),
-                'ipv6_disable': ipv6,
-                'hw_address' : hw_address.toString()
-        )
+        res['network'] = net_ip.keySet().toString()
+        test_item.results(res)
         test_item.devices(csv, headers)
         test_item.verify_text_search_list('net_ip', net_ip)
-        // println "NET_IP:${net_ip}"
-        // println "NET_SUBNET:${net_subnet}"
-        // println "NETWORK:${network}"
-
-
-        // test_item.verify_text_search_map('net_ip', net_ip)
     }
 
     // def convert_array(element) {
@@ -390,6 +377,11 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(lines)
     }
 
+    def add_new_metric(String id, String description, value, Map results) {
+        this.test_platform.add_test_metric(id, description)
+        results[id] = value
+    }
+
     def filesystem(session, test_item) {
         def fstabs = exec('fstab') {
             run_ssh_command(session, "cat /etc/fstab", 'fstab')
@@ -420,27 +412,32 @@ class LinuxSpec extends LinuxSpecBase {
         //   ├─vg_ostrich-lv_root (dm-0) 253:0    0 26.5G  0 lvm  /
         //   └─vg_ostrich-lv_swap (dm-1) 253:1    0    3G  0 lvm  [SWAP]
         def csv = []
-        def filesystems = [:]
+        // def filesystems = [:]
         def infos = [:]
-        def infos2 = [:]
-        println fstypes
+        def res = [:]
+        // println fstypes
         lines.eachLine {
             (it =~  /^(.+?)\s+(\d+:\d+\s.+)$/).each { m0,m1,m2->
                 def device = m1
+                def device_node = device
+                (device_node =~ /([a-zA-Z].+)/).each { n0, n1->
+                    device_node = n1
+                }
                 def arr = [device]
                 def columns = m2.split(/\s+/)
                 if (columns.size() == 6) {
-                    println "COLUMNS:${columns}"
                     def mount    = columns[5]
                     def capacity = columns[2]
-                    filesystems['filesystem.' + mount] = columns[2]
+
+                    add_new_metric("filesystem.capacity.${mount}", "ディスク.${mount}.容量", capacity, res)
+                    add_new_metric("filesystem.device.${mount}", "ディスク.${mount}.デバイス", device_node, res)
+                    add_new_metric("filesystem.type.${mount}", "ディスク.${mount}.タイプ", columns[4], res)
+                    add_new_metric("filesystem.fstype.${mount}", "ディスク.${mount}.ファイルシステム", fstypes2[mount] ?: '', res)
+                    // this.test_platform.add_test_metric(id, "ディスク容量.${mount}")
+                    // res[id] = capacity
+
+                    // filesystems['filesystem.' + mount] = columns[2]
                     infos[mount] = capacity
-                    infos2[mount] = [
-                        'capacity' : capacity,
-                        'device'   : device,
-                        'type'     : columns[3],
-                        'fstype'   : fstypes2[mount] ?: ''
-                    ]
                 }
                 arr.addAll(columns)
                 csv << arr
@@ -448,13 +445,12 @@ class LinuxSpec extends LinuxSpecBase {
             (it =~  /^(.+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)%\s+(.+?)$/).each {
                 m0, device, capacity, m3, m4, m5, mount->
                 def columns = [device, '', '', capacity, '', '', mount]
-                filesystems['filesystem.' + mount] = capacity
+                // filesystems['filesystem.' + mount] = capacity
                 infos[mount] = capacity
                 // columns << fstypes[mount] ?: ''
-                infos2[mount] = [
-                    'capacity' : mount,
-                    'device' : device,
-                ]
+                add_new_metric("filesystem.capacity.${mount}", "ディスク.${mount}.容量", capacity, res)
+                add_new_metric("filesystem.device.${mount}", "ディスク.${mount}.デバイス", device, res)
+
                 csv << columns
             }
         }
@@ -462,11 +458,12 @@ class LinuxSpec extends LinuxSpecBase {
         // println csv
         // println filesystems
         test_item.devices(csv, headers)
-        filesystems['filesystem'] = infos.toString()
-        filesystems['fstype']     = fstypes.toString()
+        // filesystems['filesystem'] = infos.toString()
+        // filesystems['fstype']     = fstypes.toString()
         // println filesystems
-        println "INFO2: ${infos2}"
-        test_item.results(filesystems)
+        // test_item.results(filesystems)
+        res['filesystem'] = "${infos}"
+        test_item.results(res)
         test_item.verify_text_search_map('filesystem', infos)
     }
 
@@ -1019,16 +1016,14 @@ class LinuxSpec extends LinuxSpecBase {
             """.stripMargin()
             run_ssh_command(session, command, 'ntp')
         }
-        def config = 'NotConfigured'
         def ntpservers = []
         lines.eachLine {
             ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
-                config = 'Configured'
                 ntpservers.add(m1)
             }
         }
-        def result = ['ntp': config, 'server': ntpservers]
-        test_item.results(result.toString())
+        def result = (ntpservers.size()==0)?"Not found in 'ntp.conf'" : "${ntpservers}"
+        test_item.results(result)
     }
 
     def ntp_slew(session, test_item) {
@@ -1053,9 +1048,11 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(result)
     }
 
+    // TODO : Fix sudo command failure
     def snmp_trap(session, test_item) {
         def lines = exec('snmp_trap') {
-            def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
+            // def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
+            def command = "cat /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
             try {
                 def result = session.executeSudo command, pty: true, timeoutSec: timeout
                 session.get from: "${work_dir}/snmp_trap", into: local_dir
@@ -1065,15 +1062,18 @@ class LinuxSpec extends LinuxSpecBase {
             }
         }
         def config = 'NotConfigured'
+        def res = [:]
         def trapsink = []
         lines.eachLine {
-            (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
+            (it =~  /(trapsink|trapcommunity|trap2sink|informsink)\s+(.*)$/).each { m0, m1, m2 ->
                 config = 'Configured'
-                trapsink << trap_info
+                def id = "snmp_trap.${m1}"
+                this.test_platform.add_test_metric(id, "SNMPトラップ.${m2}")
+                res[id] = m2
             }
         }
-        def results = ['snmp_trap': config, 'trapsink': trapsink]
-        test_item.results(results.toString())
+        res['snmp_trap'] = config
+        test_item.results(res)
     }
 
     def sestatus(session, test_item) {

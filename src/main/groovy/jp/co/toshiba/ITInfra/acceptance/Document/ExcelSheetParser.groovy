@@ -42,6 +42,7 @@ abstract class ExcelSheetParser {
     int[] result_pos       = [0, 0]
     String[] header_checks = []
 
+    abstract def get_sheet_column_sizes(Sheet sheet)
     abstract def get_sheet_body(Sheet sheet)
 
     public static String getStringFormulaValue(Cell cell) {
@@ -112,6 +113,17 @@ class ExcelSheetParserHorizontal extends ExcelSheetParser {
         return headers
     }
 
+    def get_sheet_column_sizes(Sheet sheet) {
+        def column_sizes = []
+        def header_row = sheet.getRow(header_pos[0])
+        if (header_row) {
+            (0 .. header_row.getLastCellNum()).each { column ->
+                column_sizes[column] = sheet.getColumnWidth(column)
+            }
+        }
+        return column_sizes
+    }
+
     def get_sheet_body(Sheet sheet) {
         def headers = this.get_sheet_header(sheet)
         def lines = []
@@ -150,6 +162,17 @@ class ExcelSheetParserVertical extends ExcelSheetParser {
             throw new IllegalArgumentException(msg)
         }
         return headers
+    }
+
+    def get_sheet_column_sizes(Sheet sheet) {
+        def column_sizes = []
+        def header_row = sheet.getRow(header_pos[0])
+        if (header_row) {
+            (0 .. header_pos[1]).each { column ->
+                column_sizes[column] = sheet.getColumnWidth(column)
+            }
+        }
+        return column_sizes
     }
 
     def get_sheet_body(Sheet sheet) {

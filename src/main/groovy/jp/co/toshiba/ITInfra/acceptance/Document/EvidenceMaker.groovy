@@ -8,10 +8,16 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @Slf4j
 @ToString(includePackage = false)
 class SheetSummary {
+    String sheet_name
     def rows = [:]
-    def added_rows = [:]
+    // New Metric results with keys [base_metric, new_metric] 
+    def added_rows = [:].withDefault{[:]}
     def cols = [:]
     def results = [:].withDefault{[:].withDefault{[:]}}
+
+    SheetSummary(String name) {
+        this.sheet_name = name
+    }
 }
 
 @Slf4j
@@ -39,15 +45,19 @@ class EvidenceMaker {
     LinkedHashMap<String,SheetDeviceResult> device_result_sheets = [:]
 
     def add_added_test_metric(domain, platform, metric, test_metric) {
-        // println "ADD: $domain, $platform, $metric, $test_metric"
-        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
-        sheet.added_rows[[platform, metric]] = test_metric
+        def sheet = this.summary_sheets[domain] ?: new SheetSummary(domain)
+        (metric=~/^(.+?)\./).each { m0, base_metric ->
+            sheet.added_rows[[platform, base_metric]][[platform, metric]] = test_metric
+        }
+        sheet.rows[[platform, metric]] = 1
         this.summary_sheets[domain] = sheet
     }
 
-    def add_summary_result(domain, target, platform, metric, test_result) {
-        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
-        sheet.rows[[platform, metric]] = 1
+    def add_summary_result(domain, target, test_metric, test_result) {
+        def platform = test_metric.platform
+        def metric = test_metric.name
+        def sheet = this.summary_sheets[domain] ?: new SheetSummary(domain)
+        sheet.rows[[platform, metric]] = test_metric
         if (sheet.cols.containsKey(target)) {
             sheet.cols[target] = sheet.cols.size()
         } else {
@@ -172,7 +182,9 @@ class EvidenceMaker {
                             def test_result = test_results[metric]
                             if (test_result) {
                                 if (comparision == comparision_sequence) {
-                                    add_summary_result(domain, target, platform, metric,
+                                    // add_summary_result(domain, target, platform, metric,
+                                    //                    test_result)
+                                    add_summary_result(domain, target, test_metric,
                                                        test_result)
                                     // println "METRIC: $domain, $target, $platform, $metric"
                                     if (test_metric.device_enabled) {

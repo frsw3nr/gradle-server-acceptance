@@ -1,20 +1,110 @@
 Changes for 0.2.1 (2019-5-8)
 ------------------------------------------------------------------------------
+
+# デバイスの追加メトリック管理
+
+## add_test_metric(id, desc)
+
+    datastore.Name.datastore1
+    datastore.DatastoreBrowserPath.datastore1
+    datastore.Type.datastore1
+    datastore.State.datastore1
+
+## TestPlatform.groovy 内 
+
+新メトリック設定。added_test_metrics 配列に登録
+
+    def new_test_id = "datastore.${header}.${it['Name']}"
+    this.test_platform.add_test_metric(new_test_id, "")
+
+add_test_metric()内、 「added_test_metrics」 配列に新メトリック追加
+
+    test_metric = new TestMetric(name: metric, description: description,
+                                 platform: this.name,
+                                 enabled: true)
+    this.added_test_metrics[metric] = test_metric
+
+## EvidenceMaker.groovy内
+
+extract_added_test_metric() 内
+
+エビデンス作成。add_added_test_metric()内、sheet.added_rows 配列に登録
+
+    test_target.test_platforms.each { platform, test_platform ->
+        test_platform?.added_test_metrics.each { metric, test_metric ->
+            metric_set.add(test_metric)
+            add_added_test_metric(domain, platform, metric, test_metric)
+        }
+    }
+
+    def add_added_test_metric(domain, platform, metric, test_metric) {
+        // println "ADD: $domain, $platform, $metric, $test_metric"
+        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
+        sheet.added_rows[[platform, metric]] = test_metric
+        this.summary_sheets[domain] = sheet
+    }
+
+変更範囲検討
+
+* 追加メトリックの親メトリックとの関連追加。
+* ノード間の重複チェック。新規メトリックの場合、行カウントアップ
+
+## レポート作成
+
+ExcelSheetMaker.groovy内
+
+    def excel_sheet_maker = new ExcelSheetMaker(
+                                excel_parser: this.excel_parser,
+                                evidence_maker: evidence_maker,
+                                report_maker: report_maker)
+    excel_sheet_maker.output(this.output_evidence)
+
+write_sheet_summary()内、最終行に追加メトリック作成
+
+    def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
+
+変更範囲検討
+
+* メトリック列作成、新メトリック、基底メトリックの順に作成
+* ノード列
+    * sheet_summary.added_rows を、sheet_design.sheet_row に追加
+
 ToDo:
 * 検査シナリオの階層化 [ ]
+    * 単体テスト
+        * EvidenceMaker.groovy 内 add_added_test_metric() [x]
+            * 基底メトリックの下に登録 [x]
+        * ExcelSheetMaker.groovy 内 write_sheet_summary() [x]
+            * 追加メトリックの行追加 [x]
+        * TestResultWriter.groovy [ ]
+            * 追加メトリックの結果登録 [ ]
+        * TestResultReader.groovy [ ]
+            * 追加メトリックの結果読込み [ ]
+    * datastore でテスト追加 [x]
+    * UML見直 [ ]
     * Linux シナリオ見直し [ ]
         * Linux Excel チェックシート変更 [x]
-        * 単体テスト LinuxScenarioTest.groovy ベース作成 [ ]
+            * 列フォーマット変更 [x]
+            * 列グループ化設定 [x]
+            * Category, Metric 列 Linux 見直し [x]
+            * Category, Metric 列 Windows 見直し [x]
+        * 単体テスト LinuxScenarioTest.groovy ベース作成 [x]
         * シナリオ変更 [ ]
-            * vCenter [ ]
-                * ベース [ ]
-                * データストア [ ]
-                * ネットワーク [ ]
-                * ストレージ [ ]
+            * vCenter [x]
+                * ベース [x]
+                * データストア [x]
+                * ネットワーク [x]
+                * ストレージ [x]
             * Linux [ ]
-                * ベース [ ]
-                * ネットワーク [ ]
-                * ストレージ [ ]
+                * ベース [x]
+                * NTP [x]
+                * SNMP [ ] TODO: sudo 実行
+                * SELinux [x]
+                * VMWare [x]
+                * CPU [ ]
+                * メモリ [ ]
+                * ネットワーク [x]
+                * ストレージ [x]
                 * ユーザ [ ]
                 * サービス [ ]
                 * パッケージ [ ]

@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "LinuxScenarioTest.シナリオ結合 3"
+// gradle --daemon test --tests "LinuxScenarioTest.VMリソース"
 
 class LinuxScenarioTest extends Specification {
 
@@ -22,7 +22,7 @@ class LinuxScenarioTest extends Specification {
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
 
-        excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser = new ExcelParser('src/test/resources/check_sheet_v2.xlsx')
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
@@ -30,18 +30,18 @@ class LinuxScenarioTest extends Specification {
         platform_tester = new PlatformTester(config_file: './src/test/resources/config.groovy')
     }
 
-    def "シナリオ結合 3"() {
+    def "VMリソース"() {
         when:
-        def excel_file = 'src/test/resources/check_sheet.xlsx'
+        def excel_file = 'src/test/resources/check_sheet_v2.xlsx'
         def output_evidence = 'build/check_sheet2.xlsx'
-        println "config_file:${platform_tester.config_file}"
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_file : excel_file,
                                                output_evidence: output_evidence,
                                                result_dir : 'build/json',
                                                )
         test_scheduler.init()
-        test_scheduler.filter_metric = 'filesystem';
+        println test_scheduler
+        test_scheduler.filter_metric = 'vm';
         test_scheduler.filter_server = 'ostrich';
         println "FILTER METRIC : ${test_scheduler.filter_metric}"
         println "FILTER SERVER : ${test_scheduler.filter_server}"
@@ -52,4 +52,47 @@ class LinuxScenarioTest extends Specification {
         1 == 1
     }
 
+    def "VM拡張設定"() {
+        when:
+        def excel_file = 'src/test/resources/check_sheet_v2.xlsx'
+        def output_evidence = 'build/check_sheet2.xlsx'
+        def test_scheduler = new TestScheduler(platform_tester : platform_tester,
+                                               excel_file : excel_file,
+                                               output_evidence: output_evidence,
+                                               result_dir : 'build/json',
+                                               )
+        test_scheduler.init()
+        println test_scheduler
+        test_scheduler.filter_metric = 'vmext';
+        test_scheduler.filter_server = 'ostrich';
+        println "FILTER METRIC : ${test_scheduler.filter_metric}"
+        println "FILTER SERVER : ${test_scheduler.filter_server}"
+        test_scheduler.run()
+        test_scheduler.finish()
+
+        then:
+        1 == 1
+    }
+
+    def "データストア"() {
+        when:
+        def excel_file = 'src/test/resources/check_sheet_v2.xlsx'
+        def output_evidence = 'build/check_sheet2.xlsx'
+        def test_scheduler = new TestScheduler(platform_tester : platform_tester,
+                                               excel_file : excel_file,
+                                               output_evidence: output_evidence,
+                                               result_dir : 'build/json',
+                                               )
+        test_scheduler.init()
+        println test_scheduler
+        test_scheduler.filter_metric = 'datastore';
+        test_scheduler.filter_server = 'ostrich,cent7';
+        println "FILTER METRIC : ${test_scheduler.filter_metric}"
+        println "FILTER SERVER : ${test_scheduler.filter_server}"
+        test_scheduler.run()
+        test_scheduler.finish()
+
+        then:
+        1 == 1
+    }
 }

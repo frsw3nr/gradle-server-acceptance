@@ -1,0 +1,262 @@
+{
+    "vm.NumCpu": {
+        "name": "vm.NumCpu",
+        "value": "1",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm.PowerState": {
+        "name": "vm.PowerState",
+        "value": "PoweredOn",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm.MemoryGB": {
+        "name": "vm.MemoryGB",
+        "value": "3",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm.VMHost": {
+        "name": "vm.VMHost",
+        "value": "192.168.10.100",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm": {
+        "name": "vm",
+        "value": "[CPU:1, Memory:3, Host:192.168.10.100]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "NumCpu": {
+        "name": "NumCpu",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
+        "comparision": null
+    },
+    "MemoryGB": {
+        "name": "MemoryGB",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
+        "comparision": null
+    },
+    "VMHost": {
+        "name": "VMHost",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
+        "comparision": null
+    },
+    "vmext.Name": {
+        "name": "vmext.Name",
+        "value": "cent7g",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmext.CpuHotAddEnabled": {
+        "name": "vmext.CpuHotAddEnabled",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmext.MemoryReservationLockedToMax": {
+        "name": "vmext.MemoryReservationLockedToMax",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmext.MemoryHotAddEnabled": {
+        "name": "vmext.MemoryHotAddEnabled",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmext": {
+        "name": "vmext",
+        "value": "[Cpu:0, MemoryLock:0, Memory:0]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "datastore": {
+        "name": "datastore",
+        "value": "[datastore2]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "OK",
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "datastore2",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
+                    "VMFS",
+                    "Available"
+                ]
+            ],
+            "header": [
+                "Name",
+                "DatastoreBrowserPath",
+                "Type",
+                "State"
+            ]
+        }
+    },
+    "datastore.DatastoreBrowserPath.datastore2": {
+        "name": "datastore.DatastoreBrowserPath.datastore2",
+        "value": "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "datastore.Type.datastore2": {
+        "name": "datastore.Type.datastore2",
+        "value": "VMFS",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "datastore.State.datastore2": {
+        "name": "datastore.State.datastore2",
+        "value": "Available",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_storage": {
+        "name": "vm_storage",
+        "value": "[Thin:16]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "[datastore2] cent7gui/cent7gui.vmdk",
+                    "Thin",
+                    "16"
+                ]
+            ],
+            "header": [
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
+            ]
+        }
+    },
+    "VMNetwork": {
+        "name": "VMNetwork",
+        "value": "[StartConnected]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "LIVING-LAN",
+                    "Vmxnet3",
+                    "Connected, GuestControl, StartConnected"
+                ]
+            ],
+            "header": [
+                "NetworkName",
+                "Type",
+                "ConnectionState"
+            ]
+        }
+    },
+    "VMNetwork.type": {
+        "name": "VMNetwork.type",
+        "value": "[Vmxnet3]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmwaretool": {
+        "name": "vmwaretool",
+        "value": "OK",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vmwaretool.version": {
+        "name": "vmwaretool.version",
+        "value": "[internalversion:2147483647, requiredversion:9344]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_timesync": {
+        "name": "vm_timesync",
+        "value": "[TimeSync:False]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_iops_limit": {
+        "name": "vm_iops_limit",
+        "value": "[IOLimit1:-1]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    }
+}

@@ -1,57 +1,129 @@
 {
-    "NumCpu": {
-        "name": "NumCpu",
+    "vm.NumCpu": {
+        "name": "vm.NumCpu",
         "value": "1",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
-        "verify": "OK",
-        "comparision": null
+        "verify": null,
+        "comparision": "MATCH"
     },
-    "PowerState": {
-        "name": "PowerState",
+    "vm.PowerState": {
+        "name": "vm.PowerState",
         "value": "PoweredOn",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": "MATCH"
     },
-    "MemoryGB": {
-        "name": "MemoryGB",
-        "value": "2",
+    "vm.MemoryGB": {
+        "name": "vm.MemoryGB",
+        "value": "3.984375",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
-        "verify": "OK",
-        "comparision": null
+        "verify": null,
+        "comparision": "UNMATCH"
     },
-    "VMHost": {
-        "name": "VMHost",
+    "vm.VMHost": {
+        "name": "vm.VMHost",
         "value": "192.168.10.100",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": "MATCH"
     },
     "vm": {
         "name": "vm",
+        "value": "[CPU:1, Memory:3.984375, Host:192.168.10.100]",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": "NG",
+        "comparision": "UNMATCH"
+    },
+    "NumCpu": {
+        "name": "NumCpu",
         "value": null,
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": null,
         "verify": "OK",
-        "comparision": null
+        "comparision": "MATCH"
+    },
+    "MemoryGB": {
+        "name": "MemoryGB",
+        "value": null,
+        "error_msg": "3.984375 != 4.0",
+        "compare_server": "cent7g",
+        "status": null,
+        "verify": "NG",
+        "comparision": "MATCH"
+    },
+    "VMHost": {
+        "name": "VMHost",
+        "value": null,
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": null,
+        "verify": "OK",
+        "comparision": "MATCH"
+    },
+    "vmext.Name": {
+        "name": "vmext.Name",
+        "value": "cent7",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
+    "vmext.CpuHotAddEnabled": {
+        "name": "vmext.CpuHotAddEnabled",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "vmext.MemoryReservationLockedToMax": {
+        "name": "vmext.MemoryReservationLockedToMax",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "vmext.MemoryHotAddEnabled": {
+        "name": "vmext.MemoryHotAddEnabled",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "vmext": {
+        "name": "vmext",
+        "value": "[Cpu:0, MemoryLock:0, Memory:0]",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
     },
     "datastore": {
         "name": "datastore",
-        "value": "[living-data1, datastore1]",
+        "value": "[living-data1, datastore2]",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
-        "verify": null,
-        "comparision": null,
+        "verify": "OK",
+        "comparision": "UNMATCH",
         "devices": {
             "csv": [
                 [
@@ -61,8 +133,8 @@
                     "Available"
                 ],
                 [
-                    "datastore1",
-                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore1",
+                    "datastore2",
+                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
                     "VMFS",
                     "Available"
                 ]
@@ -75,14 +147,96 @@
             ]
         }
     },
+    "datastore.DatastoreBrowserPath.living-data1": {
+        "name": "datastore.DatastoreBrowserPath.living-data1",
+        "value": "vmstores:\\192.168.10.100@443\\ha-datacenter\\living-data1",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
+    "datastore.Type.living-data1": {
+        "name": "datastore.Type.living-data1",
+        "value": "VMFS",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
+    "datastore.State.living-data1": {
+        "name": "datastore.State.living-data1",
+        "value": "Available",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
+    "datastore.DatastoreBrowserPath.datastore2": {
+        "name": "datastore.DatastoreBrowserPath.datastore2",
+        "value": "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "datastore.Type.datastore2": {
+        "name": "datastore.Type.datastore2",
+        "value": "VMFS",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "datastore.State.datastore2": {
+        "name": "datastore.State.datastore2",
+        "value": "Available",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "vm_storage": {
+        "name": "vm_storage",
+        "value": "[EagerZeroedThick:20.1474609375, Thin:16]",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH",
+        "devices": {
+            "csv": [
+                [
+                    "[datastore2] cent7/cent7.vmdk",
+                    "EagerZeroedThick",
+                    "20.1474609375"
+                ],
+                [
+                    "[living-data1] cent7/cent7_1.vmdk",
+                    "Thin",
+                    "16"
+                ]
+            ],
+            "header": [
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
+            ]
+        }
+    },
     "VMNetwork": {
         "name": "VMNetwork",
         "value": "[StartConnected]",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null,
+        "comparision": "MATCH",
         "devices": {
             "csv": [
                 [
@@ -98,68 +252,49 @@
             ]
         }
     },
+    "VMNetwork.type": {
+        "name": "VMNetwork.type",
+        "value": "[Vmxnet3]",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
     "vmwaretool": {
         "name": "vmwaretool",
         "value": "OK",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": "MATCH"
     },
     "vmwaretool.version": {
         "name": "vmwaretool.version",
         "value": "[internalversion:9344, requiredversion:9344]",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": "UNMATCH"
     },
     "vm_timesync": {
         "name": "vm_timesync",
         "value": "[TimeSync:True]",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null
+        "comparision": "UNMATCH"
     },
     "vm_iops_limit": {
         "name": "vm_iops_limit",
         "value": "[IOLimit1:-1, IOLimit2:-1]",
         "error_msg": null,
-        "compare_server": null,
+        "compare_server": "cent7g",
         "status": "OK",
         "verify": null,
-        "comparision": null
-    },
-    "vm_storage": {
-        "name": "vm_storage",
-        "value": "[Thick:16, Thin:16]",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null,
-        "devices": {
-            "csv": [
-                [
-                    "[datastore1] cent7/cent7.vmdk",
-                    "Thick",
-                    "16"
-                ],
-                [
-                    "[living-data1] cent7/cent7_1.vmdk",
-                    "Thin",
-                    "16"
-                ]
-            ],
-            "header": [
-                "Filename",
-                "StorageFormat",
-                "CapacityGB"
-            ]
-        }
+        "comparision": "UNMATCH"
     }
 }

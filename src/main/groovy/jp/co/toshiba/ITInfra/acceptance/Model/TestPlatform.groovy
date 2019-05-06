@@ -49,11 +49,23 @@ class TestPlatform extends SpecModel {
         if (this.added_test_metrics.containsKey(metric)) {
             test_metric = added_test_metrics[metric]
         } else {
-            test_metric = new TestMetric(name: metric, description: description,
-                                         platform: this.name,
-                                         enabled: true)
+            (metric =~/^(.+?)\./).each { m0, base_metric_name ->
+                def base_metric = test_metrics[base_metric_name]
+                if (base_metric) {
+                    test_metric = base_metric.clone()
+                    test_metric.name           = metric
+                    test_metric.description    = description
+                    test_metric.enabled        = false
+                    test_metric.device_enabled = false
+                    this.added_test_metrics[metric] = test_metric
+                }
+            }
+            if (!test_metric) {
+                test_metric = new TestMetric(name: metric, description: description,
+                                             platform: this.name,
+                                             enabled: true)
+            }
         }
-        this.added_test_metrics[metric] = test_metric
     }
 }
 

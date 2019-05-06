@@ -2,8 +2,8 @@
     "name": "cent7",
     "ip": "192.168.0.20",
     "template_id": "RH7",
-    "compare_server": null,
-    "target_status": "COMPARED",
+    "compare_server": "cent7g",
+    "target_status": "FINISH",
     "platforms": [
         "vCenter",
         "Linux"

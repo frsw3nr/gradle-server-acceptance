@@ -2,12 +2,20 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
+import groovy.transform.InheritConstructors
 import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.TestItem.*
+
+// @Slf4j
+// @ToString(includePackage = false)
+// @InheritConstructors
+// class LinuxSpecBase extends InfraTestSpec {
 
 @Slf4j
 @ToString(includePackage = false)
-class TestItem {
+@InheritConstructors
+class TestItem extends TestUtility {
 
     String platform
     String test_id
@@ -436,6 +444,34 @@ class TestItem {
             rownum ++
         }
         return [header, csv]
+    }
+
+    def make_abbreviation(String value) {
+        if (value == 'False') {
+            return '0'
+        } else if (value == 'True') {
+            return '1'
+        } else {
+            return value
+        }
+    }
+
+    def make_summary_text(Map result_labels) {
+        def result_summarys = [:]
+        result_labels.each { label_key, result_label ->
+            [label_key, "${this.test_id}.${label_key}"].find { result_label_key ->
+                def found = this.test_results?."${result_label_key}"
+                // println "KEY:${result_label_key}, FOUND:${found}"
+                if (found != null) {
+                    def value = make_abbreviation(found.value)
+                    result_summarys[result_label] = value
+                    return true
+                }
+            }
+        }
+        def summary_text = (result_summarys) ? "${result_summarys}" : "Not Found"
+        println "SUMMARY: ${summary_text}"
+        this.results(summary_text)
     }
 
 }

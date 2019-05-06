@@ -19,6 +19,76 @@ try {
 }
 $ErrorActionPreference = "Continue"
 
+$log_path = Join-Path $log_dir "system"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject -Class Win32_ComputerSystem `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "os"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject Win32_OperatingSystem | `
+    Format-List Caption,CSDVersion,ProductType,OSArchitecture `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "os_conf"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" | `
+    Format-List `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "driver"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject Win32_PnPSignedDriver `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "fips"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-Item "HKLM:System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy" `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "remote_desktop"
+Invoke-Command -Session $session -ScriptBlock { `
+    (Get-Item "HKLM:System\CurrentControlSet\Control\Terminal Server").GetValue("fDenyTSConnections") `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "firewall"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-NetFirewallRule -Direction Inbound -Enabled True `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "dns"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-DnsClientServerAddress|FL `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "virturalization"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "storage_timeout"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\disk" `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "monitor"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-WmiObject Win32_DesktopMonitor | FL `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "patch_lists"
+Invoke-Command -Session $session -ScriptBlock { `
+    wmic qfe `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "ntp"
+Invoke-Command -Session $session -ScriptBlock { `
+    (Get-Item "HKLM:System\CurrentControlSet\Services\W32Time\Parameters").GetValue("NtpServer") `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "task_scheduler"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-ScheduledTask | `
+ ? {$_.State -eq "Ready"} | `
+ Get-ScheduledTaskInfo | `
+ ? {$_.NextRunTime -ne $null}| `
+ Format-List `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "etc_hosts"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-Content "$($env:windir)\system32\Drivers\etc\hosts" `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "ie_version"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-ItemProperty "HKLM:SOFTWARE\Microsoft\Internet Explorer" `
+} | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "cpu"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject -Class Win32_Processor | Format-List DeviceID, Name, MaxClockSpeed, SocketDesignation, NumberOfCores, NumberOfLogicalProcessors `
@@ -29,18 +99,33 @@ Invoke-Command -Session $session -ScriptBlock { `
     select TotalVirtualMemorySize,TotalVisibleMemorySize, `
         FreePhysicalMemory,FreeVirtualMemory,FreeSpaceInPagingFiles `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "system"
+$log_path = Join-Path $log_dir "network"
 Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject -Class Win32_ComputerSystem `
+    Get-WmiObject Win32_NetworkAdapterConfiguration | `
+ Where{$_.IpEnabled -Match "True"} | `
+ Select ServiceName, MacAddress, IPAddress, DefaultIPGateway, Description, IPSubnet | `
+ Format-List ` `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "os"
+$log_path = Join-Path $log_dir "nic_teaming"
 Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject Win32_OperatingSystem | `
-    Format-List Caption,CSDVersion,ProductType,OSArchitecture `
+    Get-NetLbfoTeamNic `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "driver"
+$log_path = Join-Path $log_dir "network_profile"
 Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject Win32_PnPSignedDriver `
+    Get-NetConnectionProfile `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "net_bind"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-NetAdapterBinding | FL `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "net_ip"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-NetIPInterface | FL `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "tcp"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" | `
+    Format-List `
 } | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "filesystem"
 Invoke-Command -Session $session -ScriptBlock { `
@@ -86,65 +171,6 @@ Get-ChildItem -Path( `
   'HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall') | `
   % { Get-ItemProperty $_.PsPath | Select-Object DisplayName, Publisher, DisplayVersion } | `
   Format-List `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "fips"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-Item "HKLM:System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy" `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "network"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject Win32_NetworkAdapterConfiguration | `
- Where{$_.IpEnabled -Match "True"} | `
- Select ServiceName, MacAddress, IPAddress, DefaultIPGateway, Description, IPSubnet | `
- Format-List ` `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "nic_teaming"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-NetLbfoTeamNic `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "network_profile"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-NetConnectionProfile `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "remote_desktop"
-Invoke-Command -Session $session -ScriptBlock { `
-    (Get-Item "HKLM:System\CurrentControlSet\Control\Terminal Server").GetValue("fDenyTSConnections") `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "firewall"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-NetFirewallRule -Direction Inbound -Enabled True `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "dns"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-DnsClientServerAddress|FL `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "virturalization"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "storage_timeout"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-ItemProperty "HKLM:SYSTEM\CurrentControlSet\Services\disk" `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "ntp"
-Invoke-Command -Session $session -ScriptBlock { `
-    (Get-Item "HKLM:System\CurrentControlSet\Services\W32Time\Parameters").GetValue("NtpServer") `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "task_scheduler"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-ScheduledTask | `
- ? {$_.State -eq "Ready"} | `
- Get-ScheduledTaskInfo | `
- ? {$_.NextRunTime -ne $null}| `
- Format-List `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "etc_hosts"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-Content "$($env:windir)\system32\Drivers\etc\hosts" `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "ie_version"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-ItemProperty "HKLM:SOFTWARE\Microsoft\Internet Explorer" `
 } | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "feature"
 Invoke-Command -Session $session -ScriptBlock { `

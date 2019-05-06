@@ -1,15 +1,15 @@
 {
-    "NumCpu": {
-        "name": "NumCpu",
+    "vm.NumCpu": {
+        "name": "vm.NumCpu",
         "value": "1",
-        "error_msg": "1 != 2.0",
+        "error_msg": null,
         "compare_server": null,
         "status": "OK",
-        "verify": "NG",
+        "verify": null,
         "comparision": null
     },
-    "PowerState": {
-        "name": "PowerState",
+    "vm.PowerState": {
+        "name": "vm.PowerState",
         "value": "PoweredOn",
         "error_msg": null,
         "compare_server": null,
@@ -17,31 +17,67 @@
         "verify": null,
         "comparision": null
     },
-    "MemoryGB": {
-        "name": "MemoryGB",
+    "vm.MemoryGB": {
+        "name": "vm.MemoryGB",
         "value": "4",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm.VMHost": {
+        "name": "vm.VMHost",
+        "value": "192.168.10.100",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm": {
+        "name": "vm",
+        "value": "[CPU:1, Memory:4, Host:192.168.10.100]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "NumCpu": {
+        "name": "NumCpu",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
+        "verify": "OK",
+        "comparision": null
+    },
+    "MemoryGB": {
+        "name": "MemoryGB",
+        "value": null,
+        "error_msg": null,
+        "compare_server": null,
+        "status": null,
         "verify": "OK",
         "comparision": null
     },
     "VMHost": {
         "name": "VMHost",
-        "value": "192.168.10.100",
-        "error_msg": "'192.168.10.100' !=~ /esx/",
-        "compare_server": null,
-        "status": "OK",
-        "verify": "NG",
-        "comparision": null
-    },
-    "vm": {
-        "name": "vm",
         "value": null,
         "error_msg": null,
         "compare_server": null,
         "status": null,
-        "verify": "NG",
+        "verify": "OK",
+        "comparision": null
+    },
+    "vmext": {
+        "name": "vmext",
+        "value": "Not Found",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
         "comparision": null
     },
     "datastore": {
@@ -50,7 +86,7 @@
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
-        "verify": null,
+        "verify": "OK",
         "comparision": null,
         "devices": {
             "csv": [
@@ -66,6 +102,56 @@
                 "DatastoreBrowserPath",
                 "Type",
                 "State"
+            ]
+        }
+    },
+    "datastore.DatastoreBrowserPath.datastore2": {
+        "name": "datastore.DatastoreBrowserPath.datastore2",
+        "value": "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "datastore.Type.datastore2": {
+        "name": "datastore.Type.datastore2",
+        "value": "VMFS",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "datastore.State.datastore2": {
+        "name": "datastore.State.datastore2",
+        "value": "Available",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_storage": {
+        "name": "vm_storage",
+        "value": "[Thin:40]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "[datastore2] w2012/w2012.vmdk",
+                    "Thin",
+                    "40"
+                ]
+            ],
+            "header": [
+                "Filename",
+                "StorageFormat",
+                "CapacityGB"
             ]
         }
     },
@@ -91,6 +177,15 @@
                 "ConnectionState"
             ]
         }
+    },
+    "VMNetwork.type": {
+        "name": "VMNetwork.type",
+        "value": "[e1000e]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
     },
     "vmwaretool": {
         "name": "vmwaretool",
@@ -127,28 +222,5 @@
         "status": "OK",
         "verify": null,
         "comparision": null
-    },
-    "vm_storage": {
-        "name": "vm_storage",
-        "value": "[Thin:40]",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null,
-        "devices": {
-            "csv": [
-                [
-                    "[datastore2] w2012/w2012.vmdk",
-                    "Thin",
-                    "40"
-                ]
-            ],
-            "header": [
-                "Filename",
-                "StorageFormat",
-                "CapacityGB"
-            ]
-        }
     }
 }
