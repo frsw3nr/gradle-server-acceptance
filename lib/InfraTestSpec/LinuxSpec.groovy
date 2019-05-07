@@ -1073,7 +1073,6 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(result)
     }
 
-    // TODO : Fix sudo command failure
     def snmp_trap(session, test_item) {
         def lines = exec('snmp_trap') {
             // def command = "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf >> ${work_dir}/snmp_trap; echo \$?"
@@ -1092,12 +1091,11 @@ class LinuxSpec extends LinuxSpecBase {
         lines.eachLine {
             (it =~  /(trapsink|trapcommunity|trap2sink|informsink)\s+(.*)$/).each { m0, m1, m2 ->
                 config = 'Configured'
-                def id = "snmp_trap.${m1}"
-                this.test_platform.add_test_metric(id, "SNMPトラップ.${m2}")
-                res[id] = m2
+                add_new_metric("snmp_trap.${m1}", "SNMPトラップ.${m1}", m2, res)
             }
         }
         res['snmp_trap'] = config
+        // println res
         test_item.results(res)
     }
 
