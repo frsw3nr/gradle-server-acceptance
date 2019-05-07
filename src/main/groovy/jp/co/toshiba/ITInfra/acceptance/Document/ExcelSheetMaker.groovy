@@ -155,7 +155,7 @@ class ExcelSheetMaker {
         if ((value in String || value in GString) && NumberUtils.isNumber(value)) {
             cell.setCellValue(NumberUtils.toDouble(value))
         } else {
-            cell.setCellValue("${value}")
+            cell.setCellValue("${value ?: ''}")
         }
     }
 

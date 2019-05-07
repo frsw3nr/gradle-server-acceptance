@@ -166,9 +166,9 @@ class LinuxSpec extends LinuxSpecBase {
         Closure norm = { value, unit ->
             def value_number = NumberUtils.toDouble(value)
             if (unit == 'kB') {
-                return value_number / (1024 * 1024)
+                return String.format("%1.1f", value_number / (1024 * 1024))
             } else if (unit == 'mB') {
-                return value_number / 1024
+                return String.format("%1.1f", value_number / 1024)
             } else if (unit == 'gB') {
                 return value_number
             } else {
@@ -558,7 +558,8 @@ class LinuxSpec extends LinuxSpecBase {
             run_ssh_command(session, "${command} ${argument}", 'packages')
         }
         def package_info = [:].withDefault{'unkown'}
-        def infos = [:].withDefault{'unkown'}
+        def versions = [:]
+        // def infos = [:].withDefault{'unkown'}
         def distributions = [:].withDefault{0}
         def csv = []
         lines.eachLine {
@@ -581,19 +582,30 @@ class LinuxSpec extends LinuxSpecBase {
             if (arch == 'i686') {
                 packagename += ".i686"
             }
-            package_info['packages.' + packagename] = arr[2]
-            infos[packagename] = arr[2]
+            // package_info['packages.' + packagename] = arr[2]
+            versions[packagename] = arr[2]
         }
         def headers = ['name', 'epoch', 'version', 'release', 'installtime', 'arch']
         package_info['packages'] = distributions.toString()
 
         def package_list = test_item.target_info('packages')
         if (package_list) {
+            def template_id = this.test_platform.test_target.template_id
             package_info['packages.requirements'] = "${package_list.keySet()}"
+            def verify = true
+            package_list.each { package_name, value ->
+                def test_id = "packages.${template_id}.${package_name}"
+                def version = versions[package_name] ?: 'Not Found'
+                add_new_metric(test_id, "パッケージ.${template_id}.${package_name}", version, package_info)
+                if (version == 'Not Found') {
+                    verify = false
+                }
+            }
+            test_item.verify(verify)
         }
         test_item.devices(csv, headers)
         test_item.results(package_info)
-        test_item.verify_text_search_list('packages', package_info)
+        // test_item.verify_text_search_list('packages', package_info)
     }
 
     def cron(session, test_item) {
@@ -693,9 +705,13 @@ class LinuxSpec extends LinuxSpecBase {
 
                 csv << [username, user_id, group_id, group, home, shell]
                 infos[username] = 1
-                users['user.' + username] = 'OK'
+                // users['user.' + username] = 'OK'
                 (shell =~ /sh$/).each {
                     general_users[username] = 'OK'
+                    add_new_metric("user.${username}.id", "ユーザ.${username}.ID",          user_id, users)
+                    add_new_metric("user.${username}.home", "ユーザ.${username}.ホーム",    home, users)
+                    add_new_metric("user.${username}.group", "ユーザ.${username}.グループ", group, users)
+                    add_new_metric("user.${username}.shell", "ユーザ.${username}.シェル",   shell, users)
                 }
             }
         }
@@ -747,6 +763,7 @@ class LinuxSpec extends LinuxSpecBase {
         def infos = [:]
         def csv = []
         def service_count = 0
+
         lines.eachLine {
             // For RHEL7
             // println it
@@ -771,6 +788,14 @@ class LinuxSpec extends LinuxSpecBase {
                 def columns = [m1, status]
                 csv << columns
                 service_count ++
+            }
+        }
+        def service_list = test_item.target_info('service')
+        if (service_list) {
+            service_list.each { service_name, value ->
+                def test_id = "service.${service_name}"
+                def status = services[test_id] ?: 'Not Found'
+                add_new_metric(test_id, "サービス.${service_name}", status, services)
             }
         }
         services['service'] = service_count.toString()

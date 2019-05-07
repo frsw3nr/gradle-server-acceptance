@@ -23,7 +23,7 @@ class TestPlatform extends SpecModel {
     def count_test_result_status() {
         def counts = [:].withDefault{0}
         test_results.each { name, test_result ->
-            counts[test_result.status] ++
+            counts[test_result.status ?: 'Other'] ++
         }
         return counts
     }
@@ -55,6 +55,7 @@ class TestPlatform extends SpecModel {
                     test_metric = base_metric.clone()
                     test_metric.name           = metric
                     test_metric.description    = description
+                    test_metric.comment        = ''
                     test_metric.enabled        = false
                     test_metric.device_enabled = false
                     this.added_test_metrics[metric] = test_metric

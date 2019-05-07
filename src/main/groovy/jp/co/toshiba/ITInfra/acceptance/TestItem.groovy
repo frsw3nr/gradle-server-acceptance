@@ -470,7 +470,6 @@ class TestItem extends TestUtility {
             }
         }
         def summary_text = (result_summarys) ? "${result_summarys}" : "Not Found"
-        println "SUMMARY: ${summary_text}"
         this.results(summary_text)
     }
 

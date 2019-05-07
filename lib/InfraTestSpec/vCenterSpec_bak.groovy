@@ -54,6 +54,46 @@ class vCenterSpec extends vCenterSpecBase {
         }
     }
 
+    def vm_conf(test_item) {
+
+        def command = '''\
+            |Get-VMResourceConfiguration -VM $vm | `
+            |FL
+        '''.stripMargin()
+        run_script(command) {
+            def lines = exec('vm_conf') {
+                new File("${local_dir}/vm_conf")
+            }
+            println lines
+
+            def res = [:]
+            def disk_id = 1
+            println lines
+            lines.eachLine {
+                (it =~ /^(CpuLimitMhz|MemLimitGB|CpuSharesLevel|MemSharesLevel|CpuAffinity|CpuAffinityList)\s+:\s*(.*)$/).each {m0, m1, m2->
+                    res[m1] = m2
+                }
+            }
+            def resource_limit = [
+                'CPU': res['CpuLimitMhz'] ?: 'unkown',
+                'Mem': res['MemLimitGB'] ?: 'unkown',
+            ]
+            def shares_level = [
+                'CPU': res['CpuSharesLevel'] ?: 'unkown',
+                'Mem': res['MemSharesLevel'] ?: 'unkown',
+            ]
+            def cpu_affinity = (res['CpuAffinity']) ? "${res['CpuAffinity']} ${res['CpuAffinityList']}" : ''
+
+            def infos = [
+                'vm_conf' : (res.size() > 0) ? 'Found' : '',
+                'vm_conf.limit' : "${resource_limit}",
+                'vm_conf.shares_level' : "${shares_level}",
+                'vm_conf.cpu_affinity' : cpu_affinity,
+            ]
+            test_item.results(infos)
+        }
+    }
+
     def vmext(test_item) {
         def command = '''\
             |(Get-VM $vm | select ExtensionData).ExtensionData.config | `
@@ -79,44 +119,6 @@ class vCenterSpec extends vCenterSpecBase {
                 'MemoryReservationLockedToMax':'MemoryLock', 
                 'MemoryHotAddEnabled':'Memory'
             )
-        }
-    }
-
-    def vm_conf(test_item) {
-
-        def command = '''\
-            |Get-VMResourceConfiguration -VM $vm | `
-            |FL
-        '''.stripMargin()
-        run_script(command) {
-            def lines = exec('vm_conf') {
-                new File("${local_dir}/vm_conf")
-            }
-
-            def res = [:]
-            def disk_id = 1
-            lines.eachLine {
-                (it =~ /^(CpuLimitMhz|MemLimitGB|CpuSharesLevel|MemReservationMB|MemSharesLevel|CpuAffinity|CpuAffinityList)\s+:\s*(.*)$/).each {m0, m1, m2->
-                    res[m1] = m2
-                }
-            }
-            def resource_limit = [
-                'CPU': res['CpuLimitMhz'] ?: 'unkown',
-                'Mem': res['MemLimitGB'] ?: 'unkown',
-            ]
-            def shares_level = [
-                'CPU': res['CpuSharesLevel'] ?: 'unkown',
-                'Mem': res['MemSharesLevel'] ?: 'unkown',
-            ]
-            def cpu_affinity = (res['CpuAffinity']) ? "${res['CpuAffinity']} ${res['CpuAffinityList']}" : ''
-
-            def infos = [
-                'vm_conf' : res['MemReservationMB'] ?: 'unkown',
-                'vm_conf.limit' : "${resource_limit}",
-                'vm_conf.shares_level' : "${shares_level}",
-                'vm_conf.cpu_affinity' : cpu_affinity,
-            ]
-            test_item.results(infos)
         }
     }
 
@@ -147,7 +149,7 @@ class vCenterSpec extends vCenterSpecBase {
                         headers.each { header ->
                             def new_test_id = "datastore.${header}.${name}"
                             def value = it[header] ?: ''
-                            if (header != 'Name' || header != 'DatastoreBrowserPath') {
+                            if (header != 'Name') {
                                 this.test_platform.add_test_metric(new_test_id, 
                                                        "データストア.${name}.${header}")
                                 res[new_test_id] = value
@@ -196,10 +198,6 @@ class vCenterSpec extends vCenterSpecBase {
                 datastore_info[row].with {
                     if ( it.size() > 0 ) {
                         def columns = []
-
-                        def value_number = NumberUtils.toDouble(it['CapacityGB'])
-                        it['CapacityGB'] = String.format("%1.1f", value_number)
-
                         def name = it['Filename']
                         (name=~/^\[(.+)\]/).each {m0, m1 ->
                             name = m1
@@ -213,7 +211,7 @@ class vCenterSpec extends vCenterSpecBase {
                             def new_test_id = "vm_storage.${header}.${filename_simple}"
                             def value = it[header] ?: ''
                             if (header != 'Filename') {
-                                def definition = "VMハードディスク.${filename_simple}.${header}"
+                                def definition = "VMストレージ.${filename_simple}.${header}"
                                 this.test_platform.add_test_metric(new_test_id, 
                                                                    definition)
                                 res[new_test_id] = value
@@ -221,7 +219,7 @@ class vCenterSpec extends vCenterSpecBase {
                             columns.add( value )
                         }
                         csv << columns
-                        datastore_names << "$filename_simple/${it['StorageFormat']}/${it['CapacityGB']} GB"
+                        datastore_names << "$filename_simple/${it['StorageFormat']}/${it['CapacityGB']}"
                     }
                 }
             }
@@ -423,6 +421,7 @@ class vCenterSpec extends vCenterSpecBase {
                     res[m1] = m2
                 }
             }
+            println res
             test_item.results((res.size() == 0) ? 'NotFound' : "${res}")
         }
     }
