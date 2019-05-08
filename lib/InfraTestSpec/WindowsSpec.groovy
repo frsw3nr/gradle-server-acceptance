@@ -27,7 +27,6 @@ class WindowsSpec extends WindowsSpecBase {
                 new File("${local_dir}/system")
             }
             def systeminfo = [:]
-            println lines
             lines.eachLine {
                 (it =~ /^(Domain|Manufacturer|Model|Name|PrimaryOwnerName)\s*:\s+(.+?)$/).each {m0,m1,m2->
                     systeminfo[m1] = m2
@@ -88,7 +87,6 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def osinfo    = [:].withDefault{0}
             osinfo['os_csd_version'] = ''
-            println lines
             lines.eachLine {
                 (it =~ /^Caption\s*:\s+(.+)$/).each {m0,m1->
                     osinfo['os_caption'] = m1
@@ -338,7 +336,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def res = [:]
             if (devices) {
-                add_new_metric("nic_teaming.device", "NICチーミング", "${devices}", res)
+                add_new_metric("nic_teaming.device", "NICチーミング構成", "${devices}", res)
             }
             res['nic_teaming'] = teaming
             test_item.results(res)
@@ -412,7 +410,6 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('net_bind') {
                 new File("${local_dir}/net_bind")
             }
-            println lines
             def instance_number = 0
             def bind_info = [:].withDefault{[:]}
             lines.eachLine {
@@ -426,7 +423,7 @@ class WindowsSpec extends WindowsSpecBase {
             def headers = ['Name', 'ifDesc', 'Description', 'ComponentID', 'Enabled']
 
             def csv = []
-            def bind_components = [:]
+            def bind_components = [:].withDefault{[:]}
             def infos = [:]
             (0..instance_number).each { row ->
                 def columns = []
@@ -439,15 +436,14 @@ class WindowsSpec extends WindowsSpecBase {
                 def component_id = bind_info[row]['ComponentID']
                 def display_name = bind_info[row]['DisplayName']
                 def enabled      = bind_info[row]['Enabled']
-                add_new_metric("net_bind.${name}", "バインディング.${name}", if_desc, infos)
-                add_new_metric("net_bind.${name}.${component_id}", 
-                               "バインディング.${name}.${display_name}", 
+                add_new_metric("net_bind.${name}", name, if_desc, infos)
+                add_new_metric("net_bind.${name}.${component_id}", "${name}.${display_name}", 
                                enabled, infos)
                 if (enabled == 'True') {
-                    bind_components[component_id] = 1
+                    bind_components[name][component_id] = 'True'
                 }
             }
-            infos['net_bind'] = "${bind_components.keySet()}"
+            infos['net_bind'] = "${bind_components}"
             test_item.devices(csv, headers)
             test_item.results(infos)
         }
@@ -486,16 +482,16 @@ class WindowsSpec extends WindowsSpecBase {
                 def dhcp        = ip_info[row]['Dhcp']
                 def status      = ip_info[row]['ConnectionState']
                 (alias =~ /Ethernet/).each {
-                    add_new_metric("net_ip.${alias}.auto_metric", "インターフェース.${alias}.auto_metric", auto_metric, infos)
-                    add_new_metric("net_ip.${alias}.int_metric", "インターフェース.${alias}.int_metric", int_metric, infos)
-                    add_new_metric("net_ip.${alias}.dhcp", "インターフェース.${alias}.dhcp", dhcp, infos)
-                    add_new_metric("net_ip.${alias}.status", "インターフェース.${alias}.status", status, infos)
+                    add_new_metric("net_ip.${alias}.auto_metric", "${alias}.auto_metric", auto_metric, infos)
+                    add_new_metric("net_ip.${alias}.int_metric",  "${alias}.int_metric", int_metric, infos)
+                    add_new_metric("net_ip.${alias}.dhcp",        "${alias}.dhcp", dhcp, infos)
+                    add_new_metric("net_ip.${alias}.status",      "${alias}.status", status, infos)
                     if (status == 'Connected') {
-                        connect_if[alias] = 1
+                        connect_if[alias] = status
                     }
                 }
             }
-            infos['net_ip'] = "${connect_if.keySet()}"
+            infos['net_ip'] = "${connect_if}"
             test_item.devices(csv, headers)
             test_item.results(infos)
         }
@@ -525,7 +521,6 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def setting = (tcpinfo.size() > 0) ? 'Configured' : 'NotConfigured'
             tcpinfo['tcp'] = setting
-            println tcpinfo
             test_item.results(tcpinfo)
         }
     }
@@ -544,7 +539,6 @@ class WindowsSpec extends WindowsSpecBase {
                 if (it.size() == 0 && firewall_info[instance_number].size() > 0)
                     instance_number ++
             }
-            // println lines
             instance_number --
             def headers = ['Name', 'DisplayGroup', 'DisplayName', 'Status']
 
@@ -636,12 +630,11 @@ class WindowsSpec extends WindowsSpecBase {
                 service_list.each { service_name, value ->
                     def test_id = "service.${service_name}"
                     def status = services[test_id] ?: 'Not Found'
-                    add_new_metric(test_id, "サービス.${service_name}", status, services)
+                    add_new_metric(test_id, service_name, status, services)
                 }
             }
 
             services['service'] = "${instance_number} services"
-            println services
             test_item.devices(csv, headers)
             test_item.results(services)
             test_item.verify_text_search_map('service', infos)
@@ -679,7 +672,6 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('user') {
                 new File("${local_dir}/user")
             }
-            println lines
             def account_number = 0
             def account_info   = [:].withDefault{[:]}
             lines.eachLine {
@@ -753,8 +745,8 @@ class WindowsSpec extends WindowsSpecBase {
                     vendor = m1
                 }
                 (it =~ /Version\s+:\s(.+)/).each {m0, m1->
-                    version = m1
-                    package_info['packages.' + packagename] = m1
+                    version = "'${m1}'"
+                    package_info['packages.' + packagename] = version
                     package_count ++
                     add_new_metric("packages.${packagename}", "${packagename}", version, package_info)
                     csv << [packagename, vendor, version]
@@ -762,7 +754,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def headers = ['name', 'vendor', 'version']
             test_item.devices(csv, headers)
-            package_info['packages'] = package_count.toString()
+            package_info['packages'] = "${package_count} packages"
             test_item.results(package_info)
         }
     }
@@ -868,7 +860,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def headers = ['task_name', 'last_result', 'missed_runs', 'task_path']
             test_item.devices(csv, headers)
-            schedule_info['task_scheduler'] = (schedule_count == 0) ? 'Not found' : "${schedule_count} task found."
+            schedule_info['task_scheduler'] = (schedule_count == 0) ? 'Not found' : "${schedule_count} tasks"
             test_item.results(schedule_info)
         }
     }
@@ -891,7 +883,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def headers = ['ip', 'host_name']
             test_item.devices(csv, headers)
-            hostsinfo["etc_hosts"] = hosts_number
+            hostsinfo["etc_hosts"] = "${hosts_number} hosts"
             test_item.results(hostsinfo)
         }
     }
@@ -960,7 +952,6 @@ class WindowsSpec extends WindowsSpecBase {
                     patch_number ++
                 }
             }
-            // println lines
             def headers = ['knowledge_base']
             test_item.devices(csv, headers)
             test_item.results("${patch_number.toString()} patches")
@@ -972,7 +963,6 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('ie_version') {
                 new File("${local_dir}/ie_version")
             }
-            println lines
             def res = [:]
             lines.eachLine {
                 (it =~ /^(svcVersion|svcUpdateVersion|RunspaceId)\s*:\s+(.+?)$/).each {m0, m1, m2->
@@ -1059,7 +1049,7 @@ class WindowsSpec extends WindowsSpecBase {
                 }
             }
             test_item.devices(csv, headers)
-            test_item.results(csv.size().toString() + ' event found')
+            test_item.results("${csv.size().toString()} events")
         }
     }
 
@@ -1097,7 +1087,7 @@ class WindowsSpec extends WindowsSpecBase {
                 }
             }
             test_item.devices(csv, headers)
-            test_item.results(csv.size().toString() + ' event found')
+            test_item.results("${csv.size().toString()} events")
         }
     }
 }

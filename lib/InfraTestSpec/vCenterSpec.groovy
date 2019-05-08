@@ -149,7 +149,7 @@ class vCenterSpec extends vCenterSpecBase {
                             def value = it[header] ?: ''
                             if (header != 'Name' || header != 'DatastoreBrowserPath') {
                                 this.test_platform.add_test_metric(new_test_id, 
-                                                       "データストア.${name}.${header}")
+                                                       "${name}.${header}")
                                 res[new_test_id] = value
                             }
                             columns.add( value )
@@ -213,7 +213,7 @@ class vCenterSpec extends vCenterSpecBase {
                             def new_test_id = "vm_storage.${header}.${filename_simple}"
                             def value = it[header] ?: ''
                             if (header != 'Filename') {
-                                def definition = "VMハードディスク.${filename_simple}.${header}"
+                                def definition = "${filename_simple}.${header}"
                                 this.test_platform.add_test_metric(new_test_id, 
                                                                    definition)
                                 res[new_test_id] = value

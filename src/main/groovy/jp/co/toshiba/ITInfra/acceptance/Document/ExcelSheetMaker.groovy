@@ -621,6 +621,9 @@ class ExcelSheetMaker {
         // Set Center vertical
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        DataFormat format = wb.createDataFormat();
+        style.setDataFormat(format.getFormat("#,##0.0"));
+
         // Set Text font and Foreground color
         switch (result_cell_type) {
             // case ResultCellStyle.NORMAL :
