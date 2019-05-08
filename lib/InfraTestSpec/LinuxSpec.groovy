@@ -39,7 +39,7 @@ class LinuxSpec extends LinuxSpecBase {
         def command = """\
         |hostname --fqdn 2>/dev/null
         |if [ \$? != 0 ]; then
-        |   echo 'Not found'
+        |   echo 'Not Found'
         |fi
         """.stripMargin()
 
@@ -377,10 +377,10 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(lines)
     }
 
-    def add_new_metric(String id, String description, value, Map results) {
-        this.test_platform.add_test_metric(id, description)
-        results[id] = value
-    }
+    // def add_new_metric(String id, String description, value, Map results) {
+    //     this.test_platform.add_test_metric(id, description)
+    //     results[id] = value
+    // }
 
     def filesystem(session, test_item) {
         def fstabs = exec('fstab') {
@@ -517,7 +517,7 @@ class LinuxSpec extends LinuxSpecBase {
         // println fstypes
         // println mounts
         def infos = [
-            'fstab' : (mounts.size() == 0) ? 'NotFound' : "${mounts.keySet()}",
+            'fstab' : (mounts.size() == 0) ? 'Not Found' : "${mounts.keySet()}",
             'fstypes': "${fstypes}",
         ]
         // println infos
@@ -828,7 +828,7 @@ class LinuxSpec extends LinuxSpecBase {
             """.stripMargin()
             run_ssh_command(session, command, 'oracle')
         }
-        def oracleinfo = 'NotFound'
+        def oracleinfo = 'Not Found'
         lines.eachLine {
             ( it =~ /\/product\/(.+?)\/(.+?)$/).each {m0,m1,m2->
                 oracleinfo = m1
@@ -982,7 +982,7 @@ class LinuxSpec extends LinuxSpecBase {
             def command = """\
             |grep nameserver /etc/resolv.conf 2>/dev/null
             |if [ \$? != 0 ]; then
-            |   echo 'NotFound'
+            |   echo 'Not Found'
             |fi
             """.stripMargin()
             run_ssh_command(session, command, 'resolve_conf')
@@ -1011,7 +1011,7 @@ class LinuxSpec extends LinuxSpecBase {
             """.stripMargin()
             run_ssh_command(session, command, 'vga')
         }
-        def infos = [:].withDefault{'NotFound'}
+        def infos = [:].withDefault{'Not Found'}
         lines.eachLine {
             ( it =~ /^GRUB_CMDLINE_LINUX="(.+)"/).each {m0,m1->
                 def parameters = m1.split(/\s/)
@@ -1061,7 +1061,7 @@ class LinuxSpec extends LinuxSpecBase {
             """.stripMargin()
             run_ssh_command(session, command, 'ntp_slew')
         }
-        def result = 'NotFound'
+        def result = 'Not Found'
         lines.eachLine {
             (it =~ /-u/).each {m0->
                 result = 'Disabled'

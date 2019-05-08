@@ -1,0 +1,100 @@
+﻿
+
+InterfaceIndex                  : 1
+InterfaceAlias                  : Loopback Pseudo-Interface 1
+AddressFamily                   : IPv6
+Forwarding                      : Disabled
+Advertising                     : Disabled
+NlMtu(Bytes)                    : 4294967295
+AutomaticMetric                 : Enabled
+InterfaceMetric                 : 50
+NeighborDiscoverySupported      : No
+NeighborUnreachabilityDetection : Disabled
+BaseReachableTime(ms)           : 30000
+ReachableTime(ms)               : 23000
+RetransmitTime(ms)              : 1000
+DadTransmits                    : 0
+DadRetransmitTime(ms)           : 1000
+RouterDiscovery                 : Enabled
+ManagedAddressConfiguration     : Disabled
+OtherStatefulConfiguration      : Disabled
+WeakHostSend                    : Disabled
+WeakHostReceive                 : Disabled
+IgnoreDefaultRoutes             : Disabled
+AdvertisedRouterLifetime        : 00:30:00
+AdvertiseDefaultRoute           : Disabled
+CurrentHopLimit                 : 0
+ForceArpNdWolPattern            : Disabled
+DirectedMacWolPattern           : Disabled
+EcnMarking                      : AppDecide
+Dhcp                            : Disabled
+ConnectionState                 : Connected
+PolicyStore                     : ActiveStore
+CompartmentId                   : 1
+
+InterfaceIndex                  : 12
+InterfaceAlias                  : Ethernet0
+AddressFamily                   : IPv4
+Forwarding                      : Disabled
+Advertising                     : Disabled
+NlMtu(Bytes)                    : 1500
+AutomaticMetric                 : Enabled
+InterfaceMetric                 : 5
+NeighborDiscoverySupported      : Yes
+NeighborUnreachabilityDetection : Enabled
+BaseReachableTime(ms)           : 30000
+ReachableTime(ms)               : 24500
+RetransmitTime(ms)              : 1000
+DadTransmits                    : 3
+DadRetransmitTime(ms)           : 1000
+RouterDiscovery                 : ControlledByDHCP
+ManagedAddressConfiguration     : Enabled
+OtherStatefulConfiguration      : Enabled
+WeakHostSend                    : Disabled
+WeakHostReceive                 : Disabled
+IgnoreDefaultRoutes             : Disabled
+AdvertisedRouterLifetime        : 00:30:00
+AdvertiseDefaultRoute           : Disabled
+CurrentHopLimit                 : 0
+ForceArpNdWolPattern            : Disabled
+DirectedMacWolPattern           : Disabled
+EcnMarking                      : AppDecide
+Dhcp                            : Disabled
+ConnectionState                 : Connected
+PolicyStore                     : ActiveStore
+CompartmentId                   : 1
+
+InterfaceIndex                  : 1
+InterfaceAlias                  : Loopback Pseudo-Interface 1
+AddressFamily                   : IPv4
+Forwarding                      : Disabled
+Advertising                     : Disabled
+NlMtu(Bytes)                    : 4294967295
+AutomaticMetric                 : Enabled
+InterfaceMetric                 : 50
+NeighborDiscoverySupported      : No
+NeighborUnreachabilityDetection : Disabled
+BaseReachableTime(ms)           : 30000
+ReachableTime(ms)               : 41000
+RetransmitTime(ms)              : 1000
+DadTransmits                    : 0
+DadRetransmitTime(ms)           : 1000
+RouterDiscovery                 : ControlledByDHCP
+ManagedAddressConfiguration     : Enabled
+OtherStatefulConfiguration      : Enabled
+WeakHostSend                    : Disabled
+WeakHostReceive                 : Disabled
+IgnoreDefaultRoutes             : Disabled
+AdvertisedRouterLifetime        : 00:30:00
+AdvertiseDefaultRoute           : Disabled
+CurrentHopLimit                 : 0
+ForceArpNdWolPattern            : Disabled
+DirectedMacWolPattern           : Disabled
+EcnMarking                      : AppDecide
+Dhcp                            : Disabled
+ConnectionState                 : Connected
+PolicyStore                     : ActiveStore
+CompartmentId                   : 1
+
+
+

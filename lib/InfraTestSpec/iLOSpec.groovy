@@ -206,7 +206,7 @@ class iLOSpecBase extends InfraTestSpec {
 
             def row = 0
             def infos = [:].withDefault{[:]}
-            def license = 'NotFound'
+            def license = 'Not Found'
             lines.eachLine {
                 if (it.size() == 0) {
                     row ++

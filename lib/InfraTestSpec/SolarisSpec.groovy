@@ -658,7 +658,7 @@ class SolarisSpec extends InfraTestSpec {
     //         session.get from: "${work_dir}/oracle", into: local_dir
     //         new File("${local_dir}/oracle").text
     //     }
-    //     def oracleinfo = 'NotFound'
+    //     def oracleinfo = 'Not Found'
     //     lines.eachLine {
     //         ( it =~ /\/product\/(.+?)\/(.+?)$/).each {m0,m1,m2->
     //             oracleinfo = m1

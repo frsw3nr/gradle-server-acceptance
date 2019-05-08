@@ -80,6 +80,7 @@ class ExcelSheetMaker {
     EvidenceMaker evidence_maker
     ReportMaker report_maker
     def colors = [:]
+    def cell_styles = [:]
 
     final COLOR_BLACK           = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
     final COLOR_WHITE           = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF))
@@ -445,18 +446,13 @@ class ExcelSheetMaker {
         def sheet_name = get_sheet_summary_name(sheet_summary, sheet_design)
         def sheet = workbook.createSheet(sheet_name)
         sheet.groupColumn(3, 6)
-        // sheet.setColumnGroupCollapsed(3, true)
 
-        long start2 = System.currentTimeMillis()
         write_sheet_summary_header(sheet, sheet_summary, sheet_design)
-        long elapse2 = System.currentTimeMillis() - start2
-        log.info "elapse, write_sheet_summary_header : ${elapse2} ms"
 
         def rownum = sheet_design.sheet_parser.result_pos[0] + 1
         def last_rownum = 0
 
         def categorys = []
-        start2 = System.currentTimeMillis()
         long elapse_write_definition = 0
         long elapse_write_cell       = 0
         sheet_design.sheet_metrics.each { platform_metric, test_metric ->
@@ -468,13 +464,8 @@ class ExcelSheetMaker {
                     Row row = sheet.getRow(rownum)
                     if (row == null)
                         row = sheet.createRow(rownum)
-                    long start3 = System.currentTimeMillis()
                     write_sheet_metric_definition(sheet, row, test_metric2)
-                    elapse_write_definition += System.currentTimeMillis() - start3
-
-                    long start4 = System.currentTimeMillis()
                     write_sheet_summary_values_line(row, platform_metric2, sheet_summary, sheet_design)
-                    elapse_write_cell += System.currentTimeMillis() - start4
                     rownum ++
                 }
             }
@@ -489,24 +480,15 @@ class ExcelSheetMaker {
             if (!sheet_metric)
                 return
 
-            // write_sheet_metric_definition(sheet, row, sheet_metric)
-            long start6 = System.currentTimeMillis()
+            write_sheet_metric_definition(sheet, row, sheet_metric)
             write_sheet_summary_values_line(row, platform_metric, sheet_summary, sheet_design)
-            elapse_write_cell += System.currentTimeMillis() - start6
             rownum ++
             last_rownum = rownum
         }
-        log.info "elapse, elapse_write_definition : ${elapse_write_definition} ms"
-        log.info "elapse, elapse_write_cell : ${elapse_write_cell} ms"
-        elapse2 = System.currentTimeMillis() - start2
-        log.info "elapse, write_sheet_summary_body : ${elapse2} ms"
 
-        start2 = System.currentTimeMillis()
         write_sheet_summary_group(sheet, categorys, sheet_design)
-        elapse2 = System.currentTimeMillis() - start2
-        log.info "elapse, write_sheet_summary_group : ${elapse2} ms"
         long elapse = System.currentTimeMillis() - start
-        log.info "Write summary sheet ${sheet_name} : ${elapse} ms"
+        log.debug "Write summary sheet ${sheet_name} : ${elapse} ms"
 
         return sheet
     }
@@ -622,10 +604,8 @@ class ExcelSheetMaker {
         }
     }
 
-    def set_test_result_cell_style(cell, ResultCellStyle result_cell_type) {
+    def create_cell_style(Cell cell, ResultCellStyle result_cell_type) {
         BorderStyle thin = BorderStyle.THIN;
-        // short black = IndexedColors.BLACK.getIndex();
-        // def black = colors[CellColor.BLACK.value] // new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
         def black = COLOR_BLACK
         def wb = cell.getRow().getSheet().getWorkbook();
         CellStyle style = wb.createCellStyle();
@@ -725,7 +705,16 @@ class ExcelSheetMaker {
                 break
         }
         style.setWrapText(true);
-        cell.setCellStyle(style);
+        return style;
+    }
+
+    def set_test_result_cell_style(cell, ResultCellStyle result_cell_type) {
+        def style = cell_styles[result_cell_type] 
+        if (!style) {
+            style = create_cell_style(cell, result_cell_type)
+            cell_styles[result_cell_type] = style
+        }
+        cell.setCellStyle(style)
     }
 
 }

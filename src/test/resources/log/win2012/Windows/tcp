@@ -1,0 +1,29 @@
+﻿
+
+ICSDomain                    : mshome.net
+SyncDomainWithMembership     : 1
+NV Hostname                  : TEMPL-K11V001W
+DataBasePath                 : C:\Windows\System32\drivers\etc
+NameServer                   : 
+ForwardBroadcasts            : 0
+IPEnableRouter               : 0
+Domain                       : 
+Hostname                     : TEMPL-K11V001W
+SearchList                   : 
+UseDomainNameDevolution      : 1
+EnableICMPRedirect           : 1
+DeadGWDetectDefault          : 1
+DontAddDefaultGatewayDefault : 0
+KeepAliveInterval            : 12000
+KeepAliveTime                : 300000
+TcpMaxDataRetransmissions    : 5
+PSPath                       : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+                               \Tcpip\Parameters
+PSParentPath                 : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+                               \Tcpip
+PSChildName                  : Parameters
+PSDrive                      : HKLM
+PSProvider                   : Microsoft.PowerShell.Core\Registry
+
+
+

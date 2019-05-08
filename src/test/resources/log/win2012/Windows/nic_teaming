@@ -1,0 +1,82 @@
+﻿
+
+ifAlias                  : Team_2
+InterfaceAlias           : Team_2
+TransmitLinkSpeed(Mbps)  : 200
+TransmitLinkSpeed(Gbps)  : 0.2
+ReceiveLinkSpeed(Mbps)   : 200
+ReceiveLinkSpeed(Gbps)   : 0.2
+PSComputerName           : 10.154.161.11
+RunspaceId               : 72721bbc-34bc-4f6b-a393-2b3099c3d4c7
+Caption                  : 
+Description              : 
+ElementName              : 
+InstanceID               : {3F3D7254-6F00-47C3-B737-0A605BD53EC0}
+CommunicationStatus      : 
+DetailedStatus           : 
+HealthState              : 
+InstallDate              : 
+Name                     : Team_2
+OperatingStatus          : 
+OperationalStatus        : 
+PrimaryStatus            : 
+Status                   : 
+StatusDescriptions       : 
+AvailableRequestedStates : 
+EnabledDefault           : 2
+EnabledState             : 5
+OtherEnabledState        : 
+RequestedState           : 12
+TimeOfLastStateChange    : 
+TransitioningToState     : 12
+FailureReason            : 
+InterfaceDescription     : Microsoft Network Adapter Multiplexor Driver #2
+NumberOfFailures         : 
+ReceiveLinkSpeed         : 200000000
+Team                     : Team_2
+TransmitLinkSpeed        : 200000000
+Default                  : True
+Primary                  : True
+VlanID                   : 
+
+ifAlias                  : Team_1
+InterfaceAlias           : Team_1
+TransmitLinkSpeed(Mbps)  : 200
+TransmitLinkSpeed(Gbps)  : 0.2
+ReceiveLinkSpeed(Mbps)   : 200
+ReceiveLinkSpeed(Gbps)   : 0.2
+PSComputerName           : 10.154.161.11
+RunspaceId               : 72721bbc-34bc-4f6b-a393-2b3099c3d4c7
+Caption                  : 
+Description              : 
+ElementName              : 
+InstanceID               : {9911BC54-BD8F-4848-BDAD-68937EF5FFF6}
+CommunicationStatus      : 
+DetailedStatus           : 
+HealthState              : 
+InstallDate              : 
+Name                     : Team_1
+OperatingStatus          : 
+OperationalStatus        : 
+PrimaryStatus            : 
+Status                   : 
+StatusDescriptions       : 
+AvailableRequestedStates : 
+EnabledDefault           : 2
+EnabledState             : 5
+OtherEnabledState        : 
+RequestedState           : 12
+TimeOfLastStateChange    : 
+TransitioningToState     : 12
+FailureReason            : 
+InterfaceDescription     : Microsoft Network Adapter Multiplexor Driver
+NumberOfFailures         : 
+ReceiveLinkSpeed         : 200000000
+Team                     : Team_1
+TransmitLinkSpeed        : 200000000
+Default                  : True
+Primary                  : True
+VlanID                   : 
+
+
+

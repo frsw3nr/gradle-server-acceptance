@@ -1,0 +1,164 @@
+﻿
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : Link-Layer Topology Discovery Responder
+ElementName          : ms_rspndr
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_rspndr
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : rspndr
+Characteristics      : 0
+ComponentClassGuid   : {4D36E975-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Transport
+ComponentID          : ms_rspndr
+DisplayName          : Link-Layer Topology Discovery Responder
+Enabled              : True
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : Link-Layer Topology Discovery Mapper I/O Driver
+ElementName          : ms_lltdio
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_lltdio
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : lltdio
+Characteristics      : 0
+ComponentClassGuid   : {4D36E975-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Transport
+ComponentID          : ms_lltdio
+DisplayName          : Link-Layer Topology Discovery Mapper I/O Driver
+Enabled              : True
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : Microsoft Network Adapter Multiplexor Protocol
+ElementName          : ms_implat
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_implat
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : NdisImPlatform
+Characteristics      : 0
+ComponentClassGuid   : {4D36E975-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Transport
+ComponentID          : ms_implat
+DisplayName          : Microsoft Network Adapter Multiplexor Protocol
+Enabled              : False
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : Microsoft ネットワーク用クライアント
+ElementName          : ms_msclient
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_msclient
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : LanmanWorkstation
+Characteristics      : 128
+ComponentClassGuid   : {4D36E973-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Client
+ComponentID          : ms_msclient
+DisplayName          : Microsoft ネットワーク用クライアント
+Enabled              : True
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : QoS パケット スケジューラ
+ElementName          : ms_pacer
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_pacer
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : Psched
+Characteristics      : 262144
+ComponentClassGuid   : {4D36E974-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Filter
+ComponentID          : ms_pacer
+DisplayName          : QoS パケット スケジューラ
+Enabled              : True
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : Microsoft ネットワーク用ファイルとプリンター共有
+ElementName          : ms_server
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_server
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : LanmanServer
+Characteristics      : 0
+ComponentClassGuid   : {4D36E974-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Filter
+ComponentID          : ms_server
+DisplayName          : Microsoft ネットワーク用ファイルとプリンター共有
+Enabled              : True
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : インターネット プロトコル バージョン 6 (TCP/IPv6)
+ElementName          : ms_tcpip6
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_tcpip6
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : Tcpip6
+Characteristics      : 160
+ComponentClassGuid   : {4D36E975-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Transport
+ComponentID          : ms_tcpip6
+DisplayName          : インターネット プロトコル バージョン 6 (TCP/IPv6)
+Enabled              : False
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+Caption              : MSFT_NetAdapterBindingSettingData 'vmxnet3 Ethernet Adapter'
+Description          : インターネット プロトコル バージョン 4 (TCP/IPv4)
+ElementName          : ms_tcpip
+InstanceID           : {968F8EFE-8CD2-458E-B384-FBCF8B67885E}::ms_tcpip
+InterfaceDescription : vmxnet3 Ethernet Adapter
+Name                 : Ethernet0
+Source               : 1
+SystemName           : win2012
+BindName             : Tcpip
+Characteristics      : 160
+ComponentClassGuid   : {4D36E975-E325-11CE-BFC1-08002BE10318}
+ComponentClassName   : Transport
+ComponentID          : ms_tcpip
+DisplayName          : インターネット プロトコル バージョン 4 (TCP/IPv4)
+Enabled              : True
+PSComputerName       : 
+ifAlias              : Ethernet0
+InterfaceAlias       : Ethernet0
+ifDesc               : vmxnet3 Ethernet Adapter
+
+
+

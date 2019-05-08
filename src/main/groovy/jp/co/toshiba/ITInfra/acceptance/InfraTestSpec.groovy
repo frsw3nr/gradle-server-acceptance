@@ -388,4 +388,9 @@ class InfraTestSpec {
         }
         return (result_summarys) ? "${result_summarys}" : "Not Found"
     }
+
+    def add_new_metric(String id, String description, value, Map results) {
+        this.test_platform.add_test_metric(id, description)
+        results[id] = value
+    }
 }

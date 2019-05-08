@@ -1,0 +1,31 @@
+﻿
+
+SystemRoot             : C:\Windows
+SoftwareType           : System
+RegisteredOwner        : Windows ユーザー
+InstallDate            : 1537408900
+CurrentVersion         : 6.3
+CurrentBuild           : 9600
+RegisteredOrganization : 
+CurrentType            : Multiprocessor Free
+InstallationType       : Server
+EditionID              : ServerStandard
+ProductName            : Windows Server 2012 R2 Standard
+ProductId              : 00000-00000-00000-00000
+DigitalProductId       : {164, 0, 0, 0...}
+DigitalProductId4      : {248, 4, 0, 0...}
+CurrentBuildNumber     : 9600
+BuildLab               : 9600.winblue_ltsb.180908-0600
+BuildLabEx             : 9600.19153.amd64fre.winblue_ltsb.180908-0600
+BuildGUID              : ffffffff-ffff-ffff-ffff-ffffffffffff
+PathName               : C:\Windows
+UBR                    : 19155
+PSPath                 : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVe
+                         rsion
+PSParentPath           : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT
+PSChildName            : CurrentVersion
+PSDrive                : HKLM
+PSProvider             : Microsoft.PowerShell.Core\Registry
+
+
+

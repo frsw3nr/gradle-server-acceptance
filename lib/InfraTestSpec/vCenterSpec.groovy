@@ -72,7 +72,7 @@ class vCenterSpec extends vCenterSpecBase {
                 }
             }
 
-            res['vmext'] = (res.size() == 0) ? 'NotFound' : 'Found'
+            res['vmext'] = (res.size() == 0) ? 'Not Found' : 'Found'
             test_item.results(res)
             test_item.make_summary_text(
                 'CpuHotAddEnabled':'Cpu', 
@@ -423,7 +423,7 @@ class vCenterSpec extends vCenterSpecBase {
                     res[m1] = m2
                 }
             }
-            test_item.results((res.size() == 0) ? 'NotFound' : "${res}")
+            test_item.results((res.size() == 0) ? 'Not Found' : "${res}")
         }
     }
 }

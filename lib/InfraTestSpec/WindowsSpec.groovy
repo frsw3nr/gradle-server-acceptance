@@ -1,5 +1,6 @@
 package InfraTestSpec
 
+import java.text.SimpleDateFormat
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.apache.commons.io.FileUtils.*
@@ -18,6 +19,155 @@ class WindowsSpec extends WindowsSpecBase {
 
     def finish() {
         super.finish()
+    }
+
+    def system(TestItem test_item) {
+        run_script('Get-WmiObject -Class Win32_ComputerSystem') {
+            def lines = exec('system') {
+                new File("${local_dir}/system")
+            }
+            def systeminfo = [:]
+            println lines
+            lines.eachLine {
+                (it =~ /^(Domain|Manufacturer|Model|Name|PrimaryOwnerName)\s*:\s+(.+?)$/).each {m0,m1,m2->
+                    systeminfo[m1] = m2
+                }
+            }
+            test_item.results(systeminfo)
+            test_item.make_summary_text('Model':'Model', 'PrimaryOwnerName' : 'Owner')
+        }
+    }
+
+    def os_conf(TestItem test_item) {
+        def command = '''\
+            |Get-ItemProperty "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion" | `
+            |    Format-List
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('os_conf') {
+                new File("${local_dir}/os_conf")
+            }
+            def osinfo    = [:].withDefault{0}
+            lines.eachLine {
+                (it =~ /^CurrentVersion\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf.version'] = m1
+                }
+                (it =~ /^InstallDate\s*:\s+(.+)$/).each {m0,m1->
+                    def sec = Integer.parseInt(m1)
+                    Date date = new Date(sec * 1000L)
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                    osinfo['os_conf.install_date'] = sdf.format(date)
+                }
+                (it =~ /^CurrentBuild\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf.build'] = m1
+                }
+                (it =~ /^ProductId\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf.product_id'] = m1
+                }
+                (it =~ /^BuildLab\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_conf'] = m1
+                }
+            }
+            test_item.results(osinfo)
+            test_item.make_summary_text('version' : 'Version', 'build' : 'Build')
+        }
+    }
+
+    def os(TestItem test_item) {
+        def command = '''\
+            |Get-WmiObject Win32_OperatingSystem | `
+            |    Format-List Caption,CSDVersion,ProductType,OSArchitecture
+            |'''.stripMargin()
+
+        def product_types = ['1':'workstation','2':'domaincontroller', '3':'server']
+
+        run_script(command) {
+            def lines = exec('os') {
+                new File("${local_dir}/os")
+            }
+            def osinfo    = [:].withDefault{0}
+            osinfo['os_csd_version'] = ''
+            println lines
+            lines.eachLine {
+                (it =~ /^Caption\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_caption'] = m1
+                }
+                (it =~ /^CSDVersion\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_csd_version'] = m1
+                }
+                (it =~ /^ProductType\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_product_type'] = product_types[m1] ?: 'unkown'
+                }
+                (it =~ /^OSArchitecture\s*:\s+(.+)$/).each {m0,m1->
+                    osinfo['os_architecture'] = m1
+                }
+            }
+            osinfo['os'] = "${osinfo['os_caption']} ${osinfo['os_architecture']}"
+            test_item.results(osinfo)
+            test_item.verify_text_search('os_caption', osinfo['os_caption'])
+            test_item.verify_text_search('os_architecture', osinfo['os_architecture'])
+        }
+    }
+
+    def driver(TestItem test_item) {
+        run_script('Get-WmiObject Win32_PnPSignedDriver') {
+            def lines = exec('driver') {
+                new File("${local_dir}/driver")
+            }
+            def device_number = 0
+            def driverinfo = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    driverinfo[device_number][m1] = m2
+                }
+                if (it.size() == 0 && driverinfo[device_number].size() > 0)
+                    device_number ++
+            }
+            device_number --
+            def headers = ['DeviceClass', 'DeviceID', 'DeviceName', 'DriverDate',
+                           'DriverProviderName', 'DriverVersion']
+            def csv = []
+            (0..device_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( driverinfo[row][header] ?: '')
+                }
+                csv << columns
+            }
+            test_item.devices(csv, headers)
+            test_item.results("${device_number} drivers")
+        }
+    }
+
+    def fips(TestItem test_item) {
+        run_script('Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"') {
+            def lines = exec('fips') {
+                new File("${local_dir}/fips")
+            }
+            def fips_info = ''
+            lines.eachLine {
+                (it =~ /^FIPSAlgorithmPolicy\s+Enabled\s+: (.+?)\s+/).each {m0,m1->
+                    fips_info = (m1 == '0') ? 'Disabled' : 'Enabled'
+                }
+            }
+            test_item.results(fips_info)
+        }
+    }
+
+    def virturalization(TestItem test_item) {
+        run_script('Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL') {
+            def lines = exec('virturalization') {
+                new File("${local_dir}/virturalization")
+            }
+            def config = 'NotVM'
+            lines.eachLine {
+                (it =~ /^Model\s*:\s+(.*Virtual.*?)$/).each {m0,m1->
+                    config = m1
+                }
+            }
+            test_item.results(config)
+        }
     }
 
     def cpu(TestItem test_item) {
@@ -51,73 +201,11 @@ class WindowsSpec extends WindowsSpecBase {
             }
             cpuinfo["cpu"] = [cpuinfo["model_name"], cpuinfo["cpu_total"]].join("/")
             cpuinfo["cpu_socket"] = sockets.size()
-            println cpuinfo
             test_item.results(cpuinfo)
             test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
         }
     }
 
-    def os(TestItem test_item) {
-        def command = '''\
-            |Get-WmiObject Win32_OperatingSystem | `
-            |    Format-List Caption,CSDVersion,ProductType,OSArchitecture
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('os') {
-                new File("${local_dir}/os")
-            }
-            def osinfo    = [:].withDefault{0}
-            osinfo['os_csd_version'] = ''
-            lines.eachLine {
-                (it =~ /^Caption\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_caption'] = m1
-                }
-                (it =~ /^CSDVersion\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_csd_version'] = m1
-                }
-                (it =~ /^ProductType\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_product_type'] = m1
-                }
-                (it =~ /^OSArchitecture\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_architecture'] = m1
-                }
-            }
-            osinfo['os'] = "${osinfo['os_caption']} ${osinfo['os_architecture']}"
-            test_item.results(osinfo)
-            test_item.verify_text_search('os_caption', osinfo['os_caption'])
-            test_item.verify_text_search('os_architecture', osinfo['os_architecture'])
-        }
-    }
-
-    def os_conf(TestItem test_item) {
-        def command = '''\
-            |Get-ItemProperty "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion" | `
-            |    Format-List
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('os_conf') {
-                new File("${local_dir}/os_conf")
-            }
-            def osinfo    = [:].withDefault{0}
-            lines.eachLine {
-                (it =~ /^CurrentVersion\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_conf.version'] = m1
-                }
-                (it =~ /^CurrentBuild\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_conf.build'] = m1
-                }
-                (it =~ /^ProductId\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_conf.product_id'] = m1
-                }
-                (it =~ /^BuildLab\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_conf'] = m1
-                }
-            }
-            test_item.results(osinfo)
-        }
-    }
 
     def memory(TestItem test_item) {
         def command = '''\
@@ -148,130 +236,11 @@ class WindowsSpec extends WindowsSpecBase {
                     meminfo['free_space'] = NumberUtils.toDouble(m1) / (1024 * 1024)
                 }
             }
-            meminfo['memory'] = meminfo['virtual_memory'] + meminfo['visible_memory']
+            meminfo['memory'] = meminfo['visible_memory']
             test_item.results(meminfo)
             test_item.verify_number_equal('visible_memory',
                                           meminfo['visible_memory'],
                                           0.1)
-        }
-    }
-
-    def system(TestItem test_item) {
-        run_script('Get-WmiObject -Class Win32_ComputerSystem') {
-            def lines = exec('system') {
-                new File("${local_dir}/system")
-            }
-            def systeminfo = [:]
-            lines.eachLine {
-                (it =~ /^(Domain|Manufacturer|Model|Name)\s*:\s+(.+?)$/).each {m0,m1,m2->
-                    systeminfo[m1] = m2
-                }
-            }
-            systeminfo['system'] = "${systeminfo['Domain']}\\${systeminfo['Name']}"
-            test_item.results(systeminfo)
-        }
-    }
-
-    def virturalization(TestItem test_item) {
-        run_script('Get-WmiObject -Class Win32_ComputerSystem | Select Model | FL') {
-            def lines = exec('virturalization') {
-                new File("${local_dir}/virturalization")
-            }
-            def config = 'NotVM'
-            lines.eachLine {
-                (it =~ /^Model\s*:\s+(.*Virtual.*?)$/).each {m0,m1->
-                    config = m1
-                }
-            }
-            test_item.results(config)
-        }
-    }
-
-    def driver(TestItem test_item) {
-        run_script('Get-WmiObject Win32_PnPSignedDriver') {
-            def lines = exec('driver') {
-                new File("${local_dir}/driver")
-            }
-            def device_number = 0
-            def driverinfo = [:].withDefault{[:]}
-            lines.eachLine {
-                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
-                    driverinfo[device_number][m1] = m2
-                }
-                if (it.size() == 0 && driverinfo[device_number].size() > 0)
-                    device_number ++
-            }
-            device_number --
-            def headers = ['DeviceClass', 'DeviceID', 'DeviceName', 'DriverDate',
-                           'DriverProviderName', 'DriverVersion']
-            def csv = []
-            (0..device_number).each { row ->
-                def columns = []
-                headers.each { header ->
-                    columns.add( driverinfo[row][header] ?: '')
-                }
-                csv << columns
-            }
-            test_item.devices(csv, headers)
-            test_item.results(device_number.toString())
-        }
-    }
-
-    def filesystem(TestItem test_item) {
-        run_script('Get-WmiObject Win32_LogicalDisk') {
-            def lines = exec('filesystem') {
-                new File("${local_dir}/filesystem")
-            }
-            def csv = []
-            def filesystems = [:]
-            def drive_letter = 'unkown'
-            def infos = [:]
-            lines.eachLine {
-                (it =~ /^DeviceID\s*:\s+(.+):$/).each {m0,m1->
-                    drive_letter = m1
-                }
-                (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
-                    def size_gb = m1.toDouble()/(1024*1024*1024)
-                    filesystems['filesystem.' + drive_letter] = size_gb
-                    csv << [drive_letter, size_gb]
-                    infos[drive_letter] = Math.ceil(size_gb) as Integer
-                }
-            }
-            def headers = ['device_id', 'size_gb']
-            test_item.devices(csv, headers)
-            filesystems['filesystem'] = infos.toString()
-            test_item.results(filesystems)
-            test_item.verify_number_equal_map('filesystem', infos)
-        }
-    }
-
-    def fips(TestItem test_item) {
-        run_script('Get-Item "HKLM:System\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"') {
-            def lines = exec('fips') {
-                new File("${local_dir}/fips")
-            }
-            def fips_info = ''
-            lines.eachLine {
-                (it =~ /^FIPSAlgorithmPolicy\s+Enabled\s+: (.+?)\s+/).each {m0,m1->
-                    fips_info = (m1 == '0') ? 'Disabled' : 'Enabled'
-                }
-            }
-            test_item.results(fips_info)
-        }
-    }
-
-    def storage_timeout(TestItem test_item) {
-        run_script('Get-ItemProperty "HKLM:SYSTEM\\CurrentControlSet\\Services\\disk"') {
-            def lines = exec('storage_timeout') {
-                new File("${local_dir}/storage_timeout")
-            }
-            def value = ''
-            lines.eachLine {
-                (it =~ /(TimeOutValue|TimeoutValue)\s+: (\d+)/).each {m0,m1,m2->
-                    value = m2
-                }
-            }
-            test_item.results(value)
         }
     }
 
@@ -308,39 +277,46 @@ class WindowsSpec extends WindowsSpecBase {
             def headers = ['ServiceName', 'MacAddress', 'IPAddress',
                            'DefaultIPGateway', 'Description', 'IPSubnet']
             def csv          = []
-            def ip_configs   = [:]
+            // def ip_configs   = [:]
+            // def gateways     = []
+            // def subnets      = []
+
             def ip_addresses = []
-            def gateways     = []
-            def subnets      = []
+            def res = [:]
             (0..device_number).each { row ->
                 def columns = []
                 headers.each { header ->
                     columns.add( network_info[row][header] ?: '')
                 }
                 csv << columns
-                def service_name = parse_ip(network_info[row]['ServiceName'])
-                def ip_address   = parse_ip(network_info[row]['IPAddress'])
-                def gateway      = parse_ip(network_info[row]['DefaultIPGateway'])
-                def subnet       = parse_ip(network_info[row]['IPSubnet'])
-                ip_configs[ip_address] = "${gateway},${subnet}"
+                def device     = network_info[row]['ServiceName']
+                def ip_address = parse_ip(network_info[row]['IPAddress'])
+                def gateway    = parse_ip(network_info[row]['DefaultIPGateway'])
+                def subnet     = parse_ip(network_info[row]['IPSubnet'])
+                // ip_configs[ip_address] = "${gateway},${subnet}"
                 ip_addresses << ip_address
-                gateways     << gateway
-                subnets      << subnet
+                // gateways     << gateway
+                // subnets      << subnet
 
                 if (ip_address && ip_address != '127.0.0.1') {
-                    test_item.lookuped_port_list(ip_address, service_name)
+                    test_item.lookuped_port_list(ip_address, device)
+                    add_new_metric("network.ip.${device}", "${device} IP", ip_address, res)
+                    add_new_metric("network.subnet.${device}", "${device} サブネット", subnet, res)
+                    add_new_metric("network.gateway.${device}", "${device} ゲートウェイ", gateway, res)
                 }
 
             }
 
             test_item.devices(csv, headers)
-            def infos = [
-                'network'        : ip_configs.keySet().toString(),
-                'network.ip'     : ip_addresses.toString(),
-                'network.gw'     : gateways.toString(),
-                'network.subnet' : subnets.toString(),
-            ]
-            test_item.results(infos)
+            // def infos = [
+            //     'network'        : ip_configs.keySet().toString(),
+            //     'network.ip'     : ip_addresses.toString(),
+            //     'network.gw'     : gateways.toString(),
+            //     'network.subnet' : subnets.toString(),
+            // ]
+            // test_item.results(infos)
+            res['network'] = "${ip_addresses}"
+            test_item.results(res)
             test_item.verify_text_search_list('network', ip_addresses)
             // test_item.verify_text_search_map('network', ip_configs)
         }
@@ -355,13 +331,79 @@ class WindowsSpec extends WindowsSpecBase {
             def devices = []
             def teaming = 'NotConfigured'
             lines.eachLine {
-                (it =~ /Name\s+:\s(.+)/).each {m0, m1->
+                (it =~ /^Name\s+:\s(.+)/).each {m0, m1->
                     devices << m1
                     teaming = 'Configured'
                 }
             }
-            def results = ['teaming': teaming, 'devices': devices]
-            test_item.results(results.toString())
+            def res = [:]
+            if (devices) {
+                add_new_metric("nic_teaming.device", "NICチーミング", "${devices}", res)
+            }
+            res['nic_teaming'] = teaming
+            test_item.results(res)
+        }
+    }
+
+    def network_profile(TestItem test_item) {
+        def connectivitys = ['0' : 'Internet Disconnected', '1' : 'NoTraffic', '2' : 'Subnet', 
+                             '3' : 'LocalNetwork', '4' : 'Internet']
+        def net_categorys = ['0' : 'Public', '1' : 'Private', '2' : 'DomainAuthenticated']
+        run_script('Get-NetConnectionProfile') {
+            def lines = exec('network_profile') {
+                new File("${local_dir}/network_profile")
+            }
+            def instance_number = 0
+            def network_info = [:].withDefault{[:]}
+            def network_categorys = [:]
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, item_name, value->
+                    (item_name =~ /IP.+Connectivity/).each { temp ->
+                        if (connectivitys[value]) {
+                            value = connectivitys[value]
+                        }
+                    }
+                    (item_name =~/NetworkCategory/).each { temp ->
+                        if (net_categorys[value]) {
+                            value = net_categorys[value]
+                        }
+                    }
+                    network_info[instance_number][item_name] = value
+                }
+                if (it.size() == 0 && network_info[instance_number].size() > 0) {
+                    instance_number ++
+                }
+            }
+            def headers = ['Name','InterfaceAlias', 'InterfaceIndex', 'NetworkCategory',
+                           'IPv4Connectivity','IPv6Connectivity']
+            def csv = []
+            def res = [:]
+            (0..instance_number).each { row ->
+                network_info[row].with {
+                    if ( it.size() > 0 ) {
+                        def columns = []
+                        headers.each { header ->
+                            columns.add( it[header] ?: '')
+                        }
+                        csv << columns
+                        def device = it['InterfaceAlias']
+                        add_new_metric("network_profile.Category.${device}", 
+                                       "${device}.カテゴリ", 
+                                       it['NetworkCategory'], res)
+                        add_new_metric("network_profile.IPv4.${device}", 
+                                       "${device}.IPv4", 
+                                       it['IPv4Connectivity'], res)
+                        add_new_metric("network_profile.IPv6.${device}", 
+                                       "${device}.IPv6", 
+                                       it['IPv6Connectivity'], res)
+
+                        network_categorys[device] = it['NetworkCategory']
+                    }
+                }
+            }
+            res['network_profile'] = "${network_categorys}"
+            test_item.devices(csv, headers)
+            test_item.results(res)
         }
     }
 
@@ -370,6 +412,7 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('net_bind') {
                 new File("${local_dir}/net_bind")
             }
+            println lines
             def instance_number = 0
             def bind_info = [:].withDefault{[:]}
             lines.eachLine {
@@ -380,23 +423,28 @@ class WindowsSpec extends WindowsSpecBase {
                     instance_number ++
             }
             instance_number --
-            def headers = ['Name', 'Description', 'ComponentID', 'Enabled']
+            def headers = ['Name', 'ifDesc', 'Description', 'ComponentID', 'Enabled']
 
             def csv = []
             def bind_components = [:]
-            def infos = [:].withDefault{[]}
+            def infos = [:]
             (0..instance_number).each { row ->
                 def columns = []
                 headers.each { header ->
                     columns.add( bind_info[row][header] ?: '')
                 }
                 csv << columns
-                def id = bind_info[row]['ComponentID']
-                def name = bind_info[row]['Name']
-                def enabled = bind_info[row]['Enabled']
-                infos["net_bind.${id}"] << "$name : $enabled"
+                def name         = bind_info[row]['Name']
+                def if_desc      = bind_info[row]['ifDesc']
+                def component_id = bind_info[row]['ComponentID']
+                def display_name = bind_info[row]['DisplayName']
+                def enabled      = bind_info[row]['Enabled']
+                add_new_metric("net_bind.${name}", "バインディング.${name}", if_desc, infos)
+                add_new_metric("net_bind.${name}.${component_id}", 
+                               "バインディング.${name}.${display_name}", 
+                               enabled, infos)
                 if (enabled == 'True') {
-                    bind_components[id] = 1
+                    bind_components[component_id] = 1
                 }
             }
             infos['net_bind'] = "${bind_components.keySet()}"
@@ -425,7 +473,7 @@ class WindowsSpec extends WindowsSpecBase {
 
             def csv = []
             def connect_if = [:]
-            def infos = [:].withDefault{[]}
+            def infos = [:]
             (0..instance_number).each { row ->
                 def columns = []
                 headers.each { header ->
@@ -435,10 +483,13 @@ class WindowsSpec extends WindowsSpecBase {
                 def alias       = ip_info[row]['InterfaceAlias']
                 def auto_metric = ip_info[row]['AutomaticMetric']
                 def int_metric  = ip_info[row]['InterfaceMetric']
+                def dhcp        = ip_info[row]['Dhcp']
                 def status      = ip_info[row]['ConnectionState']
                 (alias =~ /Ethernet/).each {
-                    infos["net_ip.auto_metric"] << "$alias : $auto_metric"
-                    infos["net_ip.if_metric"]   << "$alias : $int_metric"
+                    add_new_metric("net_ip.${alias}.auto_metric", "インターフェース.${alias}.auto_metric", auto_metric, infos)
+                    add_new_metric("net_ip.${alias}.int_metric", "インターフェース.${alias}.int_metric", int_metric, infos)
+                    add_new_metric("net_ip.${alias}.dhcp", "インターフェース.${alias}.dhcp", dhcp, infos)
+                    add_new_metric("net_ip.${alias}.status", "インターフェース.${alias}.status", status, infos)
                     if (status == 'Connected') {
                         connect_if[alias] = 1
                     }
@@ -460,23 +511,21 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('tcp') {
                 new File("${local_dir}/tcp")
             }
-            def setting = false
-            def tcpinfo    = [:].withDefault{0}
+            def tcpinfo    = [:]
             lines.eachLine {
                 (it =~ /^KeepAliveInterval\s*:\s+(.+)$/).each {m0,m1->
-                    tcpinfo['tcp.keepalive_interval'] = m1
-                    setting = true
+                    add_new_metric("tcp.keepalive_interval", "TCP.KeepAlive間隔", m1, tcpinfo)
                 }
                 (it =~ /^KeepAliveTime\s*:\s+(.+)$/).each {m0,m1->
-                    tcpinfo['tcp.keepalive_time'] = m1
-                    setting = true
+                    add_new_metric("tcp.keepalive_time", "TCP.KeepAliveタイム", m1, tcpinfo)
                 }
                 (it =~ /^TcpMaxDataRetransmissions\s*:\s+(.+)$/).each {m0,m1->
-                    tcpinfo['tcp.max_data_retran'] = m1
-                    setting = true
+                    add_new_metric("tcp.max_data_retran", "TCP.MaxDataRetran", m1, tcpinfo)
                 }
             }
-            tcpinfo['tcp'] = (setting) ? 'Configured' : 'NotConfigured'
+            def setting = (tcpinfo.size() > 0) ? 'Configured' : 'NotConfigured'
+            tcpinfo['tcp'] = setting
+            println tcpinfo
             test_item.results(tcpinfo)
         }
     }
@@ -495,9 +544,11 @@ class WindowsSpec extends WindowsSpecBase {
                 if (it.size() == 0 && firewall_info[instance_number].size() > 0)
                     instance_number ++
             }
+            // println lines
             instance_number --
             def headers = ['Name', 'DisplayGroup', 'DisplayName', 'Status']
 
+            def groups = [:]
             def csv = []
             (0..instance_number).each { row ->
                 def columns = []
@@ -505,11 +556,50 @@ class WindowsSpec extends WindowsSpecBase {
                     columns.add( firewall_info[row][header] ?: '')
                 }
                 csv << columns
+                def group_key = firewall_info[row]['DisplayGroup']
+                if (group_key) {
+                    groups[group_key] = 1
+                }
             }
             test_item.devices(csv, headers)
-            test_item.results(instance_number.toString())
+
+            def res = [:]
+            groups.each { group_key, value ->
+                add_new_metric("firewall.${group_key}", "Firewall ${group_key}", "Enable", res)
+            }
+            res['firewall'] = "${groups.keySet()}"
+            test_item.results(res)
         }
     }
+
+    def filesystem(TestItem test_item) {
+        run_script('Get-WmiObject Win32_LogicalDisk') {
+            def lines = exec('filesystem') {
+                new File("${local_dir}/filesystem")
+            }
+            def csv = []
+            def filesystems = [:]
+            def drive_letter = 'unkown'
+            def infos = [:]
+            lines.eachLine {
+                (it =~ /^DeviceID\s*:\s+(.+):$/).each {m0,m1->
+                    drive_letter = m1
+                }
+                (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
+                    def size_gb = Math.ceil(m1.toDouble()/(1024*1024*1024)) as Integer
+                    add_new_metric("filesystem.${drive_letter}", "ディスク容量.${drive_letter}", size_gb, infos)
+                    csv << [drive_letter, size_gb]
+                    filesystems[drive_letter] = size_gb
+                }
+            }
+            def headers = ['device_id', 'size_gb']
+            test_item.devices(csv, headers)
+            infos['filesystem'] = "${filesystems}"
+            test_item.results(infos)
+            test_item.verify_number_equal_map('filesystem', filesystems)
+        }
+    }
+
 
     def service(TestItem test_item) {
         run_script('Get-Service | FL') {
@@ -541,10 +631,91 @@ class WindowsSpec extends WindowsSpecBase {
                 services['service.' + service_id] = service_info[row]['Status']
                 csv << columns
             }
+            def service_list = test_item.target_info('service')
+            if (service_list) {
+                service_list.each { service_name, value ->
+                    def test_id = "service.${service_name}"
+                    def status = services[test_id] ?: 'Not Found'
+                    add_new_metric(test_id, "サービス.${service_name}", status, services)
+                }
+            }
+
             services['service'] = "${instance_number} services"
+            println services
             test_item.devices(csv, headers)
             test_item.results(services)
             test_item.verify_text_search_map('service', infos)
+        }
+    }
+
+    def user(TestItem test_item) {
+
+        def command = '''
+            |$result = @()
+            |$accountObjList =  Get-CimInstance -ClassName Win32_Account
+            |$userObjList = Get-CimInstance -ClassName Win32_UserAccount
+            |foreach($userObj in $userObjList)
+            |{
+            |    $IsLocalAccount = ($userObjList | ?{$_.SID -eq $userObj.SID}).LocalAccount
+            |    if($IsLocalAccount)
+            |    {
+            |        $query = "WinNT://{0}/{1},user" -F $env:COMPUTERNAME,$userObj.Name
+            |        $dirObj = New-Object -TypeName System.DirectoryServices.DirectoryEntry -ArgumentList $query
+            |        $UserFlags = $dirObj.InvokeGet("UserFlags")
+            |        $DontExpirePasswd = [boolean]($UserFlags -band 0x10000)
+            |        $AccountDisable   = [boolean]($UserFlags -band 0x2)
+            |        $obj = New-Object -TypeName PsObject
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "UserName" -Value $userObj.Name
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "DontExpirePasswd" -Value $DontExpirePasswd
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "AccountDisable" -Value $AccountDisable
+            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "SID" -Value $userObj.SID
+            |        $result += $obj
+            |    }
+            |}
+            |$result | Format-List
+            |'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('user') {
+                new File("${local_dir}/user")
+            }
+            println lines
+            def account_number = 0
+            def account_info   = [:].withDefault{[:]}
+            lines.eachLine {
+                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    account_info[account_number][m1] = m2
+                }
+                if (it.size() == 0 && account_info[account_number].size() > 0)
+                    account_number ++
+            }
+            account_number --
+            def headers = ['UserName', 'DontExpirePasswd', 'AccountDisable', 'SID']
+
+            def csv   = []
+            def res   = [:]
+            def users = [:]
+            (0..account_number).each { row ->
+                def columns = []
+                headers.each { header ->
+                    columns.add( account_info[row][header] ?: '')
+                }
+                def user_name        = account_info[row]['UserName']
+                def dont_expire_pass = account_info[row]['DontExpirePasswd']
+                def account_disable  = account_info[row]['AccountDisable']
+
+                add_new_metric("user.${user_name}.DontExpirePasswd", 
+                               "${user_name} パスワード無期限", 
+                               dont_expire_pass, res)
+                add_new_metric("user.${user_name}.AccountDisable", 
+                               "${user_name} アカウント失効", 
+                               account_disable, res)
+                users[user_name] = account_disable
+                csv << columns
+            }
+            res['user'] = "${users}"
+            test_item.devices(csv, headers)
+            test_item.results(res)
         }
     }
 
@@ -585,6 +756,7 @@ class WindowsSpec extends WindowsSpecBase {
                     version = m1
                     package_info['packages.' + packagename] = m1
                     package_count ++
+                    add_new_metric("packages.${packagename}", "${packagename}", version, package_info)
                     csv << [packagename, vendor, version]
                 }
             }
@@ -595,70 +767,15 @@ class WindowsSpec extends WindowsSpecBase {
         }
     }
 
-    def user(TestItem test_item) {
-
-        def command = '''
-            |$result = @()
-            |$accountObjList =  Get-CimInstance -ClassName Win32_Account
-            |$userObjList = Get-CimInstance -ClassName Win32_UserAccount
-            |foreach($userObj in $userObjList)
-            |{
-            |    $IsLocalAccount = ($userObjList | ?{$_.SID -eq $userObj.SID}).LocalAccount
-            |    if($IsLocalAccount)
-            |    {
-            |        $query = "WinNT://{0}/{1},user" -F $env:COMPUTERNAME,$userObj.Name
-            |        $dirObj = New-Object -TypeName System.DirectoryServices.DirectoryEntry -ArgumentList $query
-            |        $UserFlags = $dirObj.InvokeGet("UserFlags")
-            |        $DontExpirePasswd = [boolean]($UserFlags -band 0x10000)
-            |        $AccountDisable   = [boolean]($UserFlags -band 0x2)
-            |        $obj = New-Object -TypeName PsObject
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "UserName" -Value $userObj.Name
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "DontExpirePasswd" -Value $DontExpirePasswd
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "AccountDisable" -Value $AccountDisable
-            |        Add-Member -InputObject $obj -MemberType NoteProperty -Name "SID" -Value $userObj.SID
-            |        $result += $obj
-            |    }
-            |}
-            |$result | Format-List
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('user') {
-                new File("${local_dir}/user")
-            }
-            def account_number = 0
-            def account_info   = [:].withDefault{[:]}
-            def user_names     = [:]
-            lines.eachLine {
-                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
-                    account_info[account_number][m1] = m2
-                }
-                if (it.size() == 0 && account_info[account_number].size() > 0)
-                    account_number ++
-            }
-            account_number --
-            def headers = ['UserName', 'DontExpirePasswd', 'AccountDisable', 'SID']
-
-            def csv = []
-            (0..account_number).each { row ->
-                def columns = []
-                headers.each { header ->
-                    columns.add( account_info[row][header] ?: '')
-                }
-                user_names[account_info[row]['UserName']] = account_info[row]['AccountDisable']
-                csv << columns
-            }
-            test_item.devices(csv, headers)
-            test_item.results(user_names.toString())
-        }
-    }
-
     def remote_desktop(TestItem test_item) {
         run_script('(Get-Item "HKLM:System\\CurrentControlSet\\Control\\Terminal Server").GetValue("fDenyTSConnections")') {
-            def result = exec('remote_desktop') {
+            def value = exec('remote_desktop') {
                 new File("${local_dir}/remote_desktop").text
             }
-            test_item.results(result.toString())
+            def remote_desktop_flags = ['0' : 'Enable', '1' : 'Disable']
+            def result = remote_desktop_flags[value.trim()] ?: 'unkown'
+
+            test_item.results(result)
         }
     }
 
@@ -814,13 +931,12 @@ class WindowsSpec extends WindowsSpecBase {
                     instance_number ++
             }
             instance_number --
-
             def monitor_names = [:]
             def infos = [:].withDefault{[]}
             (0..instance_number).each { row ->
                 def alias    = monitor_info[row]['Name']
-                def screen_y = monitor_info[row]['ScreenHeight'] ?: 'unkown'
-                def screen_x = monitor_info[row]['ScreenWidth'] ?: 'unkown'
+                def screen_y = monitor_info[row]['ScreenHeight'] ?: 'Unspecified'
+                def screen_x = monitor_info[row]['ScreenWidth'] ?: 'Unspecified'
                 monitor_names[alias] = 1
                 infos["monitor.height"] << screen_y
                 infos["monitor.width"]  << screen_x
@@ -844,9 +960,10 @@ class WindowsSpec extends WindowsSpecBase {
                     patch_number ++
                 }
             }
+            // println lines
             def headers = ['knowledge_base']
             test_item.devices(csv, headers)
-            test_item.results(patch_number.toString())
+            test_item.results("${patch_number.toString()} patches")
         }
     }
 
@@ -855,53 +972,19 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('ie_version') {
                 new File("${local_dir}/ie_version")
             }
-            def ie_info = [:]
+            println lines
+            def res = [:]
             lines.eachLine {
-                (it =~ /^(Version|svcVersion)\s*:\s+(.+?)$/).each {m0, m1, m2->
-                    ie_info[m1] = m2
+                (it =~ /^(svcVersion|svcUpdateVersion|RunspaceId)\s*:\s+(.+?)$/).each {m0, m1, m2->
+                    add_new_metric("ie_version.${m1}", "IEバージョン.${m1}", m2, res)
+                    // res["ie_version.$m1"] = m2
                  }
             }
-            test_item.results(ie_info.toString())
+            test_item.results(res)
+            test_item.make_summary_text('svcVersion':'Version', 'svcUpdateVersion':'UpdateVersion')
         }
     }
 
-    def network_profile(TestItem test_item) {
-        run_script('Get-NetConnectionProfile') {
-            def lines = exec('network_profile') {
-                new File("${local_dir}/network_profile")
-            }
-            def instance_number = 0
-            def network_info = [:].withDefault{[:]}
-            def network_categorys = [:]
-            lines.eachLine {
-                (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
-                    network_info[instance_number][m1] = m2
-                }
-                if (it.size() == 0 && network_info[instance_number].size() > 0) {
-                    instance_number ++
-                }
-            }
-            def headers = ['Name','InterfaceAlias', 'InterfaceIndex', 'NetworkCategory',
-                           'IPv4Connectivity','IPv6Connectivity']
-
-            def csv = []
-            def network_name = ''
-            (0..instance_number).each { row ->
-                network_info[row].with {
-                    if ( it.size() > 0 ) {
-                        def columns = []
-                        headers.each { header ->
-                            columns.add( it[header] ?: '')
-                        }
-                        csv << columns
-                        network_categorys[it['InterfaceAlias']] = it['NetworkCategory']
-                    }
-                }
-            }
-            test_item.devices(csv, headers)
-            test_item.results(network_categorys.toString())
-        }
-    }
 
     def feature(TestItem test_item) {
         run_script('Get-WindowsFeature | ?{$_.InstallState -eq [Microsoft.Windows.ServerManager.Commands.InstallState]::Installed} | FL') {
@@ -910,7 +993,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def instance_number = 0
             def feature_info = [:].withDefault{[:]}
-            def feature_categorys = [:]
+            def res = [:]
             lines.eachLine {
                 (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
                     feature_info[instance_number][m1] = m2
@@ -930,11 +1013,15 @@ class WindowsSpec extends WindowsSpecBase {
                             columns.add( it[header] ?: '')
                         }
                         csv << columns
+                        def name = it['Name']
+                        def display_name = it['DisplayName']
+                        add_new_metric("feature.${name}", display_name, "True", res)
                     }
                 }
             }
             test_item.devices(csv, headers)
-            test_item.results(csv.size().toString() + ' installed')
+            res['feature'] = csv.size().toString() + ' installed'
+            test_item.results(res)
         }
     }
 
