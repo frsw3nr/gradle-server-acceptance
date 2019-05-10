@@ -596,10 +596,10 @@ class LinuxSpec extends LinuxSpecBase {
             package_list.each { package_name, value ->
                 def test_id = "packages.${template_id}.${package_name}"
                 def version = versions[package_name] ?: 'Not Found'
-                add_new_metric(test_id, "パッケージ.${template_id}.${package_name}", version, package_info)
                 if (version == 'Not Found') {
                     verify = false
                 }
+                add_new_metric(test_id, "${template_id}.${package_name}", "'${version}'", package_info)
             }
             test_item.verify(verify)
         }
@@ -708,10 +708,10 @@ class LinuxSpec extends LinuxSpecBase {
                 // users['user.' + username] = 'OK'
                 (shell =~ /sh$/).each {
                     general_users[username] = 'OK'
-                    add_new_metric("user.${username}.id", "ユーザ.${username}.ID",          user_id, users)
-                    add_new_metric("user.${username}.home", "ユーザ.${username}.ホーム",    home, users)
-                    add_new_metric("user.${username}.group", "ユーザ.${username}.グループ", group, users)
-                    add_new_metric("user.${username}.shell", "ユーザ.${username}.シェル",   shell, users)
+                    add_new_metric("user.${username}.id",    "${username}.ID",          user_id, users)
+                    add_new_metric("user.${username}.home",  "${username}.ホーム",    home, users)
+                    add_new_metric("user.${username}.group", "${username}.グループ", group, users)
+                    add_new_metric("user.${username}.shell", "${username}.シェル",   shell, users)
                 }
             }
         }
@@ -795,10 +795,10 @@ class LinuxSpec extends LinuxSpecBase {
             service_list.each { service_name, value ->
                 def test_id = "service.${service_name}"
                 def status = services[test_id] ?: 'Not Found'
-                add_new_metric(test_id, "サービス.${service_name}", status, services)
+                add_new_metric(test_id, service_name, status, services)
             }
         }
-        services['service'] = service_count.toString()
+        services['service'] = "${service_count} services"
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
         test_item.verify_text_search_map('service', infos)

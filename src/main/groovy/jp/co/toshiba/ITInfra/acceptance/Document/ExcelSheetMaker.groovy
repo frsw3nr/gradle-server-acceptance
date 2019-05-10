@@ -233,6 +233,7 @@ class ExcelSheetMaker {
         def colnum = 0
         values.each { value ->
             Cell cell = row.createCell(colnum)
+            // cell.setEncoding(HSSFCell.ENCODING_UTF_16)
             cell.setCellValue(value)
             set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
             colnum ++
@@ -638,6 +639,7 @@ class ExcelSheetMaker {
 
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
+                font.setFontName("ＭＳ Ｐゴシック")
                 font.setBold(true);
                 // font.setColor(IndexedColors.BLACK.getIndex());
                 font.setColor(black);
@@ -650,6 +652,7 @@ class ExcelSheetMaker {
                 style.setFillForegroundColor(COLOR_LIGHT_GREEN)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
+                font.setFontName("ＭＳ Ｐゴシック")
                 font.setBold(true);
                 // font.setColor(IndexedColors.BLACK.getIndex());
                 font.setColor(black);
@@ -661,6 +664,7 @@ class ExcelSheetMaker {
                 style.setFillForegroundColor(COLOR_LIGHT_TURQUOISE)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
+                font.setFontName("ＭＳ Ｐゴシック")
                 // font.setColor(IndexedColors.BLACK.getIndex());
                 font.setColor(black);
                 style.setFont(font);
@@ -671,6 +675,7 @@ class ExcelSheetMaker {
                 style.setFillForegroundColor(COLOR_LEMON_CHIFFON)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
+                font.setFontName("ＭＳ Ｐゴシック")
                 // font.setColor(IndexedColors.BLACK.getIndex());
                 font.setColor(black);
                 style.setFont(font);
@@ -681,6 +686,7 @@ class ExcelSheetMaker {
                 style.setFillForegroundColor(COLOR_ROSE)
                 style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 def font = wb.createFont();
+                font.setFontName("ＭＳ Ｐゴシック")
                 font.setBold(true);
                 // font.setColor(IndexedColors.BLACK.getIndex());
                 font.setColor(black);
@@ -689,6 +695,7 @@ class ExcelSheetMaker {
 
             case ResultCellStyle.ERROR :
                 def font = wb.createFont();
+                font.setFontName("ＭＳ Ｐゴシック")
                 // font.setColor(IndexedColors.RED.getIndex());
                 style.setFillForegroundColor(COLOR_RED)
                 def font_size = font.getFontHeightInPoints()

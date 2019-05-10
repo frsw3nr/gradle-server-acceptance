@@ -28,7 +28,8 @@ class PlatformTester {
 
         def user_script = "${user_lib}/${user_package}/${test_platform.name}Spec.groovy"
         log.debug "Load ${user_script}"
-        def clazz = loader.parseClass(new File(user_script))
+        def code = new File(user_script).getText('UTF-8')
+        def clazz = loader.parseClass(code)
         test_spec = clazz.newInstance(this.test_platform)
     }
 

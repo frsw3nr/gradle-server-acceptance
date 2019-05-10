@@ -1,63 +1,25 @@
-Changes for 0.2.1 (2019-5-8)
+Changes for 0.2.2 (2019-5-8)
 ------------------------------------------------------------------------------
 
 ToDo:
-* 検査シナリオの階層化 [ ]
-    * 単体テスト
-        * EvidenceMaker.groovy 内 add_added_test_metric() [x]
-            * 基底メトリックの下に登録 [x]
-        * ExcelSheetMaker.groovy 内 write_sheet_summary() [x]
-            * 追加メトリックの行追加 [x]
-        * TestResultWriter.groovy [ ]
-            * 追加メトリックの結果登録 [ ]
-        * TestResultReader.groovy [ ]
-            * 追加メトリックの結果読込み [ ]
-    * datastore でテスト追加 [x]
-    * UML見直 [ ]
-    * Linux シナリオ見直し [x]
-        * Linux Excel チェックシート変更 [x]
-            * 列フォーマット変更 [x]
-            * 列グループ化設定 [x]
-            * Category, Metric 列 Linux 見直し [x]
-            * Category, Metric 列 Windows 見直し [x]
-        * 単体テスト LinuxScenarioTest.groovy ベース作成 [x]
-        * シナリオ変更 [x]
-            * vCenter [x]
-                * ベース [x]
-                * データストア [x]
-                * ネットワーク [x]
-                * ストレージ [x]
-            * Linux [x]
-                * ベース [x]
-                * NTP [x]
-                * SNMP [x] TODO: sudo 実行
-                * SELinux [x]
-                * VMWare [x]
-                * CPU [x]
-                * メモリ [x]
-                * ネットワーク [x]
-                * ストレージ [x]
-                * ユーザ [x]
-                * サービス [x]
-                * パッケージ [x]
-                * ラップアップ チェックシート差分チェック [x]
-                * Excelシート作成処理遅延対策 [x]
-                    * 処理時間分析 [x]
-                    * 変更スコープ作成 [x]
-                    * 効果測定 [x]
-    * Windows シナリオ見直し [ ]
-        * Windows Excel チェックシート変更 [x]
-        * 単体テスト WindowsScenarioTest.groovy ベース作成 [x]
-        * シナリオ変更 [ ]
-            * vCenter レグレッション [x]
-            * Windows [ ]
-                * ベース [x]
-                * ネットワーク [x]
-                * ファイルシステム [x]
-                * ユーザ [x]
-                * サービス [x]
-                * パッケージ [x]
-                * ラップアップ チェックシート差分チェック [ ]
+* シナリオ階層化
+    * Solaris/Solarisチェックシート.xlsx [ ]
+    * Solaris/XSCFチェックシート.xlsx [ ]
+    * VMWare_ESXi/ESXiチェックシート.xlsx [ ]
+    * Zabbix/Zabbix監視設定チェックシート.xlsx [ ]
+    * Zabbix/ZabbixServer監視設定チェックシート.xlsx [ ]
+    * Cisco_UCS/UCSチェックシート.xlsx [ ]
+    * HP_iLO/iLOチェックシート.xlsx [ ]
+    * FJ_Primergy/PRIMERGYチェックシート.xlsx [ ]
+    * FJ_Eternus/ETERNUSチェックシート.xlsx [ ]
+    * Hitachi_VSP/HitachiVSPチェックシート.xlsx [ ]
+    * Hitachi_VSP/HitachiVSP構成レポート作成手順.xlsx [ ]
+    * NetApp/DataONTAPチェックシート.xlsx [ ]
+    * AIX/AIXチェックシート.xlsx [ ]
+    * Router/RTXチェックシート.xlsx [ ]
+    * Router/CiscoIOSチェックシート.xlsx [ ]
+    * Oracle/Oracle設定チェックシート.xlsx [ ]
+
     * KPT [ ]
 * クラスター分析追加 [ ]
     * コンペア仕様作成 [ ]
@@ -68,19 +30,9 @@ ToDo:
         * EvidenceMaker見直し [ ]
         * ReportMaker 見直し [ ]
 
-V2.1 仕様検討
--------------
+V2 仕様検討
+-----------
 
-* Excelサマリシートレイアウト見直し
-    * Category, Metric, ID, Platform, Description の順にする
-    * 項目IDは、x.y.z 形式で階層構造を定義できるようにする
-    * 細部のリーフを先頭行にして、サマリのトランクを最後の行に配置する
-    * Category はテスト項目とマッピングする
-    * デバイス毎に動的に検査IDを追加する
-        * ディスク、ネットワーク構成の場合
-    * データグループ化レイアウト追加
-        * 項目IDのトランク毎に行グループを設定する
-        * 列配置はID,Platform,...,Descriptionは固定で列グループ設定
 * 項目IDの正規化
     * 対象機器の構成により、デバイスのキーが異なる場合がある
     * クラスター内対象機器で存在しないデバイスキーは表示しないように、シートの登録は省く
@@ -103,11 +55,12 @@ V2.1 仕様検討
     * クラスター分析には使用するが、シートには表示させたくない場合
         * パッケージリストなど項目IDが膨大になる場合
     * テンプレートに設定した、パッケージリストのみシートに表示させる
+* K-Means法によるクラスター分析
+    * ノードにクラスターIDを負荷
+    * クラスターID毎にシート作成
 * 変更範囲
     * メトリックの階層化
         * Model
-            * TestMetric.groovy   : 階層化タグ追加
-            * TestPlatform.groovy : add_test_metric()メソッド見直し
             * TestResult.groovy   : 階層化タグ、クラスター分析用ダミー変数化
         * Controller
             * TestItem.groovy     : 諸々見直し
@@ -118,29 +71,6 @@ V2.1 仕様検討
     * クラスター分析
         * Controller
             * DataComparator.groovy : EKLI K-Means分析
-
-# デバイスの追加メトリック管理
-
-## add_test_metric(id, desc)
-
-    datastore.Name.datastore1
-    datastore.DatastoreBrowserPath.datastore1
-    datastore.Type.datastore1
-    datastore.State.datastore1
-
-## TestPlatform.groovy 内 
-
-新メトリック設定。added_test_metrics 配列に登録
-
-    def new_test_id = "datastore.${header}.${it['Name']}"
-    this.test_platform.add_test_metric(new_test_id, "")
-
-add_test_metric()内、 「added_test_metrics」 配列に新メトリック追加
-
-    test_metric = new TestMetric(name: metric, description: description,
-                                 platform: this.name,
-                                 enabled: true)
-    this.added_test_metrics[metric] = test_metric
 
 ## EvidenceMaker.groovy内
 
@@ -167,25 +97,22 @@ extract_added_test_metric() 内
 * 追加メトリックの親メトリックとの関連追加。
 * ノード間の重複チェック。新規メトリックの場合、行カウントアップ
 
-## レポート作成
+Changes for 0.2.1 (2019-5-8)
+------------------------------------------------------------------------------
+New features:
+* 基底メトリックの下に階層的にメトリックを追加できるようにした
+    * vCenterシナリオの見直し
+    * Linuxシナリオの見直し
+    * Windowsシナリオの見直し
+* Excelのグループ機能を用いてメトリックカテゴリ単位でシートを開閉出来るようにした
+* デバイス結果をサマリシートに追加できるようにした
+* 検査シートにグループ機能用のカテゴリ列を追加
 
-ExcelSheetMaker.groovy内
+Bug fixes:
+* サマリシート作成に時間が掛かる問題対処。セルスタイルの共有化
+* Excel シートのマルチバイトデータ登録時の文字化け対処
+* Redmineプラグインデバイスリスト表示でプラットフォームで絞り込めるようにする
 
-    def excel_sheet_maker = new ExcelSheetMaker(
-                                excel_parser: this.excel_parser,
-                                evidence_maker: evidence_maker,
-                                report_maker: report_maker)
-    excel_sheet_maker.output(this.output_evidence)
-
-write_sheet_summary()内、最終行に追加メトリック作成
-
-    def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
-
-変更範囲検討
-
-* メトリック列作成、新メトリック、基底メトリックの順に作成
-* ノード列
-    * sheet_summary.added_rows を、sheet_design.sheet_row に追加
 
 Changes for 0.1.42 (2019-4-25)
 ------------------------------------------------------------------------------
