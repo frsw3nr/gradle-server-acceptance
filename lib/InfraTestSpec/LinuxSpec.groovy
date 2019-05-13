@@ -1095,7 +1095,6 @@ class LinuxSpec extends LinuxSpecBase {
             }
         }
         res['snmp_trap'] = config
-        // println res
         test_item.results(res)
     }
 

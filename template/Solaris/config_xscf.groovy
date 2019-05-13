@@ -4,7 +4,7 @@ evidence.source = './template/Solaris/XSCFチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-evidence.target='./build/XSCFチェックシート_<date>.xlsx'
+ evidence.target='./build/XSCFチェックシート_<date>.xlsx'
 // evidence.target='./build/xscf_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ

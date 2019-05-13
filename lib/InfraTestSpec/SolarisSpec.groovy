@@ -153,10 +153,10 @@ class SolarisSpec extends InfraTestSpec {
             }
         }
         info['System'] += info['Release']
-        info['kernel'] = info.toString()
+        info['kernel'] = "${info['System']} [${info['KernelID']}]"
         // println prettyPrint(toJson(info))
-
         test_item.results(info)
+
         test_item.verify_text_search('System', info['System'])
         test_item.verify_text_search('Release', info['Release'])
     }
@@ -198,7 +198,6 @@ class SolarisSpec extends InfraTestSpec {
         cpuinfo["cpu_core"] = (core_number > 0) ? core_number : core_cpu.size()
         cpuinfo["cpu_real"] = real_cpu.size()
         cpuinfo["cpu"] = "${cpuinfo["model_name"]} ${cpuinfo["cpu_core"]} core"
-        // println prettyPrint(toJson(cpuinfo))
         test_item.results(cpuinfo)
         test_item.verify_number_equal('cpu_real',  cpuinfo['cpu_real'])
         test_item.verify_number_equal('cpu_core',  cpuinfo['cpu_core'])
@@ -217,7 +216,8 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('memory') {
             run_ssh_command(session, '/usr/sbin/prtconf |grep Memory', 'memory')
         }
-        def memory = 0
+        double memory = 0
+        println lines
         lines.eachLine {
             // println it
             (it =~ /(\d+)/).each {m0,m1->
@@ -225,7 +225,8 @@ class SolarisSpec extends InfraTestSpec {
                 // Integer.decode(m1)
             }
         }
-        test_item.results(memory.toString())
+        println String.format("%1.1f", memory)
+        test_item.results(String.format("%1.1f", memory))
         test_item.verify_number_equal('memory', memory, 0.1)
     }
 
@@ -281,7 +282,6 @@ class SolarisSpec extends InfraTestSpec {
             // inet 127.0.0.1/8 scope host lo
             (it =~ /inet\s+(.*?)\s/).each {m0, m1->
                 network[device]['ip'] = m1
-                device_ip[device] = m1
             }
             (it =~ /netmask\s+(.+?)[\s|]/).each {m0, m1->
                 try {
@@ -305,26 +305,37 @@ class SolarisSpec extends InfraTestSpec {
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
         def csv = []
         def infos = [:].withDefault{[:]}
-        network.find { device_id, items ->
+        def res = [:]
+        network.find { dev, items ->
             if (items?.ip  =~ /(127\.0\.0\.1|0\.0\.0\.0)/)
                 return
-            def columns = [device_id]
+            println "NET : $dev, $items"
+            def columns = [dev]
             ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
                 def value = items[it] ?: 'NaN'
                 columns.add(value)
-                if (it == 'ip' || it == 'subnet') {
-                    infos[device_id][it] = value
+                if (it =~ /^(ip|subnet|mtu)$/) {
+                    infos[dev][it] = value
                 }
             }
-            def ip_address = infos[device_id]['ip']
+            def ip_address = infos[dev]['ip']
+            def mtu        = infos[dev]['mtu']
+            def subnet     = infos[dev]['subnet']
             if (ip_address) {
-                test_item.lookuped_port_list(ip_address, device_id)
+                test_item.lookuped_port_list(ip_address, dev)
+                device_ip[dev] = ip_address
+                add_new_metric("network.ip.${dev}", "${dev} IP",  ip_address, res)
+                add_new_metric("network.subnet.${dev}", "${dev} サブネット", subnet, res)
+                add_new_metric("network.mtu.${dev}", "${dev} MTU",  mtu, res)
             }
             csv << columns
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         test_item.devices(csv, headers)
-        test_item.results(['network': "$infos", 'net_ip': "$device_ip", 'net_subnet': "$net_subnet"])
+        res['network'] = "$device_ip"
+        test_item.results(res)
+        println res
+        // test_item.results(['network': "$infos", 'net_ip': "$device_ip", 'net_subnet': "$net_subnet"])
         // test_item.verify_text_search_map('network', device_ip)
         test_item.verify_text_search_list('net_ip', device_ip)
     }
@@ -333,23 +344,29 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('net_route') {
             run_ssh_command(session, '/usr/sbin/route -v -n get default', 'net_route')
         }
-        def net_route   = [:]
-        def mac_address = []
-
+        def net_route  = [:]
+        def interfaces = []
+        println lines
         // gateway: 192.168.10.254
         // interface: e1000g0 index 2 address 00 0c 29 6f 38 cf
         // flags: <UP,GATEWAY,DONE,STATIC>
-
+        def res = [:]
+        def interface_number = 1
         lines.eachLine {
             (it =~ /gateway: (.+)$/).each {m0,m1->
-                net_route['net_route'] = m1
+                add_new_metric("net_route.default_gateway", "デフォルトGW", m1, res)
             }
             (it =~ /interface: .+ address (.+?)\s*$/).each {m0,m1->
-                mac_address << m1
+                def mac = trim(m1)
+                interfaces << mac
+                add_new_metric("net_route.default_gateway.MAC${interface_number}", 
+                               "デフォルトGW MAC${interface_number}", 
+                               mac, res)
+                interface_number ++
             }
         }
-        net_route['mac'] = mac_address.toString()
-        test_item.results(net_route)
+        test_item.results(res)
+        test_item.make_summary_text('net_route.default_gateway':'Default')
         test_item.verify_text_search_list('net_route', net_route)
     }
 
@@ -397,22 +414,27 @@ class SolarisSpec extends InfraTestSpec {
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
         def csv = []
         def infos = [:]
+        def res = [:]
         disks.each { device_id, items ->
             def columns = [device_id]
-            ['vendor-id', 'product-id', 'devid', 'serial-no'].each {
-                def value = items[it] ?: 'NaN'
+            ['vendor-id':'ベンダー', 'product-id':'モデルNo', 
+             'devid':'デバイスID', 'serial-no':'S/N'].each { header,label ->
+                def value = items[header] ?: 'NaN'
                 columns.add(value)
-                if (it == 'product-id') {
+                if (header == 'product-id') {
                     infos[device_id] = value
                 }
+                add_new_metric("disk.${header}.${device_id}", 
+                               "ディスク${device_id}.${label}",
+                               value, res)
             }
             csv << columns
         }
         def headers = ['#', 'vendor', 'product', 'devid', 'serial']
         test_item.devices(csv, headers)
-        // println prettyPrint(toJson(csv))
+        res['disk'] = "${infos}"
 
-        test_item.results(infos.toString())
+        test_item.results(res)
     }
 
     def metastat(session, test_item) {
@@ -442,7 +464,7 @@ class SolarisSpec extends InfraTestSpec {
         // /dev/sda1             477M   69M  383M  16% /boot
         // none                     0     0     0    - /proc/sys/fs/binfmt_misc
         def csv = []
-        def filesystems = [:]
+        def res = [:]
         def infos = [:]
         lines.eachLine {
             (it =~  /\s+(\d.+)$/).each { m0,m1->
@@ -451,9 +473,11 @@ class SolarisSpec extends InfraTestSpec {
                     def size  = columns[0]
                     def mount = columns[4]
                     (size =~ /^[1-9]/).each { row ->
-                        filesystems['filesystem.' + mount] = size
+                        // res['filesystem.' + mount] = size
                         if (!(mount =~ /^\/(etc|var|platform|system)\//)) {
                             infos[mount] = size
+                            add_new_metric("filesystem.capacity.${mount}", 
+                                           "ディスク容量 ${mount}", size, res)
                         }
                         csv << columns
                     }
@@ -462,9 +486,8 @@ class SolarisSpec extends InfraTestSpec {
         }
         def headers = ['size', 'used', 'avail', 'use%', 'mountpoint']
         test_item.devices(csv, headers)
-        filesystems['filesystem'] = infos.toString()
-        println "INFO:$infos"
-        test_item.results(filesystems)
+        res['filesystem'] = "${infos}"
+        test_item.results(res)
         test_item.verify_text_search_map('filesystem', infos)
     }
 
@@ -515,7 +538,7 @@ class SolarisSpec extends InfraTestSpec {
         def headers = ['id']
         test_item.devices(csvs, headers)
         // println csvs
-        def state = (csvs.size() > 0) ? "${csvs.size()} found" : 'Not found'
+        def state = (csvs.size() > 0) ? "${csvs.size()} patches" : 'Not found'
         test_item.results(state)
     }
 
@@ -530,7 +553,7 @@ class SolarisSpec extends InfraTestSpec {
         def info = ['solaris11_build' : 'Not found']
         lines.eachLine {
             (it =~  /Build Release:\s+(.+)/).each { m0,m1->
-                info['solaris11_build'] = m1
+                info['solaris11_build'] = "'${m1}'"
             }
             (it =~  /Version:\s+(.+)/).each { m0,m1->
                 info['solaris11_build.version'] = m1
@@ -560,6 +583,7 @@ class SolarisSpec extends InfraTestSpec {
         def csv = []
         def row = []
         def package_infos = [:]
+        def versions = [:]
         lines.eachLine {
             (it =~ /(PKGINST|NAME|CATEGORY|ARCH|VERSION|VENDOR|INSTDATE):\s+(.+)$/).each {m0,m1,m2->
                 row << m2
@@ -568,6 +592,7 @@ class SolarisSpec extends InfraTestSpec {
                 }
                 if (m1 == 'VERSION') {
                     package_infos['packages.' + pkginst] = m2
+                    versions[pkginst] = m2
                 }
                 if (m1 == 'INSTDATE') {
                     csv << row
@@ -578,6 +603,22 @@ class SolarisSpec extends InfraTestSpec {
         def headers = ['pkginst', 'name', 'category', 'arch', 'version', 'vendor', 'instdate']
         test_item.devices(csv, headers)
         package_infos['packages'] = "${csv.size()} packages"
+        def package_list = test_item.target_info('packages')
+        if (package_list) {
+            def template_id = this.test_platform.test_target.template_id
+            package_infos['packages.requirements'] = "${package_list.keySet()}"
+            def verify = true
+            package_list.each { package_name, value ->
+                def test_id = "packages.${template_id}.${package_name}"
+                def version = versions[package_name] ?: 'Not Found'
+                if (version == 'Not Found') {
+                    verify = false
+                }
+                add_new_metric(test_id, "${template_id}.${package_name}", "'${version}'", package_infos)
+            }
+            test_item.verify(verify)
+        }
+
         test_item.results(package_infos)
         test_item.verify_text_search_list('packages', package_infos)
     }
@@ -597,6 +638,7 @@ class SolarisSpec extends InfraTestSpec {
             }
         }
         def csv = []
+        def general_users = [:]
         def user_count = 0
         def users = [:].withDefault{'unkown'}
         def homes = [:]
@@ -613,18 +655,28 @@ class SolarisSpec extends InfraTestSpec {
                 csv << [username, user_id, group_id, group, home, shell]
                 user_count ++
                 homes[username] = home
-                users['user.' + username] = 'OK'
+                // users['user.' + username] = 'OK'
+                (shell =~ /sh$/).each {
+                    general_users[username] = 'OK'
+                    add_new_metric("user.${username}.id",    "${username}.ID",          "'${user_id}'", users)
+                    add_new_metric("user.${username}.home",  "${username}.ホーム",    home, users)
+                    add_new_metric("user.${username}.group", "${username}.グループ", group, users)
+                    add_new_metric("user.${username}.shell", "${username}.シェル",   shell, users)
+                }
+
             }
         }
         def headers = ['UserName', 'UserID', 'GroupID', 'Group', 'Home', 'Shell']
         test_item.devices(csv, headers)
-        users['user'] = homes.toString()
+        users['user'] = general_users.keySet().toString()
+        // users['user'] = homes.toString()
         test_item.results(users)
         test_item.verify_text_search_list('user', users)
     }
 
     def service(session, test_item) {
         def lines = exec('service') {
+            // TODO: Avoid grep online filter
             run_ssh_command(session, '/usr/bin/svcs -a | grep online', 'service')
         }
         def services = [:].withDefault{'unkown'}
@@ -639,6 +691,14 @@ class SolarisSpec extends InfraTestSpec {
                 def columns = [m1, 'On']
                 csv << columns
                 service_count ++
+            }
+        }
+        def service_list = test_item.target_info('service')
+        if (service_list) {
+            service_list.each { service_name, value ->
+                def test_id = "service.${service_name}"
+                def status = services[test_id] ?: 'Not Found'
+                add_new_metric(test_id, service_name, status, services)
             }
         }
         services['service'] = "${service_count} services"
@@ -680,17 +740,18 @@ class SolarisSpec extends InfraTestSpec {
             run_ssh_command(session, 'grep nameserver /etc/resolv.conf', 'resolve_conf')
         }
         def nameservers = [:]
+        def res = [:]
         def nameserver_number = 1
         lines.eachLine {
-            ( it =~ /^nameserver\s+(\w.+)$/).each {m0,m1->
-                nameservers["nameserver${nameserver_number}"] = m1
+            ( it =~ /^nameserver\s+(\w.+)$/).each {m0, dns->
+                def name_server = "nameserver${nameserver_number}"
+                add_new_metric("resolve_conf.${name_server}", 
+                               name_server, dns, res)
                 nameserver_number ++
             }
         }
-        test_item.results([
-            'resolve_conf' : (nameserver_number == 1) ? 'off' : 'on',
-            'nameservers' : nameservers
-        ])
+        res['resolve_conf'] = (nameserver_number == 1) ? 'off' : 'on'
+        test_item.results(res)
     }
 
     def ntp(session, test_item) {
@@ -698,12 +759,16 @@ class SolarisSpec extends InfraTestSpec {
             run_ssh_command(session, "egrep -e '^server' /etc/inet/ntp.conf", 'ntp')
         }
         def ntpservers = []
+        def res = [:]
         lines.eachLine {
-            ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
+            ( it =~ /^server\s+(\w.+)$/).each {m0, ntp_server->
+                add_new_metric("ntp.${ntp_server}", 
+                               ntp_server, 'Enable', res)
                 ntpservers.add(m1)
             }
         }
-        test_item.results(ntpservers.toString())
+        res['ntp'] = (ntpservers.size() == 0) ? 'off' : 'on'
+        test_item.results(res)
     }
 
     def snmp_trap(session, test_item) {
@@ -711,15 +776,21 @@ class SolarisSpec extends InfraTestSpec {
             run_ssh_command(session, "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf", 'snmp_trap')
         }
         def config = 'NotConfigured'
+        def res = [:]
         def trapsink = []
         lines.eachLine {
+            (it =~  /(trapsink|trapcommunity|trap2sink|informsink)\s+(.*)$/).each { m0, m1, m2 ->
+                config = 'Configured'
+                add_new_metric("snmp_trap.${m1}", "SNMPトラップ.${m1}", m2, res)
+            }
+
             (it =~  /trapsink\s+(.*)$/).each { m0, trap_info ->
                 config = 'Configured'
                 trapsink << trap_info
             }
         }
-        def results = ['snmp_trap': config, 'trapsink': trapsink]
-        test_item.results(results.toString())
+        res['snmp_trap'] = config
+        test_item.results(res)
     }
 
 }

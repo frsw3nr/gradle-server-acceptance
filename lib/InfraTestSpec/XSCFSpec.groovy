@@ -191,6 +191,16 @@ class XSCFSpec extends InfraTestSpec {
         str.replaceAll(/\A[\s:]+/,"").replaceAll(/[\s]+\z/,"")
     }
 
+    def parse_module(String module, String separator) {
+        def module_type = module
+        def module_suffix = ''
+        (module =~ /^(.+)${separator}(.+)$/).each { m0, _type, _suffix ->
+            module_type = _type
+            module_suffix = _suffix
+        }
+        return [module_type, module_suffix]
+    }
+
     def hardconf(test_item) {
         def lines = exec('hardconf') {
             run_telnet_command('showhardconf', 'hardconf')
@@ -199,37 +209,48 @@ class XSCFSpec extends InfraTestSpec {
         // + System_Power:On; System_Phase:Cabinet Power On;
         // Partition#0 PPAR_Status:Running;
         // MBU Status:Normal; Ver:2351h; Serial:TZ1422A00U  ;
-        def node_status = []
+        def module_status = []
         def csvs = []
-        def results = [:]
+        def res = [:]
+        def moudle_infos = [:].withDefault{[:].withDefault{[]}}
         lines.eachLine {
             // println it
             ( it =~ /^(\w.+?);\s*$/).each {m0, m1 ->
-                results['hardconf.system'] = m1
+                res['hardconf.system'] = m1
             }
             ( it =~ /^\s+\+\sSerial:(.+?);\s*/).each {m0, m1 ->
-                results['hardconf.serial'] = m1
+                res['hardconf.serial'] = m1
             }
-            ( it =~ /(.+?)Status:(.+)/).each {m0, node, column_str->
-                node = trim(node)
+            ( it =~ /(\w.+?) Status:(.+)/).each {m0, module, column_str->
+                module = trim(module)
+                def module_info = parse_module(module, "#")
                 def columns = column_str.split(/;/)
                 def stat = columns[0]
+                moudle_infos[module_info[0]][stat] << module_info[1]
                 if (stat != 'Normal' && stat != 'Running' &&
                     stat != 'ON') {
-                    node_status << "$node:$stat" 
+                    module_status << "$module:$stat" 
                 }
-                csvs << [node, stat, column_str]
+                csvs << [module, stat, column_str]
             }
         }
         def headers = ['node', 'status', 'description']
         test_item.devices(csvs, headers)
 
-        def result = 'Normal'
-        if (node_status.size() > 0) {
-            result = "${node_status}"
+        moudle_infos.each { module_type, module_statuses -> 
+            def result_lines = []
+            module_statuses.each { status, modules ->
+                if (modules.size() == 1) {
+                    result_lines << status
+                } else if (modules.size() > 1) {
+                    result_lines << "$status:$modules"
+                }
+            }
+            add_new_metric("hardconf.${module_type}", "HWランプ.${module_type}",
+                           "${result_lines}", res)
         }
-        results['hardconf'] = result
-        test_item.results(results)
+        res['hardconf'] = (module_status.size() > 0) ? "${module_status}" : 'Normal'
+        test_item.results(res)
     }
 
     def cpu_activate(test_item) {
@@ -238,39 +259,58 @@ class XSCFSpec extends InfraTestSpec {
         }
         // PROC Permits installed: 16 cores
         // PROC Permits assigned for PPAR 0: 16 [Permanent 16cores]
-        def node_status = [:]
+        def cpu_status = [:].withDefault{0}
         def csvs = []
+        def res = [:]
         lines.eachLine {
             ( it =~ /PROC Permits\s+(.+?):\s+(\d+)/).each {m0, module, core->
-                node_status[module] = core
+                def module_info = parse_module(module, ' for ')
+                cpu_status[module_info[0]] += core.toInteger()
+                add_new_metric("cpu_activate.${module}", "CPU割当て.${module}", core, res)
             }
         }
-        test_item.results(node_status.toString())
+        res['cpu_activate'] = "${cpu_status['assigned']} / ${cpu_status['installed']} Core"
+        test_item.results(res)
     }
 
     def fwversion(test_item) {
         def lines = exec('fwversion') {
             run_telnet_command('version -c xcp -v', 'fwversion')
         }
-        def node_status = [:].withDefault{[]}
+        def res = [:]
+        def module_status = [:]
         def csvs = []
+        def xscf = 'unkown'
         // XCP0 (Reserve): 2351
         // CMU           : 02.35.0001
         lines.eachLine {
-            ( it =~ /(.+):(.+)/).each {m0, node, version->
-                node = trim(node)
+            ( it =~ /(.+):(.+)/).each {m0, module, version->
+                csvs << [module, version]
+                module = trim(module)
                 version = trim(version)
-                (node =~/^\w/).each {
-                    node_status[node] << version
-                    csvs << [node, version]
+                version = "'${version}'"
+                // Trim "XCP0 (Reserve)"
+                (module =~ /^(.+) \(/).each { n0, n1 ->
+                    module = n1
+                }
+                (module =~ /^\#/).each { n0 ->
+                    module = ''
+                }
+                if (module) {
+                    module_status[module] = version
+                    if (module == 'XSCF') {
+                        xscf = version
+                    }
                 }
             }
         }
-        println node_status.toString()
+        module_status.each { module, status ->
+            add_new_metric("fwversion.${module}", "バージョン.${module}", status, res)
+        }
+        res['fwversion'] = "XSCF : ${xscf}"
         def headers = ['node', 'version']
         test_item.devices(csvs, headers)
-
-        test_item.results(node_status.toString())
+        test_item.results(res)
     }
 
     def network(test_item) {
@@ -290,6 +330,7 @@ class XSCFSpec extends InfraTestSpec {
         def sequence = 0
         def infos = [:].withDefault{[:]}
         def ip_addresses = [:]
+        def res = [:]
         lines.eachLine {
             ( it =~ /Link/).each {
                 sequence ++
@@ -307,21 +348,27 @@ class XSCFSpec extends InfraTestSpec {
         }
 
         def csv = []
-        infos.each { device_id, items ->
-            def columns = [device_id]
+        infos.each { device, items ->
+            def columns = [device]
             ['ip', 'mac', 'mask'].each {
                 def value = items[it] ?: 'NaN'
                 columns.add(value)
             }
-            def ip_address = infos[device_id]['ip']
+            def ip_address = infos[device]['ip']
             if (ip_address && ip_address != '127.0.0.1') {
-                test_item.admin_port_list(ip_address, "${device_id}")
+                test_item.admin_port_list(ip_address, "${device}")
+                add_new_metric("network.ip.${device}",   "IP.${device}", ip_address, res)
+                add_new_metric("network.mask.${device}", "ネットマスク.${device}", 
+                               infos[device]['mask'], res)
+                add_new_metric("network.mac.${device}",  "MAC.${device}", 
+                               infos[device]['mac'], res)
             }
             csv << columns
         }
         def headers = ['device', 'ip', 'mac', 'subnet']
         test_item.devices(csv, headers)
-        test_item.results(ip_addresses.toString())
+        res['network'] = "${ip_addresses}"
+        test_item.results(res)
         test_item.verify_text_search('network', ip_addresses.toString())
     }
 
@@ -349,13 +396,13 @@ class XSCFSpec extends InfraTestSpec {
                 infos['snmp_agent_status'] = value
             }
             ( it =~ /(?i)Agent Port:\s+(.+?)$/).each {m0, value->
-                infos['snmp_agent_port'] = value
+                infos['snmp_agent_port'] = "'${value}'"
             }
             ( it =~ /(?i)Trap Hosts:\s+(.+?)$/).each {m0, value->
                 infos['snmp_trap_host'] = value
             }
             ( it =~ /SNMP (.+):\s+(.+?)$/).each {m0, m1, value->
-                infos['snmp_version'] = value
+                infos['snmp_version'] = "'${value}'"
             }
             // Hostname Port Type Community String Username Auth Encrypt
             // -------- ---- ---- ---------------- -------- ---- ---------
@@ -367,10 +414,10 @@ class XSCFSpec extends InfraTestSpec {
                     infos['snmp_trap_host'] = m1
                 }
                 if (m2.size() > 0) {
-                    infos['snmp_trap_port'] = m2
+                    infos['snmp_trap_port'] = "'${m2}'"
                 }
                 if (m3.size() > 0) {
-                    infos['snmp_version'] = m3
+                    infos['snmp_version'] = "'${m3}'"
                 }
                 if (m4.size() > 0) {
                     infos['snmp_community'] = m4
@@ -379,14 +426,18 @@ class XSCFSpec extends InfraTestSpec {
         }
         def csv = []
         def columns = []
-        ['snmp_agent_status', 'snmp_version', 'snmp_agent_port', 'snmp_trap_host', 'snmp_trap_port', 'snmp_community'].each {
-            def value = infos[it] ?: 'NaN'
+        def res = [:]
+        ['snmp_agent_status', 'snmp_version', 'snmp_agent_port', 'snmp_trap_host', 'snmp_trap_port', 'snmp_community'].each { metric ->
+            def value = infos[metric] ?: 'NaN'
             columns.add(value)
+            add_new_metric("snmp.${metric}", metric, value, res)
         }
+        res['snmp'] = infos['snmp_agent_status'] ?: 'Not found'
         csv << columns
         def headers = ['status', 'version', 'agent_port', 'host', 'host_port', 'community']
         test_item.devices(csv, headers)
-        test_item.results(infos['snmp_agent_status'] ?: 'Not found')
+        test_item.results(res)
+        println res
         test_item.verify_text_search('snmp_status', infos['snmp_agent_status'])
         test_item.verify_text_search_list('snmp_address',   infos['snmp_trap_host'])
         test_item.verify_text_search_list('snmp_community', infos['snmp_community'])

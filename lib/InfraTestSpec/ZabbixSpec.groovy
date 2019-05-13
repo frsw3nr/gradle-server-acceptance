@@ -296,7 +296,11 @@ class ZabbixSpec extends InfraTestSpec {
                 if (it == 'groups') {
                     def groups = []
                     host[it].each { group ->
-                        groups.add(group['name'])
+                        def name = group['name']
+                        groups.add(name)
+                        add_new_metric("Host.host_group.${name}", 
+                                       "ホストグループ ${name}", 
+                                       "Enable", host_info)
                     }
                     value = groups.toString()
 
@@ -304,17 +308,25 @@ class ZabbixSpec extends InfraTestSpec {
                     def macros = [:]
                     host[it].each { macro ->
                         def new_test_id = 'Host.' + macro['macro']
-                    def desc = test_platform?.test_metrics['Host']?.description
-                        this.test_platform.add_test_metric(new_test_id, desc)
-                        host_info[new_test_id] = macro['value']
-                        macros[macro['macro']] = macro['value']
+                        dev macro_value = macro['value']
+                        // def desc = test_platform?.test_metrics['Host']?.description
+                        // this.test_platform.add_test_metric(new_test_id, desc)
+                        host_info[new_test_id] = macro_value
+                        macros[macro['macro']] = macro_value
+                        add_new_metric(new_test_id,
+                                       "マクロ ${new_test_id}",
+                                       macro_value, host_info)
                     }
                     value = macros.size()
 
                 } else if (it == 'parentTemplates') {
                     def templates = []
                     host[it].each { template ->
-                        templates.add(template['name'])
+                        def name = template['name']
+                        templates.add(name)
+                        add_new_metric("Host.template.${name}",
+                                       "テンプレート ${name}",
+                                       "Enable", host_info)
                     }
                     value = templates.toString()
 
@@ -344,6 +356,7 @@ class ZabbixSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         host_info['Host'] = (hosts.size() == 1) ? hosts[0]['host'] : ''
         test_item.results(host_info)
+        // println host_info
         // println "ZABBIX_STATUS: ${host_info['status']}"
         test_item.verify_text_search('status', host_info['status'])
         test_item.verify_text_search('available', host_info['available'])
@@ -395,6 +408,7 @@ class ZabbixSpec extends InfraTestSpec {
 
         def jsonSlurper = new JsonSlurper()
         def results = jsonSlurper.parseText(lines)
+        def res = [:]
         if (results.size() > 0) {
             def message = 'Monitored'
             def lastlogsize = 0
@@ -416,6 +430,9 @@ class ZabbixSpec extends InfraTestSpec {
                         message = 'Unmonitored'
                     }
                     def logsize  = NumberUtils.toDouble(result['lastlogsize'])
+                    add_new_metric("syslog.${itemname}", itemname, 
+                                   "$label_state/$label_status", res)
+
                     csv << [hostname, itemname, logsize, key_, label_status, 
                             label_state, error]
                     lastlogsize += logsize
@@ -424,7 +441,8 @@ class ZabbixSpec extends InfraTestSpec {
             def headers = ['Hostname', 'ItemName', 'LastLogSize', 'Key', 
                            'Status', 'State', 'Error']
             test_item.devices(csv, headers)
-            test_item.results(message)
+            res['syslog'] = message
+            test_item.results(res)
             test_item.verify_text_search('syslog', message)
         }
     }
@@ -508,14 +526,16 @@ class ZabbixSpec extends InfraTestSpec {
 
             // If the Excel comment set multibyte, garbled characters will occur,
             // so set the metric's description
-            def desc = test_platform?.test_metrics['trigger']?.description
-            this.test_platform.add_test_metric(new_test_id, desc)
-            zabbix_info[new_test_id] = label_status
+            // def desc = test_platform?.test_metrics['trigger']?.description
+            // this.test_platform.add_test_metric(new_test_id, desc)
+            add_new_metric(new_test_id, description, label_status, zabbix_info)
+            // zabbix_info[new_test_id] = label_status
             csv << columns
         }
         // def res = (results.size() == 0) ? 'AllEnabled' : results.toString()
-        test_item.results(result)
+        // test_item.results(result)
         // zabbix_info['trigger'] = (results.size() == 0) ? 'AllEnabled' : results.toString()
+        zabbix_info['trigger'] = result
         test_item.results(zabbix_info)
         test_item.verify_text_search('trigger', result)
         test_item.devices(csv, headers)

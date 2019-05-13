@@ -1,12 +1,12 @@
-Changes for 0.2.2 (2019-5-8)
+Changes for 0.2.2 (2019-5-20)
 ------------------------------------------------------------------------------
 
 ToDo:
 * シナリオ階層化
-    * Solaris/Solarisチェックシート.xlsx [ ]
-    * Solaris/XSCFチェックシート.xlsx [ ]
+    * Solaris/Solarisチェックシート.xlsx [x]
+    * Solaris/XSCFチェックシート.xlsx [x]
     * VMWare_ESXi/ESXiチェックシート.xlsx [ ]
-    * Zabbix/Zabbix監視設定チェックシート.xlsx [ ]
+    * Zabbix/Zabbix監視設定チェックシート.xlsx [x]
     * Zabbix/ZabbixServer監視設定チェックシート.xlsx [ ]
     * Cisco_UCS/UCSチェックシート.xlsx [ ]
     * HP_iLO/iLOチェックシート.xlsx [ ]
@@ -19,7 +19,6 @@ ToDo:
     * Router/RTXチェックシート.xlsx [ ]
     * Router/CiscoIOSチェックシート.xlsx [ ]
     * Oracle/Oracle設定チェックシート.xlsx [ ]
-
     * KPT [ ]
 * クラスター分析追加 [ ]
     * コンペア仕様作成 [ ]
