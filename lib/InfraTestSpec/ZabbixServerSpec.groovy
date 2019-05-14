@@ -187,7 +187,7 @@ class ZabbixServerSpec extends InfraTestSpec {
                                         .asJsonObject()
                                         .getBody();
             def content = result.getString("result")
-            new File("${local_dir}/apiinfo").text = content
+            new File("${local_dir}/apiinfo").text = "'${content}'"
             return content
         }
         test_item.results(lines)
@@ -225,19 +225,23 @@ class ZabbixServerSpec extends InfraTestSpec {
         def host_groups = jsonSlurper.parseText(lines)
 
         def headers = ['groupid', 'name']
-        def results = [:]
-        def csv = []
-        def name
+        def res     = [:]
+        def csv     = []
         host_groups.each { host_group ->
             def columns = []
             headers.each {
                 columns.add(host_group[it] ?: 'NaN')
             }
-            results[host_group['groupid']] = host_group['name']
+            def id   = host_group['groupid']
+            def name = host_group['name']
+            // res[id] = name
             csv << columns
+            add_new_metric("HostGroup.${id}", "id:${id}", 
+                           name, res)
         }
+        res['HostGroup'] = "${csv.size()} Host groups."
         test_item.devices(csv, headers)
-        test_item.results(results.toString())
+        test_item.results(res)
     }
 
     def User(test_item) {
@@ -274,34 +278,41 @@ class ZabbixServerSpec extends InfraTestSpec {
         def users = jsonSlurper.parseText(lines)
 
         def headers = ['userid', 'usrgrps', 'alias', 'name', 'medias']
-        def results = [:]
+        def res = [:]
         def csv = []
         users.each { user ->
             def columns = []
+            def alias = user['alias']
+            add_new_metric("User.${alias}.id", "${alias} ID", 
+                   "${user['userid']}", res)
             headers.each {
                 if (it == 'usrgrps') {
                     def usrgrps = []
                     user[it].each { usrgrp ->
                         usrgrps.add(usrgrp['name'])
                     }
-                    columns.add(usrgrps.toString())
+                    columns.add("${usrgrps}")
+                    add_new_metric("User.${alias}.groups", "${alias} グループ", 
+                           "${usrgrps}", res)
 
                 } else if (it == 'medias') {
                     def medias = []
                     user[it].each { media ->
                         medias.add(media['sendto'])
                     }
-                    columns.add(medias.toString())
+                    columns.add("${medias}")
+                    add_new_metric("User.${alias}.media", "${alias} メディア", 
+                           "${medias}", res)
 
                 } else {
                     columns.add(user[it] ?: 'NaN')
                 }
             }
-            results[user['userid']] = user['alias']
             csv << columns
         }
+        res['user'] = "${csv.size()} users"
         test_item.devices(csv, headers)
-        test_item.results(results.toString())
+        test_item.results(res)
     }
 
     def UserGroup(test_item) {
@@ -393,7 +404,7 @@ class ZabbixServerSpec extends InfraTestSpec {
 
         def headers = ['actionid', 'host_group', 'name', 'status']
         def csv = []
-        def results = [:]
+        def res = [:]
         action_lists.each { host_group, action_list ->
             if (action_list.size() > 0) {
                 action_list.each { action ->
@@ -414,12 +425,12 @@ class ZabbixServerSpec extends InfraTestSpec {
                         }
                         columns.add(result)
                     }
-                    results[host_group] = action_list['name']
+                    res[host_group] = action_list['name']
                     csv << columns
                 }
             } 
         }
         test_item.devices(csv, headers)
-        test_item.results(results.toString())
+        test_item.results(res.toString())
     }
 }

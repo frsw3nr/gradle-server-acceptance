@@ -298,9 +298,10 @@ class WindowsSpec extends WindowsSpecBase {
 
                 if (ip_address && ip_address != '127.0.0.1') {
                     test_item.lookuped_port_list(ip_address, device)
-                    add_new_metric("network.ip.${device}", "${device} IP", ip_address, res)
-                    add_new_metric("network.subnet.${device}", "${device} サブネット", subnet, res)
-                    add_new_metric("network.gateway.${device}", "${device} ゲートウェイ", gateway, res)
+                    add_new_metric("network.dev.${row}",     "[${row}] デバイス", device, res)
+                    add_new_metric("network.ip.${row}",      "[${row}] IP", ip_address, res)
+                    add_new_metric("network.subnet.${row}",  "[${row}] サブネット", subnet, res)
+                    add_new_metric("network.gateway.${row}", "[${row}] ゲートウェイ", gateway, res)
                 }
 
             }

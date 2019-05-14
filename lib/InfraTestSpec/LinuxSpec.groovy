@@ -228,8 +228,8 @@ class LinuxSpec extends LinuxSpecBase {
                     def ip_address = subnet.getAddress()
                     if (ip_address && ip_address != '127.0.0.1') {
                         test_item.lookuped_port_list(ip_address, device)
-                        add_new_metric("network.ip.${device}", "ネットワーク.${device}.IP", ip_address, res)
-                        add_new_metric("network.subnet.${device}", "ネットワーク.${device}.subnet", 
+                        add_new_metric("network.ip.${device}",     "[${device}] IP", ip_address, res)
+                        add_new_metric("network.subnet.${device}", "[${device}] サブネット", 
                                        network[device]['subnet'], res)
                     }
                 } catch (IllegalArgumentException e) {
@@ -239,7 +239,7 @@ class LinuxSpec extends LinuxSpecBase {
 
             // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
             (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
-                add_new_metric("network.mac.${device}", "ネットワーク.${device}.MAC", m1, res)
+                add_new_metric("network.mac.${device}", "[${device}] MAC", m1, res)
             }
             (it =~ /inet6/).each { m0 ->
                 ipv6 = 'Enabled'

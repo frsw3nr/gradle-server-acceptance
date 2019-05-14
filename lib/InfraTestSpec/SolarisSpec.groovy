@@ -306,10 +306,10 @@ class SolarisSpec extends InfraTestSpec {
         def csv = []
         def infos = [:].withDefault{[:]}
         def res = [:]
+        def row = 0
         network.find { dev, items ->
             if (items?.ip  =~ /(127\.0\.0\.1|0\.0\.0\.0)/)
                 return
-            println "NET : $dev, $items"
             def columns = [dev]
             ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
                 def value = items[it] ?: 'NaN'
@@ -322,11 +322,13 @@ class SolarisSpec extends InfraTestSpec {
             def mtu        = infos[dev]['mtu']
             def subnet     = infos[dev]['subnet']
             if (ip_address) {
+                row ++
                 test_item.lookuped_port_list(ip_address, dev)
                 device_ip[dev] = ip_address
-                add_new_metric("network.ip.${dev}", "${dev} IP",  ip_address, res)
-                add_new_metric("network.subnet.${dev}", "${dev} サブネット", subnet, res)
-                add_new_metric("network.mtu.${dev}", "${dev} MTU",  mtu, res)
+                add_new_metric("network.dev.${row}",    "[${row}] デバイス",  dev, res)
+                add_new_metric("network.ip.${row}",     "[${row}] IP",  ip_address, res)
+                add_new_metric("network.subnet.${row}", "[${row}] サブネット", subnet, res)
+                add_new_metric("network.mtu.${row}",    "[${row}] MTU",  mtu, res)
             }
             csv << columns
         }
@@ -334,7 +336,6 @@ class SolarisSpec extends InfraTestSpec {
         test_item.devices(csv, headers)
         res['network'] = "$device_ip"
         test_item.results(res)
-        println res
         // test_item.results(['network': "$infos", 'net_ip': "$device_ip", 'net_subnet': "$net_subnet"])
         // test_item.verify_text_search_map('network', device_ip)
         test_item.verify_text_search_list('net_ip', device_ip)
@@ -346,7 +347,6 @@ class SolarisSpec extends InfraTestSpec {
         }
         def net_route  = [:]
         def interfaces = []
-        println lines
         // gateway: 192.168.10.254
         // interface: e1000g0 index 2 address 00 0c 29 6f 38 cf
         // flags: <UP,GATEWAY,DONE,STATIC>

@@ -267,8 +267,12 @@ class XSCFSpec extends InfraTestSpec {
                 def module_info = parse_module(module, ' for ')
                 cpu_status[module_info[0]] += core.toInteger()
                 add_new_metric("cpu_activate.${module}", "CPU割当て.${module}", core, res)
+                csvs << [module, core]
             }
         }
+        def headers = ['module', 'core']
+        test_item.devices(csvs, headers)
+
         res['cpu_activate'] = "${cpu_status['assigned']} / ${cpu_status['installed']} Core"
         test_item.results(res)
     }
@@ -357,11 +361,9 @@ class XSCFSpec extends InfraTestSpec {
             def ip_address = infos[device]['ip']
             if (ip_address && ip_address != '127.0.0.1') {
                 test_item.admin_port_list(ip_address, "${device}")
-                add_new_metric("network.ip.${device}",   "IP.${device}", ip_address, res)
-                add_new_metric("network.mask.${device}", "ネットマスク.${device}", 
-                               infos[device]['mask'], res)
-                add_new_metric("network.mac.${device}",  "MAC.${device}", 
-                               infos[device]['mac'], res)
+                add_new_metric("network.ip.${device}",   "[${device}] IP", ip_address, res)
+                add_new_metric("network.mask.${device}", "[${device}] ネットマスク", infos[device]['mask'], res)
+                add_new_metric("network.mac.${device}",  "[${device}] MAC", infos[device]['mac'], res)
             }
             csv << columns
         }

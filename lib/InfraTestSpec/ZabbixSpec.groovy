@@ -174,6 +174,7 @@ class ZabbixSpec extends InfraTestSpec {
             }
             csv << columns
         }
+
         test_item.devices(csv, headers)
         test_item.results(csv.size().toString())
     }
@@ -298,11 +299,9 @@ class ZabbixSpec extends InfraTestSpec {
                     host[it].each { group ->
                         def name = group['name']
                         groups.add(name)
-                        add_new_metric("Host.host_group.${name}", 
-                                       "ホストグループ ${name}", 
-                                       "Enable", host_info)
                     }
                     value = groups.toString()
+                    add_new_metric("Host.host_group", "ホストグループ", value, host_info)
 
                 } else if (it == 'macros') {
                     def macros = [:]
@@ -347,6 +346,7 @@ class ZabbixSpec extends InfraTestSpec {
                 if (it == 'hostid') {
                     host_ids[target_server] = value
                     hostnames[value] = host['host']
+                    value = "'${value}'"
                 }
                 host_info[it] = value
                 columns.add(value)

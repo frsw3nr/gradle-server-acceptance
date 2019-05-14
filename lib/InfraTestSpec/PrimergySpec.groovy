@@ -269,6 +269,8 @@ class PrimergySpec extends LinuxSpecBase {
         def infos = []
         def csv = []
         def rows = 0
+        def res = [:]
+        def ip_addresses = [:]
         network_infos['IPv4Addresses'].each { port ->
             rows ++
             def columns = []
@@ -281,14 +283,23 @@ class PrimergySpec extends LinuxSpecBase {
                 cols ++
                 if (it == 'Address' && value != '127.0.0.1') {
                     test_item.admin_port_list(ip, "iRMC-network${rows}")
+// PORT : [Address:10.40.6.11, AddressOrigin:Static, Gateway:null, SubnetMask:255.255.255.0]
+                    println "PORT : ${port}"
+                    add_new_metric("network.ip.${rows}",     "[${rows}] IP ", port['Address'], res)
+                    add_new_metric("network.type.${rows}",   "[${rows}] モード", port['AddressOrigin'], res)
+                    add_new_metric("network.gw.${rows}",     "[${rows}] ゲートウェイ", port['Gateway'] ?: 'NaN', res)
+                    add_new_metric("network.subnet.${rows}", "[${rows}] サブネット", port['SubnetMask'], res)
+                    ip_addresses[value] = 1
                 }
             }
             csv << columns
             infos << info
         }
         test_item.devices(csv, headers)
-        test_item.results("$infos")
-        test_item.verify_text_search('network_ip', ip)
+        res['network'] = "${ip_addresses}"
+        println res
+        test_item.results(res)
+        test_item.verify_text_search('network_ip', "${ip_addresses}")
     }
 
     def disk(test_item) {

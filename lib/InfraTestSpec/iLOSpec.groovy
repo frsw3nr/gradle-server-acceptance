@@ -317,6 +317,7 @@ class iLOSpecBase extends InfraTestSpec {
                     headers = item_names
                 }
             }
+            println specs
             test_item.devices(csv, headers)
             test_item.results(specs.sort().toString())
         }
