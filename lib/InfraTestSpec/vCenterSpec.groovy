@@ -24,8 +24,7 @@ class vCenterSpec extends vCenterSpecBase {
     def vm(test_item) {
         def command = '''\
             |Get-VM $vm | `
-            | select NumCpu, PowerState, MemoryGB, VMHost, | `
-            |  @{N="Cluster";E={Get-Cluster -VM $_}} | `
+            | select NumCpu, PowerState, MemoryGB, VMHost, @{N="Cluster";E={Get-Cluster -VM $_}} | `
             | Format-List
         '''.stripMargin()
         run_script(command) {

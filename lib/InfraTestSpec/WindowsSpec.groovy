@@ -50,7 +50,7 @@ class WindowsSpec extends WindowsSpecBase {
             def osinfo    = [:].withDefault{0}
             lines.eachLine {
                 (it =~ /^CurrentVersion\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_conf.version'] = m1
+                    osinfo['os_conf.version'] = "'${m1}'"
                 }
                 (it =~ /^InstallDate\s*:\s+(.+)$/).each {m0,m1->
                     def sec = Integer.parseInt(m1)
@@ -59,7 +59,7 @@ class WindowsSpec extends WindowsSpecBase {
                     osinfo['os_conf.install_date'] = sdf.format(date)
                 }
                 (it =~ /^CurrentBuild\s*:\s+(.+)$/).each {m0,m1->
-                    osinfo['os_conf.build'] = m1
+                    osinfo['os_conf.build'] = "'${m1}'"
                 }
                 (it =~ /^ProductId\s*:\s+(.+)$/).each {m0,m1->
                     osinfo['os_conf.product_id'] = m1
@@ -387,13 +387,13 @@ class WindowsSpec extends WindowsSpecBase {
                         csv << columns
                         def device = it['InterfaceAlias']
                         add_new_metric("network_profile.Category.${device}", 
-                                       "${device}.カテゴリ", 
+                                       "[${device}] カテゴリ", 
                                        it['NetworkCategory'], res)
                         add_new_metric("network_profile.IPv4.${device}", 
-                                       "${device}.IPv4", 
+                                       "[${device}] IPv4", 
                                        it['IPv4Connectivity'], res)
                         add_new_metric("network_profile.IPv6.${device}", 
-                                       "${device}.IPv6", 
+                                       "[${device}] IPv6", 
                                        it['IPv6Connectivity'], res)
 
                         network_categorys[device] = it['NetworkCategory']
@@ -438,7 +438,7 @@ class WindowsSpec extends WindowsSpecBase {
                 def display_name = bind_info[row]['DisplayName']
                 def enabled      = bind_info[row]['Enabled']
                 add_new_metric("net_bind.${name}", name, if_desc, infos)
-                add_new_metric("net_bind.${name}.${component_id}", "${name}.${display_name}", 
+                add_new_metric("net_bind.${name}.${component_id}", "[${name}] ${display_name}", 
                                enabled, infos)
                 if (enabled == 'True') {
                     bind_components[name][component_id] = 'True'
@@ -483,10 +483,10 @@ class WindowsSpec extends WindowsSpecBase {
                 def dhcp        = ip_info[row]['Dhcp']
                 def status      = ip_info[row]['ConnectionState']
                 (alias =~ /Ethernet/).each {
-                    add_new_metric("net_ip.${alias}.auto_metric", "${alias}.auto_metric", auto_metric, infos)
-                    add_new_metric("net_ip.${alias}.int_metric",  "${alias}.int_metric", int_metric, infos)
-                    add_new_metric("net_ip.${alias}.dhcp",        "${alias}.dhcp", dhcp, infos)
-                    add_new_metric("net_ip.${alias}.status",      "${alias}.status", status, infos)
+                    add_new_metric("net_ip.${alias}.auto_metric", "[${alias}] auto_metric", auto_metric, infos)
+                    add_new_metric("net_ip.${alias}.int_metric",  "[${alias}] int_metric", int_metric, infos)
+                    add_new_metric("net_ip.${alias}.dhcp",        "[${alias}] dhcp", dhcp, infos)
+                    add_new_metric("net_ip.${alias}.status",      "[${alias}] status", status, infos)
                     if (status == 'Connected') {
                         connect_if[alias] = status
                     }
@@ -560,7 +560,7 @@ class WindowsSpec extends WindowsSpecBase {
 
             def res = [:]
             groups.each { group_key, value ->
-                add_new_metric("firewall.${group_key}", "Firewall ${group_key}", "Enable", res)
+                add_new_metric("firewall.${group_key}", "[${group_key}]", "Enable", res)
             }
             res['firewall'] = "${groups.keySet()}"
             test_item.results(res)
@@ -698,10 +698,10 @@ class WindowsSpec extends WindowsSpecBase {
                 def account_disable  = account_info[row]['AccountDisable']
 
                 add_new_metric("user.${user_name}.DontExpirePasswd", 
-                               "${user_name} パスワード無期限", 
+                               "[${user_name}] パスワード無期限", 
                                dont_expire_pass, res)
                 add_new_metric("user.${user_name}.AccountDisable", 
-                               "${user_name} アカウント失効", 
+                               "[${user_name}] アカウント失効", 
                                account_disable, res)
                 users[user_name] = account_disable
                 csv << columns

@@ -429,10 +429,10 @@ class LinuxSpec extends LinuxSpecBase {
                     def mount    = columns[5]
                     def capacity = columns[2]
 
-                    add_new_metric("filesystem.capacity.${mount}", "ディスク.${mount}.容量", capacity, res)
-                    add_new_metric("filesystem.device.${mount}", "ディスク.${mount}.デバイス", device_node, res)
-                    add_new_metric("filesystem.type.${mount}", "ディスク.${mount}.タイプ", columns[4], res)
-                    add_new_metric("filesystem.fstype.${mount}", "ディスク.${mount}.ファイルシステム", fstypes2[mount] ?: '', res)
+                    add_new_metric("filesystem.capacity.${mount}", "[${mount}] 容量", capacity, res)
+                    add_new_metric("filesystem.device.${mount}", "[${mount}] デバイス", device_node, res)
+                    add_new_metric("filesystem.type.${mount}", "[${mount}] タイプ", columns[4], res)
+                    add_new_metric("filesystem.fstype.${mount}", "[${mount}] ファイルシステム", fstypes2[mount] ?: '', res)
                     // this.test_platform.add_test_metric(id, "ディスク容量.${mount}")
                     // res[id] = capacity
 
@@ -448,8 +448,8 @@ class LinuxSpec extends LinuxSpecBase {
                 // filesystems['filesystem.' + mount] = capacity
                 infos[mount] = capacity
                 // columns << fstypes[mount] ?: ''
-                add_new_metric("filesystem.capacity.${mount}", "ディスク.${mount}.容量", capacity, res)
-                add_new_metric("filesystem.device.${mount}", "ディスク.${mount}.デバイス", device, res)
+                add_new_metric("filesystem.capacity.${mount}", "[${mount}] 容量", capacity, res)
+                add_new_metric("filesystem.device.${mount}", "[${mount}] デバイス", device, res)
 
                 csv << columns
             }
@@ -697,7 +697,7 @@ class LinuxSpec extends LinuxSpecBase {
             def arr = it.split(/:/)
             if (arr.size() == 7) {
                 def username = arr[0]
-                def user_id  = arr[2]
+                def user_id  = "'${arr[2]}'"
                 def group_id = arr[3]
                 def home     = arr[5]
                 def shell    = arr[6]
@@ -708,10 +708,10 @@ class LinuxSpec extends LinuxSpecBase {
                 // users['user.' + username] = 'OK'
                 (shell =~ /sh$/).each {
                     general_users[username] = 'OK'
-                    add_new_metric("user.${username}.id",    "${username}.ID",          user_id, users)
-                    add_new_metric("user.${username}.home",  "${username}.ホーム",    home, users)
-                    add_new_metric("user.${username}.group", "${username}.グループ", group, users)
-                    add_new_metric("user.${username}.shell", "${username}.シェル",   shell, users)
+                    add_new_metric("user.${username}.id",    "[${username}] ID",       user_id, users)
+                    add_new_metric("user.${username}.home",  "[${username}] ホーム",   home, users)
+                    add_new_metric("user.${username}.group", "[${username}] グループ", group, users)
+                    add_new_metric("user.${username}.shell", "[${username}] シェル",   shell, users)
                 }
             }
         }
