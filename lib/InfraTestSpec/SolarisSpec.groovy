@@ -154,7 +154,7 @@ class SolarisSpec extends InfraTestSpec {
         }
         info['System'] += info['Release']
         info['kernel'] = "${info['System']} [${info['KernelID']}]"
-        // println prettyPrint(toJson(info))
+        info['Release'] = "'" + info['Release'] + "'"
         test_item.results(info)
 
         test_item.verify_text_search('System', info['System'])
@@ -217,7 +217,6 @@ class SolarisSpec extends InfraTestSpec {
             run_ssh_command(session, '/usr/sbin/prtconf |grep Memory', 'memory')
         }
         double memory = 0
-        println lines
         lines.eachLine {
             // println it
             (it =~ /(\d+)/).each {m0,m1->
@@ -225,7 +224,7 @@ class SolarisSpec extends InfraTestSpec {
                 // Integer.decode(m1)
             }
         }
-        println String.format("%1.1f", memory)
+        // println String.format("%1.1f", memory)
         test_item.results(String.format("%1.1f", memory))
         test_item.verify_number_equal('memory', memory, 0.1)
     }
@@ -284,15 +283,17 @@ class SolarisSpec extends InfraTestSpec {
                 network[device]['ip'] = m1
             }
             (it =~ /netmask\s+(.+?)[\s|]/).each {m0, m1->
-                try {
-                    def subnet = InetAddress.getByAddress(DatatypeConverter.parseHexBinary(m1));
-                    net_subnet[device] = "${subnet.getHostAddress()}"
-                    network[device]['subnet'] = net_subnet[device]
-                    // SubnetInfo subnet = new SubnetUtils(m1).getInfo()
-                    // network[device]['subnet'] = subnet.getNetmask()
-                    // net_subnet[device] = network[device]['subnet']
-                } catch (IllegalArgumentException e) {
-                    log.error "[SolarisTest] subnet convert : '$m1', Skip.\n" + e
+                if (m1 != '0') {
+                    try {
+                        def subnet = InetAddress.getByAddress(DatatypeConverter.parseHexBinary(m1));
+                        net_subnet[device] = "${subnet.getHostAddress()}"
+                        network[device]['subnet'] = net_subnet[device]
+                        // SubnetInfo subnet = new SubnetUtils(m1).getInfo()
+                        // network[device]['subnet'] = subnet.getNetmask()
+                        // net_subnet[device] = network[device]['subnet']
+                    } catch (IllegalArgumentException e) {
+                        log.error "[SolarisTest] subnet convert : '$m1', Skip.\n" + e
+                    }
                 }
             }
 
@@ -424,8 +425,11 @@ class SolarisSpec extends InfraTestSpec {
                 if (header == 'product-id') {
                     infos[device_id] = value
                 }
+                if (header == 'serial-no') {
+                    value = "'${value}'"
+                }
                 add_new_metric("disk.${header}.${device_id}", 
-                               "ディスク${device_id}.${label}",
+                               "[${device_id}] ${label}",
                                value, res)
             }
             csv << columns
@@ -658,10 +662,10 @@ class SolarisSpec extends InfraTestSpec {
                 // users['user.' + username] = 'OK'
                 (shell =~ /sh$/).each {
                     general_users[username] = 'OK'
-                    add_new_metric("user.${username}.id",    "${username}.ID",          "'${user_id}'", users)
-                    add_new_metric("user.${username}.home",  "${username}.ホーム",    home, users)
-                    add_new_metric("user.${username}.group", "${username}.グループ", group, users)
-                    add_new_metric("user.${username}.shell", "${username}.シェル",   shell, users)
+                    add_new_metric("user.${username}.id",    "[${username}] ID",          "'${user_id}'", users)
+                    add_new_metric("user.${username}.home",  "[${username}] ホーム",    home, users)
+                    add_new_metric("user.${username}.group", "[${username}] グループ", group, users)
+                    add_new_metric("user.${username}.shell", "[${username}] シェル",   shell, users)
                 }
 
             }
@@ -764,7 +768,7 @@ class SolarisSpec extends InfraTestSpec {
             ( it =~ /^server\s+(\w.+)$/).each {m0, ntp_server->
                 add_new_metric("ntp.${ntp_server}", 
                                ntp_server, 'Enable', res)
-                ntpservers.add(m1)
+                ntpservers.add(ntp_server)
             }
         }
         res['ntp'] = (ntpservers.size() == 0) ? 'off' : 'on'

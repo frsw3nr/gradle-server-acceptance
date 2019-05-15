@@ -439,7 +439,7 @@ class XSCFSpec extends InfraTestSpec {
         def headers = ['status', 'version', 'agent_port', 'host', 'host_port', 'community']
         test_item.devices(csv, headers)
         test_item.results(res)
-        println res
+        // println res
         test_item.verify_text_search('snmp_status', infos['snmp_agent_status'])
         test_item.verify_text_search_list('snmp_address',   infos['snmp_trap_host'])
         test_item.verify_text_search_list('snmp_community', infos['snmp_community'])
