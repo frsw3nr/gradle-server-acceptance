@@ -1,5 +1,6 @@
 package InfraTestSpec
 
+import static groovy.json.JsonOutput.*
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.hidetake.groovy.ssh.Ssh
@@ -75,21 +76,25 @@ class iLOSpecBase extends InfraTestSpec {
             }
             def headers = []
             def csv = []
+            def summarys = []
             infos.each { index, info ->
                 def item_names  = []
                 def item_values = []
                 info.each { key, value ->
                     item_names  << key
                     item_values << value
+                    (key =~/(HSI_SBSN|HSI_SPN)/).each { m0, m1 ->
+                        summarys << value
+                    }
                 }
                 csv << item_values
                 if (headers.size() == 0) {
                     headers = item_names
                 }
             }
-            results['FindHPiLO'] = (csv.size() > 0) ? 'Fw Info found' : 'No data'
-            test_item.devices(csv, headers)
             test_item.results(results)
+            test_item.make_summary_text('HSI_SPN':'Model', 'HSI_SBSN':'S/N')
+            test_item.devices(csv, headers)
         }
     }
 
@@ -130,6 +135,7 @@ class iLOSpecBase extends InfraTestSpec {
                 }
             }
             test_item.results(fw_info)
+            test_item.make_summary_text('FwVersion':'Ver', 'LicenseType':'Lic')
         }
     }
 
@@ -263,19 +269,22 @@ class iLOSpecBase extends InfraTestSpec {
             infos.each { index, info ->
                 def item_names  = []
                 def item_values = []
+                def labels = []
                 info.each { key, value ->
                     item_names  << key
                     item_values << value
                     if (key == 'NAME' || key == 'EXECUTION_TECHNOLOGY')
-                        specs[value] += 1
+                        labels << value
                 }
+                specs[labels] += 1
                 csv << item_values
                 if (headers.size() == 0) {
                     headers = item_names
                 }
             }
+            // println prettyPrint(toJson(specs))
             test_item.devices(csv, headers)
-            test_item.results(specs.toString())
+            test_item.results("${specs}")
         }
     }
 
@@ -317,7 +326,6 @@ class iLOSpecBase extends InfraTestSpec {
                     headers = item_names
                 }
             }
-            println specs
             test_item.devices(csv, headers)
             test_item.results(specs.sort().toString())
         }
@@ -348,6 +356,7 @@ class iLOSpecBase extends InfraTestSpec {
             def csv = []
 
             def nic_ips = []
+            def mng_ips = []
             def xmls = []
             xmls = lines.split(/<\?xml version="1\.0"\?>/)
             xmls.each { xml ->
@@ -363,31 +372,36 @@ class iLOSpecBase extends InfraTestSpec {
                     }
                 }
             }
+            def row = 0
+            def res = [:]
             nic_infos.each { id, nic_info ->
                 def ip_address = nic_info?.'IP_ADDRESS'?.toString()
+                def type       = nic_info?.'type'?.toString()
                 def port       = nic_info?.'NETWORK_PORT'?.toString()
-                csv << [
-                    nic_info?.'type'?.toString(), 
-                    ip_address, 
-                    port,
-                    nic_info?.'LOCATION'?.toString(), 
-                    nic_info?.'MAC_ADDRESS'?.toString(), 
-                    nic_info?.'IP_ADDRESS'?.toString(),
-                    nic_info?.'STATUS'?.toString(),
-                ] as String[]
-                if (ip_address ==~ /^\d.+/) {
-                    test_item.admin_port_list(ip_address, port)
+                def desc       = nic_info?.'PORT_DESCRIPTION'?.toString()
+                def location   = nic_info?.'LOCATION'?.toString()
+                def mac        = nic_info?.'MAC_ADDRESS'?.toString()
+                def status     = nic_info?.'STATUS'?.toString()
+                csv << [type, port, desc, location, mac, ip_address, status] as String[]
+                if (ip_address ==~ /^\d.+/ && location == 'Embedded') {
                     nic_ips << ip_address
+                    row ++
+                    add_new_metric("Nic.type.${row}",   "[${row}] タイプ",  type, res)
+                    add_new_metric("Nic.ip.${row}",     "[${row}] IP",  ip_address, res)
+                    add_new_metric("Nic.mac.${row}",    "[${row}] MAC", mac, res)
+                    add_new_metric("Nic.status.${row}", "[${row}] ステータス",  status, res)
+                    if (type == 'iLO') {
+                        test_item.admin_port_list(ip_address, port)
+                        mng_ips << ip_address
+                    }
                 }
             }
             def headers = ['type', 'port', 'desc', 'location', 'mac', 'ip', 'status']
             test_item.devices(csv, headers)
-            println "NIC:${nic_ips}"
-            def info = [:]
-            info['Nic']    = nic_ips.toString()
-            info['ip_mng'] = nic_ips.toString()
-            test_item.results(info)
-            test_item.verify_text_search('ip_mng', nic_ips.toString())
+            res['Nic']    = nic_ips.toString()
+            res['ip_mng'] = mng_ips.toString()
+            test_item.results(res)
+            test_item.verify_text_search('ip_mng', "${mng_ips}")
         }
     }
 
@@ -420,7 +434,7 @@ class iLOSpecBase extends InfraTestSpec {
             def summarys = [:].withDefault{0}
             def csv = []
             def xmls = []
-            def test_results = [:]
+            def res = [:]
             xmls = lines.split(/<\?xml version="1\.0"\?>/)
             xmls.each { xml ->
                 if (xml.size() > 0) {
@@ -446,12 +460,18 @@ class iLOSpecBase extends InfraTestSpec {
                             }
                         }
                     }
-                    def memory_infos = [:].withDefault{[:]}
+                    def memory_infos = [:]
                     records['GET_EMBEDDED_HEALTH_DATA']['MEMORY']['MEMORY_DETAILS_SUMMARY'].children().each { 
                         memory_details ->
                         def memory_socket = memory_details.name()
                         memory_details.children().each { memory_detail ->
-                            memory_infos[memory_socket][memory_detail.name()] = memory_detail.@'VALUE'
+                            def name = memory_detail.name()
+                            def value = memory_detail.@'VALUE'
+                            // println "$memory_socket, NAME:$name, VAL:$value"
+                            // memory_infos[memory_socket][memory_detail.name()] = memory_detail.@'VALUE'
+                            if (name == 'TOTAL_MEMORY_SIZE') {
+                                memory_infos[memory_socket] = value
+                            }
                         }
                     }
                     records['GET_EMBEDDED_HEALTH_DATA']['MEMORY']['MEMORY_COMPONENTS'].children().each { 
@@ -469,25 +489,39 @@ class iLOSpecBase extends InfraTestSpec {
                         }
                     }
                     if (memory_infos)
-                        test_results['Memory'] = memory_infos.toString()
+                        res['Memory'] = memory_infos.toString()
                 }
             }
+            def row = 1
+            def ldisk  = ''
+            def status = ''
+            def capa   = ''
+            def raid   = ''
             storage_infos.each { id, storage_info ->
-                csv << [
-                    storage_info?.'L_LABEL'?.toString() ?: '', 
-                    storage_info?.'L_STATUS'?.toString() ?: '',
-                    storage_info?.'L_CAPACITY'?.toString() ?: '', 
-                    storage_info?.'L_FAULT_TOLERANCE'?.toString() ?: '',
-                    storage_info?.'P_MODEL'?.toString(), 
-                    storage_info?.'P_CAPACITY'?.toString(),
-                    storage_info?.'P_FW_VERSION'?.toString(), 
-                    storage_info?.'P_MEDIA_TYPE'?.toString(),
-                ]
+                ldisk  = storage_info?.'L_LABEL'?.toString() ?: ldisk 
+                status = storage_info?.'L_STATUS'?.toString() ?: status
+                capa   = storage_info?.'L_CAPACITY'?.toString() ?: capa 
+                raid   = storage_info?.'L_FAULT_TOLERANCE'?.toString() ?: raid
+                def model  = storage_info?.'P_MODEL'?.toString() 
+                def size   = storage_info?.'P_CAPACITY'?.toString()
+                def fw     = storage_info?.'P_FW_VERSION'?.toString() 
+                def type   = storage_info?.'P_MEDIA_TYPE'?.toString()
+
+                csv << ["'${ldisk}'", status, capa, raid, model, size, fw, type]
+                add_new_metric("Storage.type.${row}",   "[${row}] タイプ", type, res)
+                add_new_metric("Storage.raid.${row}",   "[${row}] RAID", raid, res)
+                add_new_metric("Storage.ldisk.${row}",  "[${row}] LUN", "'${ldisk}'", res)
+                add_new_metric("Storage.size.${row}",   "[${row}] サイズ", size, res)
+                add_new_metric("Storage.fw.${row}",     "[${row}] FW", fw, res)
+                add_new_metric("Storage.status.${row}", "[${row}] ステータス", status, res)
+
+                row ++
             }
-            def headers = ['ldisk', 'status', 'capacity', 'raid', 'model', 'size', 'fw', 'media_type']
+            def headers = ['ldisk', 'status', 'capa', 'raid', 'model', 'size', 'fw', 'media_type']
             test_item.devices(csv, headers)
-            test_results['Storage'] = summarys.toString()
-            test_item.results(test_results)
+            res['Storage'] = summarys.toString()
+
+            test_item.results(res)
         }
     }
 
@@ -505,15 +539,14 @@ class iLOSpecBase extends InfraTestSpec {
             def trap_info = [:].withDefault{[]}
             def snmp_info = [:]
 
-            snmp_info['SNMP']       = 'No data'
-            snmp_info['SNMPStatus'] = 'OK'
+            snmp_info['SNMP']       = 'OK'
             lines.eachLine {
                 if (it.size() > 0) {
                     // SNMP_ADDRESS_1                       : 192.168.125.120
                     // SNMP_ADDRESS_1_ROCOMMUNITY           : public1
                     // SNMP_ADDRESS_1_TRAPCOMMUNITY         : trapcomm1
                     // SNMP_ADDRESS_1_TRAPCOMMUNITY_VERSION : v1
-                    (it=~/^SNMP_ADDRESS_(\d.+?)\s+:\s(.+?)$/).each { m0, m1, m2 ->
+                    (it=~/^SNMP_ADDRESS_(\d+)(.+?)\s+:\s(.*?)$/).each { m0, row, m1, m2 ->
                         List metrics = m1.split(/_/)
                         def metric = 'etc'
                         if (metrics.size() == 1) {
@@ -523,23 +556,24 @@ class iLOSpecBase extends InfraTestSpec {
                         }
                         def value = trim(m2)
                         trap_info[metric] << value
+                        add_new_metric("SNMP.${metric}.${row}", "[${row}] ${metric}", value, snmp_info)
                     }
                     // STATUS_TYPE                          : OK
                     // STATUS_MESSAGE                       : OK
                     (it=~/^STATUS_(.+?)\s+:\s(.+?)$/).each { m0, m1, m2 ->
+                        add_new_metric("SNMP.status.${m1}", "ステータス ${m1}", m2, snmp_info)
                         if (m2 != 'OK')
-                            snmp_info['SNMPStatus'] = m2
+                            snmp_info['SNMP'] = m2
+                    }
+                    (it=~/^(.+?PORT)\s+:\s(.+?)$/).each { m0, m1, m2 ->
+                        add_new_metric("SNMP.${m1}", m1, "'${m2}'", snmp_info)
                     }
                     csv << [it]
-                    snmp_info['SNMP'] = 'SNMP Info found'
                 }
             }
             def headers = ['snmp_info']
             test_item.devices(csv, headers)
-            // test_item.results((csv.size() > 0) ? 'SNMP Info found' : 'No data')
-            test_item.results(trap_info)
             test_item.results(snmp_info)
-            test_item.verify_text_search('SNMPStatus', snmp_info['SNMPStatus'])
             test_item.verify_text_search_list('snmp_address', trap_info['ip'])
             test_item.verify_text_search_list('snmp_community', trap_info['trapcommunity'])
             test_item.verify_text_search_list('snmp_version', trap_info['version'])
