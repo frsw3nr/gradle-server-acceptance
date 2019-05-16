@@ -247,6 +247,7 @@ class CiscoUCS extends InfraTestSpec {
         infos['chassis.productname'] = yaml?.'productname' ?: 'unkown'
         infos['chassis.productid']   = yaml?.'productid' ?: 'unkown'
         infos['chassis.sn']          = yaml?.'sn' ?: 'unkown'
+
         test_item.results(infos)
     }
 
@@ -281,9 +282,9 @@ class CiscoUCS extends InfraTestSpec {
         def infos = [:].withDefault{0}
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
-
         def rows = 0
         def headers = []
+        def res = [:].withDefault{0}
         yaml_manager.loadAll(yaml_text).each { info ->
             rows ++
             if (headers.size() == 0) {
@@ -294,12 +295,18 @@ class CiscoUCS extends InfraTestSpec {
                 values << info[it] ?: 'Unkown'
             }
             csv << values
-            def keys = ['version', 'thread-count', 'core-count']
+            def keys = ['version', 'core-count', 'thread-count']
             def title = info.subMap(keys).values().join('/')
-            infos[title] += 1
+            if (info['cpu-status'] == 'Enabled') {
+                infos[title] += 1
+                res['cpu.socket'] += 1
+                res['cpu.core']   += info['core-count'].toInteger()
+                res['cpu.thread'] += info['thread-count'].toInteger()
+            }
         }
+        res['cpu'] = "${infos}"
         test_item.devices(csv, headers)
-        test_item.results("$infos")
+        test_item.results(res)
     }
 
     def memory(session, test_item) {
@@ -334,10 +341,11 @@ class CiscoUCS extends InfraTestSpec {
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
 
-        def rows = 0
+        def row = 0
         def headers = []
+        def res = [:]
         yaml_manager.loadAll(yaml_text).each { info ->
-            rows ++
+            row ++
             if (headers.size() == 0) {
                 headers = info.keySet() as ArrayList
             }
@@ -349,10 +357,18 @@ class CiscoUCS extends InfraTestSpec {
             // println info
             if (info.containsKey('Description')) {
                 infos[info['Description']] += 1
+                add_new_metric("hdd.cont.${row}",   "HDD[${row}] コントローラ", info['Controller'], res)
+                add_new_metric("hdd.desc.${row}",   "HDD[${row}] 定義",         info['Description'], res)
+                add_new_metric("hdd.pid.${row}",    "HDD[${row}] PID",          info['PID'], res)
+                add_new_metric("hdd.vendor.${row}", "HDD[${row}] ベンダー",     info['Vendor'], res)
+                add_new_metric("hdd.model.${row}",  "HDD[${row}] モデル",       info['Model'], res)
+                add_new_metric("hdd.sn.${row}",     "HDD[${row}] S/N",          info['SerialNumber'], res)
             }
+
         }
+        res['hdd'] = "$infos"
         test_item.devices(csv, headers)
-        test_item.results("$infos")
+        test_item.results(res)
     }
 
     def storageadapter(session, test_item) {
@@ -369,10 +385,11 @@ class CiscoUCS extends InfraTestSpec {
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
 
-        def rows = 0
+        def row = 0
         def headers = []
+        def res = [:]
         yaml_manager.loadAll(yaml_text).each { info ->
-            rows ++
+            row ++
             if (headers.size() == 0) {
                 headers = info.keySet() as ArrayList
             }
@@ -382,14 +399,20 @@ class CiscoUCS extends InfraTestSpec {
             }
             csv << values
             if (info.containsKey('product-name')) {
-                infos[info['product-name']] += 1
+                infos[info['composite-health']] += 1
+                add_new_metric("storageadapter.vendor.${row}", "[${row}] ベンダー", info['vendor'], res)
+                add_new_metric("storageadapter.model.${row}",  "[${row}] モデル", info['product-name'], res)
+                add_new_metric("storageadapter.health.${row}", "[${row}] ステータス", info['composite-health'], res)
+                add_new_metric("storageadapter.sn.${row}",     "[${row}] S/N", info['serial-number'], res)
+                add_new_metric("storageadapter.fw.${row}",     "[${row}] FW", info['firmware-package-build'], res)
             }
             if (info.containsKey('controller')) {
                 storage_adapter = info['controller']
             }
         }
+        res['storageadapter'] = "$infos"
         test_item.devices(csv, headers)
-        test_item.results("$infos")
+        test_item.results(res)
     }
 
     def physical_drive(session, test_item) {
@@ -448,11 +471,11 @@ class CiscoUCS extends InfraTestSpec {
         def infos = [:]
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
-
-        def rows = 0
+        def row = 0
         def headers = []
+        def res = [:]
         yaml_manager.loadAll(yaml_text).each { info ->
-            rows ++
+            row ++
             if (headers.size() == 0) {
                 headers = info.keySet() as ArrayList
             }
@@ -463,9 +486,14 @@ class CiscoUCS extends InfraTestSpec {
             csv << values
             def keys = ['raid-level', 'physical-drives', 'size']
             infos[info['virtual-drive']] = info.subMap(keys)
+            add_new_metric("virtual_drive.name.${row}", "LV[${row}] 名前", info['name'], res)
+            add_new_metric("virtual_drive.raid.${row}", "LV[${row}] RAID", info['raid-level'], res)
+            add_new_metric("virtual_drive.size.${row}", "LV[${row}] 容量", info['size'], res)
+            add_new_metric("virtual_drive.hdd.${row}",  "LV[${row}] 物理ドライブ", info['physical-drives'], res)
         }
         test_item.devices(csv, headers)
-        test_item.results("$infos")
+        res['virtual_drive'] = "$infos"
+        test_item.results(res)
     }
 
     def network(session, test_item) {
@@ -481,10 +509,11 @@ class CiscoUCS extends InfraTestSpec {
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
 
-        def rows = 0
+        def row = 0
         def headers = []
+        def res = [:]
         yaml_manager.loadAll(yaml_text).each { info ->
-            rows ++
+            row ++
             if (headers.size() == 0) {
                 headers = info.keySet() as ArrayList
             }
@@ -495,13 +524,18 @@ class CiscoUCS extends InfraTestSpec {
             csv << values
             def ip_address = info['v4-addr']
             if (ip_address && ip_address != '127.0.0.1') {
-                test_item.lookuped_port_list(ip_address, "CiscoCIMC${rows}")
+                test_item.lookuped_port_list(ip_address, "CiscoCIMC${row}")
+                add_new_metric("network.ip.${row}",     "[${row}] IP", ip_address, res)
+                add_new_metric("network.subnet.${row}", "[${row}] サブネット", info['v4-netmask'], res)
+                add_new_metric("network.gw.${row}",     "[${row}] ゲートウェイ", info['v4-gateway'], res)
+                add_new_metric("network.mac.${row}",    "[${row}] MAC", info['mac'], res)
             }
             def keys = ['v4-addr', 'v4-netmask', 'v4-gateway']
-            infos[rows] = info.subMap(keys).values()
+            infos[row] = ip_address
         }
+        res['network'] = "${infos}"
         test_item.devices(csv, headers)
-        test_item.results("$infos")
+        test_item.results(res)
         test_item.verify_text_search_list('network', infos)
     }
 
@@ -522,6 +556,7 @@ class CiscoUCS extends InfraTestSpec {
         infos['snmp.sys-contact']      = yaml?.'sys-contact' ?: 'unkown'
         infos['snmp.community-str']    = yaml?.'community-str' ?: 'unkown'
         infos['snmp.community-access'] = yaml?.'community-access' ?: 'unkown'
+        infos['snmp.snmp-port'] = "'" + infos['snmp.snmp-port'] + "'"
         test_item.results(infos)
         test_item.verify_text_search_list('snmp', infos)
     }

@@ -3,6 +3,7 @@ package InfraTestSpec
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.hidetake.groovy.ssh.Ssh
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
@@ -32,13 +33,16 @@ class VMHostSpec extends vCenterSpecBase {
                 new File("${local_dir}/VMHost")
             }
             def res = [:]
+            // println lines
             lines.eachLine {
                 (it =~  /^(.+?)\s+:\s+(.+?)$/).each { m0,m1,m2->
                     res[m1] = m2
                 }
             }
             res['Version'] = 'ESXi ' + res['Version']
+            res['Build'] = "'" + res['Build'] + "'"
             res['VMHost']  = (res.size() > 0) ? 'OK' : 'Not found'
+            // println res
             test_item.verify_number_equal('NumCpu', res['NumCpu'])
             test_item.verify_number_equal('MemoryGB', res['MemoryTotalGB'], 0.1)
             test_item.results(res)
@@ -84,6 +88,8 @@ class VMHostSpec extends vCenterSpecBase {
             def csv    = []
             def csize  = []
             def row    = -1
+            def nic    = 0
+            def res    = [:]
             lines.eachLine {
                 (it =~ /^(-+ *?) (-+ *?) (-+ *?) (-+ *?) (-+ *?) (-.+?)$/).each {
                     m0, m1, m2, m3, m4, m5, m6 ->
@@ -95,6 +101,7 @@ class VMHostSpec extends vCenterSpecBase {
                     (it =~ /^(.{${csize[0]}}) (.{${csize[1]}}) (.{${csize[2]}}) (.{${csize[3]}}) (.{${csize[4]}}) (.+)$/).each {
                         m0, m1, m2, m3, m4, m5, m6 ->
                         def device  = m1.trim()
+                        def mac     = m2.trim()
                         def address = m4.trim()
                         def mask    = m5.trim()
                         if (address.size() > 0 && mask.size() > 0) {
@@ -105,7 +112,12 @@ class VMHostSpec extends vCenterSpecBase {
                                 log.error "[ESXiVMHostTest] subnet convert : m1\n" + e
                             }
                             if (address && address != '127.0.0.1') {
+                                nic++
                                 test_item.lookuped_port_list(address, device)
+                                add_new_metric("NetworkAdapter.dev.${nic}",  "[${nic}] デバイス", device, res)
+                                add_new_metric("NetworkAdapter.ip.${nic}",   "[${nic}] IP", address, res)
+                                add_new_metric("NetworkAdapter.mask.${nic}", "[${nic}] サブネット", mask, res)
+                                add_new_metric("NetworkAdapter.mac.${nic}",  "[${nic}] MAC", mac, res)
                             }
                             // println "IP:${address},${device}"
 
@@ -118,7 +130,9 @@ class VMHostSpec extends vCenterSpecBase {
             }
             def headers = ['Name', 'Mac', 'DhcpEnabled', 'IP', 'SubnetMask', 'DeviceName']
             test_item.devices(csv, headers)
-            test_item.results(net_ip.toString())
+            res['NetworkAdapter'] = net_ip.toString()
+            // println net_ip
+            test_item.results(res)
         }
     }
 
@@ -138,35 +152,39 @@ class VMHostSpec extends vCenterSpecBase {
                 new File("${local_dir}/Disk")
             }
             def row = 0
-            def res = [:].withDefault{[:]}
+            def info = [:].withDefault{[:]}
             def device = ''
             def devices = [:]
+            def res = [:]
             lines.eachLine {
                 (it =~  /^(.+?)\s+:\s+(.+?)$/).each { m0,m1,m2->
-                    if (m1 == 'Id') {
+                    if (m1 == 'DeviceName') {
                         device = refVMHostDisk(m2)
                     } else if (m1 == 'TotalSectors') {
                         def size = Float.parseFloat(m2) * 512 / 1000000000
-                        devices[device] = "${(int)size}GB"
-                        // println("SIZE:${device}:${size}")
+                        def size_reform = String.format("%1.1f", size)
+                        devices[row] = "${size_reform}GB"
+                        add_new_metric("Disk.id.${row}",   "Disk[${row}] ID", device, res)
+                        add_new_metric("Disk.size.${row}", "Disk[${row}] 容量GB", size_reform, res)
+
                     } else if (m1 == 'Cylinders') {
                         row ++
                     }
-                    res[row][m1] = m2
+                    info[row][m1] = m2
                 }
             }
             def csv = []
-            def headers = ['Id', 'Cylinders', 'Heads', 'Sectors','TotalSectors', 'Uid']
+            def headers = ['DeviceName', 'Cylinders', 'Heads', 'Sectors','TotalSectors', 'Uid']
             (1..row).each { id ->
                 def columns = []
                 headers.each { header ->
-                    columns.add res[id][header]
+                    columns.add info[id][header]
                 }
                 csv << columns*.trim()
             }
-            // print(devices)
+            res['Disk'] = "${devices}"
             test_item.devices(csv, headers)
-            test_item.results(devices.toString())
+            test_item.results(res)
         }
     }
 
@@ -176,25 +194,25 @@ class VMHostSpec extends vCenterSpecBase {
                 new File("${local_dir}/DiskPartition")
             }
             def row = 0
-            def res = [:].withDefault{[:]}
+            def info = [:].withDefault{[:]}
             lines.eachLine {
                 (it =~  /^(.+?)\s+:\s+(.+?)$/).each { m0,m1,m2->
                     if (m1 == 'PartitionNumber')
                         row ++
-                    res[row][m1] = m2
+                    info[row][m1] = m2
                 }
             }
             def csv = []
-            def headers = ['PartitionNumber', 'Logical', 'StartSector', 'EndSector', 'VMHostDisk']
+            def headers = ['PartitionNumber', 'Type', 'Logical', 'StartSector', 'EndSector', 'VMHostDisk']
             (1..row).each { id ->
                 def columns = []
                 headers.each { header ->
-                    columns.add res[id][header]
+                    columns.add info[id][header]
                 }
                 csv << columns*.trim()
             }
             test_item.devices(csv, headers)
-            test_item.results(row.toString())
+            test_item.results("${csv.size()} partitions")
         }
     }
 
@@ -203,10 +221,13 @@ class VMHostSpec extends vCenterSpecBase {
             def lines = exec('Datastore') {
                 new File("${local_dir}/Datastore")
             }
-
+            // println lines
             def csv   = []
             def csize = []
             def row   = -1
+            def id = 0
+            def res  = [:]
+            def info = [:]
             lines.eachLine {
                 (it =~ /^(-+ *?) (-+ *?) (-.+?)$/).each {
                     m0, m1, m2, m3 ->
@@ -215,8 +236,16 @@ class VMHostSpec extends vCenterSpecBase {
                 }
                 if (row > 0 && it.size() > 0) {
                     (it =~ /^(.{${csize[0]}})(.{${csize[1]}})(.+)$/).each {
-                        m0, m1, m2, m3 ->
-                        csv << [m1, m2, m3]*.trim()
+                        m0, name, free, capacity ->
+                        id ++
+                        name = name.trim()
+                        def free_gb = NumberUtils.toDouble(free.replaceAll(",", ""))
+                        def capacity_gb = NumberUtils.toDouble(capacity.replaceAll(",", ""))
+                        csv << [name, free_gb, capacity_gb]
+                        add_new_metric("Datastore.name.${id}", "Datastore[${id}] データストア名", name, res)
+                        add_new_metric("Datastore.capa.${id}", "Datastore[${id}] 容量GB", capacity_gb, res)
+                        add_new_metric("Datastore.free.${id}", "Datastore[${id}] 空き容量GB", free_gb, res)
+                        info[name] = capacity_gb
                     }
                 }
                 if (row >= 0)
@@ -224,7 +253,8 @@ class VMHostSpec extends vCenterSpecBase {
             }
             def headers = ['Name', 'FreeSpaceGB', 'CapacityGB']
             test_item.devices(csv, headers)
-            test_item.results(row.toString())
+            res['Datastore'] = "${csv.size()} datastores"
+            test_item.results(res)
         }
     }
 
