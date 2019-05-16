@@ -307,7 +307,7 @@ class ZabbixSpec extends InfraTestSpec {
                     def macros = [:]
                     host[it].each { macro ->
                         def new_test_id = 'Host.' + macro['macro']
-                        dev macro_value = macro['value']
+                        def macro_value = macro['value']
                         // def desc = test_platform?.test_metrics['Host']?.description
                         // this.test_platform.add_test_metric(new_test_id, desc)
                         host_info[new_test_id] = macro_value
