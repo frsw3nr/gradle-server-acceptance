@@ -42,7 +42,12 @@ class ZabbixServerSpec extends InfraTestSpec {
             '3' : 'Average',
             '4' : 'High',
             '5' : 'Disaster',
-        ]
+        ],
+        'user_group.gui_access' : [
+            '0' : 'Default',
+            '1' : 'Internal',
+            '2' : 'Disabled',
+        ],
     ]
 
     String zabbix_ip
@@ -236,8 +241,8 @@ class ZabbixServerSpec extends InfraTestSpec {
             def name = host_group['name']
             // res[id] = name
             csv << columns
-            add_new_metric("HostGroup.${id}", "id:${id}", 
-                           name, res)
+            add_new_metric("HostGroup.${name}", "[${name}] ID", 
+                           "'${id}'", res)
         }
         res['HostGroup'] = "${csv.size()} Host groups."
         test_item.devices(csv, headers)
@@ -283,8 +288,10 @@ class ZabbixServerSpec extends InfraTestSpec {
         users.each { user ->
             def columns = []
             def alias = user['alias']
-            add_new_metric("User.${alias}.id", "${alias} ID", 
-                   "${user['userid']}", res)
+            def id    = user['userid']
+            def lang  = user['lang']
+            add_new_metric("User.${alias}.id", "[${alias}] ID", "'${id}'", res)
+            add_new_metric("User.${alias}.lang", "[${alias}] 言語", lang, res)
             headers.each {
                 if (it == 'usrgrps') {
                     def usrgrps = []
@@ -292,7 +299,7 @@ class ZabbixServerSpec extends InfraTestSpec {
                         usrgrps.add(usrgrp['name'])
                     }
                     columns.add("${usrgrps}")
-                    add_new_metric("User.${alias}.groups", "${alias} グループ", 
+                    add_new_metric("User.${alias}.groups", "[${alias}] グループ", 
                            "${usrgrps}", res)
 
                 } else if (it == 'medias') {
@@ -301,7 +308,7 @@ class ZabbixServerSpec extends InfraTestSpec {
                         medias.add(media['sendto'])
                     }
                     columns.add("${medias}")
-                    add_new_metric("User.${alias}.media", "${alias} メディア", 
+                    add_new_metric("User.${alias}.media", "[${alias}] メディア", 
                            "${medias}", res)
 
                 } else {
@@ -310,7 +317,7 @@ class ZabbixServerSpec extends InfraTestSpec {
             }
             csv << columns
         }
-        res['user'] = "${csv.size()} users"
+        res['User'] = "${csv.size()} users"
         test_item.devices(csv, headers)
         test_item.results(res)
     }
@@ -348,17 +355,25 @@ class ZabbixServerSpec extends InfraTestSpec {
 
         def headers = ['usrgrpid', 'name', 'gui_access', 'users_status']
         def csv = []
-        def results = [:]
+        def res = [:]
         users.each { user ->
             def columns = []
             headers.each {
                 columns.add(user[it] ?: 'NaN')
             }
-            results[user['usrgrpid']] = user['name']
+            def id     = user['usrgrpid']
+            def name   = user['name']
+            def gui    = zabbix_labels['user_group.gui_access'][user['gui_access']]
+            def status = zabbix_labels['trigger.status'][user['users_status']]
+            // res[user['usrgrpid']] = user['name']
             csv << columns
+            add_new_metric("UserGroup.${name}.id", "[${name}] ID", "'${id}'", res)
+            add_new_metric("UserGroup.${name}.gui", "[${name}] GUIアクセス", "'${gui}'", res)
+            add_new_metric("UserGroup.${name}.status", "[${name}] ステータス", "'${status}'", res)
         }
         test_item.devices(csv, headers)
-        test_item.results(results.toString())
+        res['UserGroup'] = "${csv.size()} user groups"
+        test_item.results(res)
     }
 
     def Action(test_item) {
@@ -408,29 +423,31 @@ class ZabbixServerSpec extends InfraTestSpec {
         action_lists.each { host_group, action_list ->
             if (action_list.size() > 0) {
                 action_list.each { action ->
-                    // println "Action1:\n ${action}"
+                    // println "Action1:\n ${action}\n"
+                    // println "Action2:\n ${action.keySet()}\n"
                     def columns = []
                     headers.each {
                         def result = 'NaN'
                         if (it == 'host_group') {
                             result = host_group
                         } else if (it == 'status') {
-                            if (action[it] == '0') {
-                                result = 'Enabled'
-                            } else if (action[it] == '1') {
-                                result = 'Disabled'
-                            }
+                            result = zabbix_labels['trigger.status'][action[it]]
                         } else if (action.get(it)) {
                             result = action.get(it).toString()
                         }
                         columns.add(result)
                     }
-                    res[host_group] = action_list['name']
+                    def name = action_list['name']
+                    def status = zabbix_labels['trigger.status'][action['status']]
+                    add_new_metric("Action.${host_group}.name", "[${host_group}] 名前", name, res)
+                    add_new_metric("Action.${host_group}.status", "[${host_group}] ステータス", status, res)
+
                     csv << columns
                 }
             } 
         }
         test_item.devices(csv, headers)
-        test_item.results(res.toString())
+        res['Action'] = "${csv.size()} actions"
+        test_item.results(res)
     }
 }

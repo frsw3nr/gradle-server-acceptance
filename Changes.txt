@@ -1,44 +1,20 @@
-Changes for 0.2.2 (2019-5-20)
+Changes for 0.2.3 (2019-6-3)
 ------------------------------------------------------------------------------
 
 ToDo:
 * シナリオ階層化
-    * Solaris/Solarisチェックシート.xlsx [x]
-    * Solaris/XSCFチェックシート.xlsx [x]
-    * VMWare_ESXi/ESXiチェックシート.xlsx [x]
-    * Zabbix/Zabbix監視設定チェックシート.xlsx [x]
-    * Zabbix/ZabbixServer監視設定チェックシート.xlsx [x]
-    * Cisco_UCS/UCSチェックシート.xlsx [x]
-    * HP_iLO/iLOチェックシート.xlsx [x]
-    * FJ_Primergy/PRIMERGYチェックシート.xlsx [x]
-    * FJ_Eternus/ETERNUSチェックシート.xlsx [x]
-    * Hitachi_VSP/HitachiVSPチェックシート.xlsx [x]
-    * NetApp/DataONTAPチェックシート.xlsx [x]
-    * AIX/AIXチェックシート.xlsx [x]
-    * Router/RTXチェックシート.xlsx [x]
-    * Router/CiscoIOSチェックシート.xlsx [x]
-    * Oracle/Oracle設定チェックシート.xlsx [x]
-    * KPT [ ]
-        * シナリオ階層化 [ ]
-            * 試行データでの結合試験 [ ]
-                * VM [x]
-                * IA HP [x]
-                * SPARC [x]
-                * XSCF [x]
-                * IA UCS [x]
-                * ESXi [x]
-                * Zabbix [ ]
-                * NetApp [ ]
-            * テストデータでの結合試験 [ ]
-                * PRIMERGY [ ]
-                * ETERNUS [ ]
-                * HitachiVSP [ ]
-                * AIX [ ]
-                * RTX [ ]
-                * CiscoIOS [ ]
-                * Oracle設定 [ ]
-        * JSONデータでのクラスタリング検証 [ ]
-            * Python scikit-lean リファレンス調査 [ ]
+    * 試行データでの結合試験 [ ]
+        * NetApp [ ]
+    * テストデータでの結合試験 [ ]
+        * PRIMERGY [ ]
+        * ETERNUS [ ]
+        * HitachiVSP [ ]
+        * AIX [ ]
+        * RTX [ ]
+        * CiscoIOS [ ]
+        * Oracle設定 [ ]
+    * JSONデータでのクラスタリング検証 [ ]
+        * Python scikit-lean リファレンス調査 [ ]
 * クラスター分析追加 [ ]
     * コンペア仕様作成 [ ]
         * サロゲートキー作成 [ ]
@@ -90,30 +66,15 @@ V2 仕様検討
         * Controller
             * DataComparator.groovy : EKLI K-Means分析
 
-## EvidenceMaker.groovy内
+Changes for 0.2.2 (2019-5-20)
+------------------------------------------------------------------------------
 
-extract_added_test_metric() 内
-
-エビデンス作成。add_added_test_metric()内、sheet.added_rows 配列に登録
-
-    test_target.test_platforms.each { platform, test_platform ->
-        test_platform?.added_test_metrics.each { metric, test_metric ->
-            metric_set.add(test_metric)
-            add_added_test_metric(domain, platform, metric, test_metric)
-        }
-    }
-
-    def add_added_test_metric(domain, platform, metric, test_metric) {
-        // println "ADD: $domain, $platform, $metric, $test_metric"
-        def sheet = this.summary_sheets[domain] ?: new SheetSummary()
-        sheet.added_rows[[platform, metric]] = test_metric
-        this.summary_sheets[domain] = sheet
-    }
-
-変更範囲検討
-
-* 追加メトリックの親メトリックとの関連追加。
-* ノード間の重複チェック。新規メトリックの場合、行カウントアップ
+New features:
+* 以下テンプレートに検査項目の階層化を展開
+    * SPARC Solaris/XSCF
+    * IA HP iLO/Cisco UCS
+    * VMWare_ESXi
+    * Zabbix
 
 Changes for 0.2.1 (2019-5-8)
 ------------------------------------------------------------------------------

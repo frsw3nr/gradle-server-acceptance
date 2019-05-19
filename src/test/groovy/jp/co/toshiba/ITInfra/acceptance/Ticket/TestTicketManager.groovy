@@ -32,6 +32,7 @@ class TestTicketManager extends Specification {
     def setup() {
         def test_env = ConfigTestEnvironment.instance
         test_env.get_cmdb_config()
+        test_env.config.db_config = 'src/test/resources/cmdb.groovy'
         ticket_manager = TicketManager.instance
         test_env.accept(ticket_manager)
         ticket_manager.init()
