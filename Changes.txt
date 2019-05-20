@@ -3,16 +3,12 @@ Changes for 0.2.3 (2019-6-3)
 
 ToDo:
 * シナリオ階層化
-    * 試行データでの結合試験 [ ]
-        * NetApp [ ]
     * テストデータでの結合試験 [ ]
-        * PRIMERGY [ ]
         * ETERNUS [ ]
         * HitachiVSP [ ]
         * AIX [ ]
         * RTX [ ]
         * CiscoIOS [ ]
-        * Oracle設定 [ ]
     * JSONデータでのクラスタリング検証 [ ]
         * Python scikit-lean リファレンス調査 [ ]
 * クラスター分析追加 [ ]
@@ -23,6 +19,7 @@ ToDo:
     * クラスタ別結果シート作成 [ ]
         * EvidenceMaker見直し [ ]
         * ReportMaker 見直し [ ]
+* 値のチェックルーチンドキュメント化 [ ]
 
 V2 仕様検討
 -----------
@@ -72,9 +69,11 @@ Changes for 0.2.2 (2019-5-20)
 New features:
 * 以下テンプレートに検査項目の階層化を展開
     * SPARC Solaris/XSCF
-    * IA HP iLO/Cisco UCS
+    * IA HP iLO/Cisco UCS/PRIMERGY
     * VMWare_ESXi
     * Zabbix
+    * NetApp
+    * Oracle設定
 
 Changes for 0.2.1 (2019-5-8)
 ------------------------------------------------------------------------------

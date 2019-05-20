@@ -4,8 +4,8 @@ evidence.source = './template/Zabbix/Zabbix監視設定チェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/Zabbix監視設定チェックシート_<date>.xlsx'
- evidence.target='./build/zabbix_check_sheet.xlsx'
+evidence.target='./build/Zabbix監視設定チェックシート_<date>.xlsx'
+// evidence.target='./build/zabbix_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

@@ -4,8 +4,8 @@ evidence.source = './template/NetApp/DataONTAPチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-//evidence.target='./build/DataONTAPチェックシート_<date>.xlsx'
-evidence.target='./build/data_ontap_check_sheet.xlsx'
+evidence.target='./build/DataONTAPチェックシート_<date>.xlsx'
+// evidence.target='./build/data_ontap_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 

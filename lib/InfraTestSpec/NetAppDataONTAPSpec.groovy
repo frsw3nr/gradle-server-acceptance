@@ -210,7 +210,6 @@ class NetAppDataONTAP extends InfraTestSpec {
         def network_nodes = [:].withDefault{[]}
         def desc = test_platform?.test_metrics['network_interface']?.description
         csv_info.rows.each { row ->
-            // println "ROW:$row"
             def ip_address = row['Network Address']
             def device     = row['Logical Interface Name']
             def netmask    = row['Bits in the Netmask']
@@ -223,8 +222,12 @@ class NetAppDataONTAP extends InfraTestSpec {
             }
             if (ip_address && ip_address != '127.0.0.1') {
                 test_item.lookuped_port_list(ip_address, device)
+                add_new_metric("network_interface.ip.${node}", "[${node}] IP", ip_address, infos)
+                add_new_metric("network_interface.port.${node}", "[${node}] ポート", port, infos)
+                add_new_metric("network_interface.device.${node}", "[${node}] デバイス", device, infos)
+                add_new_metric("network_interface.netmask.${node}", "[${node}] サブネット", device, infos)
             }
-            this.test_platform.add_test_metric(device, "${desc} : ${node} : ${port}")
+            // this.test_platform.add_test_metric(device, "${desc} : ${node} : ${port}")
             infos[device] = ip_cidr
         }
         infos['network_interface'] = "${network_nodes}"

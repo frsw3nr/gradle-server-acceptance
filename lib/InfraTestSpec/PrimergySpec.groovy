@@ -146,20 +146,25 @@ class PrimergySpec extends LinuxSpecBase {
         }
         def jsonSlurper = new JsonSlurper()
         def fw_infos = jsonSlurper.parseText(lines)
-
         // "SystemBIOS": "V5.0.0.11 R1.15.0 for D3279-B1x",
         // "BMCFirmware": "8.67F",
         // "SDRRVersion": "3.04",
         // "SDRRId": "0464",
         def headers = ['name', 'value']
         def csv = []
+        def res = [:]
         ["SystemBIOS", "BMCFirmware", "SDRRVersion", "SDRRId"].each { item_name ->
             def value = fw_infos[item_name] ?: 'NaN'
             csv << [item_name, value]
+            if (item_name == 'SDRRVersion') {
+                value = "'${value}'"
+            }
+            res["fwver.${item_name}"] = value
         }
 
+        res["fwver"] = res["fwver.SystemBIOS"]
         test_item.devices(csv, headers)
-        test_item.results(fw_infos["SystemBIOS"])
+        test_item.results(res)
     }
 
     def nic(test_item) {
@@ -182,16 +187,24 @@ class PrimergySpec extends LinuxSpecBase {
         def headers = ['BiosVersion', 'MacAddress', 'ModuleName', 'SpeedMbps']
         def mac_infos = [:].withDefault{[]}
         def csv = []
+        def row = 0
+        def res = [:]
         nic_infos['Ports'].each { port ->
+            row ++
             def columns = []
             headers.each {
                 columns.add(port[it] ?: 'NaN')
             }
             csv << columns
             mac_infos[port['ModuleName']] << port['MacAddress']
+            add_new_metric("nic.module.${row}", "[${row}] モジュール", port['ModuleName'], res)
+            add_new_metric("nic.adapter.${row}", "[${row}] アダプター", port['AdapterName'], res)
+            add_new_metric("nic.mac.${row}", "[${row}] MAC", port['MacAddress'], res)
         }
         test_item.devices(csv, headers)
-        test_item.results(['nic': mac_infos.toString(), 'nic_ip': ip])
+        res['nic_ip'] = ip
+        res['nic'] = "${csv.size} network modules"
+        test_item.results(res)
         test_item.verify_text_search('nic_ip', ip)
     }
 
@@ -284,7 +297,6 @@ class PrimergySpec extends LinuxSpecBase {
                 if (it == 'Address' && value != '127.0.0.1') {
                     test_item.admin_port_list(ip, "iRMC-network${rows}")
 // PORT : [Address:10.40.6.11, AddressOrigin:Static, Gateway:null, SubnetMask:255.255.255.0]
-                    println "PORT : ${port}"
                     add_new_metric("network.ip.${rows}",     "[${rows}] IP ", port['Address'], res)
                     add_new_metric("network.type.${rows}",   "[${rows}] モード", port['AddressOrigin'], res)
                     add_new_metric("network.gw.${rows}",     "[${rows}] ゲートウェイ", port['Gateway'] ?: 'NaN', res)
@@ -297,7 +309,6 @@ class PrimergySpec extends LinuxSpecBase {
         }
         test_item.devices(csv, headers)
         res['network'] = "${ip_addresses}"
-        println res
         test_item.results(res)
         test_item.verify_text_search('network_ip', "${ip_addresses}")
     }
@@ -397,6 +408,9 @@ class PrimergySpec extends LinuxSpecBase {
             disk.remove('ArrayRefs')
             logical_disks[disk_number] = "${disk}"
             disk_summary << "RAID${disk['RaidLevel']}(Stripe:${disk['Stripe']},Size:${disk['Size']})"
+            add_new_metric("disk.raid.${disk_number}", "[${disk_number}] RAIDレベル", "'" + disk['RaidLevel'] + "'", results)
+            add_new_metric("disk.size.${disk_number}", "[${disk_number}] 論理ディスク容量", size_label, results)
+            add_new_metric("disk.stripe.${disk_number}", "[${disk_number}] ストライピングサイズ", stripe_label, results)
         }
         results['disk'] = "${disk_summary}"
 
@@ -405,10 +419,11 @@ class PrimergySpec extends LinuxSpecBase {
         raid_infos['Arrays']['Array'].each { disk ->
             csv << ['drive', logical_disks[disk['@Number']]]
             disk['PhysicalDiskRefs']['PhysicalDiskRef'].each {
-                csv << ['drive_physical', physical_disks[it['@Number']]]
+                def id = it['@Number']
+                csv << ['drive_physical', physical_disks[id]]
+                add_new_metric("disk.drive.${id}", "[${id}] ドライブ構成", physical_disks[id], results)
             }
         }
-        // print "RESULT:$results"
         test_item.devices(csv, headers)
         test_item.results(results)
     }
@@ -496,6 +511,9 @@ class PrimergySpec extends LinuxSpecBase {
             it.remove('TrapDestinations')
             results['snmp_dest'] = "${trap_dests}"
             it.each { item,value ->
+                if (item == 'ServicePort') {
+                    value = "'${value}'"
+                }
                 results["Snmp.${item}"] = "${value}"
             }
         }
