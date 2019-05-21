@@ -524,7 +524,7 @@ class CiscoUCS extends InfraTestSpec {
             csv << values
             def ip_address = info['v4-addr']
             if (ip_address && ip_address != '127.0.0.1') {
-                test_item.lookuped_port_list(ip_address, "CiscoCIMC${row}")
+                test_item.admin_port_list(ip_address, "CiscoCIMC${row}")
                 add_new_metric("network.ip.${row}",     "[${row}] IP", ip_address, res)
                 add_new_metric("network.subnet.${row}", "[${row}] サブネット", info['v4-netmask'], res)
                 add_new_metric("network.gw.${row}",     "[${row}] ゲートウェイ", info['v4-gateway'], res)

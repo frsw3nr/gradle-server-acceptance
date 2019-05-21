@@ -129,8 +129,7 @@ class ConfigTestEnvironment {
     }
 
     def get_cmdb_config_path() {
-        def project_home = this.get_getconfig_home()
-        println this.config?.db_config
+        def getconfig_home = this.get_getconfig_home()
 
         return this.config?.db_config ?: "${getconfig_home}/config/cmdb.groovy"
         // return "${project_home}/config/cmdb.groovy"
