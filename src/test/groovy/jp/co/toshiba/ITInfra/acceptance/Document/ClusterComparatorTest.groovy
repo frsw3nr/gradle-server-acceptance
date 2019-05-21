@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
-// gradle --daemon test --tests "ClusterComparatorTest.比較結果のExcel更新"
+// gradle --daemon test --tests "ClusterComparatorTest.結果の比較"
 
 class ClusterComparatorTest extends Specification {
     TestScenario test_scenario
