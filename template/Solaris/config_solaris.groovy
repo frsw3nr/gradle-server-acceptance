@@ -4,8 +4,8 @@ evidence.source = './template/Solaris/Solarisチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/Solarisチェックシート_<date>.xlsx'
- evidence.target='./build/solaris_check_sheet.xlsx'
+evidence.target='./build/Solarisチェックシート_<date>.xlsx'
+// evidence.target='./build/solaris_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 evidence.staging_dir='./build/log'
