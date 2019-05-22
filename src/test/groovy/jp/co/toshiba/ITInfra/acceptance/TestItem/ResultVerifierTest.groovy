@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "ResultVerifierTest.結果の検証"
+// gradle --daemon test --tests "ResultVerifierTest.数値の検証"
 
 class ResultVerifierTest extends Specification {
 
@@ -48,22 +48,41 @@ class ResultVerifierTest extends Specification {
         // test_item.test_results['uname'].value == 'ostrich'
     }
 
-    def "数値の検証"() {
+    def "数値検証"() {
         setup:
-        def test_item_number = new TestItem(test_id  : 'cpu')
-        test_item_number.platform = 'Linux'
-        test_item_number.verify_test = true
-        test_item_number.server_info = ['cpu' : '4']
+        def test = new TestItem(test_id : 'cpu', verify_test: true)
+        test.server_info = ['cpu' : parameterA]
+        test.verify_number_equal('cpu', parameterB)
+        println test.test_results
 
-        when:
-        test_item_number.results('4')
-        test_item_number.verify_number_equal('cpu', 4)
+        expect:
+        test?.test_results['cpu']?.verify == expectedValue
 
-        then:
-        1 == 1
-        println test_item.test_results
-        // test_item.test_results['uname'].verify != null
-        // test_item.test_results['uname'].value == 'ostrich'
+        where:
+        expectedValue   || parameterA | parameterB
+        ResultStatus.OK || '4'        | '4'
+        ResultStatus.NG || '4'        | '2'
+        null            || '4'        | null
+        null            || null       | '4'
+    }
+
+    def "数値検証小なり"() {
+        setup:
+        def test = new TestItem(test_id : 'cpu', verify_test: true)
+        test.server_info = ['cpu' : parameterA]
+        test.verify_number_lower('cpu', parameterB)
+        println test.test_results
+
+        expect:
+        test?.test_results['cpu']?.verify == expectedValue
+
+        where:
+        expectedValue   || parameterA | parameterB
+        ResultStatus.OK || '4'        | '4'
+        ResultStatus.OK || '4'        | '2'
+        ResultStatus.NG || '4'        | '6'
+        null            || '4'        | 'Hoge'
+        null            || null       | '4'
     }
 
     // def "エラーメッセージ"() {
