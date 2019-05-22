@@ -5,6 +5,7 @@ import groovy.transform.ToString
 import groovy.transform.InheritConstructors
 import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.TestItem
 import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 // @Slf4j
@@ -15,18 +16,15 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 @Slf4j
 @ToString(includePackage = false)
 @InheritConstructors
-class TestItem extends TestUtility {
+class ResultVerifier extends TestUtility {
 
+    TestItem test_item
     String platform
     String test_id
     Boolean verify_test
     def server_info = [:]
-    LinkedHashMap<String,TestResult> test_results = [:]
-    LinkedHashMap<String,PortList> port_lists = [:]
-
-    TestResultRegister test_register    = new TestResultRegister(this)
-    PortListRegister port_list_register = new PortListRegister(this)
-    ResultVerifier result_verifier      = new ResultVerifier(this)
+    // LinkedHashMap<String,TestResult> test_results = [:]
+    // LinkedHashMap<String,PortList> port_lists = [:]
 
     @ToString(includePackage = false)
     class CheckResult {
@@ -34,73 +32,71 @@ class TestItem extends TestUtility {
         String error_msg
     }
 
+    ResultVerifier(TestItem test_item) {
+        this.test_item = test_item
+    }
+
     // TestResult make_test_result(String metric_name, Object value) {
-    //     test_register.make_test_result(metric_name, value)
-    //     // def test_result = this.test_results?."${metric_name}" ?:
-    //     //                   new TestResult(name: metric_name)
-    //     // def value_str = "$value"
-    //     // test_result.value = value_str
-    //     // test_result.status = ResultStatus.OK
-    //     // if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '') {
-    //     //     test_result.status = ResultStatus.WARNING
-    //     //     test_result.error_msg = 'Not found'
-    //     // }
-    //     // this.test_results[metric_name] = test_result
+    //     def test_result = test_item.test_results?."${metric_name}" ?:
+    //                       new TestResult(name: metric_name)
+    //     def value_str = "$value"
+    //     test_result.value = value_str
+    //     test_result.status = ResultStatus.OK
+    //     if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '') {
+    //         test_result.status = ResultStatus.WARNING
+    //         test_result.error_msg = 'Not found'
+    //     }
+    //     test_item.test_results[metric_name] = test_result
     // }
 
     // TestResult make_status(String metric_name, Boolean status_ok) {
-    //     def test_result = this.test_results?."${metric_name}" ?:
+    //     def test_result = test_item.test_results?."${metric_name}" ?:
     //                       new TestResult(name: metric_name)
     //     test_result.status = (status_ok) ? ResultStatus.OK : ResultStatus.NG
-    //     this.test_results[metric_name] = test_result
+    //     test_item.test_results[metric_name] = test_result
     // }
 
     // def set_base_verify(Boolean verify_ok) {
-    //     def base_result = this.test_results?."${this.test_id}"
+    //     def base_result = test_item.test_results?."${test_item.test_id}"
     //     if (!base_result) {
-    //         base_result = new TestResult(name: this.test_id, verify: ResultStatus.OK)
-    //         this.test_results."${this.test_id}" = base_result
+    //         base_result = new TestResult(name: test_item.test_id, verify: ResultStatus.OK)
+    //         test_item.test_results."${test_item.test_id}" = base_result
     //     }
     //     if (!verify_ok) {
     //         base_result.verify = ResultStatus.NG
     //     }
     // } 
 
-    TestResult make_verify(String metric_name, Boolean verify_ok, String error_msg = null) {
-        test_register.make_verify(metric_name, verify_ok, error_msg)
-        // this.set_base_verify(verify_ok)
-        // def test_result = this.test_results?."${metric_name}" ?:
-        //                   new TestResult(name: metric_name)
-        // test_result.verify = (verify_ok) ? ResultStatus.OK : ResultStatus.NG
-        // test_result.error_msg = error_msg
-        // this.test_results[metric_name] = test_result
-    }
+    // TestResult make_verify(String metric_name, Boolean verify_ok, String error_msg = null) {
+    //     this.set_base_verify(verify_ok)
+    //     def test_result = test_item.test_results?."${metric_name}" ?:
+    //                       new TestResult(name: metric_name)
+    //     test_result.verify = (verify_ok) ? ResultStatus.OK : ResultStatus.NG
+    //     test_result.error_msg = error_msg
+    //     test_item.test_results[metric_name] = test_result
+    // }
 
-    def results(Object value = null) {
-        test_register.results(value)
-        // this.make_test_result(this.test_id, value)
-    }
+    // def results(Object value = null) {
+    //     this.make_test_result(test_item.test_id, value)
+    // }
 
-    def results(Map values) {
-        test_register.results(values)
-        // values.each { metric_name, value ->
-        //     if (value == '[:]')     // Aboid withDefault{[:]} null object check
-        //         return
-        //     this.make_test_result(metric_name, value)
-        // }
-    }
+    // def results(Map values) {
+    //     values.each { metric_name, value ->
+    //         if (value == '[:]')     // Aboid withDefault{[:]} null object check
+    //             return
+    //         this.make_test_result(metric_name, value)
+    //     }
+    // }
 
-    def status(Boolean status_ok) {
-        test_register.status(status_ok)
-        // this.make_status(this.test_id, status_ok)
-    }
+    // def status(Boolean status_ok) {
+    //     this.make_status(test_item.test_id, status_ok)
+    // }
 
-    def status(Map status_oks) {
-        test_register.status(status_oks)
-        // status_oks.each { metric_name, status_ok ->
-        //     this.make_status(metric_name, status_ok)
-        // }
-    }
+    // def status(Map status_oks) {
+    //     status_oks.each { metric_name, status_ok ->
+    //         this.make_status(metric_name, status_ok)
+    //     }
+    // }
 
     // def port_list(String ip, 
     //               String description = null,
@@ -135,99 +131,90 @@ class TestItem extends TestUtility {
     //     this.port_lists[ip] = _port_list
     // }
 
-    def lookuped_port_list(String ip, 
-                         String description = null,
-                         String mac         = null,
-                         String vendor      = null,
-                         String switch_name = null,
-                         String netmask     = null,
-                         String subnet      = null,
-                         String port_no     = null,
-                         String device_type = null) {
-        port_list_register.lookuped_port_list(ip, description, mac, vendor, switch_name, 
-            netmask, subnet, port_no, device_type)
-    }
+    // def lookuped_port_list(String ip, 
+    //                      String description = null,
+    //                      String mac         = null,
+    //                      String vendor      = null,
+    //                      String switch_name = null,
+    //                      String netmask     = null,
+    //                      String subnet      = null,
+    //                      String port_no     = null,
+    //                      String device_type = null) {
+    //     this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true)
+    // }
 
-    def admin_port_list(String ip, 
-                        String description = null,
-                        String mac         = null,
-                        String vendor      = null,
-                        String switch_name = null,
-                        String netmask     = null,
-                        String subnet      = null,
-                        String port_no     = null,
-                        String device_type = null) {
-        port_list_register.admin_port_list(ip, description, mac, vendor, switch_name, 
-            netmask, subnet, port_no, device_type)
-        // this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true, true)
-    }
+    // def admin_port_list(String ip, 
+    //                     String description = null,
+    //                     String mac         = null,
+    //                     String vendor      = null,
+    //                     String switch_name = null,
+    //                     String netmask     = null,
+    //                     String subnet      = null,
+    //                     String port_no     = null,
+    //                     String device_type = null) {
+    //     this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true, true)
+    // }
 
-    def error_msg(String error_msg) {
-        test_register.error_msg(error_msg)
-        // def metric_name = this.test_id
-        // def test_result = this.test_results?."${metric_name}" ?:
-        //                   new TestResult(name: metric_name)
-        // test_result.error_msg = error_msg
-        // this.test_results[metric_name] = test_result
-    }
+    // def error_msg(String error_msg) {
+    //     def metric_name = test_item.test_id
+    //     def test_result = test_item.test_results?."${metric_name}" ?:
+    //                       new TestResult(name: metric_name)
+    //     test_result.error_msg = error_msg
+    //     test_item.test_results[metric_name] = test_result
+    // }
 
-    def verify(Boolean status_ok) {
-        test_register.verify(status_ok)
-        // this.make_verify(this.test_id, status_ok)
-    }
+    // def verify(Boolean status_ok) {
+    //     this.make_verify(test_item.test_id, status_ok)
+    // }
 
-    def verify(Map status_oks) {
-        test_register.verify(status_oks)
-        // status_oks.each { metric_name, status_ok ->
-        //     if (status_ok == '[:]')     // Aboid withDefault{[:]} null object check
-        //         return
-        //     this.make_verify(metric_name, status_ok)
-        // }
-    }
+    // def verify(Map status_oks) {
+    //     status_oks.each { metric_name, status_ok ->
+    //         if (status_ok == '[:]')     // Aboid withDefault{[:]} null object check
+    //             return
+    //         this.make_verify(metric_name, status_ok)
+    //     }
+    // }
 
-    def devices(List csv, List header) {
-        test_register.devices(csv, header)
-        // def test_result = this.test_results[this.test_id] ?:
-        //                   new TestResult(name: this.test_id)
-        // def test_result_line = new TestResultLine(csv : csv, header : header)
-        // test_result.devices = test_result_line
-        // test_result.status = ResultStatus.OK
-        // // if (csv == null || csv.size() == 0)
-        // //     test_result.status = ResultStatus.NG
-        // this.test_results[this.test_id] = test_result
-    }
+    // def devices(List csv, List header) {
+    //     def test_result = test_item.test_results[test_item.test_id] ?:
+    //                       new TestResult(name: test_item.test_id)
+    //     def test_result_line = new TestResultLine(csv : csv, header : header)
+    //     test_result.devices = test_result_line
+    //     test_result.status = ResultStatus.OK
+    //     // if (csv == null || csv.size() == 0)
+    //     //     test_result.status = ResultStatus.NG
+    //     test_item.test_results[test_item.test_id] = test_result
+    // }
 
     def target_info(String item, String platform = null) {
-        result_verifier.target_info(item, platform)
-        // if (!platform)
-        //     platform = this.platform
-        // item = item.toLowerCase()
-        // if (this.server_info.containsKey(item)) {
-        //     def value = this.server_info[item]
-        //     if (value != null && !value.empty)
-        //         return value
-        // }
-        // if (!this.server_info.containsKey(platform) ||
-        //     !this.server_info[platform].containsKey(item)) {
-        //     return
-        // }
-        // return this.server_info[platform][item]
+        if (!platform)
+            platform = test_item.platform
+        item = item.toLowerCase()
+        if (test_item.server_info.containsKey(item)) {
+            def value = test_item.server_info[item]
+            if (value != null && !value.empty)
+                return value
+        }
+        if (!test_item.server_info.containsKey(platform) ||
+            !test_item.server_info[platform].containsKey(item)) {
+            return
+        }
+        return test_item.server_info[platform][item]
     }
 
     def verify_text_search(String item_name, String value) {
-        result_verifier.verify_text_search(item_name, value)
-        // def test_value = this.target_info(item_name)
-        // if (this.verify_test && test_value) {
-        //     def check = (value =~ /$test_value/) as boolean
-        //     def isok = (check)?'OK':'NG'
-        //     log.info "Check ${item_name}, ${isok}"
-        //     def error_msg
-        //     if (!check) {
-        //         error_msg = "'${value}' !=~ /${test_value}/"
-        //         log.info "Check ${item_name}, ${isok}, ${error_msg}"
-        //     }
-        //     this.make_verify(item_name, check, error_msg)
-        // }
+        def test_value = this.target_info(item_name)
+        if (test_item.verify_test && test_value) {
+            def check = (value =~ /$test_value/) as boolean
+            def isok = (check)?'OK':'NG'
+            log.info "Check ${item_name}, ${isok}"
+            def error_msg
+            if (!check) {
+                error_msg = "'${value}' !=~ /${test_value}/"
+                log.info "Check ${item_name}, ${isok}, ${error_msg}"
+            }
+            test_item.make_verify(item_name, check, error_msg)
+        }
     }
 
     def to_number(Object value) {
@@ -422,7 +409,7 @@ class TestItem extends TestUtility {
             if (!check) {
                 error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
                 log.info error_msg
-                this.make_verify(this.test_id, check)
+                this.make_verify(test_item.test_id, check)
             }
             this.make_verify(item_name, check, ng_msg)
         }
@@ -478,8 +465,8 @@ class TestItem extends TestUtility {
     def make_summary_text(Map result_labels) {
         def result_summarys = [:]
         result_labels.each { label_key, result_label ->
-            [label_key, "${this.test_id}.${label_key}"].find { result_label_key ->
-                def found = this.test_results?."${result_label_key}"
+            [label_key, "${test_item.test_id}.${label_key}"].find { result_label_key ->
+                def found = test_item.test_results?."${result_label_key}"
                 // println "KEY:${result_label_key}, FOUND:${found}"
                 if (found != null) {
                     def value = make_abbreviation(found.value)
