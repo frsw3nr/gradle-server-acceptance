@@ -16,7 +16,7 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 @Slf4j
 @ToString(includePackage = false)
 @InheritConstructors
-class ResultVerifier extends TestUtility {
+class ResultVerifier {
 
     TestItem test_item
     String platform
@@ -77,24 +77,24 @@ class ResultVerifier extends TestUtility {
     // }
 
     // def results(Object value = null) {
-    //     this.make_test_result(test_item.test_id, value)
+    //     test_item.make_test_result(test_item.test_id, value)
     // }
 
     // def results(Map values) {
     //     values.each { metric_name, value ->
     //         if (value == '[:]')     // Aboid withDefault{[:]} null object check
     //             return
-    //         this.make_test_result(metric_name, value)
+    //         test_item.make_test_result(metric_name, value)
     //     }
     // }
 
     // def status(Boolean status_ok) {
-    //     this.make_status(test_item.test_id, status_ok)
+    //     test_item.make_status(test_item.test_id, status_ok)
     // }
 
     // def status(Map status_oks) {
     //     status_oks.each { metric_name, status_ok ->
-    //         this.make_status(metric_name, status_ok)
+    //         test_item.make_status(metric_name, status_ok)
     //     }
     // }
 
@@ -164,14 +164,14 @@ class ResultVerifier extends TestUtility {
     // }
 
     // def verify(Boolean status_ok) {
-    //     this.make_verify(test_item.test_id, status_ok)
+    //     test_item.make_verify(test_item.test_id, status_ok)
     // }
 
     // def verify(Map status_oks) {
     //     status_oks.each { metric_name, status_ok ->
     //         if (status_ok == '[:]')     // Aboid withDefault{[:]} null object check
     //             return
-    //         this.make_verify(metric_name, status_ok)
+    //         test_item.make_verify(metric_name, status_ok)
     //     }
     // }
 
@@ -203,7 +203,7 @@ class ResultVerifier extends TestUtility {
     }
 
     def verify_text_search(String item_name, String value) {
-        def test_value = this.target_info(item_name)
+        def test_value = test_item.target_info(item_name)
         if (test_item.verify_test && test_value) {
             def check = (value =~ /$test_value/) as boolean
             def isok = (check)?'OK':'NG'
@@ -250,22 +250,22 @@ class ResultVerifier extends TestUtility {
     }
 
     def verify_number_equal(String item_name, Object value, double err_range = 0) {
-        if (!this.verify_test)
+        if (!test_item.verify_test)
             return
-        def test_value = this.target_info(item_name)
+        def test_value = test_item.target_info(item_name)
         def check_result = this.is_difference(test_value, value, item_name, err_range)
         if (check_result != null) {
             if (!check_result.check) {
                 log.info "Check ${item_name}, NG, ${check_result.error_msg}"
             }
-            this.make_verify(item_name, check_result.check, check_result.error_msg)
+            test_item.make_verify(item_name, check_result.check, check_result.error_msg)
         }
     }
 
     def verify_number_lower(String item_name, Object value) {
-        if (!this.verify_test)
+        if (!test_item.verify_test)
             return
-        def test_value = this.target_info(item_name)
+        def test_value = test_item.target_info(item_name)
         if (!test_value)
             return
         def test_value_double = this.to_number(test_value)
@@ -282,13 +282,13 @@ class ResultVerifier extends TestUtility {
             error_msg = "'${value}' <= '${test_value}'"
             log.info "Check ${item_name}, ${isok}, ${error_msg}"
         }
-        this.make_verify(item_name, check, error_msg)
+        test_item.make_verify(item_name, check, error_msg)
     }
 
     def verify_number_higher(String item_name, Object value) {
-        if (!this.verify_test)
+        if (!test_item.verify_test)
             return
-        def test_value = this.target_info(item_name)
+        def test_value = test_item.target_info(item_name)
         if (!test_value)
             return
         def test_value_double = this.to_number(test_value)
@@ -305,13 +305,13 @@ class ResultVerifier extends TestUtility {
             error_msg = "'${value}' >= '${test_value}'"
             log.info "Check ${item_name}, ${isok}, ${error_msg}"
         }
-        this.make_verify(item_name, check, error_msg)
+        test_item.make_verify(item_name, check, error_msg)
     }
 
     def verify_text_search_map(String item_name, Map values) {
-        if (!this.verify_test)
+        if (!test_item.verify_test)
             return
-        def test_values = this.target_info(item_name)
+        def test_values = test_item.target_info(item_name)
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.info "Test value '$item_name' is not Map : $test_value"
@@ -336,14 +336,14 @@ class ResultVerifier extends TestUtility {
             if (!check) {
                 log.info "Check ${item_name}, ${isok}, ${error_msg}"
             }
-            this.make_verify(item_name, check, error_msg)
+            test_item.make_verify(item_name, check, error_msg)
         }
     }
 
     def verify_number_equal_map(String item_name, Map values, double err_range = 0) {
-        if (!this.verify_test)
+        if (!test_item.verify_test)
             return
-        def test_values = this.target_info(item_name)
+        def test_values = test_item.target_info(item_name)
         if (test_values) {
             if (!test_values instanceof Map) {
                 log.info "Test value '$item_name' is not Map : $test_value"
@@ -371,7 +371,7 @@ class ResultVerifier extends TestUtility {
             if (!check) {
                 log.info "Check ${item_name}, NG, ${ng_msg}"
             }
-            this.make_verify(item_name, check, ng_msg)
+            test_item.make_verify(item_name, check, ng_msg)
         }
     }
 
@@ -383,12 +383,12 @@ class ResultVerifier extends TestUtility {
     }
 
     def verify_text_search_list(String item_name, Object values) {
-        if (!this.verify_test)
+        if (!test_item.verify_test)
             return
-        def test_values = this.target_info(item_name)
+        def test_values = test_item.target_info(item_name)
         if (test_values) {
-            if (!test_values instanceof Map) {
-                log.info "Test value '$item_name' is not Map : $test_value"
+            if (!(test_values instanceof Map)) {
+                log.info "Test value '$item_name' is not Map : $test_values"
                 return
             }
             def ng_msg
@@ -409,9 +409,9 @@ class ResultVerifier extends TestUtility {
             if (!check) {
                 error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
                 log.info error_msg
-                this.make_verify(test_item.test_id, check)
+                test_item.make_verify(test_item.test_id, check)
             }
-            this.make_verify(item_name, check, ng_msg)
+            test_item.make_verify(item_name, check, ng_msg)
         }
     }
 

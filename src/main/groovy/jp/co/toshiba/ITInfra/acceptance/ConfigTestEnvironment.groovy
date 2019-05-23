@@ -163,6 +163,10 @@ class ConfigTestEnvironment {
         return this.config?.silent
     }
 
+    def get_auto_tag() {
+        return this.config?.auto_tag
+    }
+
     def get_verify_test() {
         return this.config?.verify_test ?: true
     }

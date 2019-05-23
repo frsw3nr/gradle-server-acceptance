@@ -3,9 +3,9 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 
-// gradle --daemon test --tests "ClusterComparatorTest.結果の比較"
+// gradle --daemon test --tests "TagGeneratorTest.結果の比較"
 
-class ClusterComparatorTest extends Specification {
+class TagGeneratorTest extends Specification {
     TestScenario test_scenario
     ConfigTestEnvironment test_env
     ExcelParser excel_parser
@@ -35,7 +35,7 @@ class ClusterComparatorTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def data_comparator = new ClusterComparator()
+        def data_comparator = new TagGenerator()
         test_scenario.accept(data_comparator)
 
         then:
@@ -60,7 +60,7 @@ class ClusterComparatorTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def data_comparator = new ClusterComparator()
+        def data_comparator = new TagGenerator()
         test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()
         test_scenario.accept(evidence_maker)

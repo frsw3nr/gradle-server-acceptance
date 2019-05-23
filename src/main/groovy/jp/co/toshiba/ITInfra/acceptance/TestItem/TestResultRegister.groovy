@@ -16,7 +16,7 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 @Slf4j
 @ToString(includePackage = false)
 @InheritConstructors
-class TestResultRegister extends TestUtility {
+class TestResultRegister {
 
     TestItem test_item
     String platform

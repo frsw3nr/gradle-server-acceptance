@@ -33,6 +33,7 @@ class TestRunner {
     int parallel_degree
     int snapshot_level
     Boolean dry_run
+    Boolean auto_tag
     Boolean verify_test
     Boolean silent
 
@@ -54,6 +55,7 @@ class TestRunner {
                 argName: '/work/project'
             a longOpt: 'archive',   args: 1, 'Archive project zip file',
                 argName: '/work/project.zip'
+            at longOpt: 'auto-tag', 'Auto tag generation'
             e longOpt: 'excel',    args: 1, 'Excel sheet path',
                 argName: 'check_sheet.xlsx'
             o longOpt: 'output',   args: 1, 'Output evidence path',
@@ -136,6 +138,9 @@ class TestRunner {
 
         if (options.v)
             this.verify_test   = !options.v
+
+        if (options.at)
+            this.auto_tag      = options.at
 
         if (options.silent)
             this.silent        = options.silent

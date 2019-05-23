@@ -21,6 +21,7 @@ class TestScheduler {
     String result_dir
     String node_dir
     Boolean verify_test
+    Boolean auto_tag
     def serialize_platforms = [:]
     def sheet_prefixes = [:]
     int parallel_degree = 0
@@ -38,6 +39,7 @@ class TestScheduler {
         this.parallel_degree = env.get_parallel_degree()
         this.snapshot_level  = env.get_snapshot_level()
         this.verify_test     = env.get_verify_test()
+        this.auto_tag        = env.get_auto_tag()
         this.sheet_prefixes  = env.get_sheet_prefixes()
     }
 
@@ -60,6 +62,11 @@ class TestScheduler {
     }
 
     def finish() {
+        if (this.auto_tag) {
+            println "AUTO TAG"
+            def tag_generator = new TagGenerator()
+            this.test_scenario.accept(tag_generator)
+        }
         def data_comparator = new DataComparator()
         this.test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()

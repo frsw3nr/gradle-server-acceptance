@@ -15,7 +15,7 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 @Slf4j
 @ToString(includePackage = false)
 @InheritConstructors
-class TestItem extends TestUtility {
+class TestItem {
 
     String platform
     String test_id
@@ -230,202 +230,213 @@ class TestItem extends TestUtility {
         // }
     }
 
-    def to_number(Object value) {
-        def value_double
-        if (value instanceof Number)
-            value_double = value as Double
-        else if (NumberUtils.isNumber(value))
-            value_double = NumberUtils.toDouble(value)
-        return value_double
-    }
+    // def to_number(Object value) {
+    //     return result_verifier.to_number(value)
+    //     // def value_double
+    //     // if (value instanceof Number)
+    //     //     value_double = value as Double
+    //     // else if (NumberUtils.isNumber(value))
+    //     //     value_double = NumberUtils.toDouble(value)
+    //     // return value_double
+    // }
 
-    CheckResult is_difference(test_value, value, String item_name, double err_range = 0) {
-        def test_value_double = this.to_number(test_value)
-        if (!test_value_double) {
-            return
-        }
-        def value_double = this.to_number(value)
-        if (value_double == null) {
-            log.info "Value '$item_name' is not number : $value"
-            return
-        }
-        def max_value = Math.max(test_value_double, value_double)
-        def differ = Math.abs(test_value_double - value_double)
-        def check = ((1.0 * differ / max_value) <= err_range) as boolean
-        def isok = (check)?'OK':'NG'
-        log.info "Check ${item_name}, ${isok}"
-        def error_msg
-        def err = (err_range == 0) ? '' : "(error range=${err_range})"
-        if (!check) {
-            error_msg = "${value} != ${test_value}${err}"
-        }
-        return new CheckResult(check: check, error_msg: error_msg)
-    }
+    // CheckResult is_difference(test_value, value, String item_name, double err_range = 0) {
+    //     return result_verifier(test_value, value, item_name, err_range)
+    //     // def test_value_double = this.to_number(test_value)
+    //     // if (!test_value_double) {
+    //     //     return
+    //     // }
+    //     // def value_double = this.to_number(value)
+    //     // if (value_double == null) {
+    //     //     log.info "Value '$item_name' is not number : $value"
+    //     //     return
+    //     // }
+    //     // def max_value = Math.max(test_value_double, value_double)
+    //     // def differ = Math.abs(test_value_double - value_double)
+    //     // def check = ((1.0 * differ / max_value) <= err_range) as boolean
+    //     // def isok = (check)?'OK':'NG'
+    //     // log.info "Check ${item_name}, ${isok}"
+    //     // def error_msg
+    //     // def err = (err_range == 0) ? '' : "(error range=${err_range})"
+    //     // if (!check) {
+    //     //     error_msg = "${value} != ${test_value}${err}"
+    //     // }
+    //     // return new CheckResult(check: check, error_msg: error_msg)
+    // }
 
     def verify_number_equal(String item_name, Object value, double err_range = 0) {
-        if (!this.verify_test)
-            return
-        def test_value = this.target_info(item_name)
-        def check_result = this.is_difference(test_value, value, item_name, err_range)
-        if (check_result != null) {
-            if (!check_result.check) {
-                log.info "Check ${item_name}, NG, ${check_result.error_msg}"
-            }
-            this.make_verify(item_name, check_result.check, check_result.error_msg)
-        }
+        result_verifier.verify_number_equal(item_name, value, err_range)
+        // if (!this.verify_test)
+        //     return
+        // def test_value = this.target_info(item_name)
+        // def check_result = this.is_difference(test_value, value, item_name, err_range)
+        // if (check_result != null) {
+        //     if (!check_result.check) {
+        //         log.info "Check ${item_name}, NG, ${check_result.error_msg}"
+        //     }
+        //     this.make_verify(item_name, check_result.check, check_result.error_msg)
+        // }
     }
 
     def verify_number_lower(String item_name, Object value) {
-        if (!this.verify_test)
-            return
-        def test_value = this.target_info(item_name)
-        if (!test_value)
-            return
-        def test_value_double = this.to_number(test_value)
-        def value_double = this.to_number(value)
-        if (value_double == null) {
-            log.info "Value '$item_name' is not number : $value"
-            return
-        }
-        def check = (value_double <= test_value_double) as boolean
-        def isok = (check)?'OK':'NG'
-        log.info "Check ${item_name}, ${isok}"
-        def error_msg
-        if (!check) {
-            error_msg = "'${value}' <= '${test_value}'"
-            log.info "Check ${item_name}, ${isok}, ${error_msg}"
-        }
-        this.make_verify(item_name, check, error_msg)
+        result_verifier.verify_number_lower(item_name, value)
+        // if (!this.verify_test)
+        //     return
+        // def test_value = this.target_info(item_name)
+        // if (!test_value)
+        //     return
+        // def test_value_double = this.to_number(test_value)
+        // def value_double = this.to_number(value)
+        // if (value_double == null) {
+        //     log.info "Value '$item_name' is not number : $value"
+        //     return
+        // }
+        // def check = (value_double <= test_value_double) as boolean
+        // def isok = (check)?'OK':'NG'
+        // log.info "Check ${item_name}, ${isok}"
+        // def error_msg
+        // if (!check) {
+        //     error_msg = "'${value}' <= '${test_value}'"
+        //     log.info "Check ${item_name}, ${isok}, ${error_msg}"
+        // }
+        // this.make_verify(item_name, check, error_msg)
     }
 
     def verify_number_higher(String item_name, Object value) {
-        if (!this.verify_test)
-            return
-        def test_value = this.target_info(item_name)
-        if (!test_value)
-            return
-        def test_value_double = this.to_number(test_value)
-        def value_double = this.to_number(value)
-        if (value_double == null) {
-            log.info "Value '$item_name' is not number : $value"
-            return
-        }
-        def check = (value_double >= test_value_double) as boolean
-        def isok = (check)?'OK':'NG'
-        log.info "Check ${item_name}, ${isok}"
-        def error_msg
-        if (!check) {
-            error_msg = "'${value}' >= '${test_value}'"
-            log.info "Check ${item_name}, ${isok}, ${error_msg}"
-        }
-        this.make_verify(item_name, check, error_msg)
+        result_verifier.verify_number_higher(item_name, value)
+        // if (!this.verify_test)
+        //     return
+        // def test_value = this.target_info(item_name)
+        // if (!test_value)
+        //     return
+        // def test_value_double = this.to_number(test_value)
+        // def value_double = this.to_number(value)
+        // if (value_double == null) {
+        //     log.info "Value '$item_name' is not number : $value"
+        //     return
+        // }
+        // def check = (value_double >= test_value_double) as boolean
+        // def isok = (check)?'OK':'NG'
+        // log.info "Check ${item_name}, ${isok}"
+        // def error_msg
+        // if (!check) {
+        //     error_msg = "'${value}' >= '${test_value}'"
+        //     log.info "Check ${item_name}, ${isok}, ${error_msg}"
+        // }
+        // this.make_verify(item_name, check, error_msg)
     }
 
     def verify_text_search_map(String item_name, Map values) {
-        if (!this.verify_test)
-            return
-        def test_values = this.target_info(item_name)
-        if (test_values) {
-            if (!test_values instanceof Map) {
-                log.info "Test value '$item_name' is not Map : $test_value"
-                return
-            }
-            def error_msg
-            def check = true
-            test_values.find { test_key, test_value ->
-                if (!values.containsKey(test_key)) {
-                    check = false
-                    error_msg = "'${test_key}' not in '${trim_values_text(values)}'"
-                    return true
-                }
-                if (!(values[test_key] =~ /$test_value/)) {
-                    check = false
-                    error_msg = "'${values[test_key]}'(${test_key}) !=~ /${test_value}/ in '${trim_values_text(values)}'"
-                    return true
-                }
-            }
-            def isok = (check)?'OK':'NG'
-            log.info "Check ${item_name}, ${isok}"
-            if (!check) {
-                log.info "Check ${item_name}, ${isok}, ${error_msg}"
-            }
-            this.make_verify(item_name, check, error_msg)
-        }
+        result_verifier.verify_text_search_map(item_name, values)
+        // if (!this.verify_test)
+        //     return
+        // def test_values = this.target_info(item_name)
+        // if (test_values) {
+        //     if (!test_values instanceof Map) {
+        //         log.info "Test value '$item_name' is not Map : $test_value"
+        //         return
+        //     }
+        //     def error_msg
+        //     def check = true
+        //     test_values.find { test_key, test_value ->
+        //         if (!values.containsKey(test_key)) {
+        //             check = false
+        //             error_msg = "'${test_key}' not in '${trim_values_text(values)}'"
+        //             return true
+        //         }
+        //         if (!(values[test_key] =~ /$test_value/)) {
+        //             check = false
+        //             error_msg = "'${values[test_key]}'(${test_key}) !=~ /${test_value}/ in '${trim_values_text(values)}'"
+        //             return true
+        //         }
+        //     }
+        //     def isok = (check)?'OK':'NG'
+        //     log.info "Check ${item_name}, ${isok}"
+        //     if (!check) {
+        //         log.info "Check ${item_name}, ${isok}, ${error_msg}"
+        //     }
+        //     this.make_verify(item_name, check, error_msg)
+        // }
     }
 
     def verify_number_equal_map(String item_name, Map values, double err_range = 0) {
-        if (!this.verify_test)
-            return
-        def test_values = this.target_info(item_name)
-        if (test_values) {
-            if (!test_values instanceof Map) {
-                log.info "Test value '$item_name' is not Map : $test_value"
-                return
-            }
-            def ng_msg
-            def check = true
-            test_values.find { test_key, test_value ->
-                if (!values.containsKey(test_key)) {
-                    check = false
-                    ng_msg = "'${test_key}' not in '${values}'"
-                    return true
-                }
-                def value = values[test_key]
-                def check_result = this.is_difference(test_value, value, item_name,
-                                                      err_range)
-                if (check_result && check_result.check == false) {
-                    check = false
-                    ng_msg = check_result.error_msg
-                    return true
-                }
-            }
-            def isok = (check)?'OK':'NG'
-            log.info "Check ${item_name}, ${isok}"
-            if (!check) {
-                log.info "Check ${item_name}, NG, ${ng_msg}"
-            }
-            this.make_verify(item_name, check, ng_msg)
-        }
+        result_verifier.verify_number_equal_map(item_name, values, err_range)
+        // if (!this.verify_test)
+        //     return
+        // def test_values = this.target_info(item_name)
+        // if (test_values) {
+        //     if (!test_values instanceof Map) {
+        //         log.info "Test value '$item_name' is not Map : $test_value"
+        //         return
+        //     }
+        //     def ng_msg
+        //     def check = true
+        //     test_values.find { test_key, test_value ->
+        //         if (!values.containsKey(test_key)) {
+        //             check = false
+        //             ng_msg = "'${test_key}' not in '${values}'"
+        //             return true
+        //         }
+        //         def value = values[test_key]
+        //         def check_result = this.is_difference(test_value, value, item_name,
+        //                                               err_range)
+        //         if (check_result && check_result.check == false) {
+        //             check = false
+        //             ng_msg = check_result.error_msg
+        //             return true
+        //         }
+        //     }
+        //     def isok = (check)?'OK':'NG'
+        //     log.info "Check ${item_name}, ${isok}"
+        //     if (!check) {
+        //         log.info "Check ${item_name}, NG, ${ng_msg}"
+        //     }
+        //     this.make_verify(item_name, check, ng_msg)
+        // }
     }
 
-    def trim_values_text(Object values) {
-        def values_text = values.toString()
-        if (values_text.size() > 100)
-            values_text = values_text.substring(0, 100) + ' ...'
-        return values_text
-    }
+    // def trim_values_text(Object values) {
+    //     result_verifier.trim_values_text(values)
+    //     // def values_text = values.toString()
+    //     // if (values_text.size() > 100)
+    //     //     values_text = values_text.substring(0, 100) + ' ...'
+    //     // return values_text
+    // }
 
     def verify_text_search_list(String item_name, Object values) {
-        if (!this.verify_test)
-            return
-        def test_values = this.target_info(item_name)
-        if (test_values) {
-            if (!test_values instanceof Map) {
-                log.info "Test value '$item_name' is not Map : $test_value"
-                return
-            }
-            def ng_msg
-            def check = true
-            def text_search_values = values.toString()
-            test_values.find { test_key, test_value ->
-                def included = (text_search_values.contains(test_key)) as boolean
-                // def included = (text_search_values =~ /$test_key/) as boolean
-                if (!included) {
-                    check = false
-                    ng_msg = "'${test_key}' not in '${trim_values_text(values)}'"
-                    return true
-                }
-            }
-            def isok = (check)?'OK':'NG'
-            log.info "Check ${item_name}, ${isok}"
-            def error_msg
-            if (!check) {
-                error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
-                log.info error_msg
-                this.make_verify(this.test_id, check)
-            }
-            this.make_verify(item_name, check, ng_msg)
-        }
+        result_verifier.verify_text_search_list(item_name, values)
+        // if (!this.verify_test)
+        //     return
+        // def test_values = this.target_info(item_name)
+        // println test_values
+        // println test_values instanceof Map
+        // if (test_values) {
+        //     if (!(test_values instanceof Map)) {
+        //         log.info "Test value '$item_name' is not Map : $test_values"
+        //         return
+        //     }
+        //     def ng_msg
+        //     def check = true
+        //     def text_search_values = values.toString()
+        //     test_values.find { test_key, test_value ->
+        //         def included = (text_search_values.contains(test_key)) as boolean
+        //         // def included = (text_search_values =~ /$test_key/) as boolean
+        //         if (!included) {
+        //             check = false
+        //             ng_msg = "'${test_key}' not in '${trim_values_text(values)}'"
+        //             return true
+        //         }
+        //     }
+        //     def isok = (check)?'OK':'NG'
+        //     log.info "Check ${item_name}, ${isok}"
+        //     def error_msg
+        //     if (!check) {
+        //         error_msg = "Check ${item_name}, ${isok}, ${ng_msg}"
+        //         log.info error_msg
+        //         this.make_verify(this.test_id, check)
+        //     }
+        //     this.make_verify(item_name, check, ng_msg)
+        // }
     }
 
     def sql_rows_to_csv(List rows, List header = null) {

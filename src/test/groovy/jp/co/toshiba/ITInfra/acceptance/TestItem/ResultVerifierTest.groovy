@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-// gradle --daemon test --tests "ResultVerifierTest.数値の検証"
+// gradle --daemon test --tests "ResultVerifierTest.数値検証小なり"
 
 class ResultVerifierTest extends Specification {
 
@@ -12,16 +12,6 @@ class ResultVerifierTest extends Specification {
     TestTarget test_target
 
     def setup() {
-        // test_target = new TestTarget(
-        //     name              : 'ostrich',
-        //     ip                : '192.168.10.1',
-        //     domain            : 'Linux',
-        //     os_account_id     : 'Test',
-        //     remote_account_id : 'Test',
-        //     remote_alias      : 'ostrich',
-        //     template_id       : 'Linux',
-        // )
-
         def test_metrics = [
             'uname': new TestMetric(name : 'uname', enabled : true),
             'cpu'  : new TestMetric(name : 'cpu', enabled : true),
@@ -34,7 +24,6 @@ class ResultVerifierTest extends Specification {
             'name' : 'ostrich001',
         ]
     }
-
 
     def "テキストの検証"() {
         when:
@@ -85,106 +74,73 @@ class ResultVerifierTest extends Specification {
         null            || null       | '4'
     }
 
-    // def "エラーメッセージ"() {
-    //     when:
-    //     test_item.results('ostrich')
-    //     test_item.error_msg('ERROR_MESSAGE')
+    def "数値検証大なり"() {
+        setup:
+        def test = new TestItem(test_id : 'cpu', verify_test: true)
+        test.server_info = ['cpu' : parameterA]
+        test.verify_number_higher('cpu', parameterB)
+        println test.test_results
 
-    //     then:
-    //     test_item.test_results['uname'].error_msg == 'ERROR_MESSAGE'
-    // }
+        expect:
+        test?.test_results['cpu']?.verify == expectedValue
 
-    // def "複数検査結果登録"() {
-    //     when:
-    //     test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        where:
+        expectedValue   || parameterA | parameterB
+        ResultStatus.OK || '4'        | '4'
+        ResultStatus.OK || '4'        | '6'
+        ResultStatus.NG || '4'        | '2'
+        null            || '4'        | 'Hoge'
+        null            || null       | '4'
+    }
 
-    //     then:
-    //     test_item.test_results['uname'].value == 'ostrich'
-    //     test_item.test_results['cpu'].value == '3'
-    // }
+    def "マップテキストの検証"() {
+        setup:
+        def test = new TestItem(test_id : 'test_map', verify_test: true)
+        test.server_info = ['test_map' : parameterA]
+        test.verify_text_search_map('test_map', parameterB)
 
-    // def "空の結果登録"() {
-    //     when:
-    //     test_item.results()
+        expect:
+        test?.test_results['test_map']?.verify == expectedValue
 
-    //     then:
-    //     test_item.test_results['uname'].status == ResultStatus.WARNING
-    // }
+        where:
+        expectedValue   || parameterA                         | parameterB
+        ResultStatus.OK || ['key1':'value1', 'key2':'value2'] | ['key1':'value1', 'key2':'value2']
+        ResultStatus.NG || ['key1':'value1', 'key2':'value2'] | ['key1':'hoge', 'key3':'value2']
+        ResultStatus.NG || ['key1':'value1', 'key2':'value2'] | ['key3':'value2']
+    }
 
-    // def "空の複数結果登録"() {
-    //     when:
-    //     test_item.results(['uname' : '[]', 'cpu' : '', 'lsb' : null])
+    def "マップ値の検証"() {
+        setup:
+        def test = new TestItem(test_id : 'test_map', verify_test: true)
+        test.server_info = ['test_map' : parameterA]
+        test.verify_number_equal_map('test_map', parameterB)
 
-    //     then:
-    //     test_item.test_results['uname'].status == ResultStatus.WARNING
-    //     test_item.test_results['cpu'].status == ResultStatus.WARNING
-    //     test_item.test_results['lsb'].status == ResultStatus.WARNING
-    // }
+        expect:
+        test?.test_results['test_map']?.verify == expectedValue
 
-    // def "結果登録"() {
-    //     when:
-    //     test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
-    //     test_item.status(['cpu' : false, 'lsb' : true])
+        where:
+        expectedValue   || parameterA               | parameterB
+        ResultStatus.OK || ['key1':'4', 'key2':'2'] | ['key1':'4', 'key2':'2']
+        ResultStatus.NG || ['key1':'4', 'key2':'2'] | ['key1':'4', 'key2':'3']
+        ResultStatus.NG || ['key1':'4', 'key2':'2'] | ['key3':'4']
+    }
 
-    //     then:
-    //     test_item.test_results['cpu'].status == ResultStatus.NG
-    //     test_item.test_results['lsb'].status == ResultStatus.OK
-    // }
+    def "リストの検証"() {
+        setup:
+        def test = new TestItem(test_id : 'test_list', verify_test: true)
+        test.server_info = ['test_list' : parameterA]
+        test.verify_text_search_list('test_list', parameterB)
 
-    // def "検証結果登録"() {
-    //     when:
-    //     test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
-    //     test_item.verify(['cpu' : false, 'lsb' : true])
+        expect:
+        test?.test_results['test_list']?.verify == expectedValue
 
-    //     then:
-    //     test_item.test_results['cpu'].verify == ResultStatus.NG
-    //     test_item.test_results['lsb'].verify == ResultStatus.OK
-    // }
+        where:
+        expectedValue   || parameterA            | parameterB
+        ResultStatus.OK || ["a":1, "b":1, "c":1] | ["a", "b", "c"]
+        ResultStatus.OK || ["a":1, "b":1, "c":1] | ["a", "b", "c", "d"]
+        ResultStatus.NG || ["a":1, "b":1, "c":1] | ["a", "b"]
+        null || ["a", "b", "c"] | ["a":1, "b":1]
+    }
 
-    // def "検証結果サマリ"() {
-    //     when:
-    //     test_item.test_id = 'os'
-    //     test_item.verify(['cpu' : true, 'lsb' : true])
-
-    //     then:
-    //     test_item.test_results['os'].verify == ResultStatus.OK
-    // }
-
-    // def "検証結果サマリ NG"() {
-    //     when:
-    //     test_item.test_id = 'os'
-    //     test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
-    //     test_item.verify(['cpu' : false, 'lsb' : true])
-
-    //     then:
-    //     test_item.test_results['os'].verify == ResultStatus.NG
-
-    // }
-
-    // def "デバイス登録"() {
-    //     setup:
-    //     def csv = [['col1': 1, 'col2': 2, 'col3': 3],
-    //                ['col1': 4, 'col2': 5, 'col3': 6],
-    //               ]
-    //     def header = ['col1', 'col2', 'col3']
-
-    //     when:
-    //     test_item.devices(csv, header)
-
-    //     then:
-    //     test_item.test_results['uname'].devices != null
-    // }
-
-    // def "サマリ登録"() {
-    //     when:
-    //     test_item.test_id = 'os'
-    //     test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
-    //     test_item.make_summary_text('uname' : 'HOSTNAME', 'cpu' : '#CPU')
-
-    //     then:
-    //     println(test_item.test_results['os'])
-    //     test_item.test_results['os'].value == '[HOSTNAME:ostrich, #CPU:3]'
-    //     test_item.test_results['cpu'].value == '3'
-    // }
 
 }

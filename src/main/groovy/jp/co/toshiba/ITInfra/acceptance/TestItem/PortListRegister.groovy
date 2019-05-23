@@ -16,7 +16,7 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 @Slf4j
 @ToString(includePackage = false)
 @InheritConstructors
-class PortListRegister extends TestUtility {
+class PortListRegister {
 
     TestItem test_item
     String platform
