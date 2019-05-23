@@ -1,5 +1,6 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
 import groovy.transform.ToString
@@ -12,12 +13,14 @@ import groovy.json.*
 
 @Slf4j
 @Singleton
+// @CompileStatic
 class Config {
     def configs = [:]
-    def date = new Date().format("yyyyMMdd_HHmmss")
-    final encryption_mode = 'Blowfish'
+    // def date = new Date().format("yyyyMMdd_HHmmss")
+    final String date_format = "yyyyMMdd_HHmmss"
+    final String encryption_mode = 'Blowfish'
 
-    def readConfigFile(String config_file, String keyword = null)
+    String readConfigFile(String config_file, String keyword = null)
         throws IOException, IllegalArgumentException {
         new File(config_file).with {
             def decrypte_file_name = it.name.replaceAll(/-encrypted$/, "")
@@ -34,12 +37,12 @@ class Config {
         if (!configs[config_file]) {
             def config_data = readConfigFile(config_file, keyword)
             def config = new ConfigSlurper().parse(config_data)
+            def date = new Date().format(this.date_format)
             (config['evidence']).with { evidence ->
                 ['target', 'staging_dir', 'csv_export'].each {
                     if (evidence[it]) {
                         evidence[it + '_original'] = evidence[it]
-                        evidence[it] = evidence[it].replaceAll(
-                                                 /<date>/, this.date)
+                        evidence[it] = evidence[it].replaceAll(/<date>/, date)
                     }
                 }
             }
@@ -137,14 +140,14 @@ class Config {
         }
     }
 
-    def encryptData(byte[] bytes, SecretKeySpec key) {
+    byte[] encryptData(byte[] bytes, SecretKeySpec key) {
       def cph = Cipher.getInstance(encryption_mode)
       cph.init(Cipher.ENCRYPT_MODE, key)
 
       return cph.doFinal(bytes)
     }
 
-    def decryptData(byte[] bytes, SecretKeySpec key) {
+    byte[] decryptData(byte[] bytes, SecretKeySpec key) {
       def cph = Cipher.getInstance(encryption_mode)
       cph.init(Cipher.DECRYPT_MODE, key)
 
