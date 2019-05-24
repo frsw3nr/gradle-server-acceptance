@@ -72,6 +72,7 @@ dependencies {
     compile 'de.lmu.ifi.dbs.elki:elki-core-util:0.7.5'
     compile 'de.lmu.ifi.dbs.elki:elki-clustering:0.7.5'
 
+    // testCompile 'org.gperfutils:gprof:0.3.1-groovy-2.4'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.12'
 }

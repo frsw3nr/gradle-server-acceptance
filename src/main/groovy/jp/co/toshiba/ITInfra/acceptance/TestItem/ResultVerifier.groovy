@@ -8,23 +8,12 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.TestItem
 import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
-// @Slf4j
-// @ToString(includePackage = false)
-// @InheritConstructors
-// class LinuxSpecBase extends InfraTestSpec {
-
 @Slf4j
 @ToString(includePackage = false)
 @InheritConstructors
 class ResultVerifier {
 
     TestItem test_item
-    String platform
-    String test_id
-    Boolean verify_test
-    def server_info = [:]
-    // LinkedHashMap<String,TestResult> test_results = [:]
-    // LinkedHashMap<String,PortList> port_lists = [:]
 
     @ToString(includePackage = false)
     class CheckResult {
@@ -35,156 +24,6 @@ class ResultVerifier {
     ResultVerifier(TestItem test_item) {
         this.test_item = test_item
     }
-
-    // TestResult make_test_result(String metric_name, Object value) {
-    //     def test_result = test_item.test_results?."${metric_name}" ?:
-    //                       new TestResult(name: metric_name)
-    //     def value_str = "$value"
-    //     test_result.value = value_str
-    //     test_result.status = ResultStatus.OK
-    //     if (value == null || value_str == '[:]' || value_str == '[]' || value_str == '') {
-    //         test_result.status = ResultStatus.WARNING
-    //         test_result.error_msg = 'Not found'
-    //     }
-    //     test_item.test_results[metric_name] = test_result
-    // }
-
-    // TestResult make_status(String metric_name, Boolean status_ok) {
-    //     def test_result = test_item.test_results?."${metric_name}" ?:
-    //                       new TestResult(name: metric_name)
-    //     test_result.status = (status_ok) ? ResultStatus.OK : ResultStatus.NG
-    //     test_item.test_results[metric_name] = test_result
-    // }
-
-    // def set_base_verify(Boolean verify_ok) {
-    //     def base_result = test_item.test_results?."${test_item.test_id}"
-    //     if (!base_result) {
-    //         base_result = new TestResult(name: test_item.test_id, verify: ResultStatus.OK)
-    //         test_item.test_results."${test_item.test_id}" = base_result
-    //     }
-    //     if (!verify_ok) {
-    //         base_result.verify = ResultStatus.NG
-    //     }
-    // } 
-
-    // TestResult make_verify(String metric_name, Boolean verify_ok, String error_msg = null) {
-    //     this.set_base_verify(verify_ok)
-    //     def test_result = test_item.test_results?."${metric_name}" ?:
-    //                       new TestResult(name: metric_name)
-    //     test_result.verify = (verify_ok) ? ResultStatus.OK : ResultStatus.NG
-    //     test_result.error_msg = error_msg
-    //     test_item.test_results[metric_name] = test_result
-    // }
-
-    // def results(Object value = null) {
-    //     test_item.make_test_result(test_item.test_id, value)
-    // }
-
-    // def results(Map values) {
-    //     values.each { metric_name, value ->
-    //         if (value == '[:]')     // Aboid withDefault{[:]} null object check
-    //             return
-    //         test_item.make_test_result(metric_name, value)
-    //     }
-    // }
-
-    // def status(Boolean status_ok) {
-    //     test_item.make_status(test_item.test_id, status_ok)
-    // }
-
-    // def status(Map status_oks) {
-    //     status_oks.each { metric_name, status_ok ->
-    //         test_item.make_status(metric_name, status_ok)
-    //     }
-    // }
-
-    // def port_list(String ip, 
-    //               String description = null,
-    //               String mac         = null,
-    //               String vendor      = null,
-    //               String switch_name = null,
-    //               String netmask     = null,
-    //               String subnet      = null,
-    //               String port_no     = null,
-    //               String device_type = null,
-    //               Boolean lookup     = null,
-    //               Boolean managed    = null,
-    //               PortType port_type = null) {
-    //     def _port_list = this.port_lists?."${ip}" ?:
-    //                      new PortList(ip : ip, 
-    //                                   description : description, 
-    //                                   mac :         mac, 
-    //                                   vendor :      vendor, 
-    //                                   switch_name : switch_name, 
-    //                                   netmask :     netmask,
-    //                                   subnet :      subnet,
-    //                                   port_no :     port_no,
-    //                                   device_type : device_type,
-    //                                   lookup :      lookup,
-    //                                   managed :     managed,
-    //                                   port_type :   port_type, 
-    //                                  )
-    //     if (lookup != null)
-    //         _port_list.lookup = lookup
-    //     if (managed != null)
-    //         _port_list.managed = managed
-    //     this.port_lists[ip] = _port_list
-    // }
-
-    // def lookuped_port_list(String ip, 
-    //                      String description = null,
-    //                      String mac         = null,
-    //                      String vendor      = null,
-    //                      String switch_name = null,
-    //                      String netmask     = null,
-    //                      String subnet      = null,
-    //                      String port_no     = null,
-    //                      String device_type = null) {
-    //     this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true)
-    // }
-
-    // def admin_port_list(String ip, 
-    //                     String description = null,
-    //                     String mac         = null,
-    //                     String vendor      = null,
-    //                     String switch_name = null,
-    //                     String netmask     = null,
-    //                     String subnet      = null,
-    //                     String port_no     = null,
-    //                     String device_type = null) {
-    //     this.port_list(ip, description, mac, vendor, switch_name, netmask, subnet, port_no, device_type, true, true)
-    // }
-
-    // def error_msg(String error_msg) {
-    //     def metric_name = test_item.test_id
-    //     def test_result = test_item.test_results?."${metric_name}" ?:
-    //                       new TestResult(name: metric_name)
-    //     test_result.error_msg = error_msg
-    //     test_item.test_results[metric_name] = test_result
-    // }
-
-    // def verify(Boolean status_ok) {
-    //     test_item.make_verify(test_item.test_id, status_ok)
-    // }
-
-    // def verify(Map status_oks) {
-    //     status_oks.each { metric_name, status_ok ->
-    //         if (status_ok == '[:]')     // Aboid withDefault{[:]} null object check
-    //             return
-    //         test_item.make_verify(metric_name, status_ok)
-    //     }
-    // }
-
-    // def devices(List csv, List header) {
-    //     def test_result = test_item.test_results[test_item.test_id] ?:
-    //                       new TestResult(name: test_item.test_id)
-    //     def test_result_line = new TestResultLine(csv : csv, header : header)
-    //     test_result.devices = test_result_line
-    //     test_result.status = ResultStatus.OK
-    //     // if (csv == null || csv.size() == 0)
-    //     //     test_result.status = ResultStatus.NG
-    //     test_item.test_results[test_item.test_id] = test_result
-    // }
 
     def target_info(String item, String platform = null) {
         if (!platform)
@@ -413,70 +252,6 @@ class ResultVerifier {
             }
             test_item.make_verify(item_name, check, ng_msg)
         }
-    }
-
-    def sql_rows_to_csv(List rows, List header = null) {
-        def header_keys = [:]
-        def csv = []
-        rows.each { row ->
-            def list = []
-            row.each { column_name, value ->
-                list << value
-                if (!header_keys.containsKey(column_name))
-                    header_keys[column_name] = true
-            }
-            csv << list
-        }
-        def headers = header_keys.keySet()
-        if (header)
-            headers = header
-        def text = "${headers.join('\t')}\n"
-        csv.each { line ->
-            text += "${line.join('\t')}\n"
-        }
-        return text
-    }
-
-    def parse_csv(String lines) {
-        def header = []
-        def csv = []
-        def rownum = 1
-        lines.eachLine { line ->
-            def arr = line.split('\t')
-            if (rownum == 1)
-                header = arr
-            else
-                csv << arr
-            rownum ++
-        }
-        return [header, csv]
-    }
-
-    def make_abbreviation(String value) {
-        if (value == 'False') {
-            return '0'
-        } else if (value == 'True') {
-            return '1'
-        } else {
-            return value
-        }
-    }
-
-    def make_summary_text(Map result_labels) {
-        def result_summarys = [:]
-        result_labels.each { label_key, result_label ->
-            [label_key, "${test_item.test_id}.${label_key}"].find { result_label_key ->
-                def found = test_item.test_results?."${result_label_key}"
-                // println "KEY:${result_label_key}, FOUND:${found}"
-                if (found != null) {
-                    def value = make_abbreviation(found.value)
-                    result_summarys[result_label] = value
-                    return true
-                }
-            }
-        }
-        def summary_text = (result_summarys) ? "${result_summarys}" : "Not Found"
-        this.results(summary_text)
     }
 
 }

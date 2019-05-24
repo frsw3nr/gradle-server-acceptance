@@ -55,20 +55,6 @@ public enum ResultCellStyle {
     NOTEST,
 }
 
-        // // short black = IndexedColors.BLACK.getIndex();
-        // def black = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00))
-
-// public enum CellColor {
-//     BLACK(0),
-//     WHITE(1),
-//     LIGHT_GREEN(2),
-//     LIGHT_TURQUOISE(3),
-//     LEMON_CHIFFON(4),
-//     ROSE(5),
-//     RED(6),
-//     GREY_25_PERCENT(7),
-// }
-
 @Slf4j
 @ToString(includePackage = false)
 class ExcelSheetMaker {
@@ -90,17 +76,6 @@ class ExcelSheetMaker {
     final COLOR_ROSE            = new XSSFColor(new java.awt.Color(0xFF, 0x99, 0xCC))
     final COLOR_RED             = new XSSFColor(new java.awt.Color(0xFF, 0x00, 0x00))
     final COLOR_GREY_25_PERCENT = new XSSFColor(new java.awt.Color(0xC0, 0xC0, 0xC0))
-
-    // def init_cell_colors() {
-    //     colors[CellColor.BLACK]           = new XSSFColor(new java.awt.Color(0x00, 0x00, 0x00));
-    //     colors[CellColor.WHITE]           = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0xFF));
-    //     colors[CellColor.LIGHT_GREEN]     = new XSSFColor(new java.awt.Color(0x80, 0xFF, 0x80));
-    //     colors[CellColor.LIGHT_TURQUOISE] = new XSSFColor(new java.awt.Color(0xCC, 0xFF, 0xFF));
-    //     colors[CellColor.LEMON_CHIFFON]   = new XSSFColor(new java.awt.Color(0xFF, 0xFF, 0x99));
-    //     colors[CellColor.ROSE]            = new XSSFColor(new java.awt.Color(0xFF, 0x99, 0xCC));
-    //     colors[CellColor.RED]             = new XSSFColor(new java.awt.Color(0xFF, 0x00, 0x00));
-    //     colors[CellColor.GREY_25_PERCENT] = new XSSFColor(new java.awt.Color(0xC0, 0xC0, 0xC0));
-    // }
 
     def output(String evidence_excel) {
         long start = System.currentTimeMillis()
@@ -240,126 +215,126 @@ class ExcelSheetMaker {
         }
     }
 
-    def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
-        def workbook = excel_parser.workbook
-        // Font font = workbook.createFont();
-        // font.setFontName("ＭＳ Ｐゴシック");
-        def result_position = sheet_design.sheet_parser.result_pos
-        // println "ROW:$sheet_design.sheet_row"
-        def row_style  = workbook.createCellStyle().setWrapText(false)
-        sheet_design.sheet.with { sheet ->
-            def summary_results = sheet_summary.results
+    // def write_sheet_summary(SheetSummary sheet_summary, SheetDesign sheet_design) {
+    //     def workbook = excel_parser.workbook
+    //     // Font font = workbook.createFont();
+    //     // font.setFontName("ＭＳ Ｐゴシック");
+    //     def result_position = sheet_design.sheet_parser.result_pos
+    //     // println "ROW:$sheet_design.sheet_row"
+    //     def row_style  = workbook.createCellStyle().setWrapText(false)
+    //     sheet_design.sheet.with { sheet ->
+    //         def summary_results = sheet_summary.results
 
-            def targets = sheet_summary.cols.keySet() as String[]
-            write_sheet_header(sheet, result_position, targets)
+    //         def targets = sheet_summary.cols.keySet() as String[]
+    //         write_sheet_header(sheet, result_position, targets)
 
-            def rownum = 0
-            def last_rownum = 0
-            sheet_design.sheet_row.each { platform_metric_key, metric_seq ->
-                rownum = metric_seq + result_position[0]
-                Row row = sheet.getRow(rownum)
-                if (row == null)
-                    return
-                def platform = platform_metric_key[0]
-                def metric   = platform_metric_key[1]
-                if (!platform && !metric)
-                    return
-                last_rownum = rownum
-                def added_metrics = sheet_summary.added_rows[platform, metric]
-                if (added_metrics) {
-                    println "ADD NEW METRIC: ${metric}, ${added_metrics}"
-                    added_metrics.each { platform_metric_key2, test_metric ->
-                        def platform2 = platform_metric_key2[0]
-                        def metric2 = platform_metric_key2[1]
-                        row = sheet.getRow(rownum)
-                        // Row row = sheet.getRow(rownum)
-                        if (row == null)
-                            row = sheet.createRow(rownum)
-                        def colnum = 0
-                        ['', '', '', metric2, platform2, '', test_metric.description].each { label ->
-                            Cell cell_metric = row.createCell(colnum)
-                            write_cell_summary(cell_metric, new TestResult(value: label), true)
-                            colnum ++
-                        }
-                        row.setRowStyle(row_style)
-                        sheet_summary.cols.each { target, column_index ->
-                            colnum = column_index + result_position[1] - 1
-                            sheet.setColumnWidth(colnum, evidence_cell_width)
-                            Cell cell = row.createCell(colnum)
-                            def test_result = summary_results[platform2][metric2][target] as TestResult
-                            println "ADDED SHEET2:$metric,$rownum, $target, $column_index, ${test_result}"
-                            try {
-                                write_cell_summary(cell, test_result)
-                            } catch (NullPointerException e) {
-                                log.debug "Not found row ${platform2},${metric2}"
-                            }
-                        }
-                        rownum ++
-                    }
-                }
-                row.setRowStyle(row_style)
-                println "SHEET:$metric,$rownum"
-                sheet_summary.cols.each { target, column_index ->
-                    def colnum = column_index + result_position[1] - 1
-                    sheet.setColumnWidth(colnum, evidence_cell_width)
-                    Cell cell = row.createCell(colnum)
-                    def test_result = summary_results[platform][metric][target] as TestResult
-                    println "SHEET2:$metric,$rownum, $target, $column_index, ${test_result}"
-                    try {
-                        write_cell_summary(cell, test_result)
-                    } catch (NullPointerException e) {
-                        log.debug "Not found row ${platform},${metric}"
-                    }
-                }
-            }
-            rownum = last_rownum + 1
-            // sheet_summary.added_rows.each { platform_metric_key, test_metric ->
-            //     def platform = platform_metric_key[0]
-            //     def metric = platform_metric_key[1]
-            //     Row row = sheet.getRow(rownum)
-            //     if (row == null)
-            //         row = sheet.createRow(rownum)
-            //     def colnum = 0
-            //     ['', metric, '', platform, '', test_metric.description].each { label ->
-            //         Cell cell_metric = row.createCell(colnum)
-            //         write_cell_summary(cell_metric, new TestResult(value: label), true)
-            //         colnum ++
-            //     }
-            //     row.setRowStyle(row_style)
-            //     sheet_summary.cols.each { target, column_index ->
-            //         colnum = column_index + result_position[1] - 1
-            //         sheet.setColumnWidth(colnum, evidence_cell_width)
-            //         Cell cell = row.createCell(colnum)
-            //         def test_result = summary_results[platform][metric][target] as TestResult
-            //         try {
-            //             write_cell_summary(cell, test_result)
-            //         } catch (NullPointerException e) {
-            //             log.debug "Not found row ${platform},${metric}"
-            //         }
-            //     }
-            //     rownum ++
-            // }
-            // sheet_design.sheet_row.each { platform_metric_key, rownum ->
-            //     Row row = sheet.getRow(rownum + result_position[0])
-            //     if (row == null)
-            //         return
-            //     row.setRowStyle(row_style)
-            //     sheet_summary.cols.each { target, column_index ->
-            //         def colnum = column_index + result_position[1] - 1
-            //         sheet.setColumnWidth(colnum, evidence_cell_width)
-            //         Cell cell = row.createCell(colnum)
-            //         def platform = platform_metric_key[0]
-            //         def metric = platform_metric_key[1]
-            //         def test_result = summary_results[platform][metric][target] as TestResult
-            //         try {
-            //             write_cell_summary(cell, test_result)
-            //         } catch (NullPointerException e) {
-            //             log.debug "Not found row ${platform},${metric}"
-            //         }
-            //     }
-            // }
-        }
-    }
+    //         def rownum = 0
+    //         def last_rownum = 0
+    //         sheet_design.sheet_row.each { platform_metric_key, metric_seq ->
+    //             rownum = metric_seq + result_position[0]
+    //             Row row = sheet.getRow(rownum)
+    //             if (row == null)
+    //                 return
+    //             def platform = platform_metric_key[0]
+    //             def metric   = platform_metric_key[1]
+    //             if (!platform && !metric)
+    //                 return
+    //             last_rownum = rownum
+    //             def added_metrics = sheet_summary.added_rows[platform, metric]
+    //             if (added_metrics) {
+    //                 println "ADD NEW METRIC: ${metric}, ${added_metrics}"
+    //                 added_metrics.each { platform_metric_key2, test_metric ->
+    //                     def platform2 = platform_metric_key2[0]
+    //                     def metric2 = platform_metric_key2[1]
+    //                     row = sheet.getRow(rownum)
+    //                     // Row row = sheet.getRow(rownum)
+    //                     if (row == null)
+    //                         row = sheet.createRow(rownum)
+    //                     def colnum = 0
+    //                     ['', '', '', metric2, platform2, '', test_metric.description].each { label ->
+    //                         Cell cell_metric = row.createCell(colnum)
+    //                         write_cell_summary(cell_metric, new TestResult(value: label), true)
+    //                         colnum ++
+    //                     }
+    //                     row.setRowStyle(row_style)
+    //                     sheet_summary.cols.each { target, column_index ->
+    //                         colnum = column_index + result_position[1] - 1
+    //                         sheet.setColumnWidth(colnum, evidence_cell_width)
+    //                         Cell cell = row.createCell(colnum)
+    //                         def test_result = summary_results[platform2][metric2][target] as TestResult
+    //                         println "ADDED SHEET2:$metric,$rownum, $target, $column_index, ${test_result}"
+    //                         try {
+    //                             write_cell_summary(cell, test_result)
+    //                         } catch (NullPointerException e) {
+    //                             log.debug "Not found row ${platform2},${metric2}"
+    //                         }
+    //                     }
+    //                     rownum ++
+    //                 }
+    //             }
+    //             row.setRowStyle(row_style)
+    //             println "SHEET:$metric,$rownum"
+    //             sheet_summary.cols.each { target, column_index ->
+    //                 def colnum = column_index + result_position[1] - 1
+    //                 sheet.setColumnWidth(colnum, evidence_cell_width)
+    //                 Cell cell = row.createCell(colnum)
+    //                 def test_result = summary_results[platform][metric][target] as TestResult
+    //                 println "SHEET2:$metric,$rownum, $target, $column_index, ${test_result}"
+    //                 try {
+    //                     write_cell_summary(cell, test_result)
+    //                 } catch (NullPointerException e) {
+    //                     log.debug "Not found row ${platform},${metric}"
+    //                 }
+    //             }
+    //         }
+    //         rownum = last_rownum + 1
+    //         // sheet_summary.added_rows.each { platform_metric_key, test_metric ->
+    //         //     def platform = platform_metric_key[0]
+    //         //     def metric = platform_metric_key[1]
+    //         //     Row row = sheet.getRow(rownum)
+    //         //     if (row == null)
+    //         //         row = sheet.createRow(rownum)
+    //         //     def colnum = 0
+    //         //     ['', metric, '', platform, '', test_metric.description].each { label ->
+    //         //         Cell cell_metric = row.createCell(colnum)
+    //         //         write_cell_summary(cell_metric, new TestResult(value: label), true)
+    //         //         colnum ++
+    //         //     }
+    //         //     row.setRowStyle(row_style)
+    //         //     sheet_summary.cols.each { target, column_index ->
+    //         //         colnum = column_index + result_position[1] - 1
+    //         //         sheet.setColumnWidth(colnum, evidence_cell_width)
+    //         //         Cell cell = row.createCell(colnum)
+    //         //         def test_result = summary_results[platform][metric][target] as TestResult
+    //         //         try {
+    //         //             write_cell_summary(cell, test_result)
+    //         //         } catch (NullPointerException e) {
+    //         //             log.debug "Not found row ${platform},${metric}"
+    //         //         }
+    //         //     }
+    //         //     rownum ++
+    //         // }
+    //         // sheet_design.sheet_row.each { platform_metric_key, rownum ->
+    //         //     Row row = sheet.getRow(rownum + result_position[0])
+    //         //     if (row == null)
+    //         //         return
+    //         //     row.setRowStyle(row_style)
+    //         //     sheet_summary.cols.each { target, column_index ->
+    //         //         def colnum = column_index + result_position[1] - 1
+    //         //         sheet.setColumnWidth(colnum, evidence_cell_width)
+    //         //         Cell cell = row.createCell(colnum)
+    //         //         def platform = platform_metric_key[0]
+    //         //         def metric = platform_metric_key[1]
+    //         //         def test_result = summary_results[platform][metric][target] as TestResult
+    //         //         try {
+    //         //             write_cell_summary(cell, test_result)
+    //         //         } catch (NullPointerException e) {
+    //         //             log.debug "Not found row ${platform},${metric}"
+    //         //         }
+    //         //     }
+    //         // }
+    //     }
+    // }
 
     // Write Summary sheet Header
     def write_sheet_summary_header(sheet, SheetSummary sheet_summary, SheetDesign sheet_design) {

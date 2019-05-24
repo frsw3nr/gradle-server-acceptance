@@ -30,6 +30,7 @@ ToDo:
         * ポートリスト登録　PortListRegister [x]
         * 結果の検証　ResultVerifier [x]
     * テスト [x]
+* StaticCompile 移行 [ ]
 * 値のチェックルーチンドキュメント化 [ ]
 
 Bug fixes:

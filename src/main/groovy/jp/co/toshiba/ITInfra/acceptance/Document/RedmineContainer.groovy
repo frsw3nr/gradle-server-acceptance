@@ -38,30 +38,30 @@ class RedmineContainer {
         return this
     }
 
-    def generate_server_sheet(TestRunner test_runner)
-        throws IOException, IllegalArgumentException {
-        set_default_config(test_runner.config_file)
-        def filters
-        if (silent) {
-            def default_filter_options = redmine_config?.default_filter_options
-            if (!default_filter_options)
-                throw new IllegalArgumentException("Not found 'default_filter_options' "+
-                                                   "in config.groovy")
-            filters = get_default_filter_options(default_filter_options)
-        } else {
-            filters   = input_filter_options()
-        }
-        log.info "FILTER: ${filters}"
-        def redmine_server_infos = get_issues(filters)
-        log.info "ISSUES: ${redmine_server_infos}"
-        if (!redmine_server_infos) {
-            log.info 'Not found target servers.'
-            return
-        }
-        def evidence_sheet = new EvidenceSheet(test_runner.config_file)
-        evidence_sheet.evidence_source = test_runner.sheet_file
-        evidence_sheet.updateTestTargetSheet(redmine_server_infos)
-    }
+    // def generate_server_sheet(TestRunner test_runner)
+    //     throws IOException, IllegalArgumentException {
+    //     set_default_config(test_runner.config_file)
+    //     def filters
+    //     if (silent) {
+    //         def default_filter_options = redmine_config?.default_filter_options
+    //         if (!default_filter_options)
+    //             throw new IllegalArgumentException("Not found 'default_filter_options' "+
+    //                                                "in config.groovy")
+    //         filters = get_default_filter_options(default_filter_options)
+    //     } else {
+    //         filters   = input_filter_options()
+    //     }
+    //     log.info "FILTER: ${filters}"
+    //     def redmine_server_infos = get_issues(filters)
+    //     log.info "ISSUES: ${redmine_server_infos}"
+    //     if (!redmine_server_infos) {
+    //         log.info 'Not found target servers.'
+    //         return
+    //     }
+    //     def evidence_sheet = new EvidenceSheet(test_runner.config_file)
+    //     evidence_sheet.evidence_source = test_runner.sheet_file
+    //     evidence_sheet.updateTestTargetSheet(redmine_server_infos)
+    // }
 
     def set_default_config(String config_file) {
         def config = Config.instance.read(config_file)

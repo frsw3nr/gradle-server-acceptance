@@ -2,8 +2,9 @@ import spock.lang.Specification
 import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
+// import groovyx.gprof.*
 
-// gradle --daemon test --tests "TestRunnerTest.実行オプション"
+// gradle --daemon test --tests "TestRunnerTest.スケジュール実行"
 
 class TestRunnerTest extends Specification {
 
