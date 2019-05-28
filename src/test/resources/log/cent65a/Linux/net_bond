@@ -1,0 +1,12 @@
+DEVICE=bond0
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.19.11
+NETMASK=255.255.248.0
+BONDING_OPTS="mode=1 primary=eth0 miimon=100 updelay=100"
+DEVICE="bond0:1"
+ONBOOT=no
+BOOTPROTO=static
+IPADDR=192.168.19.12
+NETMASK=255.255.248.0
+BONDING_OPTS="mode=1 primary=eth0 miimon=100 updelay=100"

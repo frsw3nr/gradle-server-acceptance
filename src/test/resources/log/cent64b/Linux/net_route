@@ -1,0 +1,4 @@
+192.186.248.0/21 dev bond0  proto kernel  scope link  src 192.186.248.102 
+192.168.24.0/21 dev bond0  proto kernel  scope link  src 192.168.24.178 
+169.254.0.0/16 dev bond0  scope link  metric 1006 
+default via 192.168.24.1 dev bond0 

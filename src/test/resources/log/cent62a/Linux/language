@@ -1,0 +1,1 @@
+ro root=UUID=00df792e-365e-4efc-83ce-0631c4599029 rd_NO_LUKS rd_NO_MD crashkernel=131M@0M  KEYBOARDTYPE=pc KEYTABLE=jp106 LANG=ja_JP.UTF-8 rd_NO_LVM rd_NO_DM rhgb quiet
