@@ -42,13 +42,13 @@ $log_path = Join-Path $log_dir "vmext"
  Select Name,CpuHotAddEnabled,MemoryReservationLockedToMax,MemoryHotAddEnabled | `
  Format-List | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "datastore"
-Get-Datastore -VM win2012 | FL | Out-File $log_path -Encoding UTF8
+Get-Datastore -VM null | FL | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vm_storage"
  Get-Harddisk -VM $vm | `
  select Parent, Filename,CapacityGB, StorageFormat, DiskType | `
  Format-List | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vmnet"
-Get-NetworkAdapter -VM win2012 | FL | Out-File $log_path -Encoding UTF8
+Get-NetworkAdapter -VM null | FL | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vmwaretool"
 Get-VM $vm | `
  Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion | `

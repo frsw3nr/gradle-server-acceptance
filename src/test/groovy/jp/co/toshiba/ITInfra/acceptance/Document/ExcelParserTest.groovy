@@ -345,7 +345,7 @@ class ExcelParserTest extends Specification {
 
     def "サマリシート更新2"() {
         setup:
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        def excel_parser = new ExcelParser('src/test/resources/サーバチェックシート.xlsx')
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
