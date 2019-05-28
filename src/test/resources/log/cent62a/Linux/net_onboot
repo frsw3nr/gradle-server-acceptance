@@ -1,0 +1,5 @@
+ifcfg-bond0:ONBOOT=yes
+ifcfg-bond0:1:ONBOOT=no
+ifcfg-eth1:ONBOOT=no
+ifcfg-eth3:ONBOOT=no
+ifcfg-lo:ONBOOT=yes

@@ -1,0 +1,1 @@
+ro root=UUID=266f1b73-875b-46cd-abcd-f0e43887ad9f rd_NO_LUKS nodmraid rd_NO_MD crashkernel=131M@0M  KEYBOARDTYPE=pc KEYTABLE=jp106 LANG=ja_JP.UTF-8 rd_NO_LVM rd_NO_DM rhgb quiet

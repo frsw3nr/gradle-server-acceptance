@@ -63,7 +63,6 @@ class TestScheduler {
 
     def finish() {
         if (this.auto_tag) {
-            println "AUTO TAG"
             def tag_generator = new TagGenerator()
             this.test_scenario.accept(tag_generator)
         }

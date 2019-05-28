@@ -37,7 +37,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 
-// gradle --daemon test --tests "ExcelParserTest.シート読み込み"
+// gradle --daemon test --tests "ExcelParserTest.サマリシート更新"
 
 class ExcelParserTest extends Specification {
 
@@ -338,6 +338,42 @@ class ExcelParserTest extends Specification {
                 fos.close()
             }
         }
+
+        then:
+        1 == 1
+    }
+
+    def "サマリシート更新2"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        def test_result_reader = new TestResultReader(
+                                         result_dir: 'src/test/resources/json')
+        test_result_reader. read_entire_result(test_scenario)
+        def domain_targets = test_scenario.get_domain_targets()
+        // 検査対象のステータスを強制的に FINISH に変更
+        domain_targets.each { domain, domain_target ->
+            domain_target.each { target, test_target ->
+                test_target.target_status = RunStatus.FINISH
+            }
+        }
+
+        when:
+        def data_comparator = new DataComparator()
+        test_scenario.accept(data_comparator)
+        def evidence_maker = new EvidenceMaker()
+        test_scenario.accept(evidence_maker)
+        def report_maker = new ReportMaker()
+        ConfigTestEnvironment.instance.accept(report_maker)
+        test_scenario.accept(report_maker)
+        def excel_sheet_maker = new ExcelSheetMaker(
+                                    excel_parser: excel_parser,
+                                    evidence_maker: evidence_maker,
+                                    report_maker: report_maker)
+        excel_sheet_maker.output('build/check_sheet2.xlsx')
 
         then:
         1 == 1
