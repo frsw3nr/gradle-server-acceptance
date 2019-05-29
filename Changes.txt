@@ -36,6 +36,17 @@ ToDo:
     * コーディング指針作成 [ ]
     * IDE検討。インスペクタ、@CompileStatic 支援 [ ]
 * 値のチェックルーチンドキュメント化 [ ]
+* Solaris telnet セッションシナリオ追加 [ ]
+    * 変更範囲検討 [ ]
+    * InfraTestSpec に TelnetSpecBase.groovy を追加。SolarisSpecを分離 [ ]
+        * telnet用 [ ]
+            * setup_exec_telnet [ ]
+            * init_telnet_session [ ]
+            * run_telnet_command  [ ]
+        * 既存修正 [ ]
+            * setup_exec [ ]
+            * run_ssh_command [ ]
+    * XSCF 修正 [ ]
 
 Bug fixes:
 * 比較対象を指定したケースで、テスト結果JSON出力で比較対象のJSONも上書きされる問題対処
