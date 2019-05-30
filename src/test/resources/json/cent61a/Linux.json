@@ -503,9 +503,27 @@
         "verify": null,
         "comparision": null
     },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[bond0:192.168.129.117/23, bond0:1:192.168.129.118/23, lo:127.0.0.1/8, eth0:null, eth1:null]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "OK",
+        "comparision": null
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[bond0:255.255.254.0, bond0:1:255.255.254.0]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "network": {
         "name": "network",
-        "value": "[lo, eth0, eth1, bond0, bond0:1]",
+        "value": "[bond0, bond0:1, lo, eth0, eth1]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -563,15 +581,6 @@
                 "subnet"
             ]
         }
-    },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": null,
-        "status": null,
-        "verify": "OK",
-        "comparision": null
     },
     "block_device": {
         "name": "block_device",

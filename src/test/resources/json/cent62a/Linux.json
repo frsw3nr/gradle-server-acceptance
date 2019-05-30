@@ -118,7 +118,7 @@
     },
     "proxy_global": {
         "name": "proxy_global",
-        "value": "proxy=http://133.199.251.110:8080",
+        "value": "proxy=http://192.168.251.110:8080",
         "error_msg": null,
         "compare_server": "cent61a",
         "status": "OK",
@@ -521,9 +521,27 @@
         "verify": null,
         "comparision": "UNMATCH"
     },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[bond0:192.168.37.184/20, bond0:1:192.168.32.103/20, lo:127.0.0.1/8, eth0:null, eth1:null, eth2:null, eth3:null]",
+        "error_msg": null,
+        "compare_server": "cent61a",
+        "status": "OK",
+        "verify": "OK",
+        "comparision": "UNMATCH"
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[bond0:255.255.240.0, bond0:1:255.255.240.0]",
+        "error_msg": null,
+        "compare_server": "cent61a",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
     "network": {
         "name": "network",
-        "value": "[lo, eth0, eth1, eth2, eth3, bond0, bond0:1]",
+        "value": "[bond0, bond0:1, lo, eth0, eth1, eth2, eth3]",
         "error_msg": null,
         "compare_server": "cent61a",
         "status": "OK",
@@ -597,15 +615,6 @@
                 "subnet"
             ]
         }
-    },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": "cent61a",
-        "status": null,
-        "verify": "OK",
-        "comparision": "MATCH"
     },
     "block_device": {
         "name": "block_device",

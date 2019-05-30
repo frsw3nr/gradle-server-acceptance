@@ -11,7 +11,7 @@
     "port_list": {
         "192.168.0.24": {
             "ip": "192.168.0.24",
-            "description": null,
+            "description": "e1iexpress",
             "mac": null,
             "vendor": null,
             "switch_name": null,

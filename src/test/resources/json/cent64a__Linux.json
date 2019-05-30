@@ -2,7 +2,7 @@
     "name": "cent64a",
     "ip": "192.168.28.199",
     "template_id": "RH6",
-    "compare_server": "cent61a",
+    "compare_server": "cent65a",
     "target_status": "FINISH",
     "platforms": [
         "vCenter",

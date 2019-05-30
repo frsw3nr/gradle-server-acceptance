@@ -50,6 +50,22 @@ class TestItem {
         test_register.status(status_oks)
     }
 
+    def port_list(String ip, 
+                  String description = null,
+                  String mac         = null,
+                  String vendor      = null,
+                  String switch_name = null,
+                  String netmask     = null,
+                  String subnet      = null,
+                  String port_no     = null,
+                  String device_type = null,
+                  Boolean lookup     = null,
+                  Boolean managed    = null,
+                  PortType port_type = null) {
+        port_list_register.port_list(ip, description, mac, vendor, switch_name, 
+            netmask, subnet, port_no, device_type, lookup, managed, port_type)
+    }
+
     def lookuped_port_list(String ip, 
                          String description = null,
                          String mac         = null,

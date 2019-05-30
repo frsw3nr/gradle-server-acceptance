@@ -6,9 +6,9 @@ ToDo:
     * テストデータでの結合試験 [ ]
         * ETERNUS [ ]
         * HitachiVSP [ ]
-        * AIX [ ]
-        * RTX [ ]
-        * CiscoIOS [ ]
+        * AIX [x]
+        * RTX [x] <保留>
+        * CiscoIOS [x] <保留>
 * クラスター分析プロトタイプ [x]
     * 変更範囲検討 [x]
         * UML 更新 [x]
@@ -22,6 +22,7 @@ ToDo:
     * テストデータ作成 [ ]
       gradle --daemon test --tests "ExcelParserTest.サマリシート更新2"
     * ターゲットにタグの追加、Excelフォームのカラムグループセット [ ]
+      gradle --daemon test --tests "TagGeneratorTest.結果の比較"
     * テストシナリオのターゲットリストをクラスターID順にソート [ ]
     * 変数にn種類のカテゴリがあれば、n個のダミー変数に変換が必要。変数は0,1を指定 [ ]
 * TestItem 肥大化対策 [x]
@@ -37,15 +38,15 @@ ToDo:
     * IDE検討。インスペクタ、@CompileStatic 支援 [ ]
 * 値のチェックルーチンドキュメント化 [ ]
 * Solaris telnet セッションシナリオ追加 [ ]
-    * 変更範囲検討 [ ]
-    * InfraTestSpec に TelnetSpecBase.groovy を追加。SolarisSpecを分離 [ ]
-        * telnet用 [ ]
-            * setup_exec_telnet [ ]
-            * init_telnet_session [ ]
-            * run_telnet_command  [ ]
-        * 既存修正 [ ]
-            * setup_exec [ ]
-            * run_ssh_command [ ]
+    * 変更範囲検討 [x]
+    * InfraTestSpec に TelnetSpecBase.groovy を追加。SolarisSpecを分離 [x]
+        * telnet用 [x]
+            * setup_exec_telnet [x]
+            * init_telnet_session [x]
+            * run_telnet_command  [x]
+        * 既存修正 [x]
+            * setup_exec [x]
+            * run_ssh_command [x]
     * XSCF 修正 [ ]
 
 Bug fixes:

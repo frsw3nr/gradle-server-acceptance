@@ -3,7 +3,7 @@
     "ip": "192.168.19.11",
     "template_id": "RH6",
     "compare_server": "cent61a",
-    "target_status": "FINISH",
+    "target_status": "COMPARED",
     "platforms": [
         "vCenter",
         "Linux"

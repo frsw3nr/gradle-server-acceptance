@@ -11,7 +11,7 @@ class TagGeneratorTest extends Specification {
     ExcelParser excel_parser
 
     def setup() {
-        excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser = new ExcelParser('src/test/resources/サーバチェックシート.xlsx')
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)

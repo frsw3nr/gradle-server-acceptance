@@ -1,0 +1,13 @@
+System = SunOS
+Node = sol
+Release = 5.10
+KernelID = Generic_147148-26
+Machine = i86pc
+BusType = <unknown>
+Serial = <unknown>
+Users = <unknown>
+OEM# = 0
+Origin# = 1
+NumCPU = 1
+
+$ 

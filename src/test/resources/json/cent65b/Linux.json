@@ -3,7 +3,7 @@
         "name": "hostname",
         "value": "cent65b",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -12,7 +12,7 @@
         "name": "hostname_fqdn",
         "value": "NotConfigured",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -21,7 +21,7 @@
         "name": "uname",
         "value": "Linux cent65b 2.6.32-696.el6.x86_64 ",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -30,7 +30,7 @@
         "name": "kernel",
         "value": "Linux cent65b 2.6.32-696.el6",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -39,7 +39,7 @@
         "name": "arch",
         "value": "x86_64 ",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": "OK",
         "comparision": "MATCH"
@@ -48,7 +48,7 @@
         "name": "lsb",
         "value": "[CentOS release 6.10 (Final)]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -57,7 +57,7 @@
         "name": "os",
         "value": "CentOS release 6.10",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": "OK",
         "comparision": "MATCH"
@@ -66,7 +66,7 @@
         "name": "os_release",
         "value": "6.10",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -75,7 +75,7 @@
         "name": "machineid",
         "value": "55d32dfc1c6d29a8cbf8a9d40000000e",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -84,7 +84,7 @@
         "name": "fips",
         "value": "False",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -93,7 +93,7 @@
         "name": "virturization",
         "value": "no KVM",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -102,7 +102,7 @@
         "name": "sestatus",
         "value": "disabled",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": "OK",
         "comparision": "MATCH"
@@ -111,7 +111,7 @@
         "name": "mount_iso",
         "value": "no mount",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -120,16 +120,16 @@
         "name": "proxy_global",
         "value": "Proxy=http://proxy.your.company.co.jp:8080",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "crash_size": {
         "name": "crash_size",
         "value": "268435456",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -138,7 +138,7 @@
         "name": "kdump_path",
         "value": "/var/crash",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -147,7 +147,7 @@
         "name": "core_collector",
         "value": "makedumpfile -c --message-level 1 -d 31",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -156,16 +156,16 @@
         "name": "runlevel",
         "value": "5",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "runlevel.console": {
         "name": "runlevel.console",
         "value": "CUI",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -174,7 +174,7 @@
         "name": "resolve_conf",
         "value": "off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -183,7 +183,7 @@
         "name": "nameservers",
         "value": "[:]",
         "error_msg": "Not found",
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "WARNING",
         "verify": null,
         "comparision": "MATCH"
@@ -192,7 +192,7 @@
         "name": "keyboard",
         "value": "jp",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -201,7 +201,7 @@
         "name": "language",
         "value": "ja_JP.UTF-8",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -210,7 +210,7 @@
         "name": "grub.ipv6.disable",
         "value": "Not Found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -219,7 +219,7 @@
         "name": "grub.vga",
         "value": "Not Found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -228,7 +228,7 @@
         "name": "grub",
         "value": "ipv6.disable=Not Found,vga=Not Found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -237,7 +237,7 @@
         "name": "timezone",
         "value": "Asia/Tokyo",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -246,7 +246,7 @@
         "name": "ntp_slew",
         "value": "Disabled",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -255,7 +255,7 @@
         "name": "ntp",
         "value": "[192.168.128.59]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -264,16 +264,16 @@
         "name": "snmp_trap",
         "value": "NotConfigured",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "vmware_scsi_timeout": {
         "name": "vmware_scsi_timeout",
         "value": "Not found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -282,7 +282,7 @@
         "name": "vmwaretool_timesync",
         "value": "Not found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -291,16 +291,16 @@
         "name": "model_name",
         "value": "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "mhz": {
         "name": "mhz",
         "value": "2095.075",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -309,79 +309,79 @@
         "name": "cache_size",
         "value": "11264 KB",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "cores": {
         "name": "cores",
         "value": "8",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "cpu_total": {
         "name": "cpu_total",
         "value": "32",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "cpu_real": {
         "name": "cpu_real",
         "value": "2",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "cpu_core": {
         "name": "cpu_core",
         "value": "16",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "cpu": {
         "name": "cpu",
         "value": "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz 2 Socket 16 Core",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "meminfo": {
         "name": "meminfo",
         "value": "32392904 kB",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "mem_total": {
         "name": "mem_total",
         "value": "30.9",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "mem_free": {
         "name": "mem_free",
         "value": "22.4",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -390,7 +390,7 @@
         "name": "net_onboot",
         "value": "[bond0:yes, eth1:no, eth2:no, eth3:no, eth5:no, eth6:no, eth7:no, lo:yes]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -399,16 +399,16 @@
         "name": "net_route",
         "value": "[192.168.16.1:bond0]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "net_bond": {
         "name": "net_bond",
         "value": "[bonding:Configured, devices:[bond0], options:[mode=1 primary=eth0 miimon=100 updelay=100]]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -417,7 +417,7 @@
         "name": "network.mac.eth0",
         "value": "20:67:7c:e5:0d:4c",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -426,7 +426,7 @@
         "name": "network.mac.eth1",
         "value": "20:67:7c:e5:0d:4d",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -435,7 +435,7 @@
         "name": "network.mac.eth2",
         "value": "20:67:7c:e5:0d:4e",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -444,7 +444,7 @@
         "name": "network.mac.eth3",
         "value": "20:67:7c:e5:0d:4f",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -453,7 +453,7 @@
         "name": "network.mac.eth4",
         "value": "20:67:7c:e5:0d:4c",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -462,7 +462,7 @@
         "name": "network.mac.eth5",
         "value": "98:f2:b3:08:4f:d1",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -471,7 +471,7 @@
         "name": "network.mac.eth6",
         "value": "98:f2:b3:08:4f:d2",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -480,7 +480,7 @@
         "name": "network.mac.eth7",
         "value": "98:f2:b3:08:4f:d3",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -489,7 +489,7 @@
         "name": "network.mac.bond0",
         "value": "20:67:7c:e5:0d:4c",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -498,7 +498,7 @@
         "name": "network.ip.bond0",
         "value": "192.168.19.14",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
@@ -507,25 +507,43 @@
         "name": "network.subnet.bond0",
         "value": "255.255.248.0",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "network.ipv6_enabled": {
         "name": "network.ipv6_enabled",
         "value": "Disable",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[bond0:192.168.19.14/21, lo:127.0.0.1/8, eth0:null, eth1:null, eth2:null, eth3:null, eth4:null, eth5:null, eth6:null, eth7:null]",
+        "error_msg": null,
+        "compare_server": "cent65a",
+        "status": "OK",
+        "verify": "OK",
+        "comparision": "UNMATCH"
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[bond0:255.255.248.0]",
+        "error_msg": null,
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH"
     },
     "network": {
         "name": "network",
-        "value": "[lo, eth0, eth1, eth2, eth3, eth4, eth5, eth6, eth7, bond0]",
+        "value": "[bond0, lo, eth0, eth1, eth2, eth3, eth4, eth5, eth6, eth7]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH",
@@ -622,29 +640,20 @@
             ]
         }
     },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": "cent61a",
-        "status": null,
-        "verify": "OK",
-        "comparision": "MATCH"
-    },
     "block_device": {
         "name": "block_device",
         "value": "[sda:[timeout:30, queue_depth:1013], sdb:[timeout:30, queue_depth:352], sr0:[timeout:30, queue_depth:1]]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "mdadb": {
         "name": "mdadb",
         "value": "Personalities : unused devices: <none>",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -653,25 +662,25 @@
         "name": "fstab",
         "value": "[/, /boot, /data, swap, /dev/shm, /sys, /proc]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "fstypes": {
         "name": "fstypes",
         "value": "[ext4:[/, /boot, /data]]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "lvm": {
         "name": "lvm",
         "value": "[lvm:NotConfigured, devices:[:]]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH",
@@ -690,7 +699,7 @@
         "name": "filesystem",
         "value": "[/data:372.6G, /boot/efi:256M, /boot:1G, [SWAP]:16G, /:262.1G]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "UNMATCH",
@@ -782,97 +791,97 @@
         "name": "filesystem.capacity./data",
         "value": "372.6G",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.device./data": {
         "name": "filesystem.device./data",
         "value": "sdb1",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.type./data": {
         "name": "filesystem.type./data",
         "value": "part",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.fstype./data": {
         "name": "filesystem.fstype./data",
         "value": "ext4",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.capacity./boot/efi": {
         "name": "filesystem.capacity./boot/efi",
         "value": "256M",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.device./boot/efi": {
         "name": "filesystem.device./boot/efi",
         "value": "sda1",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.type./boot/efi": {
         "name": "filesystem.type./boot/efi",
         "value": "part",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.fstype./boot/efi": {
         "name": "filesystem.fstype./boot/efi",
         "value": "vfat",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.capacity./boot": {
         "name": "filesystem.capacity./boot",
         "value": "1G",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.device./boot": {
         "name": "filesystem.device./boot",
         "value": "sda2",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.type./boot": {
         "name": "filesystem.type./boot",
         "value": "part",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -881,7 +890,7 @@
         "name": "filesystem.fstype./boot",
         "value": "ext4",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -890,25 +899,25 @@
         "name": "filesystem.capacity.[SWAP]",
         "value": "16G",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.device.[SWAP]": {
         "name": "filesystem.device.[SWAP]",
         "value": "sda3",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.type.[SWAP]": {
         "name": "filesystem.type.[SWAP]",
         "value": "part",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -917,7 +926,7 @@
         "name": "filesystem.fstype.[SWAP]",
         "value": "",
         "error_msg": "Not found",
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "WARNING",
         "verify": null,
         "comparision": "MATCH"
@@ -926,25 +935,25 @@
         "name": "filesystem.capacity./",
         "value": "262.1G",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.device./": {
         "name": "filesystem.device./",
         "value": "sda4",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "filesystem.type./": {
         "name": "filesystem.type./",
         "value": "part",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -953,7 +962,7 @@
         "name": "filesystem.fstype./",
         "value": "ext4",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -962,10 +971,10 @@
         "name": "user",
         "value": "[root, psadmin, mysql]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": "OK",
-        "comparision": "UNMATCH",
+        "comparision": "MATCH",
         "devices": {
             "csv": [
                 [
@@ -1279,7 +1288,7 @@
         "name": "user.root.id",
         "value": "'0'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1288,7 +1297,7 @@
         "name": "user.root.home",
         "value": "/root",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1297,7 +1306,7 @@
         "name": "user.root.group",
         "value": "root",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1306,7 +1315,7 @@
         "name": "user.root.shell",
         "value": "/bin/bash",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1315,16 +1324,16 @@
         "name": "user.psadmin.id",
         "value": "'500'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "user.psadmin.home": {
         "name": "user.psadmin.home",
         "value": "/home/psadmin",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1333,7 +1342,7 @@
         "name": "user.psadmin.group",
         "value": "psadmin",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1342,7 +1351,7 @@
         "name": "user.psadmin.shell",
         "value": "/bin/bash",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1351,7 +1360,7 @@
         "name": "user.mysql.id",
         "value": "'27'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1360,7 +1369,7 @@
         "name": "user.mysql.home",
         "value": "/var/lib/mysql",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1369,7 +1378,7 @@
         "name": "user.mysql.group",
         "value": "mysql",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1378,7 +1387,7 @@
         "name": "user.mysql.shell",
         "value": "/bin/bash",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1387,10 +1396,10 @@
         "name": "service",
         "value": "71 services",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": "OK",
-        "comparision": "UNMATCH",
+        "comparision": "MATCH",
         "devices": {
             "csv": [
                 [
@@ -1688,7 +1697,7 @@
         "name": "service.NetworkManager",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1697,7 +1706,7 @@
         "name": "service.abrt-ccpp",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1706,7 +1715,7 @@
         "name": "service.abrtd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1715,7 +1724,7 @@
         "name": "service.acpid",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1724,34 +1733,34 @@
         "name": "service.ahslog",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.amsd": {
         "name": "service.amsd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.amsd_rev": {
         "name": "service.amsd_rev",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.atd": {
         "name": "service.atd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1760,7 +1769,7 @@
         "name": "service.auditd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1769,7 +1778,7 @@
         "name": "service.blk-availability",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1778,7 +1787,7 @@
         "name": "service.bluetooth",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1787,7 +1796,7 @@
         "name": "service.cgconfig",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1796,7 +1805,7 @@
         "name": "service.cgred",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1805,7 +1814,7 @@
         "name": "service.cpuspeed",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1814,7 +1823,7 @@
         "name": "service.crond",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1823,7 +1832,7 @@
         "name": "service.cups",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1832,7 +1841,7 @@
         "name": "service.dnsmasq",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1841,7 +1850,7 @@
         "name": "service.firstboot",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1850,7 +1859,7 @@
         "name": "service.haldaemon",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1859,7 +1868,7 @@
         "name": "service.htcacheclean",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1868,7 +1877,7 @@
         "name": "service.httpd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1877,7 +1886,7 @@
         "name": "service.ip6tables",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1886,7 +1895,7 @@
         "name": "service.iptables",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1895,7 +1904,7 @@
         "name": "service.irqbalance",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1904,7 +1913,7 @@
         "name": "service.kdump",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1913,7 +1922,7 @@
         "name": "service.lm_sensors",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1922,7 +1931,7 @@
         "name": "service.lvm2-monitor",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1931,7 +1940,7 @@
         "name": "service.mdmonitor",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1940,7 +1949,7 @@
         "name": "service.messagebus",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1949,7 +1958,7 @@
         "name": "service.mysqld",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1958,7 +1967,7 @@
         "name": "service.netconsole",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1967,7 +1976,7 @@
         "name": "service.netfs",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1976,7 +1985,7 @@
         "name": "service.network",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1985,7 +1994,7 @@
         "name": "service.nfs",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -1994,7 +2003,7 @@
         "name": "service.nfs-rdma",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2003,7 +2012,7 @@
         "name": "service.nfslock",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2012,7 +2021,7 @@
         "name": "service.ntpd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2021,7 +2030,7 @@
         "name": "service.ntpdate",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2030,7 +2039,7 @@
         "name": "service.portreserve",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2039,7 +2048,7 @@
         "name": "service.postfix",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2048,7 +2057,7 @@
         "name": "service.pppoe-server",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2057,7 +2066,7 @@
         "name": "service.psacct",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2066,7 +2075,7 @@
         "name": "service.quota_nld",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2075,7 +2084,7 @@
         "name": "service.rdisc",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2084,7 +2093,7 @@
         "name": "service.rdma",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2093,7 +2102,7 @@
         "name": "service.restorecond",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2102,7 +2111,7 @@
         "name": "service.rngd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2111,7 +2120,7 @@
         "name": "service.rpcbind",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2120,7 +2129,7 @@
         "name": "service.rpcgssd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2129,7 +2138,7 @@
         "name": "service.rpcsvcgssd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2138,7 +2147,7 @@
         "name": "service.rsyslog",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2147,7 +2156,7 @@
         "name": "service.saslauthd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2156,25 +2165,25 @@
         "name": "service.smad",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.smad_rev": {
         "name": "service.smad_rev",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.smartd": {
         "name": "service.smartd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2183,16 +2192,16 @@
         "name": "service.snmpd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.snmptrapd": {
         "name": "service.snmptrapd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2201,7 +2210,7 @@
         "name": "service.spice-vdagentd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2210,7 +2219,7 @@
         "name": "service.sshd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2219,7 +2228,7 @@
         "name": "service.svnserve",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2228,7 +2237,7 @@
         "name": "service.sysstat",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2237,7 +2246,7 @@
         "name": "service.udev-post",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2246,16 +2255,16 @@
         "name": "service.vncserver",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.vsftpd": {
         "name": "service.vsftpd",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2264,7 +2273,7 @@
         "name": "service.wdaemon",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2273,7 +2282,7 @@
         "name": "service.winbind",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2282,7 +2291,7 @@
         "name": "service.wpa_supplicant",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2291,25 +2300,25 @@
         "name": "service.xinetd",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.zabbix-agent": {
         "name": "service.zabbix-agent",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "service.zabbix-server": {
         "name": "service.zabbix-server",
         "value": "Off",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -2318,16 +2327,16 @@
         "name": "service.zabbixagent",
         "value": "On",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
-        "comparision": "UNMATCH"
+        "comparision": "MATCH"
     },
     "packages": {
         "name": "packages",
         "value": "[RHEL6:1292, COMMON:17]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": "OK",
         "comparision": "UNMATCH",
@@ -12820,7 +12829,7 @@
         "name": "packages.requirements",
         "value": "[dmidecode, net-snmp-libs, net-snmp-utils, strace]",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -12829,7 +12838,7 @@
         "name": "packages.RH6.dmidecode",
         "value": "'2.12'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -12838,7 +12847,7 @@
         "name": "packages.RH6.net-snmp-libs",
         "value": "'5.5'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -12847,7 +12856,7 @@
         "name": "packages.RH6.net-snmp-utils",
         "value": "'5.5'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -12856,7 +12865,7 @@
         "name": "packages.RH6.strace",
         "value": "'4.8'",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -12865,7 +12874,7 @@
         "name": "error_messages",
         "value": "Not found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH",
@@ -12882,7 +12891,7 @@
         "name": "oracle_module",
         "value": "NG",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"
@@ -12891,7 +12900,7 @@
         "name": "oracle",
         "value": "Not Found",
         "error_msg": null,
-        "compare_server": "cent61a",
+        "compare_server": "cent65a",
         "status": "OK",
         "verify": null,
         "comparision": "MATCH"

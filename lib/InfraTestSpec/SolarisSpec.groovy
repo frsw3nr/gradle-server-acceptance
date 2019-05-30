@@ -5,27 +5,131 @@ import static groovy.json.JsonOutput.*
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 // import org.hidetake.groovy.ssh.Ssh
-import ch.ethz.ssh2.Connection
+// import ch.ethz.ssh2.Connection
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 // For telnet session
-import org.apache.commons.net.telnet.EchoOptionHandler
-import org.apache.commons.net.telnet.SuppressGAOptionHandler
-import org.apache.commons.net.telnet.TelnetClient
-import org.apache.commons.net.telnet.TerminalTypeOptionHandler
-import java.io.InputStream
-import java.io.PrintStream
+// import org.apache.commons.net.telnet.EchoOptionHandler
+// import org.apache.commons.net.telnet.SuppressGAOptionHandler
+// import org.apache.commons.net.telnet.TelnetClient
+// import org.apache.commons.net.telnet.TerminalTypeOptionHandler
+// import java.io.InputStream
+// import java.io.PrintStream
+
+// @Slf4j
+// class TelnetSession {
+
+//     static java.io.InputStream tin;
+//     static java.io.PrintStream tout;
+//     // static String prompt = "XSCF>"
+//     static String prompt = '$'
+//     TelnetClient telnet
+//     def test_spec
+
+//     TelnetSession(test_spec) {
+//         this.test_spec = test_spec
+//     }
+
+//     def init_session(String ip, String user, String password) {
+//         telnet = new TelnetClient();
+
+//         try {
+//             telnet.setDefaultTimeout(1000 * timeout);
+//             telnet.connect(ip);
+//             telnet.setSoTimeout(1000 * timeout);
+//             telnet.setSoLinger(true, 1000 * timeout);
+
+//             // Get input and output stream references
+//             tin = telnet.getInputStream();
+//             tout = new PrintStream(telnet.getOutputStream());
+     
+//             // Login telnet session
+//             readUntil("login: ");
+//             write(user);
+//             // write('console');
+//             readUntil("Password: ");
+//             write(password);
+//             // write('console0');
+//             readUntil(prompt + " ");
+//         } catch (Exception e) {
+//             log.error "[Telnet Test] Init test faild.\n" + e
+//             throw new IllegalArgumentException(e)
+//         }
+//     }
+
+//     public static String readUntil(String pattern) {
+//         try {
+//             char lastChar = pattern.charAt(pattern.length() - 1);
+//             StringBuffer sb = new StringBuffer();
+//             boolean found = false;
+//             char ch = (char) tin.read();
+//             while (true) {
+//                 // System.out.print(ch);
+//                 sb.append(ch);
+//                 if (ch == lastChar) {
+//                     if (sb.toString().endsWith(pattern)) {
+//                         return sb.toString();
+//                     }
+//                 }
+//                 ch = (char) tin.read();
+//             }
+//         }
+//         catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//         return null;
+//     }
+ 
+//     public static void write(String value) {
+//         try {
+//             // tout.println(value);
+//             tout.println(value);
+//             tout.flush();
+//             // System.out.println(value);
+//         }
+//         catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//     }
+ 
+//     public static String sendCommand(String command) {
+//         try {
+//             write(command);
+//             return readUntil(prompt + " ");
+//         }
+//         catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//         return null;
+//     }
+
+//     def run_command(command, test_id, share = false) {
+//         try {
+//             def log_path
+//             this.test_spec.with {
+//                 log_path = (share) ? evidence_log_share_dir : local_dir
+//             }
+//             def result = sendCommand(command)
+//             println "COMMAND:$command,RESULT:$result"
+//             new File("${log_path}/${test_id}").text = result
+//         } catch (Exception e) {
+//             log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
+//         }
+//     }
+// }
+
 
 @Slf4j
 @InheritConstructors
 class SolarisSpec extends InfraTestSpec {
 
-    static java.io.InputStream tin;
-    static java.io.PrintStream tout;
+    // static java.io.InputStream tin;
+    // static java.io.PrintStream tout;
     // static String prompt = "XSCF>"
     static String prompt = '$'
 
@@ -46,144 +150,138 @@ class SolarisSpec extends InfraTestSpec {
         this.work_dir    = os_account['work_dir'] ?: '/tmp'
         this.use_telnet  = os_account['use_telnet'] ?: false
         this.timeout     = test_platform.timeout
-
-        println "TELNET:${this.use_telnet}"
-        // this.ip          = test_server.ip
-        // def os_account   = test_server.os_account
-        // this.os_user     = os_account['user']
-        // this.os_password = os_account['password']
-        // this.work_dir    = os_account['work_dir']
-        // this.timeout     = test_server.timeout
     }
 
-    def setup_exec_telnet(TestItem[] test_items) {
-    // def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
-        super.setup_exec()
+    // def setup_exec_telnet(TestItem[] test_items) {
+    // // def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
+    //     super.setup_exec()
 
-        if (!dry_run) {
-            init_telnet_session()
-        }
-        def con
-        test_items.each { test_item ->
-            println "TEST_ITEM:${test_item.test_id}"
-            def method = this.metaClass.getMetaMethod(test_item.test_id, Object, TestItem)
-            if (method) {
-                log.debug "Invoke command '${method.name}()'"
-                try {
-                    long start = System.currentTimeMillis();
-                    method.invoke(this, con, test_item)
-                    long elapsed = System.currentTimeMillis() - start
-                    log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-                    // test_item.succeed = 1
-                } catch (Exception e) {
-                    test_item.verify(false)
-                    log.error "[Telnet Test] Test method '${method.name}()' faild, skip.\n" + e
-                }
-            }
-        }
-    }
+    //     def con = new TelnetSession(this)
+    //     if (!dry_run) {
+    //         con.init_session(this.ip, this.os_user, this.os_password)
+    //         // init_telnet_session()
+    //     }
+    //     test_items.each { test_item ->
+    //         println "TEST_ITEM:${test_item.test_id}"
+    //         def method = this.metaClass.getMetaMethod(test_item.test_id, Object, TestItem)
+    //         if (method) {
+    //             log.debug "Invoke command '${method.name}()'"
+    //             try {
+    //                 long start = System.currentTimeMillis();
+    //                 method.invoke(this, con, test_item)
+    //                 long elapsed = System.currentTimeMillis() - start
+    //                 log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
+    //                 // test_item.succeed = 1
+    //             } catch (Exception e) {
+    //                 test_item.verify(false)
+    //                 log.error "[Telnet Test] Test method '${method.name}()' faild, skip.\n" + e
+    //             }
+    //         }
+    //     }
+    // }
 
-    def init_telnet_session() {
-        TelnetClient telnet = new TelnetClient();
+    // def init_telnet_session() {
+    //     TelnetClient telnet = new TelnetClient();
 
-        try {
-            telnet.setDefaultTimeout(1000 * timeout);
-            telnet.connect(this.ip);
-            telnet.setSoTimeout(1000 * timeout);
-            telnet.setSoLinger(true, 1000 * timeout);
+    //     try {
+    //         telnet.setDefaultTimeout(1000 * timeout);
+    //         telnet.connect(this.ip);
+    //         telnet.setSoTimeout(1000 * timeout);
+    //         telnet.setSoLinger(true, 1000 * timeout);
 
-            // Get input and output stream references
-            tin = telnet.getInputStream();
-            tout = new PrintStream(telnet.getOutputStream());
+    //         // Get input and output stream references
+    //         tin = telnet.getInputStream();
+    //         tout = new PrintStream(telnet.getOutputStream());
      
-            // Login telnet session
-            readUntil("login: ");
-            write(this.os_user);
-            // write('console');
-            readUntil("Password: ");
-            write(this.os_password);
-            // write('console0');
-            readUntil(prompt + " ");
-        } catch (Exception e) {
-            log.error "[Telnet Test] Init test faild.\n" + e
-            throw new IllegalArgumentException(e)
-        }
-    }
+    //         // Login telnet session
+    //         readUntil("login: ");
+    //         write(this.os_user);
+    //         // write('console');
+    //         readUntil("Password: ");
+    //         write(this.os_password);
+    //         // write('console0');
+    //         readUntil(prompt + " ");
+    //     } catch (Exception e) {
+    //         log.error "[Telnet Test] Init test faild.\n" + e
+    //         throw new IllegalArgumentException(e)
+    //     }
+    // }
 
-    public static String readUntil(String pattern) {
-        try {
-            char lastChar = pattern.charAt(pattern.length() - 1);
-            StringBuffer sb = new StringBuffer();
-            boolean found = false;
-            char ch = (char) tin.read();
-            while (true) {
-                // System.out.print(ch);
-                sb.append(ch);
-                if (ch == lastChar) {
-                    if (sb.toString().endsWith(pattern)) {
-                        return sb.toString();
-                    }
-                }
-                ch = (char) tin.read();
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // public static String readUntil(String pattern) {
+    //     try {
+    //         char lastChar = pattern.charAt(pattern.length() - 1);
+    //         StringBuffer sb = new StringBuffer();
+    //         boolean found = false;
+    //         char ch = (char) tin.read();
+    //         while (true) {
+    //             // System.out.print(ch);
+    //             sb.append(ch);
+    //             if (ch == lastChar) {
+    //                 if (sb.toString().endsWith(pattern)) {
+    //                     return sb.toString();
+    //                 }
+    //             }
+    //             ch = (char) tin.read();
+    //         }
+    //     }
+    //     catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
  
-    public static void write(String value) {
-        try {
-            // tout.println(value);
-            tout.println(value);
-            tout.flush();
-            // System.out.println(value);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // public static void write(String value) {
+    //     try {
+    //         // tout.println(value);
+    //         tout.println(value);
+    //         tout.flush();
+    //         // System.out.println(value);
+    //     }
+    //     catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
  
-    public static String sendCommand(String command) {
-        try {
-            write(command);
-            return readUntil(prompt + " ");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // public static String sendCommand(String command) {
+    //     try {
+    //         write(command);
+    //         return readUntil(prompt + " ");
+    //     }
+    //     catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
-    def run_telnet_command(command, test_id, share = false) {
-        try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
-            def result = sendCommand(command)
-            println "COMMAND:$command,RESULT:$result"
-            new File("${log_path}/${test_id}").text = result
-        } catch (Exception e) {
-            log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-        }
-    }
+    // def run_telnet_command(command, test_id, share = false) {
+    //     try {
+    //         def log_path = (share) ? evidence_log_share_dir : local_dir
+    //         def result = sendCommand(command)
+    //         println "COMMAND:$command,RESULT:$result"
+    //         new File("${log_path}/${test_id}").text = result
+    //     } catch (Exception e) {
+    //         log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
+    //     }
+    // }
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
-        if (this.use_telnet) {
-            return setup_exec_telnet(test_items)
-        }
+        // if (this.use_telnet) {
+        //     return setup_exec_telnet(test_items)
+        // }
 
-        def con
+        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
         def result
         if (!dry_run) {
-            con = new Connection(this.ip, 22)
-            con.connect()
-            result = con.authenticateWithPassword(this.os_user, this.os_password)
+            con.init_session(this.ip, this.os_user, this.os_password)
+            // con = new Connection(this.ip, 22)
+            // con.connect()
+            // result = con.authenticateWithPassword(this.os_user, this.os_password)
 
-            if (!result) {
-                println "connect failed"
-                return
-            }
+            // if (!result) {
+            //     println "connect failed"
+            //     return
+            // }
         }
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
@@ -235,27 +333,27 @@ class SolarisSpec extends InfraTestSpec {
         // test_item.results(results.toString())
     }
 
-    def run_ssh_command(con, command, test_id, share = false) {
-        println "TEST1"
-        if (this.use_telnet) {
-            println "TEST2"
-            return run_telnet_command(command, test_id, share)
-        }
-        println "TEST3"
-        try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
+    // def run_ssh_command(con, command, test_id, share = false) {
+    //     println "TEST1"
+    //     if (this.use_telnet) {
+    //         println "TEST2"
+    //         return run_telnet_command(command, test_id, share)
+    //     }
+    //     println "TEST3"
+    //     try {
+    //         def log_path = (share) ? evidence_log_share_dir : local_dir
 
-            def session = con.openSession()
-            session.execCommand command
-            def result = session.stdout.text
-            new File("${log_path}/${test_id}").text = result
-            session.close()
-            return result
+    //         def session = con.openSession()
+    //         session.execCommand command
+    //         def result = session.stdout.text
+    //         new File("${log_path}/${test_id}").text = result
+    //         session.close()
+    //         return result
 
-        } catch (Exception e) {
-            log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-        }
-    }
+    //     } catch (Exception e) {
+    //         log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
+    //     }
+    // }
 
     def finish() {
         super.finish()
@@ -263,16 +361,15 @@ class SolarisSpec extends InfraTestSpec {
 
     def hostname(session, test_item) {
         def lines = exec('hostname') {
-            run_ssh_command(session, 'uname -n', 'hostname')
+            session.run_command('uname -n', 'hostname')
         }
-        println lines
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
     }
 
     def hostname_fqdn(session, test_item) {
         def lines = exec('hostname_fqdn') {
-            run_ssh_command(session, 'awk \'/^domain/ {print $2}\' /etc/resolv.conf', 'hostname_fqdn')
+            session.run_command('awk \'/^domain/ {print $2}\' /etc/resolv.conf', 'hostname_fqdn')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         def info = (lines.size() > 0) ? lines : '[NotConfigured]'
@@ -281,7 +378,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def kernel(session, test_item) {
         def lines = exec('kernel') {
-            run_ssh_command(session, ' uname -X', 'kernel')
+            session.run_command(' uname -X', 'kernel')
         }
         def info = [:]
         lines.eachLine {
@@ -300,7 +397,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def cpu(session, test_item) {
         def lines = exec('cpu') {
-            run_ssh_command(session, 'kstat -p cpu_info', 'cpu')
+            session.run_command('kstat -p cpu_info', 'cpu')
         }
 
         def cpuinfo    = [:].withDefault{0}
@@ -343,7 +440,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def machineid(session, test_item) {
         def lines = exec('machineid') {
-            run_ssh_command(session, 'hostid', 'machineid')
+            session.run_command('hostid', 'machineid')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
@@ -351,7 +448,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def memory(session, test_item) {
         def lines = exec('memory') {
-            run_ssh_command(session, '/usr/sbin/prtconf |grep Memory', 'memory')
+            session.run_command('/usr/sbin/prtconf |grep Memory', 'memory')
         }
         double memory = 0
         lines.eachLine {
@@ -368,7 +465,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def swap(session, test_item) {
         def lines = exec('swap') {
-            run_ssh_command(session, '/usr/sbin/swap -s', 'swap')
+            session.run_command('/usr/sbin/swap -s', 'swap')
         }
         def headers = ['alloc', 'reserve', 'used', 'available'] as Queue
         def infos = [:]
@@ -389,7 +486,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def network(session, test_item) {
         def lines = exec('network') {
-            run_ssh_command(session, '/usr/sbin/ifconfig -a', 'network')
+            session.run_command('/usr/sbin/ifconfig -a', 'network')
         }
         def network = [:].withDefault{[:]}
         def device = ''
@@ -481,7 +578,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def net_route(session, test_item) {
         def lines = exec('net_route') {
-            run_ssh_command(session, '/usr/sbin/route -v -n get default', 'net_route')
+            session.run_command('/usr/sbin/route -v -n get default', 'net_route')
         }
         def net_route  = [:]
         def interfaces = []
@@ -513,7 +610,7 @@ class SolarisSpec extends InfraTestSpec {
     }
     def disk(session, test_item) {
         def lines = exec('disk') {
-            run_ssh_command(session, '/usr/sbin/prtpicl -v', 'disk')
+            session.run_command('/usr/sbin/prtpicl -v', 'disk')
         }
         def disks = [:].withDefault{[:]}
         def disk_seq = 0
@@ -580,7 +677,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def metastat(session, test_item) {
         def lines = exec('metastat') {
-            run_ssh_command(session, '/usr/sbin/metastat', 'metastat')
+            session.run_command('/usr/sbin/metastat', 'metastat')
         }
         def infos = 'NotConfigured'
         if (lines.size() > 0) {
@@ -592,7 +689,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def filesystem(session, test_item) {
         def lines = exec('filesystem') {
-            run_ssh_command(session, 'df -ha', 'filesystem')
+            session.run_command('df -ha', 'filesystem')
         }
 
         // Filesystem            Size  Used Avail Use% Mounted on
@@ -634,7 +731,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def zpool(session, test_item) {
         def lines = exec('zpool') {
-            run_ssh_command(session, '/usr/sbin/zpool status', 'zpool')
+            session.run_command('/usr/sbin/zpool status', 'zpool')
         }
 
         def csvs = []
@@ -669,7 +766,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def patches(session, test_item) {
         def lines = exec('patches') {
-            run_ssh_command(session, 'ls /var/sadm/patch 2>/dev/null', 'patches')
+            session.run_command('ls /var/sadm/patch 2>/dev/null', 'patches')
         }
 
         def csvs = []
@@ -685,7 +782,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def solaris11_build(session, test_item) {
         def lines = exec('solaris11_build') {
-            run_ssh_command(session, 
+            session.run_command(
                             'LANG=C /usr/bin/pkg info entire 2>/dev/null', 
                             'solaris11_build')
         }
@@ -709,7 +806,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def virturization(session, test_item) {
         def lines = exec('virturization') {
-            run_ssh_command(session, '/usr/bin/zonename', 'virturization')
+            session.run_command('/usr/bin/zonename', 'virturization')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         def virturization = (lines.size() > 0) ? lines : 'Unkown'
@@ -718,7 +815,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def packages(session, test_item) {
         def lines = exec('packages') {
-            run_ssh_command(session, "/usr/bin/pkginfo -l", 'packages')
+            session.run_command("/usr/bin/pkginfo -l", 'packages')
         }
         def pkginst
         def csv = []
@@ -766,10 +863,10 @@ class SolarisSpec extends InfraTestSpec {
 
     def user(session, test_item) {
         def lines = exec('user') {
-            run_ssh_command(session, "cat /etc/passwd", 'user')
+            session.run_command("cat /etc/passwd", 'user')
         }
         def group_lines = exec('group') {
-            run_ssh_command(session, "cat /etc/group", 'group')
+            session.run_command("cat /etc/group", 'group')
         }
         def groups = [:].withDefault{0}
         // root:x:0:
@@ -818,7 +915,7 @@ class SolarisSpec extends InfraTestSpec {
     def service(session, test_item) {
         def lines = exec('service') {
             // TODO: Avoid grep online filter
-            run_ssh_command(session, '/usr/bin/svcs -a | grep online', 'service')
+            session.run_command('/usr/bin/svcs -a | grep online', 'service')
         }
         def services = [:].withDefault{'unkown'}
         def service_names = [:].withDefault{'unkown'}
@@ -870,7 +967,7 @@ class SolarisSpec extends InfraTestSpec {
 
     // def proxy_global(session, test_item) {
     //     def lines = exec('proxy_global') {
-    //         run_ssh_command(session, 'grep proxy /etc/yum.conf', 'proxy_global')
+    //         session.run_command('grep proxy /etc/yum.conf', 'proxy_global')
     //     }
     //     lines = lines.replaceAll(/(\r|\n)/, "")
     //     test_item.results(lines)
@@ -878,7 +975,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def resolve_conf(session, test_item) {
         def lines = exec('resolve_conf') {
-            run_ssh_command(session, 'grep nameserver /etc/resolv.conf', 'resolve_conf')
+            session.run_command('grep nameserver /etc/resolv.conf', 'resolve_conf')
         }
         def nameservers = [:]
         def res = [:]
@@ -897,7 +994,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def ntp(session, test_item) {
         def lines = exec('ntp') {
-            run_ssh_command(session, "egrep -e '^server' /etc/inet/ntp.conf", 'ntp')
+            session.run_command("egrep -e '^server' /etc/inet/ntp.conf", 'ntp')
         }
         def ntpservers = []
         def res = [:]
@@ -914,7 +1011,7 @@ class SolarisSpec extends InfraTestSpec {
 
     def snmp_trap(session, test_item) {
         def lines = exec('snmp_trap') {
-            run_ssh_command(session, "egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf", 'snmp_trap')
+            session.run_command("egrep -e '^\\s*trapsink' /etc/snmp/snmpd.conf", 'snmp_trap')
         }
         def config = 'NotConfigured'
         def res = [:]

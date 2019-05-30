@@ -503,9 +503,27 @@
         "verify": null,
         "comparision": "MATCH"
     },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[bond0:192.168.37.60/20, lo:127.0.0.1/8, eth0:null, eth1:null, eth2:null, eth3:null]",
+        "error_msg": null,
+        "compare_server": "cent61a",
+        "status": "OK",
+        "verify": "OK",
+        "comparision": "UNMATCH"
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[bond0:255.255.240.0]",
+        "error_msg": null,
+        "compare_server": "cent61a",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
     "network": {
         "name": "network",
-        "value": "[lo, eth0, eth1, eth2, eth3, bond0]",
+        "value": "[bond0, lo, eth0, eth1, eth2, eth3]",
         "error_msg": null,
         "compare_server": "cent61a",
         "status": "OK",
@@ -571,15 +589,6 @@
                 "subnet"
             ]
         }
-    },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": "cent61a",
-        "status": null,
-        "verify": "OK",
-        "comparision": "MATCH"
     },
     "block_device": {
         "name": "block_device",
