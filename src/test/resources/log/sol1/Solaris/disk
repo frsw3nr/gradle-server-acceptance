@@ -1,0 +1,2765 @@
+  / (picl, ba00000001)
+  :PICLVersion   1.100000 
+  :_class        picl 
+  :name  / 
+     platform (upa, ba00000005)
+      :PlatformGroup     i86pc 
+      :OS-Version        Generic_147148-26 
+      :OS-Release        5.10 
+      :HostName  sol 
+      :OS-Name   SunOS 
+      :stdout    0 
+      :bios-boot-device  80 
+      :mmu-modlist       mmu64 
+      :whoami    /platform/i86pc/kernel/amd64/unix 
+      :impl-arch-name    i86pc 
+      :mfg-name  i86pc 
+      :ramdisk_end       00  b0  b1  09  00  00  00  00 
+      :ramdisk_start     00  50  03  01  00  00  00  00 
+      :boot-args         00 
+      :bootprog  /platform/i86pc/multiboot 
+      :console   text 
+      :keyboard-layout   Japanese 
+      :bootpath  /pci@0,0/pci15ad,1976@10/sd@0,0:a 
+      :prealloc-chunk-size       0x2000 
+      :lba-access-ok     1 
+      :ttya-mode         9600,8,n,1,- 
+      :ttyb-mode         9600,8,n,1,- 
+      :ttya-ignore-cd    true 
+      :ttya-rts-dtr-off  false 
+      :ttyb-ignore-cd    true 
+      :ttyb-rts-dtr-off  false 
+      :atapi-cd-dma-enabled      0 
+      :ata-dma-enabled   1 
+      :ecfg     
+ 00  00  00  f0  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  7f  00  00  00  00  00  00  00 
+      :acpi-srat-memory-2       
+ 00  00  00  00  00  00  00  10  00  00  00  00  00  00  00  b0  00  00  00  00 
+ 01  00  00  00 
+      :acpi-srat-memory-1       
+ 00  00  00  00  00  00  10  00  00  00  00  00  00  00  f0  0f  00  00  00  00 
+ 01  00  00  00 
+      :acpi-srat-memory-0       
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  0a  00  00  00  00  00 
+ 01  00  00  00 
+      :acpi-srat-processor-0     00  00  00  00  00  00  00  00  00  00  00  00 
+      :cpu_apicid_array  0 
+      :boot-ncpus        1 
+      :biosdev-0x80     
+ 01  eb  04  4d  33  2e  30  fa  fc  be  00  7c  bf  00  06  8c  c8  8e  d0  89 
+ f4  8e  c0  8e  d8  51  b9  00  01  f3  a5  59  e9  00  8a  fb  b4  02  cd  16 
+ 24  03  3c  03  75  05  c6  06  61  07  01  bb  be  07  b9  04  00  80  3f  80 
+ 74  0e  83  c3  10  e2  f6  bd  75  07  b9  13  00  e9  e6  00  b4  00  cd  13 
+ 53  b4  41  bb  aa  55  b9  00  00  cd  13  72  3f  81  fb  55  aa  75  39  f7 
+ c1  01  00  74  33  bd  a4  07  b9  03  00  e8  c8  00  5b  53  b9  05  00  66 
+ 6a  00  66  ff  77  08  66  ff  36  5c  07  6a  01  6a  10  b4  42  89  e6  cd 
+ 13  9f  83  c4  10  9e  73  7b  b4  00  cd  13  e2  dd  eb  6b  bd  a7  07  b9 
+ 03  00  e8  95  00  5b  53  8a  16  60  07  b4  08  cd  13  73  08  bd  62  07 
+ b9  13  00  eb  79  88  c8  24  3f  a2  59  07  fe  c6  f6  e6  a3  5a  07  8b 
+ 47  08  8b  57  0a  f7  36  5a  07  89  c3  89  d0  f6  36  59  07  fe  c4  30 
+ c9  88  fd  c1  e9  02  80  e1  c0  08  e1  88  dd  88  c6  8a  16  60  07  c4 
+ 1e  5c  07  be  05  00  b8  01  02  cd  13  73  12  b4  00  cd  13  4e  83  fe 
+ 00  75  ef  bd  88  07  b9  0e  00  eb  23  bb  00  7c  81  bf  fe  01  55  aa 
+ 74  08  bd  96  07  b9  0b  00  eb  10  8a  16  60  07  5e  66  ff  16  5c  07 
+ bd  a1  07  b9  03  00  bb  4f  00  e8  0c  00  cd  18  80  3e  61  07  00  74 
+ 18  bb  1f  00  60  b8  01  13  ba  00  17  cd  10  b0  07  b9  01  00  cd  10 
+ b4  00  cd  16  61  c3  00  00  00  00  7c  00  00  80  00  43  61  6e  27  74 
+ 20  72  65  61  64  20  67  65  6f  6d  65  74  72  79  4e  6f  20  61  63  74 
+ 69  76  65  20  70  61  72  74  69  74  69  6f  6e  43  61  6e  27  74  20  72 
+ 65  61  64  20  50  42  52  42  61  64  20  50  42  52  20  73  69  67  21  21 
+ 21  4c  42  41  43  48  53  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  80  00  01  01  bf  fe  ff  ff  c1  3e  00  00  f1 
+ 8c  7f  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  55  aa  01  1a  00  03  00  32  0a 
+ 00  00  ff  00  00  00  3f  00  00  00  00  00  80  02  00  00  00  00  00  02 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00 
+      :PAGESIZE  0x1000 
+      :MMU_PAGESIZE      0x1000 
+      :MMU_PAGEOFFSET    0xfff 
+      :relative-addressing       0x1 
+      :acpi-status       0x13 
+      :fm-ereport-capable
+      :fm-errcb-capable
+      :fm-dmachk-capable
+      :fm-accchk-capable
+      :devfs-path        / 
+      :driver-name       rootnex 
+      :binding-name      i86pc 
+      :bus-addr   
+      :instance  -1 
+      :PlatformName      i86pc 
+      :_class    upa 
+      :name      platform 
+         scsi_vhci (devctl, ba00000039)
+          :scsi-enumeration      0 
+          :scsi-options  0x107ff8 
+          :scsi-reset-delay      0xbb8 
+          :scsi-watchdog-tick    0xa 
+          :scsi-selection-timeout        0xfa 
+          :scsi-tag-age-limit    0x2 
+          :initiator-interconnect-type   SPI 
+          :scsi-vhci-update-pathstate-on-reset  (ba00000047TBL) 
+           | Pillar  Axiom |
+           | yes |
+          :auto-failback         enable 
+          :load-balance  round-robin 
+          :class         root 
+          :fm-ereport-capable
+          :pm-want-child-notification?
+          :devfs-path    /scsi_vhci 
+          :driver-name   scsi_vhci 
+          :binding-name  scsi_vhci 
+          :bus-addr       
+          :instance      0 
+          :_class        devctl 
+          :name  scsi_vhci 
+         isa (isa, ba00000051)
+          :device_type   isa 
+          :bus-type      isa 
+          :devfs-path    /isa 
+          :driver-name   isa 
+          :binding-name  isa 
+          :bus-addr       
+          :instance      0 
+          :_class        isa 
+          :name  isa 
+             i8042 (obp-device, ba0000005b)
+              :UnitAddress       1,60 
+              :reg      
+ 01  00  00  00  60  00  00  00  01  00  00  00  01  00  00  00  64  00  00  00 
+ 01  00  00  00 
+              :interrupts        01  00  00  00  0c  00  00  00 
+              :unit-address      1,60 
+              :devfs-path        /isa/i8042@1,60 
+              :driver-name       i8042 
+              :binding-name      i8042 
+              :bus-addr  1,60 
+              :instance  0 
+              :_class    obp-device 
+              :name      i8042 
+                 keyboard (obp-device, ba00000066)
+                  :compatible    pnpPNP,303 
+                  :model         IBM Enhanced (101/102-key, PS/2 mouse support) 
+                  :acpi-namespace        \_SB_.PCI0.ISA_.KBC_ 
+                  :reg   0 
+                  :interrupts    01  00  00  00  0c  00  00  00 
+                  :device-type   keyboard 
+                  :ddi-no-autodetach     0x1 
+                  :devfs-path    /isa/i8042@1,60/keyboard@0 
+                  :driver-name   kb8042 
+                  :binding-name  pnpPNP,303 
+                  :bus-addr      0 
+                  :instance      0 
+                  :_class        obp-device 
+                  :name  keyboard 
+                 mouse (obp-device, ba00000075)
+                  :compatible    pnpPNP,f03 
+                  :model         PS/2 Port for PS/2-style Mice 
+                  :acpi-namespace        \_SB_.PCI0.ISA_.MOUS 
+                  :interrupts    0xc 
+                  :reg   0x1 
+                  :device-type   mouse 
+                  :ddi-no-autodetach     0x1 
+                  :devfs-path    /isa/i8042@1,60/mouse@1 
+                  :driver-name   mouse8042 
+                  :binding-name  pnpPNP,f03 
+                  :bus-addr      1 
+                  :instance      0 
+                  :_class        obp-device 
+                  :name  mouse 
+             motherboard (obp-device, ba00000084)
+              :UnitAddress       0,fed00000 
+              :compatible        PNP0103 
+              :model     Motherboard 
+              :acpi-namespace    \_SB_.PCI0.ISA_.HPET 
+              :reg       00  00  00  00  00  00  d0  fe  00  04  00  00 
+              :devfs-path        /isa/motherboard 
+              :binding-name      motherboard 
+              :instance  -1 
+              :_class    obp-device 
+              :name      motherboard 
+             lp (obp-device, ba0000008e)
+              :UnitAddress       1,378 
+              :compatible        PNP0400 
+              :model     Standard LPT printer port 
+              :acpi-namespace    \_SB_.PCI0.ISA_.SIO_.LPT_ 
+              :reg       01  00  00  00  78  03  00  00  04  00  00  00 
+              :interrupts        0x7 
+              :ecpp-transfer-timeout     0x5a 
+              :centronics-strobe-pulse-width     0x2 
+              :centronics-data-setup-time        0x2 
+              :centronics-wait-for-busy  0x1388 
+              :centronics-retry  0x2ee 
+              :centronics-init-seq       false 
+              :fast-1284-compatible      true 
+              :fast-centronics   false 
+              :devfs-path        /isa/lp@1,378 
+              :driver-name       ecpp 
+              :binding-name      lp 
+              :bus-addr  1,378 
+              :instance  0 
+              :_class    obp-device 
+              :name      lp 
+             asy (serial, ba000000a3)
+              :UnitAddress       1,3f8 
+              :compatible        PNP0501 
+              :model     16550A-compatible COM port 
+              :acpi-namespace    \_SB_.PCI0.ISA_.SIO_.COMA 
+              :reg       01  00  00  00  f8  03  00  00  08  00  00  00 
+              :interrupts        0x4 
+              :interrupt-priorities      0xc 
+              :uart      16550A 
+              :devfs-path        /isa/asy@1,3f8 
+              :driver-name       asy 
+              :binding-name      asy 
+              :bus-addr  1,3f8 
+              :instance  0 
+              :_class    serial 
+              :name      asy 
+             asy (serial, ba000000b2)
+              :UnitAddress       1,2f8 
+              :compatible        PNP0501 
+              :model     16550A-compatible COM port 
+              :acpi-namespace    \_SB_.PCI0.ISA_.SIO_.COMB 
+              :reg       01  00  00  00  f8  02  00  00  08  00  00  00 
+              :interrupts        0x3 
+              :interrupt-priorities      0xc 
+              :uart      16550A 
+              :devfs-path        /isa/asy@1,2f8 
+              :driver-name       asy 
+              :binding-name      asy 
+              :bus-addr  1,2f8 
+              :instance  1 
+              :_class    serial 
+              :name      asy 
+             fdc (obp-device, ba000000c1)
+              :UnitAddress       1,3f0 
+              :compatible        PNP0700 
+              :model     PC standard floppy disk controller 
+              :acpi-namespace    \_SB_.PCI0.ISA_.SIO_.FDC_ 
+              :reg      
+ 01  00  00  00  f0  03  00  00  06  00  00  00  01  00  00  00  f7  03  00  00 
+ 01  00  00  00 
+              :interrupts        0x6 
+              :dma-channels      0x2 
+              :chip      0x8272 
+              :devfs-path        /isa/fdc@1,3f0 
+              :driver-name       fdc 
+              :binding-name      fdc 
+              :bus-addr  1,3f0 
+              :instance  0 
+              :_class    obp-device 
+              :name      fdc 
+                 fd (floppy, ba000000d0)
+                  :unit  0 
+                  :mode_3D       0 
+                  :ddi-kernel-ioctl
+                  :devfs-path    /isa/fdc@1,3f0/fd@0,0 
+                  :driver-name   fd 
+                  :binding-name  fd 
+                  :bus-addr      0,0 
+                  :instance      0 
+                  :_class        floppy 
+                  :name  fd 
+         pci (pciex, ba000000db)
+          :UnitAddress   0,0 
+          :#address-cells        0x3 
+          :#size-cells   0x2 
+          :reg   00  00  00  00  00  00  00  00  00  00  00  00 
+          :compatible    pciex_root_complex 
+          :acpi-namespace        \_SB_.PCI0 
+          :bus-range     00  00  00  00  7f  00  00  00 
+          :available    
+ 00  00  00  81  00  00  00  00  22  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  26  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  2a  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  32  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  36  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  3a  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  3e  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  44  00  00  00  00  00  00  00  0c  00  00  00 
+ 00  00  00  81  00  00  00  00  54  00  00  00  00  00  00  00  0c  00  00  00 
+ 00  00  00  81  00  00  00  00  62  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  65  00  00  00  00  00  00  00  0b  00  00  00 
+ 00  00  00  81  00  00  00  00  78  00  00  00  00  00  00  00  08  00  00  00 
+ 00  00  00  81  00  00  00  00  a2  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  a6  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  aa  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  ae  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  b6  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  ba  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  be  00  00  00  00  00  00  00  02  00  00  00 
+ 00  00  00  81  00  00  00  00  e0  00  00  00  00  00  00  00  90  00  00  00 
+ 00  00  00  81  00  00  00  00  78  01  00  00  00  00  00  00  78  00  00  00 
+ 00  00  00  81  00  00  00  00  f8  01  00  00  00  00  00  00  00  01  00  00 
+ 00  00  00  81  00  00  00  00  00  03  00  00  00  00  00  00  76  00  00  00 
+ 00  00  00  81  00  00  00  00  77  03  00  00  00  00  00  00  01  00  00  00 
+ 00  00  00  81  00  00  00  00  7c  03  00  00  00  00  00  00  74  00  00  00 
+ 00  00  00  81  00  00  00  00  00  04  00  00  00  00  00  00  d0  00  00  00 
+ 00  00  00  81  00  00  00  00  d2  04  00  00  00  00  00  00  1e  08  00  00 
+ 00  00  00  81  00  00  00  00  f2  0c  00  00  00  00  00  00  06  00  00  00 
+ 00  00  00  81  00  00  00  00  00  0d  00  00  00  00  00  00  00  03  00  00 
+ 00  00  00  81  00  00  00  00  50  10  00  00  00  00  00  00  10  00  00  00 
+ 00  00  00  81  00  00  00  00  c0  10  00  00  00  00  00  00  40  03  00  00 
+ 00  00  00  81  00  00  00  00  00  15  00  00  00  00  00  00  00  0b  00  00 
+ 00  00  00  81  00  00  00  00  00  f0  00  00  00  00  00  00  e0  0c  00  00 
+ 00  00  00  81  00  00  00  00  00  fd  00  00  00  00  00  00  00  03  00  00 
+ 00  00  00  82  00  00  00  00  00  00  0a  00  00  00  00  00  00  00  02  00 
+ 00  00  00  82  00  00  00  00  00  c0  0c  00  00  00  00  00  00  00  01  00 
+ 00  00  00  82  00  00  00  00  00  00  0e  00  00  00  00  00  00  80  00  00 
+ 00  00  00  82  00  00  00  00  00  00  00  c0  00  00  00  00  00  00  b0  29 
+ 00  00  00  82  00  00  00  00  00  00  a0  fe  00  00  00  00  00  00  1a  00 
+ 00  00  00  82  00  00  00  00  00  00  be  fe  00  00  00  00  00  e0  01  00 
+ 00  00  00  82  00  00  00  00  00  00  c0  fe  00  00  00  00  00  00  10  00 
+ 00  00  00  82  00  00  00  00  00  04  d0  fe  00  00  00  00  00  fc  0f  00 
+ 00  00  00  82  00  00  00  00  00  10  e0  fe  00  00  00  00  00  f0  1f  01 
+ 00  00  00  c2  00  00  00  00  00  00  00  ec  00  00  00  00  00  00  a0  12 
+          :device_type   pciex 
+          :fm-ereport-capable
+          :fm-errcb-capable
+          :fm-dmachk-capable
+          :fm-accchk-capable
+          :devfs-path    /pci@0,0 
+          :driver-name   npe 
+          :binding-name  pciex_root_complex 
+          :bus-addr      0,0 
+          :instance      0 
+          :_class        pciex 
+          :name  pci 
+             pci15ad,1976 (obp-device, ba000000ef)
+              :DeviceID  0 
+              :UnitAddress       0 
+              :device-id         0x7190 
+              :vendor-id         0x8086 
+              :revision-id       0x1 
+              :class-code        0x60000 
+              :unit-address      0 
+              :subsystem-id      0x1976 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0 
+              :max-latency       0 
+              :devsel-speed      0x1 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     Host bridge 
+              :compatible       (ba000000f7TBL) 
+               | pci8086,7190.15ad.1976.1 |
+               | pci8086,7190.15ad.1976 |
+               | pci15ad,1976 |
+               | pci8086,7190.1 |
+               | pci8086,7190 |
+               | pciclass,060000 |
+               | pciclass,0600 |
+              :reg      
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :devfs-path        /pci@0,0/pci15ad,1976 
+              :binding-name      pci15ad,1976 
+              :instance  -1 
+              :_class    obp-device 
+              :name      pci15ad,1976 
+             pci8086,7191 (pci, ba0000010b)
+              :DeviceID  0x1 
+              :UnitAddress       0 
+              :device-id         0x7191 
+              :vendor-id         0x8086 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      1 
+              :devsel-speed      0x1 
+              :66mhz-capable
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         01  00  00  00  01  00  00  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000011aTBL) 
+               | pci8086,7191.1 |
+               | pci8086,7191 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  08  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.AGP_ 
+              :device_type       pci 
+              :fm-errcb-capable
+              :fm-dmachk-capable
+              :fm-accchk-capable
+              :devfs-path        /pci@0,0/pci8086,7191@1 
+              :driver-name       pci_pci 
+              :binding-name      pciclass,060400 
+              :bus-addr  1 
+              :instance  0 
+              :_class    pci 
+              :name      pci8086,7191 
+             pci15ad,1976 (obp-device, ba0000012b)
+              :DeviceID  0x7 
+              :UnitAddress       0 
+              :device-id         0x7110 
+              :vendor-id         0x8086 
+              :revision-id       0x8 
+              :class-code        0x60100 
+              :unit-address      7 
+              :subsystem-id      0x1976 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0 
+              :max-latency       0 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     ISA bridge 
+              :compatible       (ba00000134TBL) 
+               | pci8086,7110.15ad.1976.8 |
+               | pci8086,7110.15ad.1976 |
+               | pci15ad,1976 |
+               | pci8086,7110.8 |
+               | pci8086,7110 |
+               | pciclass,060100 |
+               | pciclass,0601 |
+              :reg      
+ 00  38  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.ISA_ 
+              :devfs-path        /pci@0,0/pci15ad,1976 
+              :binding-name      pci15ad,1976 
+              :instance  -1 
+              :_class    obp-device 
+              :name      pci15ad,1976 
+             pci-ide (pci-ide, ba00000149)
+              :DeviceID  0x7 
+              :UnitAddress       0 
+              :device-id         0x7111 
+              :vendor-id         0x8086 
+              :revision-id       0x1 
+              :class-code        0x1018a 
+              :unit-address      7,1 
+              :subsystem-id      0x1976 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0 
+              :max-latency       0 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     IDE controller 
+              :compatible       (ba0000015aTBL) 
+               | pci8086,7111.15ad.1976.1 |
+               | pci8086,7111.15ad.1976 |
+               | pci15ad,1976 |
+               | pci8086,7111.1 |
+               | pci8086,7111 |
+               | pciclass,01018a |
+               | pciclass,0101 |
+              :reg      
+ 00  39  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  39  00  81  00  00  00  00  f0  01  00  00  00  00  00  00  08  00  00  00 
+ 00  39  00  81  00  00  00  00  f6  03  00  00  00  00  00  00  01  00  00  00 
+ 00  39  00  81  00  00  00  00  70  01  00  00  00  00  00  00  08  00  00  00 
+ 00  39  00  81  00  00  00  00  76  03  00  00  00  00  00  00  01  00  00  00 
+ 20  39  00  01  00  00  00  00  00  00  00  00  00  00  00  00  10  00  00  00 
+              :assigned-addresses       
+ 00  39  00  81  00  00  00  00  f0  01  00  00  00  00  00  00  08  00  00  00 
+ 00  39  00  81  00  00  00  00  f6  03  00  00  00  00  00  00  01  00  00  00 
+ 00  39  00  81  00  00  00  00  70  01  00  00  00  00  00  00  08  00  00  00 
+ 00  39  00  81  00  00  00  00  76  03  00  00  00  00  00  00  01  00  00  00 
+ 20  39  00  81  00  00  00  00  60  10  00  00  00  00  00  00  10  00  00  00 
+              :device_type       pci-ide 
+              :#address-cells    0x1 
+              :#size-cells       0 
+              :acpi-namespace    \_SB_.PCI0.IDE_ 
+              :fm-ereport-capable
+              :fm-errcb-capable
+              :devfs-path        /pci@0,0/pci-ide@7,1 
+              :driver-name       pci-ide 
+              :binding-name      pci-ide 
+              :bus-addr  7,1 
+              :instance  0 
+              :_class    pci-ide 
+              :name      pci-ide 
+                 ide (obp-device, ba0000016f)
+                  :UnitAddress   0 
+                  :reg   0 
+                  :devfs-path    /pci@0,0/pci-ide@7,1/ide 
+                  :driver-name   ata 
+                  :binding-name  ide 
+                  :instance      -1 
+                  :_class        obp-device 
+                  :name  ide 
+                 ide (ide, ba00000177)
+                  :UnitAddress   1 
+                  :reg   0x1 
+                  :scsi-enumeration      0 
+                  :scsi-options  0x107ff8 
+                  :scsi-reset-delay      0xbb8 
+                  :scsi-watchdog-tick    0xa 
+                  :scsi-selection-timeout        0xfa 
+                  :scsi-tag-age-limit    0x2 
+                  :initiator-interconnect-type   SPI 
+                  :scsi-binding-set      spi 
+                  :timing_flags  0 
+                  :drive1_block_factor   0x1 
+                  :drive0_block_factor   0x1 
+                  :ata-options   0x1 
+                  :max_transfer  0x100 
+                  :queue         qfifo 
+                  :flow_control  dmult 
+                  :device_type   ide 
+                  :compatibility-mode    0x1 
+                  :devfs-path    /pci@0,0/pci-ide@7,1/ide@1 
+                  :driver-name   ata 
+                  :binding-name  ide 
+                  :bus-addr      1 
+                  :instance      1 
+                  :_class        ide 
+                  :name  ide 
+                     sd (cdrom, ba00000191)
+                      :variant   atapi 
+                      :inquiry-device-type       0x5 
+                      :inquiry-vendor-id         NECVMWar 
+                      :inquiry-product-id        VMware IDE CDR10 
+                      :inquiry-revision-id       1.00 
+                      :class     scsi 
+                      :target    0 
+                      :lun       0 
+                      :removable-media
+                      :ddi-kernel-ioctl
+                      :ddi-failfast-supported
+                      :pm-hardware-state         needs-suspend-resume 
+                      :pm-components    (ba0000019aTBL) 
+                       | NAME=spindle-motor |
+                       | 0=off |
+                       | 1=on |
+                      :devfs-path        /pci@0,0/pci-ide@7,1/ide@1/sd@0,0 
+                      :driver-name       sd 
+                      :binding-name      sd 
+                      :bus-addr  0,0 
+                      :instance  1 
+                      :_class    cdrom 
+                      :name      sd 
+             pci15ad,1976 (obp-device, ba000001aa)
+              :DeviceID  0x7 
+              :UnitAddress       0 
+              :device-id         0x7113 
+              :vendor-id         0x8086 
+              :revision-id       0x8 
+              :class-code        0x68000 
+              :unit-address      7,3 
+              :subsystem-id      0x1976 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0 
+              :max-latency       0 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     Bridge device 
+              :compatible       (ba000001b3TBL) 
+               | pci8086,7113.15ad.1976.8 |
+               | pci8086,7113.15ad.1976 |
+               | pci15ad,1976 |
+               | pci8086,7113.8 |
+               | pci8086,7113 |
+               | pciclass,068000 |
+               | pciclass,0680 |
+              :reg      
+ 00  3b  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PWR_ 
+              :devfs-path        /pci@0,0/pci15ad,1976 
+              :binding-name      pci15ad,1976 
+              :instance  -1 
+              :_class    obp-device 
+              :name      pci15ad,1976 
+             pci15ad,740 (obp-device, ba000001c8)
+              :DeviceID  0x7 
+              :UnitAddress       0 
+              :pci-msi-capid-pointer     0x40 
+              :pci-msix-capid-pointer    0x58 
+              :device-id         0x740 
+              :vendor-id         0x15ad 
+              :revision-id       0x10 
+              :class-code        0x88000 
+              :unit-address      7,7 
+              :subsystem-id      0x740 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0x6 
+              :max-latency       0xff 
+              :interrupts        0x1 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     System peripheral 
+              :compatible       (ba000001d1TBL) 
+               | pci15ad,740.15ad.740.10 |
+               | pci15ad,740.15ad.740 |
+               | pci15ad,740 |
+               | pci15ad,740.10 |
+               | pci15ad,740 |
+               | pciclass,088000 |
+               | pciclass,0880 |
+              :reg      
+ 00  3f  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 10  3f  00  01  00  00  00  00  00  00  00  00  00  00  00  00  40  00  00  00 
+ 14  3f  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  20  00  00 
+              :assigned-addresses       
+ 10  3f  00  81  00  00  00  00  80  10  00  00  00  00  00  00  40  00  00  00 
+ 14  3f  00  83  00  00  00  00  00  e0  bf  fe  00  00  00  00  00  20  00  00 
+              :devfs-path        /pci@0,0/pci15ad,740 
+              :binding-name      pci15ad,740 
+              :instance  -1 
+              :_class    obp-device 
+              :name      pci15ad,740 
+             display (display, ba000001e9)
+              :DeviceID  0xf 
+              :UnitAddress       0 
+              :device-id         0x405 
+              :vendor-id         0x15ad 
+              :revision-id       0 
+              :class-code        0x30000 
+              :unit-address      f 
+              :device_type       display 
+              :subsystem-id      0x405 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0 
+              :max-latency       0 
+              :interrupts        0x1 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     VGA compatible controller 
+              :compatible       (ba000001faTBL) 
+               | pci15ad,405.15ad.405.0 |
+               | pci15ad,405.15ad.405 |
+               | pci15ad,405 |
+               | pci15ad,405.0 |
+               | pci15ad,405 |
+               | pciclass,030000 |
+               | pciclass,0300 |
+              :reg      
+ 00  78  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 10  78  00  01  00  00  00  00  00  00  00  00  00  00  00  00  10  00  00  00 
+ 14  78  00  42  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  04 
+ 18  78  00  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  80  00 
+ 00  78  00  a1  00  00  00  00  b0  03  00  00  00  00  00  00  0c  00  00  00 
+ 00  78  00  a1  00  00  00  00  c0  03  00  00  00  00  00  00  20  00  00  00 
+ 00  78  00  a2  00  00  00  00  00  00  0a  00  00  00  00  00  00  00  02  00 
+              :assigned-addresses       
+ 10  78  00  81  00  00  00  00  70  10  00  00  00  00  00  00  10  00  00  00 
+ 14  78  00  c2  00  00  00  00  00  00  00  ec  00  00  00  00  00  00  00  04 
+ 18  78  00  82  00  00  00  00  00  00  00  fe  00  00  00  00  00  00  80  00 
+ 00  78  00  a1  00  00  00  00  b0  03  00  00  00  00  00  00  0c  00  00  00 
+ 00  78  00  a1  00  00  00  00  c0  03  00  00  00  00  00  00  20  00  00  00 
+ 00  78  00  a2  00  00  00  00  00  00  0a  00  00  00  00  00  00  00  02  00 
+              :display-type      color 
+              :video-adapter-type        svga 
+              :ddi-kernel-ioctl
+              :fm-ereport-capable
+              :fm-errcb-capable
+              :ddi-no-autodetach         0x1 
+              :devfs-path        /pci@0,0/display@f 
+              :driver-name       vgatext 
+              :binding-name      pciclass,030000 
+              :bus-addr  f 
+              :instance  0 
+              :_class    display 
+              :name      display 
+             pci15ad,1976 (obp-device, ba00000211)
+              :DeviceID  0x10 
+              :UnitAddress       0 
+              :device-id         0x30 
+              :vendor-id         0x1000 
+              :revision-id       0x1 
+              :class-code        0x10000 
+              :unit-address      10 
+              :subsystem-id      0x1976 
+              :subsystem-vendor-id       0x15ad 
+              :min-grant         0x6 
+              :max-latency       0xff 
+              :interrupts        0x1 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :model     SCSI bus controller 
+              :compatible       (ba00000259TBL) 
+               | pci1000,30.15ad.1976.1 |
+               | pci1000,30.15ad.1976 |
+               | pci15ad,1976 |
+               | pci1000,30.1 |
+               | pci1000,30 |
+               | pciclass,010000 |
+               | pciclass,0100 |
+              :reg      
+ 00  80  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 10  80  00  01  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00  00 
+ 14  80  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00 
+ 1c  80  00  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00 
+              :assigned-addresses       
+ 10  80  00  81  00  00  00  00  00  14  00  00  00  00  00  00  00  01  00  00 
+ 14  80  00  83  00  00  00  00  00  00  ba  fe  00  00  00  00  00  00  02  00 
+ 1c  80  00  83  00  00  00  00  00  00  bc  fe  00  00  00  00  00  00  02  00 
+              :scsi-enumeration  0 
+              :scsi-options      0x107ff8 
+              :scsi-reset-delay  0xbb8 
+              :scsi-watchdog-tick        0xa 
+              :scsi-selection-timeout    0xfa 
+              :scsi-tag-age-limit        0x2 
+              :initiator-interconnect-type       SPI 
+              :tape      sctp 
+              :disable-sata-mpxio        no 
+              :mpxio-disable     yes 
+              :ddi-vhci-class    scsi_vhci 
+              :fm-ereport-capable
+              :fm-errcb-capable
+              :fm-dmachk-capable
+              :fm-accchk-capable
+              :firmware-version  1.3.29.20 
+              :target0-sync-speed        0x4e200 
+              :target0-wide      0x1 
+              :target0-TQ        0x1 
+              :target1-sync-speed        0x4e200 
+              :target1-wide      0x1 
+              :target1-TQ        0 
+              :target2-sync-speed        0x4e200 
+              :target2-wide      0x1 
+              :target2-TQ        0 
+              :target3-sync-speed        0x4e200 
+              :target3-wide      0x1 
+              :target3-TQ        0 
+              :target4-sync-speed        0x4e200 
+              :target4-wide      0x1 
+              :target4-TQ        0 
+              :target5-sync-speed        0x4e200 
+              :target5-wide      0x1 
+              :target5-TQ        0 
+              :target6-sync-speed        0x4e200 
+              :target6-wide      0x1 
+              :target6-TQ        0 
+              :target8-sync-speed        0x4e200 
+              :target8-wide      0x1 
+              :target8-TQ        0 
+              :target9-sync-speed        0x4e200 
+              :target9-wide      0x1 
+              :target9-TQ        0 
+              :targeta-sync-speed        0x4e200 
+              :targeta-wide      0x1 
+              :targeta-TQ        0 
+              :targetb-sync-speed        0x4e200 
+              :targetb-wide      0x1 
+              :targetb-TQ        0 
+              :targetc-sync-speed        0x4e200 
+              :targetc-wide      0x1 
+              :targetc-TQ        0 
+              :targetd-sync-speed        0x4e200 
+              :targetd-wide      0x1 
+              :targetd-TQ        0 
+              :targete-sync-speed        0x4e200 
+              :targete-wide      0x1 
+              :targete-TQ        0 
+              :targetf-sync-speed        0x4e200 
+              :targetf-wide      0x1 
+              :targetf-TQ        0 
+              :devfs-path        /pci@0,0/pci15ad,1976@10 
+              :driver-name       mpt 
+              :binding-name      pci1000,30 
+              :bus-addr  10 
+              :instance  0 
+              :_class    obp-device 
+              :name      pci15ad,1976 
+                 sd (block, ba0000026f)
+                  :compatible   (ba00000286TBL) 
+                   | scsiclass,00.vVMware.pVirtual_disk.r1_0 |
+                   | scsiclass,00.vVMware.pVirtual_disk |
+                   | scsa,00.bmpt |
+                   | scsiclass,00 |
+                   | scsiclass |
+                  :inquiry-device-type   0 
+                  :inquiry-vendor-id     VMware 
+                  :inquiry-product-id    Virtual disk 
+                  :inquiry-revision-id   1.0 
+                  :devid         id1,sd@n6000c29e9abebe6d9e3d631e8afc3805 
+                  :class         scsi 
+                  :target        0 
+                  :lun   0 
+                  :ddi-kernel-ioctl
+                  :ddi-failfast-supported
+                  :pm-hardware-state     needs-suspend-resume 
+                  :lba-access-ok
+                  :inquiry-serial-no     6000c29e9abebe6d9e3d631e8afc3805 
+                  :ddi-no-autodetach     0x1 
+                  :devfs-path    /pci@0,0/pci15ad,1976@10/sd@0,0 
+                  :driver-name   sd 
+                  :binding-name  scsiclass,00 
+                  :bus-addr      0,0 
+                  :instance      0 
+                  :_class        block 
+                  :name  sd 
+             pci15ad,790 (pci, ba0000028c)
+              :DeviceID  0x11 
+              :UnitAddress       0 
+              :device-id         0x790 
+              :vendor-id         0x15ad 
+              :revision-id       0x2 
+              :class-code        0x60401 
+              :unit-address      11 
+              :devsel-speed      0x1 
+              :fast-back-to-back
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         02  00  00  00  02  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  20  00  00  00  00  00  81  00  00  00  00 
+ 00  20  00  00  00  00  00  00  00  20  00  00  00  00  00  82  00  00  00  00 
+ 00  00  50  fd  00  00  00  82  00  00  00  00  00  00  50  fd  00  00  00  00 
+ 00  00  b0  00  00  00  00  c2  00  00  00  00  00  00  b0  eb  00  00  00  c2 
+ 00  00  00  00  00  00  b0  eb  00  00  00  00  00  00  50  00 
+              :model     Subtractive Decode PCI-PCI bridge 
+              :compatible       (ba0000029cTBL) 
+               | pci15ad,790.2 |
+               | pci15ad,790 |
+               | pciclass,060401 |
+               | pciclass,0604 |
+              :reg      
+ 00  88  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.P2P0 
+              :available        
+ 00  00  00  81  00  00  00  00  40  20  00  00  00  00  00  00  c0  1f  00  00 
+ 00  00  00  82  00  00  00  00  00  00  50  fd  00  00  00  00  00  00  0c  00 
+ 00  00  00  82  00  00  00  00  00  00  5e  fd  00  00  00  00  00  00  a1  00 
+ 00  00  00  c2  00  00  00  00  00  00  b0  eb  00  00  00  00  00  00  50  00 
+              :device_type       pci 
+              :fm-errcb-capable
+              :fm-dmachk-capable
+              :fm-accchk-capable
+              :devfs-path        /pci@0,0/pci15ad,790@11 
+              :driver-name       pci_pci 
+              :binding-name      pciclass,060401 
+              :bus-addr  11 
+              :instance  1 
+              :_class    pci 
+              :name      pci15ad,790 
+                 pci15ad,750 (obp-device, ba000002ae)
+                  :DeviceID      0 
+                  :UnitAddress   2 
+                  :device-id     0x100f 
+                  :vendor-id     0x8086 
+                  :revision-id   0x1 
+                  :class-code    0x20000 
+                  :unit-address  0 
+                  :subsystem-id  0x750 
+                  :subsystem-vendor-id   0x15ad 
+                  :min-grant     0xff 
+                  :max-latency   0 
+                  :interrupts    0x1 
+                  :devsel-speed  0x1 
+                  :66mhz-capable
+                  :power-consumption     01  00  00  00  01  00  00  00 
+                  :model         Ethernet controller 
+                  :compatible   (ba000002c3TBL) 
+                   | pci8086,100f.15ad.750.1 |
+                   | pci8086,100f.15ad.750 |
+                   | pci15ad,750 |
+                   | pci8086,100f.1 |
+                   | pci8086,100f |
+                   | pciclass,020000 |
+                   | pciclass,0200 |
+                  :reg  
+ 00  00  02  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 10  00  02  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  02  00 
+ 18  00  02  03  00  00  00  00  00  00  00  00  00  00  00  00  00  00  01  00 
+ 20  00  02  01  00  00  00  00  00  00  00  00  00  00  00  00  40  00  00  00 
+                  :assigned-addresses   
+ 10  00  02  83  00  00  00  00  00  00  5c  fd  00  00  00  00  00  00  02  00 
+ 18  00  02  83  00  00  00  00  00  00  ff  fd  00  00  00  00  00  00  01  00 
+ 20  00  02  81  00  00  00  00  00  20  00  00  00  00  00  00  40  00  00  00 
+                  :acpi-namespace        \_SB_.PCI0.P2P0.S1F0 
+                  :SetMasterSlave       
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00 
+                  :TbiCompatibilityEnable       
+ 01  00  00  00  01  00  00  00  01  00  00  00  01  00  00  00  01  00  00  00 
+ 01  00  00  00  01  00  00  00  01  00  00  00  01  00  00  00  01  00  00  00 
+ 01  00  00  00  01  00  00  00  01  00  00  00  01  00  00  00  01  00  00  00 
+ 01  00  00  00 
+                  :FlowControl  
+ 03  00  00  00  03  00  00  00  03  00  00  00  03  00  00  00  03  00  00  00 
+ 03  00  00  00  03  00  00  00  03  00  00  00  03  00  00  00  03  00  00  00 
+ 03  00  00  00  03  00  00  00  03  00  00  00  03  00  00  00  03  00  00  00 
+ 03  00  00  00 
+                  :MaxFrameSize 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00 
+                  :AutoNegAdvertised    
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+ 00  00  00  00 
+                  :ForceSpeedDuplex     
+ 07  00  00  00  07  00  00  00  07  00  00  00  07  00  00  00  07  00  00  00 
+ 07  00  00  00  07  00  00  00  07  00  00  00  07  00  00  00  07  00  00  00 
+ 07  00  00  00  07  00  00  00  07  00  00  00  07  00  00  00  07  00  00  00 
+ 07  00  00  00 
+                  :fm-errcb-capable
+                  :fm-dmachk-capable
+                  :fm-accchk-capable
+                  :devfs-path    /pci@0,0/pci15ad,790@11/pci15ad,750@0 
+                  :driver-name   e1000g 
+                  :binding-name  pci8086,100f 
+                  :bus-addr      0 
+                  :instance      0 
+                  :_class        obp-device 
+                  :name  pci15ad,750 
+             pci15ad,7a0 (pciex, ba000002d9)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15 
+              :devsel-speed      0 
+              :physical-slot#    0xa0 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  30  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         03  00  00  00  03  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  40  00  00  00  00  00  81  00  00  00  00 
+ 00  40  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  40  fd  00  00  00  82  00  00  00  00  00  00  40  fd  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  a0  eb  00  00  00  c2 
+ 00  00  00  00  00  00  a0  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000002eaTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  a8  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE40 
+              :available        
+ 00  00  00  81  00  00  00  00  00  40  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  40  fd  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  a0  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15 
+              :instance  0 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000304)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,1 
+              :devsel-speed      0 
+              :physical-slot#    0xa1 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  31  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         04  00  00  00  04  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  80  00  00  00  00  00  81  00  00  00  00 
+ 00  80  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  00  fd  00  00  00  82  00  00  00  00  00  00  00  fd  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  60  eb  00  00  00  c2 
+ 00  00  00  00  00  00  60  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000315TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  a9  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE41 
+              :available        
+ 00  00  00  81  00  00  00  00  00  80  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  00  fd  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  60  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,1 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,1 
+              :instance  1 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000032f)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,2 
+              :devsel-speed      0 
+              :physical-slot#    0xa2 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  32  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         05  00  00  00  05  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  c0  00  00  00  00  00  81  00  00  00  00 
+ 00  c0  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  c0  fc  00  00  00  82  00  00  00  00  00  00  c0  fc  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  20  eb  00  00  00  c2 
+ 00  00  00  00  00  00  20  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000340TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  aa  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE42 
+              :available        
+ 00  00  00  81  00  00  00  00  00  c0  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  c0  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  20  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,2 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,2 
+              :instance  2 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000035a)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,3 
+              :devsel-speed      0 
+              :physical-slot#    0xa3 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  33  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         06  00  00  00  06  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  80  fc  00  00  00  82  00  00  00  00 
+ 00  00  80  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  e0  ea  00  00  00  c2  00  00  00  00  00  00  e0  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000036bTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  ab  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE43 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  80  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  e0  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,3 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,3 
+              :instance  3 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000385)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,4 
+              :devsel-speed      0 
+              :physical-slot#    0xa4 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  34  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         07  00  00  00  07  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  40  fc  00  00  00  82  00  00  00  00 
+ 00  00  40  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  a0  ea  00  00  00  c2  00  00  00  00  00  00  a0  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000396TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  ac  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE44 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  40  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  a0  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,4 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,4 
+              :instance  4 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000003b0)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,5 
+              :devsel-speed      0 
+              :physical-slot#    0xa5 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  35  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         08  00  00  00  08  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  00  fc  00  00  00  82  00  00  00  00 
+ 00  00  00  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  60  ea  00  00  00  c2  00  00  00  00  00  00  60  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000003c1TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  ad  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE45 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  00  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  60  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,5 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,5 
+              :instance  5 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000003db)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,6 
+              :devsel-speed      0 
+              :physical-slot#    0xa6 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  36  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         09  00  00  00  09  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  c0  fb  00  00  00  82  00  00  00  00 
+ 00  00  c0  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  20  ea  00  00  00  c2  00  00  00  00  00  00  20  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000003ecTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  ae  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE46 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  c0  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  20  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,6 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,6 
+              :instance  6 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000406)
+              :DeviceID  0x15 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      15,7 
+              :devsel-speed      0 
+              :physical-slot#    0xa7 
+              :slot-names        01  00  00  00  70  63  69  65  31  36  37  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         0a  00  00  00  0a  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  80  fb  00  00  00  82  00  00  00  00 
+ 00  00  80  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  e0  e9  00  00  00  c2  00  00  00  00  00  00  e0  e9  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000417TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  af  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE47 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  80  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  e0  e9  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@15,7 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  15,7 
+              :instance  7 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000431)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16 
+              :devsel-speed      0 
+              :physical-slot#    0xc0 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  32  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         0b  00  00  00  0b  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  50  00  00  00  00  00  81  00  00  00  00 
+ 00  50  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  30  fd  00  00  00  82  00  00  00  00  00  00  30  fd  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  90  eb  00  00  00  c2 
+ 00  00  00  00  00  00  90  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000442TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b0  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE50 
+              :available        
+ 00  00  00  81  00  00  00  00  00  50  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  30  fd  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  90  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16 
+              :instance  8 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000045c)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,1 
+              :devsel-speed      0 
+              :physical-slot#    0xc1 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  33  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         0c  00  00  00  0c  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  90  00  00  00  00  00  81  00  00  00  00 
+ 00  90  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  f0  fc  00  00  00  82  00  00  00  00  00  00  f0  fc  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  50  eb  00  00  00  c2 
+ 00  00  00  00  00  00  50  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000046dTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b1  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE51 
+              :available        
+ 00  00  00  81  00  00  00  00  00  90  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  f0  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  50  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,1 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,1 
+              :instance  9 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000487)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,2 
+              :devsel-speed      0 
+              :physical-slot#    0xc2 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  34  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         0d  00  00  00  0d  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  d0  00  00  00  00  00  81  00  00  00  00 
+ 00  d0  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  b0  fc  00  00  00  82  00  00  00  00  00  00  b0  fc  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  10  eb  00  00  00  c2 
+ 00  00  00  00  00  00  10  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000498TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b2  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE52 
+              :available        
+ 00  00  00  81  00  00  00  00  00  d0  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  b0  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  10  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,2 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,2 
+              :instance  10 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000004b2)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,3 
+              :devsel-speed      0 
+              :physical-slot#    0xc3 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  35  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         0e  00  00  00  0e  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  70  fc  00  00  00  82  00  00  00  00 
+ 00  00  70  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  d0  ea  00  00  00  c2  00  00  00  00  00  00  d0  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000004c3TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b3  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE53 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  70  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  d0  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,3 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,3 
+              :instance  11 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000004dd)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,4 
+              :devsel-speed      0 
+              :physical-slot#    0xc4 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  36  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         0f  00  00  00  0f  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  30  fc  00  00  00  82  00  00  00  00 
+ 00  00  30  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  90  ea  00  00  00  c2  00  00  00  00  00  00  90  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000004eeTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b4  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE54 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  30  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  90  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,4 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,4 
+              :instance  12 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000508)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,5 
+              :devsel-speed      0 
+              :physical-slot#    0xc5 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  37  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         10  00  00  00  10  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  f0  fb  00  00  00  82  00  00  00  00 
+ 00  00  f0  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  50  ea  00  00  00  c2  00  00  00  00  00  00  50  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000519TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b5  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE55 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  f0  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  50  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,5 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,5 
+              :instance  13 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000533)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,6 
+              :devsel-speed      0 
+              :physical-slot#    0xc6 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  38  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         11  00  00  00  11  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  b0  fb  00  00  00  82  00  00  00  00 
+ 00  00  b0  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  10  ea  00  00  00  c2  00  00  00  00  00  00  10  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000544TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b6  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE56 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  b0  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  10  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,6 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,6 
+              :instance  14 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000055e)
+              :DeviceID  0x16 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      16,7 
+              :devsel-speed      0 
+              :physical-slot#    0xc7 
+              :slot-names        01  00  00  00  70  63  69  65  31  39  39  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         12  00  00  00  12  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  70  fb  00  00  00  82  00  00  00  00 
+ 00  00  70  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  d0  e9  00  00  00  c2  00  00  00  00  00  00  d0  e9  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000056fTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b7  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE57 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  70  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  d0  e9  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@16,7 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  16,7 
+              :instance  15 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000589)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17 
+              :devsel-speed      0 
+              :physical-slot#    0xe0 
+              :slot-names        01  00  00  00  70  63  69  65  32  32  34  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         13  00  00  00  13  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  60  00  00  00  00  00  81  00  00  00  00 
+ 00  60  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  20  fd  00  00  00  82  00  00  00  00  00  00  20  fd  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  80  eb  00  00  00  c2 
+ 00  00  00  00  00  00  80  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000059aTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b8  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE60 
+              :available        
+ 00  00  00  81  00  00  00  00  00  60  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  20  fd  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  80  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17 
+              :instance  16 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000005b4)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,1 
+              :devsel-speed      0 
+              :physical-slot#    0xe1 
+              :slot-names        01  00  00  00  70  63  69  65  32  32  35  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         14  00  00  00  14  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  a0  00  00  00  00  00  81  00  00  00  00 
+ 00  a0  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  e0  fc  00  00  00  82  00  00  00  00  00  00  e0  fc  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  40  eb  00  00  00  c2 
+ 00  00  00  00  00  00  40  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000005c5TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  b9  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE61 
+              :available        
+ 00  00  00  81  00  00  00  00  00  a0  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  e0  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  40  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,1 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,1 
+              :instance  17 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000005df)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,2 
+              :devsel-speed      0 
+              :physical-slot#    0xe2 
+              :slot-names        01  00  00  00  70  63  69  65  32  32  36  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         15  00  00  00  15  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  e0  00  00  00  00  00  81  00  00  00  00 
+ 00  e0  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  a0  fc  00  00  00  82  00  00  00  00  00  00  a0  fc  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  00  eb  00  00  00  c2 
+ 00  00  00  00  00  00  00  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000005f0TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  ba  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE62 
+              :available        
+ 00  00  00  81  00  00  00  00  00  e0  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  a0  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  00  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,2 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,2 
+              :instance  18 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000060a)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,3 
+              :devsel-speed      0 
+              :physical-slot#    0xe3 
+              :slot-names        01  00  00  00  70  63  69  65  32  32  37  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         16  00  00  00  16  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  60  fc  00  00  00  82  00  00  00  00 
+ 00  00  60  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  c0  ea  00  00  00  c2  00  00  00  00  00  00  c0  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000061bTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  bb  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE63 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  60  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  c0  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,3 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,3 
+              :instance  19 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000635)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,4 
+              :devsel-speed      0 
+              :physical-slot#    0xe4 
+              :slot-names        01  00  00  00  70  63  69  65  32  32  38  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         17  00  00  00  17  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  20  fc  00  00  00  82  00  00  00  00 
+ 00  00  20  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  80  ea  00  00  00  c2  00  00  00  00  00  00  80  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000646TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  bc  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE64 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  20  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  80  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,4 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,4 
+              :instance  20 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000660)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,5 
+              :devsel-speed      0 
+              :physical-slot#    0xe5 
+              :slot-names        01  00  00  00  70  63  69  65  32  32  39  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         18  00  00  00  18  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  e0  fb  00  00  00  82  00  00  00  00 
+ 00  00  e0  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  40  ea  00  00  00  c2  00  00  00  00  00  00  40  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000671TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  bd  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE65 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  e0  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  40  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,5 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,5 
+              :instance  21 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000068b)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,6 
+              :devsel-speed      0 
+              :physical-slot#    0xe6 
+              :slot-names        01  00  00  00  70  63  69  65  32  33  30  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         19  00  00  00  19  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  a0  fb  00  00  00  82  00  00  00  00 
+ 00  00  a0  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  00  ea  00  00  00  c2  00  00  00  00  00  00  00  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000069cTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  be  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE66 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  a0  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  00  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,6 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,6 
+              :instance  22 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000006b6)
+              :DeviceID  0x17 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      17,7 
+              :devsel-speed      0 
+              :physical-slot#    0xe7 
+              :slot-names        01  00  00  00  70  63  69  65  32  33  31  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         1a  00  00  00  1a  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  60  fb  00  00  00  82  00  00  00  00 
+ 00  00  60  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  c0  e9  00  00  00  c2  00  00  00  00  00  00  c0  e9  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000006c7TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  bf  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE67 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  60  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  c0  e9  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@17,7 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  17,7 
+              :instance  23 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000006e1)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18 
+              :devsel-speed      0 
+              :physical-slot#    0x100 
+              :slot-names        01  00  00  00  70  63  69  65  32  35  36  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         1b  00  00  00  1b  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  70  00  00  00  00  00  81  00  00  00  00 
+ 00  70  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  10  fd  00  00  00  82  00  00  00  00  00  00  10  fd  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  70  eb  00  00  00  c2 
+ 00  00  00  00  00  00  70  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000006f2TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c0  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE70 
+              :available        
+ 00  00  00  81  00  00  00  00  00  70  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  10  fd  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  70  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18 
+              :instance  24 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000070c)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,1 
+              :devsel-speed      0 
+              :physical-slot#    0x101 
+              :slot-names        01  00  00  00  70  63  69  65  32  35  37  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         1c  00  00  00  1c  00  00  00 
+              :ranges   
+ 00  00  00  81  00  00  00  00  00  b0  00  00  00  00  00  81  00  00  00  00 
+ 00  b0  00  00  00  00  00  00  00  10  00  00  00  00  00  82  00  00  00  00 
+ 00  00  d0  fc  00  00  00  82  00  00  00  00  00  00  d0  fc  00  00  00  00 
+ 00  00  10  00  00  00  00  c2  00  00  00  00  00  00  30  eb  00  00  00  c2 
+ 00  00  00  00  00  00  30  eb  00  00  00  00  00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000071dTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c1  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE71 
+              :available        
+ 00  00  00  81  00  00  00  00  00  b0  00  00  00  00  00  00  00  10  00  00 
+ 00  00  00  82  00  00  00  00  00  00  d0  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  30  eb  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,1 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,1 
+              :instance  25 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000737)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,2 
+              :devsel-speed      0 
+              :physical-slot#    0x102 
+              :slot-names        01  00  00  00  70  63  69  65  32  35  38  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         1d  00  00  00  1d  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  90  fc  00  00  00  82  00  00  00  00 
+ 00  00  90  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  f0  ea  00  00  00  c2  00  00  00  00  00  00  f0  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000748TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c2  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE72 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  90  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  f0  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,2 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,2 
+              :instance  26 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba00000762)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,3 
+              :devsel-speed      0 
+              :physical-slot#    0x103 
+              :slot-names        01  00  00  00  70  63  69  65  32  35  39  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         1e  00  00  00  1e  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  50  fc  00  00  00  82  00  00  00  00 
+ 00  00  50  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  b0  ea  00  00  00  c2  00  00  00  00  00  00  b0  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba00000773TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c3  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE73 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  50  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  b0  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,3 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,3 
+              :instance  27 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000078d)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,4 
+              :devsel-speed      0 
+              :physical-slot#    0x104 
+              :slot-names        01  00  00  00  70  63  69  65  32  36  30  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         1f  00  00  00  1f  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  10  fc  00  00  00  82  00  00  00  00 
+ 00  00  10  fc  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  70  ea  00  00  00  c2  00  00  00  00  00  00  70  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000079eTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c4  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE74 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  10  fc  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  70  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,4 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,4 
+              :instance  28 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000007b8)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,5 
+              :devsel-speed      0 
+              :physical-slot#    0x105 
+              :slot-names        01  00  00  00  70  63  69  65  32  36  31  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         20  00  00  00  20  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  d0  fb  00  00  00  82  00  00  00  00 
+ 00  00  d0  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  30  ea  00  00  00  c2  00  00  00  00  00  00  30  ea  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000007c9TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c5  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE75 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  d0  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  30  ea  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,5 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,5 
+              :instance  29 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba000007e3)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,6 
+              :devsel-speed      0 
+              :physical-slot#    0x106 
+              :slot-names        01  00  00  00  70  63  69  65  32  36  32  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         21  00  00  00  21  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  90  fb  00  00  00  82  00  00  00  00 
+ 00  00  90  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  f0  e9  00  00  00  c2  00  00  00  00  00  00  f0  e9  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba000007f4TBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c6  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE76 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  90  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  f0  e9  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,6 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,6 
+              :instance  30 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+             pci15ad,7a0 (pciex, ba0000080e)
+              :DeviceID  0x18 
+              :UnitAddress       0 
+              :pci-hotplug-type  0x1 
+              :pci-msi-capid-pointer     0x8c 
+              :hotplug-capable
+              :device-id         0x7a0 
+              :vendor-id         0x15ad 
+              :revision-id       0x1 
+              :class-code        0x60400 
+              :unit-address      18,7 
+              :devsel-speed      0 
+              :physical-slot#    0x107 
+              :slot-names        01  00  00  00  70  63  69  65  32  36  33  00 
+              :power-consumption         01  00  00  00  01  00  00  00 
+              :#address-cells    0x3 
+              :#size-cells       0x2 
+              :bus-range         22  00  00  00  22  00  00  00 
+              :ranges   
+ 00  00  00  82  00  00  00  00  00  00  50  fb  00  00  00  82  00  00  00  00 
+ 00  00  50  fb  00  00  00  00  00  00  10  00  00  00  00  c2  00  00  00  00 
+ 00  00  b0  e9  00  00  00  c2  00  00  00  00  00  00  b0  e9  00  00  00  00 
+ 00  00  10  00 
+              :model     PCI-PCI bridge 
+              :compatible       (ba0000081fTBL) 
+               | pciex15ad,7a0.1 |
+               | pciex15ad,7a0 |
+               | pciexclass,060400 |
+               | pciexclass,0604 |
+               | pci15ad,7a0.1 |
+               | pci15ad,7a0 |
+               | pciclass,060400 |
+               | pciclass,0604 |
+              :reg      
+ 00  c7  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00 
+              :acpi-namespace    \_SB_.PCI0.PE77 
+              :available        
+ 00  00  00  82  00  00  00  00  00  00  50  fb  00  00  00  00  00  00  10  00 
+ 00  00  00  c2  00  00  00  00  00  00  b0  e9  00  00  00  00  00  00  10  00 
+              :ddi-forceattach   0x1 
+              :fm-ereport-capable
+              :device_type       pciex 
+              :pci-occupant       
+              :ap-names  0x1 
+              :devfs-path        /pci@0,0/pci15ad,7a0@18,7 
+              :driver-name       pcieb 
+              :binding-name      pciexclass,060400 
+              :bus-addr  18,7 
+              :instance  31 
+              :_class    pciex 
+              :name      pci15ad,7a0 
+         pseudo (devctl, ba00000853)
+          :class         root 
+          :devfs-path    /pseudo 
+          :driver-name   pseudo 
+          :binding-name  pseudo 
+          :bus-addr       
+          :instance      0 
+          :_class        devctl 
+          :name  pseudo 
+             zconsnex (devctl, ba0000085c)
+              :valid-children    zcons 
+              :devfs-path        /pseudo/zconsnex@1 
+              :driver-name       pseudo 
+              :binding-name      zconsnex 
+              :bus-addr  1 
+              :instance  1 
+              :_class    devctl 
+              :name      zconsnex 
+             power (power_button, ba00000865)
+              :button    0x1 
+              :ddi-forceattach   0x1 
+              :devfs-path        /pseudo/power@0 
+              :driver-name       power 
+              :binding-name      power 
+              :bus-addr  0 
+              :instance  0 
+              :_class    power_button 
+              :name      power 
+             ppm (ppm, ba0000086f)
+              :domain_cpu-model  CPU 
+              :domain_cpu-devices        /cpus/cpu@* 
+              :ppm-domains       domain_cpu 
+              :devfs-path        /pseudo/ppm@0 
+              :driver-name       ppm 
+              :binding-name      ppm 
+              :bus-addr  0 
+              :instance  0 
+              :_class    ppm 
+              :name      ppm 
+         agpgart (agpgart, ba000008a2)
+          :class         root 
+          :devfs-path    /agpgart 
+          :driver-name   agpgart 
+          :binding-name  agpgart 
+          :bus-addr       
+          :instance      0 
+          :_class        agpgart 
+          :name  agpgart 
+         cpus (cpus, ba000008be)
+          :devfs-path    /cpus 
+          :driver-name   cpunex 
+          :binding-name  cpus 
+          :bus-addr       
+          :instance      0 
+          :_class        cpus 
+          :name  cpus 
+             cpu (cpu, ba000008c6)
+              :StateBegin        Thu May 30 05:11:19 2019 
+              :FPUType   i387 compatible 
+              :ProcessorType     i386 
+              :State     on-line 
+              :ID        0 
+              :device_type       cpu 
+              :reg       0 
+              :cpu-mhz   0xc79 
+              :vendor-id         GenuineIntel 
+              :family    0x6 
+              :cpu-model         0xc 
+              :stepping-id       0x3 
+              :type      0 
+              :chunks    0x10 
+              :apic-id   0 
+              :chip#     0 
+              :clog#     0 
+              :cpuid-features    0xfabbbff 
+              :cpuid-features-ecx        0x9ed83203 
+              :ext-cpuid-features        0x28100800 
+              :ext-cpuid-features-ecx    0x1 
+              :brand-string      Intel(r) Core(tm) i5-4460  CPU @ 3.20GHz 
+              :dtlb-4K-associativity     0x4 
+              :dtlb-4K-size      0x40 
+              :devfs-path        /cpus/cpu 
+              :driver-name       cpudrv 
+              :binding-name      cpu 
+              :instance  -1 
+              :_class    cpu 
+              :name      cpu 
+     obp (picl, ba00000036)
+      :_class    picl 
+      :name      obp 
+         iscsi (iscsi, ba00000839)
+          :scsi-enumeration      0 
+          :scsi-options  0x107ff8 
+          :scsi-reset-delay      0xbb8 
+          :scsi-watchdog-tick    0xa 
+          :scsi-selection-timeout        0xfa 
+          :scsi-tag-age-limit    0x2 
+          :initiator-interconnect-type   iSCSI 
+          :mpxio-disable         no 
+          :ddi-forceattach       0x1 
+          :so-rcvbuf     0x40000 
+          :so-sndbuf     0x40000 
+          :tcp-nodelay   0 
+          :tcp-conn-notify-threshold     0x7d0 
+          :tcp-conn-abort-threshold      0x2710 
+          :tcp-abort-threshold   0x7530 
+          :config-storm-delay    0x5 
+          :fm-ereport-capable
+          :initiator-port        iqn.1986-03.com.sun:01:000000000500.597e423b,4000002a00ff 
+          :devfs-path    /iscsi 
+          :driver-name   iscsi 
+          :binding-name  iscsi 
+          :bus-addr       
+          :instance      0 
+          :_class        iscsi 
+          :name  iscsi 
+         xsvc (xsvc, ba0000087a)
+          :maxallocmem   0x2800 
+          :class         root 
+          :devfs-path    /xsvc 
+          :driver-name   xsvc 
+          :binding-name  xsvc 
+          :bus-addr       
+          :instance      0 
+          :_class        xsvc 
+          :name  xsvc 
+         options (options, ba00000884)
+          :class         root 
+          :ttymodes     
+ 02  25  00  00  05  18  00  00  bd  00  00  00  3b  8a  00  00  03  1c  7f  15 
+ 04  00  00  00  11  13  1a  19  12  0f  17  16  00  00  00  00 
+          :devfs-path    /options 
+          :driver-name   options 
+          :binding-name  options 
+          :bus-addr       
+          :instance      0 
+          :_class        options 
+          :name  options 
+         objmgr (objmgr, ba0000088e)
+          :class         root 
+          :dsngl         misc/strategy 
+          :dmult         misc/strategy 
+          :duplx         misc/strategy 
+          :qsort         misc/strategy 
+          :qfifo         misc/strategy 
+          :adapt         misc/strategy 
+          :qtag  misc/strategy 
+          :snlb  misc/snlb 
+          :genlb         misc/genlb 
+          :sctp  misc/sctp 
+          :dadk  misc/dadk 
+          :devfs-path    /objmgr 
+          :driver-name   objmgr 
+          :binding-name  objmgr 
+          :bus-addr       
+          :instance      0 
+          :_class        objmgr 
+          :name  objmgr 
+         acpi (acpi, ba000008ab)
+          :compatible    ACPI0003 
+          :model         ACPI AC Device 
+          :acpi-namespace        \_SB_.ACAD 
+          :devfs-path    /acpi 
+          :binding-name  acpi 
+          :instance      -1 
+          :_class        acpi 
+          :name  acpi 
+         used-resources (used-resources, ba000008b4)
+          :interrupts   
+ 00  00  00  00  01  00  00  00  02  00  00  00  03  00  00  00  04  00  00  00 
+ 06  00  00  00  07  00  00  00  08  00  00  00  0c  00  00  00 
+          :dma-channels  02  00  00  00  04  00  00  00 
+          :device-memory        
+ 00  00  00  f0  00  00  00  08  00  00  80  fe  00  00  20  00  00  00  d0  fe 
+ 00  04  00  00 
+          :io-space     
+ 00  00  00  00  10  00  00  00  10  00  00  00  10  00  00  00  20  00  00  00 
+ 02  00  00  00  24  00  00  00  02  00  00  00  28  00  00  00  02  00  00  00 
+ 2c  00  00  00  02  00  00  00  2e  00  00  00  02  00  00  00  30  00  00  00 
+ 02  00  00  00  34  00  00  00  02  00  00  00  38  00  00  00  02  00  00  00 
+ 3c  00  00  00  02  00  00  00  40  00  00  00  04  00  00  00  50  00  00  00 
+ 04  00  00  00  60  00  00  00  01  00  00  00  61  00  00  00  01  00  00  00 
+ 64  00  00  00  01  00  00  00  70  00  00  00  02  00  00  00  72  00  00  00 
+ 06  00  00  00  80  00  00  00  01  00  00  00  81  00  00  00  0f  00  00  00 
+ 90  00  00  00  10  00  00  00  a0  00  00  00  02  00  00  00  a4  00  00  00 
+ 02  00  00  00  a8  00  00  00  02  00  00  00  ac  00  00  00  02  00  00  00 
+ b0  00  00  00  06  00  00  00  b8  00  00  00  02  00  00  00  bc  00  00  00 
+ 02  00  00  00  c0  00  00  00  20  00  00  00  f8  02  00  00  08  00  00  00 
+ 78  03  00  00  04  00  00  00  f0  03  00  00  06  00  00  00  f7  03  00  00 
+ 01  00  00  00  f8  03  00  00  08  00  00  00  d0  04  00  00  02  00  00  00 
+ f0  0c  00  00  02  00  00  00  f8  0c  00  00  08  00  00  00  00  10  00  00 
+ 40  00  00  00  40  10  00  00  10  00  00  00  e0  fc  00  00  20  00  00  00 
+          :devfs-path    /used-resources 
+          :binding-name  used-resources 
+          :instance      -1 
+          :_class        used-resources 
+          :name  used-resources 
+$ 

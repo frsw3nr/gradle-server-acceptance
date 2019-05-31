@@ -19,7 +19,7 @@
     },
     "vm.MemoryGB": {
         "name": "vm.MemoryGB",
-        "value": "4",
+        "value": "4.0",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -35,9 +35,18 @@
         "verify": null,
         "comparision": null
     },
+    "vm.name": {
+        "name": "vm.name",
+        "value": "win2012",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "vm": {
         "name": "vm",
-        "value": "[CPU:1, Memory:4, Host:192.168.10.100]",
+        "value": "[Name:win2012, CPU:1, MemoryGB:4.0, Host:192.168.10.100]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -105,6 +114,15 @@
             ]
         }
     },
+    "datastore.Name.datastore2": {
+        "name": "datastore.Name.datastore2",
+        "value": "datastore2",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "datastore.DatastoreBrowserPath.datastore2": {
         "name": "datastore.DatastoreBrowserPath.datastore2",
         "value": "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
@@ -134,7 +152,7 @@
     },
     "vm_storage": {
         "name": "vm_storage",
-        "value": "[Thin:40]",
+        "value": "[datastore2/Thin/40.0 GB]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -145,15 +163,44 @@
                 [
                     "[datastore2] w2012/w2012.vmdk",
                     "Thin",
-                    "40"
+                    "40.0",
+                    "Flat"
                 ]
             ],
             "header": [
                 "Filename",
                 "StorageFormat",
-                "CapacityGB"
+                "CapacityGB",
+                "DiskType"
             ]
         }
+    },
+    "vm_storage.StorageFormat.datastore2": {
+        "name": "vm_storage.StorageFormat.datastore2",
+        "value": "Thin",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_storage.CapacityGB.datastore2": {
+        "name": "vm_storage.CapacityGB.datastore2",
+        "value": "40.0",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_storage.DiskType.datastore2": {
+        "name": "vm_storage.DiskType.datastore2",
+        "value": "Flat",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
     },
     "VMNetwork": {
         "name": "VMNetwork",
@@ -178,12 +225,39 @@
             ]
         }
     },
-    "VMNetwork.type": {
-        "name": "VMNetwork.type",
-        "value": "[e1000e]",
+    "vm_conf": {
+        "name": "vm_conf",
+        "value": "unkown",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_conf.limit": {
+        "name": "vm_conf.limit",
+        "value": "[CPU:unkown, Mem:unkown]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_conf.shares_level": {
+        "name": "vm_conf.shares_level",
+        "value": "[CPU:unkown, Mem:unkown]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_conf.cpu_affinity": {
+        "name": "vm_conf.cpu_affinity",
+        "value": "",
+        "error_msg": "Not found",
+        "compare_server": null,
+        "status": "WARNING",
         "verify": null,
         "comparision": null
     },
@@ -216,7 +290,34 @@
     },
     "vm_iops_limit": {
         "name": "vm_iops_limit",
-        "value": "[IOLimit1:-1]",
+        "value": "[Drive1:-1]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_nic_limit": {
+        "name": "vm_nic_limit",
+        "value": "No limit",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_floppy": {
+        "name": "vm_floppy",
+        "value": "",
+        "error_msg": "Not found",
+        "compare_server": null,
+        "status": "WARNING",
+        "verify": null,
+        "comparision": null
+    },
+    "vm_video_ram": {
+        "name": "vm_video_ram",
+        "value": "Not Found",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",

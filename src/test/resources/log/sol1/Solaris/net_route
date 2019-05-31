@@ -1,0 +1,16 @@
+newrt->ri_dst: inet 0.0.0.0; newrt->ri_mask: inet 0.0.0.0; newrt->ri_ifp: link ; RTM_GET: Report Metrics: len 360, pid: 0, seq 1, errno 0, flags:<GATEWAY,STATIC>
+locks:  inits: 
+sockaddrs: <DST,NETMASK,IFP>
+ default default 
+   route to: default
+destination: default
+       mask: default
+    gateway: 192.168.10.254
+  interface: e1000g0 index 2 address 00 0c 29 6f 38 cf 
+      flags: <UP,GATEWAY,DONE,STATIC>
+ recvpipe  sendpipe  ssthresh    rtt,ms rttvar,ms  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+locks:  inits: <rttvar,rtt,ssthresh,sendpipe,recvpipe,mtu>
+sockaddrs: <DST,GATEWAY,NETMASK,IFP,IFA>
+ default 192.168.10.254 default e1000g0:0.c.29.6f.38.cf 192.168.10.3
+$ 

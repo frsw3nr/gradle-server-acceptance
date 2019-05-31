@@ -6,6 +6,7 @@ import groovy.transform.InheritConstructors
 // import org.hidetake.groovy.ssh.Ssh
 import ch.ethz.ssh2.Connection
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import sun.net.util.IPAddressUtil
 import org.apache.commons.net.util.SubnetUtils
@@ -51,7 +52,6 @@ class RouterRTXSpec extends InfraTestSpec {
 
     def init_telnet_session() {
         TelnetClient telnet = new TelnetClient();
-
         try {
             telnet.setDefaultTimeout(1000 * timeout);
             telnet.connect(this.ip);
@@ -165,6 +165,8 @@ class RouterRTXSpec extends InfraTestSpec {
             def log_path = (share) ? evidence_log_share_dir : local_dir
             sendCommand("console lines infinity")
             def result = sendCommand(command)
+
+
             new File("${log_path}/${test_id}").text = result
         } catch (Exception e) {
             log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e

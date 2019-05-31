@@ -21,6 +21,7 @@ class TestTarget extends SpecModel {
     String account_id
     String verify_id
     String compare_server
+    String tag
     Boolean comparision = false
     RunStatus target_status
     String success_rate

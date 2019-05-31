@@ -1,0 +1,41 @@
+{
+    "name": "cent63a",
+    "ip": "192.168.65.34",
+    "template_id": "RH6",
+    "compare_server": "cent65a",
+    "target_status": "FINISH",
+    "platforms": [
+        "vCenter",
+        "Linux"
+    ],
+    "port_list": {
+        "192.168.65.34": {
+            "ip": "192.168.65.34",
+            "description": "bond0",
+            "mac": null,
+            "vendor": null,
+            "switch_name": null,
+            "netmask": null,
+            "subnet": null,
+            "port_no": null,
+            "device_type": null,
+            "lookup": true,
+            "managed": null,
+            "port_type": null
+        },
+        "192.168.64.213": {
+            "ip": "192.168.64.213",
+            "description": "bond0:1",
+            "mac": null,
+            "vendor": null,
+            "switch_name": null,
+            "netmask": null,
+            "subnet": null,
+            "port_no": null,
+            "device_type": null,
+            "lookup": true,
+            "managed": null,
+            "port_type": null
+        }
+    }
+}

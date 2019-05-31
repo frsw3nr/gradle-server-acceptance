@@ -201,6 +201,8 @@ class LinuxSpec extends LinuxSpecBase {
         }
         def network = [:].withDefault{[:]}
         def device  = ''
+        def net_ip  = [:]
+        def subnets = [:]
         def res     = [:]
         def ipv6    = 'Disable'
         lines.eachLine {
@@ -229,14 +231,17 @@ class LinuxSpec extends LinuxSpecBase {
 
                 try {
                     SubnetInfo subnet = new SubnetUtils(m1).getInfo()
-                    network[device]['subnet'] = subnet.getNetmask()
+                    def netmask = subnet.getNetmask()
+                    network[device]['subnet'] = netmask
                     // Regist Port List
                     def ip_address = subnet.getAddress()
                     if (ip_address && ip_address != '127.0.0.1') {
                         test_item.lookuped_port_list(ip_address, device)
                         add_new_metric("network.ip.${device}",     "[${device}] IP", ip_address, res)
                         add_new_metric("network.subnet.${device}", "[${device}] サブネット", 
-                                       network[device]['subnet'], res)
+                                       netmask, res)
+                        subnets[device] = netmask
+                        net_ip[device] = ip_address
                     }
                 } catch (IllegalArgumentException e) {
                     log.error "[LinuxTest] subnet convert : m1\n" + e
@@ -254,7 +259,6 @@ class LinuxSpec extends LinuxSpecBase {
         add_new_metric("network.ipv6_enabled", "ネットワーク.IPv6", ipv6, res)
         // mtu:1500, qdisc:noqueue, state:DOWN, ip:172.17.0.1/16
         def csv        = []
-        def net_ip     = [:]
         network.each { device_id, items ->
             def columns = [device_id]
             ['ip', 'mtu', 'state', 'mac', 'subnet'].each {
@@ -264,6 +268,8 @@ class LinuxSpec extends LinuxSpecBase {
             net_ip[device_id] = items['ip']
         }
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
+        res['net_ip'] = net_ip.toString()
+        res['net_subnet'] = subnets.toString()
         res['network'] = net_ip.keySet().toString()
         test_item.results(res)
         test_item.devices(csv, headers)

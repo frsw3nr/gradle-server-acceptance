@@ -1,0 +1,19 @@
+Filesystem             size   used  avail capacity  Mounted on
+/dev/dsk/c1t0d0s0      6.9G   5.4G   1.4G    80%    /
+/devices                 0K     0K     0K     0%    /devices
+ctfs                     0K     0K     0K     0%    /system/contract
+proc                     0K     0K     0K     0%    /proc
+mnttab                   0K     0K     0K     0%    /etc/mnttab
+swap                   3.0G  1004K   3.0G     1%    /etc/svc/volatile
+objfs                    0K     0K     0K     0%    /system/object
+sharefs                  0K     0K     0K     0%    /etc/dfs/sharetab
+/usr/lib/libc/libc_hwcap1.so.1
+                       6.9G   5.4G   1.4G    80%    /lib/libc.so.1
+fd                       0K     0K     0K     0%    /dev/fd
+swap                   3.0G    80K   3.0G     1%    /tmp
+swap                   3.0G    32K   3.0G     1%    /var/run
+/dev/dsk/c1t0d0s7       12G   1.7G    10G    15%    /export/home
+-hosts                   0K     0K     0K     0%    /net
+auto_home                0K     0K     0K     0%    /home
+sol:vold(pid563)         0K     0K     0K     0%    /vol
+$ 

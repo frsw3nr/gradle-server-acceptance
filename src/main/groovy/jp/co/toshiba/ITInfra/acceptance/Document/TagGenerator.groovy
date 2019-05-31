@@ -78,17 +78,23 @@ class TagGenerator {
     // TODO: テストシナリオのターゲットリストをクラスターID順にソート
     def make_target_tag(Map clusters, TestScenario test_scenario) {
         def compare_servers = [:]
-        clusters.find { index, cluster ->
+        def compare_servers_others = [:]
+        clusters.each { index, cluster ->
             def target_n = cluster.size()
+            def compare_server = index_targets[cluster[0]]
+            println "COMPARE_SERVER:${cluster[0]},$compare_server"
             if (target_n >= 2) {
-                def compare_server = index_targets[cluster[0]]
                 (1..(target_n-1)).each { i ->
                     def target_server = index_targets[cluster[i]]
+                println "target_server:$i, ${cluster[i]},$target_server"
                     compare_servers[target_server] = compare_server
                 }
+            } else {
+                compare_servers_others[compare_server] = compare_server
             }
         }
-        // println "TARGET_TAG: $compare_servers"
+        println "TARGET_TAG: $compare_servers"
+        def test_targets = test_scenario.test_targets
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
@@ -122,7 +128,7 @@ class TagGenerator {
             }
         }
         def data = make_dummy_variables()
-        def clusters = run_elki_kmeans_clustering(data, 3)
+        def clusters = run_elki_kmeans_clustering(data, 10)
         make_target_tag(clusters, test_scenario)
     }
 
@@ -139,9 +145,9 @@ class TagGenerator {
         def dist = SquaredEuclideanDistanceFunction.STATIC;
         // Default initialization, using global random:
         // To fix the random seed, use: new RandomFactory(seed);
-        RandomFactory rnd = new RandomFactory(1);
-        // def init = new RandomUniformGeneratedInitialMeans(RandomFactory.DEFAULT);
-        def init = new RandomUniformGeneratedInitialMeans(rnd);
+        // RandomFactory rnd = new RandomFactory(1);
+        def init = new RandomUniformGeneratedInitialMeans(RandomFactory.DEFAULT);
+        // def init = new RandomUniformGeneratedInitialMeans(rnd);
 
         // Textbook k-means clustering:
         KMeansLloyd<NumberVector> km = new KMeansLloyd<>(dist, //
@@ -167,7 +173,11 @@ class TagGenerator {
             clusters[i] << offset
             // Do NOT rely on using "internalGetIndex()" directly!
           }
-          log.info "#${i}:${clu.getNameAutomatic()}, Size: ${clu.size()}, Objects: ${clusters[i]}"
+          def cluster_targets = [:]
+          clusters[i].each { cluster_index ->
+            cluster_targets[cluster_index] = index_targets[cluster_index]
+          }
+          log.info "#${i}:${clu.getNameAutomatic()}, ${cluster_targets}"
           ++i;
         }
         return clusters

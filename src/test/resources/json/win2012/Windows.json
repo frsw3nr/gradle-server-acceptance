@@ -35,9 +35,18 @@
         "verify": null,
         "comparision": null
     },
+    "PrimaryOwnerName": {
+        "name": "PrimaryOwnerName",
+        "value": "Windows \u30e6\u30fc\u30b6\u30fc",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "system": {
         "name": "system",
-        "value": "WORKGROUP\\WIN-1CF89L6IEBI",
+        "value": "[Model:VMware Virtual Platform, Owner:Windows \u30e6\u30fc\u30b6\u30fc]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -64,7 +73,7 @@
     },
     "os_product_type": {
         "name": "os_product_type",
-        "value": "3",
+        "value": "server",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -89,9 +98,54 @@
         "verify": null,
         "comparision": null
     },
+    "os_conf.install_date": {
+        "name": "os_conf.install_date",
+        "value": "2018/09/20 11:01:40",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "os_conf.version": {
+        "name": "os_conf.version",
+        "value": "'6.3'",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "os_conf.build": {
+        "name": "os_conf.build",
+        "value": "'9600'",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "os_conf.product_id": {
+        "name": "os_conf.product_id",
+        "value": "00000-00000-00000-00000",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "os_conf": {
+        "name": "os_conf",
+        "value": "[Version:'6.3', Build:'9600']",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "driver": {
         "name": "driver",
-        "value": "98",
+        "value": "98 drivers",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -913,7 +967,7 @@
     },
     "remote_desktop": {
         "name": "remote_desktop",
-        "value": "0\r\n",
+        "value": "Enable",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -922,7 +976,7 @@
     },
     "firewall": {
         "name": "firewall",
-        "value": "34",
+        "value": "[Windows \u30ea\u30e2\u30fc\u30c8\u7ba1\u7406, \u30b3\u30a2 \u30cd\u30c3\u30c8\u30ef\u30fc\u30af, \u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u63a2\u7d22, \u30ea\u30e2\u30fc\u30c8 \u30c7\u30b9\u30af\u30c8\u30c3\u30d7, Google Chrome]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1149,6 +1203,51 @@
             ]
         }
     },
+    "firewall.Windows \u30ea\u30e2\u30fc\u30c8\u7ba1\u7406": {
+        "name": "firewall.Windows \u30ea\u30e2\u30fc\u30c8\u7ba1\u7406",
+        "value": "Enable",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "firewall.\u30b3\u30a2 \u30cd\u30c3\u30c8\u30ef\u30fc\u30af": {
+        "name": "firewall.\u30b3\u30a2 \u30cd\u30c3\u30c8\u30ef\u30fc\u30af",
+        "value": "Enable",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "firewall.\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u63a2\u7d22": {
+        "name": "firewall.\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u63a2\u7d22",
+        "value": "Enable",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "firewall.\u30ea\u30e2\u30fc\u30c8 \u30c7\u30b9\u30af\u30c8\u30c3\u30d7": {
+        "name": "firewall.\u30ea\u30e2\u30fc\u30c8 \u30c7\u30b9\u30af\u30c8\u30c3\u30d7",
+        "value": "Enable",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "firewall.Google Chrome": {
+        "name": "firewall.Google Chrome",
+        "value": "Enable",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "dns": {
         "name": "dns",
         "value": "[192.168.0.254, fec0:0:0:ffff::1, fec0:0:0:ffff::2, fec0:0:0:ffff::3]",
@@ -1176,6 +1275,403 @@
         "verify": null,
         "comparision": null
     },
+    "monitor.height": {
+        "name": "monitor.height",
+        "value": "[Unspecified]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "monitor.width": {
+        "name": "monitor.width",
+        "value": "[Unspecified]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "monitor": {
+        "name": "monitor",
+        "value": "[Generic Non-PnP Monitor]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "patch_lists": {
+        "name": "patch_lists",
+        "value": "118 patches",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "KB3191564"
+                ],
+                [
+                    "KB2868626"
+                ],
+                [
+                    "KB2883200"
+                ],
+                [
+                    "KB2893294"
+                ],
+                [
+                    "KB2894029"
+                ],
+                [
+                    "KB2894179"
+                ],
+                [
+                    "KB2894856"
+                ],
+                [
+                    "KB2912390"
+                ],
+                [
+                    "KB2919355"
+                ],
+                [
+                    "KB2919442"
+                ],
+                [
+                    "KB2931366"
+                ],
+                [
+                    "KB2967917"
+                ],
+                [
+                    "KB2973114"
+                ],
+                [
+                    "KB2973201"
+                ],
+                [
+                    "KB2976627"
+                ],
+                [
+                    "KB2976897"
+                ],
+                [
+                    "KB2977629"
+                ],
+                [
+                    "KB2977765"
+                ],
+                [
+                    "KB2978126"
+                ],
+                [
+                    "KB2987107"
+                ],
+                [
+                    "KB2999226"
+                ],
+                [
+                    "KB3000850"
+                ],
+                [
+                    "KB3003057"
+                ],
+                [
+                    "KB3004365"
+                ],
+                [
+                    "KB3008242"
+                ],
+                [
+                    "KB3008923"
+                ],
+                [
+                    "KB3010788"
+                ],
+                [
+                    "KB3011780"
+                ],
+                [
+                    "KB3014442"
+                ],
+                [
+                    "KB3019978"
+                ],
+                [
+                    "KB3021674"
+                ],
+                [
+                    "KB3021952"
+                ],
+                [
+                    "KB3023222"
+                ],
+                [
+                    "KB3023266"
+                ],
+                [
+                    "KB3032359"
+                ],
+                [
+                    "KB3034348"
+                ],
+                [
+                    "KB3035126"
+                ],
+                [
+                    "KB3037579"
+                ],
+                [
+                    "KB3038314"
+                ],
+                [
+                    "KB3042085"
+                ],
+                [
+                    "KB3044374"
+                ],
+                [
+                    "KB3045685"
+                ],
+                [
+                    "KB3045755"
+                ],
+                [
+                    "KB3045999"
+                ],
+                [
+                    "KB3046017"
+                ],
+                [
+                    "KB3049563"
+                ],
+                [
+                    "KB3055642"
+                ],
+                [
+                    "KB3058515"
+                ],
+                [
+                    "KB3059317"
+                ],
+                [
+                    "KB3061512"
+                ],
+                [
+                    "KB3065822"
+                ],
+                [
+                    "KB3071756"
+                ],
+                [
+                    "KB3074228"
+                ],
+                [
+                    "KB3074548"
+                ],
+                [
+                    "KB3074553"
+                ],
+                [
+                    "KB3077715"
+                ],
+                [
+                    "KB3078071"
+                ],
+                [
+                    "KB3082089"
+                ],
+                [
+                    "KB3083185"
+                ],
+                [
+                    "KB3084135"
+                ],
+                [
+                    "KB3086255"
+                ],
+                [
+                    "KB3087038"
+                ],
+                [
+                    "KB3093983"
+                ],
+                [
+                    "KB3097992"
+                ],
+                [
+                    "KB3097997"
+                ],
+                [
+                    "KB3098779"
+                ],
+                [
+                    "KB3100773"
+                ],
+                [
+                    "KB3104002"
+                ],
+                [
+                    "KB3109103"
+                ],
+                [
+                    "KB3110329"
+                ],
+                [
+                    "KB3121461"
+                ],
+                [
+                    "KB3122654"
+                ],
+                [
+                    "KB3122660"
+                ],
+                [
+                    "KB3124275"
+                ],
+                [
+                    "KB3126434"
+                ],
+                [
+                    "KB3126587"
+                ],
+                [
+                    "KB3133043"
+                ],
+                [
+                    "KB3134814"
+                ],
+                [
+                    "KB3135994"
+                ],
+                [
+                    "KB3139398"
+                ],
+                [
+                    "KB3139914"
+                ],
+                [
+                    "KB3139929"
+                ],
+                [
+                    "KB3142030"
+                ],
+                [
+                    "KB3146723"
+                ],
+                [
+                    "KB3148198"
+                ],
+                [
+                    "KB3154070"
+                ],
+                [
+                    "KB3155784"
+                ],
+                [
+                    "KB3156059"
+                ],
+                [
+                    "KB3159398"
+                ],
+                [
+                    "KB3160005"
+                ],
+                [
+                    "KB3161949"
+                ],
+                [
+                    "KB3162343"
+                ],
+                [
+                    "KB3163291"
+                ],
+                [
+                    "KB3170106"
+                ],
+                [
+                    "KB3173424"
+                ],
+                [
+                    "KB3175024"
+                ],
+                [
+                    "KB3175443"
+                ],
+                [
+                    "KB3178539"
+                ],
+                [
+                    "KB3185319"
+                ],
+                [
+                    "KB3210137"
+                ],
+                [
+                    "KB4014555"
+                ],
+                [
+                    "KB4040974"
+                ],
+                [
+                    "KB4048961"
+                ],
+                [
+                    "KB4054522"
+                ],
+                [
+                    "KB4056898"
+                ],
+                [
+                    "KB4074597"
+                ],
+                [
+                    "KB4088879"
+                ],
+                [
+                    "KB4093115"
+                ],
+                [
+                    "KB4095517"
+                ],
+                [
+                    "KB4095876"
+                ],
+                [
+                    "KB4103715"
+                ],
+                [
+                    "KB4338600"
+                ],
+                [
+                    "KB4338824"
+                ],
+                [
+                    "KB4343205"
+                ],
+                [
+                    "KB4343888"
+                ],
+                [
+                    "KB4344147"
+                ],
+                [
+                    "KB4344171"
+                ],
+                [
+                    "KB4462926"
+                ]
+            ],
+            "header": [
+                "knowledge_base"
+            ]
+        }
+    },
     "ntp": {
         "name": "ntp",
         "value": "time.windows.com,0x9\r\n",
@@ -1187,7 +1683,7 @@
     },
     "task_scheduler": {
         "name": "task_scheduler",
-        "value": "8 task found.",
+        "value": "8 tasks",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1326,7 +1822,7 @@
     },
     "etc_hosts": {
         "name": "etc_hosts",
-        "value": "1",
+        "value": "1 hosts",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1354,9 +1850,36 @@
         "verify": null,
         "comparision": null
     },
+    "ie_version.svcVersion": {
+        "name": "ie_version.svcVersion",
+        "value": "11.0.9600.17031",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "ie_version.svcUpdateVersion": {
+        "name": "ie_version.svcUpdateVersion",
+        "value": "11.0.7",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "ie_version.RunspaceId": {
+        "name": "ie_version.RunspaceId",
+        "value": "bb85c62e-690f-49e9-95a2-6cea6c978073",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "ie_version": {
         "name": "ie_version",
-        "value": "[Version:9.11.9600.17031, svcVersion:11.0.9600.17031]",
+        "value": "[Version:11.0.9600.17031, UpdateVersion:11.0.7]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1464,7 +1987,7 @@
     },
     "memory": {
         "name": "memory",
-        "value": "8.686630249023438",
+        "value": "3.9995651245117188",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1500,27 +2023,45 @@
             ]
         }
     },
-    "network.ip": {
-        "name": "network.ip",
-        "value": "[192.168.0.24]",
+    "network.dev.0": {
+        "name": "network.dev.0",
+        "value": "e1iexpress",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "network.gw": {
-        "name": "network.gw",
-        "value": "[192.168.0.254]",
+    "network.ip.0": {
+        "name": "network.ip.0",
+        "value": "192.168.0.24",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "network.subnet": {
-        "name": "network.subnet",
-        "value": "[255.255.255.0]",
+    "network.subnet.0": {
+        "name": "network.subnet.0",
+        "value": "255.255.255.0",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "network.gateway.0": {
+        "name": "network.gateway.0",
+        "value": "192.168.0.254",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "nic_teaming.device": {
+        "name": "nic_teaming.device",
+        "value": "[Team_2, Team_1]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1529,7 +2070,7 @@
     },
     "nic_teaming": {
         "name": "nic_teaming",
-        "value": "[teaming:NotConfigured, devices:[]]",
+        "value": "Configured",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1538,7 +2079,7 @@
     },
     "network_profile": {
         "name": "network_profile",
-        "value": "[\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8:1]",
+        "value": "[\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8:Private]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1550,9 +2091,9 @@
                     "\u30cd\u30c3\u30c8\u30ef\u30fc\u30af",
                     "\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8",
                     "12",
-                    "1",
-                    "4",
-                    "3"
+                    "Private",
+                    "Internet",
+                    "LocalNetwork"
                 ]
             ],
             "header": [
@@ -1564,6 +2105,315 @@
                 "IPv6Connectivity"
             ]
         }
+    },
+    "network_profile.Category.\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8": {
+        "name": "network_profile.Category.\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8",
+        "value": "Private",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "network_profile.IPv4.\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8": {
+        "name": "network_profile.IPv4.\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8",
+        "value": "Internet",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "network_profile.IPv6.\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8": {
+        "name": "network_profile.IPv6.\u30a4\u30fc\u30b5\u30cd\u30c3\u30c8",
+        "value": "LocalNetwork",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind": {
+        "name": "net_bind",
+        "value": "[Ethernet0:[ms_rspndr:True, ms_lltdio:True, ms_msclient:True, ms_pacer:True, ms_server:True, ms_tcpip:True]]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "Link-Layer Topology Discovery Responder",
+                    "ms_rspndr",
+                    "True"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "Link-Layer Topology Discovery Mapper I/O Driver",
+                    "ms_lltdio",
+                    "True"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "Microsoft Network Adapter Multiplexor Protocol",
+                    "ms_implat",
+                    "False"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "Microsoft \u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u7528\u30af\u30e9\u30a4\u30a2\u30f3\u30c8",
+                    "ms_msclient",
+                    "True"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "QoS \u30d1\u30b1\u30c3\u30c8 \u30b9\u30b1\u30b8\u30e5\u30fc\u30e9",
+                    "ms_pacer",
+                    "True"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "Microsoft \u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u7528\u30d5\u30a1\u30a4\u30eb\u3068\u30d7\u30ea\u30f3\u30bf\u30fc\u5171\u6709",
+                    "ms_server",
+                    "True"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8 \u30d7\u30ed\u30c8\u30b3\u30eb \u30d0\u30fc\u30b8\u30e7\u30f3 6 (TCP/IPv6)",
+                    "ms_tcpip6",
+                    "False"
+                ],
+                [
+                    "Ethernet0",
+                    "vmxnet3 Ethernet Adapter",
+                    "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8 \u30d7\u30ed\u30c8\u30b3\u30eb \u30d0\u30fc\u30b8\u30e7\u30f3 4 (TCP/IPv4)",
+                    "ms_tcpip",
+                    "True"
+                ]
+            ],
+            "header": [
+                "Name",
+                "ifDesc",
+                "Description",
+                "ComponentID",
+                "Enabled"
+            ]
+        }
+    },
+    "net_bind.Ethernet0": {
+        "name": "net_bind.Ethernet0",
+        "value": "vmxnet3 Ethernet Adapter",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_rspndr": {
+        "name": "net_bind.Ethernet0.ms_rspndr",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_lltdio": {
+        "name": "net_bind.Ethernet0.ms_lltdio",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_implat": {
+        "name": "net_bind.Ethernet0.ms_implat",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_msclient": {
+        "name": "net_bind.Ethernet0.ms_msclient",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_pacer": {
+        "name": "net_bind.Ethernet0.ms_pacer",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_server": {
+        "name": "net_bind.Ethernet0.ms_server",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_tcpip6": {
+        "name": "net_bind.Ethernet0.ms_tcpip6",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_bind.Ethernet0.ms_tcpip": {
+        "name": "net_bind.Ethernet0.ms_tcpip",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[Ethernet0:Connected]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null,
+        "devices": {
+            "csv": [
+                [
+                    "Loopback Pseudo-Interface 1",
+                    "IPv6",
+                    "4294967295",
+                    "Enabled",
+                    "50",
+                    "Disabled",
+                    "Connected",
+                    "ActiveStore"
+                ],
+                [
+                    "Ethernet0",
+                    "IPv4",
+                    "1500",
+                    "Enabled",
+                    "5",
+                    "Disabled",
+                    "Connected",
+                    "ActiveStore"
+                ],
+                [
+                    "Loopback Pseudo-Interface 1",
+                    "IPv4",
+                    "4294967295",
+                    "Enabled",
+                    "50",
+                    "Disabled",
+                    "Connected",
+                    "ActiveStore"
+                ]
+            ],
+            "header": [
+                "InterfaceAlias",
+                "AddressFamily",
+                "NlMtu(Bytes)",
+                "AutomaticMetric",
+                "InterfaceMetric",
+                "Dhcp",
+                "ConnectionState",
+                "PolicyStore"
+            ]
+        }
+    },
+    "net_ip.Ethernet0.auto_metric": {
+        "name": "net_ip.Ethernet0.auto_metric",
+        "value": "Enabled",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_ip.Ethernet0.int_metric": {
+        "name": "net_ip.Ethernet0.int_metric",
+        "value": "5",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_ip.Ethernet0.dhcp": {
+        "name": "net_ip.Ethernet0.dhcp",
+        "value": "Disabled",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "net_ip.Ethernet0.status": {
+        "name": "net_ip.Ethernet0.status",
+        "value": "Connected",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "tcp.keepalive_interval": {
+        "name": "tcp.keepalive_interval",
+        "value": "12000",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "tcp.keepalive_time": {
+        "name": "tcp.keepalive_time",
+        "value": "300000",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "tcp.max_data_retran": {
+        "name": "tcp.max_data_retran",
+        "value": "5",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "tcp": {
+        "name": "tcp",
+        "value": "Configured",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
     },
     "filesystem": {
         "name": "filesystem",
@@ -1577,7 +2427,7 @@
             "csv": [
                 [
                     "C",
-                    39.656246185302734
+                    40
                 ]
             ],
             "header": [
@@ -1588,7 +2438,7 @@
     },
     "filesystem.C": {
         "name": "filesystem.C",
-        "value": "39.656246185302734",
+        "value": "40",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1625,6 +2475,42 @@
                 "SID"
             ]
         }
+    },
+    "user.Administrator.DontExpirePasswd": {
+        "name": "user.Administrator.DontExpirePasswd",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "user.Administrator.AccountDisable": {
+        "name": "user.Administrator.AccountDisable",
+        "value": "False",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "user.Guest.DontExpirePasswd": {
+        "name": "user.Guest.DontExpirePasswd",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "user.Guest.AccountDisable": {
+        "name": "user.Guest.AccountDisable",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
     },
     "service": {
         "name": "service",
@@ -3704,7 +4590,7 @@
     },
     "packages": {
         "name": "packages",
-        "value": "232",
+        "value": "232 packages",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -3715,1162 +4601,1162 @@
                 [
                     "SQL Server 2017 Integration Services Scale Out Management Portal",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft .NET Framework 4.5.1 Multi-Targeting Pack",
                     "Microsoft Corporation",
-                    "4.5.50932"
+                    "'4.5.50932'"
                 ],
                 [
                     "Visual C++ Library CRT X86 Redist Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)",
                     "Microsoft Corporation",
-                    "4.5.51209"
+                    "'4.5.51209'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Universal CRT Headers Libraries and Sources",
                     "Microsoft Corporation",
-                    "10.0.26624"
+                    "'10.0.26624'"
                 ],
                 [
                     "SQL Server Management Studio",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 Shell (Isolated) Resources",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Windows Software Development Kit for Windows Store Apps",
                     "Microsoft Corporation",
-                    "8.100.26936"
+                    "'8.100.26936'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 XAML Designer - ENU",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Windows Runtime Intellisense Content - en-us",
                     "Microsoft Corporation",
-                    "8.100.25984"
+                    "'8.100.25984'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Shared",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 ARM Cross Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2016 Connection Info",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "Microsoft .NET Framework 4.5 Multi-Targeting Pack",
                     "Microsoft Corporation",
-                    "4.5.50710"
+                    "'4.5.50710'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 ARM Cross Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2017 Batch Parser",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "Microsoft SQL Server 2016 RsFx Driver",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Windows App Certification Kit Native Components",
                     "Microsoft Corporation",
-                    "8.100.26629"
+                    "'8.100.26629'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 Base Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Build Tools 14.0 (amd64)",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
                     "Microsoft Corporation",
-                    "10.0.40219"
+                    "'10.0.40219'"
                 ],
                 [
                     "Visual C++ Library CRT X64 Store Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219",
                     "Microsoft Corporation",
-                    "10.0.40219"
+                    "'10.0.40219'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 Base Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server Management Studio for Reporting Services",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)",
                     "Microsoft Corporation",
-                    "4.5.50932"
+                    "'4.5.50932'"
                 ],
                 [
                     "Microsoft Build Tools Language Resources 14.0 (x86)",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "LibreOffice 5.3.6.1",
                     "The Document Foundation",
-                    "5.3.6.1"
+                    "'5.3.6.1'"
                 ],
                 [
                     "Visual C++ Library CRT ARM Store Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2017 Client Tools Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "SQL Server Management Studio for Analysis Services",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Visual Studio 2015 Prerequisites - ENU Language Pack",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Windows Software Development Kit",
                     "Microsoft Corporation",
-                    "8.100.26936"
+                    "'8.100.26936'"
                 ],
                 [
                     "TortoiseGit 2.5.0.0 (64 bit)",
                     "TortoiseGit",
-                    "2.5.0.0"
+                    "'2.5.0.0'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 Native Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ MSBuild X64 Package",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "SQL Server 2017 DMF",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "VMware PowerCLI",
                     "VMware, Inc.",
-                    "6.5.0.234"
+                    "'6.5.0.234'"
                 ],
                 [
                     "SQL Server 2017 Integration Services Scale Out Management Portal",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual Studio Services Hub",
                     "Microsoft Corporation",
-                    "1.0.23107.00"
+                    "'1.0.23107.00'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Shared",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Services",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Windows Software Development Kit for Windows Store Apps DirectX x86 Remote",
                     "Microsoft Corporation",
-                    "8.100.26936"
+                    "'8.100.26936'"
                 ],
                 [
                     "Microsoft SQL Server 2008 Setup Support Files ",
                     "Microsoft Corporation",
-                    "10.3.5500.0"
+                    "'10.3.5500.0'"
                 ],
                 [
                     "Microsoft Analysis Services OLE DB Provider",
                     "Microsoft Corporation",
-                    "14.0.1000.397"
+                    "'14.0.1000.397'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer",
                     "Microsoft Corporation",
-                    "14.0.23107.20"
+                    "'14.0.23107.20'"
                 ],
                 [
                     "Visual C++ MSBuild Base Package",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Jenkins 2.46.3",
                     "Jenkins project",
-                    "0.2.46.3000"
+                    "'0.2.46.3000'"
                 ],
                 [
                     "Microsoft VSS Writer for SQL Server 2016",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft .NET Framework 4.5.2 Multi-Targeting Pack",
                     "Microsoft Corporation",
-                    "4.5.51209"
+                    "'4.5.51209'"
                 ],
                 [
                     "Microsoft System CLR Types for SQL Server 2017",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Visual C++ Library CRT ARM Redist Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Java SE Development Kit 8 Update 144 (64-bit)",
                     "Oracle Corporation",
-                    "8.0.1440.1"
+                    "'8.0.1440.1'"
                 ],
                 [
                     "Microsoft ODBC Driver 13 for SQL Server",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2017 Management Studio Extensions",
                     "Microsoft Corporation",
-                    "14.0.3006.16"
+                    "'14.0.3006.16'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 Base Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Active Directory Authentication Library for SQL Server",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft System CLR Types for SQL Server 2014",
                     "Microsoft Corporation",
-                    "12.0.2402.11"
+                    "'12.0.2402.11'"
                 ],
                 [
                     "Browser for SQL Server 2016",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 Shell (Minimum)",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Visual C++ MSBuild X86 Package",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 ARM Cross Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft SQL Server Data-Tier Application Framework (x86)",
                     "Microsoft Corporation",
-                    "14.0.3953.4"
+                    "'14.0.3953.4'"
                 ],
                 [
                     "SQL Server 2016 Connection Info",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "SQL Server 2017 Connection Info",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2017 SQL Diagnostics",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "SQL Server 2017 Management Studio Extensions",
                     "Microsoft Corporation",
-                    "14.0.3006.16"
+                    "'14.0.3006.16'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 Shell (Minimum) Resources",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     " Tools for .Net 3.5",
                     "Microsoft Corporation",
-                    "3.11.50727"
+                    "'3.11.50727'"
                 ],
                 [
                     "Windows Software Development Kit DirectX x86 Remote",
                     "Microsoft Corporation",
-                    "8.100.25984"
+                    "'8.100.25984'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "Universal CRT Extension SDK",
                     "Microsoft Corporation",
-                    "10.0.26624"
+                    "'10.0.26624'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support",
                     "Microsoft Corporation",
-                    "14.0.23829"
+                    "'14.0.23829'"
                 ],
                 [
                     "SQL Server 2016 DMF",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Visual C++ Library CRT X86 Store Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Roslyn Language Services - x86",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "Visual C++ Library CRT X64 Redist Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SSMS Post Install Tasks",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Visual C++ Core Build Toolset",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 Base Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ MSBuild Base Resource Package",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft .NET Framework 4 Multi-Targeting Pack",
                     "Microsoft Corporation",
-                    "4.0.30319"
+                    "'4.0.30319'"
                 ],
                 [
                     "SQL Server 2016 Common Files",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft SQL Server 2016 T-SQL ScriptDom ",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 ARM Cross Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 Base Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 Native Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 Native Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ MSBuild ARM Package",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Microsoft SQL Server 2017 Policies ",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 Base Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Google Update Helper",
                     "Google Inc.",
-                    "1.3.33.17"
+                    "'1.3.33.17'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 XAML Designer",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 X64 Cross Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Windows Software Development Kit for Windows Store Apps DirectX x64 Remote",
                     "Microsoft Corporation",
-                    "8.100.26936"
+                    "'8.100.26936'"
                 ],
                 [
                     "Visual C++ Library CRT X86 Desktop Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Help Viewer 2.2",
                     "Microsoft Corporation",
-                    "2.2.23107"
+                    "'2.2.23107'"
                 ],
                 [
                     "Sql Server Customer Experience Improvement Program",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server 2017 Common Files",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack",
                     "Microsoft Corporation",
-                    "14.0.23107.20"
+                    "'14.0.23107.20'"
                 ],
                 [
                     "Microsoft SQL Server 2017 T-SQL Language Service ",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 X86 Cross Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ Library CRT ARM Desktop Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Roslyn Language Services - x86",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "SQL Server Management Studio",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 Native Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server 2016 Batch Parser",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Visual Studio 2015 Prerequisites",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Services",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Visual C++ CRT Headers Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Build Tools Language Resources 14.0 (amd64)",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "VMware vSphere Client 6.0",
                     "VMware, Inc.",
-                    "6.0.0.6826"
+                    "'6.0.0.6826'"
                 ],
                 [
                     "Microsoft SQL Server 2016 Setup (English)",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server 2017 Common Files",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2017 Client Tools Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft .NET Framework 4.5.1 SDK",
                     "Microsoft Corporation",
-                    "4.5.51641"
+                    "'4.5.51641'"
                 ],
                 [
                     "Microsoft Build Tools 14.0 (x86)",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 Finalizer",
                     "Microsoft Corporation",
-                    "14.0.23829"
+                    "'14.0.23829'"
                 ],
                 [
                     "Microsoft SQL Server 2016 T-SQL Language Service ",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "Google Chrome",
                     "Google, Inc.",
-                    "68.0.3440.106"
+                    "'68.0.3440.106'"
                 ],
                 [
                     "Microsoft Visual Studio 2015 Shell (Isolated)",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support",
                     "Microsoft Corporation",
-                    "14.0.23829"
+                    "'14.0.23829'"
                 ],
                 [
                     "SQL Server 2016 SQL Diagnostics",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Windows Software Development Kit DirectX x64 Remote",
                     "Microsoft Corporation",
-                    "8.100.25984"
+                    "'8.100.25984'"
                 ],
                 [
                     "Visual C++ Library CRT X64 Desktop Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2016 XEvent",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X64 X86 Cross Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "SQL Server 2016 DMF",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 Language Support",
                     "Microsoft Corporation",
-                    "14.0.23107.20"
+                    "'14.0.23107.20'"
                 ],
                 [
                     "Microsoft Analysis Services OLE DB Provider",
                     "Microsoft Corporation",
-                    "14.0.1000.397"
+                    "'14.0.1000.397'"
                 ],
                 [
                     "SQL Server 2017 Connection Info",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Windows App Certification Kit x64",
                     "Microsoft Corporation",
-                    "8.100.26795"
+                    "'8.100.26795'"
                 ],
                 [
                     "SQL Server 2016 Common Files",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft SQL Server 2014 Management Objects ",
                     "Microsoft Corporation",
-                    "12.0.2000.8"
+                    "'12.0.2000.8'"
                 ],
                 [
                     "SQL Server 2016 XEvent",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server 2017 DMF",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Visual C++ Compiler/Tools X86 X64 Cross Resource Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual C++ Library CRT Source Package",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft SQL Server 2012 Native Client ",
                     "Microsoft Corporation",
-                    "11.3.6540.0"
+                    "'11.3.6540.0'"
                 ],
                 [
                     "7-Zip 16.04 (x64)",
                     "Igor Pavlov",
-                    "16.04"
+                    "'16.04'"
                 ],
                 [
                     "Git version 2.14.1",
                     "The Git Development Community",
-                    "2.14.1"
+                    "'2.14.1'"
                 ],
                 [
                     "Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Notepad++ (64-bit x64)",
                     "Notepad++ Team",
-                    "7.5.1"
+                    "'7.5.1'"
                 ],
                 [
                     "SQL Server 2017 Client Tools Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft SQL Server 2016 Setup (English)",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Services",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Sql Server Customer Experience Improvement Program",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft Analysis Services OLE DB Provider",
                     "Microsoft Corporation",
-                    "14.0.1000.397"
+                    "'14.0.1000.397'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 Common Files",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Windows App Certification Kit Native Components",
                     "Microsoft Corporation",
-                    "8.100.26629"
+                    "'8.100.26629'"
                 ],
                 [
                     "Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
                     "Microsoft Corporation",
-                    "10.0.40219"
+                    "'10.0.40219'"
                 ],
                 [
                     "SQL Server Management Studio",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "SQL Server 2017 Client Tools Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft SQL Server 2017 T-SQL Language Service ",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "TortoiseGit 2.5.0.0 (64 bit)",
                     "TortoiseGit",
-                    "2.5.0.0"
+                    "'2.5.0.0'"
                 ],
                 [
                     "SQL Server 2017 Batch Parser",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 DMF",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server 2016 DMF",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Microsoft Build Tools Language Resources 14.0 (amd64)",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "SSMS Post Install Tasks",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "Microsoft VSS Writer for SQL Server 2016",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft SQL Server 2012 Native Client ",
                     "Microsoft Corporation",
-                    "11.3.6540.0"
+                    "'11.3.6540.0'"
                 ],
                 [
                     "Google Chrome",
                     "Google, Inc.",
-                    "68.0.3440.106"
+                    "'68.0.3440.106'"
                 ],
                 [
                     "Active Directory Authentication Library for SQL Server",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Services",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Windows Software Development Kit DirectX x64 Remote",
                     "Microsoft Corporation",
-                    "8.100.25984"
+                    "'8.100.25984'"
                 ],
                 [
                     "SQL Server 2016 Common Files",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Microsoft SQL Server 2008 Setup Support Files ",
                     "Microsoft Corporation",
-                    "10.3.5500.0"
+                    "'10.3.5500.0'"
                 ],
                 [
                     "Java SE Development Kit 8 Update 144 (64-bit)",
                     "Oracle Corporation",
-                    "8.0.1440.1"
+                    "'8.0.1440.1'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Shared",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server 2017 Integration Services Scale Out Management Portal",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 Connection Info",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "SQL Server 2016 SQL Diagnostics",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Microsoft ODBC Driver 13 for SQL Server",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Build Tools 14.0 (amd64)",
                     "Microsoft Corporation",
-                    "14.0.25420"
+                    "'14.0.25420'"
                 ],
                 [
                     "SQL Server 2016 Database Engine Shared",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "Visual Studio 2015 Prerequisites - ENU Language Pack",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "SQL Server 2017 Connection Info",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 Connection Info",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 XEvent",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server Management Studio",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "SQL Server 2017 Integration Services Scale Out Management Portal",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "LibreOffice 5.3.6.1",
                     "The Document Foundation",
-                    "5.3.6.1"
+                    "'5.3.6.1'"
                 ],
                 [
                     "Windows Software Development Kit for Windows Store Apps DirectX x64 Remote",
                     "Microsoft Corporation",
-                    "8.100.26936"
+                    "'8.100.26936'"
                 ],
                 [
                     "Microsoft System CLR Types for SQL Server 2017",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support",
                     "Microsoft Corporation",
-                    "14.0.23829"
+                    "'14.0.23829'"
                 ],
                 [
                     "SQL Server 2017 Connection Info",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft SQL Server 2016 RsFx Driver",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server 2017 DMF",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005",
                     "Microsoft Corporation",
-                    "12.0.21005"
+                    "'12.0.21005'"
                 ],
                 [
                     "SQL Server 2017 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft SQL Server 2016 T-SQL ScriptDom ",
                     "Microsoft Corporation",
-                    "13.1.4001.0"
+                    "'13.1.4001.0'"
                 ],
                 [
                     "SQL Server Management Studio for Analysis Services",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "SQL Server 2016 Batch Parser",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server 2017 DMF",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210",
                     "Microsoft Corporation",
-                    "14.0.24210"
+                    "'14.0.24210'"
                 ],
                 [
                     "Visual Studio 2015 Prerequisites",
                     "Microsoft Corporation",
-                    "14.0.23107"
+                    "'14.0.23107'"
                 ],
                 [
                     "SQL Server 2017 SQL Diagnostics",
                     "Microsoft Corporation",
-                    "14.0.1000.169"
+                    "'14.0.1000.169'"
                 ],
                 [
                     "SQL Server 2016 XEvent",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "SQL Server Management Studio for Reporting Services",
                     "Microsoft Corporation",
-                    "14.0.17230.0"
+                    "'14.0.17230.0'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ],
                 [
                     "SQL Server 2016 Shared Management Objects Extensions",
                     "Microsoft Corporation",
-                    "13.0.1601.5"
+                    "'13.0.1601.5'"
                 ],
                 [
                     "Microsoft SQL Server 2016 T-SQL Language Service ",
                     "Microsoft Corporation",
-                    "13.0.14500.10"
+                    "'13.0.14500.10'"
                 ]
             ],
             "header": [
@@ -4882,7 +5768,7 @@
     },
     "packages.SQL Server 2017 Integration Services Scale Out Management Portal": {
         "name": "packages.SQL Server 2017 Integration Services Scale Out Management Portal",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4891,7 +5777,7 @@
     },
     "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack": {
         "name": "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack",
-        "value": "4.5.50932",
+        "value": "'4.5.50932'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4900,7 +5786,7 @@
     },
     "packages.Visual C++ Library CRT X86 Redist Package": {
         "name": "packages.Visual C++ Library CRT X86 Redist Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4909,7 +5795,7 @@
     },
     "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)": {
         "name": "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)",
-        "value": "4.5.51209",
+        "value": "'4.5.51209'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4918,7 +5804,7 @@
     },
     "packages.SQL Server 2017 Shared Management Objects Extensions": {
         "name": "packages.SQL Server 2017 Shared Management Objects Extensions",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4927,7 +5813,7 @@
     },
     "packages.Universal CRT Headers Libraries and Sources": {
         "name": "packages.Universal CRT Headers Libraries and Sources",
-        "value": "10.0.26624",
+        "value": "'10.0.26624'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4936,7 +5822,7 @@
     },
     "packages.SQL Server Management Studio": {
         "name": "packages.SQL Server Management Studio",
-        "value": "14.0.17230.0",
+        "value": "'14.0.17230.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4945,7 +5831,7 @@
     },
     "packages.Microsoft Visual Studio 2015 Shell (Isolated) Resources": {
         "name": "packages.Microsoft Visual Studio 2015 Shell (Isolated) Resources",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4954,7 +5840,7 @@
     },
     "packages.Windows Software Development Kit for Windows Store Apps": {
         "name": "packages.Windows Software Development Kit for Windows Store Apps",
-        "value": "8.100.26936",
+        "value": "'8.100.26936'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4963,7 +5849,7 @@
     },
     "packages.Microsoft Visual Studio 2015 XAML Designer - ENU": {
         "name": "packages.Microsoft Visual Studio 2015 XAML Designer - ENU",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4972,7 +5858,7 @@
     },
     "packages.Windows Runtime Intellisense Content - en-us": {
         "name": "packages.Windows Runtime Intellisense Content - en-us",
-        "value": "8.100.25984",
+        "value": "'8.100.25984'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4981,7 +5867,7 @@
     },
     "packages.SQL Server 2016 Database Engine Shared": {
         "name": "packages.SQL Server 2016 Database Engine Shared",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4990,7 +5876,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 ARM Cross Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 ARM Cross Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4999,7 +5885,7 @@
     },
     "packages.SQL Server 2016 Connection Info": {
         "name": "packages.SQL Server 2016 Connection Info",
-        "value": "13.0.14500.10",
+        "value": "'13.0.14500.10'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5008,7 +5894,7 @@
     },
     "packages.Microsoft .NET Framework 4.5 Multi-Targeting Pack": {
         "name": "packages.Microsoft .NET Framework 4.5 Multi-Targeting Pack",
-        "value": "4.5.50710",
+        "value": "'4.5.50710'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5017,7 +5903,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 ARM Cross Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 ARM Cross Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5026,7 +5912,7 @@
     },
     "packages.SQL Server 2017 Batch Parser": {
         "name": "packages.SQL Server 2017 Batch Parser",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5035,7 +5921,7 @@
     },
     "packages.SQL Server 2016 Shared Management Objects": {
         "name": "packages.SQL Server 2016 Shared Management Objects",
-        "value": "13.0.14500.10",
+        "value": "'13.0.14500.10'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5044,7 +5930,7 @@
     },
     "packages.Microsoft SQL Server 2016 RsFx Driver": {
         "name": "packages.Microsoft SQL Server 2016 RsFx Driver",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5053,7 +5939,7 @@
     },
     "packages.Windows App Certification Kit Native Components": {
         "name": "packages.Windows App Certification Kit Native Components",
-        "value": "8.100.26629",
+        "value": "'8.100.26629'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5062,7 +5948,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 Base Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 Base Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5071,7 +5957,7 @@
     },
     "packages.Microsoft Build Tools 14.0 (amd64)": {
         "name": "packages.Microsoft Build Tools 14.0 (amd64)",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5080,7 +5966,7 @@
     },
     "packages.Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219": {
         "name": "packages.Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
-        "value": "10.0.40219",
+        "value": "'10.0.40219'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5089,7 +5975,7 @@
     },
     "packages.Visual C++ Library CRT X64 Store Package": {
         "name": "packages.Visual C++ Library CRT X64 Store Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5098,7 +5984,7 @@
     },
     "packages.Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219": {
         "name": "packages.Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219",
-        "value": "10.0.40219",
+        "value": "'10.0.40219'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5107,7 +5993,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 Base Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 Base Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5116,7 +6002,7 @@
     },
     "packages.Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005": {
         "name": "packages.Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005",
-        "value": "12.0.21005",
+        "value": "'12.0.21005'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5125,7 +6011,7 @@
     },
     "packages.Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005": {
         "name": "packages.Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005",
-        "value": "12.0.21005",
+        "value": "'12.0.21005'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5134,7 +6020,7 @@
     },
     "packages.SQL Server Management Studio for Reporting Services": {
         "name": "packages.SQL Server Management Studio for Reporting Services",
-        "value": "14.0.17230.0",
+        "value": "'14.0.17230.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5143,7 +6029,7 @@
     },
     "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)": {
         "name": "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)",
-        "value": "4.5.50932",
+        "value": "'4.5.50932'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5152,7 +6038,7 @@
     },
     "packages.Microsoft Build Tools Language Resources 14.0 (x86)": {
         "name": "packages.Microsoft Build Tools Language Resources 14.0 (x86)",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5161,7 +6047,7 @@
     },
     "packages.LibreOffice 5.3.6.1": {
         "name": "packages.LibreOffice 5.3.6.1",
-        "value": "5.3.6.1",
+        "value": "'5.3.6.1'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5170,7 +6056,7 @@
     },
     "packages.Visual C++ Library CRT ARM Store Package": {
         "name": "packages.Visual C++ Library CRT ARM Store Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5179,7 +6065,7 @@
     },
     "packages.SQL Server 2017 Client Tools Extensions": {
         "name": "packages.SQL Server 2017 Client Tools Extensions",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5188,7 +6074,7 @@
     },
     "packages.Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005": {
         "name": "packages.Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005",
-        "value": "12.0.21005",
+        "value": "'12.0.21005'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5197,7 +6083,7 @@
     },
     "packages.SQL Server Management Studio for Analysis Services": {
         "name": "packages.SQL Server Management Studio for Analysis Services",
-        "value": "14.0.17230.0",
+        "value": "'14.0.17230.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5206,7 +6092,7 @@
     },
     "packages.Visual Studio 2015 Prerequisites - ENU Language Pack": {
         "name": "packages.Visual Studio 2015 Prerequisites - ENU Language Pack",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5215,7 +6101,7 @@
     },
     "packages.Windows Software Development Kit": {
         "name": "packages.Windows Software Development Kit",
-        "value": "8.100.26936",
+        "value": "'8.100.26936'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5224,7 +6110,7 @@
     },
     "packages.TortoiseGit 2.5.0.0 (64 bit)": {
         "name": "packages.TortoiseGit 2.5.0.0 (64 bit)",
-        "value": "2.5.0.0",
+        "value": "'2.5.0.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5233,7 +6119,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 Native Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 Native Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5242,7 +6128,7 @@
     },
     "packages.Visual C++ MSBuild X64 Package": {
         "name": "packages.Visual C++ MSBuild X64 Package",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5251,7 +6137,7 @@
     },
     "packages.SQL Server 2017 DMF": {
         "name": "packages.SQL Server 2017 DMF",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5260,7 +6146,7 @@
     },
     "packages.VMware PowerCLI": {
         "name": "packages.VMware PowerCLI",
-        "value": "6.5.0.234",
+        "value": "'6.5.0.234'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5269,7 +6155,7 @@
     },
     "packages.Microsoft Visual Studio Services Hub": {
         "name": "packages.Microsoft Visual Studio Services Hub",
-        "value": "1.0.23107.00",
+        "value": "'1.0.23107.00'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5278,7 +6164,7 @@
     },
     "packages.Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210": {
         "name": "packages.Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5287,7 +6173,7 @@
     },
     "packages.SQL Server 2016 Database Engine Services": {
         "name": "packages.SQL Server 2016 Database Engine Services",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5296,7 +6182,7 @@
     },
     "packages.Windows Software Development Kit for Windows Store Apps DirectX x86 Remote": {
         "name": "packages.Windows Software Development Kit for Windows Store Apps DirectX x86 Remote",
-        "value": "8.100.26936",
+        "value": "'8.100.26936'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5305,7 +6191,7 @@
     },
     "packages.Microsoft SQL Server 2008 Setup Support Files ": {
         "name": "packages.Microsoft SQL Server 2008 Setup Support Files ",
-        "value": "10.3.5500.0",
+        "value": "'10.3.5500.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5314,7 +6200,7 @@
     },
     "packages.Microsoft Analysis Services OLE DB Provider": {
         "name": "packages.Microsoft Analysis Services OLE DB Provider",
-        "value": "14.0.1000.397",
+        "value": "'14.0.1000.397'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5323,7 +6209,7 @@
     },
     "packages.SQL Server 2017 Shared Management Objects": {
         "name": "packages.SQL Server 2017 Shared Management Objects",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5332,7 +6218,7 @@
     },
     "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer": {
         "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer",
-        "value": "14.0.23107.20",
+        "value": "'14.0.23107.20'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5341,7 +6227,7 @@
     },
     "packages.Visual C++ MSBuild Base Package": {
         "name": "packages.Visual C++ MSBuild Base Package",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5350,7 +6236,7 @@
     },
     "packages.Jenkins 2.46.3": {
         "name": "packages.Jenkins 2.46.3",
-        "value": "0.2.46.3000",
+        "value": "'0.2.46.3000'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5359,7 +6245,7 @@
     },
     "packages.Microsoft VSS Writer for SQL Server 2016": {
         "name": "packages.Microsoft VSS Writer for SQL Server 2016",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5368,7 +6254,7 @@
     },
     "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack": {
         "name": "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack",
-        "value": "4.5.51209",
+        "value": "'4.5.51209'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5377,7 +6263,7 @@
     },
     "packages.Microsoft System CLR Types for SQL Server 2017": {
         "name": "packages.Microsoft System CLR Types for SQL Server 2017",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5386,7 +6272,7 @@
     },
     "packages.Visual C++ Library CRT ARM Redist Package": {
         "name": "packages.Visual C++ Library CRT ARM Redist Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5395,7 +6281,7 @@
     },
     "packages.Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies": {
         "name": "packages.Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5404,7 +6290,7 @@
     },
     "packages.Java SE Development Kit 8 Update 144 (64-bit)": {
         "name": "packages.Java SE Development Kit 8 Update 144 (64-bit)",
-        "value": "8.0.1440.1",
+        "value": "'8.0.1440.1'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5413,7 +6299,7 @@
     },
     "packages.Microsoft ODBC Driver 13 for SQL Server": {
         "name": "packages.Microsoft ODBC Driver 13 for SQL Server",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5422,7 +6308,7 @@
     },
     "packages.SQL Server 2017 Management Studio Extensions": {
         "name": "packages.SQL Server 2017 Management Studio Extensions",
-        "value": "14.0.3006.16",
+        "value": "'14.0.3006.16'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5431,7 +6317,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 Base Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 Base Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5440,7 +6326,7 @@
     },
     "packages.Active Directory Authentication Library for SQL Server": {
         "name": "packages.Active Directory Authentication Library for SQL Server",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5449,7 +6335,7 @@
     },
     "packages.Microsoft System CLR Types for SQL Server 2014": {
         "name": "packages.Microsoft System CLR Types for SQL Server 2014",
-        "value": "12.0.2402.11",
+        "value": "'12.0.2402.11'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5458,7 +6344,7 @@
     },
     "packages.Browser for SQL Server 2016": {
         "name": "packages.Browser for SQL Server 2016",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5467,7 +6353,7 @@
     },
     "packages.Microsoft Visual Studio 2015 Shell (Minimum)": {
         "name": "packages.Microsoft Visual Studio 2015 Shell (Minimum)",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5476,7 +6362,7 @@
     },
     "packages.Visual C++ MSBuild X86 Package": {
         "name": "packages.Visual C++ MSBuild X86 Package",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5485,7 +6371,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 ARM Cross Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 ARM Cross Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5494,7 +6380,7 @@
     },
     "packages.Microsoft SQL Server Data-Tier Application Framework (x86)": {
         "name": "packages.Microsoft SQL Server Data-Tier Application Framework (x86)",
-        "value": "14.0.3953.4",
+        "value": "'14.0.3953.4'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5503,7 +6389,7 @@
     },
     "packages.SQL Server 2017 Connection Info": {
         "name": "packages.SQL Server 2017 Connection Info",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5512,7 +6398,7 @@
     },
     "packages.SQL Server 2017 SQL Diagnostics": {
         "name": "packages.SQL Server 2017 SQL Diagnostics",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5521,7 +6407,7 @@
     },
     "packages.Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005": {
         "name": "packages.Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005",
-        "value": "12.0.21005",
+        "value": "'12.0.21005'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5530,7 +6416,7 @@
     },
     "packages.Microsoft Visual Studio 2015 Shell (Minimum) Resources": {
         "name": "packages.Microsoft Visual Studio 2015 Shell (Minimum) Resources",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5539,7 +6425,7 @@
     },
     "packages. Tools for .Net 3.5": {
         "name": "packages. Tools for .Net 3.5",
-        "value": "3.11.50727",
+        "value": "'3.11.50727'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5548,7 +6434,7 @@
     },
     "packages.Windows Software Development Kit DirectX x86 Remote": {
         "name": "packages.Windows Software Development Kit DirectX x86 Remote",
-        "value": "8.100.25984",
+        "value": "'8.100.25984'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5557,7 +6443,7 @@
     },
     "packages.Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210": {
         "name": "packages.Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5566,7 +6452,7 @@
     },
     "packages.Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005": {
         "name": "packages.Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005",
-        "value": "12.0.21005",
+        "value": "'12.0.21005'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5575,7 +6461,7 @@
     },
     "packages.Universal CRT Extension SDK": {
         "name": "packages.Universal CRT Extension SDK",
-        "value": "10.0.26624",
+        "value": "'10.0.26624'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5584,7 +6470,7 @@
     },
     "packages.Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support": {
         "name": "packages.Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support",
-        "value": "14.0.23829",
+        "value": "'14.0.23829'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5593,7 +6479,7 @@
     },
     "packages.SQL Server 2016 DMF": {
         "name": "packages.SQL Server 2016 DMF",
-        "value": "13.0.1601.5",
+        "value": "'13.0.1601.5'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5602,7 +6488,7 @@
     },
     "packages.Visual C++ Library CRT X86 Store Package": {
         "name": "packages.Visual C++ Library CRT X86 Store Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5611,7 +6497,7 @@
     },
     "packages.Roslyn Language Services - x86": {
         "name": "packages.Roslyn Language Services - x86",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5620,7 +6506,7 @@
     },
     "packages.Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005": {
         "name": "packages.Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005",
-        "value": "12.0.21005",
+        "value": "'12.0.21005'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5629,7 +6515,7 @@
     },
     "packages.Visual C++ Library CRT X64 Redist Package": {
         "name": "packages.Visual C++ Library CRT X64 Redist Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5638,7 +6524,7 @@
     },
     "packages.SSMS Post Install Tasks": {
         "name": "packages.SSMS Post Install Tasks",
-        "value": "14.0.17230.0",
+        "value": "'14.0.17230.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5647,7 +6533,7 @@
     },
     "packages.Visual C++ Core Build Toolset": {
         "name": "packages.Visual C++ Core Build Toolset",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5656,7 +6542,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 Base Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 Base Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5665,7 +6551,7 @@
     },
     "packages.Visual C++ MSBuild Base Resource Package": {
         "name": "packages.Visual C++ MSBuild Base Resource Package",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5674,7 +6560,7 @@
     },
     "packages.Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210": {
         "name": "packages.Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5683,7 +6569,7 @@
     },
     "packages.Microsoft .NET Framework 4 Multi-Targeting Pack": {
         "name": "packages.Microsoft .NET Framework 4 Multi-Targeting Pack",
-        "value": "4.0.30319",
+        "value": "'4.0.30319'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5692,7 +6578,7 @@
     },
     "packages.SQL Server 2016 Common Files": {
         "name": "packages.SQL Server 2016 Common Files",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5701,7 +6587,7 @@
     },
     "packages.Microsoft SQL Server 2016 T-SQL ScriptDom ": {
         "name": "packages.Microsoft SQL Server 2016 T-SQL ScriptDom ",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5710,7 +6596,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 ARM Cross Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 ARM Cross Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5719,7 +6605,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 Native Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 Native Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5728,7 +6614,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 Native Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 Native Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5737,7 +6623,7 @@
     },
     "packages.Visual C++ MSBuild ARM Package": {
         "name": "packages.Visual C++ MSBuild ARM Package",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5746,7 +6632,7 @@
     },
     "packages.Microsoft SQL Server 2017 Policies ": {
         "name": "packages.Microsoft SQL Server 2017 Policies ",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5755,7 +6641,7 @@
     },
     "packages.Google Update Helper": {
         "name": "packages.Google Update Helper",
-        "value": "1.3.33.17",
+        "value": "'1.3.33.17'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5764,7 +6650,7 @@
     },
     "packages.Microsoft Visual Studio 2015 XAML Designer": {
         "name": "packages.Microsoft Visual Studio 2015 XAML Designer",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5773,7 +6659,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 X64 Cross Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 X64 Cross Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5782,7 +6668,7 @@
     },
     "packages.Windows Software Development Kit for Windows Store Apps DirectX x64 Remote": {
         "name": "packages.Windows Software Development Kit for Windows Store Apps DirectX x64 Remote",
-        "value": "8.100.26936",
+        "value": "'8.100.26936'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5791,7 +6677,7 @@
     },
     "packages.Visual C++ Library CRT X86 Desktop Package": {
         "name": "packages.Visual C++ Library CRT X86 Desktop Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5800,7 +6686,7 @@
     },
     "packages.Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210": {
         "name": "packages.Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5809,7 +6695,7 @@
     },
     "packages.Microsoft Help Viewer 2.2": {
         "name": "packages.Microsoft Help Viewer 2.2",
-        "value": "2.2.23107",
+        "value": "'2.2.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5818,7 +6704,7 @@
     },
     "packages.Sql Server Customer Experience Improvement Program": {
         "name": "packages.Sql Server Customer Experience Improvement Program",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5827,7 +6713,7 @@
     },
     "packages.SQL Server 2017 Common Files": {
         "name": "packages.SQL Server 2017 Common Files",
-        "value": "14.0.1000.169",
+        "value": "'14.0.1000.169'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5836,7 +6722,7 @@
     },
     "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack": {
         "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack",
-        "value": "14.0.23107.20",
+        "value": "'14.0.23107.20'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5845,7 +6731,7 @@
     },
     "packages.Microsoft SQL Server 2017 T-SQL Language Service ": {
         "name": "packages.Microsoft SQL Server 2017 T-SQL Language Service ",
-        "value": "14.0.17230.0",
+        "value": "'14.0.17230.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5854,7 +6740,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 X86 Cross Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 X86 Cross Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5863,7 +6749,7 @@
     },
     "packages.Visual C++ Library CRT ARM Desktop Package": {
         "name": "packages.Visual C++ Library CRT ARM Desktop Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5872,7 +6758,7 @@
     },
     "packages.Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210": {
         "name": "packages.Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5881,7 +6767,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 Native Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 Native Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5890,7 +6776,7 @@
     },
     "packages.SQL Server 2016 Shared Management Objects Extensions": {
         "name": "packages.SQL Server 2016 Shared Management Objects Extensions",
-        "value": "13.0.1601.5",
+        "value": "'13.0.1601.5'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5899,7 +6785,7 @@
     },
     "packages.SQL Server 2016 Batch Parser": {
         "name": "packages.SQL Server 2016 Batch Parser",
-        "value": "13.0.1601.5",
+        "value": "'13.0.1601.5'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5908,7 +6794,7 @@
     },
     "packages.Visual Studio 2015 Prerequisites": {
         "name": "packages.Visual Studio 2015 Prerequisites",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5917,7 +6803,7 @@
     },
     "packages.Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210": {
         "name": "packages.Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5926,7 +6812,7 @@
     },
     "packages.Visual C++ CRT Headers Package": {
         "name": "packages.Visual C++ CRT Headers Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5935,7 +6821,7 @@
     },
     "packages.Microsoft Build Tools Language Resources 14.0 (amd64)": {
         "name": "packages.Microsoft Build Tools Language Resources 14.0 (amd64)",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5944,7 +6830,7 @@
     },
     "packages.VMware vSphere Client 6.0": {
         "name": "packages.VMware vSphere Client 6.0",
-        "value": "6.0.0.6826",
+        "value": "'6.0.0.6826'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5953,7 +6839,7 @@
     },
     "packages.Microsoft SQL Server 2016 Setup (English)": {
         "name": "packages.Microsoft SQL Server 2016 Setup (English)",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5962,7 +6848,7 @@
     },
     "packages.Microsoft .NET Framework 4.5.1 SDK": {
         "name": "packages.Microsoft .NET Framework 4.5.1 SDK",
-        "value": "4.5.51641",
+        "value": "'4.5.51641'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5971,7 +6857,7 @@
     },
     "packages.Microsoft Build Tools 14.0 (x86)": {
         "name": "packages.Microsoft Build Tools 14.0 (x86)",
-        "value": "14.0.25420",
+        "value": "'14.0.25420'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5980,7 +6866,7 @@
     },
     "packages.Microsoft Visual Studio Tools for Applications 2015 Finalizer": {
         "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Finalizer",
-        "value": "14.0.23829",
+        "value": "'14.0.23829'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5989,7 +6875,7 @@
     },
     "packages.Microsoft SQL Server 2016 T-SQL Language Service ": {
         "name": "packages.Microsoft SQL Server 2016 T-SQL Language Service ",
-        "value": "13.0.14500.10",
+        "value": "'13.0.14500.10'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5998,7 +6884,7 @@
     },
     "packages.Google Chrome": {
         "name": "packages.Google Chrome",
-        "value": "68.0.3440.106",
+        "value": "'68.0.3440.106'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6007,7 +6893,7 @@
     },
     "packages.Microsoft Visual Studio 2015 Shell (Isolated)": {
         "name": "packages.Microsoft Visual Studio 2015 Shell (Isolated)",
-        "value": "14.0.23107",
+        "value": "'14.0.23107'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6016,7 +6902,7 @@
     },
     "packages.Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support": {
         "name": "packages.Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support",
-        "value": "14.0.23829",
+        "value": "'14.0.23829'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6025,7 +6911,7 @@
     },
     "packages.SQL Server 2016 SQL Diagnostics": {
         "name": "packages.SQL Server 2016 SQL Diagnostics",
-        "value": "13.0.1601.5",
+        "value": "'13.0.1601.5'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6034,7 +6920,7 @@
     },
     "packages.Windows Software Development Kit DirectX x64 Remote": {
         "name": "packages.Windows Software Development Kit DirectX x64 Remote",
-        "value": "8.100.25984",
+        "value": "'8.100.25984'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6043,7 +6929,7 @@
     },
     "packages.Visual C++ Library CRT X64 Desktop Package": {
         "name": "packages.Visual C++ Library CRT X64 Desktop Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6052,7 +6938,7 @@
     },
     "packages.SQL Server 2016 XEvent": {
         "name": "packages.SQL Server 2016 XEvent",
-        "value": "13.0.1601.5",
+        "value": "'13.0.1601.5'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6061,7 +6947,7 @@
     },
     "packages.Visual C++ Compiler/Tools X64 X86 Cross Package": {
         "name": "packages.Visual C++ Compiler/Tools X64 X86 Cross Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6070,7 +6956,7 @@
     },
     "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support": {
         "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support",
-        "value": "14.0.23107.20",
+        "value": "'14.0.23107.20'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6079,7 +6965,7 @@
     },
     "packages.Windows App Certification Kit x64": {
         "name": "packages.Windows App Certification Kit x64",
-        "value": "8.100.26795",
+        "value": "'8.100.26795'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6088,7 +6974,7 @@
     },
     "packages.Microsoft SQL Server 2014 Management Objects ": {
         "name": "packages.Microsoft SQL Server 2014 Management Objects ",
-        "value": "12.0.2000.8",
+        "value": "'12.0.2000.8'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6097,7 +6983,7 @@
     },
     "packages.Visual C++ Compiler/Tools X86 X64 Cross Resource Package": {
         "name": "packages.Visual C++ Compiler/Tools X86 X64 Cross Resource Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6106,7 +6992,7 @@
     },
     "packages.Visual C++ Library CRT Source Package": {
         "name": "packages.Visual C++ Library CRT Source Package",
-        "value": "14.0.24210",
+        "value": "'14.0.24210'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6115,7 +7001,7 @@
     },
     "packages.Microsoft SQL Server 2012 Native Client ": {
         "name": "packages.Microsoft SQL Server 2012 Native Client ",
-        "value": "11.3.6540.0",
+        "value": "'11.3.6540.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6124,7 +7010,7 @@
     },
     "packages.7-Zip 16.04 (x64)": {
         "name": "packages.7-Zip 16.04 (x64)",
-        "value": "16.04",
+        "value": "'16.04'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6133,7 +7019,7 @@
     },
     "packages.Git version 2.14.1": {
         "name": "packages.Git version 2.14.1",
-        "value": "2.14.1",
+        "value": "'2.14.1'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6142,7 +7028,7 @@
     },
     "packages.Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)": {
         "name": "packages.Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)",
-        "value": "13.1.4001.0",
+        "value": "'13.1.4001.0'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6151,7 +7037,7 @@
     },
     "packages.Notepad++ (64-bit x64)": {
         "name": "packages.Notepad++ (64-bit x64)",
-        "value": "7.5.1",
+        "value": "'7.5.1'",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6279,9 +7165,162 @@
             ]
         }
     },
+    "feature.FileAndStorage-Services": {
+        "name": "feature.FileAndStorage-Services",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.Storage-Services": {
+        "name": "feature.Storage-Services",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.NET-Framework-Features": {
+        "name": "feature.NET-Framework-Features",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.NET-Framework-Core": {
+        "name": "feature.NET-Framework-Core",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.NET-Framework-45-Features": {
+        "name": "feature.NET-Framework-45-Features",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.NET-Framework-45-Core": {
+        "name": "feature.NET-Framework-45-Core",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.NET-WCF-Services45": {
+        "name": "feature.NET-WCF-Services45",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.NET-WCF-TCP-PortSharing45": {
+        "name": "feature.NET-WCF-TCP-PortSharing45",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.FS-SMB1": {
+        "name": "feature.FS-SMB1",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.PowerShellRoot": {
+        "name": "feature.PowerShellRoot",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.PowerShell": {
+        "name": "feature.PowerShell",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.PowerShell-V2": {
+        "name": "feature.PowerShell-V2",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.PowerShell-ISE": {
+        "name": "feature.PowerShell-ISE",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.WoW64-Support": {
+        "name": "feature.WoW64-Support",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.User-Interfaces-Infra": {
+        "name": "feature.User-Interfaces-Infra",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.Server-Gui-Mgmt-Infra": {
+        "name": "feature.Server-Gui-Mgmt-Infra",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "feature.Server-Gui-Shell": {
+        "name": "feature.Server-Gui-Shell",
+        "value": "True",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "system_log": {
         "name": "system_log",
-        "value": "8 event found",
+        "value": "8 events",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -6357,7 +7396,7 @@
     },
     "apps_log": {
         "name": "apps_log",
-        "value": "7 event found",
+        "value": "7 events",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",

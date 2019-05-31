@@ -1,0 +1,8 @@
+
+Name                   : Public-TEAM
+Members                : {イーサネット 3, イーサネット 2}
+TeamNics               : Public-TEAM
+TeamingMode            : SwitchIndependent
+LoadBalancingAlgorithm : Dynamic
+Status                 : Down
+

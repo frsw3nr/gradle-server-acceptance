@@ -116,6 +116,7 @@ class AIXSpec extends InfraTestSpec {
         def volume
         def volumes = [:]
         def csv = []
+        def processor = 'unkown'
         def memory_size = 0
         lines.eachLine { line ->
             (line=~/Network Information/).each {
@@ -133,12 +134,17 @@ class AIXSpec extends InfraTestSpec {
             // General information
             if (phase == 1) {
                 (line=~/^(.+): (.+)$/).each { m0, name, value ->
-                    info["prtconf.${name}"] = value
                     if (name == 'Memory Size') {
-                        (value =~ /(\d+)/).each { mm0, mm1 ->
-                            memory_size = mm1
+                        (value =~ /^(\d+)/).each { mm0, mm1 ->
+                            memory_size = NumberUtils.toDouble(mm1) / 1024
+                            value = String.format("%1.1f", memory_size)
                         }
+                    } else if (name == 'Machine Serial Number') {
+                        value = "'" + value + "'"
+                    } else if (name == 'Processor Implementation Mode') {
+                        processor = value
                     }
+                    info["prtconf.${name}"] = value
                 }
             }
             // Volume Groups Information
@@ -153,12 +159,15 @@ class AIXSpec extends InfraTestSpec {
                     m0, pv_name, pv_state, total_pp, free_pp, free_distribution ->
                     csv << [volume, pv_name, pv_state, total_pp, free_pp, free_distribution]
                     volumes[volume] = total_pp
+                    add_new_metric("prtconf.disk.${volume}", "ストレージ [${volume}] 容量", total_pp, info)
                 }
             }
         }
-        info["prtconf.disk"] = volumes.toString()
+        // info["prtconf.disk"] = volumes.toString()
         def headers = ['volume', 'pv_name', 'pv_state', 'total_pp[GB]', 'free_pp[GB]', 'free_distribution']
         test_item.devices(csv, headers)
+        info['prtconf.disk'] = "$volumes"
+        info['prtconf'] = processor
         test_item.results(info)
         test_item.verify_number_equal('cpu_real', info['prtconf.Number Of Processors'])
         test_item.verify_number_equal('memory', memory_size, 0.1)
@@ -173,19 +182,27 @@ class AIXSpec extends InfraTestSpec {
         def device = ''
         def hw_address = []
         def device_ip = [:]
+        def res = [:]
         lines.eachLine {
             (it =~  /^(.+?): (.+)<(.+)>$/).each { m0,m1,m2,m3->
                 device = m1
-                if (m1 == 'lo0') {
+                if (device == 'lo0') {
                     return
                 }
             }
             (it =~ /inet\s+(.*?)\s/).each {m0, m1->
-                network[device]['ip'] = m1
-                device_ip[device] = m1
+                if (device != 'lo0') {
+                    network[device]['ip'] = m1
+                    device_ip[device] = m1
+                    test_item.lookuped_port_list(m1, device)
+                    add_new_metric("network.ip.${device}", "[${device}] IP", m1, res)
+                }
             }
             (it =~ /netmask\s+0x(.+?)[\s|]/).each {m0, m1->
-                network[device]['subnet'] = m1
+                if (device != 'lo0') {
+                    network[device]['subnet'] = m1
+                    add_new_metric("network.subnet.${device}", "[${device}] サブネット", m1, res)
+                }
             }
         }
 
@@ -202,8 +219,9 @@ class AIXSpec extends InfraTestSpec {
         }
         def headers = ['device', 'ip', 'subnet']
         test_item.devices(csv, headers)
-        test_item.results(['network': "$infos", 'net_ip': "$device_ip"])
-        test_item.verify_text_search_list('net_dev', device_ip)
+        // test_item.results(['network': "$infos", 'net_ip': "$device_ip"])
+        res['network'] = "${device_ip}"
+        test_item.results(res)
         test_item.verify_text_search_list('net_ip', device_ip)
     }
 
