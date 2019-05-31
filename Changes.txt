@@ -1,11 +1,18 @@
 Changes for 0.2.3 (2019-6-3)
 ------------------------------------------------------------------------------
 
+New features:
+* Linux シナリオに OracleLinux 起動カーネル(UEK/RH互換)チェックを追加
+* Windows シナリオに ストレージ構成、ユーザ権限設定、NIC バインド設定チェックを追加
+* HP iLO シナリオに電源プロファイルチェックを追加
+* Redmine カスタムフィールドのラック位置をURL形式に変更し、Racktablesなど他サイト
+  にリンクするように変更
+
 ToDo:
 * シナリオ階層化
     * テストデータでの結合試験 [ ]
-        * ETERNUS [ ]
-        * HitachiVSP [ ]
+        * ETERNUS [x]
+        * HitachiVSP [x]
         * AIX [ ]
         * RTX [ ]
         * CiscoIOS [ ]
@@ -19,9 +26,9 @@ ToDo:
         * 分析結果登録 [x]
     * クラスタリング検証 [x]
 * クラスター分析見直し(TagGenerator クラス) [ ]
-    * テストデータ作成 [ ]
-      gradle --daemon test --tests "ExcelParserTest.サマリシート更新2"
+    * テストデータ作成 [x]
     * ターゲットにタグの追加、Excelフォームのカラムグループセット [ ]
+      gradle --daemon test --tests "ExcelParserTest.サマリシート更新2"
     * テストシナリオのターゲットリストをクラスターID順にソート [ ]
     * 変数にn種類のカテゴリがあれば、n個のダミー変数に変換が必要。変数は0,1を指定 [ ]
 * TestItem 肥大化対策 [x]

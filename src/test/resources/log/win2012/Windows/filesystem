@@ -1,28 +1,127 @@
-﻿
+﻿PSComputerName               : win2012
+Status                       :
+Availability                 :
+DeviceID                     : C:
+StatusInfo                   :
+__GENUS                      : 2
+__CLASS                      : Win32_LogicalDisk
+__SUPERCLASS                 : CIM_LogicalDisk
+__DYNASTY                    : CIM_ManagedSystemElement
+__RELPATH                    : Win32_LogicalDisk.DeviceID="C:"
+__PROPERTY_COUNT             : 40
+__DERIVATION                 : {CIM_LogicalDisk, CIM_StorageExtent, CIM_Logical
+                               Device, CIM_LogicalElement...}
+__SERVER                     : win2012
+__NAMESPACE                  : root\cimv2
+__PATH                       : \\win2012\root\cimv2:Win32_LogicalDisk.DeviceI
+                               D="C:"
+Access                       : 0
+BlockSize                    :
+Caption                      : C:
+Compressed                   : False
+ConfigManagerErrorCode       :
+ConfigManagerUserConfig      :
+CreationClassName            : Win32_LogicalDisk
+Description                  : ローカル固定ディスク
+DriveType                    : 3
+ErrorCleared                 :
+ErrorDescription             :
+ErrorMethodology             :
+FileSystem                   : NTFS
+FreeSpace                    : 62718337024
+InstallDate                  :
+LastErrorCode                :
+MaximumComponentLength       : 255
+MediaType                    : 12
+Name                         : C:
+NumberOfBlocks               :
+PNPDeviceID                  :
+PowerManagementCapabilities  :
+PowerManagementSupported     :
+ProviderName                 :
+Purpose                      :
+QuotasDisabled               : True
+QuotasIncomplete             : False
+QuotasRebuilding             : False
+Size                         : 107005079552
+SupportsDiskQuotas           : True
+SupportsFileBasedCompression : True
+SystemCreationClassName      : Win32_ComputerSystem
+SystemName                   : win2012
+VolumeDirty                  : False
+VolumeName                   :
+VolumeSerialNumber           : 48C7C2C5
+Scope                        : System.Management.ManagementScope
+Path                         : \\win2012\root\cimv2:Win32_LogicalDisk.DeviceI
+                               D="C:"
+Options                      : System.Management.ObjectGetOptions
+ClassPath                    : \\win2012\root\cimv2:Win32_LogicalDisk
+Properties                   : {Access, Availability, BlockSize, Caption...}
+SystemProperties             : {__GENUS, __CLASS, __SUPERCLASS, __DYNASTY...}
+Qualifiers                   : {dynamic, Locale, provider, UUID}
+Site                         :
+Container                    :
 
-DeviceID       : A:
-DriveType      : 2
-ProviderName   : 
-FreeSpace      : 
-Size           : 
-VolumeName     : 
-PSComputerName : 192.168.0.24
-
-DeviceID       : C:
-DriveType      : 3
-ProviderName   : 
-FreeSpace      : 15549100032
-Size           : 42580570112
-VolumeName     : 
-PSComputerName : 192.168.0.24
-
-DeviceID       : D:
-DriveType      : 5
-ProviderName   : 
-FreeSpace      : 
-Size           : 
-VolumeName     : 
-PSComputerName : 192.168.0.24
-
-
-
+PSComputerName               : win2012
+Status                       :
+Availability                 :
+DeviceID                     : E:
+StatusInfo                   :
+__GENUS                      : 2
+__CLASS                      : Win32_LogicalDisk
+__SUPERCLASS                 : CIM_LogicalDisk
+__DYNASTY                    : CIM_ManagedSystemElement
+__RELPATH                    : Win32_LogicalDisk.DeviceID="E:"
+__PROPERTY_COUNT             : 40
+__DERIVATION                 : {CIM_LogicalDisk, CIM_StorageExtent, CIM_Logical
+                               Device, CIM_LogicalElement...}
+__SERVER                     : win2012
+__NAMESPACE                  : root\cimv2
+__PATH                       : \\win2012\root\cimv2:Win32_LogicalDisk.DeviceI
+                               D="E:"
+Access                       :
+BlockSize                    :
+Caption                      : E:
+Compressed                   :
+ConfigManagerErrorCode       :
+ConfigManagerUserConfig      :
+CreationClassName            : Win32_LogicalDisk
+Description                  : CD-ROM ディスク
+DriveType                    : 5
+ErrorCleared                 :
+ErrorDescription             :
+ErrorMethodology             :
+FileSystem                   :
+FreeSpace                    :
+InstallDate                  :
+LastErrorCode                :
+MaximumComponentLength       :
+MediaType                    : 11
+Name                         : E:
+NumberOfBlocks               :
+PNPDeviceID                  :
+PowerManagementCapabilities  :
+PowerManagementSupported     :
+ProviderName                 :
+Purpose                      :
+QuotasDisabled               :
+QuotasIncomplete             :
+QuotasRebuilding             :
+Size                         :
+SupportsDiskQuotas           :
+SupportsFileBasedCompression :
+SystemCreationClassName      : Win32_ComputerSystem
+SystemName                   : win2012
+VolumeDirty                  :
+VolumeName                   :
+VolumeSerialNumber           :
+Scope                        : System.Management.ManagementScope
+Path                         : \\win2012\root\cimv2:Win32_LogicalDisk.DeviceI
+                               D="E:"
+Options                      : System.Management.ObjectGetOptions
+ClassPath                    : \\win2012\root\cimv2:Win32_LogicalDisk
+Properties                   : {Access, Availability, BlockSize, Caption...}
+SystemProperties             : {__GENUS, __CLASS, __SUPERCLASS, __DYNASTY...}
+Qualifiers                   : {dynamic, Locale, provider, UUID}
+Site                         :
+Container                    :

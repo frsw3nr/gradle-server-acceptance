@@ -99,6 +99,14 @@ class ConfigTestEnvironment {
         return this.cmdb_config?.ticket?.custom_field?.inventory ?: "インベントリ";
     }
 
+    def get_custom_field_rack_location() {
+        return this.cmdb_config?.ticket?.custom_field?.rack_location ?: "ラック位置";
+    }
+
+    def get_custom_field_rack_location_prefix() {
+        return this.cmdb_config?.ticket?.custom_field?.rack_location_prefix ?: "RackTables:";
+    }
+
     def get_port_list_custom_fields() {
         return this.cmdb_config?.port_list?.custom_fields;
     }

@@ -7,7 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
-// gradle --daemon test --tests "WindowsBaseTest.Windows テスト仕様 memory"
+// gradle --daemon test --tests "WindowsBaseTest.Windows テスト仕様 filesystem"
 
 class WindowsBaseTest extends Specification {
 
@@ -162,7 +162,7 @@ class WindowsBaseTest extends Specification {
         test_platform.test_results.size() > 0
         println test_platform.test_results
         test_platform.test_results['filesystem'].status == ResultStatus.OK
-        test_platform.test_results['filesystem'].verify == ResultStatus.OK
+        test_platform.test_results['filesystem'].verify == ResultStatus.NG
          // test_platform.test_results['Domain'].value.size() > 0
     }
 

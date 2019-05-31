@@ -3,6 +3,7 @@ package InfraTestSpec
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 import org.apache.commons.io.FileUtils.*
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.compress.compressors.gzip.*
 import org.apache.commons.compress.archivers.tar.*
 import org.apache.commons.compress.utils.*
@@ -120,10 +121,17 @@ class HitachiVSPSpec extends WindowsSpecBase {
         def headers = ['Location', 'CMG#0 Size(GB)', 'Cache Size(GB)', 'SM Size(MB)', 'CFM#0 Type']
         def csv = parse_csv(test_item, 'CacheInfo', headers)
         def infos = []
+        def res = [:]
         csv.each { row ->
-            infos << ['Location' : row[0], 'CMG#0' : row[1], 'Cache' : row[2], 'SM' : row[3]]
+            def alias = row[0]
+            infos << ["${alias}" : "${row[1]}"]
+            add_new_metric("CacheInfo.cmg_0.${alias}", "[${alias}] CMG#0 GB", row[1], res)
+            add_new_metric("CacheInfo.cache.${alias}", "[${alias}] Cache GB", row[2], res)
+            add_new_metric("CacheInfo.sm.${alias}",    "[${alias}] SM GB",    row[3], res)
+
         }
-        test_item.results(infos.toString())
+        res['CacheInfo'] = "${infos}"
+        test_item.results(res)
     }
 
     def DkcInfo(TestItem test_item) {
@@ -133,8 +141,11 @@ class HitachiVSPSpec extends WindowsSpecBase {
         def networks = []
         def net_subnet = [:]
         def rownum = 0
+        def res = [:]
         csv.each { row ->
             def colnum = 0
+            add_new_metric("DkcInfo.Type",   "モデル", row[0], res)
+            add_new_metric("DkcInfo.Serial", "S/N",    "'${row[1]}'", res)
             ['Type', 'Serial', 'IP', 'Subnet'].each { metric ->
                 infos[metric] << row[colnum]
                 if (metric == 'IP') {
@@ -157,10 +168,9 @@ class HitachiVSPSpec extends WindowsSpecBase {
             }
         }
         println("■IP:${networks}")
-        println("CSV:$csv")
-        test_item.results(['DkcInfo':infos.toString(), 
-                          'Type':infos['Type'], 'Serial':infos['Serial'],
-                          'networks':networks.toString(), 'net_subnet':net_subnet.toString()])
+        res['DkcInfo.networks']   = "${networks}"
+        res['DkcInfo.net_subnet'] = "${net_subnet}"
+        test_item.results(res)
     }
 
     def LdevInfo(TestItem test_item) {
@@ -170,21 +180,31 @@ class HitachiVSPSpec extends WindowsSpecBase {
         def csv = parse_csv(test_item, 'LdevInfo', headers)
         def infos = [:].withDefault{0}
         csv.each { row ->
-            def volume_size = 'Volume ' + row[7] + ' MB'
+            def alias = row[0]
+            def volume_gb = String.format("%1.1f", NumberUtils.toDouble(row[7]) / 1000)
+            def volume_size = volume_gb + ' GB'
             infos[volume_size] += 1
         }
-        test_item.results(infos.toString())
+        def res = [:]
+        infos.each { volume_size, num ->
+            add_new_metric("LdevInfo.${volume_size}", "[${volume_size}]",  num, res)
+        }
+        test_item.results(res)
     }
 
     def LPartition(TestItem test_item) {
         def headers = ['CLPR#','CLPR Name','Cache Size(MB)','ECC Group','LDEV#(V-VOL)']
         def csv = parse_csv(test_item, 'LPartition', headers)
         def infos = [:].withDefault{0}
+        def res = [:]
         csv.each { row ->
+            def alias = row[3]
             def volume_size = 'Cache ' + row[2] + ' MB'
             infos[volume_size] += 1
+            add_new_metric("LPartition.${alias}", "ECC キャッシュ[${alias}]", volume_size, res)
         }
-        test_item.results(infos.toString())
+        res['LPartition'] = "${infos}"
+        test_item.results(res)
     }
 
     def LunInfo(TestItem test_item) {
@@ -207,10 +227,18 @@ class HitachiVSPSpec extends WindowsSpecBase {
         def headers = ['ECC Group', 'Emulation Type', 'CR#', 'PDEV Location', 'Device Type', 'RPM', 'Device Type-Code', 'Device Size', 'Device Capacity', 'Drive Version', 'DKB1', 'DKB2', 'Serial Number#', 'RAID Level', 'RAID Concatenation#0', 'RAID Concatenation#1', 'RAID Concatenation#2', 'Resource Group ID (ECC Group)', 'Resource Group Name (ECC Group)', 'Encryption', 'Accelerated Compression']
         def csv = parse_csv(test_item, 'PdevInfo', headers)
         def infos = [:].withDefault{[:].withDefault{[:].withDefault{0}}}
+        def res = [:]
         csv.each { row ->
+            def alias = row[3]
             infos['ECC' + row[0]][row[13]][row[8]] += 1
+            add_new_metric("PdevInfo.ecc.${alias}",  "[${alias}] ECC グループ", row[0], res)
+            add_new_metric("PdevInfo.type.${alias}", "[${alias}] デバイス",     row[4], res)
+            add_new_metric("PdevInfo.size.${alias}", "[${alias}] 容量",         row[8], res)
+            add_new_metric("PdevInfo.sn.${alias}",   "[${alias}] S/N",          row[12], res)
+            add_new_metric("PdevInfo.raid.${alias}", "[${alias}] RAID",         row[13], res)
         }
-        test_item.results(infos.toString())
+        res['PdevInfo'] = infos.toString()
+        test_item.results(res)
     }
 
     def SsdDriveInfo(TestItem test_item) {

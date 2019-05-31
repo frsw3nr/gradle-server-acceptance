@@ -197,7 +197,7 @@ class LinuxBaseTest extends Specification {
         println test_platform.test_results['kernel']
         println test_platform.test_results['arch']
         test_platform.test_results['uname'].status  == ResultStatus.OK
-        test_platform.test_results['kernel'].verify == ResultStatus.OK
+        test_platform.test_results['kernel'].verify == ResultStatus.NG
         test_platform.test_results['arch'].verify   == ResultStatus.OK
     }
 

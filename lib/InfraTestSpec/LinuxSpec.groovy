@@ -62,14 +62,20 @@ class LinuxSpec extends LinuxSpecBase {
 
         // parse 'Linux ostrich 2.6.32-573.12.1.el6.x86_64'
         def infos = [:]
+        def oracle_linux_kernel = 'RedHat Compatible'
         lines.eachLine {
             (it =~ /^(.+)\.(.+?)#/).each {m0, kernel, arch ->
                 infos['uname']  = "${kernel}.${arch}"
                 infos['kernel'] = kernel
                 infos['arch']   = arch
             }
+            (it =~/uek/).each {
+                oracle_linux_kernel = 'UEK'
+            }
         }
+        infos['oracle_linux_kernel'] = oracle_linux_kernel
         test_item.results(infos)
+        println infos
         test_item.verify_text_search('kernel', infos['kernel'])
         test_item.verify_text_search('arch', infos['arch'])
     }

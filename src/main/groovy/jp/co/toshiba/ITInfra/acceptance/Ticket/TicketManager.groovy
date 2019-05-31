@@ -86,6 +86,8 @@ class TicketManager {
     String redmine_uri
     String redmine_api_key
     String inventory_field
+    String rack_location_field
+    String rack_location_field_prefix
     String tracker_port_list
     int in_operation_status_id
     LinkedHashMap<String,String> port_list_custom_fields = [:]
@@ -97,6 +99,8 @@ class TicketManager {
         this.redmine_uri     = env.get_redmine_uri()
         this.redmine_api_key = env.get_redmine_api_key()
         this.inventory_field = env.get_custom_field_inventory()
+        this.rack_location_field = env.get_custom_field_rack_location()
+        this.rack_location_field_prefix = env.get_custom_field_rack_location_prefix()
         this.tracker_port_list = env.get_tracker_port_list()
         this.in_operation_status_id = env.get_in_operation_status_id()
         this.port_list_custom_fields = env.get_port_list_custom_fields()
@@ -210,6 +214,14 @@ class TicketManager {
         def custom_field_inventory = issue.getCustomFieldByName(this.inventory_field)
         if (custom_field_inventory) {
             custom_field_inventory.setValue(subject)
+        }
+        def custom_field_rack_location = issue.getCustomFieldByName(this.rack_location_field)
+        if (custom_field_rack_location) {
+            def value = subject
+            if (this.rack_location_field_prefix) {
+                value = this.rack_location_field_prefix + subject
+            }
+            custom_field_rack_location.setValue(value)
         }
         try {
             this.issue_manager.update(issue)

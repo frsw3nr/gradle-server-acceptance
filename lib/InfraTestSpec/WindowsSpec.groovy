@@ -344,6 +344,35 @@ class WindowsSpec extends WindowsSpecBase {
         }
     }
 
+    def nic_teaming_config(TestItem test_item) {
+        run_script('Get-NetLbfoTeamNic') {
+            def lines = exec('nic_teaming_config') {
+                new File("${local_dir}/nic_teaming_config")
+            }
+
+            def teaming = 'NotConfigured'
+            def alias = ''
+            def res = [:]
+            lines.eachLine {
+                (it =~ /^Name\s+:\s(.+)/).each {m0, m1->
+                    teaming = 'Configured'
+                    alias = m1
+                }
+                (it =~ /^Members\s+:\s(.+)/).each {m0, m1->
+                    add_new_metric("nic_teaming_config.${alias}.members", "チーミング[${alias}] メンバー", m1, res)
+                }
+                (it =~ /^TeamingMode\s+:\s(.+)/).each {m0, m1->
+                    add_new_metric("nic_teaming_config.${alias}.mode", "チーミング[${alias}] モード", m1, res)
+                }
+                (it =~ /^LoadBalancingAlgorithm\s+:\s(.+)/).each {m0, m1->
+                    add_new_metric("nic_teaming_config.${alias}.algorithm", "チーミング[${alias}] 負荷分散モード", m1, res)
+                }
+            }
+            res['nic_teaming_config'] = teaming
+            test_item.results(res)
+        }
+    }
+
     def network_profile(TestItem test_item) {
         def connectivitys = ['0' : 'Internet Disconnected', '1' : 'NoTraffic', '2' : 'Subnet', 
                              '3' : 'LocalNetwork', '4' : 'Internet']
@@ -568,7 +597,7 @@ class WindowsSpec extends WindowsSpecBase {
     }
 
     def filesystem(TestItem test_item) {
-        run_script('Get-WmiObject Win32_LogicalDisk') {
+        run_script('Get-WmiObject Win32_LogicalDisk | Format-List *') {
             def lines = exec('filesystem') {
                 new File("${local_dir}/filesystem")
             }
@@ -577,19 +606,27 @@ class WindowsSpec extends WindowsSpecBase {
             def drive_letter = 'unkown'
             def infos = [:]
             lines.eachLine {
+                println it
                 (it =~ /^DeviceID\s*:\s+(.+):$/).each {m0,m1->
                     drive_letter = m1
                 }
                 (it =~ /^Size\s*:\s+(\d+)$/).each {m0,m1->
                     def size_gb = Math.ceil(m1.toDouble()/(1024*1024*1024)) as Integer
-                    add_new_metric("filesystem.${drive_letter}", "ディスク容量.${drive_letter}", size_gb, infos)
+                    add_new_metric("filesystem.${drive_letter}.size_gb", "ドライブ[${drive_letter}] 容量GB", size_gb, infos)
                     csv << [drive_letter, size_gb]
                     filesystems[drive_letter] = size_gb
+                }
+                (it =~ /^Description\s*:\s+(.+)$/).each {m0,m1->
+                    add_new_metric("filesystem.${drive_letter}.desc", "ドライブ[${drive_letter}] 種別", m1, infos)
+                }
+                (it =~ /^FileSystem\s*:\s+(.+)$/).each {m0,m1->
+                    add_new_metric("filesystem.${drive_letter}.filesystem", "ドライブ[${drive_letter}] ファイルシステム", m1, infos)
                 }
             }
             def headers = ['device_id', 'size_gb']
             test_item.devices(csv, headers)
             infos['filesystem'] = "${filesystems}"
+            println infos
             test_item.results(infos)
             test_item.verify_number_equal_map('filesystem', filesystems)
         }
@@ -759,6 +796,34 @@ class WindowsSpec extends WindowsSpecBase {
             test_item.results(package_info)
         }
     }
+
+    def user_account_control(TestItem test_item) {
+        run_script('Get-ItemProperty "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"') {
+            def lines = exec('user_account_control') {
+                new File("${local_dir}/user_account_control").text
+            }
+            def setting = 'Disable'
+            def res = [:].withDefault{'0'}
+            lines.eachLine {
+                (it =~ /^EnableLUA\s*:\s+(.+)$/).each {m0,m1->
+                    if (m1 == '1')
+                        setting = 'Enable'
+                }
+                (it =~ /^ConsentPromptBehaviorAdmin\s*:\s+(.+)$/).each {m0,m1->
+                    add_new_metric("user_account_control.ConsentPromptBehaviorAdmin", "ユーザアカウント制御 ConsentPromptBehaviorAdmin", "'${m1}'", res)
+                }
+                (it =~ /^ConsentPromptBehaviorUser\s*:\s+(.+)$/).each {m0,m1->
+                    add_new_metric("user_account_control.ConsentPromptBehaviorUser", "ユーザアカウント制御 ConsentPromptBehaviorUser", "'${m1}'", res)
+                }
+                (it =~ /^EnableInstallerDetection\s*:\s+(.+)$/).each {m0,m1->
+                    add_new_metric("user_account_control.EnableInstallerDetection", "ユーザアカウント制御 EnableInstallerDetection", "'${m1}'", res)
+                }
+            }
+            res['user_account_control'] = setting
+             test_item.results(res)
+        }
+    }
+
 
     def remote_desktop(TestItem test_item) {
         run_script('(Get-Item "HKLM:System\\CurrentControlSet\\Control\\Terminal Server").GetValue("fDenyTSConnections")') {

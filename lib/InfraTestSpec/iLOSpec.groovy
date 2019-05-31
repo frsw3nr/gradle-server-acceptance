@@ -579,4 +579,73 @@ class iLOSpecBase extends InfraTestSpec {
             test_item.verify_text_search_list('snmp_version', trap_info['version'])
         }
     }
+
+    def HostPowerSaver(TestItem test_item) {
+        def command = '''
+            |Get-HPiLOHostPowerSaver -Server "\$ip" -Credential \$cred -DisableCert `
+            | | FL'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('HostPowerSaver') {
+                new File("${local_dir}/HostPowerSaver")
+            }
+            def res = 'unkown'
+            lines.eachLine {
+                (it =~/^HOST_POWER_SAVER\s+:\s+(.+?)$/).each { m0, m1 ->
+                    res = m1
+                }
+
+            }
+            test_item.results(res)
+        }
+    }
+
+    def PowerReading(TestItem test_item) {
+        def command = '''
+            |Get-HPiLOPowerReading -Server "\$ip" -Credential \$cred -DisableCert `
+            | | FL'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('PowerReading') {
+                new File("${local_dir}/PowerReading")
+            }
+            def res = [:]
+            def status = 'unkown'
+            lines.eachLine {
+                (it =~/^(.+?)_POWER_READING\s+:\s+(.+?)$/).each { m0, m1, m2 ->
+                    add_new_metric("PowerReading.${m1}", "消費電力 [${m1}]",  m2, res)
+                }
+                (it =~/^STATUS_MESSAGE\s+:\s+(.+?)$/).each { m0, m1 ->
+                    status = m1
+                }
+            }
+            res['PowerReading'] = status
+            test_item.results(res)
+        }
+    }
+
+    def PowerSupply(TestItem test_item) {
+        def command = '''
+            |Get-HPiLOPowerSupply -Server "\$ip" -Credential \$cred -DisableCert `
+            | | Select -ExpandProperty "POWER_SUPPLY_SUMMARY" `
+            | | Select "HIGH_EFFICIENCY_MODE","POWER_SYSTEM_REDUNDANCY","PRESENT_POWER_READING" `
+            | | FL'''.stripMargin()
+
+        run_script(command) {
+            def lines = exec('PowerSupply') {
+                new File("${local_dir}/PowerSupply")
+            }
+            def res = [:]
+            lines.eachLine {
+                (it =~/^HIGH_EFFICIENCY_MODE\s+:\s+(.+?)$/).each { m0, m1 ->
+                    res['mode'] = m1
+                }
+                (it =~/^POWER_SYSTEM_REDUNDANCY\s+:\s+(.+?)$/).each { m0, m1 ->
+                    res['redundancy'] = m1
+                }
+            }
+            def result = (res)?"${res}":'unkown' 
+            test_item.results(result)
+        }
+    }
 }

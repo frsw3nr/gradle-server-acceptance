@@ -127,6 +127,9 @@ class EternusSpec extends LinuxSpecBase {
         lines.eachLine {
             (it =~ /^(.+)\s+\[(.+)\]$/).each { m0, item, value ->
                 item = item.replaceAll(/\s+/,"")
+                if (item=='SerialNumber') {
+                    value = "'" + value + "'"
+                }
                 results["enclosure.${item}"] = value
             }
         }
