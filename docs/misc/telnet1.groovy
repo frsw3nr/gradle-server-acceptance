@@ -1,4 +1,7 @@
-package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
+@GrabConfig( systemClassLoader=true )
+@Grapes( 
+@Grab("commons-net:commons-net:3.3")
+)
 
 import javax.xml.bind.*
 import static groovy.json.JsonOutput.*
@@ -14,10 +17,25 @@ import java.io.InputStream
 import java.io.PrintStream
 import java.io.Reader
 
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import jp.co.toshiba.ITInfra.acceptance.*
+def ses = new TelnetSession()
+ses.init_session('192.168.10.3', 'someuser', 'P@ssw0rd')
+def command = """\
+|awk \'/^domain/ {print \$2}\' /etc/resolv2.conf 2> /dev/null
+|if [ \$? != 0 ]; then
+|   echo 'Not Found'
+|fi
+""".stripMargin()
+def res0 = ses.run_command('hostname', 'uname')
+println "RES0:$res0<EOF>"
+def res1 = ses.run_command(command, 'hostname_fqdb')
+println "RES1:$res1<EOF>"
+def res2 = ses.run_command('', 'null_command1')
+println "RES2:$res2<EOF>"
+def res3 = ses.run_command("\n\n", 'null_command2')
+println "RES3:$res3<EOF>"
+def res4 = ses.run_command('uname', 'uname')
+println "RES4:$res4<EOF>"
 
-@Slf4j
 class TelnetSession {
 
     static TerminalTypeOptionHandler ttopt = new TerminalTypeOptionHandler("VT100", false, false, true, false);
@@ -41,8 +59,8 @@ class TelnetSession {
     TelnetSession(test_spec) {
         this.prompt    = test_spec?.prompt ?: '$ '
         this.timeout   = test_spec?.timeout ?: 30
-        this.local_dir = test_spec?.local_dir
-        this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
+        this.local_dir = test_spec?.local_dir ?: '/tmp'
+        this.evidence_log_share_dir = test_spec?.evidence_log_share_dir ?: '/tmp'
     }
 
     def init_session(String ip, String user, String password) {
@@ -64,10 +82,8 @@ class TelnetSession {
             reader = new InputStreamReader(tin);
      
             // Login telnet session
-            if (!(user) && user != '') {
-                readUntil("login: ");
-                write(user);
-            }
+            readUntil("login: ");
+            write(user);
             readUntil("Password: ");
             write(password);
 
@@ -79,7 +95,7 @@ class TelnetSession {
             readUntil(prompt);
 
         } catch (Exception e) {
-            log.error "[Telnet Test] Init test faild.\n" + e
+            println "[Telnet Test] Init test faild.\n" + e
             throw new IllegalArgumentException(e)
         }
     }
@@ -107,6 +123,7 @@ class TelnetSession {
                 // 次のread()が入力をブロックするかも知れない時はmatchチェックする
                 if (reader.ready() == false) {
                     if (sb.toString().endsWith(pattern)) {
+                        println "BUFFER:$sb<EOF>"
                         String message = sb.toString();
                         return truncate_last_line(message);
                     }
@@ -114,7 +131,7 @@ class TelnetSession {
             }
         }
         catch (Exception e) {
-            log.error "[Telnet Test] read session faild.\n" + e
+            println "[Telnet Test] read session faild.\n" + e
             throw new IllegalArgumentException(e)
         }
         return null;
@@ -143,7 +160,7 @@ class TelnetSession {
             return result
         }
         catch (Exception e) {
-            log.error "[Telnet Test] read session faild.\n" + e
+            println "[Telnet Test] read session faild.\n" + e
             throw new IllegalArgumentException(e)
         }
         return null;
@@ -151,12 +168,13 @@ class TelnetSession {
 
     public static void write(String value) {
         try {
+            // tout.println(value);
             tout.println(value);
             tout.flush();
             // System.out.println(value);
         }
         catch (Exception e) {
-            log.error "[Telnet Test] write session faild.\n" + e
+            println "[Telnet Test] write session faild.\n" + e
             throw new IllegalArgumentException(e)
         }
     }
@@ -170,7 +188,7 @@ class TelnetSession {
             // return readUntilPrompt();
         }
         catch (Exception e) {
-            log.error "[Telnet Test] command '${command}' faild.\n" + e
+            println "[Telnet Test] command '${command}' faild.\n" + e
         }
         return null;
     }
@@ -179,10 +197,10 @@ class TelnetSession {
         try {
             def log_path = (share) ? evidence_log_share_dir : local_dir
             def result = sendCommand(command)
-            // println "COMMAND:$command,RESULT:$result<EOF>"
+            println "COMMAND:$command,RESULT:$result<EOF>"
             new File("${log_path}/${test_id}").text = result
         } catch (Exception e) {
-            log.error "[Telnet Test] Command error '$command' faild, skip.\n" + e
+            println "[Telnet Test] Command error '$command' faild, skip.\n" + e
         }
     }
 
