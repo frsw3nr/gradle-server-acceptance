@@ -9,12 +9,12 @@ New features:
   にリンクするように変更
 
 ToDo:
-* シナリオ階層化
+* 検査項目の階層化
     * テストデータでの結合試験 [ ]
         * ETERNUS [x]
         * HitachiVSP [x]
         * AIX [x]
-        * RTX [x] <保留>
+        * RTX [x]
         * CiscoIOS [x] <保留>
 * クラスター分析プロトタイプ [x]
     * 変更範囲検討 [x]
@@ -58,6 +58,75 @@ ToDo:
 
 Bug fixes:
 * 比較対象を指定したケースで、テスト結果JSON出力で比較対象のJSONも上書きされる問題対処
+
+クラスター分析
+--------------
+
+ターゲットにタグの追加、Excelフォームのカラムグループセット [ ]
+TestTarget に tag プロパティ追加
+テストシナリオのターゲットリストをクラスターID順にソート [ ]
+
+既存コード調査
+---------------
+
+TestTargetSetクラス
+
+def target_set = new TestTargetSet(name: 'root')
+def test_targets = test_scenario.test_targets.get_all()
+
+⇒ target, domain をキーにした配列を返す
+
+DataComparater クラス
+
+def compare_target = test_scenario.test_targets.get(compare_server, domain)
+
+ExcelParser クラス。モデル生成処理
+
+test_targets = new TestTargetSet(name: 'root')
+test_targets.accept(this)
+
+def visit_test_target_set(test_target_set) {
+    def test_target = new TestTarget(line)
+    test_target_set.add(test_target)
+
+検査対象を順に読み込む。target, domain をキーに検索
+
+TestTarget モデルプロパティ
+    name   ターゲット名
+    domain ドメイン名
+
+変更範囲検討
+------------
+
+検査対象シートの順にターゲットを処理。target_name, domain がキー
+
+ドメインの順に処理(Linux, Windows, ..)
+ドメインが異なる場合はタグ化しない
+クラスターグループのサイズが大きい順にセット
+クラスターグループ内リストの順にセット。先頭ノードは比較対象にセット
+
+テスト
+------
+
+単体テスト
+gradle --daemon test --tests "ExcelParserTest.サマリシート更新2"
+
+def test_targets = test_scenario.test_targets
+def targets = test_scenario.test_targets.get_all()
+targets.each { target_name, domain_targets ->
+
+結合テスト
+getconfig -d -e ./src/test/resources/サーバチェックシート.lsx -at
+
+TODO
+
+ドメイン毎のクラスタリングに変更
+TestTargetSet のソート。クラスタリング分析結果の順にリスト化
+    クラスターグループの多い順にソート
+    グループ内1位を比較対象にセット
+タグ行の追加
+
+
 
 V2 仕様検討
 -----------
