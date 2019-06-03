@@ -7,6 +7,7 @@ import groovy.transform.InheritConstructors
 import ch.ethz.ssh2.Connection
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix.*
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import sun.net.util.IPAddressUtil
 import org.apache.commons.net.util.SubnetUtils
@@ -23,9 +24,9 @@ import java.io.PrintStream
 @InheritConstructors
 class RouterRTXSpec extends InfraTestSpec {
 
-    static java.io.InputStream tin;
-    static java.io.PrintStream tout;
-    static String prompt = ">"
+    // static java.io.InputStream tin;
+    // static java.io.PrintStream tout;
+    static String prompt = "> "
 
     static String mac_vendor_dir = 'template/Router/mac-vendor'
     static String mac_vendor_oui = 'ieee-oui.txt'
@@ -35,6 +36,7 @@ class RouterRTXSpec extends InfraTestSpec {
     String ip
     String os_user
     String os_password
+    Boolean use_telnet = true
     String work_dir
     int    timeout = 30
     def    subnets = []
@@ -48,29 +50,32 @@ class RouterRTXSpec extends InfraTestSpec {
         this.os_password  = os_account['password'] ?: 'unkown'
         this.work_dir     = os_account['work_dir'] ?: '/tmp'
         this.timeout      = test_platform.timeout
+        this.timeout      = test_platform.timeout
+        this.prompt       = '> '
+        this.use_telnet   = os_account['use_telnet'] ?: true
     }
 
-    def init_telnet_session() {
-        TelnetClient telnet = new TelnetClient();
-        try {
-            telnet.setDefaultTimeout(1000 * timeout);
-            telnet.connect(this.ip);
-            telnet.setSoTimeout(1000 * timeout);
-            telnet.setSoLinger(true, 1000 * timeout);
+    // def init_telnet_session() {
+    //     TelnetClient telnet = new TelnetClient();
+    //     try {
+    //         telnet.setDefaultTimeout(1000 * timeout);
+    //         telnet.connect(this.ip);
+    //         telnet.setSoTimeout(1000 * timeout);
+    //         telnet.setSoLinger(true, 1000 * timeout);
 
-            // Get input and output stream references
-            tin = telnet.getInputStream();
-            tout = new PrintStream(telnet.getOutputStream());
+    //         // Get input and output stream references
+    //         tin = telnet.getInputStream();
+    //         tout = new PrintStream(telnet.getOutputStream());
      
-            // write('console');
-            readUntil("Password: ");
-            write(this.os_password);
-            readUntil(prompt + " ");
-        } catch (Exception e) {
-            log.error "[Telnet Test] Init test faild.\n" + e
-            throw new IllegalArgumentException(e)
-        }
-    }
+    //         // write('console');
+    //         readUntil("Password: ");
+    //         write(this.os_password);
+    //         readUntil(prompt + " ");
+    //     } catch (Exception e) {
+    //         log.error "[Telnet Test] Init test faild.\n" + e
+    //         throw new IllegalArgumentException(e)
+    //     }
+    // }
 
     def init_mac_vendor_oui_db() throws IOException {
         new File("${mac_vendor_dir}/${mac_vendor_oui}").eachLine {
@@ -93,94 +98,116 @@ class RouterRTXSpec extends InfraTestSpec {
         super.setup_exec()
 
         init_mac_vendor_oui_db()
+        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
+        println "PROMPT:${con.prompt}"
         if (!dry_run) {
-            init_telnet_session()
+            con.init_session(this.ip, '', this.os_password)
         }
 
         // println "test_items:$test_items"
-        test_items.each { test_item ->
-            def method = this.metaClass.getMetaMethod(test_item.test_id, TestItem)
+        test_items.each {
+            def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
             if (method) {
                 log.debug "Invoke command '${method.name}()'"
                 try {
                     long start = System.currentTimeMillis();
-                    method.invoke(this, test_item)
+                    method.invoke(this, con, it)
                     long elapsed = System.currentTimeMillis() - start
                     log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-                    // test_item.succeed = 1
+                    // it.succeed = 1
                 } catch (Exception e) {
-                    test_item.verify(false)
-                    log.error "[Telnet Test] Test method '${method.name}()' faild, skip.\n" + e
+                    it.verify(false)
+                    log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
                 }
             }
         }
+        if (!dry_run) {
+            con.close()
+        }
+    // test_items.each { test_item ->
+    //         def method = this.metaClass.getMetaMethod(test_item.test_id, TestItem)
+    //         if (method) {
+    //             log.debug "Invoke command '${method.name}()'"
+    //             try {
+    //                 long start = System.currentTimeMillis();
+    //                 method.invoke(this, test_item)
+    //                 long elapsed = System.currentTimeMillis() - start
+    //                 log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
+    //                 // test_item.succeed = 1
+    //             } catch (Exception e) {
+    //                 test_item.verify(false)
+    //                 log.error "[Telnet Test] Test method '${method.name}()' faild, skip.\n" + e
+    //             }
+    //         }
+    //     }
     }
 
-    public static String readUntil(String pattern) {
-        try {
-            char lastChar = pattern.charAt(pattern.length() - 1);
-            StringBuffer sb = new StringBuffer();
-            boolean found = false;
-            char ch = (char) tin.read();
-            while (true) {
-                // System.out.print(ch);
-                sb.append(ch);
-                if (ch == lastChar) {
-                    if (sb.toString().endsWith(pattern)) {
-                        return sb.toString();
-                    }
-                }
-                ch = (char) tin.read();
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // public static String readUntil(String pattern) {
+    //     try {
+    //         char lastChar = pattern.charAt(pattern.length() - 1);
+    //         StringBuffer sb = new StringBuffer();
+    //         boolean found = false;
+    //         char ch = (char) tin.read();
+    //         while (true) {
+    //             // System.out.print(ch);
+    //             sb.append(ch);
+    //             if (ch == lastChar) {
+    //                 if (sb.toString().endsWith(pattern)) {
+    //                     return sb.toString();
+    //                 }
+    //             }
+    //             ch = (char) tin.read();
+    //         }
+    //     }
+    //     catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
  
-    public static void write(String value) {
-        try {
-            tout.flush();
-            // System.out.println(value);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // public static void write(String value) {
+    //     try {
+    //         tout.flush();
+    //         // System.out.println(value);
+    //     }
+    //     catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
  
-    public static String sendCommand(String command) {
-        try {
-            write(command);
-            return readUntil(prompt + " ");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // public static String sendCommand(String command) {
+    //     try {
+    //         write(command);
+    //         return readUntil(prompt + " ");
+    //     }
+    //     catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
-    def run_telnet_command(command, test_id, share = false) {
-        try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
-            sendCommand("console lines infinity")
-            def result = sendCommand(command)
+     // def session.run_command(command, test_id, share = false) {
+    //     try {
+    //         def log_path = (share) ? evidence_log_share_dir : local_dir
+    //         sendCommand("console lines infinity")
+    //         def result = sendCommand(command)
 
 
-            new File("${log_path}/${test_id}").text = result
-        } catch (Exception e) {
-            log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-        }
-    }
+    //         new File("${log_path}/${test_id}").text = result
+    //     } catch (Exception e) {
+    //         log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
+    //     }
+    // }
 
     def trim(str){
         str.replaceAll(/\A[\s:]+/,"").replaceAll(/[\s]+\z/,"")
     }
 
-    def config(test_item) {
+    def config(session, test_item) {
         def lines = exec('config') {
-            run_telnet_command('show config', 'config')
+            session.run_command('show config', 'config')
         }
+        println lines
         def row = 0
         def infos = [:]
         def ntp_hosts = []
@@ -237,9 +264,9 @@ class RouterRTXSpec extends InfraTestSpec {
 // Elapsed time from boot: 12749days 01:05:49
 // Security Class: 1, Type: ON, TELNET: OFF
 
-    def environment(test_item) {
+    def environment(session, test_item) {
         def lines = exec('environment') {
-            run_telnet_command('show environment', 'environment')
+            session.run_command('show environment', 'environment')
         }
         def row = 0
         def infos = [:]
@@ -265,9 +292,9 @@ class RouterRTXSpec extends InfraTestSpec {
         test_item.results(infos)
     }
 
-    def ip_route(test_item) {
+    def ip_route(session, test_item) {
         def lines = exec('ip_route') {
-            run_telnet_command('show ip route', 'ip_route')
+            session.run_command('show ip route', 'ip_route')
         }
         def row = 0
         def csv   = []
@@ -305,9 +332,9 @@ class RouterRTXSpec extends InfraTestSpec {
         return subnet_network
     }
 
-    def arp(test_item) {
+    def arp(session, test_item) {
         def lines = exec('arp') {
-            run_telnet_command('show arp', 'arp')
+            session.run_command('show arp', 'arp')
         }
         if (subnets.size() == 0)
             this.ip_route(test_item)

@@ -104,9 +104,11 @@ class TelnetSession {
                 if (ch < 0)
                     break;
                 sb.append((char) ch);
+                // println "SB:$sb<EOF>"
                 // 次のread()が入力をブロックするかも知れない時はmatchチェックする
                 if (reader.ready() == false) {
                     if (sb.toString().endsWith(pattern)) {
+                    // println "SB2:$sb<EOF>"
                         String message = sb.toString();
                         return truncate_last_line(message);
                     }
