@@ -13,124 +13,10 @@ import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
-// For telnet session
-// import org.apache.commons.net.telnet.EchoOptionHandler
-// import org.apache.commons.net.telnet.SuppressGAOptionHandler
-// import org.apache.commons.net.telnet.TelnetClient
-// import org.apache.commons.net.telnet.TerminalTypeOptionHandler
-// import java.io.InputStream
-// import java.io.PrintStream
-
-// @Slf4j
-// class TelnetSession {
-
-//     static java.io.InputStream tin;
-//     static java.io.PrintStream tout;
-//     // static String prompt = "XSCF>"
-//     static String prompt = '$'
-//     TelnetClient telnet
-//     def test_spec
-
-//     TelnetSession(test_spec) {
-//         this.test_spec = test_spec
-//     }
-
-//     def init_session(String ip, String user, String password) {
-//         telnet = new TelnetClient();
-
-//         try {
-//             telnet.setDefaultTimeout(1000 * timeout);
-//             telnet.connect(ip);
-//             telnet.setSoTimeout(1000 * timeout);
-//             telnet.setSoLinger(true, 1000 * timeout);
-
-//             // Get input and output stream references
-//             tin = telnet.getInputStream();
-//             tout = new PrintStream(telnet.getOutputStream());
-     
-//             // Login telnet session
-//             readUntil("login: ");
-//             write(user);
-//             // write('console');
-//             readUntil("Password: ");
-//             write(password);
-//             // write('console0');
-//             readUntil(prompt + " ");
-//         } catch (Exception e) {
-//             log.error "[Telnet Test] Init test faild.\n" + e
-//             throw new IllegalArgumentException(e)
-//         }
-//     }
-
-//     public static String readUntil(String pattern) {
-//         try {
-//             char lastChar = pattern.charAt(pattern.length() - 1);
-//             StringBuffer sb = new StringBuffer();
-//             boolean found = false;
-//             char ch = (char) tin.read();
-//             while (true) {
-//                 // System.out.print(ch);
-//                 sb.append(ch);
-//                 if (ch == lastChar) {
-//                     if (sb.toString().endsWith(pattern)) {
-//                         return sb.toString();
-//                     }
-//                 }
-//                 ch = (char) tin.read();
-//             }
-//         }
-//         catch (Exception e) {
-//             e.printStackTrace();
-//         }
-//         return null;
-//     }
- 
-//     public static void write(String value) {
-//         try {
-//             // tout.println(value);
-//             tout.println(value);
-//             tout.flush();
-//             // System.out.println(value);
-//         }
-//         catch (Exception e) {
-//             e.printStackTrace();
-//         }
-//     }
- 
-//     public static String sendCommand(String command) {
-//         try {
-//             write(command);
-//             return readUntil(prompt + " ");
-//         }
-//         catch (Exception e) {
-//             e.printStackTrace();
-//         }
-//         return null;
-//     }
-
-//     def run_command(command, test_id, share = false) {
-//         try {
-//             def log_path
-//             this.test_spec.with {
-//                 log_path = (share) ? evidence_log_share_dir : local_dir
-//             }
-//             def result = sendCommand(command)
-//             println "COMMAND:$command,RESULT:$result"
-//             new File("${log_path}/${test_id}").text = result
-//         } catch (Exception e) {
-//             log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-//         }
-//     }
-// }
-
-
 @Slf4j
 @InheritConstructors
 class SolarisSpec extends InfraTestSpec {
 
-    // static java.io.InputStream tin;
-    // static java.io.PrintStream tout;
-    // static String prompt = "XSCF>"
     static String prompt = '$ '
 
     String ip
@@ -153,118 +39,6 @@ class SolarisSpec extends InfraTestSpec {
         this.prompt = '$ '
     }
 
-    // def setup_exec_telnet(TestItem[] test_items) {
-    // // def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
-    //     super.setup_exec()
-
-    //     def con = new TelnetSession(this)
-    //     if (!dry_run) {
-    //         con.init_session(this.ip, this.os_user, this.os_password)
-    //         // init_telnet_session()
-    //     }
-    //     test_items.each { test_item ->
-    //         println "TEST_ITEM:${test_item.test_id}"
-    //         def method = this.metaClass.getMetaMethod(test_item.test_id, Object, TestItem)
-    //         if (method) {
-    //             log.debug "Invoke command '${method.name}()'"
-    //             try {
-    //                 long start = System.currentTimeMillis();
-    //                 method.invoke(this, con, test_item)
-    //                 long elapsed = System.currentTimeMillis() - start
-    //                 log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
-    //                 // test_item.succeed = 1
-    //             } catch (Exception e) {
-    //                 test_item.verify(false)
-    //                 log.error "[Telnet Test] Test method '${method.name}()' faild, skip.\n" + e
-    //             }
-    //         }
-    //     }
-    // }
-
-    // def init_telnet_session() {
-    //     TelnetClient telnet = new TelnetClient();
-
-    //     try {
-    //         telnet.setDefaultTimeout(1000 * timeout);
-    //         telnet.connect(this.ip);
-    //         telnet.setSoTimeout(1000 * timeout);
-    //         telnet.setSoLinger(true, 1000 * timeout);
-
-    //         // Get input and output stream references
-    //         tin = telnet.getInputStream();
-    //         tout = new PrintStream(telnet.getOutputStream());
-     
-    //         // Login telnet session
-    //         readUntil("login: ");
-    //         write(this.os_user);
-    //         // write('console');
-    //         readUntil("Password: ");
-    //         write(this.os_password);
-    //         // write('console0');
-    //         readUntil(prompt + " ");
-    //     } catch (Exception e) {
-    //         log.error "[Telnet Test] Init test faild.\n" + e
-    //         throw new IllegalArgumentException(e)
-    //     }
-    // }
-
-    // public static String readUntil(String pattern) {
-    //     try {
-    //         char lastChar = pattern.charAt(pattern.length() - 1);
-    //         StringBuffer sb = new StringBuffer();
-    //         boolean found = false;
-    //         char ch = (char) tin.read();
-    //         while (true) {
-    //             // System.out.print(ch);
-    //             sb.append(ch);
-    //             if (ch == lastChar) {
-    //                 if (sb.toString().endsWith(pattern)) {
-    //                     return sb.toString();
-    //                 }
-    //             }
-    //             ch = (char) tin.read();
-    //         }
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
- 
-    // public static void write(String value) {
-    //     try {
-    //         // tout.println(value);
-    //         tout.println(value);
-    //         tout.flush();
-    //         // System.out.println(value);
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
- 
-    // public static String sendCommand(String command) {
-    //     try {
-    //         write(command);
-    //         return readUntil(prompt + " ");
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
-
-    // def run_telnet_command(command, test_id, share = false) {
-    //     try {
-    //         def log_path = (share) ? evidence_log_share_dir : local_dir
-    //         def result = sendCommand(command)
-    //         println "COMMAND:$command,RESULT:$result"
-    //         new File("${log_path}/${test_id}").text = result
-    //     } catch (Exception e) {
-    //         log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-    //     }
-    // }
-
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
         // if (this.use_telnet) {
@@ -276,14 +50,6 @@ class SolarisSpec extends InfraTestSpec {
         def result
         if (!dry_run) {
             con.init_session(this.ip, this.os_user, this.os_password)
-            // con = new Connection(this.ip, 22)
-            // con.connect()
-            // result = con.authenticateWithPassword(this.os_user, this.os_password)
-
-            // if (!result) {
-            //     println "connect failed"
-            //     return
-            // }
         }
         test_items.each {
             def method = this.metaClass.getMetaMethod(it.test_id, Object, TestItem)
@@ -334,28 +100,6 @@ class SolarisSpec extends InfraTestSpec {
         // results['logon_test'] = result
         // test_item.results(results.toString())
     }
-
-    // def run_ssh_command(con, command, test_id, share = false) {
-    //     println "TEST1"
-    //     if (this.use_telnet) {
-    //         println "TEST2"
-    //         return run_telnet_command(command, test_id, share)
-    //     }
-    //     println "TEST3"
-    //     try {
-    //         def log_path = (share) ? evidence_log_share_dir : local_dir
-
-    //         def session = con.openSession()
-    //         session.execCommand command
-    //         def result = session.stdout.text
-    //         new File("${log_path}/${test_id}").text = result
-    //         session.close()
-    //         return result
-
-    //     } catch (Exception e) {
-    //         log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-    //     }
-    // }
 
     def finish() {
         super.finish()
@@ -611,6 +355,7 @@ class SolarisSpec extends InfraTestSpec {
     def trim(str){
         str.replaceAll(/\A[\s]+/,"").replaceAll(/[\s]+\z/,"")
     }
+
     def disk(session, test_item) {
         def lines = exec('disk') {
             session.run_command('/usr/sbin/prtpicl -v', 'disk')
