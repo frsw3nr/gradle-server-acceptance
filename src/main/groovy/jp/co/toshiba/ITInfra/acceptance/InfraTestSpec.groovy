@@ -320,12 +320,15 @@ class InfraTestSpec {
                         def source_log = new File(log_path)
                         if (!source_log.exists()) {
                             log_not_founds << it.test_id
+                            return
+                        } else {
+                            def target_log = new File(target_path)
+                            if (!target_log.exists())
+                                FileUtils.copyFile(source_log, target_log)
                         }
-                        def target_log = new File(target_path)
-                        if (!target_log.exists())
-                            FileUtils.copyFile(source_log, target_log)
                     } catch (FileNotFoundException e) {
                         log_not_founds << it.test_id
+                        return
                     }
                 }
                 if (!new File(target_path).exists()) {
