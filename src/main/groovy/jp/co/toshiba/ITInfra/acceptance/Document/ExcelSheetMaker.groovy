@@ -355,20 +355,21 @@ class ExcelSheetMaker {
                     group_positions << colnum
                 }
             }
+            // sheet.setColumnWidth(colnum, this.evidence_cell_width)
             colnum ++
         }
+        println "TAG POSITION : ${group_positions}"
         def group_position_strat
         group_positions.each { group_position ->
             if (group_position_strat) {
-                def group_position_end = group_position - 1
-                if ((group_position_end - group_position_strat) > 1) {
+                def group_position_end = group_position - 2
+                if ((group_position_end - group_position_strat) > 0) {
+                    println "COL GROUP: ${group_position_strat}-${group_position_end}"
                     sheet.groupColumn(group_position_strat, group_position_end)
-                    // sheet.setRowGroupCollapsed(group_position_strat, true)
                 }
             }
             group_position_strat = group_position
         }
-        println "TAG POSITION : ${group_positions}"
     }
 
     // Write Summary sheet Header
@@ -387,8 +388,15 @@ class ExcelSheetMaker {
         }
 
         def targets = sheet_summary.cols.keySet() as String[]
-        write_sheet_summary_tag_group(sheet, sheet_summary, sheet_design)
         write_sheet_header(sheet, result_position, targets)
+        write_sheet_summary_tag_group(sheet, sheet_summary, sheet_design)
+        colnum = result_position[1]
+        def target_colnum = colnum + targets.size()
+        while (colnum < target_colnum) {
+            println "COLUMN SIZE:$colnum, ${this.evidence_cell_width}"
+            sheet.setColumnWidth(colnum, this.evidence_cell_width)
+            colnum ++
+        }
         // colnum = result_position[1]
         // def tag_temp = null
         // def group_positions = []

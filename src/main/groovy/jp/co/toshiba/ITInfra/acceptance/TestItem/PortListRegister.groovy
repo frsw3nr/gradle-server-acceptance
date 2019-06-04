@@ -2,7 +2,6 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
-import groovy.transform.InheritConstructors
 import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.TestItem
@@ -10,13 +9,18 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)
-@InheritConstructors
+@Singleton
 class PortListRegister {
 
     TestItem test_item
 
-    PortListRegister(TestItem test_item) {
+    // PortListRegister(TestItem test_item) {
+    //     this.test_item = test_item
+    // }
+
+    PortListRegister test_item(TestItem test_item) {
         this.test_item = test_item
+        return this
     }
 
     def port_list(String ip, 

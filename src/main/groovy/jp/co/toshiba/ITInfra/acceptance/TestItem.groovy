@@ -2,14 +2,12 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
-import groovy.transform.InheritConstructors
 import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)
-@InheritConstructors
 class TestItem {
 
     String platform
@@ -19,9 +17,12 @@ class TestItem {
     LinkedHashMap<String,TestResult> test_results = [:]
     LinkedHashMap<String,PortList> port_lists = [:]
 
-    TestResultRegister test_register    = new TestResultRegister(this)
-    PortListRegister port_list_register = new PortListRegister(this)
-    ResultVerifier result_verifier      = new ResultVerifier(this)
+    // TestResultRegister test_register    = new TestResultRegister(this)
+    TestResultRegister test_register    = TestResultRegister.instance.test_item(this)
+    // PortListRegister port_list_register = new PortListRegister(this)
+    PortListRegister port_list_register = PortListRegister.instance.test_item(this)
+    // ResultVerifier result_verifier      = new ResultVerifier(this)
+    ResultVerifier result_verifier      = ResultVerifier.instance.test_item(this)
 
     @ToString(includePackage = false)
     class CheckResult {

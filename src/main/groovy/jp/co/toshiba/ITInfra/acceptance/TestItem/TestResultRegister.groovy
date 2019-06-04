@@ -2,7 +2,6 @@ package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
 import groovy.transform.ToString
-import groovy.transform.InheritConstructors
 import org.apache.commons.lang.math.NumberUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.TestItem
@@ -10,14 +9,19 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)
-@InheritConstructors
+@Singleton
 class TestResultRegister {
 
     TestItem test_item
 
-    TestResultRegister(TestItem test_item) {
+    TestResultRegister test_item(TestItem test_item) {
         this.test_item = test_item
+        return this
     }
+
+    // TestResultRegister(TestItem test_item) {
+    //     this.test_item = test_item
+    // }
 
     TestResult make_test_result(String metric_name, Object value) {
         def test_result = test_item.test_results?."${metric_name}" ?:
