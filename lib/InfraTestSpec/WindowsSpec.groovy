@@ -606,7 +606,6 @@ class WindowsSpec extends WindowsSpecBase {
             def drive_letter = 'unkown'
             def infos = [:]
             lines.eachLine {
-                println it
                 (it =~ /^DeviceID\s*:\s+(.+):$/).each {m0,m1->
                     drive_letter = m1
                 }
@@ -626,7 +625,6 @@ class WindowsSpec extends WindowsSpecBase {
             def headers = ['device_id', 'size_gb']
             test_item.devices(csv, headers)
             infos['filesystem'] = "${filesystems}"
-            println infos
             test_item.results(infos)
             test_item.verify_number_equal_map('filesystem', filesystems)
         }

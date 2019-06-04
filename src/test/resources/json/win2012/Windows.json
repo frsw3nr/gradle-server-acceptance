@@ -2417,17 +2417,17 @@
     },
     "filesystem": {
         "name": "filesystem",
-        "value": "[C:40]",
-        "error_msg": null,
+        "value": "[C:100]",
+        "error_msg": "100 != 40.0",
         "compare_server": null,
         "status": "OK",
-        "verify": "OK",
+        "verify": "NG",
         "comparision": null,
         "devices": {
             "csv": [
                 [
                     "C",
-                    40
+                    100
                 ]
             ],
             "header": [
@@ -2436,9 +2436,36 @@
             ]
         }
     },
-    "filesystem.C": {
-        "name": "filesystem.C",
-        "value": "40",
+    "filesystem.C.desc": {
+        "name": "filesystem.C.desc",
+        "value": "\u30ed\u30fc\u30ab\u30eb\u56fa\u5b9a\u30c7\u30a3\u30b9\u30af",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "filesystem.C.filesystem": {
+        "name": "filesystem.C.filesystem",
+        "value": "NTFS",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "filesystem.C.size_gb": {
+        "name": "filesystem.C.size_gb",
+        "value": "100",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "filesystem.E.desc": {
+        "name": "filesystem.E.desc",
+        "value": "CD-ROM \u30c7\u30a3\u30b9\u30af",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",

@@ -53,7 +53,7 @@ class SshSession {
             return result
 
         } catch (Exception e) {
-            log.error "[SSH Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
+            log.error "[SSH Test] Command error '$command', skip.\n" + e
         }
     }
 

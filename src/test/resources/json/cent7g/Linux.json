@@ -44,6 +44,15 @@
         "verify": "OK",
         "comparision": null
     },
+    "oracle_linux_kernel": {
+        "name": "oracle_linux_kernel",
+        "value": "RedHat Compatible",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "lsb": {
         "name": "lsb",
         "value": "[CentOS Linux release 7.2.1511 (Core) ]",
@@ -531,9 +540,27 @@
         "verify": null,
         "comparision": null
     },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[ens192:192.168.0.70/24, virbr0:192.168.122.1/24, lo:127.0.0.1/8, virbr0-nic:null]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "OK",
+        "comparision": null
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[ens192:255.255.255.0, virbr0:255.255.255.0]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "network": {
         "name": "network",
-        "value": "[lo, ens192, virbr0, virbr0-nic]",
+        "value": "[ens192, virbr0, lo, virbr0-nic]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -583,15 +610,6 @@
                 "subnet"
             ]
         }
-    },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": null,
-        "status": null,
-        "verify": "OK",
-        "comparision": null
     },
     "block_device": {
         "name": "block_device",

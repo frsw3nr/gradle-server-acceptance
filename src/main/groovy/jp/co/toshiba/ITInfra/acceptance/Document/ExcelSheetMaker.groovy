@@ -336,6 +336,41 @@ class ExcelSheetMaker {
     //     }
     // }
 
+    def write_sheet_summary_tag_group(sheet, SheetSummary sheet_summary, SheetDesign sheet_design) {
+        def result_position = sheet_design.sheet_parser.result_pos
+        def colnum = result_position[1]
+        def tag_temp = null
+        def group_positions = []
+        def targets = sheet_summary.cols.keySet() as String[]
+        targets.each { target ->
+            def tag = sheet_summary.tags[target]
+            if (tag) {
+                if (tag_temp != tag) {
+                    tag_temp = tag
+                    group_positions << colnum
+                }
+            } else {
+                if (tag_temp) {
+                    tag_temp = null
+                    group_positions << colnum
+                }
+            }
+            colnum ++
+        }
+        def group_position_strat
+        group_positions.each { group_position ->
+            if (group_position_strat) {
+                def group_position_end = group_position - 1
+                if ((group_position_end - group_position_strat) > 1) {
+                    sheet.groupColumn(group_position_strat, group_position_end)
+                    // sheet.setRowGroupCollapsed(group_position_strat, true)
+                }
+            }
+            group_position_strat = group_position
+        }
+        println "TAG POSITION : ${group_positions}"
+    }
+
     // Write Summary sheet Header
     def write_sheet_summary_header(sheet, SheetSummary sheet_summary, SheetDesign sheet_design) {
         def result_position = sheet_design.sheet_parser.result_pos
@@ -352,12 +387,39 @@ class ExcelSheetMaker {
         }
 
         def targets = sheet_summary.cols.keySet() as String[]
+        write_sheet_summary_tag_group(sheet, sheet_summary, sheet_design)
         write_sheet_header(sheet, result_position, targets)
-        colnum = result_position[1]
-        targets.each { target ->
-            sheet.setColumnWidth(colnum, evidence_cell_width)
-            colnum ++
-        }
+        // colnum = result_position[1]
+        // def tag_temp = null
+        // def group_positions = []
+        // targets.each { target ->
+        //     sheet.setColumnWidth(colnum, evidence_cell_width)
+        //     def tag = sheet_summary.tags[target]
+        //     if (tag) {
+        //         if (tag_temp != tag) {
+        //             tag_temp = tag
+        //             group_positions << colnum
+        //         }
+        //     } else {
+        //         if (tag_temp) {
+        //             tag_temp = null
+        //             group_positions << colnum
+        //         }
+        //     }
+        //     colnum ++
+        // }
+        // def group_position_strat
+        // group_positions.each { group_position ->
+        //     if (group_position_strat) {
+        //         def group_position_end = group_position - 1
+        //         if ((group_position_end - group_position_strat) > 1) {
+        //             sheet.groupColumn(group_position_strat, group_position_end + 1)
+        //             // sheet.setRowGroupCollapsed(group_position_strat, true)
+        //         }
+        //     }
+        //     group_position_strat = group_position
+        // }
+        // println "TAG POSITION : ${group_positions}"
     }
 
     def write_sheet_summary_values_line(Row row, List platform_metric,
@@ -421,8 +483,8 @@ class ExcelSheetMaker {
 
         def sheet_name = get_sheet_summary_name(sheet_summary, sheet_design)
         def sheet = workbook.createSheet(sheet_name)
-        sheet.groupColumn(3, 6)
-
+        sheet.groupColumn(3, 5)
+        println "TAGS:${sheet_summary.tags}"
         write_sheet_summary_header(sheet, sheet_summary, sheet_design)
 
         def rownum = sheet_design.sheet_parser.result_pos[0] + 1

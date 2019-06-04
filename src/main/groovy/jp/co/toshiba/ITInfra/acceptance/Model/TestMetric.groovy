@@ -26,9 +26,9 @@ class TestMetric extends SpecModel {
             category,
             description,
             name,
-            platform,
             (device_enabled)? 'Y':'',
-            comment
+            comment,
+            platform,
         ]
     }
 }

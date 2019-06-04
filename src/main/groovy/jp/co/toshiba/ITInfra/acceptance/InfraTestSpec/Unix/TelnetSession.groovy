@@ -42,10 +42,11 @@ class TelnetSession {
         this.prompt    = test_spec?.prompt ?: '$ '
         this.timeout   = test_spec?.timeout ?: 30
         this.local_dir = test_spec?.local_dir
+
         this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
     }
 
-    def init_session(String ip, String user, String password) {
+    def init_session(String ip, String user, String password, Boolean change_ascii_shell = true) {
         telnet = new TelnetClient();
 
         try {
@@ -64,7 +65,7 @@ class TelnetSession {
             reader = new InputStreamReader(tin);
      
             // Login telnet session
-            if (!(user) && user != '') {
+            if (user != '') {
                 readUntil("login: ");
                 write(user);
             }
@@ -72,11 +73,13 @@ class TelnetSession {
             write(password);
 
             // Unify ascii code to avoid multi-byte
-            readUntilPrompt();
-            write("sh");
-            readUntilPrompt();
-            write("LANG=C");
-            readUntil(prompt);
+            if (change_ascii_shell) {
+                readUntilPrompt();
+                write("sh");
+                readUntilPrompt();
+                write("LANG=C");
+                readUntil(prompt);
+            }
 
         } catch (Exception e) {
             log.error "[Telnet Test] Init test faild.\n" + e
@@ -104,11 +107,9 @@ class TelnetSession {
                 if (ch < 0)
                     break;
                 sb.append((char) ch);
-                // println "SB:$sb<EOF>"
                 // 次のread()が入力をブロックするかも知れない時はmatchチェックする
                 if (reader.ready() == false) {
                     if (sb.toString().endsWith(pattern)) {
-                    // println "SB2:$sb<EOF>"
                         String message = sb.toString();
                         return truncate_last_line(message);
                     }
@@ -135,6 +136,7 @@ class TelnetSession {
                     char lastChar = prompt.charAt(prompt.length() - 1);
                     if (ch == lastChar) {
                         if (sb.toString().endsWith(prompt)) {
+                            // println "SB2:$sb<EOF>"
                             message = sb.toString();
                             prompt_size = prompt.length()
                         }

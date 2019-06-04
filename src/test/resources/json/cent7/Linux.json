@@ -44,6 +44,15 @@
         "verify": "OK",
         "comparision": "MATCH"
     },
+    "oracle_linux_kernel": {
+        "name": "oracle_linux_kernel",
+        "value": "RedHat Compatible",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "MATCH"
+    },
     "lsb": {
         "name": "lsb",
         "value": "[CentOS Linux release 7.3.1611 (Core) ]",
@@ -558,9 +567,27 @@
         "verify": null,
         "comparision": "UNMATCH"
     },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[ens160:192.168.0.20/24, docker0:172.17.0.1/16, lo:127.0.0.1/8]",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": "OK",
+        "comparision": "UNMATCH"
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[ens160:255.255.255.0, docker0:255.255.0.0]",
+        "error_msg": null,
+        "compare_server": "cent7g",
+        "status": "OK",
+        "verify": null,
+        "comparision": "UNMATCH"
+    },
     "network": {
         "name": "network",
-        "value": "[lo, ens160, docker0]",
+        "value": "[ens160, docker0, lo]",
         "error_msg": null,
         "compare_server": "cent7g",
         "status": "OK",
@@ -602,15 +629,6 @@
                 "subnet"
             ]
         }
-    },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": "cent7g",
-        "status": null,
-        "verify": "OK",
-        "comparision": "MATCH"
     },
     "block_device": {
         "name": "block_device",

@@ -17,6 +17,7 @@ ToDo:
     * テストシナリオのターゲットリストをクラスターID順にソート [ ]
       gradle --daemon test --tests "TagGeneratorTest.結果の比較"
     * 変数にn種類のカテゴリがあれば、n個のダミー変数に変換が必要。変数は0,1を指定 [ ]
+* sshシェルで、change_ascii_shell の実装。コマンド実行前に shにスイッチして、LANG=c をする [ ]
 * CompileStatic 移行 [ ]
     * コーディング指針作成 [ ]
     * IDE検討。インスペクタ、@CompileStatic 支援 [ ]

@@ -29,11 +29,79 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j
 @ToString(includePackage = false)
+class DomainCluster {
+    def surrogate_keys = [:].withDefault{[:]}
+    def dummy_results = [:].withDefault{[:]}
+    def index_rows = [:]
+    def index_targets = [:]
+    def cluster = [:]
+    def sorted_clustering_targets = [:]
+
+    def get_surrogate_key(String index, value) {
+        def surrogate_key = surrogate_keys[index][value]
+        if (surrogate_key == null) {
+            def id_max = surrogate_keys[index].size()
+            surrogate_key = id_max + 1
+        }
+        surrogate_keys[index][value] = surrogate_key
+        return surrogate_key
+    }
+
+    def set_index_row(String index) {
+        if (!(index_rows[index])) {
+            index_rows[index] = index_rows.size() + 1
+        }
+    }
+
+    def set_dummy_result(String target_name, String platform_metric, surrogate_key) {
+        dummy_results[target_name][platform_metric] = surrogate_key
+    }
+
+    // TODO: 変数にn種類のカテゴリがあれば、n個のダミー変数に変換が必要。変数は0,1を指定
+    def make_dummy_variables() {
+        def colnum = dummy_results.size()
+        def rownum = index_rows.size()
+
+        double[][] data = new double[colnum][rownum]
+        def col = 0
+        dummy_results.each { target_name, dummy_result ->
+            index_targets[col] = target_name
+            dummy_result.each { platform_metric, surrogate_key ->
+                def row = index_rows[platform_metric] - 1
+                data[col][row] = (double)surrogate_key
+            }
+            col ++
+        }
+        return data
+    }
+
+    def set_clustering_data(Map cluster_groups) {
+        def target_names = [:]
+        cluster_groups.each { cluster_index, cluster_group ->
+            def cluster_targets = [:]
+            def cluster_target_names = []
+            cluster_group.each { node_index ->
+                def target_name = index_targets[node_index]
+                cluster_targets[node_index] = target_name
+                cluster_target_names << target_name
+            }
+            target_names[cluster_index] = cluster_target_names
+            log.info "Clustering result#${cluster_index}: ${cluster_targets}"
+        }
+        this.sorted_clustering_targets = target_names.sort { 
+            a, b -> b.value.size() <=> a.value.size() 
+        }
+    }
+}
+
+@Slf4j
+@ToString(includePackage = false)
 class TagGenerator {
     def surrogate_keys = [:].withDefault{[:]}
     def dummy_results = [:].withDefault{[:]}
     def index_rows = [:]
     def index_targets = [:]
+    Map <String,DomainCluster> domain_clusters = new LinkedHashMap<String,DomainCluster>()
 
     def set_environment(ConfigTestEnvironment env) {
         this.result_dir = env.get_node_dir()
@@ -74,50 +142,67 @@ class TagGenerator {
         return data
     }
 
-    // TODO: ターゲットにタグの追加、Excelフォームのカラムグループセット
-    // TODO: テストシナリオのターゲットリストをクラスターID順にソート
-    def make_target_tag(Map clusters, TestScenario test_scenario) {
-        def compare_servers = [:]
-        def compare_servers_others = [:]
-        clusters.each { index, cluster ->
-            def target_n = cluster.size()
-            def compare_server = index_targets[cluster[0]]
-            println "COMPARE_SERVER:${cluster[0]},$compare_server"
-            if (target_n >= 2) {
-                (1..(target_n-1)).each { i ->
-                    def target_server = index_targets[cluster[i]]
-                println "target_server:$i, ${cluster[i]},$target_server"
-                    compare_servers[target_server] = compare_server
-                }
-            } else {
-                compare_servers_others[compare_server] = compare_server
-            }
-        }
-        println "TARGET_TAG: $compare_servers"
-        def test_targets = test_scenario.test_targets
-        def targets = test_scenario.test_targets.get_all()
-        targets.each { target_name, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                def compare_server = compare_servers[target_name]
-                log.info "SET TAG: $target_name, $compare_server"
-                if (compare_server) {
-                    test_target.compare_server = compare_server
-                }
-            }
+    def add_compared_results(String domain, List target_names, TestTargetSet source, TestTargetSet dest) {
+        // Add first column to comparison server
+        def compare_server = target_names[0]
+        def compare_target = source.get(compare_server, domain)
+        compare_target.tag = compare_server
+        dest.add(compare_target)
+
+        // Add the terget server from the second column
+        def target_size = target_names.size()
+        (1..(target_size - 1)).each { index ->
+            def target_name = target_names[index]
+            def test_target = source.get(target_name, domain)
+            test_target.compare_server = compare_server
+            test_target.tag = compare_server
+            dest.add(test_target)
         }
     }
 
+    def add_single_results(String domain, List target_names, TestTargetSet source, TestTargetSet dest) {
+        def test_target = source.get(target_names[0], domain)
+        test_target.compare_server = null
+        dest.add(test_target)
+    }
+
+    // TODO: ターゲットにタグの追加、Excelフォームのカラムグループセット
+    // TODO: テストシナリオのターゲットリストをクラスターID順にソート
+    def make_target_tag(TestScenario test_scenario) {
+        def new_test_targets = new TestTargetSet(name: 'cluster')
+        def test_targets = test_scenario.test_targets
+        domain_clusters.each { domain, domain_cluster ->
+            def clustering_targets = domain_cluster.sorted_clustering_targets
+
+            clustering_targets.each { cluster_index, target_names ->
+                def target_size = target_names.size()
+                if (target_size >= 2) {
+                    add_compared_results(domain, target_names, test_targets, new_test_targets)
+
+                } else if (target_size == 1) {
+                    add_single_results(domain, target_names, test_targets, new_test_targets)
+                }
+            }
+        }
+        test_scenario.test_targets = new_test_targets
+        log.info "New sorted clustering targets : ${new_test_targets.get_keys()}"
+    }
+
     def make_surrogate_keys(TestTarget test_target) {
+        def domain = test_target.domain
+        def target_name = test_target.name
+        DomainCluster domain_cluster = this.domain_clusters[domain] ?: new DomainCluster()
         test_target.test_platforms.each { platform_name, test_platform ->
             test_platform?.test_results.each { metric_name, test_result ->
                 def platform_metric = "${platform_name}|${metric_name}"
-                set_index_row(platform_metric)
+                domain_cluster.set_index_row(platform_metric)
 
                 def value = test_result?.value
-                def surrogate_key = get_surrogate_key(platform_metric, value)
-                dummy_results[test_target.name][platform_metric] = surrogate_key
+                def surrogate_key = domain_cluster.get_surrogate_key(platform_metric, value)
+                domain_cluster.set_dummy_result(target_name, platform_metric, surrogate_key)
             }
         }
+        this.domain_clusters[domain] = domain_cluster
     }
 
     def visit_test_scenario(TestScenario test_scenario) {
@@ -127,9 +212,12 @@ class TagGenerator {
                 this.make_surrogate_keys(test_target)
             }
         }
-        def data = make_dummy_variables()
-        def clusters = run_elki_kmeans_clustering(data, 10)
-        make_target_tag(clusters, test_scenario)
+        this.domain_clusters.each { domain, domain_cluster ->
+            def data = domain_cluster.make_dummy_variables()
+            def cluster_groups = run_elki_kmeans_clustering(data, 10)
+            domain_cluster.set_clustering_data(cluster_groups)
+        }
+        make_target_tag(test_scenario)
     }
 
     Map run_elki_kmeans_clustering(double[][] data, int partitions) {
@@ -173,11 +261,7 @@ class TagGenerator {
             clusters[i] << offset
             // Do NOT rely on using "internalGetIndex()" directly!
           }
-          def cluster_targets = [:]
-          clusters[i].each { cluster_index ->
-            cluster_targets[cluster_index] = index_targets[cluster_index]
-          }
-          log.info "#${i}:${clu.getNameAutomatic()}, ${cluster_targets}"
+          log.debug "#${i}:${clu.getNameAutomatic()}, ${clusters[i]}"
           ++i;
         }
         return clusters

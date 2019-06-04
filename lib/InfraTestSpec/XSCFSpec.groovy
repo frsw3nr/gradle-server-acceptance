@@ -11,28 +11,6 @@ import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
-// import groovy.util.logging.Slf4j
-// import groovy.transform.ToString
-// import groovy.transform.InheritConstructors
-// import org.apache.commons.io.FileUtils.*
-// import static groovy.json.JsonOutput.*
-// import org.hidetake.groovy.ssh.Ssh
-// import org.hidetake.groovy.ssh.session.execution.*
-// import jp.co.toshiba.ITInfra.acceptance.*
-// import org.apache.commons.net.util.SubnetUtils
-// import org.apache.commons.net.util.SubnetUtils.SubnetInfo
-
-// import org.apache.commons.net.telnet.EchoOptionHandler
-// import org.apache.commons.net.telnet.SuppressGAOptionHandler
-// import org.apache.commons.net.telnet.TelnetClient
-// import org.apache.commons.net.telnet.TerminalTypeOptionHandler
-// import java.io.InputStream
-// import java.io.PrintStream
-
-// import jp.co.toshiba.ITInfra.acceptance.*
-// import jp.co.toshiba.ITInfra.acceptance.Document.*
-// import jp.co.toshiba.ITInfra.acceptance.Model.*
-
 @Slf4j
 @InheritConstructors
 class XSCFSpec extends InfraTestSpec {
@@ -59,53 +37,7 @@ class XSCFSpec extends InfraTestSpec {
         this.use_telnet  = os_account['use_telnet'] ?: true
         this.timeout      = test_platform.timeout
 
-        // this.ip          = test_server.ip
-        // def os_account   = test_server.os_account
-        // this.os_user     = os_account['user']
-        // this.os_password = os_account['password']
-        // this.work_dir    = os_account['work_dir']
-        // this.timeout     = test_server.timeout
     }
-
-    // def init() {
-    //     super.init()
-
-    //     this.ip           = test_platform.test_target.ip
-    //     def os_account    = test_platform.os_account
-    //     this.os_user      = os_account['user']
-    //     this.os_password  = os_account['password']
-    //     this.work_dir     = os_account['work_dir']
-    //     this.timeout      = test_platform.timeout
-
-    //     println "timeout: ${test_platform.timeout}"
-    // }
-
-    // def init_telnet_session() {
-    //     TelnetClient telnet = new TelnetClient();
-
-    //     try {
-    //         telnet.setDefaultTimeout(1000 * timeout);
-    //         telnet.connect(this.ip);
-    //         telnet.setSoTimeout(1000 * timeout);
-    //         telnet.setSoLinger(true, 1000 * timeout);
-
-    //         // Get input and output stream references
-    //         tin = telnet.getInputStream();
-    //         tout = new PrintStream(telnet.getOutputStream());
-     
-    //         // Login telnet session
-    //         readUntil("login: ");
-    //         write(this.os_user);
-    //         // write('console');
-    //         readUntil("Password: ");
-    //         write(this.os_password);
-    //         // write('console0');
-    //         readUntil(prompt + " ");
-    //     } catch (Exception e) {
-    //         log.error "[Telnet Test] Init test faild.\n" + e
-    //         throw new IllegalArgumentException(e)
-    //     }
-    // }
 
     def setup_exec(TestItem[] test_items) {
     // def setup_exec(LinkedHashMap<String,TestMetric> test_metrics) {
@@ -113,7 +45,7 @@ class XSCFSpec extends InfraTestSpec {
 
         def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
         if (!dry_run) {
-            con.init_session(this.ip, this.os_user, this.os_password)
+            con.init_session(this.ip, this.os_user, this.os_password, false)
             // init_telnet_session()
         }
 
@@ -135,62 +67,6 @@ class XSCFSpec extends InfraTestSpec {
             }
         }
     }
-
-    // public static String readUntil(String pattern) {
-    //     try {
-    //         char lastChar = pattern.charAt(pattern.length() - 1);
-    //         StringBuffer sb = new StringBuffer();
-    //         boolean found = false;
-    //         char ch = (char) tin.read();
-    //         while (true) {
-    //             // System.out.print(ch);
-    //             sb.append(ch);
-    //             if (ch == lastChar) {
-    //                 if (sb.toString().endsWith(pattern)) {
-    //                     return sb.toString();
-    //                 }
-    //             }
-    //             ch = (char) tin.read();
-    //         }
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
- 
-    // public static void write(String value) {
-    //     try {
-    //         // tout.println(value);
-    //         tout.println(value);
-    //         tout.flush();
-    //         // System.out.println(value);
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
- 
-    // public static String sendCommand(String command) {
-    //     try {
-    //         write(command);
-    //         return readUntil(prompt + " ");
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
-
-    // def run_telnet_command(command, test_id, share = false) {
-    //     try {
-    //         def log_path = (share) ? evidence_log_share_dir : local_dir
-    //         def result = sendCommand(command)
-    //         new File("${log_path}/${test_id}").text = result
-    //     } catch (Exception e) {
-    //         log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-    //     }
-    // }
 
     def trim(str){
         str.replaceAll(/\A[\s:]+/,"").replaceAll(/[\s]+\z/,"")
@@ -286,7 +162,6 @@ class XSCFSpec extends InfraTestSpec {
         def lines = exec('fwversion') {
             session.run_command('version -c xcp -v', 'fwversion')
         }
-        println lines
         def res = [:]
         def module_status = [:]
         def csvs = []

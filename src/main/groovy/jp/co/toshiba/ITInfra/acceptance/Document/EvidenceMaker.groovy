@@ -13,6 +13,7 @@ class SheetSummary {
     // New Metric results with keys [base_metric, new_metric] 
     def added_rows = [:].withDefault{[:]}
     def cols = [:]
+    def tags = [:]
     def results = [:].withDefault{[:].withDefault{[:]}}
 
     SheetSummary(String name) {
@@ -50,6 +51,12 @@ class EvidenceMaker {
             sheet.added_rows[[platform, base_metric]][[platform, metric]] = test_metric
         }
         sheet.rows[[platform, metric]] = 1
+        this.summary_sheets[domain] = sheet
+    }
+
+    def add_summary_tag(domain, target, tag) {
+        def sheet = this.summary_sheets[domain] ?: new SheetSummary(domain)
+        sheet.tags[target] = tag
         this.summary_sheets[domain] = sheet
     }
 
@@ -169,6 +176,7 @@ class EvidenceMaker {
                         test_target.target_status == RunStatus.READY)
                         return
                     def comparision = test_target.comparision
+                    add_summary_tag(domain, target, test_target.tag)
                     def metric_sets = domain_metrics[domain].get_all()
                     def run_status = RunStatus.FINISH
                     metric_sets.each { platform, metric_set ->

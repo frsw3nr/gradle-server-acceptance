@@ -19,20 +19,20 @@
     },
     "uname": {
         "name": "uname",
-        "value": "Linux ostrich 2.6.32-573.12.1.el6.x86_64 ",
+        "value": "Linux ostrich 3.8.13-68.3.4.el6uek.x86_64 ",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
-        "verify": null,
+        "verify": "NG",
         "comparision": null
     },
     "kernel": {
         "name": "kernel",
-        "value": "Linux ostrich 2.6.32-573.12.1.el6",
-        "error_msg": null,
+        "value": "Linux ostrich 3.8.13-68.3.4.el6uek",
+        "error_msg": "'Linux ostrich 3.8.13-68.3.4.el6uek' !=~ /2.6/",
         "compare_server": null,
         "status": "OK",
-        "verify": "OK",
+        "verify": "NG",
         "comparision": null
     },
     "arch": {
@@ -42,6 +42,15 @@
         "compare_server": null,
         "status": "OK",
         "verify": "OK",
+        "comparision": null
+    },
+    "oracle_linux_kernel": {
+        "name": "oracle_linux_kernel",
+        "value": "UEK",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
         "comparision": null
     },
     "lsb": {
@@ -837,9 +846,27 @@
         "verify": null,
         "comparision": null
     },
+    "net_ip": {
+        "name": "net_ip",
+        "value": "[eth0:192.168.10.1/24, eth0:1:192.168.10.4/24, docker0:172.17.42.1/16, lo:127.0.0.1/8]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": "OK",
+        "comparision": null
+    },
+    "net_subnet": {
+        "name": "net_subnet",
+        "value": "[eth0:255.255.255.0, eth0:1:255.255.255.0, docker0:255.255.0.0]",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "network": {
         "name": "network",
-        "value": "[lo, eth0, eth0:1, docker0]",
+        "value": "[eth0, eth0:1, docker0, lo]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -889,15 +916,6 @@
                 "subnet"
             ]
         }
-    },
-    "net_ip": {
-        "name": "net_ip",
-        "value": null,
-        "error_msg": null,
-        "compare_server": null,
-        "status": null,
-        "verify": "OK",
-        "comparision": null
     },
     "block_device": {
         "name": "block_device",

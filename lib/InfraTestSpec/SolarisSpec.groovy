@@ -109,14 +109,19 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('hostname') {
             session.run_command('uname -n', 'hostname')
         }
-        println "HOSTNAME: $lines"
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
     }
 
     def hostname_fqdn(session, test_item) {
         def lines = exec('hostname_fqdn') {
-            session.run_command('awk \'/^domain/ {print $2}\' /etc/resolv.conf', 'hostname_fqdn')
+            def command = '''\
+            |awk \'/^domain/ {print \$2}\' /etc/resolv.conf 2>/dev/null
+            |if [ \$? != 0 ]; then
+            |   echo 'Not Found'
+            |fi
+            '''.stripMargin()
+            session.run_command(command, 'hostname_fqdn')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         def info = (lines.size() > 0) ? lines : '[NotConfigured]'

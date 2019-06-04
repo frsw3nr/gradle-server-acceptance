@@ -75,7 +75,6 @@ class LinuxSpec extends LinuxSpecBase {
         }
         infos['oracle_linux_kernel'] = oracle_linux_kernel
         test_item.results(infos)
-        println infos
         test_item.verify_text_search('kernel', infos['kernel'])
         test_item.verify_text_search('arch', infos['arch'])
     }
