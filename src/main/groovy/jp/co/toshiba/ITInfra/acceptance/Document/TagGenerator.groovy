@@ -105,7 +105,6 @@ class TagGenerator {
     Map <String,DomainCluster> domain_clusters = new LinkedHashMap<String,DomainCluster>()
 
     def set_environment(ConfigTestEnvironment env) {
-        this.result_dir = env.get_node_dir()
         this.cluster_size = env.get_cluster_size()
     }
 

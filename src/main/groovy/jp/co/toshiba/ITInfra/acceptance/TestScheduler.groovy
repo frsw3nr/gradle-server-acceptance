@@ -64,6 +64,7 @@ class TestScheduler {
     def finish() {
         if (this.auto_tag) {
             def tag_generator = new TagGenerator()
+            ConfigTestEnvironment.instance.accept(tag_generator)
             this.test_scenario.accept(tag_generator)
         }
         def data_comparator = new DataComparator()
