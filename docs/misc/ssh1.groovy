@@ -10,6 +10,7 @@ import ch.ethz.ssh2.Connection
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
+import static net.sf.expectit.matcher.Matchers.regexp
 
 // TODO
 // 複数コマンドの実装
@@ -37,7 +38,16 @@ if (!result) {
     return
 }
 session = login_session(con)
-result = run_ssh_command(session, 'df')
+result = run_ssh_command(session, 'uname -n')
+println "RESULT:$result"
+
+def command = '''\
+|awk \'/^domain/ {print \$2}\' /etc/resolv2.conf 2>/dev/null
+|if [ \$? != 0 ]; then
+|   echo 'Not Found'
+|fi
+'''.stripMargin()
+result = run_ssh_command(session, command)
 println "RESULT:$result"
 
 def login_session(con) {
@@ -45,16 +55,20 @@ def login_session(con) {
         def session = con.openSession()
         session.requestDumbPTY();
         session.startShell();
-        def prompts = ["ok" : '% ', "sh" : '$ ']
+        def prompt = '.*[%|$|#|>] $'
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
                 .withInputs(session.getStdout(), session.getStderr())
                         .withEchoOutput(System.out)
                         .withEchoInput(System.out)
                 .build();
-        expect.expect(contains(prompts['ok'])); 
+        // expect.expect(contains(prompts['ok'])); 
+        expect.expect(regexp(prompt)); 
         expect.sendLine("sh");  //  c: Login to  CLI shell
-        expect.expect(contains(prompts['sh'])); 
+        expect.expect(regexp(prompt)); 
+        expect.sendLine("LANG=C");  //  c: Login to  CLI shell
+        // expect.expect(contains(prompts['sh'])); 
+        expect.expect(regexp(prompt)); 
         expect.close()
 
         return session
@@ -64,7 +78,7 @@ def login_session(con) {
 }
 
 def run_ssh_command(session, command) {
-    def ok_prompt = '$ ';
+    def ok_prompt = '.*[%|$|#|>] $';
     try {
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
@@ -74,12 +88,25 @@ def run_ssh_command(session, command) {
                 .build();
 
         expect.sendLine("LANG=C")
-        expect.expect(contains(ok_prompt))
-        expect.sendLine(command)
-        String result = expect.expect(contains(ok_prompt)).getBefore(); 
+        println "TEST1"
+        expect.expect(regexp(ok_prompt))
+        println "TEST2"
+        def row = 0
+        def lines = command.readLines()
+        def max_row = lines.size()
+        lines.each { line ->
+            println "TEST3:$line"
+            expect.sendLine(line)
+            println "TEST4:$line"
+            if (0 < row && row < (max_row-1)) {
+                expect.expect(regexp(ok_prompt))
+            }
+            row ++
+        }
+        String result = expect.expect(regexp(ok_prompt)).getBefore(); 
         expect.close()
         return result
     } catch (Exception e) {
-        println "[SSH Test] Command error '$commands' faild, skip.\n" + e
+        println "[SSH Test] Command error '$command' faild, skip.\n" + e
     }
 }
