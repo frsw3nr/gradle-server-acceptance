@@ -35,6 +35,7 @@ class ConfigTestEnvironment {
         test_runner.getProperties().findAll{ name, value ->
             if (name == 'class')
                 return
+            println "CONFIG: $name, $value"
             this.config."$name" = value
         }
     }

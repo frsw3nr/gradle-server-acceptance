@@ -150,7 +150,7 @@ class TestRunner {
             if (NumberUtils.isDigits(degree)) {
                 this.cluster_size = NumberUtils.toInt(degree)
             } else {
-                log.error "Invarid parallel degree options : -p ${degree}"
+                log.error "Invarid auto tag cluser size : -atn ${degree}"
                 cli.usage()
                 System.exit(1)
             }
