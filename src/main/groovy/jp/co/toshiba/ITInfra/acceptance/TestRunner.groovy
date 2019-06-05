@@ -32,6 +32,7 @@ class TestRunner {
     String redmine_project_name
     int parallel_degree
     int snapshot_level
+    int cluster_size
     Boolean dry_run
     Boolean auto_tag
     Boolean verify_test
@@ -56,6 +57,7 @@ class TestRunner {
             a longOpt: 'archive',   args: 1, 'Archive project zip file',
                 argName: '/work/project.zip'
             at longOpt: 'auto-tag', 'Auto tag generation'
+            atn longOpt: 'auto-tag-number', args: 1, 'Auto tag generation specified cluster size'
             e longOpt: 'excel',    args: 1, 'Excel sheet path',
                 argName: 'check_sheet.xlsx'
             o longOpt: 'output',   args: 1, 'Output evidence path',
@@ -141,6 +143,18 @@ class TestRunner {
 
         if (options.at)
             this.auto_tag      = options.at
+
+        if (options.atn) {
+            this.auto_tag      = true
+            String degree = options.atn
+            if (NumberUtils.isDigits(degree)) {
+                this.cluster_size = NumberUtils.toInt(degree)
+            } else {
+                log.error "Invarid parallel degree options : -p ${degree}"
+                cli.usage()
+                System.exit(1)
+            }
+        }
 
         if (options.silent)
             this.silent        = options.silent

@@ -15,6 +15,7 @@ import jp.co.toshiba.ITInfra.acceptance.*
 @Slf4j
 class SshSession {
 
+    static String prompt = '$ '
     int timeout = 30
     String evidence_log_share_dir
     String local_dir

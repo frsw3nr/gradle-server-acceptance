@@ -101,10 +101,12 @@ class TagGenerator {
     def dummy_results = [:].withDefault{[:]}
     def index_rows = [:]
     def index_targets = [:]
+    int cluster_size = 10
     Map <String,DomainCluster> domain_clusters = new LinkedHashMap<String,DomainCluster>()
 
     def set_environment(ConfigTestEnvironment env) {
         this.result_dir = env.get_node_dir()
+        this.cluster_size = env.get_cluster_size()
     }
 
     def get_surrogate_key(String index, value) {
@@ -212,10 +214,15 @@ class TagGenerator {
                 this.make_surrogate_keys(test_target)
             }
         }
+        log.info("Set Cluster size : ${this.cluster_size}")
         this.domain_clusters.each { domain, domain_cluster ->
-            def data = domain_cluster.make_dummy_variables()
-            def cluster_groups = run_elki_kmeans_clustering(data, 10)
-            domain_cluster.set_clustering_data(cluster_groups)
+            try {
+                def data = domain_cluster.make_dummy_variables()
+                def cluster_groups = run_elki_kmeans_clustering(data, this.cluster_size)
+                domain_cluster.set_clustering_data(cluster_groups)
+            } catch (IllegalArgumentException e) {
+                log.info "Skip, '${domain}' Clustering analyze : " + e
+            }
         }
         make_target_tag(test_scenario)
     }

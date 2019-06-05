@@ -24,8 +24,6 @@ import java.io.PrintStream
 @InheritConstructors
 class RouterRTXSpec extends InfraTestSpec {
 
-    // static java.io.InputStream tin;
-    // static java.io.PrintStream tout;
     static String prompt = "> "
 
     static String mac_vendor_dir = 'template/Router/mac-vendor'
@@ -55,28 +53,6 @@ class RouterRTXSpec extends InfraTestSpec {
         this.use_telnet   = os_account['use_telnet'] ?: true
     }
 
-    // def init_telnet_session() {
-    //     TelnetClient telnet = new TelnetClient();
-    //     try {
-    //         telnet.setDefaultTimeout(1000 * timeout);
-    //         telnet.connect(this.ip);
-    //         telnet.setSoTimeout(1000 * timeout);
-    //         telnet.setSoLinger(true, 1000 * timeout);
-
-    //         // Get input and output stream references
-    //         tin = telnet.getInputStream();
-    //         tout = new PrintStream(telnet.getOutputStream());
-     
-    //         // write('console');
-    //         readUntil("Password: ");
-    //         write(this.os_password);
-    //         readUntil(prompt + " ");
-    //     } catch (Exception e) {
-    //         log.error "[Telnet Test] Init test faild.\n" + e
-    //         throw new IllegalArgumentException(e)
-    //     }
-    // }
-
     def init_mac_vendor_oui_db() throws IOException {
         new File("${mac_vendor_dir}/${mac_vendor_oui}").eachLine {
             (it =~ /^([0-9A-F]+)\s+(.+)$/).each { m0, mac, vendor ->
@@ -99,7 +75,7 @@ class RouterRTXSpec extends InfraTestSpec {
 
         init_mac_vendor_oui_db()
         def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
-        println "PROMPT:${con.prompt}"
+        // println "PROMPT:${con.prompt}"
         if (!dry_run) {
             con.init_session(this.ip, '', this.os_password)
         }
@@ -142,63 +118,6 @@ class RouterRTXSpec extends InfraTestSpec {
     //     }
     }
 
-    // public static String readUntil(String pattern) {
-    //     try {
-    //         char lastChar = pattern.charAt(pattern.length() - 1);
-    //         StringBuffer sb = new StringBuffer();
-    //         boolean found = false;
-    //         char ch = (char) tin.read();
-    //         while (true) {
-    //             // System.out.print(ch);
-    //             sb.append(ch);
-    //             if (ch == lastChar) {
-    //                 if (sb.toString().endsWith(pattern)) {
-    //                     return sb.toString();
-    //                 }
-    //             }
-    //             ch = (char) tin.read();
-    //         }
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
- 
-    // public static void write(String value) {
-    //     try {
-    //         tout.flush();
-    //         // System.out.println(value);
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
- 
-    // public static String sendCommand(String command) {
-    //     try {
-    //         write(command);
-    //         return readUntil(prompt + " ");
-    //     }
-    //     catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return null;
-    // }
-
-     // def session.run_command(command, test_id, share = false) {
-    //     try {
-    //         def log_path = (share) ? evidence_log_share_dir : local_dir
-    //         sendCommand("console lines infinity")
-    //         def result = sendCommand(command)
-
-
-    //         new File("${log_path}/${test_id}").text = result
-    //     } catch (Exception e) {
-    //         log.error "[Telnet Test] Command error '$command' in ${this.server_name} faild, skip.\n" + e
-    //     }
-    // }
-
     def trim(str){
         str.replaceAll(/\A[\s:]+/,"").replaceAll(/[\s]+\z/,"")
     }
@@ -207,7 +126,6 @@ class RouterRTXSpec extends InfraTestSpec {
         def lines = exec('config') {
             session.run_command('show config', 'config')
         }
-        println lines
         def row = 0
         def infos = [:]
         def ntp_hosts = []

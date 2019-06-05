@@ -1,19 +1,15 @@
 @GrabConfig( systemClassLoader=true )
-@Grapes( 
-@Grab('ch.ethz.ganymed:ganymed-ssh2:262')
-)
-
-import javax.xml.bind.*
-import static groovy.json.JsonOutput.*
-import groovy.util.logging.Slf4j
-import groovy.transform.InheritConstructors
-
+@Grapes( [
+@Grab('ch.ethz.ganymed:ganymed-ssh2:262'),
+@Grab('net.sf.expectit:expectit-core:0.9.0'),
+])
 
 // For ssh session
 // import org.hidetake.groovy.ssh.Ssh
 import ch.ethz.ssh2.Connection
-import ch.ethz.ssh2.StreamGobbler
-import ch.ethz.ssh2.Session
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
+import static net.sf.expectit.matcher.Matchers.contains
 
 // TODO
 // 複数コマンドの実装
@@ -23,83 +19,67 @@ import ch.ethz.ssh2.Session
 // http://d.hatena.ne.jp/n_shuyo/20060714/1152899236
 // 接続ユーザは /bin/csh で、LANG=EUC_JPの場合を想定
 
-def ses = new SshSession()
-ses.init_session('192.168.10.3', 'someuser', 'P@ssw0rd')
-def res0 = ses.run_command('hostname', 'uname')
-println "RES0:$res0<EOF>"
+def ip          = System.getenv("TEST_IP") ?: '192.168.0.13'
+def os_user     = System.getenv("TEST_OS_USER") ?: 'someuser'
+def os_password = System.getenv("TEST_OS_PASSWORD") ?: 'P@ssw0rd'
 
-class SshSession {
+def con
+def session
+def result
 
-    int timeout = 30
-    String evidence_log_share_dir = '/tmp'
-    String local_dir = '/tmp'
+con = new Connection(ip, 22)
+println "Connect CIMC"
+con.connect()
+println "Open ssh session"
+result = con.authenticateWithPassword(os_user, os_password)
+if (!result) {
+    println "connect failed"
+    return
+}
+session = login_session(con)
+result = run_ssh_command(session, 'df')
+println "RESULT:$result"
 
-    Connection ssh
+def login_session(con) {
+    try {
+        def session = con.openSession()
+        session.requestDumbPTY();
+        session.startShell();
+        def prompts = ["ok" : '% ', "sh" : '$ ']
+        Expect expect = new ExpectBuilder()
+                .withOutput(session.getStdin())
+                .withInputs(session.getStdout(), session.getStderr())
+                        .withEchoOutput(System.out)
+                        .withEchoInput(System.out)
+                .build();
+        expect.expect(contains(prompts['ok'])); 
+        expect.sendLine("sh");  //  c: Login to  CLI shell
+        expect.expect(contains(prompts['sh'])); 
+        expect.close()
 
-    def init_session(String ip, String user, String password) {
-        ssh = new Connection(ip, 22)
-        try {
-            ssh.connect()
-            def result = ssh.authenticateWithPassword(user, password)
-            if (!result) {
-                throw new IOException("Connect failed")
-            }
-        } catch (Exception e) {
-            // log.error "[SSH Test] Init test faild.\n" + e
-            throw new IllegalArgumentException(e)
-        }
-    }
-
-    String readUntil(Session session, String pattern) {
-        InputStream stdout = new StreamGobbler(session.getStdout());
-        BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-
-        StringBuffer sb = new StringBuffer();
-        while (true) {
-            String line = br.readLine();
-            println "READY:${br.ready()}"
-            println "BUFFER:$line<EOL>"
-            sb.append(line);
-            if (br.ready() == false || line == null)
-                break;
-            // System.out.println(line);
-        }
-        return sb.toString()
-    }
-
-    def run_command(command, test_id, share = false) {
-        try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
-
-            def session = ssh.openSession()
-            session.startShell()
-            OutputStream sin = session.getStdin();
-            println "TEST1"
-            sin.write("sh\n".getBytes());
-            // session.execCommand("sh")
-            println "TEST2"
-            sin.write("LANG=C\n".getBytes());
-            // session.execCommand("LANG=C")
-
-            // sleep(1000);
-            println "TEST3:$command"
-            sin.write("${command}\n".getBytes());
-            println "TEST4"
-
-            // session.execCommand command
-            def result = readUntil(session, '% ')
-            println "TEST5:$result"
-            new File("${log_path}/${test_id}").text = result
-            session.close()
-            return result
-
-        } catch (Exception e) {
-            println "[SSH Test] Command error '$command', skip.\n" + e
-        }
-    }
-
-    def close() {
-        ssh.close()
+        return session
+    } catch (Exception e) {
+        println "[SSH Test] login faild, skip.\n" + e
     }
 }
 
+def run_ssh_command(session, command) {
+    def ok_prompt = '$ ';
+    try {
+        Expect expect = new ExpectBuilder()
+                .withOutput(session.getStdin())
+                .withInputs(session.getStdout(), session.getStderr())
+                        // .withEchoOutput(System.out)
+                        // .withEchoInput(System.out)
+                .build();
+
+        expect.sendLine("LANG=C")
+        expect.expect(contains(ok_prompt))
+        expect.sendLine(command)
+        String result = expect.expect(contains(ok_prompt)).getBefore(); 
+        expect.close()
+        return result
+    } catch (Exception e) {
+        println "[SSH Test] Command error '$commands' faild, skip.\n" + e
+    }
+}

@@ -175,6 +175,10 @@ class ConfigTestEnvironment {
         return this.config?.auto_tag
     }
 
+    def get_cluster_size() {
+        return this.config?.cluster_size ?: 10
+    }
+
     def get_verify_test() {
         return this.config?.verify_test ?: true
     }

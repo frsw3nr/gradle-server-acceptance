@@ -4,8 +4,8 @@ evidence.source = './template/AIX/AIXチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/AIXチェックシート_<date>.xlsx'
-evidence.target='./build/aix_check_sheet.xlsx'
+evidence.target='./build/AIXチェックシート_<date>.xlsx'
+// evidence.target='./build/aix_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 evidence.staging_dir='./build/log'

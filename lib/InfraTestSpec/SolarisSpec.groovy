@@ -536,7 +536,7 @@ class SolarisSpec extends InfraTestSpec {
     def solaris11_build(session, test_item) {
         def lines = exec('solaris11_build') {
             session.run_command(
-                            'LANG=C /usr/bin/pkg info entire 2>/dev/null', 
+                            'sh -c "LANG=C; /usr/bin/pkg info entire"', 
                             'solaris11_build')
         }
 
