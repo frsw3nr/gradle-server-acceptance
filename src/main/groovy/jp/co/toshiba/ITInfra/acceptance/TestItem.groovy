@@ -17,12 +17,12 @@ class TestItem {
     LinkedHashMap<String,TestResult> test_results = [:]
     LinkedHashMap<String,PortList> port_lists = [:]
 
-    // TestResultRegister test_register    = new TestResultRegister(this)
-    TestResultRegister test_register    = TestResultRegister.instance.test_item(this)
-    // PortListRegister port_list_register = new PortListRegister(this)
-    PortListRegister port_list_register = PortListRegister.instance.test_item(this)
-    // ResultVerifier result_verifier      = new ResultVerifier(this)
-    ResultVerifier result_verifier      = ResultVerifier.instance.test_item(this)
+    TestResultRegister test_register    = new TestResultRegister(this)
+    // TestResultRegister test_register    = TestResultRegister.instance.test_item(this)
+    PortListRegister port_list_register = new PortListRegister(this)
+    // PortListRegister port_list_register = PortListRegister.instance.test_item(this)
+    ResultVerifier result_verifier      = new ResultVerifier(this)
+    // ResultVerifier result_verifier      = ResultVerifier.instance.test_item(this)
 
     @ToString(includePackage = false)
     class CheckResult {

@@ -46,7 +46,6 @@ class SolarisSpec extends InfraTestSpec {
         // }
 
         def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
-        println "PROMPT:${con.prompt}"
         def result
         if (!dry_run) {
             con.init_session(this.ip, this.os_user, this.os_password)
@@ -609,7 +608,13 @@ class SolarisSpec extends InfraTestSpec {
             }
             test_item.verify(verify)
         }
-
+        versions.sort().each { package_name, version ->
+            if (package_list?."${package_name}") {
+                return
+            }
+            def test_id = "packages.Etc.${package_name}"
+            add_new_metric(test_id, package_name, "'${version}'", package_infos)
+        }
         test_item.results(package_infos)
         test_item.verify_text_search_list('packages', package_infos)
     }
@@ -668,34 +673,43 @@ class SolarisSpec extends InfraTestSpec {
     def service(session, test_item) {
         def lines = exec('service') {
             // TODO: Avoid grep online filter
-            session.run_command('/usr/bin/svcs -a | grep online', 'service')
+            session.run_command('sh -c "LANG=C /usr/bin/svcs -a"', 'service')
         }
         def services = [:].withDefault{'unkown'}
+        def statuses = [:]
         def service_names = [:].withDefault{'unkown'}
         def csv = []
         def service_count = 0
         lines.eachLine {
-            ( it =~ /svc:(.+?):/).each {m0,m1->
-                def service_name = 'service.' + m1
-                services[service_name] = 'On'
-                service_names[m1] = 'On'
-                def columns = [m1, 'On']
+            ( it =~ /^(.+?)\s.*svc:(.+?):/).each {m0,m1,m2->
+                def status = m1
+                def service_name = m2
+                statuses[service_name] = status
+                def columns = [service_name, status]
                 csv << columns
                 service_count ++
             }
         }
         def service_list = test_item.target_info('service')
         if (service_list) {
+            def template_id = this.test_platform.test_target.template_id
             service_list.each { service_name, value ->
-                def test_id = "service.${service_name}"
-                def status = services[test_id] ?: 'Not Found'
-                add_new_metric(test_id, service_name, status, services)
+                def test_id = "service.${template_id}.${service_name}"
+                def status = statuses[service_name] ?: 'Not Found'
+                add_new_metric(test_id, "${template_id}.${service_name}", status, services)
             }
+        }
+        statuses.sort().each { service_name, status ->
+            if (service_list?."${service_name}") {
+                return
+            }
+            def test_id = "service.Etc.${service_name}"
+            add_new_metric(test_id, service_name, status, services)
         }
         services['service'] = "${service_count} services"
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
-        test_item.verify_text_search_map('service', service_names)
+        // test_item.verify_text_search_map('service', service_names)
     }
 
 

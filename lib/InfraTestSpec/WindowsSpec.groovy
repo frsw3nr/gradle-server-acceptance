@@ -638,6 +638,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def instance_number = 0
             def service_info = [:].withDefault{[:]}
+            def statuses = [:]
             lines.eachLine {
                 (it =~ /^(.+?)\s*:\s+(.+?)$/).each {m0, m1, m2->
                     service_info[instance_number][m1] = m2
@@ -657,19 +658,27 @@ class WindowsSpec extends WindowsSpecBase {
                     columns.add( service_info[row][header] ?: '')
                 }
                 def service_id = service_info[row]['Name']
-                infos[service_id] = service_info[row]['Status']
-                services['service.' + service_id] = service_info[row]['Status']
+                def status = service_info[row]['Status']
+                infos[service_id] = status
+                statuses[service_id] = status
                 csv << columns
             }
             def service_list = test_item.target_info('service')
             if (service_list) {
+                def template_id = this.test_platform.test_target.template_id
                 service_list.each { service_name, value ->
-                    def test_id = "service.${service_name}"
-                    def status = services[test_id] ?: 'Not Found'
-                    add_new_metric(test_id, service_name, status, services)
+                    def test_id = "service.${template_id}.${service_name}"
+                    def status = statuses[service_name] ?: 'Not Found'
+                    add_new_metric(test_id, "${template_id}.${service_name}", status, services)
                 }
             }
-
+            statuses.sort().each { service_name, status ->
+                if (service_list?."${service_name}") {
+                    return
+                }
+                def test_id = "service.Etc.${service_name}"
+                add_new_metric(test_id, service_name, status, services)
+            }
             services['service'] = "${instance_number} services"
             test_item.devices(csv, headers)
             test_item.results(services)
@@ -749,10 +758,10 @@ class WindowsSpec extends WindowsSpecBase {
 
     def packages(TestItem test_item) {
         def package_info = [:].withDefault{0}
+        def versions = [:]
         def csv = []
         def packagename
         def vendor
-        def version
         def package_count = 0
 
         def command = '''\
@@ -769,7 +778,6 @@ class WindowsSpec extends WindowsSpecBase {
             def lines = exec('packages') {
                 new File("${local_dir}/packages")
             }
-
             lines.eachLine {
                 (it =~ /Name\s+:\s(.+)/).each {m0, m1->
                     packagename = m1
@@ -781,13 +789,37 @@ class WindowsSpec extends WindowsSpecBase {
                     vendor = m1
                 }
                 (it =~ /Version\s+:\s(.+)/).each {m0, m1->
-                    version = "'${m1}'"
-                    package_info['packages.' + packagename] = version
-                    package_count ++
-                    add_new_metric("packages.${packagename}", "${packagename}", version, package_info)
+                    def version = "'${m1}'"
+                    versions[packagename] = version
+                    // package_info['packages.' + packagename] = version
+                    // package_count ++
+                    // add_new_metric("packages.${packagename}", "${packagename}", version, package_info)
                     csv << [packagename, vendor, version]
                 }
             }
+            def package_list = test_item.target_info('packages')
+            if (package_list) {
+                def template_id = this.test_platform.test_target.template_id
+                package_info['packages.requirements'] = "${package_list.keySet()}"
+                def verify = true
+                package_list.each { package_name, value ->
+                    def test_id = "packages.${template_id}.${package_name}"
+                    def version = versions[package_name] ?: 'Not Found'
+                    if (version == 'Not Found') {
+                        verify = false
+                    }
+                    add_new_metric(test_id, "${template_id}.${package_name}", "'${version}'", package_info)
+                }
+                test_item.verify(verify)
+            }
+            versions.sort().each { package_name, version ->
+                if (package_list?."${package_name}") {
+                    return
+                }
+                def test_id = "packages.Etc.${package_name}"
+                add_new_metric(test_id, package_name, "'${version}'", package_info)
+            }
+            println package_info
             def headers = ['name', 'vendor', 'version']
             test_item.devices(csv, headers)
             package_info['packages'] = "${package_count} packages"

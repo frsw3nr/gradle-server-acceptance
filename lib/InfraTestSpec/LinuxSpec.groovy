@@ -614,9 +614,16 @@ class LinuxSpec extends LinuxSpecBase {
             }
             test_item.verify(verify)
         }
+        versions.sort().each { package_name, version ->
+            if (package_list?."${package_name}") {
+                return
+            }
+            def test_id = "packages.Etc.${package_name}"
+            add_new_metric(test_id, package_name, "'${version}'", package_info)
+        }
         test_item.devices(csv, headers)
         test_item.results(package_info)
-        // test_item.verify_text_search_list('packages', package_info)
+        test_item.verify_text_search_list('packages', package_info)
     }
 
     def cron(session, test_item) {
@@ -771,7 +778,8 @@ class LinuxSpec extends LinuxSpecBase {
         }
 
         def services = [:].withDefault{'Not found'}
-        def infos = [:]
+        def statuses = [:]
+        // def infos = [:]
         def csv = []
         def service_count = 0
 
@@ -783,8 +791,8 @@ class LinuxSpec extends LinuxSpecBase {
             ( it =~ /\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
                 def service_name = m1
                 def status = m2 + '.' + m3
-                services["service.${service_name}"] = status
-                infos[service_name] = status
+                statuses[service_name] = status
+                // infos[service_name] = status
                 def columns = [m1, status]
                 csv << columns
                 service_count ++
@@ -794,8 +802,8 @@ class LinuxSpec extends LinuxSpecBase {
             ( it =~ /^(.+?)\s.*\s+3:(.+?)\s+4:(.+?)\s+5:(.+?)\s+/).each {m0,m1,m2,m3,m4->
                 def service_name = m1
                 def status = (m2 == 'on' && m3 == 'on' && m4 == 'on') ? 'On' : 'Off'
-                services["service.${service_name}"] = status
-                infos[service_name] = status
+                statuses[service_name] = status
+                // infos[service_name] = status
                 def columns = [m1, status]
                 csv << columns
                 service_count ++
@@ -803,16 +811,24 @@ class LinuxSpec extends LinuxSpecBase {
         }
         def service_list = test_item.target_info('service')
         if (service_list) {
+            def template_id = this.test_platform.test_target.template_id
             service_list.each { service_name, value ->
-                def test_id = "service.${service_name}"
-                def status = services[test_id] ?: 'Not Found'
-                add_new_metric(test_id, service_name, status, services)
+                def test_id = "service.${template_id}.${service_name}"
+                def status = statuses[service_name] ?: 'Not Found'
+                add_new_metric(test_id, "${template_id}.${service_name}", status, services)
             }
+        }
+        statuses.sort().each { service_name, status ->
+            if (service_list?."${service_name}") {
+                return
+            }
+            def test_id = "service.Etc.${service_name}"
+            add_new_metric(test_id, service_name, status, services)
         }
         services['service'] = "${service_count} services"
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
-        test_item.verify_text_search_map('service', infos)
+        // test_item.verify_text_search_map('service', infos)
     }
 
     def mount_iso(session, test_item) {

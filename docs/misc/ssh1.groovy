@@ -39,7 +39,7 @@ if (!result) {
 }
 session = login_session(con)
 result = run_ssh_command(session, 'uname -n')
-println "RESULT:$result"
+println "RESULT:$result<EOF>"
 
 def command = '''\
 |awk \'/^domain/ {print \$2}\' /etc/resolv2.conf 2>/dev/null
@@ -48,7 +48,9 @@ def command = '''\
 |fi
 '''.stripMargin()
 result = run_ssh_command(session, command)
-println "RESULT:$result"
+println "RESULT:$result<EOF>"
+result = run_ssh_command(session, "df")
+println "RESULT:$result<EOF>"
 
 def login_session(con) {
     try {
@@ -59,8 +61,8 @@ def login_session(con) {
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
                 .withInputs(session.getStdout(), session.getStderr())
-                        .withEchoOutput(System.out)
-                        .withEchoInput(System.out)
+                        // .withEchoOutput(System.out)
+                        // .withEchoInput(System.out)
                 .build();
         // expect.expect(contains(prompts['ok'])); 
         expect.expect(regexp(prompt)); 
@@ -77,6 +79,15 @@ def login_session(con) {
     }
 }
 
+String truncate_first_line(String message) {
+    String result = message
+    int truncate_size = message.indexOf('\n');
+    if (truncate_size > 0) {
+        result = message.substring(truncate_size)
+    }
+    return result
+}
+
 def run_ssh_command(session, command) {
     def ok_prompt = '.*[%|$|#|>] $';
     try {
@@ -87,25 +98,31 @@ def run_ssh_command(session, command) {
                         // .withEchoInput(System.out)
                 .build();
 
-        expect.sendLine("LANG=C")
-        println "TEST1"
-        expect.expect(regexp(ok_prompt))
-        println "TEST2"
+        // expect.sendLine("LANG=C")
+        // println "TEST1"
+        // expect.expect(regexp(ok_prompt))
+        // println "TEST2"
         def row = 0
         def lines = command.readLines()
         def max_row = lines.size()
         lines.each { line ->
-            println "TEST3:$line"
+            // println "TEST3:$line"
             expect.sendLine(line)
-            println "TEST4:$line"
-            if (0 < row && row < (max_row-1)) {
+            // println "TEST4:$line"
+            if (0 < row && row < max_row) {
                 expect.expect(regexp(ok_prompt))
             }
             row ++
         }
-        String result = expect.expect(regexp(ok_prompt)).getBefore(); 
+        // String result = expect.expect(regexp(ok_prompt)).getInput(); 
+        def res = expect.expect(regexp(ok_prompt))
+        String result = res.getBefore(); 
+        // println "RES1:${res.getBefore()}<EOF>"
+        // println "RES2:${res.getInput()}<EOF>"
+        // println "RES3:${res.toString()}<EOF>"
+
         expect.close()
-        return result
+        return truncate_first_line(result)
     } catch (Exception e) {
         println "[SSH Test] Command error '$command' faild, skip.\n" + e
     }

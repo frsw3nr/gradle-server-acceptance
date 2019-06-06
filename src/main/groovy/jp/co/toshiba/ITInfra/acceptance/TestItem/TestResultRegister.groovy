@@ -9,19 +9,19 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)
-@Singleton
+// @Singleton
 class TestResultRegister {
 
     TestItem test_item
 
-    TestResultRegister test_item(TestItem test_item) {
-        this.test_item = test_item
-        return this
-    }
-
-    // TestResultRegister(TestItem test_item) {
+    // TestResultRegister test_item(TestItem test_item) {
     //     this.test_item = test_item
+    //     return this
     // }
+
+    TestResultRegister(TestItem test_item) {
+        this.test_item = test_item
+    }
 
     TestResult make_test_result(String metric_name, Object value) {
         def test_result = test_item.test_results?."${metric_name}" ?:

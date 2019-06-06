@@ -19,9 +19,16 @@ try {
 }
 $ErrorActionPreference = "Continue"
 
-$log_path = Join-Path $log_dir "user_account_control"
+$log_path = Join-Path $log_dir "packages"
 Invoke-Command -Session $session -ScriptBlock { `
-    Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
+    Get-WmiObject Win32_Product | `
+    Select-Object Name, Vendor, Version | `
+    Format-List
+Get-ChildItem -Path( `
+  'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall', `
+  'HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall') | `
+  % { Get-ItemProperty $_.PsPath | Select-Object DisplayName, Publisher, DisplayVersion } | `
+  Format-List `
 } | Out-File $log_path -Encoding UTF8
 
 Remove-PSSession $session

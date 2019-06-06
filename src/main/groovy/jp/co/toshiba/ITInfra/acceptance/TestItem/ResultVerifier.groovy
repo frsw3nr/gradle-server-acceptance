@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)
-@Singleton
+// @Singleton
 class ResultVerifier {
 
     TestItem test_item
@@ -20,14 +20,14 @@ class ResultVerifier {
         String error_msg
     }
 
-    ResultVerifier test_item(TestItem test_item) {
-        this.test_item = test_item
-        return this
-    }
-
-    // ResultVerifier(TestItem test_item) {
+    // ResultVerifier test_item(TestItem test_item) {
     //     this.test_item = test_item
+    //     return this
     // }
+
+    ResultVerifier(TestItem test_item) {
+        this.test_item = test_item
+    }
 
     def target_info(String item, String platform = null) {
         if (!platform)

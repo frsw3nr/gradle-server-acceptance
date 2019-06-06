@@ -9,19 +9,19 @@ import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)
-@Singleton
+// @Singleton
 class PortListRegister {
 
     TestItem test_item
 
-    // PortListRegister(TestItem test_item) {
-    //     this.test_item = test_item
-    // }
-
-    PortListRegister test_item(TestItem test_item) {
+    PortListRegister(TestItem test_item) {
         this.test_item = test_item
-        return this
     }
+
+    // PortListRegister test_item(TestItem test_item) {
+    //     this.test_item = test_item
+    //     return this
+    // }
 
     def port_list(String ip, 
                   String description = null,
