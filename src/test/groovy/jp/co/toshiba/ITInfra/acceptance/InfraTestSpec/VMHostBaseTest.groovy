@@ -1,6 +1,4 @@
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
 // gradlew --daemon test --tests "VMHostBaseTest.VMHost テスト仕様のロード"
 

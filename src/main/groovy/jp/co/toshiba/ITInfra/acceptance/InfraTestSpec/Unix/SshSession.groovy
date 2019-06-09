@@ -1,21 +1,15 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 
-import javax.xml.bind.*
-import static groovy.json.JsonOutput.*
+import ch.ethz.ssh2.Connection
+import ch.ethz.ssh2.Session
 import groovy.util.logging.Slf4j
-import groovy.transform.InheritConstructors
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
 
 // For ssh session
 // import org.hidetake.groovy.ssh.Ssh
-import ch.ethz.ssh2.Connection
-import ch.ethz.ssh2.Session
-import net.sf.expectit.Expect
-import net.sf.expectit.ExpectBuilder
-import static net.sf.expectit.matcher.Matchers.contains
-import static net.sf.expectit.matcher.Matchers.regexp
 
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import jp.co.toshiba.ITInfra.acceptance.*
+import static net.sf.expectit.matcher.Matchers.regexp
 
 @Slf4j
 class SshSession {

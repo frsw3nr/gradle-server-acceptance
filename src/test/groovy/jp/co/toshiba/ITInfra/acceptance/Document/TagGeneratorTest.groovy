@@ -1,7 +1,7 @@
-import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import spock.lang.Specification
 
 // gradle --daemon test --tests "TagGeneratorTest.結果の比較"
 

@@ -1,12 +1,7 @@
+import com.taskadapter.redmineapi.bean.Issue
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Ticket.TicketManager
 import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import com.taskadapter.redmineapi.*
-import com.taskadapter.redmineapi.bean.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
 // gradle --daemon test --tests "TestTicketManager.ポートリスト登録3"
 

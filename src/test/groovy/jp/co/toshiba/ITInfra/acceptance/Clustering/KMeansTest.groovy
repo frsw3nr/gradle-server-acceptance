@@ -1,23 +1,21 @@
+import de.lmu.ifi.dbs.elki.algorithm.clustering.kmeans.KMeansLloyd
+import de.lmu.ifi.dbs.elki.algorithm.clustering.kmeans.initialization.RandomUniformGeneratedInitialMeans
+import de.lmu.ifi.dbs.elki.data.Cluster
+import de.lmu.ifi.dbs.elki.data.Clustering
+import de.lmu.ifi.dbs.elki.data.NumberVector
+import de.lmu.ifi.dbs.elki.data.model.KMeansModel
+import de.lmu.ifi.dbs.elki.data.type.TypeUtil
+import de.lmu.ifi.dbs.elki.database.Database
+import de.lmu.ifi.dbs.elki.database.StaticArrayDatabase
+import de.lmu.ifi.dbs.elki.database.ids.DBIDIter
+import de.lmu.ifi.dbs.elki.database.ids.DBIDRange
+import de.lmu.ifi.dbs.elki.database.relation.Relation
+import de.lmu.ifi.dbs.elki.datasource.ArrayAdapterDatabaseConnection
+import de.lmu.ifi.dbs.elki.datasource.DatabaseConnection
+import de.lmu.ifi.dbs.elki.distance.distancefunction.minkowski.SquaredEuclideanDistanceFunction
+import de.lmu.ifi.dbs.elki.logging.LoggingConfiguration
+import de.lmu.ifi.dbs.elki.utilities.random.RandomFactory
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-
-import de.lmu.ifi.dbs.elki.algorithm.clustering.kmeans.KMeansLloyd;
-import de.lmu.ifi.dbs.elki.algorithm.clustering.kmeans.initialization.RandomUniformGeneratedInitialMeans;
-import de.lmu.ifi.dbs.elki.data.Cluster;
-import de.lmu.ifi.dbs.elki.data.Clustering;
-import de.lmu.ifi.dbs.elki.data.NumberVector;
-import de.lmu.ifi.dbs.elki.data.model.KMeansModel;
-import de.lmu.ifi.dbs.elki.data.type.TypeUtil;
-import de.lmu.ifi.dbs.elki.database.Database;
-import de.lmu.ifi.dbs.elki.database.StaticArrayDatabase;
-import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
-import de.lmu.ifi.dbs.elki.database.ids.DBIDRange;
-import de.lmu.ifi.dbs.elki.database.relation.Relation;
-import de.lmu.ifi.dbs.elki.datasource.ArrayAdapterDatabaseConnection;
-import de.lmu.ifi.dbs.elki.datasource.DatabaseConnection;
-import de.lmu.ifi.dbs.elki.distance.distancefunction.minkowski.SquaredEuclideanDistanceFunction;
-import de.lmu.ifi.dbs.elki.logging.LoggingConfiguration;
-import de.lmu.ifi.dbs.elki.utilities.random.RandomFactory;
 
 // gradle --daemon test --tests "KMeansTest.チュートリアル1"
 

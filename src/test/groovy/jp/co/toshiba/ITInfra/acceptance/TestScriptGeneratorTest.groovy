@@ -1,5 +1,5 @@
+import jp.co.toshiba.ITInfra.acceptance.TestScriptGenerator
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
 
 // gradle --daemon test --tests "TestScriptGeneratorTest"
 

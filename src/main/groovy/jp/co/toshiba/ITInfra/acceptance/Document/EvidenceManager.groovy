@@ -1,15 +1,10 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.io.FileType
+
 import groovy.util.logging.Slf4j
-import static groovy.json.JsonOutput.*
-import groovy.json.*
 import org.apache.commons.io.FileUtils
-import groovy.sql.Sql
-import java.sql.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
+
+import java.sql.SQLException
 
 @Slf4j
 class EvidenceManager {

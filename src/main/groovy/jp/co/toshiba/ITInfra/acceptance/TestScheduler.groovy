@@ -1,12 +1,13 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.json.*
-import static groovy.json.JsonOutput.*
+
 import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool
-import jsr166y.ForkJoinPool
 import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jsr166y.ForkJoinPool
 
 @Slf4j
 class TestScheduler {

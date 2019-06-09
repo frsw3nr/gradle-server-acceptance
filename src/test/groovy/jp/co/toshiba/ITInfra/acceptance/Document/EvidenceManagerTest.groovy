@@ -1,13 +1,7 @@
-import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import groovy.sql.Sql
-import java.sql.*
 import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-
-import org.apache.poi.ss.usermodel.Workbook
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import spock.lang.Specification
 
 // gradle --daemon test --tests "EvidenceManagerTest.実行結果の登録"
 

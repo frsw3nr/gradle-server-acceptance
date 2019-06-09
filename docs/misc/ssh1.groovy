@@ -42,10 +42,12 @@ result = run_ssh_command(session, 'uname -n')
 println "RESULT:$result<EOF>"
 
 def command = '''\
+|(
 |awk \'/^domain/ {print \$2}\' /etc/resolv2.conf 2>/dev/null
 |if [ \$? != 0 ]; then
 |   echo 'Not Found'
 |fi
+|)
 '''.stripMargin()
 result = run_ssh_command(session, command)
 println "RESULT:$result<EOF>"
@@ -61,8 +63,8 @@ def login_session(con) {
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
                 .withInputs(session.getStdout(), session.getStderr())
-                        // .withEchoOutput(System.out)
-                        // .withEchoInput(System.out)
+                        .withEchoOutput(System.out)
+                        .withEchoInput(System.out)
                 .build();
         // expect.expect(contains(prompts['ok'])); 
         expect.expect(regexp(prompt)); 
@@ -89,31 +91,32 @@ String truncate_first_line(String message) {
 }
 
 def run_ssh_command(session, command) {
-    def ok_prompt = '.*[%|$|#|>] $';
+    def ok_prompt = '.*[%|$|#|>] ';
     try {
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
                 .withInputs(session.getStdout(), session.getStderr())
-                        // .withEchoOutput(System.out)
+                        .withEchoOutput(System.out)
                         // .withEchoInput(System.out)
                 .build();
 
-        // expect.sendLine("LANG=C")
-        // println "TEST1"
-        // expect.expect(regexp(ok_prompt))
-        // println "TEST2"
+        expect.sendLine("LANG=C")
+        println "TEST1"
+        expect.expect(regexp(ok_prompt))
+        println "TEST2"
         def row = 0
         def lines = command.readLines()
         def max_row = lines.size()
         lines.each { line ->
-            // println "TEST3:$line"
+            println "TEST3:$line"
             expect.sendLine(line)
-            // println "TEST4:$line"
+            println "TEST4:$line"
             if (0 < row && row < max_row) {
                 expect.expect(regexp(ok_prompt))
             }
             row ++
         }
+        // expect.expect(regexp(ok_prompt))
         // String result = expect.expect(regexp(ok_prompt)).getInput(); 
         def res = expect.expect(regexp(ok_prompt))
         String result = res.getBefore(); 

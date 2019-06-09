@@ -1,10 +1,9 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.util.logging.Slf4j
 import groovy.transform.ToString
+import groovy.util.logging.Slf4j
 import org.apache.commons.lang.math.NumberUtils
-import groovy.util.CliBuilder
-import org.apache.commons.cli.Option
+
 // import jp.co.toshiba.ITInfra.acceptance.*
 // import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
 // import jp.co.toshiba.ITInfra.acceptance.TicketRegistor

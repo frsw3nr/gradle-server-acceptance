@@ -1,11 +1,7 @@
-import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import javax.crypto.Cipher
-import javax.crypto.spec.SecretKeySpec
-import java.nio.charset.Charset
-import org.apache.commons.io.FileUtils
-import static groovy.json.JsonOutput.*
 import com.xlson.groovycsv.CsvParser
+import jp.co.toshiba.ITInfra.acceptance.Config
+import org.apache.commons.io.FileUtils
+import spock.lang.Specification
 
 // gradle --daemon test --tests "ConfigTest"
 

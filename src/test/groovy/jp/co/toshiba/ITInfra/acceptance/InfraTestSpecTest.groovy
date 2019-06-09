@@ -1,9 +1,9 @@
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import spock.lang.Specification
-import org.apache.commons.lang.math.NumberUtils
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
 // gradle --daemon test --tests "InfraTestSpecTest.初期化"
 

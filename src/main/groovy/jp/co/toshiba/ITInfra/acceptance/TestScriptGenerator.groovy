@@ -1,8 +1,6 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
-import groovy.transform.ToString
-import groovy.text.GStringTemplateEngine
 
 @Slf4j
 class TestScriptGenerator {

@@ -1,10 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
 
-import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
-import org.hidetake.groovy.ssh.Ssh
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import jp.co.toshiba.ITInfra.acceptance.*
+import groovy.util.logging.Slf4j
 
 @Slf4j
 @InheritConstructors

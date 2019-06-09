@@ -1,11 +1,10 @@
+import groovy.json.JsonSlurper
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTemplate
+import jp.co.toshiba.ITInfra.acceptance.PlatformTester
 import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import org.apache.commons.io.FileUtils
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
 // gradle --daemon test --tests "vCenterBaseTest.vCenter テスト仕様 vm"
 

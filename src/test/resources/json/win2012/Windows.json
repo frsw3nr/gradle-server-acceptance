@@ -3292,8 +3292,8 @@
             ]
         }
     },
-    "service.AeLookupSvc": {
-        "name": "service.AeLookupSvc",
+    "service.Windows.Zabbix Agent": {
+        "name": "service.Windows.Zabbix Agent",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3301,80 +3301,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.ALG": {
-        "name": "service.ALG",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.AppIDSvc": {
-        "name": "service.AppIDSvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Appinfo": {
-        "name": "service.Appinfo",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.AppMgmt": {
-        "name": "service.AppMgmt",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.AppReadiness": {
-        "name": "service.AppReadiness",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.AppXSvc": {
-        "name": "service.AppXSvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.AudioEndpointBuilder": {
-        "name": "service.AudioEndpointBuilder",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Audiosrv": {
-        "name": "service.Audiosrv",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.BFE": {
-        "name": "service.BFE",
+    "service.Windows.wuauserv": {
+        "name": "service.Windows.wuauserv",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3382,8 +3310,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.BITS": {
-        "name": "service.BITS",
+    "service.Etc.ALG": {
+        "name": "service.Etc.ALG",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.AeLookupSvc": {
+        "name": "service.Etc.AeLookupSvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3391,8 +3328,71 @@
         "verify": null,
         "comparision": null
     },
-    "service.BrokerInfrastructure": {
-        "name": "service.BrokerInfrastructure",
+    "service.Etc.AppIDSvc": {
+        "name": "service.Etc.AppIDSvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.AppMgmt": {
+        "name": "service.Etc.AppMgmt",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.AppReadiness": {
+        "name": "service.Etc.AppReadiness",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.AppXSvc": {
+        "name": "service.Etc.AppXSvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.Appinfo": {
+        "name": "service.Etc.Appinfo",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.AudioEndpointBuilder": {
+        "name": "service.Etc.AudioEndpointBuilder",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.Audiosrv": {
+        "name": "service.Etc.Audiosrv",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.BFE": {
+        "name": "service.Etc.BFE",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3400,17 +3400,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Browser": {
-        "name": "service.Browser",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.CertPropSvc": {
-        "name": "service.CertPropSvc",
+    "service.Etc.BITS": {
+        "name": "service.Etc.BITS",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3418,17 +3409,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.COMSysApp": {
-        "name": "service.COMSysApp",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.CryptSvc": {
-        "name": "service.CryptSvc",
+    "service.Etc.BrokerInfrastructure": {
+        "name": "service.Etc.BrokerInfrastructure",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3436,8 +3418,26 @@
         "verify": null,
         "comparision": null
     },
-    "service.DcomLaunch": {
-        "name": "service.DcomLaunch",
+    "service.Etc.Browser": {
+        "name": "service.Etc.Browser",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.COMSysApp": {
+        "name": "service.Etc.COMSysApp",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.CertPropSvc": {
+        "name": "service.Etc.CertPropSvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3445,35 +3445,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.defragsvc": {
-        "name": "service.defragsvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.DeviceAssociationService": {
-        "name": "service.DeviceAssociationService",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.DeviceInstall": {
-        "name": "service.DeviceInstall",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Dhcp": {
-        "name": "service.Dhcp",
+    "service.Etc.CryptSvc": {
+        "name": "service.Etc.CryptSvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3481,8 +3454,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Dnscache": {
-        "name": "service.Dnscache",
+    "service.Etc.DPS": {
+        "name": "service.Etc.DPS",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3490,17 +3463,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.dot3svc": {
-        "name": "service.dot3svc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.DPS": {
-        "name": "service.DPS",
+    "service.Etc.DcomLaunch": {
+        "name": "service.Etc.DcomLaunch",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3508,8 +3472,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.DsmSvc": {
-        "name": "service.DsmSvc",
+    "service.Etc.DeviceAssociationService": {
+        "name": "service.Etc.DeviceAssociationService",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3517,8 +3481,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Eaphost": {
-        "name": "service.Eaphost",
+    "service.Etc.DeviceInstall": {
+        "name": "service.Etc.DeviceInstall",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3526,17 +3490,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.EFS": {
-        "name": "service.EFS",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.EventLog": {
-        "name": "service.EventLog",
+    "service.Etc.Dhcp": {
+        "name": "service.Etc.Dhcp",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3544,8 +3499,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.EventSystem": {
-        "name": "service.EventSystem",
+    "service.Etc.Dnscache": {
+        "name": "service.Etc.Dnscache",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3553,8 +3508,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.fdPHost": {
-        "name": "service.fdPHost",
+    "service.Etc.DsmSvc": {
+        "name": "service.Etc.DsmSvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3562,8 +3517,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.FDResPub": {
-        "name": "service.FDResPub",
+    "service.Etc.EFS": {
+        "name": "service.Etc.EFS",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3571,8 +3526,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.FontCache": {
-        "name": "service.FontCache",
+    "service.Etc.Eaphost": {
+        "name": "service.Etc.Eaphost",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.EventLog": {
+        "name": "service.Etc.EventLog",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3580,26 +3544,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.FontCache3.0.0.0": {
-        "name": "service.FontCache3.0.0.0",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.fussvc": {
-        "name": "service.fussvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.gpsvc": {
-        "name": "service.gpsvc",
+    "service.Etc.EventSystem": {
+        "name": "service.Etc.EventSystem",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3607,8 +3553,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.gupdate": {
-        "name": "service.gupdate",
+    "service.Etc.FDResPub": {
+        "name": "service.Etc.FDResPub",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3616,44 +3562,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.gupdatem": {
-        "name": "service.gupdatem",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.hidserv": {
-        "name": "service.hidserv",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.hkmsvc": {
-        "name": "service.hkmsvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.IEEtwCollectorService": {
-        "name": "service.IEEtwCollectorService",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.IKEEXT": {
-        "name": "service.IKEEXT",
+    "service.Etc.FontCache": {
+        "name": "service.Etc.FontCache",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3661,8 +3571,26 @@
         "verify": null,
         "comparision": null
     },
-    "service.iphlpsvc": {
-        "name": "service.iphlpsvc",
+    "service.Etc.FontCache3.0.0.0": {
+        "name": "service.Etc.FontCache3.0.0.0",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.IEEtwCollectorService": {
+        "name": "service.Etc.IEEtwCollectorService",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.IKEEXT": {
+        "name": "service.Etc.IKEEXT",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3670,8 +3598,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Jenkins": {
-        "name": "service.Jenkins",
+    "service.Etc.Jenkins": {
+        "name": "service.Etc.Jenkins",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3679,8 +3607,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.KeyIso": {
-        "name": "service.KeyIso",
+    "service.Etc.KPSSVC": {
+        "name": "service.Etc.KPSSVC",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3688,8 +3616,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.KPSSVC": {
-        "name": "service.KPSSVC",
+    "service.Etc.KeyIso": {
+        "name": "service.Etc.KeyIso",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3697,8 +3625,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.KtmRm": {
-        "name": "service.KtmRm",
+    "service.Etc.KtmRm": {
+        "name": "service.Etc.KtmRm",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3706,8 +3634,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.LanmanServer": {
-        "name": "service.LanmanServer",
+    "service.Etc.LSM": {
+        "name": "service.Etc.LSM",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3715,8 +3643,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.LanmanWorkstation": {
-        "name": "service.LanmanWorkstation",
+    "service.Etc.LanmanServer": {
+        "name": "service.Etc.LanmanServer",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3724,17 +3652,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.lltdsvc": {
-        "name": "service.lltdsvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.lmhosts": {
-        "name": "service.lmhosts",
+    "service.Etc.LanmanWorkstation": {
+        "name": "service.Etc.LanmanWorkstation",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3742,8 +3661,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.LSM": {
-        "name": "service.LSM",
+    "service.Etc.MMCSS": {
+        "name": "service.Etc.MMCSS",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.MSDTC": {
+        "name": "service.Etc.MSDTC",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3751,17 +3679,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.MMCSS": {
-        "name": "service.MMCSS",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.MpsSvc": {
-        "name": "service.MpsSvc",
+    "service.Etc.MSSQL$SQLEXPRESS": {
+        "name": "service.Etc.MSSQL$SQLEXPRESS",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3769,8 +3688,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.MSDTC": {
-        "name": "service.MSDTC",
+    "service.Etc.MSiSCSI": {
+        "name": "service.Etc.MSiSCSI",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.MpsSvc": {
+        "name": "service.Etc.MpsSvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3778,8 +3706,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.MSiSCSI": {
-        "name": "service.MSiSCSI",
+    "service.Etc.NcaSvc": {
+        "name": "service.Etc.NcaSvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3787,8 +3715,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.msiserver": {
-        "name": "service.msiserver",
+    "service.Etc.NetTcpPortSharing": {
+        "name": "service.Etc.NetTcpPortSharing",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3796,8 +3724,26 @@
         "verify": null,
         "comparision": null
     },
-    "service.MSSQL$SQLEXPRESS": {
-        "name": "service.MSSQL$SQLEXPRESS",
+    "service.Etc.Netlogon": {
+        "name": "service.Etc.Netlogon",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.Netman": {
+        "name": "service.Etc.Netman",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.NlaSvc": {
+        "name": "service.Etc.NlaSvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3805,8 +3751,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.napagent": {
-        "name": "service.napagent",
+    "service.Etc.PerfHost": {
+        "name": "service.Etc.PerfHost",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3814,35 +3760,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.NcaSvc": {
-        "name": "service.NcaSvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Netlogon": {
-        "name": "service.Netlogon",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Netman": {
-        "name": "service.Netman",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.netprofm": {
-        "name": "service.netprofm",
+    "service.Etc.PlugPlay": {
+        "name": "service.Etc.PlugPlay",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3850,17 +3769,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.NetTcpPortSharing": {
-        "name": "service.NetTcpPortSharing",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.NlaSvc": {
-        "name": "service.NlaSvc",
+    "service.Etc.PolicyAgent": {
+        "name": "service.Etc.PolicyAgent",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3868,8 +3778,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.nsi": {
-        "name": "service.nsi",
+    "service.Etc.Power": {
+        "name": "service.Etc.Power",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3877,8 +3787,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.PerfHost": {
-        "name": "service.PerfHost",
+    "service.Etc.PrintNotify": {
+        "name": "service.Etc.PrintNotify",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3886,17 +3796,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.pla": {
-        "name": "service.pla",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.PlugPlay": {
-        "name": "service.PlugPlay",
+    "service.Etc.ProfSvc": {
+        "name": "service.Etc.ProfSvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3904,8 +3805,44 @@
         "verify": null,
         "comparision": null
     },
-    "service.PolicyAgent": {
-        "name": "service.PolicyAgent",
+    "service.Etc.RSoPProv": {
+        "name": "service.Etc.RSoPProv",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.RasAuto": {
+        "name": "service.Etc.RasAuto",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.RasMan": {
+        "name": "service.Etc.RasMan",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.RemoteAccess": {
+        "name": "service.Etc.RemoteAccess",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.RemoteRegistry": {
+        "name": "service.Etc.RemoteRegistry",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3913,8 +3850,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Power": {
-        "name": "service.Power",
+    "service.Etc.RpcEptMapper": {
+        "name": "service.Etc.RpcEptMapper",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3922,8 +3859,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.PrintNotify": {
-        "name": "service.PrintNotify",
+    "service.Etc.RpcLocator": {
+        "name": "service.Etc.RpcLocator",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3931,8 +3868,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.ProfSvc": {
-        "name": "service.ProfSvc",
+    "service.Etc.RpcSs": {
+        "name": "service.Etc.RpcSs",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3940,8 +3877,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.RasAuto": {
-        "name": "service.RasAuto",
+    "service.Etc.SCPolicySvc": {
+        "name": "service.Etc.SCPolicySvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3949,8 +3886,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.RasMan": {
-        "name": "service.RasMan",
+    "service.Etc.SCardSvr": {
+        "name": "service.Etc.SCardSvr",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -3958,17 +3895,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.RemoteAccess": {
-        "name": "service.RemoteAccess",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.RemoteRegistry": {
-        "name": "service.RemoteRegistry",
+    "service.Etc.SENS": {
+        "name": "service.Etc.SENS",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3976,8 +3904,35 @@
         "verify": null,
         "comparision": null
     },
-    "service.RpcEptMapper": {
-        "name": "service.RpcEptMapper",
+    "service.Etc.SNMPTRAP": {
+        "name": "service.Etc.SNMPTRAP",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.SQLAgent$SQLEXPRESS": {
+        "name": "service.Etc.SQLAgent$SQLEXPRESS",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.SQLBrowser": {
+        "name": "service.Etc.SQLBrowser",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.SQLTELEMETRY$SQLEXPRESS": {
+        "name": "service.Etc.SQLTELEMETRY$SQLEXPRESS",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -3985,17 +3940,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.RpcLocator": {
-        "name": "service.RpcLocator",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.RpcSs": {
-        "name": "service.RpcSs",
+    "service.Etc.SQLWriter": {
+        "name": "service.Etc.SQLWriter",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4003,8 +3949,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.RSoPProv": {
-        "name": "service.RSoPProv",
+    "service.Etc.SSDPSRV": {
+        "name": "service.Etc.SSDPSRV",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4012,17 +3958,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.sacsvr": {
-        "name": "service.sacsvr",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.SamSs": {
-        "name": "service.SamSs",
+    "service.Etc.SamSs": {
+        "name": "service.Etc.SamSs",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4030,8 +3967,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SCardSvr": {
-        "name": "service.SCardSvr",
+    "service.Etc.ScDeviceEnum": {
+        "name": "service.Etc.ScDeviceEnum",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4039,17 +3976,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.ScDeviceEnum": {
-        "name": "service.ScDeviceEnum",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Schedule": {
-        "name": "service.Schedule",
+    "service.Etc.Schedule": {
+        "name": "service.Etc.Schedule",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4057,26 +3985,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SCPolicySvc": {
-        "name": "service.SCPolicySvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.seclogon": {
-        "name": "service.seclogon",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.SENS": {
-        "name": "service.SENS",
+    "service.Etc.SessionEnv": {
+        "name": "service.Etc.SessionEnv",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4084,8 +3994,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.SessionEnv": {
-        "name": "service.SessionEnv",
+    "service.Etc.SharedAccess": {
+        "name": "service.Etc.SharedAccess",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.ShellHWDetection": {
+        "name": "service.Etc.ShellHWDetection",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4093,17 +4012,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SharedAccess": {
-        "name": "service.SharedAccess",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.ShellHWDetection": {
-        "name": "service.ShellHWDetection",
+    "service.Etc.Spooler": {
+        "name": "service.Etc.Spooler",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4111,8 +4021,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.smphost": {
-        "name": "service.smphost",
+    "service.Etc.SstpSvc": {
+        "name": "service.Etc.SstpSvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4120,8 +4030,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SNMPTRAP": {
-        "name": "service.SNMPTRAP",
+    "service.Etc.SysMain": {
+        "name": "service.Etc.SysMain",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4129,8 +4039,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Spooler": {
-        "name": "service.Spooler",
+    "service.Etc.SystemEventsBroker": {
+        "name": "service.Etc.SystemEventsBroker",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4138,8 +4048,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.sppsvc": {
-        "name": "service.sppsvc",
+    "service.Etc.THREADORDER": {
+        "name": "service.Etc.THREADORDER",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4147,8 +4057,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SQLAgent$SQLEXPRESS": {
-        "name": "service.SQLAgent$SQLEXPRESS",
+    "service.Etc.TapiSrv": {
+        "name": "service.Etc.TapiSrv",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4156,8 +4066,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SQLBrowser": {
-        "name": "service.SQLBrowser",
+    "service.Etc.Te.Service": {
+        "name": "service.Etc.Te.Service",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4165,8 +4075,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SQLTELEMETRY$SQLEXPRESS": {
-        "name": "service.SQLTELEMETRY$SQLEXPRESS",
+    "service.Etc.TermService": {
+        "name": "service.Etc.TermService",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4174,8 +4084,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SQLWriter": {
-        "name": "service.SQLWriter",
+    "service.Etc.Themes": {
+        "name": "service.Etc.Themes",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4183,8 +4093,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SSDPSRV": {
-        "name": "service.SSDPSRV",
+    "service.Etc.TieringEngineService": {
+        "name": "service.Etc.TieringEngineService",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4192,44 +4102,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.SstpSvc": {
-        "name": "service.SstpSvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.svsvc": {
-        "name": "service.svsvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.swprv": {
-        "name": "service.swprv",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.SysMain": {
-        "name": "service.SysMain",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.SystemEventsBroker": {
-        "name": "service.SystemEventsBroker",
+    "service.Etc.TrkWks": {
+        "name": "service.Etc.TrkWks",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4237,8 +4111,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.TapiSrv": {
-        "name": "service.TapiSrv",
+    "service.Etc.TrustedInstaller": {
+        "name": "service.Etc.TrustedInstaller",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4246,17 +4120,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Te.Service": {
-        "name": "service.Te.Service",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.TermService": {
-        "name": "service.TermService",
+    "service.Etc.UALSVC": {
+        "name": "service.Etc.UALSVC",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4264,8 +4129,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.Themes": {
-        "name": "service.Themes",
+    "service.Etc.UI0Detect": {
+        "name": "service.Etc.UI0Detect",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.UmRdpService": {
+        "name": "service.Etc.UmRdpService",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4273,26 +4147,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.THREADORDER": {
-        "name": "service.THREADORDER",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.TieringEngineService": {
-        "name": "service.TieringEngineService",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.TrkWks": {
-        "name": "service.TrkWks",
+    "service.Etc.VMUSBArbService": {
+        "name": "service.Etc.VMUSBArbService",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4300,8 +4156,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.TrustedInstaller": {
-        "name": "service.TrustedInstaller",
+    "service.Etc.VSS": {
+        "name": "service.Etc.VSS",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4309,8 +4165,35 @@
         "verify": null,
         "comparision": null
     },
-    "service.UALSVC": {
-        "name": "service.UALSVC",
+    "service.Etc.VaultSvc": {
+        "name": "service.Etc.VaultSvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.W32Time": {
+        "name": "service.Etc.W32Time",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.WEPHOSTSVC": {
+        "name": "service.Etc.WEPHOSTSVC",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.WLMS": {
+        "name": "service.Etc.WLMS",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4318,8 +4201,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.UI0Detect": {
-        "name": "service.UI0Detect",
+    "service.Etc.WPDBusEnum": {
+        "name": "service.Etc.WPDBusEnum",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4327,8 +4210,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.UmRdpService": {
-        "name": "service.UmRdpService",
+    "service.Etc.WSService": {
+        "name": "service.Etc.WSService",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.Wcmsvc": {
+        "name": "service.Etc.Wcmsvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4336,8 +4228,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.upnphost": {
-        "name": "service.upnphost",
+    "service.Etc.WcsPlugInService": {
+        "name": "service.Etc.WcsPlugInService",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4345,8 +4237,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.VaultSvc": {
-        "name": "service.VaultSvc",
+    "service.Etc.WdiServiceHost": {
+        "name": "service.Etc.WdiServiceHost",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4354,8 +4246,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.vds": {
-        "name": "service.vds",
+    "service.Etc.WdiSystemHost": {
+        "name": "service.Etc.WdiSystemHost",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4363,8 +4255,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.vmicguestinterface": {
-        "name": "service.vmicguestinterface",
+    "service.Etc.Wecsvc": {
+        "name": "service.Etc.Wecsvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4372,8 +4264,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.vmicheartbeat": {
-        "name": "service.vmicheartbeat",
+    "service.Etc.WerSvc": {
+        "name": "service.Etc.WerSvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4381,53 +4273,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.vmickvpexchange": {
-        "name": "service.vmickvpexchange",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.vmicrdv": {
-        "name": "service.vmicrdv",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.vmicshutdown": {
-        "name": "service.vmicshutdown",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.vmictimesync": {
-        "name": "service.vmictimesync",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.vmicvss": {
-        "name": "service.vmicvss",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.VMUSBArbService": {
-        "name": "service.VMUSBArbService",
+    "service.Etc.WinHttpAutoProxySvc": {
+        "name": "service.Etc.WinHttpAutoProxySvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4435,26 +4282,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.VSS": {
-        "name": "service.VSS",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.W32Time": {
-        "name": "service.W32Time",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Wcmsvc": {
-        "name": "service.Wcmsvc",
+    "service.Etc.WinRM": {
+        "name": "service.Etc.WinRM",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4462,71 +4291,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.WcsPlugInService": {
-        "name": "service.WcsPlugInService",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WdiServiceHost": {
-        "name": "service.WdiServiceHost",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WdiSystemHost": {
-        "name": "service.WdiSystemHost",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Wecsvc": {
-        "name": "service.Wecsvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WEPHOSTSVC": {
-        "name": "service.WEPHOSTSVC",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.wercplsupport": {
-        "name": "service.wercplsupport",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WerSvc": {
-        "name": "service.WerSvc",
-        "value": "Stopped",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WinHttpAutoProxySvc": {
-        "name": "service.WinHttpAutoProxySvc",
+    "service.Etc.Winmgmt": {
+        "name": "service.Etc.Winmgmt",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4534,35 +4300,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.Winmgmt": {
-        "name": "service.Winmgmt",
-        "value": "Running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WinRM": {
-        "name": "service.WinRM",
-        "value": "Running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.WLMS": {
-        "name": "service.WLMS",
-        "value": "Running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.wmiApSrv": {
-        "name": "service.wmiApSrv",
+    "service.Etc.defragsvc": {
+        "name": "service.Etc.defragsvc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4570,8 +4309,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.WPDBusEnum": {
-        "name": "service.WPDBusEnum",
+    "service.Etc.dot3svc": {
+        "name": "service.Etc.dot3svc",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4579,8 +4318,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.WSService": {
-        "name": "service.WSService",
+    "service.Etc.fdPHost": {
+        "name": "service.Etc.fdPHost",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4588,8 +4327,17 @@
         "verify": null,
         "comparision": null
     },
-    "service.wuauserv": {
-        "name": "service.wuauserv",
+    "service.Etc.fussvc": {
+        "name": "service.Etc.fussvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.gpsvc": {
+        "name": "service.Etc.gpsvc",
         "value": "Running",
         "error_msg": null,
         "compare_server": null,
@@ -4597,8 +4345,8 @@
         "verify": null,
         "comparision": null
     },
-    "service.wudfsvc": {
-        "name": "service.wudfsvc",
+    "service.Etc.gupdate": {
+        "name": "service.Etc.gupdate",
         "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
@@ -4606,9 +4354,261 @@
         "verify": null,
         "comparision": null
     },
-    "service.Zabbix Agent": {
-        "name": "service.Zabbix Agent",
+    "service.Etc.gupdatem": {
+        "name": "service.Etc.gupdatem",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.hidserv": {
+        "name": "service.Etc.hidserv",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.hkmsvc": {
+        "name": "service.Etc.hkmsvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.iphlpsvc": {
+        "name": "service.Etc.iphlpsvc",
         "value": "Running",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.lltdsvc": {
+        "name": "service.Etc.lltdsvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.lmhosts": {
+        "name": "service.Etc.lmhosts",
+        "value": "Running",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.msiserver": {
+        "name": "service.Etc.msiserver",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.napagent": {
+        "name": "service.Etc.napagent",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.netprofm": {
+        "name": "service.Etc.netprofm",
+        "value": "Running",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.nsi": {
+        "name": "service.Etc.nsi",
+        "value": "Running",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.pla": {
+        "name": "service.Etc.pla",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.sacsvr": {
+        "name": "service.Etc.sacsvr",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.seclogon": {
+        "name": "service.Etc.seclogon",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.smphost": {
+        "name": "service.Etc.smphost",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.sppsvc": {
+        "name": "service.Etc.sppsvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.svsvc": {
+        "name": "service.Etc.svsvc",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.swprv": {
+        "name": "service.Etc.swprv",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.upnphost": {
+        "name": "service.Etc.upnphost",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vds": {
+        "name": "service.Etc.vds",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmicguestinterface": {
+        "name": "service.Etc.vmicguestinterface",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmicheartbeat": {
+        "name": "service.Etc.vmicheartbeat",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmickvpexchange": {
+        "name": "service.Etc.vmickvpexchange",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmicrdv": {
+        "name": "service.Etc.vmicrdv",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmicshutdown": {
+        "name": "service.Etc.vmicshutdown",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmictimesync": {
+        "name": "service.Etc.vmictimesync",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.vmicvss": {
+        "name": "service.Etc.vmicvss",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.wercplsupport": {
+        "name": "service.Etc.wercplsupport",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.wmiApSrv": {
+        "name": "service.Etc.wmiApSrv",
+        "value": "Stopped",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
+    "service.Etc.wudfsvc": {
+        "name": "service.Etc.wudfsvc",
+        "value": "Stopped",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -4617,7 +4617,7 @@
     },
     "packages": {
         "name": "packages",
-        "value": "232 packages",
+        "value": "0 packages",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -5793,1278 +5793,1278 @@
             ]
         }
     },
-    "packages.SQL Server 2017 Integration Services Scale Out Management Portal": {
-        "name": "packages.SQL Server 2017 Integration Services Scale Out Management Portal",
-        "value": "'14.0.1000.169'",
+    "packages.Etc. Tools for .Net 3.5": {
+        "name": "packages.Etc. Tools for .Net 3.5",
+        "value": "''3.11.50727''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack": {
-        "name": "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack",
-        "value": "'4.5.50932'",
+    "packages.Etc.7-Zip 16.04 (x64)": {
+        "name": "packages.Etc.7-Zip 16.04 (x64)",
+        "value": "''16.04''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT X86 Redist Package": {
-        "name": "packages.Visual C++ Library CRT X86 Redist Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Active Directory Authentication Library for SQL Server": {
+        "name": "packages.Etc.Active Directory Authentication Library for SQL Server",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)": {
-        "name": "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)",
-        "value": "'4.5.51209'",
+    "packages.Etc.Browser for SQL Server 2016": {
+        "name": "packages.Etc.Browser for SQL Server 2016",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Shared Management Objects Extensions": {
-        "name": "packages.SQL Server 2017 Shared Management Objects Extensions",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Git version 2.14.1": {
+        "name": "packages.Etc.Git version 2.14.1",
+        "value": "''2.14.1''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Universal CRT Headers Libraries and Sources": {
-        "name": "packages.Universal CRT Headers Libraries and Sources",
-        "value": "'10.0.26624'",
+    "packages.Etc.Google Chrome": {
+        "name": "packages.Etc.Google Chrome",
+        "value": "''68.0.3440.106''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server Management Studio": {
-        "name": "packages.SQL Server Management Studio",
-        "value": "'14.0.17230.0'",
+    "packages.Etc.Google Update Helper": {
+        "name": "packages.Etc.Google Update Helper",
+        "value": "''1.3.33.17''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 Shell (Isolated) Resources": {
-        "name": "packages.Microsoft Visual Studio 2015 Shell (Isolated) Resources",
-        "value": "'14.0.23107'",
+    "packages.Etc.Java SE Development Kit 8 Update 144 (64-bit)": {
+        "name": "packages.Etc.Java SE Development Kit 8 Update 144 (64-bit)",
+        "value": "''8.0.1440.1''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Software Development Kit for Windows Store Apps": {
-        "name": "packages.Windows Software Development Kit for Windows Store Apps",
-        "value": "'8.100.26936'",
+    "packages.Etc.Jenkins 2.46.3": {
+        "name": "packages.Etc.Jenkins 2.46.3",
+        "value": "''0.2.46.3000''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 XAML Designer - ENU": {
-        "name": "packages.Microsoft Visual Studio 2015 XAML Designer - ENU",
-        "value": "'14.0.23107'",
+    "packages.Etc.LibreOffice 5.3.6.1": {
+        "name": "packages.Etc.LibreOffice 5.3.6.1",
+        "value": "''5.3.6.1''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Runtime Intellisense Content - en-us": {
-        "name": "packages.Windows Runtime Intellisense Content - en-us",
-        "value": "'8.100.25984'",
+    "packages.Etc.Microsoft .NET Framework 4 Multi-Targeting Pack": {
+        "name": "packages.Etc.Microsoft .NET Framework 4 Multi-Targeting Pack",
+        "value": "''4.0.30319''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Database Engine Shared": {
-        "name": "packages.SQL Server 2016 Database Engine Shared",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Microsoft .NET Framework 4.5 Multi-Targeting Pack": {
+        "name": "packages.Etc.Microsoft .NET Framework 4.5 Multi-Targeting Pack",
+        "value": "''4.5.50710''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 ARM Cross Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 ARM Cross Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack": {
+        "name": "packages.Etc.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack",
+        "value": "''4.5.50932''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Connection Info": {
-        "name": "packages.SQL Server 2016 Connection Info",
-        "value": "'13.0.14500.10'",
+    "packages.Etc.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)": {
+        "name": "packages.Etc.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)",
+        "value": "''4.5.50932''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4.5 Multi-Targeting Pack": {
-        "name": "packages.Microsoft .NET Framework 4.5 Multi-Targeting Pack",
-        "value": "'4.5.50710'",
+    "packages.Etc.Microsoft .NET Framework 4.5.1 SDK": {
+        "name": "packages.Etc.Microsoft .NET Framework 4.5.1 SDK",
+        "value": "''4.5.51641''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 ARM Cross Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 ARM Cross Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack": {
+        "name": "packages.Etc.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack",
+        "value": "''4.5.51209''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Batch Parser": {
-        "name": "packages.SQL Server 2017 Batch Parser",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)": {
+        "name": "packages.Etc.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)",
+        "value": "''4.5.51209''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Shared Management Objects": {
-        "name": "packages.SQL Server 2016 Shared Management Objects",
-        "value": "'13.0.14500.10'",
+    "packages.Etc.Microsoft Analysis Services OLE DB Provider": {
+        "name": "packages.Etc.Microsoft Analysis Services OLE DB Provider",
+        "value": "''14.0.1000.397''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2016 RsFx Driver": {
-        "name": "packages.Microsoft SQL Server 2016 RsFx Driver",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Microsoft Build Tools 14.0 (amd64)": {
+        "name": "packages.Etc.Microsoft Build Tools 14.0 (amd64)",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows App Certification Kit Native Components": {
-        "name": "packages.Windows App Certification Kit Native Components",
-        "value": "'8.100.26629'",
+    "packages.Etc.Microsoft Build Tools 14.0 (x86)": {
+        "name": "packages.Etc.Microsoft Build Tools 14.0 (x86)",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 Base Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 Base Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft Build Tools Language Resources 14.0 (amd64)": {
+        "name": "packages.Etc.Microsoft Build Tools Language Resources 14.0 (amd64)",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Build Tools 14.0 (amd64)": {
-        "name": "packages.Microsoft Build Tools 14.0 (amd64)",
-        "value": "'14.0.25420'",
+    "packages.Etc.Microsoft Build Tools Language Resources 14.0 (x86)": {
+        "name": "packages.Etc.Microsoft Build Tools Language Resources 14.0 (x86)",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219": {
-        "name": "packages.Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
-        "value": "'10.0.40219'",
+    "packages.Etc.Microsoft Help Viewer 2.2": {
+        "name": "packages.Etc.Microsoft Help Viewer 2.2",
+        "value": "''2.2.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT X64 Store Package": {
-        "name": "packages.Visual C++ Library CRT X64 Store Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft ODBC Driver 13 for SQL Server": {
+        "name": "packages.Etc.Microsoft ODBC Driver 13 for SQL Server",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219": {
-        "name": "packages.Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219",
-        "value": "'10.0.40219'",
+    "packages.Etc.Microsoft SQL Server 2008 Setup Support Files ": {
+        "name": "packages.Etc.Microsoft SQL Server 2008 Setup Support Files ",
+        "value": "''10.3.5500.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 Base Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 Base Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft SQL Server 2012 Native Client ": {
+        "name": "packages.Etc.Microsoft SQL Server 2012 Native Client ",
+        "value": "''11.3.6540.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005": {
-        "name": "packages.Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005",
-        "value": "'12.0.21005'",
+    "packages.Etc.Microsoft SQL Server 2014 Management Objects ": {
+        "name": "packages.Etc.Microsoft SQL Server 2014 Management Objects ",
+        "value": "''12.0.2000.8''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005": {
-        "name": "packages.Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005",
-        "value": "'12.0.21005'",
+    "packages.Etc.Microsoft SQL Server 2016 RsFx Driver": {
+        "name": "packages.Etc.Microsoft SQL Server 2016 RsFx Driver",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server Management Studio for Reporting Services": {
-        "name": "packages.SQL Server Management Studio for Reporting Services",
-        "value": "'14.0.17230.0'",
+    "packages.Etc.Microsoft SQL Server 2016 Setup (English)": {
+        "name": "packages.Etc.Microsoft SQL Server 2016 Setup (English)",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)": {
-        "name": "packages.Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)",
-        "value": "'4.5.50932'",
+    "packages.Etc.Microsoft SQL Server 2016 T-SQL Language Service ": {
+        "name": "packages.Etc.Microsoft SQL Server 2016 T-SQL Language Service ",
+        "value": "''13.0.14500.10''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Build Tools Language Resources 14.0 (x86)": {
-        "name": "packages.Microsoft Build Tools Language Resources 14.0 (x86)",
-        "value": "'14.0.25420'",
+    "packages.Etc.Microsoft SQL Server 2016 T-SQL ScriptDom ": {
+        "name": "packages.Etc.Microsoft SQL Server 2016 T-SQL ScriptDom ",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.LibreOffice 5.3.6.1": {
-        "name": "packages.LibreOffice 5.3.6.1",
-        "value": "'5.3.6.1'",
+    "packages.Etc.Microsoft SQL Server 2017 Policies ": {
+        "name": "packages.Etc.Microsoft SQL Server 2017 Policies ",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT ARM Store Package": {
-        "name": "packages.Visual C++ Library CRT ARM Store Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft SQL Server 2017 T-SQL Language Service ": {
+        "name": "packages.Etc.Microsoft SQL Server 2017 T-SQL Language Service ",
+        "value": "''14.0.17230.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Client Tools Extensions": {
-        "name": "packages.SQL Server 2017 Client Tools Extensions",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft SQL Server Data-Tier Application Framework (x86)": {
+        "name": "packages.Etc.Microsoft SQL Server Data-Tier Application Framework (x86)",
+        "value": "''14.0.3953.4''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005": {
-        "name": "packages.Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005",
-        "value": "'12.0.21005'",
+    "packages.Etc.Microsoft System CLR Types for SQL Server 2014": {
+        "name": "packages.Etc.Microsoft System CLR Types for SQL Server 2014",
+        "value": "''12.0.2402.11''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server Management Studio for Analysis Services": {
-        "name": "packages.SQL Server Management Studio for Analysis Services",
-        "value": "'14.0.17230.0'",
+    "packages.Etc.Microsoft System CLR Types for SQL Server 2017": {
+        "name": "packages.Etc.Microsoft System CLR Types for SQL Server 2017",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual Studio 2015 Prerequisites - ENU Language Pack": {
-        "name": "packages.Visual Studio 2015 Prerequisites - ENU Language Pack",
-        "value": "'14.0.23107'",
+    "packages.Etc.Microsoft VSS Writer for SQL Server 2016": {
+        "name": "packages.Etc.Microsoft VSS Writer for SQL Server 2016",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Software Development Kit": {
-        "name": "packages.Windows Software Development Kit",
-        "value": "'8.100.26936'",
+    "packages.Etc.Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219": {
+        "name": "packages.Etc.Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
+        "value": "''10.0.40219''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.TortoiseGit 2.5.0.0 (64 bit)": {
-        "name": "packages.TortoiseGit 2.5.0.0 (64 bit)",
-        "value": "'2.5.0.0'",
+    "packages.Etc.Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219": {
+        "name": "packages.Etc.Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219",
+        "value": "''10.0.40219''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 Native Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 Native Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005": {
+        "name": "packages.Etc.Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005",
+        "value": "''12.0.21005''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ MSBuild X64 Package": {
-        "name": "packages.Visual C++ MSBuild X64 Package",
-        "value": "'14.0.25420'",
+    "packages.Etc.Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005": {
+        "name": "packages.Etc.Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005",
+        "value": "''12.0.21005''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 DMF": {
-        "name": "packages.SQL Server 2017 DMF",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005": {
+        "name": "packages.Etc.Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005",
+        "value": "''12.0.21005''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.VMware PowerCLI": {
-        "name": "packages.VMware PowerCLI",
-        "value": "'6.5.0.234'",
+    "packages.Etc.Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005": {
+        "name": "packages.Etc.Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005",
+        "value": "''12.0.21005''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Services Hub": {
-        "name": "packages.Microsoft Visual Studio Services Hub",
-        "value": "'1.0.23107.00'",
+    "packages.Etc.Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005": {
+        "name": "packages.Etc.Microsoft Visual C++ 2013 x86 Debug Runtime - 12.0.21005",
+        "value": "''12.0.21005''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210": {
-        "name": "packages.Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005": {
+        "name": "packages.Etc.Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005",
+        "value": "''12.0.21005''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Database Engine Services": {
-        "name": "packages.SQL Server 2016 Database Engine Services",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210": {
+        "name": "packages.Etc.Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Software Development Kit for Windows Store Apps DirectX x86 Remote": {
-        "name": "packages.Windows Software Development Kit for Windows Store Apps DirectX x86 Remote",
-        "value": "'8.100.26936'",
+    "packages.Etc.Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210": {
+        "name": "packages.Etc.Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2008 Setup Support Files ": {
-        "name": "packages.Microsoft SQL Server 2008 Setup Support Files ",
-        "value": "'10.3.5500.0'",
+    "packages.Etc.Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210": {
+        "name": "packages.Etc.Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.24210",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Analysis Services OLE DB Provider": {
-        "name": "packages.Microsoft Analysis Services OLE DB Provider",
-        "value": "'14.0.1000.397'",
+    "packages.Etc.Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210": {
+        "name": "packages.Etc.Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Shared Management Objects": {
-        "name": "packages.SQL Server 2017 Shared Management Objects",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210": {
+        "name": "packages.Etc.Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer": {
-        "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer",
-        "value": "'14.0.23107.20'",
+    "packages.Etc.Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210": {
+        "name": "packages.Etc.Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ MSBuild Base Package": {
-        "name": "packages.Visual C++ MSBuild Base Package",
-        "value": "'14.0.25420'",
+    "packages.Etc.Microsoft Visual Studio 2015 Shell (Isolated)": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 Shell (Isolated)",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Jenkins 2.46.3": {
-        "name": "packages.Jenkins 2.46.3",
-        "value": "'0.2.46.3000'",
+    "packages.Etc.Microsoft Visual Studio 2015 Shell (Isolated) Resources": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 Shell (Isolated) Resources",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft VSS Writer for SQL Server 2016": {
-        "name": "packages.Microsoft VSS Writer for SQL Server 2016",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Microsoft Visual Studio 2015 Shell (Minimum)": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 Shell (Minimum)",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack": {
-        "name": "packages.Microsoft .NET Framework 4.5.2 Multi-Targeting Pack",
-        "value": "'4.5.51209'",
+    "packages.Etc.Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft System CLR Types for SQL Server 2017": {
-        "name": "packages.Microsoft System CLR Types for SQL Server 2017",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft Visual Studio 2015 Shell (Minimum) Resources": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 Shell (Minimum) Resources",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT ARM Redist Package": {
-        "name": "packages.Visual C++ Library CRT ARM Redist Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft Visual Studio 2015 XAML Designer": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 XAML Designer",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies": {
-        "name": "packages.Microsoft Visual Studio 2015 Shell (Minimum) Interop Assemblies",
-        "value": "'14.0.23107'",
+    "packages.Etc.Microsoft Visual Studio 2015 XAML Designer - ENU": {
+        "name": "packages.Etc.Microsoft Visual Studio 2015 XAML Designer - ENU",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Java SE Development Kit 8 Update 144 (64-bit)": {
-        "name": "packages.Java SE Development Kit 8 Update 144 (64-bit)",
-        "value": "'8.0.1440.1'",
+    "packages.Etc.Microsoft Visual Studio Services Hub": {
+        "name": "packages.Etc.Microsoft Visual Studio Services Hub",
+        "value": "''1.0.23107.00''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft ODBC Driver 13 for SQL Server": {
-        "name": "packages.Microsoft ODBC Driver 13 for SQL Server",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Finalizer": {
+        "name": "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Finalizer",
+        "value": "''14.0.23829''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Management Studio Extensions": {
-        "name": "packages.SQL Server 2017 Management Studio Extensions",
-        "value": "'14.0.3006.16'",
+    "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Language Support": {
+        "name": "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Language Support",
+        "value": "''14.0.23107.20''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 Base Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 Base Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack": {
+        "name": "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack",
+        "value": "''14.0.23107.20''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Active Directory Authentication Library for SQL Server": {
-        "name": "packages.Active Directory Authentication Library for SQL Server",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer": {
+        "name": "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 Language Support Finalizer",
+        "value": "''14.0.23107.20''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft System CLR Types for SQL Server 2014": {
-        "name": "packages.Microsoft System CLR Types for SQL Server 2014",
-        "value": "'12.0.2402.11'",
+    "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support": {
+        "name": "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support",
+        "value": "''14.0.23829''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Browser for SQL Server 2016": {
-        "name": "packages.Browser for SQL Server 2016",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support": {
+        "name": "packages.Etc.Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support",
+        "value": "''14.0.23829''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 Shell (Minimum)": {
-        "name": "packages.Microsoft Visual Studio 2015 Shell (Minimum)",
-        "value": "'14.0.23107'",
+    "packages.Etc.Notepad++ (64-bit x64)": {
+        "name": "packages.Etc.Notepad++ (64-bit x64)",
+        "value": "''7.5.1''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ MSBuild X86 Package": {
-        "name": "packages.Visual C++ MSBuild X86 Package",
-        "value": "'14.0.25420'",
+    "packages.Etc.Roslyn Language Services - x86": {
+        "name": "packages.Etc.Roslyn Language Services - x86",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 ARM Cross Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 ARM Cross Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.SQL Server 2016 Batch Parser": {
+        "name": "packages.Etc.SQL Server 2016 Batch Parser",
+        "value": "''13.0.1601.5''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server Data-Tier Application Framework (x86)": {
-        "name": "packages.Microsoft SQL Server Data-Tier Application Framework (x86)",
-        "value": "'14.0.3953.4'",
+    "packages.Etc.SQL Server 2016 Common Files": {
+        "name": "packages.Etc.SQL Server 2016 Common Files",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Connection Info": {
-        "name": "packages.SQL Server 2017 Connection Info",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.SQL Server 2016 Connection Info": {
+        "name": "packages.Etc.SQL Server 2016 Connection Info",
+        "value": "''13.0.14500.10''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 SQL Diagnostics": {
-        "name": "packages.SQL Server 2017 SQL Diagnostics",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.SQL Server 2016 DMF": {
+        "name": "packages.Etc.SQL Server 2016 DMF",
+        "value": "''13.0.1601.5''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005": {
-        "name": "packages.Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005",
-        "value": "'12.0.21005'",
+    "packages.Etc.SQL Server 2016 Database Engine Services": {
+        "name": "packages.Etc.SQL Server 2016 Database Engine Services",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 Shell (Minimum) Resources": {
-        "name": "packages.Microsoft Visual Studio 2015 Shell (Minimum) Resources",
-        "value": "'14.0.23107'",
+    "packages.Etc.SQL Server 2016 Database Engine Shared": {
+        "name": "packages.Etc.SQL Server 2016 Database Engine Shared",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages. Tools for .Net 3.5": {
-        "name": "packages. Tools for .Net 3.5",
-        "value": "'3.11.50727'",
+    "packages.Etc.SQL Server 2016 SQL Diagnostics": {
+        "name": "packages.Etc.SQL Server 2016 SQL Diagnostics",
+        "value": "''13.0.1601.5''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Software Development Kit DirectX x86 Remote": {
-        "name": "packages.Windows Software Development Kit DirectX x86 Remote",
-        "value": "'8.100.25984'",
+    "packages.Etc.SQL Server 2016 Shared Management Objects": {
+        "name": "packages.Etc.SQL Server 2016 Shared Management Objects",
+        "value": "''13.0.14500.10''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210": {
-        "name": "packages.Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.24210",
-        "value": "'14.0.24210'",
+    "packages.Etc.SQL Server 2016 Shared Management Objects Extensions": {
+        "name": "packages.Etc.SQL Server 2016 Shared Management Objects Extensions",
+        "value": "''13.0.1601.5''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005": {
-        "name": "packages.Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005",
-        "value": "'12.0.21005'",
+    "packages.Etc.SQL Server 2016 XEvent": {
+        "name": "packages.Etc.SQL Server 2016 XEvent",
+        "value": "''13.0.1601.5''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Universal CRT Extension SDK": {
-        "name": "packages.Universal CRT Extension SDK",
-        "value": "'10.0.26624'",
+    "packages.Etc.SQL Server 2017 Batch Parser": {
+        "name": "packages.Etc.SQL Server 2017 Batch Parser",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support": {
-        "name": "packages.Microsoft Visual Studio Tools for Applications 2015 x64 Hosting Support",
-        "value": "'14.0.23829'",
+    "packages.Etc.SQL Server 2017 Client Tools Extensions": {
+        "name": "packages.Etc.SQL Server 2017 Client Tools Extensions",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 DMF": {
-        "name": "packages.SQL Server 2016 DMF",
-        "value": "'13.0.1601.5'",
+    "packages.Etc.SQL Server 2017 Common Files": {
+        "name": "packages.Etc.SQL Server 2017 Common Files",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT X86 Store Package": {
-        "name": "packages.Visual C++ Library CRT X86 Store Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.SQL Server 2017 Connection Info": {
+        "name": "packages.Etc.SQL Server 2017 Connection Info",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Roslyn Language Services - x86": {
-        "name": "packages.Roslyn Language Services - x86",
-        "value": "'14.0.23107'",
+    "packages.Etc.SQL Server 2017 DMF": {
+        "name": "packages.Etc.SQL Server 2017 DMF",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005": {
-        "name": "packages.Microsoft Visual C++ 2013 x64 Debug Runtime - 12.0.21005",
-        "value": "'12.0.21005'",
+    "packages.Etc.SQL Server 2017 Integration Services Scale Out Management Portal": {
+        "name": "packages.Etc.SQL Server 2017 Integration Services Scale Out Management Portal",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT X64 Redist Package": {
-        "name": "packages.Visual C++ Library CRT X64 Redist Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.SQL Server 2017 Management Studio Extensions": {
+        "name": "packages.Etc.SQL Server 2017 Management Studio Extensions",
+        "value": "''14.0.3006.16''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SSMS Post Install Tasks": {
-        "name": "packages.SSMS Post Install Tasks",
-        "value": "'14.0.17230.0'",
+    "packages.Etc.SQL Server 2017 SQL Diagnostics": {
+        "name": "packages.Etc.SQL Server 2017 SQL Diagnostics",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Core Build Toolset": {
-        "name": "packages.Visual C++ Core Build Toolset",
-        "value": "'14.0.25420'",
+    "packages.Etc.SQL Server 2017 Shared Management Objects": {
+        "name": "packages.Etc.SQL Server 2017 Shared Management Objects",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 Base Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 Base Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.SQL Server 2017 Shared Management Objects Extensions": {
+        "name": "packages.Etc.SQL Server 2017 Shared Management Objects Extensions",
+        "value": "''14.0.1000.169''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ MSBuild Base Resource Package": {
-        "name": "packages.Visual C++ MSBuild Base Resource Package",
-        "value": "'14.0.25420'",
+    "packages.Etc.SQL Server Management Studio": {
+        "name": "packages.Etc.SQL Server Management Studio",
+        "value": "''14.0.17230.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210": {
-        "name": "packages.Microsoft Visual C++ 2015 x86 Minimum Runtime - 14.0.24210",
-        "value": "'14.0.24210'",
+    "packages.Etc.SQL Server Management Studio for Analysis Services": {
+        "name": "packages.Etc.SQL Server Management Studio for Analysis Services",
+        "value": "''14.0.17230.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4 Multi-Targeting Pack": {
-        "name": "packages.Microsoft .NET Framework 4 Multi-Targeting Pack",
-        "value": "'4.0.30319'",
+    "packages.Etc.SQL Server Management Studio for Reporting Services": {
+        "name": "packages.Etc.SQL Server Management Studio for Reporting Services",
+        "value": "''14.0.17230.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Common Files": {
-        "name": "packages.SQL Server 2016 Common Files",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.SSMS Post Install Tasks": {
+        "name": "packages.Etc.SSMS Post Install Tasks",
+        "value": "''14.0.17230.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2016 T-SQL ScriptDom ": {
-        "name": "packages.Microsoft SQL Server 2016 T-SQL ScriptDom ",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)": {
+        "name": "packages.Etc.Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 ARM Cross Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 ARM Cross Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Sql Server Customer Experience Improvement Program": {
+        "name": "packages.Etc.Sql Server Customer Experience Improvement Program",
+        "value": "''13.1.4001.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 Native Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 Native Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.TortoiseGit 2.5.0.0 (64 bit)": {
+        "name": "packages.Etc.TortoiseGit 2.5.0.0 (64 bit)",
+        "value": "''2.5.0.0''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 Native Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 Native Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Universal CRT Extension SDK": {
+        "name": "packages.Etc.Universal CRT Extension SDK",
+        "value": "''10.0.26624''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ MSBuild ARM Package": {
-        "name": "packages.Visual C++ MSBuild ARM Package",
-        "value": "'14.0.25420'",
+    "packages.Etc.Universal CRT Headers Libraries and Sources": {
+        "name": "packages.Etc.Universal CRT Headers Libraries and Sources",
+        "value": "''10.0.26624''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2017 Policies ": {
-        "name": "packages.Microsoft SQL Server 2017 Policies ",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.VMware PowerCLI": {
+        "name": "packages.Etc.VMware PowerCLI",
+        "value": "''6.5.0.234''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Google Update Helper": {
-        "name": "packages.Google Update Helper",
-        "value": "'1.3.33.17'",
+    "packages.Etc.VMware vSphere Client 6.0": {
+        "name": "packages.Etc.VMware vSphere Client 6.0",
+        "value": "''6.0.0.6826''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 XAML Designer": {
-        "name": "packages.Microsoft Visual Studio 2015 XAML Designer",
-        "value": "'14.0.23107'",
+    "packages.Etc.Visual C++ CRT Headers Package": {
+        "name": "packages.Etc.Visual C++ CRT Headers Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 X64 Cross Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 X64 Cross Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 ARM Cross Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 ARM Cross Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Software Development Kit for Windows Store Apps DirectX x64 Remote": {
-        "name": "packages.Windows Software Development Kit for Windows Store Apps DirectX x64 Remote",
-        "value": "'8.100.26936'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 ARM Cross Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 ARM Cross Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT X86 Desktop Package": {
-        "name": "packages.Visual C++ Library CRT X86 Desktop Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 Base Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 Base Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210": {
-        "name": "packages.Microsoft Visual C++ 2015 x86 Debug Runtime - 14.0.24210",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 Base Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 Base Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Help Viewer 2.2": {
-        "name": "packages.Microsoft Help Viewer 2.2",
-        "value": "'2.2.23107'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 Native Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 Native Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Sql Server Customer Experience Improvement Program": {
-        "name": "packages.Sql Server Customer Experience Improvement Program",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 Native Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 Native Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2017 Common Files": {
-        "name": "packages.SQL Server 2017 Common Files",
-        "value": "'14.0.1000.169'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 X86 Cross Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 X86 Cross Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack": {
-        "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support - ENU Language Pack",
-        "value": "'14.0.23107.20'",
+    "packages.Etc.Visual C++ Compiler/Tools X64 X86 Cross Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X64 X86 Cross Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2017 T-SQL Language Service ": {
-        "name": "packages.Microsoft SQL Server 2017 T-SQL Language Service ",
-        "value": "'14.0.17230.0'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 ARM Cross Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 ARM Cross Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 X86 Cross Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 X86 Cross Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 ARM Cross Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 ARM Cross Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT ARM Desktop Package": {
-        "name": "packages.Visual C++ Library CRT ARM Desktop Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 Base Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 Base Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210": {
-        "name": "packages.Microsoft Visual C++ 2015 x86 Additional Runtime - 14.0.24210",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 Base Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 Base Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 Native Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 Native Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 Native Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 Native Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Shared Management Objects Extensions": {
-        "name": "packages.SQL Server 2016 Shared Management Objects Extensions",
-        "value": "'13.0.1601.5'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 Native Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 Native Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 Batch Parser": {
-        "name": "packages.SQL Server 2016 Batch Parser",
-        "value": "'13.0.1601.5'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 X64 Cross Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 X64 Cross Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual Studio 2015 Prerequisites": {
-        "name": "packages.Visual Studio 2015 Prerequisites",
-        "value": "'14.0.23107'",
+    "packages.Etc.Visual C++ Compiler/Tools X86 X64 Cross Resource Package": {
+        "name": "packages.Etc.Visual C++ Compiler/Tools X86 X64 Cross Resource Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210": {
-        "name": "packages.Microsoft Visual C++ 2015 x64 Debug Runtime - 14.0.24210",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Core Build Toolset": {
+        "name": "packages.Etc.Visual C++ Core Build Toolset",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ CRT Headers Package": {
-        "name": "packages.Visual C++ CRT Headers Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ Library CRT ARM Desktop Package": {
+        "name": "packages.Etc.Visual C++ Library CRT ARM Desktop Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Build Tools Language Resources 14.0 (amd64)": {
-        "name": "packages.Microsoft Build Tools Language Resources 14.0 (amd64)",
-        "value": "'14.0.25420'",
+    "packages.Etc.Visual C++ Library CRT ARM Redist Package": {
+        "name": "packages.Etc.Visual C++ Library CRT ARM Redist Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.VMware vSphere Client 6.0": {
-        "name": "packages.VMware vSphere Client 6.0",
-        "value": "'6.0.0.6826'",
+    "packages.Etc.Visual C++ Library CRT ARM Store Package": {
+        "name": "packages.Etc.Visual C++ Library CRT ARM Store Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2016 Setup (English)": {
-        "name": "packages.Microsoft SQL Server 2016 Setup (English)",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Visual C++ Library CRT Source Package": {
+        "name": "packages.Etc.Visual C++ Library CRT Source Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft .NET Framework 4.5.1 SDK": {
-        "name": "packages.Microsoft .NET Framework 4.5.1 SDK",
-        "value": "'4.5.51641'",
+    "packages.Etc.Visual C++ Library CRT X64 Desktop Package": {
+        "name": "packages.Etc.Visual C++ Library CRT X64 Desktop Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Build Tools 14.0 (x86)": {
-        "name": "packages.Microsoft Build Tools 14.0 (x86)",
-        "value": "'14.0.25420'",
+    "packages.Etc.Visual C++ Library CRT X64 Redist Package": {
+        "name": "packages.Etc.Visual C++ Library CRT X64 Redist Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Tools for Applications 2015 Finalizer": {
-        "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Finalizer",
-        "value": "'14.0.23829'",
+    "packages.Etc.Visual C++ Library CRT X64 Store Package": {
+        "name": "packages.Etc.Visual C++ Library CRT X64 Store Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2016 T-SQL Language Service ": {
-        "name": "packages.Microsoft SQL Server 2016 T-SQL Language Service ",
-        "value": "'13.0.14500.10'",
+    "packages.Etc.Visual C++ Library CRT X86 Desktop Package": {
+        "name": "packages.Etc.Visual C++ Library CRT X86 Desktop Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Google Chrome": {
-        "name": "packages.Google Chrome",
-        "value": "'68.0.3440.106'",
+    "packages.Etc.Visual C++ Library CRT X86 Redist Package": {
+        "name": "packages.Etc.Visual C++ Library CRT X86 Redist Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio 2015 Shell (Isolated)": {
-        "name": "packages.Microsoft Visual Studio 2015 Shell (Isolated)",
-        "value": "'14.0.23107'",
+    "packages.Etc.Visual C++ Library CRT X86 Store Package": {
+        "name": "packages.Etc.Visual C++ Library CRT X86 Store Package",
+        "value": "''14.0.24210''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support": {
-        "name": "packages.Microsoft Visual Studio Tools for Applications 2015 x86 Hosting Support",
-        "value": "'14.0.23829'",
+    "packages.Etc.Visual C++ MSBuild ARM Package": {
+        "name": "packages.Etc.Visual C++ MSBuild ARM Package",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 SQL Diagnostics": {
-        "name": "packages.SQL Server 2016 SQL Diagnostics",
-        "value": "'13.0.1601.5'",
+    "packages.Etc.Visual C++ MSBuild Base Package": {
+        "name": "packages.Etc.Visual C++ MSBuild Base Package",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows Software Development Kit DirectX x64 Remote": {
-        "name": "packages.Windows Software Development Kit DirectX x64 Remote",
-        "value": "'8.100.25984'",
+    "packages.Etc.Visual C++ MSBuild Base Resource Package": {
+        "name": "packages.Etc.Visual C++ MSBuild Base Resource Package",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT X64 Desktop Package": {
-        "name": "packages.Visual C++ Library CRT X64 Desktop Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual C++ MSBuild X64 Package": {
+        "name": "packages.Etc.Visual C++ MSBuild X64 Package",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.SQL Server 2016 XEvent": {
-        "name": "packages.SQL Server 2016 XEvent",
-        "value": "'13.0.1601.5'",
+    "packages.Etc.Visual C++ MSBuild X86 Package": {
+        "name": "packages.Etc.Visual C++ MSBuild X86 Package",
+        "value": "''14.0.25420''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X64 X86 Cross Package": {
-        "name": "packages.Visual C++ Compiler/Tools X64 X86 Cross Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Visual Studio 2015 Prerequisites": {
+        "name": "packages.Etc.Visual Studio 2015 Prerequisites",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support": {
-        "name": "packages.Microsoft Visual Studio Tools for Applications 2015 Language Support",
-        "value": "'14.0.23107.20'",
+    "packages.Etc.Visual Studio 2015 Prerequisites - ENU Language Pack": {
+        "name": "packages.Etc.Visual Studio 2015 Prerequisites - ENU Language Pack",
+        "value": "''14.0.23107''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Windows App Certification Kit x64": {
-        "name": "packages.Windows App Certification Kit x64",
-        "value": "'8.100.26795'",
+    "packages.Etc.Windows App Certification Kit Native Components": {
+        "name": "packages.Etc.Windows App Certification Kit Native Components",
+        "value": "''8.100.26629''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2014 Management Objects ": {
-        "name": "packages.Microsoft SQL Server 2014 Management Objects ",
-        "value": "'12.0.2000.8'",
+    "packages.Etc.Windows App Certification Kit x64": {
+        "name": "packages.Etc.Windows App Certification Kit x64",
+        "value": "''8.100.26795''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Compiler/Tools X86 X64 Cross Resource Package": {
-        "name": "packages.Visual C++ Compiler/Tools X86 X64 Cross Resource Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Windows Runtime Intellisense Content - en-us": {
+        "name": "packages.Etc.Windows Runtime Intellisense Content - en-us",
+        "value": "''8.100.25984''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Visual C++ Library CRT Source Package": {
-        "name": "packages.Visual C++ Library CRT Source Package",
-        "value": "'14.0.24210'",
+    "packages.Etc.Windows Software Development Kit": {
+        "name": "packages.Etc.Windows Software Development Kit",
+        "value": "''8.100.26936''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Microsoft SQL Server 2012 Native Client ": {
-        "name": "packages.Microsoft SQL Server 2012 Native Client ",
-        "value": "'11.3.6540.0'",
+    "packages.Etc.Windows Software Development Kit DirectX x64 Remote": {
+        "name": "packages.Etc.Windows Software Development Kit DirectX x64 Remote",
+        "value": "''8.100.25984''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.7-Zip 16.04 (x64)": {
-        "name": "packages.7-Zip 16.04 (x64)",
-        "value": "'16.04'",
+    "packages.Etc.Windows Software Development Kit DirectX x86 Remote": {
+        "name": "packages.Etc.Windows Software Development Kit DirectX x86 Remote",
+        "value": "''8.100.25984''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Git version 2.14.1": {
-        "name": "packages.Git version 2.14.1",
-        "value": "'2.14.1'",
+    "packages.Etc.Windows Software Development Kit for Windows Store Apps": {
+        "name": "packages.Etc.Windows Software Development Kit for Windows Store Apps",
+        "value": "''8.100.26936''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)": {
-        "name": "packages.Service Pack 1 for SQL Server 2016 (KB3182545) (64-bit)",
-        "value": "'13.1.4001.0'",
+    "packages.Etc.Windows Software Development Kit for Windows Store Apps DirectX x64 Remote": {
+        "name": "packages.Etc.Windows Software Development Kit for Windows Store Apps DirectX x64 Remote",
+        "value": "''8.100.26936''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
         "verify": null,
         "comparision": null
     },
-    "packages.Notepad++ (64-bit x64)": {
-        "name": "packages.Notepad++ (64-bit x64)",
-        "value": "'7.5.1'",
+    "packages.Etc.Windows Software Development Kit for Windows Store Apps DirectX x86 Remote": {
+        "name": "packages.Etc.Windows Software Development Kit for Windows Store Apps DirectX x86 Remote",
+        "value": "''8.100.26936''",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",

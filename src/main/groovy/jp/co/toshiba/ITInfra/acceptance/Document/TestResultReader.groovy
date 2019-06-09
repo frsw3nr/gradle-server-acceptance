@@ -1,10 +1,9 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
-import groovy.util.logging.Slf4j
+import groovy.json.JsonSlurper
 import groovy.transform.ToString
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import jp.co.toshiba.ITInfra.acceptance.*
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 @Slf4j

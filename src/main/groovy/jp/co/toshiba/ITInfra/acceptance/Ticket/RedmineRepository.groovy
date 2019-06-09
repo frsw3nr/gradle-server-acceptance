@@ -1,10 +1,3 @@
-import com.taskadapter.redmineapi.*
-import com.taskadapter.redmineapi.bean.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Ticket.*
-
 /*
 Redmine リポジトリ管理
 

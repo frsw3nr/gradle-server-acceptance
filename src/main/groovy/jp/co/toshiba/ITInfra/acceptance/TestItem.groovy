@@ -1,10 +1,10 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.util.logging.Slf4j
 import groovy.transform.ToString
-import org.apache.commons.lang.math.NumberUtils
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.TestItem.*
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.PortList
+import jp.co.toshiba.ITInfra.acceptance.Model.PortType
+import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
 
 @Slf4j
 @ToString(includePackage = false)

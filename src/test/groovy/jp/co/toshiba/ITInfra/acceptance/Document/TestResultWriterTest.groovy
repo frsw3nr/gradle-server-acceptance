@@ -1,13 +1,17 @@
-import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import groovy.sql.Sql
-import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import groovy.json.JsonSlurper
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Document.TestResultReader
+import jp.co.toshiba.ITInfra.acceptance.Document.TestResultWriter
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.TestRunner
+import jp.co.toshiba.ITInfra.acceptance.TestScheduler
+import spock.lang.Specification
 
 // gradle --daemon test --tests "TestResultWriterTest.DryRun 実行結果JSON保存"
 

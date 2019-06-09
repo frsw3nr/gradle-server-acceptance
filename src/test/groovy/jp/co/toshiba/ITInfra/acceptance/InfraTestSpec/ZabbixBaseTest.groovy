@@ -1,11 +1,4 @@
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import org.json.JSONObject;
-import org.json.JSONException;
-import com.goebl.david.Webb;
-import org.apache.commons.net.util.SubnetUtils
-import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 
 // gradle --daemon test --tests "ZabbixBaseTest.Zabbix 認証"
 

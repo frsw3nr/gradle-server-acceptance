@@ -1,10 +1,4 @@
 import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import groovy.sql.Sql
-import java.sql.SQLException
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 
 // @GrabConfig( systemClassLoader=true )
 

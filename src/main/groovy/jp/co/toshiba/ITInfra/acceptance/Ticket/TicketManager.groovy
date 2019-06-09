@@ -1,15 +1,12 @@
 package jp.co.toshiba.ITInfra.acceptance.Ticket
 
-import groovy.util.logging.Slf4j
-import groovy.transform.ToString
-import static groovy.json.JsonOutput.*
-import groovy.json.*
 import com.taskadapter.redmineapi.*
-import com.taskadapter.redmineapi.bean.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Ticket.*
+import com.taskadapter.redmineapi.bean.Issue
+import com.taskadapter.redmineapi.bean.IssueFactory
+import com.taskadapter.redmineapi.bean.Project
+import groovy.transform.ToString
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 
 // setenv REDMINE_URL=http://localhost/redmine
 // setenv REDMINE_API_KEY={APIキー}

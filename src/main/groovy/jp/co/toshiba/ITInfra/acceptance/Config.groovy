@@ -1,15 +1,10 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.transform.CompileStatic
+
 import groovy.util.logging.Slf4j
-import org.apache.commons.io.FileUtils
-import groovy.transform.ToString
+
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
-import java.nio.charset.Charset
-import java.io.Console
-import static groovy.json.JsonOutput.*
-import groovy.json.*
 
 @Slf4j
 @Singleton

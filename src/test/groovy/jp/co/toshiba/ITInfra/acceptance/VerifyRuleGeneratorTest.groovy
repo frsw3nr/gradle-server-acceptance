@@ -1,7 +1,8 @@
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.PlatformTester
+import jp.co.toshiba.ITInfra.acceptance.VerifyRuleGenerator
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // gradle --daemon test --tests "VerifyRuleGeneratorTest.検証ルールコードの初期化"
 

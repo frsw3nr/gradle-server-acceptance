@@ -1,10 +1,9 @@
+import jp.co.toshiba.ITInfra.acceptance.CMDBModel
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
 import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import groovy.sql.Sql
-import java.sql.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+
+import java.sql.SQLException
 
 // gradle --daemon test --tests "CMDBModelTest.設定読み込み"
 

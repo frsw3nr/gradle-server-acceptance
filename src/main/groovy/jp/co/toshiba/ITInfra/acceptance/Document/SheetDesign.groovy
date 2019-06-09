@@ -2,12 +2,8 @@ package jp.co.toshiba.ITInfra.acceptance.Document
 
 import groovy.transform.AutoClone
 import groovy.util.logging.Slf4j
-import org.apache.poi.ss.usermodel.*
-import org.apache.poi.xssf.usermodel.*
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.ss.usermodel.IndexedColors
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Model.SpecModel
+import org.apache.poi.ss.usermodel.Sheet
 
 @AutoClone
 @Slf4j

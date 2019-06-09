@@ -1,7 +1,10 @@
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.TestRunner
+import jp.co.toshiba.ITInfra.acceptance.TestScheduler
+import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+
 // import groovyx.gprof.*
 
 // gradle --daemon test --tests "TestRunnerTest.スケジュール実行"

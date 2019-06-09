@@ -1,7 +1,6 @@
-import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
+import spock.lang.Specification
 import sun.net.util.IPAddressUtil
 
 // gradle --daemon test --tests "SubnetUtilTest.解析1"

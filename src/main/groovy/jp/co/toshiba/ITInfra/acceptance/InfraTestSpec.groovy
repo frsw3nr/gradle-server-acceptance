@@ -1,12 +1,9 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.util.logging.Slf4j
-import org.apache.commons.lang.math.NumberUtils
-import org.apache.commons.io.FileUtils
 import groovy.transform.ToString
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import org.apache.commons.io.FileUtils
 
 public enum RunMode {
     prepare,

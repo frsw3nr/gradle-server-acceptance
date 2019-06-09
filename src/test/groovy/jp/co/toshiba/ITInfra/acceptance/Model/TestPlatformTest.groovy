@@ -1,11 +1,9 @@
-import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import groovy.sql.Sql
-import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import spock.lang.Specification
 
 // gradle --daemon test --tests "TestPlatformTest.チェックシート読み込み"
 

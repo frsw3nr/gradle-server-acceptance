@@ -1,12 +1,9 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.util.logging.Slf4j
-import org.apache.commons.io.FileUtils
-import groovy.transform.ToString
-import groovy.util.ConfigObject
-import groovy.json.*
 import groovy.sql.Sql
-import java.sql.*
+import groovy.util.logging.Slf4j
+
+import java.sql.SQLException
 
 @Slf4j
 @Singleton

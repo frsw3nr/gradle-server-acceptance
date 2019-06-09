@@ -1,41 +1,15 @@
-import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import groovy.sql.Sql
-import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.*
+import org.apache.poi.ss.usermodel.*
+import spock.lang.Specification
 
 // import org.apache.poi.ss.usermodel.*
 // import org.apache.poi.ss.usermodel.IndexedColors
 // import org.apache.poi.xssf.usermodel.*
 // import org.apache.poi.hssf.usermodel.HSSFWorkbook
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.PrintSetup;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.CellUtil;
-import org.apache.poi.ss.util.RegionUtil;
-
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-
 
 // gradle --daemon test --tests "ExcelParserTest.サマリシート更新"
 

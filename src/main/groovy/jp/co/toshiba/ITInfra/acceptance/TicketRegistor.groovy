@@ -1,13 +1,13 @@
-package jp.co.toshiba.ITInfra.acceptance;
+package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.util.logging.Slf4j
+import com.taskadapter.redmineapi.bean.Issue
 import groovy.transform.ToString
-import com.taskadapter.redmineapi.*
-import com.taskadapter.redmineapi.bean.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Ticket.*
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Document.ReportMaker
+import jp.co.toshiba.ITInfra.acceptance.Document.TestResultReader
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Ticket.TicketManager
 
 @Slf4j
 @ToString(includePackage = false)

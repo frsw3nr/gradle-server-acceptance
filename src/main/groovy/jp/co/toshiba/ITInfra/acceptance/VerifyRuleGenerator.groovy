@@ -1,10 +1,7 @@
 package jp.co.toshiba.ITInfra.acceptance
 
 import groovy.util.logging.Slf4j
-import groovy.transform.ToString
-import groovy.text.GStringTemplateEngine
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Model.TestRuleSet
 
 @Slf4j
 @Singleton

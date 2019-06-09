@@ -1,10 +1,11 @@
 package jp.co.toshiba.ITInfra.acceptance.Model
 
-import groovy.json.*
-import groovy.util.logging.Slf4j
+
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 import groovy.transform.AutoClone
 import groovy.transform.ToString
-import jp.co.toshiba.ITInfra.acceptance.Document.*
+import groovy.util.logging.Slf4j
 
 enum RunStatus {
   INIT, READY, RUN, FINISH, ERROR, COMPARED

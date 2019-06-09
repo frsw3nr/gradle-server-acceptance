@@ -1,11 +1,5 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
-import groovy.util.logging.Slf4j
-import groovy.transform.ToString
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-
-// ELKIKMeansClustering
 import de.lmu.ifi.dbs.elki.algorithm.clustering.kmeans.KMeansLloyd
 import de.lmu.ifi.dbs.elki.algorithm.clustering.kmeans.initialization.RandomUniformGeneratedInitialMeans
 import de.lmu.ifi.dbs.elki.data.Cluster
@@ -23,9 +17,14 @@ import de.lmu.ifi.dbs.elki.datasource.DatabaseConnection
 import de.lmu.ifi.dbs.elki.distance.distancefunction.minkowski.SquaredEuclideanDistanceFunction
 import de.lmu.ifi.dbs.elki.logging.LoggingConfiguration
 import de.lmu.ifi.dbs.elki.utilities.random.RandomFactory
+import groovy.transform.ToString
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTargetSet
 
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+// ELKIKMeansClustering
 
 @Slf4j
 @ToString(includePackage = false)

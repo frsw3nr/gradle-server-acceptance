@@ -1,11 +1,11 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.util.logging.Slf4j
 import groovy.transform.ToString
-import org.apache.commons.lang.math.NumberUtils
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
+import jp.co.toshiba.ITInfra.acceptance.Model.TestResultLine
 import jp.co.toshiba.ITInfra.acceptance.TestItem
-import jp.co.toshiba.ITInfra.acceptance.TestItem.*
 
 @Slf4j
 @ToString(includePackage = false)

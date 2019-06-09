@@ -1,10 +1,9 @@
+import com.taskadapter.redmineapi.Include
+import com.taskadapter.redmineapi.RedmineManagerFactory
+import com.taskadapter.redmineapi.bean.CustomFieldFactory
+import com.taskadapter.redmineapi.bean.Issue
+import com.taskadapter.redmineapi.bean.IssueFactory
 import spock.lang.Specification
-import com.taskadapter.redmineapi.*
-import com.taskadapter.redmineapi.bean.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import jp.co.toshiba.ITInfra.acceptance.Ticket.*
 
 // setenv REDMINE_URL=http://localhost/redmine
 // setenv REDMINE_API_KEY={APIキー}

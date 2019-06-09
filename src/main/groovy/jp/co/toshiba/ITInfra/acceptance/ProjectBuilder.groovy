@@ -1,8 +1,8 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+import groovy.io.FileType
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
-import groovy.io.FileType
 
 @Slf4j
 class ProjectBuilder {

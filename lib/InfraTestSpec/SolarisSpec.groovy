@@ -115,10 +115,12 @@ class SolarisSpec extends InfraTestSpec {
     def hostname_fqdn(session, test_item) {
         def lines = exec('hostname_fqdn') {
             def command = '''\
+            |(
             |awk \'/^domain/ {print \$2}\' /etc/resolv.conf 2>/dev/null
             |if [ \$? != 0 ]; then
             |   echo 'Not Found'
             |fi
+            |)
             '''.stripMargin()
             session.run_command(command, 'hostname_fqdn')
         }

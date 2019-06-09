@@ -1,10 +1,10 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
 
-import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
+import jp.co.toshiba.ITInfra.acceptance.TestItem
 import org.apache.commons.io.FileUtils.*
-import static groovy.json.JsonOutput.*
-import jp.co.toshiba.ITInfra.acceptance.*
 
 @Slf4j
 @InheritConstructors

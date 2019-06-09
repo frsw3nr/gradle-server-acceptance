@@ -1,21 +1,12 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 
-import javax.xml.bind.*
-import static groovy.json.JsonOutput.*
 import groovy.util.logging.Slf4j
-import groovy.transform.InheritConstructors
-
-// For telnet session
 import org.apache.commons.net.telnet.EchoOptionHandler
 import org.apache.commons.net.telnet.SuppressGAOptionHandler
 import org.apache.commons.net.telnet.TelnetClient
 import org.apache.commons.net.telnet.TerminalTypeOptionHandler
-import java.io.InputStream
-import java.io.PrintStream
-import java.io.Reader
 
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import jp.co.toshiba.ITInfra.acceptance.*
+// For telnet session
 
 @Slf4j
 class TelnetSession {

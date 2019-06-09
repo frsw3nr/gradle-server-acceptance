@@ -1,9 +1,11 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
-import groovy.util.logging.Slf4j
 import groovy.transform.ToString
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 
 @Slf4j
 @ToString(includePackage = false)

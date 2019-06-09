@@ -1,8 +1,9 @@
+import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.PlatformTester
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import static groovy.json.JsonOutput.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // gradle --daemon test --tests "PlatformTesterTest.Linuxテストタスク"
 

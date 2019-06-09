@@ -1,14 +1,11 @@
-import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
-import groovy.sql.Sql
-import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTargetSet
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTemplate
+import spock.lang.Specification
 
 // gradle --daemon test --tests "TestTargetTest.Excelパース"
 // gradle --daemon test --tests "TestTargetTest.テンプレートの遅延評価2"

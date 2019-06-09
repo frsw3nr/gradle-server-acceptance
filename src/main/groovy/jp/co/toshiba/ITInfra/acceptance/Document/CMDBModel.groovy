@@ -1,14 +1,13 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-import groovy.io.FileType
-import groovy.util.logging.Slf4j
-import groovy.transform.ToString
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import org.apache.commons.io.FileUtils
+
+import groovy.json.JsonSlurper
 import groovy.sql.Sql
-import java.sql.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import groovy.transform.ToString
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+
+import java.sql.SQLException
 
 @Slf4j
 @Singleton

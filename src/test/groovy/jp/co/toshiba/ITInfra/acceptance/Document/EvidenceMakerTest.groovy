@@ -1,17 +1,10 @@
-import spock.lang.Specification
-import static groovy.json.JsonOutput.*
-import groovy.json.*
-import groovy.sql.Sql
-import groovy.xml.MarkupBuilder
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
-import org.apache.poi.ss.usermodel.*
-import org.apache.poi.xssf.usermodel.*
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.ss.usermodel.IndexedColors
-import jp.co.toshiba.ITInfra.acceptance.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.WorkbookFactory
+import spock.lang.Specification
 
 // gradle --daemon test --tests "EvidenceMakerTest.セル配色"
 

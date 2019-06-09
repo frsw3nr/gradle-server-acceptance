@@ -1,9 +1,8 @@
 package jp.co.toshiba.ITInfra.acceptance.Model
 
-import groovy.util.logging.Slf4j
 import groovy.transform.AutoClone
 import groovy.transform.ToString
-import jp.co.toshiba.ITInfra.acceptance.Document.*
+import groovy.util.logging.Slf4j
 
 @Slf4j
 @ToString(includePackage = false)

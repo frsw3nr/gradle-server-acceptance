@@ -1,19 +1,15 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
 
-import groovy.util.logging.Slf4j
-import groovy.transform.ToString
 import groovy.transform.InheritConstructors
-import org.apache.commons.lang.math.NumberUtils
+import groovy.transform.ToString
+import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
+import jp.co.toshiba.ITInfra.acceptance.TestItem
 import org.apache.commons.io.FileUtils.*
-import static groovy.json.JsonOutput.*
-import org.hidetake.groovy.ssh.Ssh
-import org.hidetake.groovy.ssh.session.execution.*
-import jp.co.toshiba.ITInfra.acceptance.*
+import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+import org.hidetake.groovy.ssh.Ssh
 
 @Slf4j
 @ToString(includePackage = false)

@@ -1,7 +1,6 @@
+import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
+import jp.co.toshiba.ITInfra.acceptance.TestItem
 import spock.lang.Specification
-import jp.co.toshiba.ITInfra.acceptance.*
-import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // gradle --daemon test --tests "PortListRegisterTest.ポートリスト登録"
 
