@@ -8,10 +8,11 @@ TODO:
 * クラスター分析で、サロゲートキーからダミー変数への変換を多値変数の変換に見直し [ ]
 * パフォーマンスチューニング用に、CompileStatic 移行 [ ]
     * Intellj 環境構築 [x]
-    * 不要なimport 処理削除 [ ]
+    * 不要なimport 処理削除 [x]
+    * CompileStatic化 [ ]
     * その他リファクタリング [ ]
 * テンプレート機能。ベースプロジェクトに過去のインベントリを保存する機能追加 [ ]
-    * 結果のコミットでベースディレクトリにもコピーする [ ]
+    * 結果のコミットで Getconfig ベースディレクトリにもコピーする [ ]
         * プロジェクトにコピー [ ]
         * ベースプロジェクトにコピー [ ]
     * 比較対象指定でベースディレクトリのログも参照する [ ]
@@ -20,7 +21,7 @@ TODO:
     * タグ機能の追加 [ ]
     * グループ化して、グループの順に配置 [ ]
     * グループ内の1列目に比較対象を配置 [ ]
-* 比較見直し [ ]
+* 比較結果の集計 [ ]
     * 検査項目で、比較有効化フラグを追加 [ ]
     * Excel検査結果レイアウトにタグ列を追加 [ ]
     * 相違をセルの配色で分類する [ ]
@@ -42,117 +43,6 @@ Bug fixes:
 * dry_run モードで、ソースログがない場合のエラーメッセージが重複する問題対処
 * TestItem 処理遅延対策のため TestItem 下クラスをシングルトンに変更
 * Solaris 検査項目でログインユーザが csh の場合、LANG 環境変数の指定が出来ない問題対処
-
-クラスター分析
---------------
-
-ターゲットにタグの追加、Excelフォームのカラムグループセット [ ]
-TestTarget に tag プロパティ追加
-テストシナリオのターゲットリストをクラスターID順にソート [ ]
-
-既存コード調査
----------------
-
-TestTargetSetクラス
-
-def target_set = new TestTargetSet(name: 'root')
-def test_targets = test_scenario.test_targets.get_all()
-
-⇒ target, domain をキーにした配列を返す
-
-DataComparater クラス
-
-def compare_target = test_scenario.test_targets.get(compare_server, domain)
-
-ExcelParser クラス。モデル生成処理
-
-test_targets = new TestTargetSet(name: 'root')
-test_targets.accept(this)
-
-def visit_test_target_set(test_target_set) {
-    def test_target = new TestTarget(line)
-    test_target_set.add(test_target)
-
-検査対象を順に読み込む。target, domain をキーに検索
-
-TestTarget モデルプロパティ
-    name   ターゲット名
-    domain ドメイン名
-
-変更範囲検討
-------------
-
-検査対象シートの順にターゲットを処理。target_name, domain がキー
-
-ドメインの順に処理(Linux, Windows, ..)
-ドメインが異なる場合はタグ化しない
-クラスターグループのサイズが大きい順にセット
-クラスターグループ内リストの順にセット。先頭ノードは比較対象にセット
-
-テスト
-------
-
-単体テスト
-gradle --daemon test --tests "ExcelParserTest.サマリシート更新2"
-
-def test_targets = test_scenario.test_targets
-def targets = test_scenario.test_targets.get_all()
-targets.each { target_name, domain_targets ->
-
-結合テスト
-getconfig -d -e ./src/test/resources/サーバチェックシート.lsx -at
-
-TODO
-
-ドメイン毎のクラスタリングに変更
-TestTargetSet のソート。クラスタリング分析結果の順にリスト化
-    クラスターグループの多い順にソート
-    グループ内1位を比較対象にセット
-タグ行の追加
-
-
-
-V2 仕様検討
------------
-
-* 項目IDの正規化
-    * 対象機器の構成により、デバイスのキーが異なる場合がある
-    * クラスター内対象機器で存在しないデバイスキーは表示しないように、シートの登録は省く
-    * 項目ID毎にデバイスキーのマーカーを設定設定する
-        * クラスターキー（サロゲートキー）の作成
-            例 : /,/home,[swap] : cent-a,cent-b,cent-c ===> cluster1
-               : /,/export/home,/tmp : sparc-1,sparc-2 ===> cluster2
-        * マーカーの作成
-            例 : /           : cluster1,2
-               : /home       : cluster1
-               : [swap]      : cluster1
-               : /export/home : cluster2
-               : /tmp         : cluster2
-        * シートの項目登録
-            例 : シートがcluster1 のみの場合は、/, /home,[swap]表示
-               : シートがcluster2 のみの場合は、/, /export/home,/tmp表示
-               : シートがcluster1,2 の場合は、/,/home,[swap],/export/home,/tmp 表示
-* 項目IDのマスキング
-    * メトリック毎にシートに項目IDを表示するかしないかを設定する
-    * クラスター分析には使用するが、シートには表示させたくない場合
-        * パッケージリストなど項目IDが膨大になる場合
-    * テンプレートに設定した、パッケージリストのみシートに表示させる
-* K-Means法によるクラスター分析
-    * ノードにクラスターIDを負荷
-    * クラスターID毎にシート作成
-* 変更範囲
-    * メトリックの階層化
-        * Model
-            * TestResult.groovy   : 階層化タグ、クラスター分析用ダミー変数化
-        * Controller
-            * TestItem.groovy     : 諸々見直し
-    * ドキュメント
-        * View
-            * EvidenceMaker.groovy : 結果シート作成
-            * ReportMaker.groovy   : POI Excelドキュメント作成
-    * クラスター分析
-        * Controller
-            * DataComparator.groovy : EKLI K-Means分析
 
 Changes for 0.2.2 (2019-5-20)
 ------------------------------------------------------------------------------
