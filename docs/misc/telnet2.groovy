@@ -1,7 +1,8 @@
 @GrabConfig( systemClassLoader=true )
-@Grapes( 
-@Grab("commons-net:commons-net:3.3")
-)
+@Grapes([
+@Grab("commons-net:commons-net:3.3"),
+@Grab('net.sf.expectit:expectit-core:0.9.0'),
+])
 
 import javax.xml.bind.*
 import static groovy.json.JsonOutput.*
@@ -16,17 +17,30 @@ import org.apache.commons.net.telnet.TerminalTypeOptionHandler
 import java.io.InputStream
 import java.io.PrintStream
 import java.io.Reader
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
+import static net.sf.expectit.matcher.Matchers.contains
+import static net.sf.expectit.matcher.Matchers.regexp
+import static net.sf.expectit.matcher.Matchers.eof
+
+
+def ip          = System.getenv("TEST_IP") ?: '192.168.0.13'
+def os_user     = System.getenv("TEST_OS_USER") ?: 'someuser'
+def os_password = System.getenv("TEST_OS_PASSWORD") ?: 'P@ssw0rd'
 
 def ses = new TelnetSession()
-ses.init_session('192.168.0.254', '', 'console0')
-def res0 = ses.run_command('show environment', 'uname')
-println "RES0:$res0<EOF>"
-def res2 = ses.run_command('', 'null_command1')
-println "RES2:$res2<EOF>"
-def res3 = ses.run_command("\n\n", 'null_command2')
-println "RES3:$res3<EOF>"
-def res4 = ses.run_command('show ip route', 'uname')
-println "RES4:$res4<EOF>"
+ses.init_session(ip, os_user, os_password)
+// result = ses.run_command('uname -n', 'uname')
+// println "RESULT1:$result"
+
+// def res0 = ses.run_command('show environment', 'uname')
+// println "RES0:$res0<EOF>"
+// def res2 = ses.run_command('', 'null_command1')
+// println "RES2:$res2<EOF>"
+// def res3 = ses.run_command("\n\n", 'null_command2')
+// println "RES3:$res3<EOF>"
+// def res4 = ses.run_command('show ip route', 'uname')
+// println "RES4:$res4<EOF>"
 
 class TelnetSession {
 
@@ -39,7 +53,9 @@ class TelnetSession {
     static java.io.Reader reader = null;
     // static String prompt = "XSCF>"
 
-    static String prompt = '> '
+    // static String prompt = '> '
+    static String prompt = '.*[%|$|#|>] $'
+
     static LinkedHashMap<String,String> prompts = ['% ':'user', '$ ':'user', '# ':'root', '> ':'admin']
     static int telnet_session_interval = 1000
     int timeout = 30
@@ -49,7 +65,7 @@ class TelnetSession {
     TelnetClient telnet
 
     TelnetSession(test_spec) {
-        this.prompt    = test_spec?.prompt ?: '> '
+        // this.prompt    = test_spec?.prompt ?: '> '
         this.timeout   = test_spec?.timeout ?: 30
         this.local_dir = test_spec?.local_dir ?: '/tmp'
         this.evidence_log_share_dir = test_spec?.evidence_log_share_dir ?: '/tmp'
@@ -59,38 +75,109 @@ class TelnetSession {
         telnet = new TelnetClient();
 
         try {
-            telnet.setDefaultTimeout(1000 * timeout);
+            // telnet.setDefaultTimeout(1000 * timeout);
             telnet.connect(ip);
-            telnet.setSoTimeout(1000 * timeout);
-            telnet.setSoLinger(true, 1000 * timeout);
+            // telnet.setSoTimeout(1000 * timeout);
+            // telnet.setSoLinger(true, 1000 * timeout);
 
             telnet.addOptionHandler(ttopt);
             telnet.addOptionHandler(echoopt);
             telnet.addOptionHandler(gaopt);
 
             // Get input and output stream references
-            tin = telnet.getInputStream();
-            tout = new PrintStream(telnet.getOutputStream());
-            reader = new InputStreamReader(tin);
+            // StringBuilder wholeBuffer = new StringBuilder();
+            Expect expect = new ExpectBuilder()
+                .withOutput(telnet.getOutputStream())
+                .withInputs(telnet.getInputStream())
+                        .withEchoOutput(System.out)
+                        .withEchoInput(System.out)
+                        .withExceptionOnFailure()
+                .build();
+
+            // tin = telnet.getInputStream();
+            // tout = new PrintStream(telnet.getOutputStream());
+            // reader = new InputStreamReader(tin);
      
             // Login telnet session
-            if (!(user) && user != '') {
-                readUntil("login: ");
-                write(user);
-            }
-            readUntil("Password: ");
-            write(password);
+            expect.expect(contains("login: ")); 
+            // readUntil("login: ");
+            expect.sendLine(user);
+                // write(user);
+            // }
+            expect.expect(contains("Password: ")); 
+            // readUntil("Password: ");
+            expect.sendLine(password);
+            // write(password);
 
             // Unify ascii code to avoid multi-byte
-            readUntilPrompt();
-            write("sh");
-            readUntilPrompt();
-            write("LANG=C");
-            readUntil(prompt);
+            // readUntilPrompt();
+            // write("sh");
+            // readUntilPrompt();
+            // write("LANG=C");
+            // readUntil(prompt);
+            // expect.expect(regexp(prompt)); 
+            expect.expect(regexp(prompt)); 
+            // expect.expect(regexp("% ")); 
+            // println prompt
+            expect.sendLine("ls -lh");
+            expect.interact().until(regexp(prompt)); 
+        // capture the total
+        // String total = expect.expect(regexp("^(.*)")).group(1);
+        // System.out.println("Size: " + total);
+
+            // expect.sendLine("sh");  //  c: Login to  CLI shell
+            // expect.expect(regexp(prompt)); 
+            // expect.sendLine("LANG=C");  //  c: Login to  CLI shell
+            // expect.expect(regexp(prompt)); 
+            expect.sendLine("uname -a");
+            // expect.expect(eof());
+            def res = expect.interact().until(regexp(prompt)); 
+            println "RES:$res"
+            // String response = wholeBuffer.toString();
+            // System.out.println(response);
 
         } catch (Exception e) {
             println "[Telnet Test] Init test faild.\n" + e
             throw new IllegalArgumentException(e)
+        }
+    }
+
+    def run_command(command, test_id, share = false) {
+        try {
+            def log_path = (share) ? evidence_log_share_dir : local_dir
+            Expect expect = new ExpectBuilder()
+                .withOutput(telnet.getOutputStream())
+                .withInputs(telnet.getInputStream())
+                        .withEchoOutput(System.out)
+                        .withEchoInput(System.out)
+                        .withExceptionOnFailure()
+                .build();
+
+            def row = 0
+            // def lines = command.readLines()
+            // def max_row = lines.size()
+            // lines.each { line ->
+            //     println "TEST1"
+            //     expect.sendLine(line)
+            //     println "TEST2"
+            //     if (0 < row && row < max_row - 1) {
+            //         println "TEST3"
+            //         expect.expect(regexp(prompt))
+            //     }
+            //     row ++
+            // }
+            println "TEST3"
+            expect.sendLine(command)
+            println "TEST4"
+            // def res = expect.expect(regexp(prompt))
+            def res = expect.expect(contains(' '))
+            println "TEST5"
+            String result = res.getBefore(); 
+            expect.close()
+            println "COMMAND:$command,RESULT:$result<EOF>"
+            new File("${log_path}/${test_id}").text = result
+        } catch (Exception e) {
+            println "[Telnet Test] Command error '$command' faild, skip.\n" + e
         }
     }
 
@@ -188,16 +275,16 @@ class TelnetSession {
         return null;
     }
 
-    def run_command(command, test_id, share = false) {
-        try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
-            def result = sendCommand(command)
-            println "COMMAND:$command,RESULT:$result<EOF>"
-            new File("${log_path}/${test_id}").text = result
-        } catch (Exception e) {
-            println "[Telnet Test] Command error '$command' faild, skip.\n" + e
-        }
-    }
+    // def run_command(command, test_id, share = false) {
+    //     try {
+    //         def log_path = (share) ? evidence_log_share_dir : local_dir
+    //         def result = sendCommand(command)
+    //         println "COMMAND:$command,RESULT:$result<EOF>"
+    //         new File("${log_path}/${test_id}").text = result
+    //     } catch (Exception e) {
+    //         println "[Telnet Test] Command error '$command' faild, skip.\n" + e
+    //     }
+    // }
 
     def close() {
         if (telnet) {
