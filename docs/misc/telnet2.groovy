@@ -30,8 +30,30 @@ def os_password = System.getenv("TEST_OS_PASSWORD") ?: 'P@ssw0rd'
 
 def ses = new TelnetSession()
 ses.init_session(ip, os_user, os_password)
-// result = ses.run_command('uname -n', 'uname')
-// println "RESULT1:$result"
+result = ses.run_command('uname -n', 'uname')
+println "RESULT1:$result"
+result = ses.run_command('\n\n', 'null_command')
+println "RESULT2:$result"
+def command = '''\
+|(
+|awk \'/^domain/ {print \$2}\' /etc/resolv2.conf 2>/dev/null
+|if [ \$? != 0 ]; then
+|   echo 'Not Found'
+|fi
+|)
+'''.stripMargin()
+result = ses.run_command(command, 'multi_line')
+println "RESULT3:$result"
+def command2 = '''\
+|(
+|awk \'/^domain/ {print \$2}\' /etc/resolv.conf 2>/dev/null
+|if [ \$? != 0 ]; then
+|   echo 'Not Found'
+|fi
+|)
+'''.stripMargin()
+result = ses.run_command(command2, 'multi_line2')
+println "RESULT4:$result"
 
 // def res0 = ses.run_command('show environment', 'uname')
 // println "RES0:$res0<EOF>"
@@ -54,7 +76,9 @@ class TelnetSession {
     // static String prompt = "XSCF>"
 
     // static String prompt = '> '
-    static String prompt = '.*[%|$|#|>] $'
+    // static String prompt = '.*[%|$|#|>] $'
+    static String prompt = '.*[%|\$|#|>] $'
+    // static String prompt = '.*(%|$|#|>) $'
 
     static LinkedHashMap<String,String> prompts = ['% ':'user', '$ ':'user', '# ':'root', '> ':'admin']
     static int telnet_session_interval = 1000
@@ -75,11 +99,7 @@ class TelnetSession {
         telnet = new TelnetClient();
 
         try {
-            // telnet.setDefaultTimeout(1000 * timeout);
             telnet.connect(ip);
-            // telnet.setSoTimeout(1000 * timeout);
-            // telnet.setSoLinger(true, 1000 * timeout);
-
             telnet.addOptionHandler(ttopt);
             telnet.addOptionHandler(echoopt);
             telnet.addOptionHandler(gaopt);
@@ -89,52 +109,23 @@ class TelnetSession {
             Expect expect = new ExpectBuilder()
                 .withOutput(telnet.getOutputStream())
                 .withInputs(telnet.getInputStream())
-                        .withEchoOutput(System.out)
-                        .withEchoInput(System.out)
+                        // .withEchoOutput(System.out)
+                        // .withEchoInput(System.out)
                         .withExceptionOnFailure()
                 .build();
 
-            // tin = telnet.getInputStream();
-            // tout = new PrintStream(telnet.getOutputStream());
-            // reader = new InputStreamReader(tin);
-     
             // Login telnet session
             expect.expect(contains("login: ")); 
-            // readUntil("login: ");
             expect.sendLine(user);
-                // write(user);
-            // }
             expect.expect(contains("Password: ")); 
-            // readUntil("Password: ");
             expect.sendLine(password);
-            // write(password);
 
             // Unify ascii code to avoid multi-byte
-            // readUntilPrompt();
-            // write("sh");
-            // readUntilPrompt();
-            // write("LANG=C");
-            // readUntil(prompt);
-            // expect.expect(regexp(prompt)); 
+            expect.sendLine("sh");  //  c: Login to  CLI shell
             expect.expect(regexp(prompt)); 
-            // expect.expect(regexp("% ")); 
-            // println prompt
-            expect.sendLine("ls -lh");
-            expect.interact().until(regexp(prompt)); 
-        // capture the total
-        // String total = expect.expect(regexp("^(.*)")).group(1);
-        // System.out.println("Size: " + total);
-
-            // expect.sendLine("sh");  //  c: Login to  CLI shell
-            // expect.expect(regexp(prompt)); 
-            // expect.sendLine("LANG=C");  //  c: Login to  CLI shell
-            // expect.expect(regexp(prompt)); 
-            expect.sendLine("uname -a");
-            // expect.expect(eof());
-            def res = expect.interact().until(regexp(prompt)); 
-            println "RES:$res"
-            // String response = wholeBuffer.toString();
-            // System.out.println(response);
+            expect.sendLine("LANG=C");  //  c: Login to  CLI shell
+            expect.expect(regexp(prompt)); 
+            expect.close()
 
         } catch (Exception e) {
             println "[Telnet Test] Init test faild.\n" + e
@@ -145,36 +136,34 @@ class TelnetSession {
     def run_command(command, test_id, share = false) {
         try {
             def log_path = (share) ? evidence_log_share_dir : local_dir
+            StringBuilder wholeBuffer = new StringBuilder();
             Expect expect = new ExpectBuilder()
                 .withOutput(telnet.getOutputStream())
                 .withInputs(telnet.getInputStream())
-                        .withEchoOutput(System.out)
-                        .withEchoInput(System.out)
+                        .withEchoInput(wholeBuffer)
+                        // .withEchoInput(System.out)
+                        // .withEchoOutput(System.out)
+                        // .withEchoInput(System.out)
                         .withExceptionOnFailure()
                 .build();
 
             def row = 0
-            // def lines = command.readLines()
-            // def max_row = lines.size()
-            // lines.each { line ->
-            //     println "TEST1"
-            //     expect.sendLine(line)
-            //     println "TEST2"
-            //     if (0 < row && row < max_row - 1) {
-            //         println "TEST3"
-            //         expect.expect(regexp(prompt))
-            //     }
-            //     row ++
-            // }
-            println "TEST3"
-            expect.sendLine(command)
-            println "TEST4"
+            def lines = command.readLines()
+            def max_row = lines.size()
+            println "MAX_ROW:$max_row"
+            lines.each { line ->
+                expect.sendLine(line)
+                if (0 < row && row < max_row - 1) {
+                    expect.expect(regexp(prompt))
+                }
+                row ++
+            }
+            // sleep(1000)
             // def res = expect.expect(regexp(prompt))
-            def res = expect.expect(contains(' '))
-            println "TEST5"
+            def res = expect.expect(contains('$ '))
             String result = res.getBefore(); 
             expect.close()
-            println "COMMAND:$command,RESULT:$result<EOF>"
+            println "COMMAND:$test_id,RESULT:$result<EOF>,BUFFER:$wholeBuffer<EOF>"
             new File("${log_path}/${test_id}").text = result
         } catch (Exception e) {
             println "[Telnet Test] Command error '$command' faild, skip.\n" + e

@@ -40,7 +40,7 @@ account.Solaris.Test.user      = 'guest'
 account.Solaris.Test.password  = 'guest000'
 account.Solaris.Test.work_dir  = '/tmp/gradle_test'
 
-account.Solaris.Test_telnet.use_telnet = true
+account.Solaris.Test_telnet.use_telnet = false
 account.Solaris.Test_telnet.user       = 'someuser'
 account.Solaris.Test_telnet.password   = 'P@ssw0rd'
 account.Solaris.Test_telnet.work_dir   = '/tmp/gradle_test'
