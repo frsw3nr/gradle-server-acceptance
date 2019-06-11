@@ -6,6 +6,11 @@ import org.apache.commons.net.telnet.SuppressGAOptionHandler
 import org.apache.commons.net.telnet.TelnetClient
 import org.apache.commons.net.telnet.TerminalTypeOptionHandler
 
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
+import static net.sf.expectit.matcher.Matchers.contains
+import static net.sf.expectit.matcher.Matchers.regexp
+
 // For telnet session
 
 @Slf4j
@@ -15,26 +20,42 @@ class TelnetSession {
     static EchoOptionHandler echoopt = new EchoOptionHandler(true, false, true, false);
     static SuppressGAOptionHandler gaopt = new SuppressGAOptionHandler(true, true, true, true);
 
-    static java.io.InputStream tin;
-    static java.io.PrintStream tout;
-    static java.io.Reader reader = null;
-    // static String prompt = "XSCF>"
+    static String prompt_regexp  = '.*[%|\$|#|>] $'
+    static String prompt_command = '$ '
 
-    static String prompt = '$ '
-    static LinkedHashMap<String,String> prompts = ['% ':'user', '$ ':'user', '# ':'root', '> ':'admin']
     static int telnet_session_interval = 1000
     int timeout = 30
+    Boolean debug = false
     String evidence_log_share_dir
     String local_dir
 
     TelnetClient telnet
 
     TelnetSession(test_spec) {
-        this.prompt    = test_spec?.prompt ?: '$ '
-        this.timeout   = test_spec?.timeout ?: 30
-        this.local_dir = test_spec?.local_dir
-
+        this.prompt_command = test_spec?.prompt ?: '$ '
+        this.timeout        = test_spec?.timeout ?: 30
+        this.debug          = test_spec?.debug ?: false
+        this.local_dir      = test_spec?.local_dir
         this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
+
+        if (debug) {
+            println "DEBUG:${this.debug}"
+            println "PROMPT(REGEXP):${this.prompt_regexp}"
+            println "PROMPT(COMMAND):${this.prompt_command}"
+        }
+    }
+
+    Expect expect_session() {
+        ExpectBuilder builder = new ExpectBuilder()
+                .withOutput(telnet.getOutputStream())
+                .withInputs(telnet.getInputStream())
+                .withExceptionOnFailure()
+
+        if (this.debug) {
+            builder.withEchoOutput(System.out)
+                   .withEchoInput(System.out)
+        }
+        return builder.build()
     }
 
     def init_session(String ip, String user, String password, Boolean change_ascii_shell = true) {
@@ -43,38 +64,41 @@ class TelnetSession {
         try {
             telnet.setDefaultTimeout(1000 * timeout);
             telnet.connect(ip);
+
             telnet.setSoTimeout(1000 * timeout);
             telnet.setSoLinger(true, 1000 * timeout);
-
             telnet.addOptionHandler(ttopt);
             telnet.addOptionHandler(echoopt);
             telnet.addOptionHandler(gaopt);
 
             // Get input and output stream references
-            tin = telnet.getInputStream();
-            tout = new PrintStream(telnet.getOutputStream());
-            reader = new InputStreamReader(tin);
-     
+            Expect expect = expect_session()
+
             // Login telnet session
             if (user != '') {
-                readUntil("login: ");
-                write(user);
+                expect.expect(contains("login: ")); 
+                expect.sendLine(user);
             }
-            readUntil("Password: ");
-            write(password);
+            if (password != '') {
+                expect.expect(contains("Password: ")); 
+                expect.sendLine(password);
+            }
 
-            // Unify ascii code to avoid multi-byte
+            // Unify ascii code shell to avoid multi-byte
             if (change_ascii_shell) {
-                readUntilPrompt();
-                write("sh");
-                readUntilPrompt();
-                write("LANG=C");
-                readUntil(prompt);
+                expect.sendLine("sh");
+                expect.expect(regexp(this.prompt_regexp)); 
+                expect.sendLine("LANG=C");
+                expect.expect(regexp(this.prompt_regexp)); 
             }
 
         } catch (Exception e) {
             log.error "[Telnet Test] Init test faild.\n" + e
             throw new IllegalArgumentException(e)
+        } finally {
+            if (expect) {
+                expect.close()
+            }
         }
     }
 
@@ -88,96 +112,35 @@ class TelnetSession {
         return result
     }
 
-    public static String readUntil(String pattern) {
-        try {
-            char lastChar = pattern.charAt(pattern.length() - 1);
-            StringBuffer sb = new StringBuffer();
-            boolean found = false;
-            while (true) {
-                char ch = (char) reader.read();
-                if (ch < 0)
-                    break;
-                sb.append((char) ch);
-                // 次のread()が入力をブロックするかも知れない時はmatchチェックする
-                if (reader.ready() == false) {
-                    if (sb.toString().endsWith(pattern)) {
-                        String message = sb.toString();
-                        return truncate_last_line(message);
-                    }
-                }
-            }
-        }
-        catch (Exception e) {
-            log.error "[Telnet Test] read session faild.\n" + e
-            throw new IllegalArgumentException(e)
-        }
-        return null;
-    }
-
-    public static String readUntilPrompt() {
-        try {
-            StringBuffer sb = new StringBuffer();
-            String message = null;
-            int prompt_size = 0;
-            while (!message) {
-                // System.out.print(ch);
-                char ch = (char) tin.read();
-                sb.append(ch);
-                this.prompts.each { prompt, value ->
-                    char lastChar = prompt.charAt(prompt.length() - 1);
-                    if (ch == lastChar) {
-                        if (sb.toString().endsWith(prompt)) {
-                            // println "SB2:$sb<EOF>"
-                            message = sb.toString();
-                            prompt_size = prompt.length()
-                        }
-                    }
-                }
-            }
-            String result = truncate_last_line(message)
-            return result
-        }
-        catch (Exception e) {
-            log.error "[Telnet Test] read session faild.\n" + e
-            throw new IllegalArgumentException(e)
-        }
-        return null;
-    }
-
-    public static void write(String value) {
-        try {
-            tout.println(value);
-            tout.flush();
-            // System.out.println(value);
-        }
-        catch (Exception e) {
-            log.error "[Telnet Test] write session faild.\n" + e
-            throw new IllegalArgumentException(e)
-        }
-    }
- 
-    public static String sendCommand(String command) {
-        try {
-            sleep(telnet_session_interval);
-            write(command);
-            sleep(telnet_session_interval);
-            return readUntil(prompt);
-            // return readUntilPrompt();
-        }
-        catch (Exception e) {
-            log.error "[Telnet Test] command '${command}' faild.\n" + e
-        }
-        return null;
-    }
-
     def run_command(command, test_id, share = false) {
         try {
+            Expect expect = expect_session()
+
+            def row = 0
+            def lines = command.readLines()
+            def max_row = lines.size()
+            lines.each { line ->
+                expect.sendLine(line)
+                if (this.debug) {
+                    println"SEND: $row: $line"
+                }
+                row ++
+            }
+            def res = expect.expect(contains(this.prompt_command))
+            String result = res.getBefore()
+            String result_truncated = truncate_last_line(result); 
+            if (this.debug) {
+                println"RECV: ${row}: ${res}<EOF>"
+            }
+
             def log_path = (share) ? evidence_log_share_dir : local_dir
-            def result = sendCommand(command)
-            // println "COMMAND:$command,RESULT:$result<EOF>"
-            new File("${log_path}/${test_id}").text = result
+            new File("${log_path}/${test_id}").text = result_truncated
         } catch (Exception e) {
             log.error "[Telnet Test] Command error '$command' faild, skip.\n" + e
+        } finally {
+            if (expect) {
+                expect.close()
+            }
         }
     }
 

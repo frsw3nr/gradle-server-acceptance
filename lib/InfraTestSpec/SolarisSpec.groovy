@@ -17,8 +17,7 @@ import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 @InheritConstructors
 class SolarisSpec extends InfraTestSpec {
 
-    static String prompt = '$ '
-
+    static String prompt
     String ip
     String os_user
     String os_password
@@ -36,7 +35,7 @@ class SolarisSpec extends InfraTestSpec {
         this.work_dir    = os_account['work_dir'] ?: '/tmp'
         this.use_telnet  = os_account['use_telnet'] ?: false
         this.timeout     = test_platform.timeout
-        this.prompt = '$ '
+        // this.prompt = '$ '
     }
 
     def setup_exec(TestItem[] test_items) {
@@ -195,6 +194,7 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('machineid') {
             session.run_command('hostid', 'machineid')
         }
+        println "MACHINEID:${lines}<EOF>"
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
     }
