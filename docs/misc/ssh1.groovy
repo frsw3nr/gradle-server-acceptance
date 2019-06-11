@@ -51,7 +51,7 @@ def command = '''\
 '''.stripMargin()
 result = run_ssh_command(session, command)
 println "RESULT:$result<EOF>"
-result = run_ssh_command(session, "df")
+result = run_ssh_command(session, "hostname")
 println "RESULT:$result<EOF>"
 
 def login_session(con) {
@@ -59,7 +59,7 @@ def login_session(con) {
         def session = con.openSession()
         session.requestDumbPTY();
         session.startShell();
-        def prompt = '.*[%|\$|#|>] $'
+        def prompt = '[%|\$|#|>] $'
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
                 .withInputs(session.getStdout(), session.getStderr())
@@ -81,17 +81,35 @@ def login_session(con) {
     }
 }
 
-String truncate_first_line(String message) {
-    String result = message
-    int truncate_size = message.indexOf('\n');
-    if (truncate_size > 0) {
-        result = message.substring(truncate_size)
+    String truncate_first_lines(String message, int limit_row = 0) {
+        def lines = message.readLines()
+        def row = 0
+        // 複数行のスクリプト実行の場合は1行前までを取り除く
+        // if (limit_row > 1) {
+        //     limit_row = limit_row - 1
+        // }
+        StringBuffer sb = new StringBuffer();
+        lines.each { line ->
+            if (row >= limit_row) {
+                sb.append("$line\n");
+            }
+            row ++
+        }
+        return sb.toString()
     }
-    return result
-}
+
+    public static String truncate_last_line(String message) {
+        String result = message
+        int truncate_size = message.length();
+        truncate_size = message.lastIndexOf('\n', truncate_size - 1);
+        if (truncate_size > 0) {
+            result = message.substring(0, truncate_size - 1)
+        }
+        return result
+    }
 
 def run_ssh_command(session, command) {
-    def ok_prompt = '.*[%|\$|#|>] ';
+    def ok_prompt = '.*[%|\$|#] ';
     try {
         Expect expect = new ExpectBuilder()
                 .withOutput(session.getStdin())
@@ -107,21 +125,30 @@ def run_ssh_command(session, command) {
         def max_row = lines.size()
         lines.each { line ->
             expect.sendLine(line)
-            if (0 < row && row < max_row) {
-                expect.expect(regexp(ok_prompt))
-            }
+            // if (0 < row && row < max_row) {
+            //     expect.expect(regexp(ok_prompt))
+            // }
             row ++
         }
         // expect.expect(regexp(ok_prompt))
         // String result = expect.expect(regexp(ok_prompt)).getInput(); 
-        def res = expect.expect(contains('$ '))
-        String result = res.getBefore(); 
+        def res = expect.expect(regexp(ok_prompt))
+        String result = res.getBefore()
+        String result_truncated = truncate_last_line(result); 
+        String result_truncated2 = truncate_first_lines(result_truncated, max_row); 
+        // if (this.debug) {
+            println "RECV: ${row}: ${res}<EOF>"
+            println "RESULT1: ${result}"
+            println "RESULT2: ${result_truncated2}<EOF>"
+        // }
+        // def res = expect.expect(contains('$ '))
+        // String result = res.getBefore(); 
         // println "RES1:${res.getBefore()}<EOF>"
         // println "RES2:${res.getInput()}<EOF>"
         // println "RES3:${res.toString()}<EOF>"
 
         expect.close()
-        return truncate_first_line(result)
+        return result_truncated2
     } catch (Exception e) {
         println "[SSH Test] Command error '$command' faild, skip.\n" + e
     }

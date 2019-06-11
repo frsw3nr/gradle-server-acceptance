@@ -20,7 +20,7 @@ class TelnetSession {
     static EchoOptionHandler echoopt = new EchoOptionHandler(true, false, true, false);
     static SuppressGAOptionHandler gaopt = new SuppressGAOptionHandler(true, true, true, true);
 
-    static String prompt_regexp  = '.*[%|\$|#|>] $'
+    static String prompt_regexp  = '[%|\$|#] \$'
     static String prompt_command = '$ '
 
     static int telnet_session_interval = 1000
@@ -32,10 +32,10 @@ class TelnetSession {
     TelnetClient telnet
 
     TelnetSession(test_spec) {
-        this.prompt_command = test_spec?.prompt ?: '$ '
-        this.timeout        = test_spec?.timeout ?: 30
-        this.debug          = test_spec?.debug ?: false
-        this.local_dir      = test_spec?.local_dir
+        this.prompt_regexp = test_spec?.prompt ?: '$ '
+        this.timeout       = test_spec?.timeout ?: 30
+        this.debug         = test_spec?.debug ?: false
+        this.local_dir     = test_spec?.local_dir
         this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
 
         if (debug) {
@@ -126,7 +126,7 @@ class TelnetSession {
                 }
                 row ++
             }
-            def res = expect.expect(contains(this.prompt_command))
+            def res = expect.expect(regexp(this.prompt_regexp))
             String result = res.getBefore()
             String result_truncated = truncate_last_line(result); 
             if (this.debug) {

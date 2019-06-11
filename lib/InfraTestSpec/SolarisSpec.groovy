@@ -17,7 +17,7 @@ import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 @InheritConstructors
 class SolarisSpec extends InfraTestSpec {
 
-    static String prompt
+    static String prompt = '[%|\$|#] \$'
     String ip
     String os_user
     String os_password
@@ -119,8 +119,7 @@ class SolarisSpec extends InfraTestSpec {
             |if [ \$? != 0 ]; then
             |   echo 'Not Found'
             |fi
-            |)
-            '''.stripMargin()
+            |)'''.stripMargin()
             session.run_command(command, 'hostname_fqdn')
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
@@ -194,7 +193,6 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('machineid') {
             session.run_command('hostid', 'machineid')
         }
-        println "MACHINEID:${lines}<EOF>"
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
     }

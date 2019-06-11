@@ -14,9 +14,9 @@ import static net.sf.expectit.matcher.Matchers.regexp
 @Slf4j
 class SshSession {
 
-    static String prompt_regexp  = '.*[%|\$|#|>] $'
+    static String prompt_regexp  = '[%|\$|#] \$'
     static String prompt_command = '$ '
-    // String prompt = '.*[%|$|#|>] $'
+    // String prompt = '.*[%|$|#] $'
     int timeout = 30
     Boolean debug = false
     String evidence_log_share_dir
@@ -26,10 +26,10 @@ class SshSession {
     Session session
 
     SshSession(test_spec) {
-        this.prompt_command = test_spec?.prompt ?: '$ '
-        this.timeout        = test_spec?.timeout ?: 30
-        this.debug          = test_spec?.debug ?: false
-        this.local_dir      = test_spec?.local_dir
+        this.prompt_regexp = test_spec?.prompt ?: '$ '
+        this.timeout       = test_spec?.timeout ?: 30
+        this.debug         = test_spec?.debug ?: false
+        this.local_dir     = test_spec?.local_dir
         this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
 
         if (debug) {
@@ -80,10 +80,9 @@ class SshSession {
             expect.expect(regexp(this.prompt_regexp)); 
             if (change_ascii_shell) {
                 expect.sendLine("sh");
-                expect.expect(contains(this.prompt_command)); 
+                expect.expect(regexp(this.prompt_regexp)); 
                 expect.sendLine("LANG=C");
-                expect.expect(contains(this.prompt_command)); 
-                // expect.expect(regexp(this.prompt_regexp)); 
+                expect.expect(regexp(this.prompt_regexp)); 
             }
             // expect.expect(contains(prompts['sh'])); 
             // expect.expect(regexp(prompt)); 
@@ -103,9 +102,9 @@ class SshSession {
         def lines = message.readLines()
         def row = 0
         // 複数行のスクリプト実行の場合は1行前までを取り除く
-        if (limit_row > 1) {
-            limit_row = limit_row - 1
-        }
+        // if (limit_row > 1) {
+        //     limit_row = limit_row - 1
+        // }
         StringBuffer sb = new StringBuffer();
         lines.each { line ->
             if (row >= limit_row) {
@@ -152,7 +151,7 @@ class SshSession {
                 row ++
             }
             // sleep(1000)
-            def res = expect.expect(contains(this.prompt_command))
+            def res = expect.expect(regexp(this.prompt_regexp)); 
             String result = res.getBefore()
             String result_truncated = truncate_last_line(result); 
             String result_truncated2 = truncate_first_lines(result_truncated, max_row); 

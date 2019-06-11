@@ -9,7 +9,6 @@ import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
 import org.yaml.snakeyaml.Yaml
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix.*
 import jp.co.toshiba.ITInfra.acceptance.*
 import org.apache.commons.lang.math.NumberUtils
 import org.apache.commons.net.util.SubnetUtils
@@ -19,16 +18,13 @@ import org.apache.commons.net.util.SubnetUtils.SubnetInfo
 @InheritConstructors
 class CiscoUCS extends InfraTestSpec {
 
-    static String prompt = '# '
     String ip
     String os_user
     String os_password
     String admin_password
     Boolean use_ucs_platform_emulator
-    Boolean use_telnet
     int    timeout = 30
     def storage_adapter
-    def con
 
     def init() {
         super.init()
@@ -39,16 +35,24 @@ class CiscoUCS extends InfraTestSpec {
         this.os_password  = os_account['password'] ?: 'unkown'
         this.admin_password = os_account['admin_password'] ?: 'unkown'
         this.use_ucs_platform_emulator = os_account['use_emulator'] ?: false
-        this.use_telnet  = os_account['use_telnet'] ?: false
     }
 
     def setup_exec(TestItem[] test_items) {
         super.setup_exec()
 
+        def con
         def session
         def result
-        con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
         if (!dry_run) {
+            con = new Connection(this.ip, 22)
+            log.info "Connect CIMC"
+            con.connect()
+            log.info "Open ssh session"
+            result = con.authenticateWithPassword(this.os_user, this.os_password)
+            if (!result) {
+                println "connect failed"
+                return
+            }
             session = login_session(con)
         }
         test_items.each {
@@ -76,9 +80,23 @@ class CiscoUCS extends InfraTestSpec {
 
     def login_session(con) {
         try {
-            con.init_session(this.ip, this.os_user, this.os_password, false)
-
-            return con.session
+            def session = con.openSession()
+            session.requestDumbPTY();
+            session.startShell();
+            if (this.use_ucs_platform_emulator) {
+                def prompts = ["ok" : "> ", "admin" : "# "]
+                Expect expect = new ExpectBuilder()
+                        .withOutput(session.getStdin())
+                        .withInputs(session.getStdout(), session.getStderr())
+                                // .withEchoOutput(System.out)
+                                // .withEchoInput(System.out)
+                        .build();
+                expect.expect(contains(prompts['ok'])); 
+                expect.sendLine("c");  //  c: Login to  CLI shell
+                expect.expect(contains(prompts['admin'])); 
+                expect.close()
+            }
+            return session
         } catch (Exception e) {
             log.error "[SSH Test] login menu in ${this.server_name} faild, skip.\n" + e
         }
@@ -88,7 +106,12 @@ class CiscoUCS extends InfraTestSpec {
         def ok_prompt = (admin_mode) ? "# " : "> ";
         try {
             def log_path = (share) ? evidence_log_share_dir : local_dir
-            def expect = con.expect_session()
+            Expect expect = new ExpectBuilder()
+                    .withOutput(session.getStdin())
+                    .withInputs(session.getStdout(), session.getStderr())
+                            // .withEchoOutput(System.out)
+                            // .withEchoInput(System.out)
+                    .build();
 
             if (this.use_ucs_platform_emulator) {
                 expect.sendLine("set cli table-field-delimiter comma")
@@ -98,6 +121,7 @@ class CiscoUCS extends InfraTestSpec {
                 expect.sendLine("terminal length 0")
                 expect.expect(contains(ok_prompt))
             } else {
+                expect.expect(contains(ok_prompt))
                 expect.sendLine("set cli output yaml")
                 expect.expect(contains(ok_prompt))
             }
@@ -109,6 +133,7 @@ class CiscoUCS extends InfraTestSpec {
                 result = expect.expect(contains(ok_prompt)).getBefore(); 
             }
             new File("${log_path}/${test_id}").text = result
+            // session.close()
             expect.close()
             return result
         } catch (Exception e) {

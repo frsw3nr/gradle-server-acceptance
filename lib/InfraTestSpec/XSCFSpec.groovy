@@ -34,7 +34,7 @@ class XSCFSpec extends InfraTestSpec {
         this.os_user      = os_account['user'] ?: 'unkown'
         this.os_password  = os_account['password'] ?: 'unkown'
         this.work_dir     = os_account['work_dir'] ?: '/tmp'
-        this.use_telnet  = os_account['use_telnet'] ?: true
+        this.use_telnet  = os_account['use_telnet'] ?: false
         this.timeout      = test_platform.timeout
 
     }
