@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="903c6c43-9c7f-4b3e-9989-7f1465b3916f" name="Default Changelist" comment="">
+    <list default="true" id="d0ad59ec-9465-481a-b470-e2b6680213d9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Changes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Changes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
@@ -489,7 +485,6 @@
       <change beforePath="$PROJECT_DIR$/docs/misc/telnet2.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/docs/misc/telnet2.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/misc/test_env.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/misc/test_env.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/misc/v0.9b.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/misc/v0.9b.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/misc/v2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/misc/v2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/misc/vmware.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/misc/vmware.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/misc/win_test.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/misc/win_test.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/uml.cdg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/uml.cdg" afterDir="false" />
@@ -508,6 +503,7 @@
       <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/NetAppDataONTAPSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/NetAppDataONTAPSpec.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/OracleSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/OracleSpec.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/PrimergySpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/PrimergySpec.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/PrimergySpecOld.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/PrimergySpecOld.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/RouterCiscoSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/RouterCiscoSpec.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/RouterRTXSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/RouterRTXSpec.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/InfraTestSpec/SolarisSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/lib/InfraTestSpec/SolarisSpec.groovy" afterDir="false" />
@@ -743,11 +739,14 @@
       <change beforePath="$PROJECT_DIR$/src/test/resources/deploy_config.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/deploy_config.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/deploy_config_jsis.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/deploy_config_jsis.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/encode-test.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/encode-test.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/encode-test.groovy-encrypted" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/encode-test.groovy-encrypted" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/encode/config.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/encode/config.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/encode/config_decrypt.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/encode/config_decrypt.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/encode/enc1.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/encode/enc1.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/issues.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/issues.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/json/cent7/Linux.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/json/cent7/Linux.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/json/cent7g/Linux.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/json/cent7g/Linux.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/json/ostrich/Linux.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/json/ostrich/Linux.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/json/win2012/Windows.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/json/win2012/Windows.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/192.168.10.100/VMHost/Account" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/192.168.10.100/VMHost/Account" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/192.168.10.100/VMHost/Datastore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/192.168.10.100/VMHost/Datastore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/192.168.10.100/VMHost/Disk" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/192.168.10.100/VMHost/Disk" afterDir="false" />
@@ -2133,11 +2132,106 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTestEnvironmentTest.groovy">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTest.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxBaseTest.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Config.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+              <folding>
+                <element signature="e#43#75#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTestEnvironment.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+              <folding>
+                <element signature="e#42#74#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/PlatformTester.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2391">
+              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+              <folding>
+                <element signature="e#42#74#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="54" column="11" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.groovy">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/InfraTestSpec/AIXSpec.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="14">
+              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+              <folding>
+                <element signature="e#23#61#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/InfraTestSpec/WindowsSpec.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+              <folding>
+                <element signature="e#23#66#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/WindowsSpecBase.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" selection-start-line="4" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -2147,10 +2241,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTest.groovy" />
+        <option value="$PROJECT_DIR$/lib/InfraTestSpec/WindowsSpec.groovy" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="51" />
-    <option name="y" value="63" />
-    <option name="width" value="1215" />
+    <option name="x" value="69" />
+    <option name="y" value="17" />
+    <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -2160,7 +2262,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2171,6 +2272,17 @@
             <path>
               <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
               <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="InfraTestSpec" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2181,48 +2293,23 @@
             </path>
             <path>
               <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
             </path>
             <path>
               <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
-              <item name="acceptance" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
-              <item name="acceptance" type="462c0819:PsiDirectoryNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Scratches" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560114109427" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560255938508" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Groovy" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -2237,10 +2324,10 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="ConfigTestEnvironmentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ConfigTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="gradle-server-acceptance.test" />
       <option name="PACKAGE_NAME" value="jp.co.toshiba.ITInfra.acceptance" />
-      <option name="MAIN_CLASS_NAME" value="ConfigTestEnvironmentTest" />
+      <option name="MAIN_CLASS_NAME" value="ConfigTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -2248,7 +2335,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ConfigTestEnvironmentTest" />
+        <item itemvalue="JUnit.ConfigTest" />
       </list>
     </recent_temporary>
   </component>
@@ -2257,23 +2344,28 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="903c6c43-9c7f-4b3e-9989-7f1465b3916f" name="Default Changelist" comment="" />
-      <created>1560113902175</created>
+      <changelist id="d0ad59ec-9465-481a-b470-e2b6680213d9" name="Default Changelist" comment="" />
+      <created>1560041944718</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1560113902175</updated>
+      <updated>1560041944718</updated>
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="ConfigTest - 2019.06.09 at 10h 07m 48s.xml">
+      <configuration name="ConfigTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="51" y="63" width="1215" height="1000" extended-state="0" />
+    <frame x="69" y="17" width="1400" height="1000" extended-state="0" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24935065" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
@@ -2282,7 +2374,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.3298731" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298731" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3298731" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -2299,12 +2391,105 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTestEnvironmentTest.groovy">
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        <state relative-caret-position="119">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxBaseTest.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Config.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding>
+            <element signature="e#43#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTestEnvironment.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+          <folding>
+            <element signature="e#42#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/PlatformTester.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2391">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding>
+            <element signature="e#42#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="54" column="11" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.groovy">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/InfraTestSpec/AIXSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+          <folding>
+            <element signature="e#23#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/WindowsSpecBase.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="4" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/InfraTestSpec/WindowsSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <folding>
+            <element signature="e#23#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

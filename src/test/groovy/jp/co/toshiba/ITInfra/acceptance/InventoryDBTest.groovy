@@ -13,37 +13,38 @@ class InventoryDBTest extends Specification {
     def config
     def evidence_manager
     def cmdb_config
-    def db
+    def inventory_db
     def test_env
 
     def setup() {
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')
-        test_env.get_inventory_db_config('src/test/resources/config/inventory_db.groovy')
+        test_env.get_inventory_db_config('src/test/resources/config/cmdb.groovy')
 
-        db = InventoryDB.instance
-        test_env.accept(db)
-        db.initialize()
-        println "CMDB_MODEL:$db"
+        inventory_db = InventoryDB.instance
+        test_env.accept(inventory_db)
+        inventory_db.initialize()
+        println "CMDB_MODEL:$inventory_db"
     }
 
     def 設定読み込み() {
         when:
-        def config = db.cmdb_config
+        def config = inventory_db.db_config
         def json = new groovy.json.JsonBuilder()
         json(config)
         println json.toPrettyString()
 
         then:
-        config.inventory_db.dataSource.url != null
-        config.inventory_db.dataSource.username != null
-        config.inventory_db.dataSource.password != null
+        config.dataSource.url != null
+        config.dataSource.username != null
+        config.dataSource.password != null
     }
 
     def "マスター登録"() {
         when:
-        def id = db.registMaster("projects", [project_name: 'base'])
-        def projects = db.cmdb.rows("select * from projects")
+        def columns = [project_name: 'base', project_path: '/home/base']
+        def id = inventory_db.registMaster("projects", columns)
+        def projects = inventory_db.rows("select * from projects")
         def json = new groovy.json.JsonBuilder()
         json(projects)
         println json.toPrettyString()
@@ -56,49 +57,52 @@ class InventoryDBTest extends Specification {
 
     def "マスター重複登録"() {
         when:
-        def id1 = cmdb_model.registMaster("tenants", [tenant_name: '_Default'])
-        def id2 = cmdb_model.registMaster("tenants", [tenant_name: '_Default'])
-        def tenant = cmdb_model.cmdb.rows("select * from tenants")
+        def columns = [project_name: 'base2', project_path: '/home/base2']
+        def id1 = inventory_db.registMaster("projects", columns)
+        def id2 = inventory_db.registMaster("projects", columns)
+        def projects = inventory_db.rows("select * from projects")
 
         then:
         id1 == id2
-        tenant.size() == 1
+        projects.size() == 1
     }
 
     def "マスター登録複数列"() {
         when:
-        def id = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
-        def node = cmdb_model.cmdb.rows("select * from nodes where node_name = 'node01'")
+        def columns = [project_id: 1, node_name: 'node01', platform: 'Linux']
+        def id = inventory_db.registMaster("nodes", columns)
+        def node = inventory_db.rows("select * from nodes where node_name = ?", 'node01')
 
         then:
         id > 0
         node[0]['node_name'] == 'node01'
-        node[0]['tenant_id'] == 1
+        node[0]['project_id'] == 1
     }
 
-    def "複数サイトノード登録"() {
+    def "複数プロジェクトでノード登録"() {
         when:
-        def site_id1      = cmdb_model.registMaster("sites", [site_name: 'site01'])
-        def site_id2      = cmdb_model.registMaster("sites", [site_name: 'site02'])
-        def node_id1      = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
-        def site_node_id1 = cmdb_model.registMaster("site_nodes", [node_id: node_id1, site_id: site_id1])
-
-        def node_id2      = cmdb_model.registMaster("nodes", [node_name: 'node01', tenant_id: 1])
-        def site_node_id2 = cmdb_model.registMaster("site_nodes", [node_id: node_id2, site_id: site_id2])
+        def project_id1 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01'])
+        def project_id2 = inventory_db.registMaster("projects", [project_name: 'p02', project_path: 'p02'])
+        def node_id1 = inventory_db.registMaster("nodes", [node_name: 'node01',platform: 'vCenter', project_id: project_id1])
+        def node_id2 = inventory_db.registMaster("nodes", [node_name: 'node01',platform: 'Linux', project_id: project_id2])
 
         then:
-        site_node_id1 != site_node_id2
-        def sql = "select * from site_nodes where node_id = ? order by site_id"
-        def site_node = cmdb_model.cmdb.rows(sql, node_id1)
-        site_node[0]['site_id'] == site_id1
-        site_node[0]['node_id'] == node_id1
-        site_node[1]['site_id'] == site_id2
-        site_node[1]['node_id'] == node_id1
+        def rows = inventory_db.rows("select * from nodes")
+        def json = new groovy.json.JsonBuilder()
+        json(rows)
+        println json.toPrettyString()
+
+        rows[0]['project_id'] == 1
+        rows[0]['node_name']  == 'node01'
+        rows[0]['platform']   == 'vCenter'
+        rows[1]['project_id'] == 2
+        rows[1]['node_name']  == 'node01'
+        rows[1]['platform']   == 'Linux'
     }
 
     def "マスター登録列名なし"() {
         when:
-        def id = cmdb_model.registMaster("nodes", [HOGE: 'node01', tenant_id: 1])
+        def id = inventory_db.registMaster("nodes", [HOGE: 'node01', tenant_id: 1])
 
         then:
         thrown(SQLException)
@@ -106,8 +110,8 @@ class InventoryDBTest extends Specification {
 
     def "マスター登録キャッシュ"() {
         when:
-        def id1 = cmdb_model.registMaster("sites", [site_name: 'site01'])
-        def id2 = cmdb_model.registMaster("sites", [site_name: 'site01'])
+        def id1 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01a'])
+        def id2 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01b'])
 
         then:
         id1 == id2

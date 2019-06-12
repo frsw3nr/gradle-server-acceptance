@@ -14,7 +14,7 @@ import java.sql.SQLException
 @ToString(includePackage = false)
 class InventoryDB {
 
-    ConfigObject cmdb_config
+    ConfigObject db_config
     def create_db_sql
     String project_name
     String tenant_name
@@ -22,7 +22,7 @@ class InventoryDB {
     def cmdb_cache = [:]
 
     def set_environment(ConfigTestEnvironment env) {
-        this.cmdb_config   = env.get_inventory_db_config()
+        this.db_config   = env.get_inventory_db_config()
         this.create_db_sql = env.get_create_inventory_db_sql()
         this.project_name  = env.get_project_name()
         this.tenant_name   = env.get_tenant_name()
@@ -30,7 +30,7 @@ class InventoryDB {
 
     def initialize() throws IOException, SQLException {
         if (!this.cmdb) {
-            def config_ds = this.cmdb_config?.inventory_db?.dataSource
+            def config_ds = this.db_config?.dataSource
             if (!config_ds) {
                 def msg = "Config not found inventory_db.dataSource in 'config/inventory_db.groovy'"
                 throw new IllegalArgumentException(msg)
@@ -47,7 +47,7 @@ class InventoryDB {
         // Confirm existence of Version table. If not, execute db create script
         def cmdb_exists = false
         try {
-            List rows = this.cmdb.rows('select * from tenants')
+            List rows = this.cmdb.rows('select * from version')
             if (rows.size()) {
                 cmdb_exists = true
             }
@@ -59,6 +59,10 @@ class InventoryDB {
                 this.cmdb.execute it
             }
         }
+    }
+
+    def rows(String sql, args = null) {
+        return (args == null) ? this.cmdb.rows(sql) : this.cmdb.rows(sql, args)
     }
 
     def registMaster(table_name, columns) throws SQLException {
@@ -85,7 +89,7 @@ class InventoryDB {
             table.add(columns)
         } catch (SQLException e) {
             log.info "This table already have a data, Skip\n" +
-                     "${table_name} : ${columns}"
+                     "${table_name} : ${columns}" + e
         }
         rows = cmdb.rows(query, values)
         if (rows != null && rows.size() == 1) {

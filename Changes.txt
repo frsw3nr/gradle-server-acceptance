@@ -28,7 +28,7 @@ TODO:
 
 テンプレート化スコープ定義
 
-* 単体製造 IntventoryDB.groovy
+* 単体 IntventoryDB.groovy
     * 初期化処理
     * 登録処理
     * 検索処理

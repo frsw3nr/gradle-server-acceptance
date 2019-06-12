@@ -29,4 +29,4 @@ create table nodes (
   , constraint node_pkc primary key (id)
 );
 
-create unique index uk_network_node on nodes(project_id, node_name);
+create unique index uk_node_platform on nodes(node_name, platform);
