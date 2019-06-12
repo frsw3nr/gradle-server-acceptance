@@ -4,7 +4,7 @@ Changes for 0.2.4 (2019-6-24)
 New features:
 
 TODO:
-* UNIX Telnet セッション処理に Expect ライブラリ実装 [ ]
+* UNIX Telnet セッション処理に Expect ライブラリ実装 [x]
 * クラスター分析で、サロゲートキーからダミー変数への変換を多値変数の変換に見直し [ ]
 * パフォーマンスチューニング用に、CompileStatic 移行 [ ]
     * Intellj 環境構築 [x]
@@ -25,6 +25,18 @@ TODO:
     * 検査項目で、比較有効化フラグを追加 [ ]
     * Excel検査結果レイアウトにタグ列を追加 [ ]
     * 相違をセルの配色で分類する [ ]
+
+テンプレート化スコープ定義
+
+* 単体製造 IntventoryDB.groovy
+    * 初期化処理
+    * 登録処理
+    * 検索処理
+    * レポーティング処理。単純にSystem.out.format()でよい
+      gradle test --tests "InventoryDBTest.マスター登録"
+* EvdenceManager 結合
+* TestRunner 結合
+
 
 Changes for 0.2.3 (2019-6-3)
 ------------------------------------------------------------------------------

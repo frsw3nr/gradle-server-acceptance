@@ -12,6 +12,7 @@ class ConfigTestEnvironment {
     String config_file
     ConfigObject config
     ConfigObject cmdb_config
+    ConfigObject inventory_db_config
 
     def read_config(String config_file = 'config/config.groovy') {
         this.config_file = config_file
@@ -36,6 +37,19 @@ class ConfigTestEnvironment {
                 return
             this.config."$name" = value
         }
+    }
+
+    def get_inventory_db_config(String config_path = null) {
+        if (! this.inventory_db_config) {
+            if (!config_path) {
+                config_path = this.get_config_path()
+            }
+            if(!(new File(config_path)).exists()){
+                throw new IOException("Not found InventoryDB config file : ${config_path}")
+            }
+            this.inventory_db_config =  Config.instance.read(config_path)
+        }
+        return this.inventory_db_config
     }
 
     def get_cmdb_config(String cmdb_config_path = null) {
@@ -145,6 +159,11 @@ class ConfigTestEnvironment {
     def get_create_db_sql() {
         def project_home = this.get_project_home()
         return "${project_home}/lib/script/cmdb/create_db.sql"
+    }
+
+    def get_create_inventory_db_sql() {
+        def getconfig_home = this.get_getconfig_home()
+        return "${getconfig_home}/lib/script/cmdb/create_inventory_db.sql"
     }
 
     def get_last_run_config() {
