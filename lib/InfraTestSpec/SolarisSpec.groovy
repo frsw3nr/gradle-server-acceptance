@@ -362,6 +362,11 @@ class SolarisSpec extends InfraTestSpec {
                 ipadms[device]['mode']   = mode
                 ipadms[device]['status'] = status
                 ipadms[device]['ip']     = ip
+                (ip =~/^(.+?)\/(\d+)$/).each { n0, ip_address, subnet ->
+                    if (ip_address != '127.0.0.1') {
+                        test_item.lookuped_port_list(ip_address, device)
+                    }
+                }
             }
         }
         def res = [:]
@@ -767,11 +772,9 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('zoneadm') {
             session.run_command('zoneadm list -vc', 'zoneadm')
         }
-        println lines
         def total_count = 0
         def zoneadms = [:].withDefault{[:]}
         lines.eachLine {
-            println "TEST:$it"
             ( it =~ /^\s*(\d+?)\s+(\w.+?)\s+(\w.+?)\s+(\/.+?)\s+(\w.+?)\s+(\w.+?)$/).each {
                 m0, id, name, status, path, brand, ip->
                 // println "ZONE:$id, $name, $status, $path, $brand, $ip"
@@ -799,7 +802,6 @@ class SolarisSpec extends InfraTestSpec {
         def lines = exec('poolstat') {
             session.run_command('poolstat -r all', 'poolstat')
         }
-        println lines
         def total_count = 0
         def poolstats = [:].withDefault{[:]}
         lines.eachLine {
@@ -807,7 +809,6 @@ class SolarisSpec extends InfraTestSpec {
             // 1 pool_db              pset   1 pset_db               144  144  144 0.00 0.42
             ( it =~ /^\s*(\d+?)\s+(\w.+?)\s+(\w.+?)\s+(\d+?)\s+(\w.+?)\s+(\d+?)\s+(\d+?)\s+(\d+?)\s+(.+?)\s+(.+?)$/).each {
                 m0, id, pool, type, rid, rset, cpu_min, cpu_max, cpu_size, used, load->
-                println "$id, $pool, $type, $rid, $rset, $cpu_min, $cpu_max, $cpu_size, $used, $load"
                 poolstats[pool]['type'] = type
                 poolstats[pool]['rset'] = rset
                 poolstats[pool]['min']  = cpu_min
@@ -851,7 +852,6 @@ class SolarisSpec extends InfraTestSpec {
             // set kmem_lite_maxalign = 8192
 
             ( it =~ /^\s*set\s+(\w.+?)\s*=\s*(\w.+?)$/).each { m0, name, value ->
-                println "LINE:$name,$value<EOF>"
                 def metric = "system_etc.${name}"
                 add_new_metric(metric, "[システム設定] ${name}", value, res)
             }
