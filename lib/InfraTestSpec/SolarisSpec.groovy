@@ -189,6 +189,29 @@ class SolarisSpec extends InfraTestSpec {
         test_item.verify_number_equal('cpu_total', cpuinfo['cpu_total'])
     }
 
+    def psrinfo(session, test_item) {
+        def lines = exec('psrinfo') {
+            session.run_command('psrinfo', 'psrinfo')
+        }
+        def total_count = 0
+        def psrinfos = [:].withDefault{0}
+        lines.eachLine {
+            ( it =~ /^\s*(\d+?)\s+(\w.+?)\s/).each {m0, m1, m2->
+                psrinfos[m2] ++
+                total_count ++
+            }
+        }
+        def res = [:]
+        psrinfos.each { status, count ->
+            def metric = "psrinfo.${status}"
+            add_new_metric(metric, "[プロセッサ状態] ${status}", psrinfos[status],
+                           res)
+        }
+        res['psrinfo'] = total_count
+        // add_new_metric("psrinfo.total", "[プロセッサ状態] Total", total_count, res)
+        test_item.results(res)
+    }
+
     def machineid(session, test_item) {
         def lines = exec('machineid') {
             session.run_command('hostid', 'machineid')
@@ -325,6 +348,35 @@ class SolarisSpec extends InfraTestSpec {
         // test_item.results(['network': "$infos", 'net_ip': "$device_ip", 'net_subnet': "$net_subnet"])
         // test_item.verify_text_search_map('network', device_ip)
         test_item.verify_text_search_list('net_ip', device_ip)
+    }
+
+   def ipadm(session, test_item) {
+        def lines = exec('ipadm') {
+            session.run_command('ipadm', 'ipadm')
+        }
+        def total_count = 0
+        def ipadms = [:].withDefault{[:]}
+        lines.eachLine {
+            ( it =~ /^\s*(\w.+?)\s+(\w.+?)\s+(\w.+?)\s.+\s([\d|\.]+\/\d+)$/).each {
+                m0, device, mode, status, ip->
+                ipadms[device]['mode']   = mode
+                ipadms[device]['status'] = status
+                ipadms[device]['ip']     = ip
+            }
+        }
+        def res = [:]
+        def ip_count = 0
+        ipadms.each { device, ipadm ->
+            def metric = "ipadm.${device}"
+            add_new_metric("${metric}.mode",   "[${device}] モード", ipadm['mode'], res)
+            add_new_metric("${metric}.status", "[${device}] ステータス", ipadm['status'], res)
+            add_new_metric("${metric}.ip",     "[${device}] IP", ipadm['ip'], res)
+            ip_count ++
+        }
+        def status = (ip_count == 0) ? 'Not Found' : "${ip_count} ips"
+        res['ipadm'] = status
+
+        test_item.results(res)
     }
 
     def net_route(session, test_item) {
@@ -709,9 +761,105 @@ class SolarisSpec extends InfraTestSpec {
         services['service'] = "${service_count} services"
         test_item.devices(csv, ['Name', 'Status'])
         test_item.results(services)
-        // test_item.verify_text_search_map('service', service_names)
     }
 
+   def zoneadm(session, test_item) {
+        def lines = exec('zoneadm') {
+            session.run_command('zoneadm list -vc', 'zoneadm')
+        }
+        println lines
+        def total_count = 0
+        def zoneadms = [:].withDefault{[:]}
+        lines.eachLine {
+            println "TEST:$it"
+            ( it =~ /^\s*(\d+?)\s+(\w.+?)\s+(\w.+?)\s+(\/.+?)\s+(\w.+?)\s+(\w.+?)$/).each {
+                m0, id, name, status, path, brand, ip->
+                // println "ZONE:$id, $name, $status, $path, $brand, $ip"
+                zoneadms[name]['status'] = status
+                zoneadms[name]['path']   = path
+                zoneadms[name]['brand']  = brand
+                zoneadms[name]['ip']     = ip
+            }
+        }
+        def res = [:]
+        def zone_count = 0
+        zoneadms.each { zone_name, zoneadm ->
+            def metric = "zoneadm.${zone_name}"
+            add_new_metric("${metric}.path",  "[${zone_name}] パス", zoneadm['path'], res)
+            add_new_metric("${metric}.brand", "[${zone_name}] ブランド", zoneadm['brand'], res)
+            add_new_metric("${metric}.ip",    "[${zone_name}] IPインスタンス", zoneadm['ip'], res)
+            zone_count ++
+        }
+        def status = (zone_count == 0) ? 'Not Found' : "${zone_count} zones"
+        res['zoneadm'] = status
+        test_item.results(res)
+    }
+
+   def poolstat(session, test_item) {
+        def lines = exec('poolstat') {
+            session.run_command('poolstat -r all', 'poolstat')
+        }
+        println lines
+        def total_count = 0
+        def poolstats = [:].withDefault{[:]}
+        lines.eachLine {
+            // id pool                 type rid rset                  min  max size used load
+            // 1 pool_db              pset   1 pset_db               144  144  144 0.00 0.42
+            ( it =~ /^\s*(\d+?)\s+(\w.+?)\s+(\w.+?)\s+(\d+?)\s+(\w.+?)\s+(\d+?)\s+(\d+?)\s+(\d+?)\s+(.+?)\s+(.+?)$/).each {
+                m0, id, pool, type, rid, rset, cpu_min, cpu_max, cpu_size, used, load->
+                println "$id, $pool, $type, $rid, $rset, $cpu_min, $cpu_max, $cpu_size, $used, $load"
+                poolstats[pool]['type'] = type
+                poolstats[pool]['rset'] = rset
+                poolstats[pool]['min']  = cpu_min
+                poolstats[pool]['max']  = cpu_max
+                poolstats[pool]['size'] = cpu_size
+            }
+        }
+        def res = [:]
+        def pool_count = 0
+        poolstats.each { pool_name, poolstat ->
+            def metric = "poolstat.${pool_name}"
+            add_new_metric("${metric}.type", "[${pool_name}] プールタイプ", poolstat['type'], res)
+            add_new_metric("${metric}.rset", "[${pool_name}] プールリソース", poolstat['rset'], res)
+            add_new_metric("${metric}.min",  "[${pool_name}] CPU最小", poolstat['min'], res)
+            add_new_metric("${metric}.max",  "[${pool_name}] CPU最大", poolstat['max'], res)
+            add_new_metric("${metric}.size", "[${pool_name}] CPUサイズ", poolstat['size'], res)
+            pool_count ++
+        }
+        def status = (pool_count == 0) ? 'Not Found' : "${pool_count} pools"
+        res['poolstat'] = status
+        test_item.results(res)
+    }
+
+   def system_etc(session, test_item) {
+        def lines = exec('system_etc') {
+            session.run_command('cat /etc/system', 'system_etc')
+        }
+        // println lines
+        def total_count = 0
+        def system_etcs = [:].withDefault{[:]}
+
+        def res = [:]
+        lines.eachLine {
+            // *       To set a variable named 'debug' in the module named 'test_module'
+            // *
+            // *               set test_module:debug = 0x13
+
+            // * Begin FJSVssf (do not edit)
+            // set ftrace_atboot = 1
+            // set kmem_flags = 0x100
+            // set kmem_lite_maxalign = 8192
+
+            ( it =~ /^\s*set\s+(\w.+?)\s*=\s*(\w.+?)$/).each { m0, name, value ->
+                println "LINE:$name,$value<EOF>"
+                def metric = "system_etc.${name}"
+                add_new_metric(metric, "[システム設定] ${name}", value, res)
+            }
+        }
+        def status = (res.size() == 0) ? 'Not Found' : "${res.size()} parameters"
+        res['system_etc'] = status
+        test_item.results(res)
+    }
 
     // def oracle(session, test_item) {
     //     def lines = exec('oracle') {
@@ -756,6 +904,52 @@ class SolarisSpec extends InfraTestSpec {
             }
         }
         res['resolve_conf'] = (nameserver_number == 1) ? 'off' : 'on'
+        test_item.results(res)
+    }
+
+//      global core file pattern:
+// kernel zone core file pattern:
+//        init core file pattern: /var/corefiles/core.%f.%p
+//      global core file content: default
+//        init core file content: default-shm-ism-dism-osm
+//             global core dumps: disabled
+//        kernel zone core dumps: disabled
+//        per-process core dumps: enabled
+//       global setid core dumps: disabled
+//  per-process setid core dumps: disabled
+//      global core dump logging: disabled
+
+    def coreadm(session, test_item) {
+        def lines = exec('coreadm') {
+            session.run_command('coreadm', 'coreadm')
+        }
+
+        def core_file_patterns = [:]
+        def core_file_contents = [:]
+        def core_dumps = [:].withDefault{[]}
+        lines.eachLine {
+            ( it =~ /^\s*(\w.*?) core file pattern: (.*)$/).each {m0, m1, m2->
+                core_file_patterns[m1] = "'${m2}'"
+            }
+            ( it =~ /^\s*(\w.*?) core file content: (.*)$/).each {m0, m1, m2->
+                core_file_contents[m1] = "'${m2}'"
+            }
+            ( it =~ /^\s*(\w.*?) core dumps: (.*)$/).each {m0, m1, m2->
+                core_dumps[m2] << m1
+            }
+            ( it =~ /^\s*global core dump logging: (.*)$/).each {m0, m1->
+                core_dumps[m1] << 'logging'
+            }
+        }
+        def res = [:]
+        add_new_metric("coreadm.file_pattern", "[コアダンプ] ファイル名", 
+                       "${core_file_patterns}", res)
+        add_new_metric("coreadm.file_contents", "[コアダンプ] コンテンツ", 
+                       "${core_file_contents}", res)
+        add_new_metric("coreadm.mode", "[コアダンプ] 無効化設定", 
+                       "${core_dumps['disabled']}", res)
+        def enabled_core_dumps = core_dumps['enabled']
+        res['coreadm'] = (enabled_core_dumps.size() == 0) ? 'AllDisable' : "$enabled_core_dumps"
         test_item.results(res)
     }
 
