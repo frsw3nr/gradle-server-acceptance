@@ -17,7 +17,7 @@
   emergency.service                                     loaded    inactive dead    Emergency Shell
 Åú exim.service                                          not-found inactive dead    exim.service
 Åú fcoe.service                                          not-found inactive dead    fcoe.service
-  firewalld.service                                     loaded    active   running firewalld - dynamic firewall daemon
+  firewalld.service                                     loaded    inactive dead    firewalld - dynamic firewall daemon
   getty@tty1.service                                    loaded    active   running Getty on tty1
   gssproxy.service                                      loaded    active   running GSSAPI Proxy Daemon
   httpd.service                                         loaded    active   running The Apache HTTP Server
@@ -29,8 +29,8 @@
 Åú iscsi.service                                         not-found inactive dead    iscsi.service
 Åú iscsid.service                                        not-found inactive dead    iscsid.service
   kdump.service                                         loaded    active   exited  Crash recovery kernel arming
+  kibana.service                                        loaded    active   running Kibana
   kmod-static-nodes.service                             loaded    active   exited  Create list of required static device nodes for the current kernel
-Åú libvirtd.service                                      not-found inactive dead    libvirtd.service
 Åú lvm2-activation-early.service                         not-found inactive dead    lvm2-activation-early.service
 Åú lvm2-activation.service                               not-found inactive dead    lvm2-activation.service
   lvm2-lvmetad.service                                  loaded    active   running LVM2 metadata daemon
@@ -58,6 +58,7 @@
   plymouth-start.service                                loaded    inactive dead    Show Plymouth Boot Screen
   polkit.service                                        loaded    active   running Authorization Manager
   postfix.service                                       loaded    active   running Postfix Mail Transport Agent
+  postgresql-10.service                                 loaded    active   running PostgreSQL 10 database server
 Åú rbdmap.service                                        not-found inactive dead    rbdmap.service
   rc-local.service                                      loaded    inactive dead    /etc/rc.d/rc.local Compatibility
   rescue.service                                        loaded    inactive dead    Rescue Shell
@@ -65,6 +66,7 @@
   rhel-autorelabel.service                              loaded    inactive dead    Relabel all filesystems, if necessary
   rhel-configure.service                                loaded    inactive dead    Reconfigure the system on administrator request
   rhel-dmesg.service                                    loaded    active   exited  Dump dmesg to /var/log/dmesg
+  rhel-domainname.service                               loaded    active   exited  Read and set NIS domainname from /etc/sysconfig/network
   rhel-import-state.service                             loaded    active   exited  Import network configuration from initramfs
   rhel-loadmodules.service                              loaded    inactive dead    Load legacy module configuration
   rhel-readonly.service                                 loaded    active   exited  Configure read-only root support
@@ -76,6 +78,7 @@
   selinux-policy-migrate-local-changes@targeted.service loaded    inactive dead    Migrate local SELinux policy changes from the old store structure to the new structure
 Åú sendmail.service                                      not-found inactive dead    sendmail.service
 Åú slpd.service                                          not-found inactive dead    slpd.service
+  snmpd.service                                         loaded    active   running Simple Network Management Protocol (SNMP) Daemon.
   snmptrapd.service                                     loaded    active   running Simple Network Management Protocol (SNMP) Trap Daemon.
   snmptt.service                                        loaded    active   running SNMP Trap Translator (SNMPTT)
 Åú sntp.service                                          not-found inactive dead    sntp.service
@@ -97,7 +100,6 @@
   systemd-logind.service                                loaded    active   running Login Service
   systemd-machine-id-commit.service                     loaded    inactive dead    Commit a transient machine-id on disk
   systemd-modules-load.service                          loaded    inactive dead    Load Kernel Modules
-Åú systemd-random-seed-load.service                      not-found inactive dead    systemd-random-seed-load.service
   systemd-random-seed.service                           loaded    active   exited  Load/Save Random Seed
   systemd-readahead-collect.service                     loaded    inactive dead    Collect Read-Ahead Data
   systemd-readahead-done.service                        loaded    inactive dead    Stop Read-Ahead Data Collection
@@ -107,6 +109,7 @@
   systemd-shutdownd.service                             loaded    inactive dead    Delayed Shutdown Service
   systemd-sysctl.service                                loaded    active   exited  Apply Kernel Variables
 Åú systemd-sysusers.service                              not-found inactive dead    systemd-sysusers.service
+  systemd-timedated.service                             loaded    active   running Time & Date Service
   systemd-tmpfiles-clean.service                        loaded    inactive dead    Cleanup of Temporary Directories
   systemd-tmpfiles-setup-dev.service                    loaded    active   exited  Create Static Device Nodes in /dev
   systemd-tmpfiles-setup.service                        loaded    active   exited  Create Volatile Files and Directories
@@ -122,6 +125,10 @@
   tomcat.service                                        loaded    active   running Apache Tomcat Web Application Container
   tuned.service                                         loaded    active   running Dynamic System Tuning Daemon
   vmware-tools.service                                  loaded    active   running SYSV: Manages the services needed to run VMware software
+Åú ypbind.service                                        not-found inactive dead    ypbind.service
+Åú yppasswdd.service                                     not-found inactive dead    yppasswdd.service
+Åú ypserv.service                                        not-found inactive dead    ypserv.service
+Åú ypxfrd.service                                        not-found inactive dead    ypxfrd.service
   zabbix-agent.service                                  loaded    active   running Zabbix Agent
   zabbix-java-gateway.service                           loaded    active   running Zabbix Java Gateway
   zabbix-server.service                                 loaded    active   running Zabbix Server
@@ -130,5 +137,5 @@ LOAD   = Reflects whether the unit definition was properly loaded.
 ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
 SUB    = The low-level unit activation state, values depend on unit type.
 
-126 loaded units listed.
+133 loaded units listed.
 To show all installed unit files use 'systemctl list-unit-files'.

@@ -18,6 +18,5 @@ noaccess:x:60002:60002:No Access User:/:
 nobody4:x:65534:65534:SunOS 4.x NFS Anonymous Access User:/:
 psadmin:x:100:1::/export/home/psadmin/:/bin/bash
 someuser:x:101:1::/home/someuser:/bin/sh
-someuser2:x:1001:1::/home/someuser2:/bin/sh
+someuser2:x:1001:1::/export/home/someuser2/:/bin/csh
 guest:x:1002:1::/home/guest:/bin/sh
-$ 

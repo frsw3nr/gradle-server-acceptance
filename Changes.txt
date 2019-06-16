@@ -31,14 +31,21 @@ Bug fixes:
 
 テンプレート化スコープ定義
 
-* 単体 IntventoryDB.groovy
-    * 初期化処理
-    * 登録処理
-    * 検索処理
-    * レポーティング処理。単純にSystem.out.format()でよい
+* 単体 IntventoryDB.groovy [x]
+    * 初期化処理 [x]
+    * 登録処理 [x]
+    * 検索処理 [x]
+    * レポーティング処理。単純にSystem.out.format()でよい [x]
+        * projects (project_name, project_path, created)
+        * nodes (id, project_id, node_name, platform, data_type, created)
       gradle test --tests "InventoryDBTest.マスター登録"
-* EvdenceManager 結合
-* TestRunner 結合
+* TestSchedule 結合 [ ]
+    * init() 変更 [ ]
+    * add_compare_target()関数追加 [ ]
+        * test_schenario に compare_target 追加 [ ]
+        * dry_run の設定を有効化 [ ]
+* EvdenceManager 結合 [ ]
+* TestRunner 結合 [ ]
 
 
 Changes for 0.2.3 (2019-6-3)

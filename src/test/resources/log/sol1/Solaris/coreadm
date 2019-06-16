@@ -1,0 +1,9 @@
+     global core file pattern: 
+     global core file content: default
+       init core file pattern: core
+       init core file content: default
+            global core dumps: disabled
+       per-process core dumps: enabled
+      global setid core dumps: disabled
+ per-process setid core dumps: disabled
+     global core dump logging: disabled

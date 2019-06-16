@@ -1,4 +1,4 @@
-CentOS Linux release 7.3.1611 (Core) 
+CentOS Linux release 7.6.1810 (Core) 
 NAME="CentOS Linux"
 VERSION="7 (Core)"
 ID="centos"
@@ -15,5 +15,5 @@ CENTOS_MANTISBT_PROJECT_VERSION="7"
 REDHAT_SUPPORT_PRODUCT="centos"
 REDHAT_SUPPORT_PRODUCT_VERSION="7"
 
-CentOS Linux release 7.3.1611 (Core) 
-CentOS Linux release 7.3.1611 (Core) 
+CentOS Linux release 7.6.1810 (Core) 
+CentOS Linux release 7.6.1810 (Core) 

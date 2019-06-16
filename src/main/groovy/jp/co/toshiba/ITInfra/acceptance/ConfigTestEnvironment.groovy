@@ -151,6 +151,11 @@ class ConfigTestEnvironment {
         // return "${project_home}/config/cmdb.groovy"
     }
 
+    def get_node_dir() {
+        def getconfig_home = this.get_getconfig_home()
+        return "${getconfig_home}/node/"
+    }
+
     def get_create_db_sql() {
         def project_home = this.get_project_home()
         return "${project_home}/lib/script/cmdb/create_db.sql"
@@ -171,13 +176,18 @@ class ConfigTestEnvironment {
         return this.config?.db_config ?: "${getconfig_home}/config/cmdb.groovy"
     }
 
-    def get_node_dir() {
+    def get_base_node_dir() {
         def project_home = this.get_project_home()
         return this.config?.node_dir ?: "${project_home}/node"
     }
 
     def get_test_resource() {
         return this.config?.test_resource ?: './src/test/resources/log'
+    }
+
+    def get_base_test_resource() {
+        def project_home = this.get_project_home()
+        return this.config?.node_dir ?: "${project_home}/src/test/resources/log"
     }
 
     def get_silent() {

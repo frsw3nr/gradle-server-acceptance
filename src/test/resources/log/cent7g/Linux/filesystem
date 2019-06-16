@@ -5,4 +5,4 @@ sda               8:0    0   16G  0 disk
 `-sda2            8:2    0 15.5G  0 part 
   |-centos-root 253:0    0 13.9G  0 lvm  /
   `-centos-swap 253:1    0  1.6G  0 lvm  [SWAP]
-sr0              11:0    1    4G  0 rom  /run/media/root/CentOS 7 x86_64
+sr0              11:0    1 1024M  0 rom  

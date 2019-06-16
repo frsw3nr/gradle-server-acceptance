@@ -1,1 +1,1 @@
-ro root=/dev/mapper/vg_ostrich-lv_root rd_NO_LUKS rd_LVM_LV=vg_ostrich/lv_swap rd_NO_MD crashkernel=129M@0M  KEYBOARDTYPE=pc KEYTABLE=jp106 rd_LVM_LV=vg_ostrich/lv_root LANG=ja_JP.UTF-8 rd_NO_DM rhgb quiet
+ro root=/dev/mapper/vg_ostrich-lv_root rd_NO_LUKS rd_LVM_LV=vg_ostrich/lv_swap rd_NO_MD crashkernel=129M@48M  KEYBOARDTYPE=pc KEYTABLE=jp106 rd_LVM_LV=vg_ostrich/lv_root LANG=ja_JP.UTF-8 rd_NO_DM rhgb quiet

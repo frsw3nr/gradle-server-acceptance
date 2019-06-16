@@ -4,7 +4,7 @@ Filesystem             size   used  avail capacity  Mounted on
 ctfs                     0K     0K     0K     0%    /system/contract
 proc                     0K     0K     0K     0%    /proc
 mnttab                   0K     0K     0K     0%    /etc/mnttab
-swap                   3.0G  1004K   3.0G     1%    /etc/svc/volatile
+swap                   3.0G   996K   3.0G     1%    /etc/svc/volatile
 objfs                    0K     0K     0K     0%    /system/object
 sharefs                  0K     0K     0K     0%    /etc/dfs/sharetab
 /usr/lib/libc/libc_hwcap1.so.1
@@ -16,4 +16,3 @@ swap                   3.0G    32K   3.0G     1%    /var/run
 -hosts                   0K     0K     0K     0%    /net
 auto_home                0K     0K     0K     0%    /home
 sol:vold(pid563)         0K     0K     0K     0%    /vol
-$ 

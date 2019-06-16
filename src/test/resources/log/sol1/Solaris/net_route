@@ -13,4 +13,3 @@ destination: default
 locks:  inits: <rttvar,rtt,ssthresh,sendpipe,recvpipe,mtu>
 sockaddrs: <DST,GATEWAY,NETMASK,IFP,IFA>
  default 192.168.10.254 default e1000g0:0.c.29.6f.38.cf 192.168.10.3
-$ 

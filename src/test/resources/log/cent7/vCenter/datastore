@@ -6,7 +6,7 @@ Datacenter                     : ha-datacenter
 ParentFolderId                 : Folder-ha-folder-datastore
 ParentFolder                   : datastore
 DatastoreBrowserPath           : vmstores:\192.168.10.100@443\ha-datacenter\living-data1
-FreeSpaceMB                    : 1081269
+FreeSpaceMB                    : 1102881
 CapacityMB                     : 2861568
 Accessible                     : True
 Type                           : VMFS
@@ -15,7 +15,7 @@ CongestionThresholdMillisecond : 232
 State                          : Available
 ExtensionData                  : VMware.Vim.Datastore
 CapacityGB                     : 2794.5
-FreeSpaceGB                    : 1055.9267578125
+FreeSpaceGB                    : 1077.0322265625
 Name                           : living-data1
 Id                             : Datastore-55cc35aa-46efadd8-29ed-001b217d201d
 Uid                            : /VIServer=test_user@192.168.10.100:443/Datastore=Datastore-55cc35aa-46efadd8-29ed-001b
@@ -28,7 +28,7 @@ Datacenter                     : ha-datacenter
 ParentFolderId                 : Folder-ha-folder-datastore
 ParentFolder                   : datastore
 DatastoreBrowserPath           : vmstores:\192.168.10.100@443\ha-datacenter\datastore2
-FreeSpaceMB                    : 24197
+FreeSpaceMB                    : 25692
 CapacityMB                     : 238336
 Accessible                     : True
 Type                           : VMFS
@@ -37,7 +37,7 @@ CongestionThresholdMillisecond : 232
 State                          : Available
 ExtensionData                  : VMware.Vim.Datastore
 CapacityGB                     : 232.75
-FreeSpaceGB                    : 23.6298828125
+FreeSpaceGB                    : 25.08984375
 Name                           : datastore2
 Id                             : Datastore-59ab899b-2b3ef5e8-cabf-000e04131080
 Uid                            : /VIServer=test_user@192.168.10.100:443/Datastore=Datastore-59ab899b-2b3ef5e8-cabf-000e

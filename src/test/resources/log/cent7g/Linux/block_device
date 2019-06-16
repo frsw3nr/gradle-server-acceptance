@@ -2,7 +2,7 @@
 /sys/block/dm-1/size:3358720
 /sys/block/fd0/size:8
 /sys/block/sda/size:33554432
-/sys/block/sr0/size:8456192
+/sys/block/sr0/size:2097151
 /sys/block/dm-0/removable:0
 /sys/block/dm-1/removable:0
 /sys/block/fd0/removable:1

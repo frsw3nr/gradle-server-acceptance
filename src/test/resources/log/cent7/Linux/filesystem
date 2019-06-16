@@ -1,14 +1,26 @@
-NAME                         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-fd0                            2:0    1    4K  0 disk 
-sda                            8:0    0 20.2G  0 disk 
-|-sda1                         8:1    0  500M  0 part /boot
-`-sda2                         8:2    0 15.5G  0 part 
-  |-centos-root              253:0    0 13.9G  0 lvm  /
-  |-centos-swap              253:1    0  1.6G  0 lvm  [SWAP]
-  `-centos-docker--poolmeta  253:2    0   16M  0 lvm  
-sdb                            8:16   0   16G  0 disk 
-sr0                           11:0    1 1024M  0 rom  
-loop0                          7:0    0  100G  0 loop 
-`-docker-253:0-51028406-pool 253:3    0  100G  0 dm   
-loop1                          7:1    0    2G  0 loop 
-`-docker-253:0-51028406-pool 253:3    0  100G  0 dm   
+NAME                                                                                       MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+fd0                                                                                          2:0    1    4K  0 disk 
+sda                                                                                          8:0    0 50.2G  0 disk 
+|-sda1                                                                                       8:1    0  500M  0 part /boot
+`-sda2                                                                                       8:2    0 49.7G  0 part 
+  |-centos-root                                                                            253:0    0   48G  0 lvm  /
+  |-centos-swap                                                                            253:1    0  1.6G  0 lvm  [SWAP]
+  `-centos-docker--poolmeta                                                                253:2    0   16M  0 lvm  
+sdb                                                                                          8:16   0   16G  0 disk 
+sr0                                                                                         11:0    1 1024M  0 rom  
+loop0                                                                                        7:0    0  100G  0 loop 
+`-docker-253:0-51028406-pool                                                               253:3    0  100G  0 dm   
+  |-docker-253:0-51028406-e694dec7cd6d1e918bc9a2c6264b94d5a0c33479c7fa96ec23d014bf5e1a697a 253:4    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/e694dec7cd6d1e918bc9a2c6264b94d5a0c33479c7fa96ec23d014bf5e1a697a
+  |-docker-253:0-51028406-6c8e063c7648fad240e2f8256db5659e05a75d0c21b94b563faf5fb3429b6088 253:5    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/6c8e063c7648fad240e2f8256db5659e05a75d0c21b94b563faf5fb3429b6088
+  |-docker-253:0-51028406-68c86e8c72ae4994e8a3bd97a5ee2b2a8ab24344317541d878ed4b7990b2f812 253:6    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/68c86e8c72ae4994e8a3bd97a5ee2b2a8ab24344317541d878ed4b7990b2f812
+  |-docker-253:0-51028406-573a712c6bfda14b26feb682e37831b3eb708fcdeb7a447ca3d65ec22247648e 253:7    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/573a712c6bfda14b26feb682e37831b3eb708fcdeb7a447ca3d65ec22247648e
+  |-docker-253:0-51028406-237ad389c10f970ab004f58b89f0226aa0162e24eccc8a1e1cbac1f8ab880b74 253:8    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/237ad389c10f970ab004f58b89f0226aa0162e24eccc8a1e1cbac1f8ab880b74
+  `-docker-253:0-51028406-acbca722ed4e77b875869c2abf017122ee769266b98b4092f933e57f3993010d 253:9    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/acbca722ed4e77b875869c2abf017122ee769266b98b4092f933e57f3993010d
+loop1                                                                                        7:1    0    2G  0 loop 
+`-docker-253:0-51028406-pool                                                               253:3    0  100G  0 dm   
+  |-docker-253:0-51028406-e694dec7cd6d1e918bc9a2c6264b94d5a0c33479c7fa96ec23d014bf5e1a697a 253:4    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/e694dec7cd6d1e918bc9a2c6264b94d5a0c33479c7fa96ec23d014bf5e1a697a
+  |-docker-253:0-51028406-6c8e063c7648fad240e2f8256db5659e05a75d0c21b94b563faf5fb3429b6088 253:5    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/6c8e063c7648fad240e2f8256db5659e05a75d0c21b94b563faf5fb3429b6088
+  |-docker-253:0-51028406-68c86e8c72ae4994e8a3bd97a5ee2b2a8ab24344317541d878ed4b7990b2f812 253:6    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/68c86e8c72ae4994e8a3bd97a5ee2b2a8ab24344317541d878ed4b7990b2f812
+  |-docker-253:0-51028406-573a712c6bfda14b26feb682e37831b3eb708fcdeb7a447ca3d65ec22247648e 253:7    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/573a712c6bfda14b26feb682e37831b3eb708fcdeb7a447ca3d65ec22247648e
+  |-docker-253:0-51028406-237ad389c10f970ab004f58b89f0226aa0162e24eccc8a1e1cbac1f8ab880b74 253:8    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/237ad389c10f970ab004f58b89f0226aa0162e24eccc8a1e1cbac1f8ab880b74
+  `-docker-253:0-51028406-acbca722ed4e77b875869c2abf017122ee769266b98b4092f933e57f3993010d 253:9    0   10G  0 dm   /var/lib/docker/devicemapper/mnt/acbca722ed4e77b875869c2abf017122ee769266b98b4092f933e57f3993010d

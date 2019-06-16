@@ -106,6 +106,7 @@ class TestScheduler {
                                                          test_metrics : metrics)
                     test_target.test_platforms[platform] = test_platform
                     test_target.target_status = RunStatus.RUN
+                    println "TARGET:$target_name,PLATFORM:$platform,${test_target.compare_server}"
                     this.test_platform_tasks[platform][target_name] = test_platform
                 }
             }

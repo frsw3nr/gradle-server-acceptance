@@ -6,7 +6,7 @@ Datacenter                     : ha-datacenter
 ParentFolderId                 : Folder-ha-folder-datastore
 ParentFolder                   : datastore
 DatastoreBrowserPath           : vmstores:\192.168.10.100@443\ha-datacenter\datastore2
-FreeSpaceMB                    : 24197
+FreeSpaceMB                    : 25692
 CapacityMB                     : 238336
 Accessible                     : True
 Type                           : VMFS
@@ -15,7 +15,7 @@ CongestionThresholdMillisecond : 232
 State                          : Available
 ExtensionData                  : VMware.Vim.Datastore
 CapacityGB                     : 232.75
-FreeSpaceGB                    : 23.6298828125
+FreeSpaceGB                    : 25.08984375
 Name                           : datastore2
 Id                             : Datastore-59ab899b-2b3ef5e8-cabf-000e04131080
 Uid                            : /VIServer=test_user@192.168.10.100:443/Datastore=Datastore-59ab899b-2b3ef5e8-cabf-000e

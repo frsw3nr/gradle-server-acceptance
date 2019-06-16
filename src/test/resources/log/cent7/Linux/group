@@ -45,8 +45,6 @@ pegasus:x:65:
 saslauth:x:76:
 tomcat:x:91:
 mysql:x:27:
-elasticsearch:x:992:
-fess:x:991:
 someuser:x:1001:
 zabbix:x:990:
 rpc:x:32:
@@ -57,3 +55,7 @@ screen:x:84:
 slocate:x:21:
 snmptt:x:989:
 docker:x:988:psadmin
+elasticsearch:x:987:
+kibana:x:986:
+postgres:x:26:
+splunker:x:503:

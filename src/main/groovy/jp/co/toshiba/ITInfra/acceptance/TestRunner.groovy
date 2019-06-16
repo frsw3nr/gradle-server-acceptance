@@ -11,7 +11,7 @@ import org.apache.commons.lang.math.NumberUtils
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
 enum RunnerCommand {
-  SCHEDULER, EXPORT, ARCHIVE, GENERATE, REGIST_REDMINE
+  SCHEDULER, EXPORT, ARCHIVE, GENERATE, REGIST_REDMINE, LIST_NODE
 }
 
 @Slf4j
@@ -28,6 +28,8 @@ class TestRunner {
     String filter_server
     String filter_metric
     String export_type
+    String list_filter_server
+    String list_filter_platform
     String redmine_project_name
     int parallel_degree
     int snapshot_level
@@ -61,7 +63,7 @@ class TestRunner {
                 argName: 'check_sheet.xlsx'
             o longOpt: 'output',   args: 1, 'Output evidence path',
                 argName: 'build/check_sheet.xlsx'
-            l longOpt: 'snapshot-level',args: 1, 'Level of the test item to filter',
+            _ longOpt: 'level', args: 1, 'Level of the test item to filter',
                 argName: 'level'
             r longOpt: 'redmine', 'Regist redmine ticket'
             rp longOpt: 'redmine-project', args: 1, 'Regist redmine ticket specified project'
@@ -81,6 +83,11 @@ class TestRunner {
             v longOpt: 'verify-disable', 'Disable value verification'
             h longOpt: 'help',    'Print usage'
             _ longOpt: 'silent', 'Silent mode'
+            lp longOpt: 'list-platform',   args: 1, type: GString,
+                argName: 'platform' , 'Print an inventory list of the keyword\'s platform'
+            ln longOpt: 'list-node',   args: 1, type: GString,
+                argName: 'node' , 'Print an inventory list of the keyword\'s node'
+            l longOpt: 'list',   'Print all inventory list'
         }
         def options = cli.parse(args)
         if (!options) {
@@ -153,6 +160,15 @@ class TestRunner {
                 cli.usage()
                 System.exit(1)
             }
+        }
+
+        if (options.l || options.lp || options.ln) {
+            this.command = RunnerCommand.LIST_NODE
+            if (options.lp)
+                this.list_filter_platform = options.lp
+
+            if (options.ln)
+                this.list_filter_server = options.ln
         }
 
         if (options.silent)
@@ -251,6 +267,18 @@ class TestRunner {
             test_env.accept(ticket_registor)
             try {
                 ticket_registor.run()
+            } catch (Exception e) {
+                log.error "Fatal error : " + e
+                 e.printStackTrace()
+                System.exit(1)
+            }
+        } else if (test_runner.command == RunnerCommand.LIST_NODE) {
+            def inventory_db = InventoryDB.instance
+            test_env.get_cmdb_config()
+            test_env.accept(inventory_db)
+            try {
+                inventory_db.export(test_runner.list_filter_server, 
+                                    test_runner.list_filter_platform)
             } catch (Exception e) {
                 log.error "Fatal error : " + e
                  e.printStackTrace()

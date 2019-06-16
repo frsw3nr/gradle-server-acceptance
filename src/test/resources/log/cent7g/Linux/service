@@ -4,17 +4,15 @@
   abrt-vmcore.service                                   loaded    inactive dead    Harvest vmcores for ABRT
   abrt-xorg.service                                     loaded    inactive dead    ABRT Xorg log watcher
   abrtd.service                                         loaded    active   running ABRT Automated Bug Reporting Tool
-  accounts-daemon.service                               loaded    active   running Accounts Service
+  accounts-daemon.service                               loaded    inactive dead    Accounts Service
 Åú apparmor.service                                      not-found inactive dead    apparmor.service
   atd.service                                           loaded    active   running Job spooling tools
   auditd.service                                        loaded    active   running Security Auditing Service
   auth-rpcgss-module.service                            loaded    inactive dead    Kernel Module supporting RPCSEC_GSS
   avahi-daemon.service                                  loaded    active   running Avahi mDNS/DNS-SD Stack
   blk-availability.service                              loaded    active   exited  Availability of block devices
-  bolt.service                                          loaded    active   running Thunderbolt system service
   brandbot.service                                      loaded    inactive dead    Flexible Branding Service
   chronyd.service                                       loaded    active   running NTP client/server
-  colord.service                                        loaded    active   running Manage, Install and Generate Color Profiles
   cpupower.service                                      loaded    inactive dead    Configure CPU power related settings
   crond.service                                         loaded    active   running Command Scheduler
   cups.service                                          loaded    active   running CUPS Printing Service
@@ -25,7 +23,6 @@
   emergency.service                                     loaded    inactive dead    Emergency Shell
 Åú exim.service                                          not-found inactive dead    exim.service
   fcoe.service                                          loaded    inactive dead    Open-FCoE Inititator.
-  fwupd.service                                         loaded    active   running Firmware update daemon
   gdm.service                                           loaded    inactive dead    GNOME Display Manager
   getty@tty1.service                                    loaded    active   running Getty on tty1
   gssproxy.service                                      loaded    active   running GSSAPI Proxy Daemon
@@ -67,12 +64,10 @@
   nfs-utils.service                                     loaded    inactive dead    NFS server and client services
   ntpd.service                                          loaded    inactive dead    Network Time Service
   ntpdate.service                                       loaded    inactive dead    Set time via NTP
-  packagekit.service                                    loaded    active   running PackageKit Daemon
   plymouth-quit-wait.service                            loaded    inactive dead    Wait for Plymouth Boot Screen to Quit
   plymouth-quit.service                                 loaded    inactive dead    Terminate Plymouth Boot Screen
   plymouth-read-write.service                           loaded    inactive dead    Tell Plymouth To Write Out Runtime Data
   plymouth-start.service                                loaded    inactive dead    Show Plymouth Boot Screen
-  polkit.service                                        loaded    active   running Authorization Manager
   postfix.service                                       loaded    active   running Postfix Mail Transport Agent
   rc-local.service                                      loaded    inactive dead    /etc/rc.d/rc.local Compatibility
   rescue.service                                        loaded    inactive dead    Rescue Shell
@@ -124,6 +119,7 @@
   systemd-shutdownd.service                             loaded    inactive dead    Delayed Shutdown Service
   systemd-sysctl.service                                loaded    active   exited  Apply Kernel Variables
 Åú systemd-sysusers.service                              not-found inactive dead    systemd-sysusers.service
+  systemd-timedated.service                             loaded    active   running Time & Date Service
 Åú systemd-timesyncd.service                             not-found inactive dead    systemd-timesyncd.service
   systemd-tmpfiles-clean.service                        loaded    inactive dead    Cleanup of Temporary Directories
   systemd-tmpfiles-setup-dev.service                    loaded    active   exited  Create Static Device Nodes in /dev
@@ -137,20 +133,17 @@
   systemd-user-sessions.service                         loaded    active   exited  Permit User Sessions
   systemd-vconsole-setup.service                        loaded    active   exited  Setup Virtual Console
   tuned.service                                         loaded    active   running Dynamic System Tuning Daemon
-  udisks2.service                                       loaded    active   running Disk Manager
-  upower.service                                        loaded    active   running Daemon for power management
+  udisks2.service                                       loaded    inactive dead    Disk Manager
   vdo.service                                           loaded    active   exited  VDO volume services
   vgauthd.service                                       loaded    active   running VGAuth Service for open-vm-tools
   virtlockd.service                                     loaded    inactive dead    Virtual machine lock manager
   virtlogd.service                                      loaded    inactive dead    Virtual machine log manager
   vmtoolsd.service                                      loaded    active   running Service for virtual machines hosted on VMware
-Åú vncserver@:1.service                                  loaded    failed   failed  Remote desktop service (VNC)
-  wpa_supplicant.service                                loaded    active   running WPA Supplicant daemon
 Åú ypbind.service                                        not-found inactive dead    ypbind.service
 
 LOAD   = Reflects whether the unit definition was properly loaded.
 ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
 SUB    = The low-level unit activation state, values depend on unit type.
 
-148 loaded units listed.
+141 loaded units listed.
 To show all installed unit files use 'systemctl list-unit-files'.

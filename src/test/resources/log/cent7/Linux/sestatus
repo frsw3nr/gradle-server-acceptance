@@ -6,4 +6,4 @@ Current mode:                   permissive
 Mode from config file:          permissive
 Policy MLS status:              enabled
 Policy deny_unknown status:     allowed
-Max kernel policy version:      28
+Max kernel policy version:      31

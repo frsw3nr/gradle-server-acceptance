@@ -1,4 +1,4 @@
-cpu_info:0:cpu_info0:brand    Intel(r) Core(tm) i5-4460  CPU @ 3.20GHz
+cpu_info:0:cpu_info0:brand      Intel(r) Core(tm) i5-4460  CPU @ 3.20GHz
 cpu_info:0:cpu_info0:cache_id   0
 cpu_info:0:cpu_info0:chip_id    0
 cpu_info:0:cpu_info0:class      misc
@@ -17,11 +17,10 @@ cpu_info:0:cpu_info0:ncore_per_chip     1
 cpu_info:0:cpu_info0:ncpu_per_chip      1
 cpu_info:0:cpu_info0:pg_id      -1
 cpu_info:0:cpu_info0:pkg_core_id        0
-cpu_info:0:cpu_info0:snaptime   13643.217580834
+cpu_info:0:cpu_info0:snaptime   1295078.49104408
 cpu_info:0:cpu_info0:state      on-line
 cpu_info:0:cpu_info0:state_begin        1559160679
 cpu_info:0:cpu_info0:stepping   3
 cpu_info:0:cpu_info0:supported_frequencies_Hz   3192515977
 cpu_info:0:cpu_info0:supported_max_cstates      1
 cpu_info:0:cpu_info0:vendor_id  GenuineIntel
-$ 

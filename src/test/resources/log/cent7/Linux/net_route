@@ -1,3 +1,6 @@
-default via 192.168.0.254 dev ens160  proto static  metric 100 
-172.17.0.0/16 dev docker0  proto kernel  scope link  src 172.17.0.1 
-192.168.0.0/24 dev ens160  proto kernel  scope link  src 192.168.0.20  metric 100 
+default via 192.168.0.254 dev ens160 proto static metric 100 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 
+172.18.0.0/16 dev br-7277827ee9ab proto kernel scope link src 172.18.0.1 
+172.19.0.0/16 dev br-ddb64a10a066 proto kernel scope link src 172.19.0.1 
+172.20.0.0/16 dev br-e5d161a47830 proto kernel scope link src 172.20.0.1 
+192.168.0.0/24 dev ens160 proto kernel scope link src 192.168.0.20 metric 100 

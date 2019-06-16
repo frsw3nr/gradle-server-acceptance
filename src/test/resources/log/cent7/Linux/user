@@ -26,8 +26,6 @@ pegasus:x:66:65:tog-pegasus OpenPegasus WBEM/CIM services:/var/lib/Pegasus:/sbin
 saslauth:x:995:76:Saslauthd user:/run/saslauthd:/sbin/nologin
 tomcat:x:91:91:Apache Tomcat:/usr/share/tomcat:/sbin/nologin
 mysql:x:27:27:MariaDB Server:/var/lib/mysql:/sbin/nologin
-elasticsearch:x:994:992:elasticsearch user:/usr/share/elasticsearch:/sbin/nologin
-fess:x:993:991:fess user:/var/lib/fess:/sbin/nologin
 someuser:x:1001:1001::/home/someuser:/bin/bash
 zabbix:x:992:990:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
 rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
@@ -35,3 +33,7 @@ ntp:x:38:38::/etc/ntp:/sbin/nologin
 rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
 nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
 snmptt:x:991:989:SNMP Trap Translator:/var/spool/snmptt:/sbin/nologin
+elasticsearch:x:990:987:elasticsearch user:/home/elasticsearch:/sbin/nologin
+kibana:x:989:986:kibana service user:/home/kibana:/sbin/nologin
+postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/bash
+splunker:x:501:503::/usr/local/splunk/:/bin/bash

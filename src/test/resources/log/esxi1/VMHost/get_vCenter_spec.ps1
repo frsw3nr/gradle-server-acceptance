@@ -32,13 +32,13 @@ $ErrorActionPreference = "Continue"
 
 $log_path = Join-Path $log_dir "VMHost"
 Get-VMHost $vm | Format-List | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "Account"
-Get-VMHostAccount | Format-Table -Auto | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "NetworkAdapter"
 Get-VMHostNetworkAdapter -VMHost $vm | Format-Table -Auto | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "Disk"
-Get-VMHostDisk -VMHost $vm | Format-List | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "DiskPartition"
 Get-VMHost $vm | Get-VMHostDisk | Get-VMHostDiskPartition | Format-List | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "Datastore"
 Get-Datastore -VMHost $vm | Format-Table -Auto | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "Disk"
+Get-VMHostDisk -VMHost $vm | Format-List | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "Account"
+Get-VMHostAccount | Format-Table -Auto | Out-File $log_path -Encoding UTF8
