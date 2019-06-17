@@ -188,15 +188,15 @@ class ConfigTestEnvironment {
         return this.get_project_node_dir()
     }
 
-    def get_project_test_log_dir() {
+    String get_project_test_log_dir() {
         return this.config?.dry_run_staging_dir ?: './src/test/resources/log'
     }
 
-    def get_current_test_log_dir() {
+    String get_current_test_log_dir() {
         return this.config?.evidence?.staging_dir ?: './build/log/'
     }
 
-    def get_base_test_log_dir() {
+    GString get_base_test_log_dir() {
         def getconfig_home = this.get_getconfig_home()
         return this.config?.base_test_log_dir ?: "${getconfig_home}/src/test/resources/log"
     }
@@ -208,6 +208,10 @@ class ConfigTestEnvironment {
     def get_evidence_log_dir(String platform, String target) {
         def current_test_log_dir = this.get_current_test_log_dir()
         return "${current_test_log_dir}/${target}"
+    }
+
+    def get_evidence_log_share_dir() {
+        return this.get_current_test_log_dir()
     }
 
     def get_silent() {
