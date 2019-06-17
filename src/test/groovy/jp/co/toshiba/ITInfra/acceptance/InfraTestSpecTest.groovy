@@ -247,7 +247,7 @@ class InfraTestSpecTest extends Specification {
 
     //     when:
     //     def lines = spec.exec('date.txt', shared: true) {
-    //         new File("${evidence_log_share_dir}/date.txt")
+    //         new File("${test_log_current_dir}/date.txt")
     //     }
     //     println lines
     //     then:

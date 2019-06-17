@@ -19,7 +19,7 @@
     },
     "vm.MemoryGB": {
         "name": "vm.MemoryGB",
-        "value": "4.0",
+        "value": "6.0",
         "error_msg": null,
         "compare_server": "cent7g",
         "status": "OK",
@@ -46,11 +46,11 @@
     },
     "vm": {
         "name": "vm",
-        "value": "[Name:cent7, CPU:1, MemoryGB:4.0, Host:192.168.10.100]",
+        "value": "[Name:cent7, CPU:1, MemoryGB:6.0, Host:192.168.10.100]",
         "error_msg": null,
         "compare_server": "cent7g",
         "status": "OK",
-        "verify": null,
+        "verify": "NG",
         "comparision": "UNMATCH"
     },
     "NumCpu": {
@@ -65,10 +65,10 @@
     "MemoryGB": {
         "name": "MemoryGB",
         "value": null,
-        "error_msg": null,
+        "error_msg": "6.0 != 4.0",
         "compare_server": "cent7g",
         "status": null,
-        "verify": "OK",
+        "verify": "NG",
         "comparision": "MATCH"
     },
     "VMHost": {
@@ -230,7 +230,7 @@
     },
     "vm_storage": {
         "name": "vm_storage",
-        "value": "[datastore2/EagerZeroedThick/20.1 GB, living-data1/Thin/16.0 GB]",
+        "value": "[datastore2/Thick/50.1 GB, living-data1/Thin/16.0 GB]",
         "error_msg": null,
         "compare_server": "cent7g",
         "status": "OK",
@@ -240,8 +240,8 @@
             "csv": [
                 [
                     "[datastore2] cent7/cent7.vmdk",
-                    "EagerZeroedThick",
-                    "20.1",
+                    "Thick",
+                    "50.1",
                     "Flat"
                 ],
                 [
@@ -261,7 +261,7 @@
     },
     "vm_storage.StorageFormat.datastore2": {
         "name": "vm_storage.StorageFormat.datastore2",
-        "value": "EagerZeroedThick",
+        "value": "Thick",
         "error_msg": null,
         "compare_server": "cent7g",
         "status": "OK",
@@ -270,7 +270,7 @@
     },
     "vm_storage.CapacityGB.datastore2": {
         "name": "vm_storage.CapacityGB.datastore2",
-        "value": "20.1",
+        "value": "50.1",
         "error_msg": null,
         "compare_server": "cent7g",
         "status": "OK",

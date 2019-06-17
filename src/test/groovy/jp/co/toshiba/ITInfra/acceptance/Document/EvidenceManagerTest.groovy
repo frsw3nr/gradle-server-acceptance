@@ -89,7 +89,7 @@ class EvidenceManagerTest extends Specification {
 
     // def エクスポート() {
     //     setup:
-    //     def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
+    //     def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
     //     test_scenario.accept(test_result_reader)
 
     //     when:

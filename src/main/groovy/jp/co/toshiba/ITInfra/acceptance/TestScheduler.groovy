@@ -19,7 +19,9 @@ class TestScheduler {
     String output_evidence
     String filter_server
     String filter_metric
-    String result_dir
+    String base_node_dir
+    String project_node_dir
+    String current_node_dir
     String node_dir
     Boolean verify_test
     Boolean auto_tag
@@ -31,17 +33,19 @@ class TestScheduler {
     def test_platform_tasks = [:].withDefault{[:]}
 
     def set_environment(ConfigTestEnvironment env) {
-        this.excel_file      = env.get_excel_file()
-        this.output_evidence = env.get_output_evidence()
-        this.result_dir      = env.get_result_dir()
-        this.node_dir        = env.get_node_dir()
-        this.filter_server   = env.get_filter_server()
-        this.filter_metric   = env.get_filter_metric()
-        this.parallel_degree = env.get_parallel_degree()
-        this.snapshot_level  = env.get_snapshot_level()
-        this.verify_test     = env.get_verify_test()
-        this.auto_tag        = env.get_auto_tag()
-        this.sheet_prefixes  = env.get_sheet_prefixes()
+        this.excel_file       = env.get_excel_file()
+        this.output_evidence  = env.get_output_evidence()
+        this.base_node_dir    = env.get_base_node_dir()
+        this.project_node_dir = env.get_project_node_dir()
+        this.current_node_dir = env.get_current_node_dir()
+        this.node_dir         = env.get_node_dir()
+        this.filter_server    = env.get_filter_server()
+        this.filter_metric    = env.get_filter_metric()
+        this.parallel_degree  = env.get_parallel_degree()
+        this.snapshot_level   = env.get_snapshot_level()
+        this.verify_test      = env.get_verify_test()
+        this.auto_tag         = env.get_auto_tag()
+        this.sheet_prefixes   = env.get_sheet_prefixes()
     }
 
     def init() {
@@ -50,9 +54,10 @@ class TestScheduler {
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
         try {
-            def result_reader = new TestResultReader('result_dir': this.node_dir)
-            // this.test_scenario.accept(result_reader)
-            result_reader.read_compare_target_result(this.test_scenario)
+            def base_result_reader = new TestResultReader('node_dir': this.base_node_dir)
+            base_result_reader.read_compare_target_result(this.test_scenario)
+            def project_result_reader = new TestResultReader('node_dir': this.project_node_dir)
+            project_result_reader.read_compare_target_result(this.test_scenario)
         } catch (Exception e) {
             log.warn "Faild read test results : " + e
         }
@@ -80,7 +85,8 @@ class TestScheduler {
                                     evidence_maker: evidence_maker,
                                     report_maker: report_maker)
         excel_sheet_maker.output(this.output_evidence)
-        def test_result_writer = new TestResultWriter('result_dir': this.result_dir)
+        println "CURRENT_NODE_DIR:${this.current_node_dir}"
+        def test_result_writer = new TestResultWriter('node_dir': this.current_node_dir)
         this.test_scenario.accept(test_result_writer)
 
         return this.test_scenario.exit_code

@@ -23,7 +23,7 @@ class TagGeneratorTest extends Specification {
 
     def JSON結果読み込みエラー() {
         when:
-        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/hoge')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/hoge')
         test_result_reader.read_entire_result(test_scenario)
 
         then:
@@ -33,7 +33,7 @@ class TagGeneratorTest extends Specification {
 
     def 結果の比較() {
         when:
-        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
         def data_comparator = new TagGenerator()
         test_scenario.accept(data_comparator)
@@ -58,7 +58,7 @@ class TagGeneratorTest extends Specification {
 
     def 比較結果のExcel更新() {
         when:
-        def test_result_reader = new TestResultReader(result_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
         def data_comparator = new TagGenerator()
         test_scenario.accept(data_comparator)

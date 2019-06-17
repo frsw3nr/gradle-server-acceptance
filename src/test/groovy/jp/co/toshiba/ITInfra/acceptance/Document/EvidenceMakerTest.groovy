@@ -23,7 +23,7 @@ class EvidenceMakerTest extends Specification {
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
 
-        def test_result_reader = new TestResultReader(result_dir: result_dir)
+        def test_result_reader = new TestResultReader(node_dir: result_dir)
         test_result_reader. read_entire_result(test_scenario)
         println "TEST_SCENARIO:$test_scenario"
         // evidence_maker = new EvidenceMaker(excel_parser: excel_parser)

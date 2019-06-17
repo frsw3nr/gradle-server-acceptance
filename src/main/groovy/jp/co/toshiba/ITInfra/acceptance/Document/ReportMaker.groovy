@@ -10,7 +10,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 public class ReportMaker {
 
     ConfigObject item_map
-    String result_dir
+    String project_node_dir
     SheetSummary report_sheet
     SheetDeviceResult error_report_sheet
     RedmineTicket redmine_ticket
@@ -20,7 +20,7 @@ public class ReportMaker {
 
     def set_environment(ConfigTestEnvironment env) {
         this.item_map = env.get_item_map()
-        this.result_dir = env.get_node_dir()
+        this.project_node_dir = env.get_project_node_dir()
     }
 
     def convert_test_item() {
@@ -75,7 +75,7 @@ public class ReportMaker {
     }
 
     TestResult get_test_result_from_json(TestReport test_report, TestTarget test_target) {
-        def result_reader = new TestResultReader('result_dir': this.result_dir)
+        def result_reader = new TestResultReader('node_dir': this.project_node_dir)
         def target_name = test_target?.name
         TestResult test_result
         test_report?.platform_metrics.find { platform, metric ->
@@ -192,7 +192,7 @@ public class ReportMaker {
         long start = System.currentTimeMillis()
 
         // this.convert_test_item()
-        log.info "Read results : ${this.result_dir}"
+        log.info "Read results : ${this.project_node_dir}"
         def test_reports = test_scenario.test_reports.get_all()
         def domain_targets = test_scenario.get_domain_targets()
 

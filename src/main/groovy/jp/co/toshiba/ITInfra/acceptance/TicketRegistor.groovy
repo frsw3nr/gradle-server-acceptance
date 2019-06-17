@@ -15,7 +15,7 @@ public class TicketRegistor {
 
     // ConfigObject item_map
     String excel_file
-    String result_dir
+    String project_node_dir
     String redmine_project
     ReportMaker report_maker = new ReportMaker()
     TicketManager ticket_manager = TicketManager.instance
@@ -23,7 +23,7 @@ public class TicketRegistor {
     def set_environment(ConfigTestEnvironment env) {
         // this.item_map = env.get_item_map()
         this.excel_file = env.get_excel_file()
-        this.result_dir = env.get_node_dir()
+        this.project_node_dir = env.get_node_dir()
         this.redmine_project = env.get_redmine_project()
         env.accept(this.report_maker)
         env.accept(this.ticket_manager)
@@ -39,7 +39,7 @@ public class TicketRegistor {
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
-        def test_result_reader = new TestResultReader(result_dir: this.result_dir)
+        def test_result_reader = new TestResultReader(node_dir: this.project_node_dir)
         test_result_reader.read_entire_result(test_scenario)
         test_scenario.accept(report_maker)
     }
@@ -87,9 +87,9 @@ public class TicketRegistor {
         }
     }
 
-    def check_result_dir() {
+    def check_project_node_dir() {
         def json_count = 0
-        new File(this.result_dir).eachFile {
+        new File(this.project_node_dir).eachFile {
             ( it.name =~ /(.+).json/ ).each {
                 json_count ++
             }
@@ -101,8 +101,8 @@ public class TicketRegistor {
     def run(String project_name) {
         long start = System.currentTimeMillis()
         log.info "Redmine Project : ${this.redmine_project}"
-        if (!this.check_result_dir()) {
-            log.error "No json in '${this.result_dir}'. Execute 'getconfig -u local'"
+        if (!this.check_project_node_dir()) {
+            log.error "No json in '${this.project_node_dir}'. Execute 'getconfig -u local'"
             return
         }
         this.read_redmine_data()

@@ -9,7 +9,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.*
 @Slf4j
 @ToString(includePackage = false)
 class TestResultReader {
-    String result_dir
+    String node_dir
     def status_hash = [
         'OK'      : ResultStatus.OK,
         'NG'      : ResultStatus.NG,
@@ -20,23 +20,24 @@ class TestResultReader {
     ]
 
     TestResultReader(Map params) {
-        this.result_dir = params['result_dir']
-        if(this.result_dir && !(new File(this.result_dir)).exists()){
-            throw new IOException("JSON results directory not found : ${this.result_dir}")
+        this.node_dir = params['node_dir']
+        if(this.node_dir && !(new File(this.node_dir)).exists()){
+            throw new IOException("JSON results directory not found : ${this.node_dir}")
         }
     }
 
     def set_environment(ConfigTestEnvironment env) {
-        this.result_dir = env.get_result_dir()
+        this.node_dir = env.get_node_dir()
     }
 
     def convert_to_result_status(String status) {
         return(this.status_hash[status])
     }
 
-    TestPlatform read_test_platform_result(String target_name, String platform_name) 
+    TestPlatform read_test_platform_result(String target_name, String platform_name,
+                                           Boolean is_compare_target = false) 
                                        throws IOException {
-        def json_file = new File("${result_dir}/${target_name}/${platform_name}.json")
+        def json_file = new File("${node_dir}/${target_name}/${platform_name}.json")
         if(!json_file.exists())
             return
         def results_json = new JsonSlurper().parseText(json_file.text)
@@ -45,13 +46,17 @@ class TestResultReader {
         test_platform.test_results.each { metric_name, test_result ->
             test_result.status = convert_to_result_status(test_result.status)
             test_result.verify = convert_to_result_status(test_result.verify)
+            if (is_compare_target) {
+                test_result.compare_server = null
+                test_result.comparision = ResultStatus.UNKOWN
+            }
         }
         return test_platform
     }
 
     def read_port_lists(String target_name) throws IOException {
         LinkedHashMap<String, PortList> port_lists = [:]
-        new File(result_dir).eachFile { 
+        new File(node_dir).eachFile { 
             ( it.name =~ /${target_name}__(.+).json/ ).each { json_file, domain ->
                 def results_json = new JsonSlurper().parseText(it.text)
                 def port_list = results_json?.port_list
@@ -66,7 +71,7 @@ class TestResultReader {
 
     def read_port_list(String target_name, String domain_name) 
                        throws IOException {
-        def json_file = new File("${result_dir}/${target_name}__${domain_name}.json")
+        def json_file = new File("${node_dir}/${target_name}__${domain_name}.json")
         if(!json_file.exists())
             return
         def results_json = new JsonSlurper().parseText(json_file.text)
@@ -102,7 +107,8 @@ class TestResultReader {
                     def platform_metrics = domain_metrics[domain].get_all()
                     platform_metrics.each { platform_name, platform_metric ->
                         def test_platform = this.read_test_platform_result(target_name,
-                                                                           platform_name)
+                                                                           platform_name,
+                                                                           true)
                         if (test_platform) {
                             test_platform.test_target = test_target
                             test_target.test_platforms[platform_name] = test_platform

@@ -1,34 +1,39 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-
+import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
 
 import java.sql.SQLException
 
 @Slf4j
+@ToString(includePackage = false)
 class EvidenceManager {
 
-    String result_dir
-    String node_dir
-    String test_resource
-    String evidence_log_share_dir
+    String current_node_dir
+    String project_node_dir
+    String base_node_dir
+    String current_test_log_dir
+    String project_test_log_dir
+    String base_test_log_dir
 
     def set_environment(ConfigTestEnvironment env) {
-        this.result_dir             = env.get_result_dir()
-        this.node_dir               = env.get_node_dir()
-        this.test_resource          = env.get_test_resource()
-        this.evidence_log_share_dir = env.get_evidence_log_share_dir()
+        this.current_node_dir     = env.get_current_node_dir()
+        this.project_node_dir     = env.get_project_node_dir()
+        this.base_node_dir        = env.get_base_node_dir()
+        this.current_test_log_dir = env.get_current_test_log_dir()
+        this.project_test_log_dir = env.get_project_test_log_dir()
+        this.base_test_log_dir    = env.get_base_test_log_dir()
     }
 
     def export_cmdb() throws IOException, SQLException {
         CMDBModel.instance.initialize()
-        CMDBModel.instance.export(new File(this.result_dir).getAbsolutePath())
+        CMDBModel.instance.export(new File(this.current_node_dir).getAbsolutePath())
     }
 
     def export_cmdb_all() throws IOException, SQLException {
         CMDBModel.instance.initialize()
-        CMDBModel.instance.export(new File(this.node_dir).getAbsolutePath())
+        CMDBModel.instance.export(new File(this.project_node_dir).getAbsolutePath())
     }
 
     def copy_directory(String source_dir, String target_dir) throws IOException {
@@ -39,12 +44,16 @@ class EvidenceManager {
     }
 
     def archive_json() {
-        copy_directory(this.result_dir, this.node_dir)
+        copy_directory(this.current_node_dir, this.project_node_dir)
+        if (this.project_node_dir != this.base_node_dir)
+            copy_directory(this.current_node_dir, this.base_node_dir)
     }
 
     def update_evidence_log() {
-        log.info "Copy test evidence to '${this.test_resource}'"
-        copy_directory(this.evidence_log_share_dir, this.test_resource)
+        log.info "Copy test evidence to '${this.project_test_log_dir}'"
+        copy_directory(this.current_test_log_dir, this.project_test_log_dir)
+        if (this.project_test_log_dir != this.base_test_log_dir)
+            copy_directory(this.current_test_log_dir, this.base_test_log_dir)
     }
 
     def update(String export_type) {

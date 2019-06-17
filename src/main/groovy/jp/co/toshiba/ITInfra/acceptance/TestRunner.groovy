@@ -216,7 +216,6 @@ class TestRunner {
         }
         // log.info "Parse Arguments : " + args.toString()
         // log.info "\thome          : " + this.project_home
-        // // log.info "\ttest_resource : " + this.test_resource
         // log.info "\tconfig_file   : " + this.config_file
         // log.info "\tsheet_file    : " + this.sheet_file
         // log.info "\tdry_run       : " + this.dry_run
@@ -251,6 +250,7 @@ class TestRunner {
             def evidence_manager = new EvidenceManager()
             test_env.get_cmdb_config()
             test_env.accept(evidence_manager)
+            println "EVIDENCE_MANAGER:${evidence_manager}"
             try {
                 if (test_runner.export_type =~ /db/) {
                     test_env.accept(CMDBModel.instance)

@@ -28,6 +28,7 @@ TODO:
 
 Bug fixes:
 * -u db-all オプションで複数プラットフォームのインベントリデータ登録で一部データが登録できない問題対象 [ ]
+* 比較対象サーバを指定した場合、過去の比較結果をExcelシートに更新してしまう問題対処 [ ]
 
 テンプレート化スコープ定義
 
@@ -39,14 +40,28 @@ Bug fixes:
         * projects (project_name, project_path, created)
         * nodes (id, project_id, node_name, platform, data_type, created)
       gradle test --tests "InventoryDBTest.マスター登録"
-* TestSchedule 結合 [ ]
-    * init() 変更 [ ]
-    * add_compare_target()関数追加 [ ]
-        * test_schenario に compare_target 追加 [ ]
-        * dry_run の設定を有効化 [ ]
-* EvdenceManager 結合 [ ]
-* TestRunner 結合 [ ]
-
+* TestSchedule 結合 [x]
+    * init() 変更 [x]
+    * add_compare_target()関数追加 [x]
+        * test_schenario に compare_target 追加 [x]
+        * dry_run の設定を有効化 [x]
+* PlatformTester 結合 [ ]
+    TestLog クラス作成(シングルトン) [ ]
+        メンバー変数 [ ]
+            base_test_log_dir [ ]
+            project_test_log_dir [ ]
+            current_test_log_dir [ ]
+            current_platform_test_log_dir [ ]
+        メソッド [ ]
+            get_source_log_path(server, platform, test_id, shared = false) [ ]
+            get_source_log_path() [ ]
+            プロジェクトテストログディレクトリを検索 [ ]
+            なければベーステストログディレクトリを検索 [ ]
+            それでもなければ v1のログ検索 [ ]
+    InfraTestSpec クラス結合 [ ]
+        exec クロージャ内 [ ]
+    TestPlatform クラス結合 [ ]
+    PlatformTester クラス結合 [ ]
 
 Changes for 0.2.3 (2019-6-3)
 ------------------------------------------------------------------------------

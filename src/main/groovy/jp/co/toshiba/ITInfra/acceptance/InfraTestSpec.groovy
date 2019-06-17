@@ -23,7 +23,7 @@ class InfraTestSpec {
     String title
     String dry_run_staging_dir
     String evidence_log_dir
-    String evidence_log_share_dir
+    String current_test_log_dir
     String local_dir
     int timeout
     Boolean debug
@@ -35,21 +35,21 @@ class InfraTestSpec {
     def dry_run_file_not_founds = []
 
     def InfraTestSpec(TestPlatform test_platform) {
-        this.test_platform          = test_platform
-        this.server_name            = test_platform.test_target.name
-        this.platform               = test_platform.name
-        this.domain                 = test_platform.test_target.domain
-        this.title                  = domain + '(' + server_name + ')'
-        this.evidence_log_dir       = test_platform.evidence_log_dir
-        this.evidence_log_share_dir = test_platform.evidence_log_share_dir
-        this.local_dir              = "${evidence_log_dir}/${platform}"
-        this.dry_run                = test_platform.dry_run
-        this.verify_test            = test_platform.verify_test
-        this.dry_run_staging_dir    = test_platform.dry_run_staging_dir
-        this.timeout                = test_platform.timeout ?: 0
-        this.debug                  = test_platform.debug
-        this.mode                   = RunMode.prepare
-        this.server_info            = test_platform?.test_target?.asMap()
+        this.test_platform        = test_platform
+        this.server_name          = test_platform.test_target.name
+        this.platform             = test_platform.name
+        this.domain               = test_platform.test_target.domain
+        this.title                = domain + '(' + server_name + ')'
+        this.evidence_log_dir     = test_platform.evidence_log_dir
+        this.current_test_log_dir = test_platform.current_test_log_dir
+        this.local_dir            = "${evidence_log_dir}/${platform}"
+        this.dry_run              = test_platform.dry_run
+        this.verify_test          = test_platform.verify_test
+        this.dry_run_staging_dir  = test_platform.dry_run_staging_dir
+        this.timeout              = test_platform.timeout ?: 0
+        this.debug                = test_platform.debug
+        this.mode                 = RunMode.prepare
+        this.server_info          = test_platform?.test_target?.asMap()
     }
 
     def prepare = { Closure closure ->
@@ -106,7 +106,7 @@ class InfraTestSpec {
     }
 
     def get_target_path(String test_id, Boolean shared = false) {
-        def target_path = (shared) ? evidence_log_share_dir : local_dir
+        def target_path = (shared) ? current_test_log_dir : local_dir
         target_path += '/' + test_id
         return target_path
     }
@@ -121,7 +121,7 @@ class InfraTestSpec {
         //     log_path += "/${server_name}/${platform}"
         // }
         // log_path += '/' + test_id
-        // def target_path = (shared) ? evidence_log_share_dir : local_dir
+        // def target_path = (shared) ? current_test_log_dir : local_dir
         // target_path += '/' + test_id
         if (dry_run) {
             log.debug "[DryRun] Read dummy log '${log_path}'"

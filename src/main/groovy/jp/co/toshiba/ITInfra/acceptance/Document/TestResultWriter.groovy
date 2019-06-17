@@ -10,11 +10,11 @@ import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 @Slf4j
 @ToString(includePackage = false)
 class TestResultWriter {
-    String result_dir
+    String node_dir
 
     def write_test_platform(String target_name, String platform_name, 
                             TestPlatform test_platform) throws IOException {
-        def output_dir = "${result_dir}/${target_name}"
+        def output_dir = "${node_dir}/${target_name}"
         new File(output_dir).mkdirs()
 
         // ワークアラウンド対応:
@@ -54,7 +54,7 @@ class TestResultWriter {
 
     def write_test_target(String target_name, TestTarget test_target)
         throws IOException {
-        new File(result_dir).mkdirs()
+        new File(node_dir).mkdirs()
         def domain = test_target.domain
         def target_info = [:]
         test_target.with {
@@ -67,7 +67,7 @@ class TestResultWriter {
             target_info['port_list']      = get_port_lists(it)
         }
         def json = JsonOutput.toJson(target_info)
-        new File("${result_dir}/${target_name}__${domain}.json").with {
+        new File("${node_dir}/${target_name}__${domain}.json").with {
             it.text = JsonOutput.prettyPrint(json)
             // println "TARGET JSON OUTPUT: ${JsonOutput.prettyPrint(json)}"
         }
@@ -100,7 +100,7 @@ class TestResultWriter {
 
 
     def visit_test_scenario(test_scenario) {
-        def resultDir = new File(this.result_dir)
+        def resultDir = new File(this.node_dir)
         if (resultDir.exists())
             resultDir.deleteDir()
         this.write_entire_scenario(test_scenario)

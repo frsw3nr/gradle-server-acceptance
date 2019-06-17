@@ -16,90 +16,90 @@ class InventoryDB {
 
     ConfigObject db_config
     def create_db_sql
-    String base_test_dir
+    String base_test_log_dir
     String project_name
     String tenant_name
     def cmdb
     def cmdb_cache = [:]
 
     def set_environment(ConfigTestEnvironment env) {
-        this.db_config     = env.get_inventory_db_config()
-        this.base_test_dir = env.get_base_test_resource()
-        this.create_db_sql = env.get_create_inventory_db_sql()
-        this.project_name  = env.get_project_name()
-        this.tenant_name   = env.get_tenant_name()
+        this.db_config         = env.get_inventory_db_config()
+        this.base_test_log_dir = env.get_base_test_log_dir()
+        this.create_db_sql     = env.get_create_inventory_db_sql()
+        this.project_name      = env.get_project_name()
+        this.tenant_name       = env.get_tenant_name()
     }
 
-    def initialize() throws IOException, SQLException {
-        if (!this.cmdb) {
-            def config_ds = this.db_config?.dataSource
-            if (!config_ds) {
-                def msg = "Config not found inventory_db.dataSource in 'config/inventory_db.groovy'"
-                throw new IllegalArgumentException(msg)
-            }
-            try {
-                this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
-                                            config_ds['password'], config_ds['driver'])
-            } catch (SQLException e) {
-                def msg = "Connection error in 'config/cmdb.groovy' : "
-                throw new SQLException(msg + e)
-            }
-        }
+    // def initialize() throws IOException, SQLException {
+    //     if (!this.cmdb) {
+    //         def config_ds = this.db_config?.dataSource
+    //         if (!config_ds) {
+    //             def msg = "Config not found inventory_db.dataSource in 'config/inventory_db.groovy'"
+    //             throw new IllegalArgumentException(msg)
+    //         }
+    //         try {
+    //             this.cmdb = Sql.newInstance(config_ds['url'], config_ds['username'],
+    //                                         config_ds['password'], config_ds['driver'])
+    //         } catch (SQLException e) {
+    //             def msg = "Connection error in 'config/cmdb.groovy' : "
+    //             throw new SQLException(msg + e)
+    //         }
+    //     }
 
-        // Confirm existence of Version table. If not, execute db create script
-        def cmdb_exists = false
-        try {
-            List rows = this.cmdb.rows('select * from version')
-            if (rows.size()) {
-                cmdb_exists = true
-            }
-        } catch (SQLException e) {
-            log.warn "VERSION table not found in CMDB, Create tables"
-        }
-        if (!cmdb_exists) {
-            def create_sqls = new File(this.create_db_sql).text.split(/;\s*\n/).each {
-                this.cmdb.execute it
-            }
-        }
-    }
+    //     // Confirm existence of Version table. If not, execute db create script
+    //     def cmdb_exists = false
+    //     try {
+    //         List rows = this.cmdb.rows('select * from version')
+    //         if (rows.size()) {
+    //             cmdb_exists = true
+    //         }
+    //     } catch (SQLException e) {
+    //         log.warn "VERSION table not found in CMDB, Create tables"
+    //     }
+    //     if (!cmdb_exists) {
+    //         def create_sqls = new File(this.create_db_sql).text.split(/;\s*\n/).each {
+    //             this.cmdb.execute it
+    //         }
+    //     }
+    // }
 
-    def rows(String sql, args = null) {
-        return (args == null) ? this.cmdb.rows(sql) : this.cmdb.rows(sql, args)
-    }
+    // def rows(String sql, args = null) {
+    //     return (args == null) ? this.cmdb.rows(sql) : this.cmdb.rows(sql, args)
+    // }
 
-    def registMaster(table_name, columns) throws SQLException {
-        def cache_key = table_name + columns.toString()
-        if (cmdb_cache.containsKey(cache_key)) {
-            return cmdb_cache[cache_key]
-        }
-        def conditions = []
-        def values = []
-        columns.each { column_name, value ->
-            conditions << "${column_name} = ?"
-            values << value
-        }
-        def query = "select id from ${table_name} where " +
-                    conditions.join(' and ')
-        def rows = cmdb.rows(query, values)
-        if (rows != null && rows.size() == 1) {
-            def id = rows[0]['id']
-            cmdb_cache[cache_key] = id
-            return id
-        }
-        def table = cmdb.dataSet(table_name)
-        try {
-            table.add(columns)
-        } catch (SQLException e) {
-            log.info "This table already have a data, Skip\n" +
-                     "${table_name} : ${columns}" + e
-        }
-        rows = cmdb.rows(query, values)
-        if (rows != null && rows.size() == 1) {
-            def id = rows[0]['id']
-            cmdb_cache[cache_key] = id
-            return id
-        }
-    }
+    // def registMaster(table_name, columns) throws SQLException {
+    //     def cache_key = table_name + columns.toString()
+    //     if (cmdb_cache.containsKey(cache_key)) {
+    //         return cmdb_cache[cache_key]
+    //     }
+    //     def conditions = []
+    //     def values = []
+    //     columns.each { column_name, value ->
+    //         conditions << "${column_name} = ?"
+    //         values << value
+    //     }
+    //     def query = "select id from ${table_name} where " +
+    //                 conditions.join(' and ')
+    //     def rows = cmdb.rows(query, values)
+    //     if (rows != null && rows.size() == 1) {
+    //         def id = rows[0]['id']
+    //         cmdb_cache[cache_key] = id
+    //         return id
+    //     }
+    //     def table = cmdb.dataSet(table_name)
+    //     try {
+    //         table.add(columns)
+    //     } catch (SQLException e) {
+    //         log.info "This table already have a data, Skip\n" +
+    //                  "${table_name} : ${columns}" + e
+    //     }
+    //     rows = cmdb.rows(query, values)
+    //     if (rows != null && rows.size() == 1) {
+    //         def id = rows[0]['id']
+    //         cmdb_cache[cache_key] = id
+    //         return id
+    //     }
+    // }
 
     Boolean filter_text_match(String target, String keyword = null) {
         if (keyword == null)
@@ -117,7 +117,7 @@ class InventoryDB {
 
         def node_updates = [:]
         def node_platforms = [:].withDefault{[]}
-        new File(base_test_dir).eachDir { node_dir ->
+        new File(base_test_log_dir).eachDir { node_dir ->
             def node_name = node_dir.name
             if (!(node_name=~/^[a-zA-Z]/))
                 return

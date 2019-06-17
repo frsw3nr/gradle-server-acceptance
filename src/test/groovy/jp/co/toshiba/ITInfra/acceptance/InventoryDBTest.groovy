@@ -19,103 +19,103 @@ class InventoryDBTest extends Specification {
     def setup() {
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')
-        test_env.get_inventory_db_config('src/test/resources/config/cmdb.groovy')
+        // test_env.get_inventory_db_config('src/test/resources/config/cmdb.groovy')
 
         inventory_db = InventoryDB.instance
         test_env.accept(inventory_db)
-        inventory_db.initialize()
+        // inventory_db.initialize()
         println "CMDB_MODEL:$inventory_db"
     }
 
-    def 設定読み込み() {
-        when:
-        def config = inventory_db.db_config
-        def json = new groovy.json.JsonBuilder()
-        json(config)
-        println json.toPrettyString()
+    // def 設定読み込み() {
+    //     when:
+    //     def config = inventory_db.db_config
+    //     def json = new groovy.json.JsonBuilder()
+    //     json(config)
+    //     println json.toPrettyString()
 
-        then:
-        config.dataSource.url != null
-        config.dataSource.username != null
-        config.dataSource.password != null
-    }
+    //     then:
+    //     config.dataSource.url != null
+    //     config.dataSource.username != null
+    //     config.dataSource.password != null
+    // }
 
-    def "マスター登録"() {
-        when:
-        def columns = [project_name: 'base', project_path: '/home/base']
-        def id = inventory_db.registMaster("projects", columns)
-        def projects = inventory_db.rows("select * from projects")
-        def json = new groovy.json.JsonBuilder()
-        json(projects)
-        println json.toPrettyString()
+    // def "マスター登録"() {
+    //     when:
+    //     def columns = [project_name: 'base', project_path: '/home/base']
+    //     def id = inventory_db.registMaster("projects", columns)
+    //     def projects = inventory_db.rows("select * from projects")
+    //     def json = new groovy.json.JsonBuilder()
+    //     json(projects)
+    //     println json.toPrettyString()
 
-        then:
-        1 == 1
-        // site[0]['id'] > 0
-        // site[0]['site_name'].size() > 0
-    }
+    //     then:
+    //     1 == 1
+    //     // site[0]['id'] > 0
+    //     // site[0]['site_name'].size() > 0
+    // }
 
-    def "マスター重複登録"() {
-        when:
-        def columns = [project_name: 'base2', project_path: '/home/base2']
-        def id1 = inventory_db.registMaster("projects", columns)
-        def id2 = inventory_db.registMaster("projects", columns)
-        def projects = inventory_db.rows("select * from projects")
+    // def "マスター重複登録"() {
+    //     when:
+    //     def columns = [project_name: 'base2', project_path: '/home/base2']
+    //     def id1 = inventory_db.registMaster("projects", columns)
+    //     def id2 = inventory_db.registMaster("projects", columns)
+    //     def projects = inventory_db.rows("select * from projects")
 
-        then:
-        id1 == id2
-        projects.size() == 1
-    }
+    //     then:
+    //     id1 == id2
+    //     projects.size() == 1
+    // }
 
-    def "マスター登録複数列"() {
-        when:
-        def columns = [project_id: 1, node_name: 'node01', platform: 'Linux']
-        def id = inventory_db.registMaster("nodes", columns)
-        def node = inventory_db.rows("select * from nodes where node_name = ?", 'node01')
+    // def "マスター登録複数列"() {
+    //     when:
+    //     def columns = [project_id: 1, node_name: 'node01', platform: 'Linux']
+    //     def id = inventory_db.registMaster("nodes", columns)
+    //     def node = inventory_db.rows("select * from nodes where node_name = ?", 'node01')
 
-        then:
-        id > 0
-        node[0]['node_name'] == 'node01'
-        node[0]['project_id'] == 1
-    }
+    //     then:
+    //     id > 0
+    //     node[0]['node_name'] == 'node01'
+    //     node[0]['project_id'] == 1
+    // }
 
-    def "複数プロジェクトでノード登録"() {
-        when:
-        def project_id1 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01'])
-        def project_id2 = inventory_db.registMaster("projects", [project_name: 'p02', project_path: 'p02'])
-        def node_id1 = inventory_db.registMaster("nodes", [node_name: 'node01',platform: 'vCenter', project_id: project_id1])
-        def node_id2 = inventory_db.registMaster("nodes", [node_name: 'node01',platform: 'Linux', project_id: project_id2])
+    // def "複数プロジェクトでノード登録"() {
+    //     when:
+    //     def project_id1 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01'])
+    //     def project_id2 = inventory_db.registMaster("projects", [project_name: 'p02', project_path: 'p02'])
+    //     def node_id1 = inventory_db.registMaster("nodes", [node_name: 'node01',platform: 'vCenter', project_id: project_id1])
+    //     def node_id2 = inventory_db.registMaster("nodes", [node_name: 'node01',platform: 'Linux', project_id: project_id2])
 
-        then:
-        def rows = inventory_db.rows("select * from nodes")
-        def json = new groovy.json.JsonBuilder()
-        json(rows)
-        println json.toPrettyString()
+    //     then:
+    //     def rows = inventory_db.rows("select * from nodes")
+    //     def json = new groovy.json.JsonBuilder()
+    //     json(rows)
+    //     println json.toPrettyString()
 
-        rows[0]['project_id'] == 1
-        rows[0]['node_name']  == 'node01'
-        rows[0]['platform']   == 'vCenter'
-        rows[1]['project_id'] == 2
-        rows[1]['node_name']  == 'node01'
-        rows[1]['platform']   == 'Linux'
-    }
+    //     rows[0]['project_id'] == 1
+    //     rows[0]['node_name']  == 'node01'
+    //     rows[0]['platform']   == 'vCenter'
+    //     rows[1]['project_id'] == 2
+    //     rows[1]['node_name']  == 'node01'
+    //     rows[1]['platform']   == 'Linux'
+    // }
 
-    def "マスター登録列名なし"() {
-        when:
-        def id = inventory_db.registMaster("nodes", [HOGE: 'node01', tenant_id: 1])
+    // def "マスター登録列名なし"() {
+    //     when:
+    //     def id = inventory_db.registMaster("nodes", [HOGE: 'node01', tenant_id: 1])
 
-        then:
-        thrown(SQLException)
-    }
+    //     then:
+    //     thrown(SQLException)
+    // }
 
-    def "マスター登録キャッシュ"() {
-        when:
-        def id1 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01a'])
-        def id2 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01b'])
+    // def "マスター登録キャッシュ"() {
+    //     when:
+    //     def id1 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01a'])
+    //     def id2 = inventory_db.registMaster("projects", [project_name: 'p01', project_path: 'p01b'])
 
-        then:
-        id1 == id2
-    }
+    //     then:
+    //     id1 == id2
+    // }
 
     // def "メトリック登録"() {
     //     when:
@@ -174,15 +174,15 @@ class InventoryDBTest extends Specification {
 
     def "ノード定義のエクスポート"() {
         when:
-        inventory_db.export(new File('src/test/resources/node/').getAbsolutePath())
-        def node = inventory_db.rows("select * from nodes")
+        inventory_db.export()
+        // def node = inventory_db.rows("select * from nodes")
         // def result = inventory_db.cmdb.rows("select * from test_results where node_id = 1")
         // def metric = inventory_db.cmdb.rows("select * from metrics")
 
         then:
-        def json = new groovy.json.JsonBuilder()
-        json(node)
-        println json.toPrettyString()
+        // def json = new groovy.json.JsonBuilder()
+        // json(node)
+        // println json.toPrettyString()
         // node[0]['node_name'].size() > 0
         // node[1]['node_name'].size() > 0
         // result.size() > 0

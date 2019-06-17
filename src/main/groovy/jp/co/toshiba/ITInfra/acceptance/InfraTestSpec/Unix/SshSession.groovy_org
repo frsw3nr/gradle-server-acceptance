@@ -17,7 +17,7 @@ class SshSession {
 
     static String prompt = '$ '
     int timeout = 30
-    String evidence_log_share_dir
+    String current_test_log_dir
     String local_dir
 
     Connection ssh
@@ -25,7 +25,7 @@ class SshSession {
     SshSession(test_spec) {
         this.timeout   = test_spec?.timeout ?: 30
         this.local_dir = test_spec?.local_dir
-        this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
+        this.current_test_log_dir = test_spec?.current_test_log_dir
     }
 
     def init_session(String ip, String user, String password) {
@@ -44,7 +44,7 @@ class SshSession {
 
     def run_command(command, test_id, share = false) {
         try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
+            def log_path = (share) ? current_test_log_dir : local_dir
 
             def session = ssh.openSession()
             session.execCommand command

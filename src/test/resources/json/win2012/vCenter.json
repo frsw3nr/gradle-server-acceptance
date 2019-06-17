@@ -1,40 +1,4 @@
 {
-    "vm.NumCpu": {
-        "name": "vm.NumCpu",
-        "value": "1",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "vm.PowerState": {
-        "name": "vm.PowerState",
-        "value": "PoweredOn",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "vm.MemoryGB": {
-        "name": "vm.MemoryGB",
-        "value": "4.0",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "vm.VMHost": {
-        "name": "vm.VMHost",
-        "value": "192.168.10.100",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
     "vm.name": {
         "name": "vm.name",
         "value": "win2012",
@@ -46,38 +10,20 @@
     },
     "vm": {
         "name": "vm",
-        "value": "[Name:win2012, CPU:1, MemoryGB:4.0, Host:192.168.10.100]",
+        "value": "[Name:win2012]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "NumCpu": {
-        "name": "NumCpu",
-        "value": null,
-        "error_msg": null,
-        "compare_server": null,
-        "status": null,
-        "verify": "OK",
-        "comparision": null
-    },
-    "MemoryGB": {
-        "name": "MemoryGB",
-        "value": null,
-        "error_msg": null,
-        "compare_server": null,
-        "status": null,
-        "verify": "OK",
+        "verify": "NG",
         "comparision": null
     },
     "VMHost": {
         "name": "VMHost",
         "value": null,
-        "error_msg": null,
+        "error_msg": "'null' !=~ /192.168.10.100/",
         "compare_server": null,
         "status": null,
-        "verify": "OK",
+        "verify": "NG",
         "comparision": null
     },
     "vmext": {
@@ -91,20 +37,15 @@
     },
     "datastore": {
         "name": "datastore",
-        "value": "[datastore2]",
-        "error_msg": null,
+        "value": "[]",
+        "error_msg": "'[]' !=~ /datastore2/",
         "compare_server": null,
-        "status": "OK",
-        "verify": "OK",
+        "status": "WARNING",
+        "verify": "NG",
         "comparision": null,
         "devices": {
             "csv": [
-                [
-                    "datastore2",
-                    "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
-                    "VMFS",
-                    "Available"
-                ]
+                
             ],
             "header": [
                 "Name",
@@ -114,58 +55,17 @@
             ]
         }
     },
-    "datastore.Name.datastore2": {
-        "name": "datastore.Name.datastore2",
-        "value": "datastore2",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "datastore.DatastoreBrowserPath.datastore2": {
-        "name": "datastore.DatastoreBrowserPath.datastore2",
-        "value": "vmstores:\\192.168.10.100@443\\ha-datacenter\\datastore2",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "datastore.Type.datastore2": {
-        "name": "datastore.Type.datastore2",
-        "value": "VMFS",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "datastore.State.datastore2": {
-        "name": "datastore.State.datastore2",
-        "value": "Available",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
     "vm_storage": {
         "name": "vm_storage",
-        "value": "[datastore2/Thin/40.0 GB]",
-        "error_msg": null,
+        "value": "[]",
+        "error_msg": "Not found",
         "compare_server": null,
-        "status": "OK",
-        "verify": null,
+        "status": "WARNING",
+        "verify": "NG",
         "comparision": null,
         "devices": {
             "csv": [
-                [
-                    "[datastore2] w2012/w2012.vmdk",
-                    "Thin",
-                    "40.0",
-                    "Flat"
-                ]
+                
             ],
             "header": [
                 "Filename",
@@ -174,33 +74,6 @@
                 "DiskType"
             ]
         }
-    },
-    "vm_storage.StorageFormat.datastore2": {
-        "name": "vm_storage.StorageFormat.datastore2",
-        "value": "Thin",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "vm_storage.CapacityGB.datastore2": {
-        "name": "vm_storage.CapacityGB.datastore2",
-        "value": "40.0",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "vm_storage.DiskType.datastore2": {
-        "name": "vm_storage.DiskType.datastore2",
-        "value": "Flat",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
     },
     "VMNetwork": {
         "name": "VMNetwork",
@@ -263,25 +136,16 @@
     },
     "vmwaretool": {
         "name": "vmwaretool",
-        "value": "NotInstalled",
-        "error_msg": null,
+        "value": null,
+        "error_msg": "java.lang.NullPointerException",
         "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "vmwaretool.version": {
-        "name": "vmwaretool.version",
-        "value": "[internalversion:0, requiredversion:9344]",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
+        "status": "NG",
         "verify": null,
         "comparision": null
     },
     "vm_timesync": {
         "name": "vm_timesync",
-        "value": "[TimeSync:False]",
+        "value": "[TimeSync:TestFaild]",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -290,10 +154,10 @@
     },
     "vm_iops_limit": {
         "name": "vm_iops_limit",
-        "value": "[Drive1:-1]",
-        "error_msg": null,
+        "value": "[:]",
+        "error_msg": "Not found",
         "compare_server": null,
-        "status": "OK",
+        "status": "WARNING",
         "verify": null,
         "comparision": null
     },

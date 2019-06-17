@@ -151,11 +151,6 @@ class ConfigTestEnvironment {
         // return "${project_home}/config/cmdb.groovy"
     }
 
-    def get_node_dir() {
-        def getconfig_home = this.get_getconfig_home()
-        return "${getconfig_home}/node/"
-    }
-
     def get_create_db_sql() {
         def project_home = this.get_project_home()
         return "${project_home}/lib/script/cmdb/create_db.sql"
@@ -177,17 +172,42 @@ class ConfigTestEnvironment {
     }
 
     def get_base_node_dir() {
-        def project_home = this.get_project_home()
-        return this.config?.node_dir ?: "${project_home}/node"
+        def getconfig_home = this.get_getconfig_home()
+        return this.config?.base_node_dir ?: "${getconfig_home}/node"
     }
 
-    def get_test_resource() {
-        return this.config?.test_resource ?: './src/test/resources/log'
+    def get_project_node_dir() {
+        return this.config?.evidence?.project_node_dir ?: './node/'
     }
 
-    def get_base_test_resource() {
-        def project_home = this.get_project_home()
-        return this.config?.node_dir ?: "${project_home}/src/test/resources/log"
+    def get_current_node_dir() {
+        return this.config?.evidence?.current_node_dir ?: './build/json/'
+    }
+
+    def get_node_dir() {
+        return this.get_project_node_dir()
+    }
+
+    def get_project_test_log_dir() {
+        return this.config?.dry_run_staging_dir ?: './src/test/resources/log'
+    }
+
+    def get_current_test_log_dir() {
+        return this.config?.evidence?.staging_dir ?: './build/log/'
+    }
+
+    def get_base_test_log_dir() {
+        def getconfig_home = this.get_getconfig_home()
+        return this.config?.base_test_log_dir ?: "${getconfig_home}/src/test/resources/log"
+    }
+
+    def get_dry_run_staging_dir(String platform) {
+        return this.config?.test?.dry_run_staging_dir ?: './src/test/resources/log'
+    }
+
+    def get_evidence_log_dir(String platform, String target) {
+        def current_test_log_dir = this.get_current_test_log_dir()
+        return "${current_test_log_dir}/${target}"
     }
 
     def get_silent() {
@@ -218,10 +238,6 @@ class ConfigTestEnvironment {
 
     def get_sheet_prefixes() {
         return this.config?.evidence?.sheet_prefix
-    }
-
-    def get_result_dir() {
-        return this.config?.evidence?.result_dir ?: './build/json/'
     }
 
     def get_filter_server() {
@@ -262,19 +278,6 @@ class ConfigTestEnvironment {
         return this.config?.debug ?: config_platform?.debug ?: false
     }
 
-    def get_dry_run_staging_dir(String platform) {
-        return this.config?.test?.dry_run_staging_dir ?: './src/test/resources/log'
-    }
-
-    def get_evidence_log_share_dir() {
-        return this.config?.evidence?.staging_dir ?: './build/log/'
-    }
-
-    def get_evidence_log_dir(String platform, String target) {
-        def evidence_log_share_dir = this.get_evidence_log_share_dir()
-        return "${evidence_log_share_dir}/${target}"
-    }
-
     def print_config() {
         println "getconfig_home :  ${get_getconfig_home()}"
         println "project_home :    ${get_project_home()}"
@@ -283,11 +286,11 @@ class ConfigTestEnvironment {
         println "last_run_config : ${get_last_run_config()}"
         println "db_config :       ${get_db_config()}"
         println "node_dir :        ${get_node_dir()}"
-        println "test_resource :   ${get_test_resource()}"
+        println "project_test_log_dir :   ${get_project_test_log_dir()}"
         println "silent :          ${get_silent()}"
         println "excel_file :      ${get_excel_file()}"
         println "output_evidence : ${get_output_evidence()}"
-        println "result_dir :      ${get_result_dir()}"
+        println "current_node_dir : ${get_current_node_dir()}"
         println "filter_server :   ${get_filter_server()}"
         println "filter_metric :   ${get_filter_metric()}"
         println "parallel_degree : ${get_parallel_degree()}"

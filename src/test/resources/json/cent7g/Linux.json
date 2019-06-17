@@ -145,7 +145,7 @@
     },
     "core_collector": {
         "name": "core_collector",
-        "value": "unkown",
+        "value": "makedumpfile -l --message-level 1 -d 31",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -416,7 +416,7 @@
     },
     "meminfo": {
         "name": "meminfo",
-        "value": "2914812 kB",
+        "value": "2914816 kB",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -434,7 +434,7 @@
     },
     "mem_free": {
         "name": "mem_free",
-        "value": "0.5",
+        "value": "2.0",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -735,12 +735,9 @@
                     "sr0",
                     "11:0",
                     "1",
-                    "4G",
+                    "1024M",
                     "0",
-                    "rom",
-                    "/run/media/root/CentOS",
-                    "7",
-                    "x86_64"
+                    "rom"
                 ]
             ],
             "header": [
@@ -1414,7 +1411,7 @@
     },
     "service": {
         "name": "service",
-        "value": "132 services",
+        "value": "125 services",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -1444,7 +1441,7 @@
                 ],
                 [
                     "accounts-daemon",
-                    "active.running"
+                    "inactive.dead"
                 ],
                 [
                     "atd",
@@ -1467,19 +1464,11 @@
                     "active.exited"
                 ],
                 [
-                    "bolt",
-                    "active.running"
-                ],
-                [
                     "brandbot",
                     "inactive.dead"
                 ],
                 [
                     "chronyd",
-                    "active.running"
-                ],
-                [
-                    "colord",
                     "active.running"
                 ],
                 [
@@ -1517,10 +1506,6 @@
                 [
                     "fcoe",
                     "inactive.dead"
-                ],
-                [
-                    "fwupd",
-                    "active.running"
                 ],
                 [
                     "gdm",
@@ -1659,10 +1644,6 @@
                     "inactive.dead"
                 ],
                 [
-                    "packagekit",
-                    "active.running"
-                ],
-                [
                     "plymouth-quit-wait",
                     "inactive.dead"
                 ],
@@ -1677,10 +1658,6 @@
                 [
                     "plymouth-start",
                     "inactive.dead"
-                ],
-                [
-                    "polkit",
-                    "active.running"
                 ],
                 [
                     "postfix",
@@ -1867,6 +1844,10 @@
                     "active.exited"
                 ],
                 [
+                    "systemd-timedated",
+                    "active.running"
+                ],
+                [
                     "systemd-tmpfiles-clean",
                     "inactive.dead"
                 ],
@@ -1916,11 +1897,7 @@
                 ],
                 [
                     "udisks2",
-                    "active.running"
-                ],
-                [
-                    "upower",
-                    "active.running"
+                    "inactive.dead"
                 ],
                 [
                     "vdo",
@@ -1940,14 +1917,6 @@
                 ],
                 [
                     "vmtoolsd",
-                    "active.running"
-                ],
-                [
-                    "vncserver@:1",
-                    "failed.failed"
-                ],
-                [
-                    "wpa_supplicant",
                     "active.running"
                 ]
             ],
@@ -2040,7 +2009,7 @@
     },
     "service.Etc.accounts-daemon": {
         "name": "service.Etc.accounts-daemon",
-        "value": "active.running",
+        "value": "inactive.dead",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -2092,15 +2061,6 @@
         "verify": null,
         "comparision": null
     },
-    "service.Etc.bolt": {
-        "name": "service.Etc.bolt",
-        "value": "active.running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
     "service.Etc.brandbot": {
         "name": "service.Etc.brandbot",
         "value": "inactive.dead",
@@ -2112,15 +2072,6 @@
     },
     "service.Etc.chronyd": {
         "name": "service.Etc.chronyd",
-        "value": "active.running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Etc.colord": {
-        "name": "service.Etc.colord",
         "value": "active.running",
         "error_msg": null,
         "compare_server": null,
@@ -2203,15 +2154,6 @@
     "service.Etc.fcoe": {
         "name": "service.Etc.fcoe",
         "value": "inactive.dead",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Etc.fwupd": {
-        "name": "service.Etc.fwupd",
-        "value": "active.running",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -2488,15 +2430,6 @@
         "verify": null,
         "comparision": null
     },
-    "service.Etc.packagekit": {
-        "name": "service.Etc.packagekit",
-        "value": "active.running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
     "service.Etc.plymouth-quit": {
         "name": "service.Etc.plymouth-quit",
         "value": "inactive.dead",
@@ -2527,15 +2460,6 @@
     "service.Etc.plymouth-start": {
         "name": "service.Etc.plymouth-start",
         "value": "inactive.dead",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Etc.polkit": {
-        "name": "service.Etc.polkit",
-        "value": "active.running",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -2956,6 +2880,15 @@
         "verify": null,
         "comparision": null
     },
+    "service.Etc.systemd-timedated": {
+        "name": "service.Etc.systemd-timedated",
+        "value": "active.running",
+        "error_msg": null,
+        "compare_server": null,
+        "status": "OK",
+        "verify": null,
+        "comparision": null
+    },
     "service.Etc.systemd-tmpfiles-clean": {
         "name": "service.Etc.systemd-tmpfiles-clean",
         "value": "inactive.dead",
@@ -3066,16 +2999,7 @@
     },
     "service.Etc.udisks2": {
         "name": "service.Etc.udisks2",
-        "value": "active.running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Etc.upower": {
-        "name": "service.Etc.upower",
-        "value": "active.running",
+        "value": "inactive.dead",
         "error_msg": null,
         "compare_server": null,
         "status": "OK",
@@ -3120,24 +3044,6 @@
     },
     "service.Etc.vmtoolsd": {
         "name": "service.Etc.vmtoolsd",
-        "value": "active.running",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Etc.vncserver@:1": {
-        "name": "service.Etc.vncserver@:1",
-        "value": "failed.failed",
-        "error_msg": null,
-        "compare_server": null,
-        "status": "OK",
-        "verify": null,
-        "comparision": null
-    },
-    "service.Etc.wpa_supplicant": {
-        "name": "service.Etc.wpa_supplicant",
         "value": "active.running",
         "error_msg": null,
         "compare_server": null,

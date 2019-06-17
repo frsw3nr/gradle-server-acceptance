@@ -324,8 +324,7 @@ class ExcelParserTest extends Specification {
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
 
-        def test_result_reader = new TestResultReader(
-                                         result_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader. read_entire_result(test_scenario)
         def domain_targets = test_scenario.get_domain_targets()
         // 検査対象のステータスを強制的に FINISH に変更
@@ -360,8 +359,7 @@ class ExcelParserTest extends Specification {
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
 
-        def test_result_reader = new TestResultReader(
-                                         result_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader. read_entire_result(test_scenario)
 
         def evidence_maker = new EvidenceMaker()

@@ -19,7 +19,7 @@ class SshSession {
     // String prompt = '.*[%|$|#] $'
     int timeout = 30
     Boolean debug = false
-    String evidence_log_share_dir
+    String current_test_log_dir
     String local_dir
 
     Connection ssh
@@ -30,7 +30,7 @@ class SshSession {
         this.timeout       = test_spec?.timeout ?: 30
         this.debug         = test_spec?.debug ?: false
         this.local_dir     = test_spec?.local_dir
-        this.evidence_log_share_dir = test_spec?.evidence_log_share_dir
+        this.current_test_log_dir = test_spec?.current_test_log_dir
 
         if (debug) {
             println "DEBUG:${this.debug}"
@@ -160,7 +160,7 @@ class SshSession {
                 println"RESULT: ${result_truncated2}<EOF>"
             }
 
-            def log_path = (share) ? evidence_log_share_dir : local_dir
+            def log_path = (share) ? current_test_log_dir : local_dir
             new File("${log_path}/${test_id}").text = result_truncated2
 
         } catch (Exception e) {

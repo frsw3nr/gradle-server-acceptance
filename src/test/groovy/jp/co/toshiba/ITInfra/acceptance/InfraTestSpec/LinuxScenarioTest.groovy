@@ -40,7 +40,7 @@ class LinuxScenarioTest extends Specification {
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_file : excel_file,
                                                output_evidence: output_evidence,
-                                               result_dir : 'build/json',
+                                               current_node_dir : 'build/json',
                                                )
         test_scheduler.init()
         println test_scheduler
@@ -62,7 +62,7 @@ class LinuxScenarioTest extends Specification {
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_file : excel_file,
                                                output_evidence: output_evidence,
-                                               result_dir : 'build/json',
+                                               current_node_dir : 'build/json',
                                                )
         test_scheduler.init()
         println test_scheduler
@@ -84,7 +84,7 @@ class LinuxScenarioTest extends Specification {
         def test_scheduler = new TestScheduler(platform_tester : platform_tester,
                                                excel_file : excel_file,
                                                output_evidence: output_evidence,
-                                               result_dir : 'build/json',
+                                               current_node_dir : 'build/json',
                                                )
         test_scheduler.init()
         println test_scheduler

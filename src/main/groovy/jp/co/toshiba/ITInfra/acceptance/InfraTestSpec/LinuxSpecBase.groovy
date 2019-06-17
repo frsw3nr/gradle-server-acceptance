@@ -137,7 +137,7 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def run_ssh_command(session, command, test_id, share = false) {
         try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
+            def log_path = (share) ? current_test_log_dir : local_dir
             def result = session.execute command
             new File("${log_path}/${test_id}").text = result
         } catch (Exception e) {
@@ -147,7 +147,7 @@ class LinuxSpecBase extends InfraTestSpec {
 
     def run_ssh_sudo(session, command, test_id, share = false) {
         try {
-            def log_path = (share) ? evidence_log_share_dir : local_dir
+            def log_path = (share) ? current_test_log_dir : local_dir
             def result = session.executeSudo command, pty: true, timeoutSec: timeout
             new File("${log_path}/${test_id}").text = result
         } catch (Exception e) {
