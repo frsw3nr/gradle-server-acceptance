@@ -8,21 +8,22 @@ import groovy.transform.InheritConstructors
 // For ssh session
 // import org.hidetake.groovy.ssh.Ssh
 import ch.ethz.ssh2.Connection
+import ch.ethz.ssh2.Session
+import ch.ethz.ssh2.ChannelCondition
 
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 
 @Slf4j
-class SshSession {
+class SshSessionCommand {
 
-    static String prompt = '$ '
     int timeout = 30
     String current_test_log_dir
     String local_dir
 
     Connection ssh
 
-    SshSession(test_spec) {
+    SshSessionCommand(test_spec) {
         this.timeout   = test_spec?.timeout ?: 30
         this.local_dir = test_spec?.local_dir
         this.current_test_log_dir = test_spec?.current_test_log_dir
@@ -48,6 +49,7 @@ class SshSession {
 
             def session = ssh.openSession()
             session.execCommand command
+            session.waitForCondition(ChannelCondition.STDOUT_DATA | ChannelCondition.STDERR_DATA | ChannelCondition.EOF, 1000 * timeout);
             def result = session.stdout.text
             new File("${log_path}/${test_id}").text = result
             session.close()

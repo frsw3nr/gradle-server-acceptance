@@ -2,6 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 
 import ch.ethz.ssh2.Connection
 import ch.ethz.ssh2.Session
+import ch.ethz.ssh2.ChannelCondition
 import groovy.util.logging.Slf4j
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
@@ -17,7 +18,7 @@ class SshSession {
     static String prompt_regexp  = '[%|\$|#] \$'
     static String prompt_command = '$ '
     // String prompt = '.*[%|$|#] $'
-    int timeout = 30
+    int timeout = 60
     Boolean debug = false
     String current_test_log_dir
     String local_dir
@@ -27,7 +28,7 @@ class SshSession {
 
     SshSession(test_spec) {
         this.prompt_regexp = test_spec?.prompt ?: '$ '
-        this.timeout       = test_spec?.timeout ?: 30
+        this.timeout       = test_spec?.timeout ?: 60
         this.debug         = test_spec?.debug ?: false
         this.local_dir     = test_spec?.local_dir
         this.current_test_log_dir = test_spec?.current_test_log_dir
@@ -63,6 +64,7 @@ class SshSession {
             }
 
             session = ssh.openSession()
+            session.waitForCondition(ChannelCondition.STDOUT_DATA | ChannelCondition.STDERR_DATA, 1000 * timeout);
             session.requestDumbPTY();
             session.startShell();
 

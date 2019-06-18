@@ -23,19 +23,22 @@ class SolarisSpec extends InfraTestSpec {
     String os_password
     String work_dir
     Boolean use_telnet
-    int    timeout = 30
+    int    timeout = 60
 
     def init() {
         super.init()
+        def test_target = test_platform?.test_target
 
         this.ip          = test_platform.test_target.ip ?: 'unkown'
         def os_account   = test_platform.os_account
         this.os_user     = os_account['user'] ?: 'unkown'
-        this.os_password = os_account['password'] ?: 'unkown'
+//        this.os_password = os_account['password'] ?: 'unkown'
+        this.os_password = test_target.specific_password ?: os_account['password'] ?: 'unkown'
         this.work_dir    = os_account['work_dir'] ?: '/tmp'
         this.use_telnet  = os_account['use_telnet'] ?: false
         this.timeout     = test_platform.timeout
         // this.prompt = '$ '
+        
     }
 
     def setup_exec(TestItem[] test_items) {
@@ -44,8 +47,10 @@ class SolarisSpec extends InfraTestSpec {
         //     return setup_exec_telnet(test_items)
         // }
 
-        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
+        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSessionCommand(this)
+//        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
         def result
+        // println "${this.ip}, ${this.os_user}, ${this.os_password}, ${this.use_telnet}"
         if (!dry_run) {
             con.init_session(this.ip, this.os_user, this.os_password)
         }

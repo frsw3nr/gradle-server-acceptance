@@ -85,7 +85,6 @@ class TestScheduler {
                                     evidence_maker: evidence_maker,
                                     report_maker: report_maker)
         excel_sheet_maker.output(this.output_evidence)
-        println "CURRENT_NODE_DIR:${this.current_node_dir}"
         def test_result_writer = new TestResultWriter('node_dir': this.current_node_dir)
         this.test_scenario.accept(test_result_writer)
 
@@ -112,7 +111,6 @@ class TestScheduler {
                                                          test_metrics : metrics)
                     test_target.test_platforms[platform] = test_platform
                     test_target.target_status = RunStatus.RUN
-                    println "TARGET:$target_name,PLATFORM:$platform,${test_target.compare_server}"
                     this.test_platform_tasks[platform][target_name] = test_platform
                 }
             }
