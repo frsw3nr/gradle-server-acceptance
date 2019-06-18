@@ -48,9 +48,12 @@ class SshSessionCommand {
             def log_path = (share) ? current_test_log_dir : local_dir
 
             def session = ssh.openSession()
+            println "TEST1:$command"
             session.execCommand command
-            session.waitForCondition(ChannelCondition.STDOUT_DATA | ChannelCondition.STDERR_DATA | ChannelCondition.EOF, 1000 * timeout);
+            // session.waitForCondition(ChannelCondition.STDOUT_DATA | ChannelCondition.STDERR_DATA | ChannelCondition.EOF, 1000 * timeout);
+            println "TEST2:"
             def result = session.stdout.text
+            println "TEST3:$result"
             new File("${log_path}/${test_id}").text = result
             session.close()
             return result

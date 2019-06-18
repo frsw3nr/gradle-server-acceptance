@@ -23,6 +23,7 @@ class SshSession {
     String current_test_log_dir
     String local_dir
 
+    static int session_interval = 500
     Connection ssh
     Session session
 
@@ -57,14 +58,14 @@ class SshSession {
         ssh = new Connection(ip, 22)
         Expect expect
         try {
-            ssh.connect()
+            // ssh.connect()
+            ssh.connect(null, 1000*this.timeout, 0);
             def result = ssh.authenticateWithPassword(user, password)
             if (!result) {
                 throw new IOException("Connect failed")
             }
 
             session = ssh.openSession()
-            session.waitForCondition(ChannelCondition.STDOUT_DATA | ChannelCondition.STDERR_DATA, 1000 * timeout);
             session.requestDumbPTY();
             session.startShell();
 
@@ -152,7 +153,7 @@ class SshSession {
                 // }
                 row ++
             }
-            // sleep(1000)
+            sleep(session_interval)
             def res = expect.expect(regexp(this.prompt_regexp)); 
             String result = res.getBefore()
             String result_truncated = truncate_last_line(result); 
