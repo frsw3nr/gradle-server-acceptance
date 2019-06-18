@@ -83,6 +83,7 @@ class TelnetSession {
                 expect.expect(contains("Password: ")); 
                 expect.sendLine(password);
             }
+            sleep(telnet_session_interval)
 
             // Unify ascii code shell to avoid multi-byte
             if (change_ascii_shell) {
@@ -90,6 +91,7 @@ class TelnetSession {
                 expect.expect(regexp(this.prompt_regexp)); 
                 expect.sendLine("LANG=C");
                 expect.expect(regexp(this.prompt_regexp)); 
+                sleep(telnet_session_interval)
             }
 
         } catch (Exception e) {
@@ -126,6 +128,7 @@ class TelnetSession {
                 }
                 row ++
             }
+            sleep(telnet_session_interval)
             def res = expect.expect(regexp(this.prompt_regexp))
             String result = res.getBefore()
             String result_truncated = truncate_last_line(result); 
