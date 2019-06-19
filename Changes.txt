@@ -46,7 +46,7 @@ Bug fixes:
         * test_schenario に compare_target 追加 [x]
         * dry_run の設定を有効化 [x]
 * PlatformTester 結合 [ ]
-    TestLog クラス作成 [x]
+    TestLog クラス作成 [x] ⇒ 取り下げ
         メンバー変数 [x]
             base_test_log_dir [x]
             project_test_log_dir [x]
@@ -63,6 +63,9 @@ Bug fixes:
     InfraTestSpec クラス結合 [ ]
         exec クロージャ内 [ ]
     PlatformTester クラス結合 [ ]
+    * Baseデータコピー前処理追加 [ ]
+        * 比較対象サーバのインベントリデータコピー [ ]
+        * TestScheduler 結合 [ ]
 
 Changes for 0.2.3 (2019-6-3)
 ------------------------------------------------------------------------------
