@@ -24,8 +24,22 @@ class InventoryDBTest extends Specification {
 
         inventory_db = InventoryDB.instance
         test_env.accept(inventory_db)
+        reset_project_home(inventory_db, '/tmp/dummy_project')
+        create_dummy_project_dir('/tmp/dummy_project')
         // inventory_db.initialize()
         println "CMDB_MODEL:$inventory_db"
+    }
+
+    def create_dummy_project_dir(String project_home) {
+        ['node', 'src/test/resources/log'].each { base_dir ->
+            def target_dir = new File("${project_home}/${base_dir}")
+            target_dir.mkdirs()
+        }
+    }
+
+    def reset_project_home(InventoryDB inventory_db, String project_home) {
+        inventory_db.project_node_dir = "${project_home}/node"
+        inventory_db.project_test_log_dir = "${project_home}/src/test/resources/log"
     }
 
     def "ノード定義のエクスポート"() {
@@ -51,7 +65,6 @@ class InventoryDBTest extends Specification {
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
-
         when:
         inventory_db.copy_compare_target_inventory_data(test_scenario)
 

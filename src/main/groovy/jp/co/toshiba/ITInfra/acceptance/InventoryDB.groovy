@@ -1,10 +1,10 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-
-import groovy.json.JsonSlurper
-import groovy.sql.Sql
+// import groovy.json.JsonSlurper
+// import groovy.sql.Sql
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
+import org.apache.commons.io.FileUtils
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 
 // import java.sql.SQLException
@@ -97,26 +97,58 @@ class InventoryDB {
             println "${row} rows"
     }
 
+    def copy_base_node_dir(String target) throws IOException {
+        def source_dir = new File("${this.base_node_dir}/${target}")
+        def target_dir = new File("${this.project_node_dir}/${target}")
+        if (source_dir.exists()) {
+            target_dir.mkdirs()
+            FileUtils.copyDirectory(source_dir, target_dir)
+        }
+    }
+
+    def copy_base_node_json_file(String target, String platform) throws IOException {
+        def json_file = "${target}__${platform}.json"
+        def source_json = new File("${this.base_node_dir}/${json_file}")
+        def target_json = new File("${this.project_node_dir}/${json_file}")
+        if (source_json.exists())
+            target_json << source_json.text
+    }
+
+    def copy_base_test_log_dir(String target, String platform) throws IOException {
+        def source_dir = new File("${this.base_test_log_dir}/${target}/${platform}")
+        def target_dir = new File("${this.project_test_log_dir}/${target}/${platform}")
+        if (source_dir.exists()) {
+            target_dir.mkdirs()
+            FileUtils.copyDirectory(source_dir, target_dir)
+        }
+    }
+
+    // シナリオから compare_target を抽出し、順に以下を実行
+    // ログディレクトリとノードディレクトリで順に行う
+    // ベースディレクトリ下のファイルリストを検索
+    // プロジェクトディレクトリに上書きコピー
+    // TARGET_NAME:cent65b,PLATFORM_NAME:vCenter,PLATFORM_METRIC:TestMetricSet(vCenter)
+    // TARGET_NAME:cent65b,PLATFORM_NAME:Linux,PLATFORM_METRIC:TestMetricSet(Linux)
     def copy_compare_target_inventory_data(TestScenario test_scenario) {
         def domain_metrics = test_scenario.test_metrics.get_all()
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
             // def port_lists = this.read_port_lists(target_name)
+            Boolean first_loop = true
             domain_targets.each { domain, test_target ->
                 if (test_target.target_status == RunStatus.INIT &&
                     test_target.comparision == true) {
                     // test_target.port_list = port_lists
                     // this.read_port_list(target_name, domain)
+                    if (first_loop) {
+                        copy_base_node_dir(target_name)
+                        first_loop = false
+                    }
                     def platform_metrics = domain_metrics[domain].get_all()
                     platform_metrics.each { platform_name, platform_metric ->
                         println "TARGET_NAME:${target_name},PLATFORM_NAME:${platform_name},PLATFORM_METRIC:${platform_metric}"
-                        // def test_platform = this.read_test_platform_result(target_name,
-                        //                                                    platform_name,
-                        //                                                    true)
-                        // if (test_platform) {
-                        //     test_platform.test_target = test_target
-                        //     test_target.test_platforms[platform_name] = test_platform
-                        // }
+                        copy_base_node_json_file(target_name, platform_name)
+                        copy_base_test_log_dir(target_name, platform_name)
                     }
                 }
             }
