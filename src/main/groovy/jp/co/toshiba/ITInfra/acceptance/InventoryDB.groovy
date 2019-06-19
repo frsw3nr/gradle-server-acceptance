@@ -5,9 +5,9 @@ import groovy.json.JsonSlurper
 import groovy.sql.Sql
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
-import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 
-import java.sql.SQLException
+// import java.sql.SQLException
 
 @Slf4j
 @Singleton
@@ -16,6 +16,8 @@ class InventoryDB {
 
     String base_test_log_dir
     String project_test_log_dir
+    String base_node_dir
+    String project_node_dir
     String project_name
     String filter_node
     String filter_platform
@@ -30,6 +32,8 @@ class InventoryDB {
     def set_environment(ConfigTestEnvironment env) {
         this.base_test_log_dir    = env.get_base_test_log_dir()
         this.project_test_log_dir = env.get_project_test_log_dir()
+        this.base_node_dir        = env.get_base_node_dir()
+        this.project_node_dir     = env.get_project_node_dir()
         this.project_name         = env.get_project_name()
         // this.db_config         = env.get_inventory_db_config()
         // this.create_db_sql     = env.get_create_inventory_db_sql()
@@ -86,16 +90,38 @@ class InventoryDB {
         println String.format(NODE_LIST_FORMAT, NODE_LIST_HEADERS)
         row += print_node_list('Current', this.project_test_log_dir)
         row += print_node_list('Base', this.base_test_log_dir)
-        // node_updates.each { node_name, last_modified ->
-        //     def platforms = node_platforms[node_name]
-        //     println String.format("%-12s %-32s %s", node_name, platforms, last_modified)
-        //     node_count ++
-        // }
 
         if (row == 0)
             println "No data"
         else 
             println "${row} rows"
+    }
+
+    def copy_compare_target_inventory_data(TestScenario test_scenario) {
+        def domain_metrics = test_scenario.test_metrics.get_all()
+        def targets = test_scenario.test_targets.get_all()
+        targets.each { target_name, domain_targets ->
+            // def port_lists = this.read_port_lists(target_name)
+            domain_targets.each { domain, test_target ->
+                if (test_target.target_status == RunStatus.INIT &&
+                    test_target.comparision == true) {
+                    // test_target.port_list = port_lists
+                    // this.read_port_list(target_name, domain)
+                    def platform_metrics = domain_metrics[domain].get_all()
+                    platform_metrics.each { platform_name, platform_metric ->
+                        println "TARGET_NAME:${target_name},PLATFORM_NAME:${platform_name},PLATFORM_METRIC:${platform_metric}"
+                        // def test_platform = this.read_test_platform_result(target_name,
+                        //                                                    platform_name,
+                        //                                                    true)
+                        // if (test_platform) {
+                        //     test_platform.test_target = test_target
+                        //     test_target.test_platforms[platform_name] = test_platform
+                        // }
+                    }
+                }
+            }
+        }
+
     }
 
     // def initialize() throws IOException, SQLException {

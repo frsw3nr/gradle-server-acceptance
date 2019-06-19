@@ -1,11 +1,12 @@
 import jp.co.toshiba.ITInfra.acceptance.InventoryDB
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
-import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.*
+import jp.co.toshiba.ITInfra.acceptance.Document.*
 import spock.lang.Specification
 
-import java.sql.SQLException
+// import java.sql.SQLException
 
-// gradle --daemon test --tests "InventoryDBTest.設定読み込み"
+// gradle --daemon test --tests "InventoryDBTest.ノード定義のエクスポート"
 
 class InventoryDBTest extends Specification {
 
@@ -27,6 +28,36 @@ class InventoryDBTest extends Specification {
         println "CMDB_MODEL:$inventory_db"
     }
 
+    def "ノード定義のエクスポート"() {
+        when:
+        inventory_db.export()
+        // def node = inventory_db.rows("select * from nodes")
+        // def result = inventory_db.cmdb.rows("select * from test_results where node_id = 1")
+        // def metric = inventory_db.cmdb.rows("select * from metrics")
+
+        then:
+        // def json = new groovy.json.JsonBuilder()
+        // json(node)
+        // println json.toPrettyString()
+        // node[0]['node_name'].size() > 0
+        // node[1]['node_name'].size() > 0
+        // result.size() > 0
+        1 == 1
+    }
+
+    def "比較対象サーバのインベントリデータコピー"() {
+        setup:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        def test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        when:
+        inventory_db.copy_compare_target_inventory_data(test_scenario)
+
+        then:
+        1 == 1
+    }
     // def 設定読み込み() {
     //     when:
     //     def config = inventory_db.db_config
@@ -171,23 +202,6 @@ class InventoryDBTest extends Specification {
     //     then:
     //     1 == 1
     // }
-
-    def "ノード定義のエクスポート"() {
-        when:
-        inventory_db.export()
-        // def node = inventory_db.rows("select * from nodes")
-        // def result = inventory_db.cmdb.rows("select * from test_results where node_id = 1")
-        // def metric = inventory_db.cmdb.rows("select * from metrics")
-
-        then:
-        // def json = new groovy.json.JsonBuilder()
-        // json(node)
-        // println json.toPrettyString()
-        // node[0]['node_name'].size() > 0
-        // node[1]['node_name'].size() > 0
-        // result.size() > 0
-        1 == 1
-    }
 
     // def "CMDBメトリック検索"() {
     //     when:

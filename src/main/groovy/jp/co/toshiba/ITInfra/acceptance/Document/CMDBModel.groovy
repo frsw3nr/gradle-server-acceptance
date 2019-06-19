@@ -163,6 +163,7 @@ class CMDBModel {
                                                           platform_id: platform_id])
                             cmdb.execute(set_flag_sql, metric_id)
                             try {
+                                registMetric(node_id, metric_id, metric)
                                 registDevice(node_id, metric_id, metric.devices)
                             } catch (SQLException e) {
                                 log.warn "Regist device metric failed $node_name, $platform_name, $metric_name: $e"
