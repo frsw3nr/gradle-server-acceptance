@@ -18,6 +18,22 @@ TODO:
     * 比較対象指定でベースディレクトリのログも参照する [x]
         * プロジェクト、ベースの順に参照 [x]
 * 手動比較設定の場合のExcel 検査結果レイアウト見直し [ ]
+
+auto_tag モードの有無検索
+
+1. 暫定で TagGenerator2 クラスを作る。比較指定モードの場合の操作
+
+targets順に検索
+初回のtarget で compare_server があればその前に compare_server を追加
+同一 compare_server が続けば、同じタグでタグ付け
+compare_server 自身の列は削除する(既に追加されているはず)
+
+2. EvidenceMakerクラスvisit_test_scenario()メソッド内
+先頭に比較対象を移動させる処理を止める
+
+タグ付けしておけば自動でExcel グループ設定される
+
+
     * タグ機能の追加 [ ]
     * グループ化して、グループの順に配置 [ ]
     * グループ内の1列目に比較対象を配置 [ ]

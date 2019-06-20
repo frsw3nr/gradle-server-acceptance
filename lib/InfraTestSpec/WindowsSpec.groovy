@@ -819,7 +819,7 @@ class WindowsSpec extends WindowsSpecBase {
                 def test_id = "packages.Etc.${package_name}"
                 add_new_metric(test_id, package_name, "'${version}'", package_info)
             }
-            println package_info
+            // println package_info
             def headers = ['name', 'vendor', 'version']
             test_item.devices(csv, headers)
             package_info['packages'] = "${package_count} packages"

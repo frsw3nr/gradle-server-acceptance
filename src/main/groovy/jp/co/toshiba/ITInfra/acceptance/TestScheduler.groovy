@@ -54,8 +54,12 @@ class TestScheduler {
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
         try {
-            def base_result_reader = new TestResultReader('node_dir': this.base_node_dir)
-            base_result_reader.read_compare_target_result(this.test_scenario)
+            def inventory_db = InventoryDB.instance
+            ConfigTestEnvironment.instance.accept(inventory_db)
+            inventory_db.copy_compare_target_inventory_data(this.test_scenario)
+
+            // def base_result_reader = new TestResultReader('node_dir': this.base_node_dir)
+            // base_result_reader.read_compare_target_result(this.test_scenario)
             def project_result_reader = new TestResultReader('node_dir': this.project_node_dir)
             project_result_reader.read_compare_target_result(this.test_scenario)
         } catch (Exception e) {

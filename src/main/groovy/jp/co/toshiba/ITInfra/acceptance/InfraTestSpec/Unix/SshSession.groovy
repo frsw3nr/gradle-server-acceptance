@@ -3,6 +3,7 @@ package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 import ch.ethz.ssh2.Connection
 import ch.ethz.ssh2.Session
 import ch.ethz.ssh2.ChannelCondition
+import ch.ethz.ssh2.channel.ChannelClosedException
 import groovy.util.logging.Slf4j
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
@@ -22,8 +23,12 @@ class SshSession {
     Boolean debug = false
     String current_test_log_dir
     String local_dir
-
     static int session_interval = 500
+    String ip
+    String user
+    String password
+    Boolean change_ascii_shell
+
     Connection ssh
     Session session
 
@@ -36,6 +41,7 @@ class SshSession {
 
         if (debug) {
             println "DEBUG:${this.debug}"
+            println "TIMEOUT:${this.timeout}"
             println "PROMPT(REGEXP):${this.prompt_regexp}"
             println "PROMPT(COMMAND):${this.prompt_command}"
         }
@@ -55,11 +61,16 @@ class SshSession {
     }
 
     def init_session(String ip, String user, String password, Boolean change_ascii_shell = true) {
+        this.ip = ip
+        this.user = user
+        this.password = password
+        this.change_ascii_shell = change_ascii_shell
+
         ssh = new Connection(ip, 22)
         Expect expect
         try {
             // ssh.connect()
-            ssh.connect(null, 1000*this.timeout, 0);
+            ssh.connect(null, 1000*this.timeout, 1000*this.timeout);
             def result = ssh.authenticateWithPassword(user, password)
             if (!result) {
                 throw new IOException("Connect failed")
@@ -167,7 +178,8 @@ class SshSession {
             new File("${log_path}/${test_id}").text = result_truncated2
 
         } catch (Exception e) {
-            log.error "[SSH Test] Command error '$command', skip.\n" + e
+            log.error "[SSH Test] Command error '$command', skip and reconnect.\n" + e
+            init_session(this.ip, this.user, this.password, this.change_ascii_shell)
         } finally {
             if (expect) {
                 expect.close()

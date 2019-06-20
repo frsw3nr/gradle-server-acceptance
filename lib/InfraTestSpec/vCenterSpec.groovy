@@ -298,17 +298,19 @@ class vCenterSpec extends vCenterSpecBase {
                 }
             }
             infos['vmwaretool'] = 'TestFaild'
-            try {
-                def internalversion = Integer.decode(res['internalversion'])
-                def requiredversion = Integer.decode(res['requiredversion'])
-                if (internalversion == 0)
-                    infos['vmwaretool'] = 'NotInstalled'
-                else if (internalversion < requiredversion)
-                    infos['vmwaretool'] = 'UpdateRequired'
-                else
-                    infos['vmwaretool'] = 'OK'
-            } catch (NumberFormatException e) {
-                log.warn "Test failed : $e"
+            if (res) {
+                try {
+                    def internalversion = Integer.decode(res['internalversion'])
+                    def requiredversion = Integer.decode(res['requiredversion'])
+                    if (internalversion == 0)
+                        infos['vmwaretool'] = 'NotInstalled'
+                    else if (internalversion < requiredversion)
+                        infos['vmwaretool'] = 'UpdateRequired'
+                    else
+                        infos['vmwaretool'] = 'OK'
+                } catch (NumberFormatException e) {
+                    log.warn "Test failed : $e"
+                }
             }
             infos['vmwaretool.version'] = res.toString()
             test_item.results(infos)
