@@ -5,7 +5,7 @@ param (
 echo "vsp_host : $vsp_host"
 
 $scriptBase = Split-Path -Parent $MyInvocation.MyCommand.Path
-$reportDir = Join-Path $scriptBase "..\..\src\test\resources\log\HitachiVSP\$vsp_host\HitachiVSP"
+$reportDir = Join-Path $scriptBase "..\..\src\test\resources\log\$vsp_host\HitachiVSP"
 New-Item $reportDir -ItemType Directory -Force | Out-Null
 $reportDir = Resolve-Path $reportDir
 
