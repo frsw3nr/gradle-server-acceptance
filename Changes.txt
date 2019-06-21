@@ -1,88 +1,49 @@
-Changes for 0.2.4 (2019-6-24)
+Changes for 0.2.5 (2019-7-8)
 ------------------------------------------------------------------------------
-
-New features:
-
 TODO:
-* UNIX Telnet セッション処理に Expect ライブラリ実装 [x]
 * クラスター分析で、サロゲートキーからダミー変数への変換を多値変数の変換に見直し [ ]
 * パフォーマンスチューニング用に、CompileStatic 移行 [ ]
     * Intellj 環境構築 [x]
     * 不要なimport 処理削除 [x]
     * CompileStatic化 [ ]
     * その他リファクタリング [ ]
-* テンプレート機能。ベースプロジェクトに過去のインベントリを保存する機能追加 [x]
-    * 結果のコミットで Getconfig ベースディレクトリにもコピーする [x]
-        * プロジェクトにコピー [x]
-        * ベースプロジェクトにコピー [x]
-    * 比較対象指定でベースディレクトリのログも参照する [x]
-        * プロジェクト、ベースの順に参照 [x]
-* 手動比較設定の場合のExcel 検査結果レイアウト見直し [ ]
-
-auto_tag モードの有無検索
-
-1. 暫定で TagGenerator2 クラスを作る。比較指定モードの場合の操作
-
-targets順に検索
-初回のtarget で compare_server があればその前に compare_server を追加
-同一 compare_server が続けば、同じタグでタグ付け
-compare_server 自身の列は削除する(既に追加されているはず)
-
-2. EvidenceMakerクラスvisit_test_scenario()メソッド内
-先頭に比較対象を移動させる処理を止める
-
-タグ付けしておけば自動でExcel グループ設定される
-
-
-    * タグ機能の追加 [ ]
-    * グループ化して、グループの順に配置 [ ]
-    * グループ内の1列目に比較対象を配置 [ ]
-* 比較結果の集計 [ ]
-    * 検査項目で、比較有効化フラグを追加 [ ]
+* 比較結果のグループ集計 [ ]
     * Excel検査結果レイアウトにタグ列を追加 [ ]
+    * 検査カテゴリのグループ単位で比較結果を集計する [ ]
     * 相違をセルの配色で分類する [ ]
+    * 検査項目で、比較有効化フラグを追加 [ ]
+
+Changes for 0.2.4 (2019-6-24)
+------------------------------------------------------------------------------
+
+New features:
+* UNIX Telnet/SSH セッション処理に Expect ライブラリのI/Fに変更
+* テンプレート機能
+    * インベントリを共通プロジェクト下に保存し、比較対象指定をした場合に保存した
+      インベントリを読み込める機能を追加
+    * 保存したインベントリをリスト出力する機能を追加
+* 比較対象を指定した検査シナリオで、 Excel 検査結果出力レイアウトを変更
+    * タグ機能を追加し、比較対象ごとにグループ化して、グループの順に配置
+    * グループ内の1列目に比較対象を配置
+
+TODO:
+* 暫定で TagGenerator2 クラスを作る。比較指定モードの場合の操作 [x]
+    targets 順に検索 [x]
+    初回のtarget で compare_server があればその前に compare_server を追加 [x]
+    同一 compare_server が続けば、同じタグでタグ付け [x]
+    compare_server 自身の列は削除する(既に追加されているはず) [x]
+* TagGenerator2 の統合 [ ]
+* 検査ログ保存ディレクトリパラメータ名のリファクタリング [ ]
+    * TestPlatfomr クラス [ ]
+    * InfraTestSpec クラス [ ]
+    * PlatformTester クラス [ ]
 
 Bug fixes:
-* -u db-all オプションで複数プラットフォームのインベントリデータ登録で一部データが登録できない問題対象 [x]
-* 比較対象サーバを指定した場合、過去の比較結果をExcelシートに更新してしまう問題対処 [x]
-* 日立VSPシナリオで構成レポートファイルの保存ディレクトリ作成が旧バージョンv1のパス指定となる問題対象 [ ]
-
-テンプレート化スコープ定義
-
-* 単体 IntventoryDB.groovy [x]
-    * 初期化処理 [x]
-    * 登録処理 [x]
-    * 検索処理 [x]
-    * レポーティング処理。単純にSystem.out.format()でよい [x]
-        * projects (project_name, project_path, created)
-        * nodes (id, project_id, node_name, platform, data_type, created)
-      gradle test --tests "InventoryDBTest.マスター登録"
-* TestSchedule 結合 [x]
-    * init() 変更 [x]
-    * add_compare_target()関数追加 [x]
-        * test_schenario に compare_target 追加 [x]
-        * dry_run の設定を有効化 [x]
-* PlatformTester 結合 [ ]
-    TestLog クラス作成 [x] ⇒ 取り下げ
-        メンバー変数 [x]
-            base_test_log_dir [x]
-            project_test_log_dir [x]
-            current_test_log_dir [x]
-            current_platform_test_log_dir [x]
-        メソッド [x]
-            get_source_log_path(test_id, shared = false) [x]
-            get_local_dir() [x]
-            get_target_log_path(test_id, shared = false) [x]
-            プロジェクトテストログディレクトリを検索 [x]
-            なければベーステストログディレクトリを検索 [x]
-            それでもなければ v1のログ検索 [x]
-    TestPlatform クラス結合 [ ]
-    InfraTestSpec クラス結合 [ ]
-        exec クロージャ内 [ ]
-    PlatformTester クラス結合 [ ]
-    * Baseデータコピー前処理追加 [ ]
-        * 比較対象サーバのインベントリデータコピー [ ]
-        * TestScheduler 結合 [ ]
+* -u db オプションのインベントリDB登録で一部デバイス指定の検査項目が登録できない問題対象
+* 比較対象サーバを指定した場合、Excel に比較対象サーバ自身の比較結果を更新してしまう問題対処
+    * 比較対象サーバ列は自身の比較結果の出力は無効化する様に変更
+* 日立VSPシナリオで構成レポートファイルの保存ディレクトリが旧バージョンv1のパス指定と
+  なる問題対象
 
 Changes for 0.2.3 (2019-6-3)
 ------------------------------------------------------------------------------

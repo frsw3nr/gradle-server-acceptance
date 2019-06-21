@@ -43,8 +43,6 @@ class InfraTestSpec {
         this.evidence_log_dir     = test_platform.evidence_log_dir
         // this.current_test_log_dir = test_platform.current_test_log_dir
         this.current_test_log_dir = this.evidence_log_dir
-        println "EVIDENCE_LOG_DIR:$evidence_log_dir"
-        println "CURRENT_TEST_LOG_DIR:$current_test_log_dir"
         // this.local_dir            = "${evidence_log_dir}/${platform}"
         this.local_dir            = "${evidence_log_dir}/${platform}"
         this.dry_run              = test_platform.dry_run
@@ -119,9 +117,7 @@ class InfraTestSpec {
         Boolean shared = settings['shared'] ?: false
         String  encode = settings['encode'] ?: null
         def log_path = get_log_path(test_id, shared)
-        println "LOG_PATH:${log_path}"
         def target_path = get_target_path(test_id, shared)
-        println "TARGET_PATH:${target_path}"
         // def log_path = dry_run_staging_dir
         // if (shared == false) {
         //     log_path += "/${server_name}/${platform}"
