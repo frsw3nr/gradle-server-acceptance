@@ -52,6 +52,10 @@ class InfraTestSpec {
         this.debug                = test_platform.debug
         this.mode                 = RunMode.prepare
         this.server_info          = test_platform?.test_target?.asMap()
+println "${server_name},${platform}:DRY_RUN_STAGING_DIR:${dry_run_staging_dir}"
+println "${server_name},${platform}:LOCAL_DIR:${local_dir}"
+println "${server_name},${platform}:EVIDENCE_LOG_DIR:${evidence_log_dir}"
+
     }
 
     def prepare = { Closure closure ->

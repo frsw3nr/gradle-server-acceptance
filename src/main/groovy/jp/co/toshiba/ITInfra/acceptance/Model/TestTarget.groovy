@@ -28,7 +28,7 @@ class TestTarget extends SpecModel {
     String success_rate
     LinkedHashMap<String,TestPlatform> test_platforms = [:]
     LinkedHashMap<String,TestTemplate> test_templates = [:]
-    LinkedHashMap<String,TestRule> test_rules = [:]
+    // LinkedHashMap<String,TestRule> test_rules = [:]
     LinkedHashMap<String,PortList> port_list = [:]
 
     def trim_template_config_with_null(Map template_config) {
@@ -101,43 +101,5 @@ class TestTargetSet extends SpecCompositeModel {
             this.children[name][domain] = it
         }
     }
-
-
-    // def copy(source_name, target_name) {
-    //     def source_domains = this.children[source_name]
-    //     def target_domains = [:]
-    //     source_domains.each { domain_name, test_source ->
-    //         def test_target = test_source.clone()
-    //         test_target.name = target_name
-    //         target_domains[domain_name] = test_target
-    //     }
-    //     this.children[target_name] = target_domains
-    // }
-
-    // def check_filter(name, keyword) {
-    //     def matched = false
-    //     if (!keyword) {
-    //         matched = true
-    //     } else {
-    //         ( name =~ /${keyword}/ ).each { m0 ->
-    //             matched = true
-    //         }
-    //     }
-    //     return matched
-    // }
-
-    // def search_all(String keyword) {
-    //     def filterd = new ConfigObject()
-    //     this.children.each { name, object ->
-    //         if (this.check_filter(name, keyword)) {
-    //             filterd[name] = object
-    //         }
-    //     }
-    //     return filterd
-    // }
-
-    // def get_all() {
-    //     return this.children
-    // }
 
 }

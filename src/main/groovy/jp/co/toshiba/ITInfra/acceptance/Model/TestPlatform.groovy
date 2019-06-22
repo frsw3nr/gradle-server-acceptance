@@ -4,6 +4,8 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 
+import java.util.regex.Matcher
+
 @Slf4j
 @ToString(includePackage = false, excludes="test_target")
 class TestPlatform extends SpecModel {
@@ -14,7 +16,14 @@ class TestPlatform extends SpecModel {
     LinkedHashMap<String,PortList> port_lists  = [:]
     LinkedHashMap<String,TestMetric> test_metrics  = [:]
     LinkedHashMap<String,TestMetric> added_test_metrics  = [:]
-    TestRule test_rule
+    // TestRule test_rule
+    boolean verify_test
+    boolean dry_run
+    int timeout
+    boolean debug
+    String dry_run_staging_dir
+    String evidence_log_share_dir
+    GString evidence_log_dir
 
     def accept(visitor){
         visitor.visit_test_platform(this)
@@ -45,18 +54,18 @@ class TestPlatform extends SpecModel {
     }
 
     def add_test_metric(String metric, String description) {
-        def test_metric
+        TestMetric test_metric
         if (this.added_test_metrics.containsKey(metric)) {
             test_metric = added_test_metrics[metric]
         } else {
-            (metric =~/^(.+?)\./).each { m0, base_metric_name ->
+            def matcher = (metric =~ /^(.+?)\./).each { m0, base_metric_name ->
                 def base_metric = test_metrics[base_metric_name]
                 if (base_metric) {
                     test_metric = base_metric.clone()
-                    test_metric.name           = metric
-                    test_metric.description    = description
-                    test_metric.comment        = ''
-                    test_metric.enabled        = false
+                    test_metric.name = metric
+                    test_metric.description = description
+                    test_metric.comment = ''
+                    test_metric.enabled = false
                     test_metric.device_enabled = false
                     this.added_test_metrics[metric] = test_metric
                 }

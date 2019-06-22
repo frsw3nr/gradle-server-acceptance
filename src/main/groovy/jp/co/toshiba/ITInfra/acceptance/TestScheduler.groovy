@@ -72,21 +72,16 @@ class TestScheduler {
     }
 
     def finish() {
-        if (this.auto_tag) {
-            def tag_generator = new TagGenerator()
-            ConfigTestEnvironment.instance.accept(tag_generator)
-            this.test_scenario.accept(tag_generator)
-        } else {
-            def tag_generator2 = new TagGenerator2()
-            ConfigTestEnvironment.instance.accept(tag_generator2)
-            this.test_scenario.accept(tag_generator2)
-        }
+        def test_config = ConfigTestEnvironment.instance
+        def tag_generator = (this.auto_tag) ? new TagGenerator() : new TagGeneratorManual()
+        test_config.accept(tag_generator)
+        this.test_scenario.accept(tag_generator)
         def data_comparator = new DataComparator()
         this.test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()
         this.test_scenario.accept(evidence_maker)
         def report_maker = new ReportMaker()
-        ConfigTestEnvironment.instance.accept(report_maker)
+        test_config.accept(report_maker)
         this.test_scenario.accept(report_maker)
         def excel_sheet_maker = new ExcelSheetMaker(
                                     excel_parser: this.excel_parser,

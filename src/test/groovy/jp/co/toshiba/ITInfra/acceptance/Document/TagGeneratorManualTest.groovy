@@ -3,9 +3,9 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "TagGeneratorTest2.結果の比較"
+// gradle --daemon test --tests "TagGeneratorManualTest.結果の比較"
 
-class TagGeneratorTest2 extends Specification {
+class TagGeneratorManualTest extends Specification {
     TestScenario test_scenario
     ConfigTestEnvironment test_env
     ExcelParser excel_parser
@@ -35,8 +35,8 @@ class TagGeneratorTest2 extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator2 = new TagGenerator2()
-        test_scenario.accept(tag_generator2)
+        def tag_generator = new TagGeneratorManual()
+        test_scenario.accept(tag_generator)
 
         then:
         def comparitions = [:].withDefault{0}
@@ -61,8 +61,8 @@ class TagGeneratorTest2 extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator2 = new TagGenerator2()
-        test_scenario.accept(tag_generator2)
+        def tag_generator = new TagGeneratorManual()
+        test_scenario.accept(tag_generator)
         println test_scenario.test_targets.get_keys()
         def evidence_maker = new EvidenceMaker()
         test_scenario.accept(evidence_maker)

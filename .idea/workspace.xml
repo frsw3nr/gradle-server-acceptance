@@ -618,12 +618,13 @@
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/ResultContainer.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/ResultContainer.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/SheetDesign.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/SheetDesign.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator2.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator2.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TestResultReader.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TestResultReader.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TestResultWriter.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TestResultWriter.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxSpecBase.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxSpecBase.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/SshSession.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/SshSession.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/SshSession.groovy_org" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/SshSession.groovy_org" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/SshSessionCommand.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/SshSessionCommand.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/TelnetSession.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/Unix/TelnetSession.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/VMHostSpecBase.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/VMHostSpecBase.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/WindowsSpecBase.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/WindowsSpecBase.groovy" afterDir="false" />
@@ -685,6 +686,7 @@
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/ReportMakerTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/ReportMakerTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/SummarySheet.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/SummarySheet.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGeneratorTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGeneratorTest.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGeneratorTest2.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGeneratorTest2.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TestResultWriterTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TestResultWriterTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxBaseTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxBaseTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxScenarioTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/InfraTestSpec/LinuxScenarioTest.groovy" afterDir="false" />
@@ -705,6 +707,7 @@
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestItem/ResultVerifierTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestItem/ResultVerifierTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestItem/TestResultRegisterTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestItem/TestResultRegisterTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestItemTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestItemTest.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestLogTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestLogTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestRunnerTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestRunnerTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestSchedulerTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestSchedulerTest.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestScriptGeneratorTest.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/TestScriptGeneratorTest.groovy" afterDir="false" />
@@ -2061,6 +2064,7 @@
       <change beforePath="$PROJECT_DIR$/src/test/resources/test_servers.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/test_servers.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/サーバチェックシート.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/サーバチェックシート.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/サーバチェックシート2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/サーバチェックシート2.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/サーバチェックシート3.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/サーバチェックシート3.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/チェックシート.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/チェックシート.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/日記.xls" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/日記.xls" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/日記.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/日記.xlsx" afterDir="false" />
@@ -2152,14 +2156,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/TestLog.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="e#42#79#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Model/TestPlatform.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+              <folding>
+                <element signature="e#48#80#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/TestScheduler.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="76" selection-start-line="76" selection-end-line="76" />
             </state>
           </provider>
         </entry>
@@ -2175,10 +2200,12 @@
         <option value="$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTest.groovy" />
         <option value="$PROJECT_DIR$/lib/InfraTestSpec/WindowsSpec.groovy" />
         <option value="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/TestLog.groovy" />
+        <option value="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Model/TestPlatform.groovy" />
+        <option value="$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator2.groovy" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="3" />
     <option name="y" value="70" />
     <option name="width" value="1215" />
@@ -2229,6 +2256,25 @@
               <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
               <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="groovy" type="462c0819:PsiDirectoryNode" />
+              <item name="acceptance" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="groovy" type="462c0819:PsiDirectoryNode" />
+              <item name="acceptance" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+              <item name="TestReport.groovy" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+            <path>
+              <item name="gradle-server-acceptance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gradle-server-acceptance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
           </expand>
@@ -2238,7 +2284,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560806060252" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561238314252" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Groovy" />
   </component>
   <component name="RunDashboard">
@@ -2274,7 +2320,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d0ad59ec-9465-481a-b470-e2b6680213d9" name="Default Changelist" comment="" />
+      <changelist id="903c6c43-9c7f-4b3e-9989-7f1465b3916f" name="Default Changelist" comment="" />
       <created>1560041944718</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -2288,7 +2334,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="70" width="1215" height="1000" extended-state="1" />
+    <frame x="3" y="70" width="1215" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24935065" />
@@ -2404,6 +2450,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/TestLog.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#42#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Model/TestPlatform.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+          <folding>
+            <element signature="e#48#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTestEnvironmentTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -2414,12 +2480,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/TestLog.groovy">
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator2.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="221">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
-            <element signature="e#42#79#0" expanded="true" />
+            <element signature="e#51#83#0" expanded="true" />
           </folding>
         </state>
       </provider>
