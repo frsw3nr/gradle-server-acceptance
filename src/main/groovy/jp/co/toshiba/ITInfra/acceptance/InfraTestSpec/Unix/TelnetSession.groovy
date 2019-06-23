@@ -1,13 +1,13 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 
 import groovy.util.logging.Slf4j
+import net.sf.expectit.Expect
+import net.sf.expectit.ExpectBuilder
 import org.apache.commons.net.telnet.EchoOptionHandler
 import org.apache.commons.net.telnet.SuppressGAOptionHandler
 import org.apache.commons.net.telnet.TelnetClient
 import org.apache.commons.net.telnet.TerminalTypeOptionHandler
 
-import net.sf.expectit.Expect
-import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
 import static net.sf.expectit.matcher.Matchers.regexp
 

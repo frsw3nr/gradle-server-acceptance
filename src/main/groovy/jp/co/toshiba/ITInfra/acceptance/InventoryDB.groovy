@@ -1,12 +1,15 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-// import groovy.json.JsonSlurper
-// import groovy.sql.Sql
-import java.nio.file.Paths
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import org.apache.commons.io.FileUtils
-import jp.co.toshiba.ITInfra.acceptance.Model.*
+
+import java.nio.file.Paths
+
+// import groovy.json.JsonSlurper
+// import groovy.sql.Sql
 
 // import java.sql.SQLException
 
@@ -32,13 +35,19 @@ class InventoryDB {
         this.base_node_dir        = env.get_base_node_dir()
         this.project_node_dir     = env.get_project_node_dir()
         this.project_name         = env.get_project_name()
+    }
 
-        // Get a path excluding redundant parts
-        def project_node_path = Paths.get(this.project_node_dir).toRealPath()
-        def base_node_path    = Paths.get(this.base_node_dir).toRealPath()
-        if (project_node_path == base_node_path) {
-            this.match_project_base_directory = true
+    def check_project_base_directory_match() {
+        def is_match = false
+        try {
+            def project_node_path = Paths.get(this.project_node_dir).toRealPath()
+            def base_node_path    = Paths.get(this.base_node_dir).toRealPath()
+            if (project_node_path == base_node_path)
+                is_match = true
+        } catch (Exception e) {
+            is_match = false
         }
+        return is_match
     }
 
     Boolean filter_text_match(String target, String keyword = null) {
@@ -79,7 +88,10 @@ class InventoryDB {
         }
 
         def node_count = 0
-        node_updates.each { node_name, last_modified ->
+        // Map node_updates_sort = node_updates.sort { a, b -> 
+        //     a.value.priority() <=> b.value.priority() 
+        // }
+        node_updates.sort().each { node_name, last_modified ->
             def platforms = node_platforms[node_name]
             println String.format(NODE_LIST_FORMAT, mode, node_name, platforms, last_modified)
             node_count ++
@@ -94,10 +106,13 @@ class InventoryDB {
         this.filter_platform = filter_platform
         def row = 0
         println String.format(NODE_LIST_FORMAT, NODE_LIST_HEADERS)
-        if (!(this.match_project_base_directory)) {
-            row += print_node_list('Current', this.project_test_log_dir)
+        if (this.project_test_log_dir != null &&
+            this.project_node_dir != null &&
+            !(this.check_project_base_directory_match())
+            ) {
+            row += print_node_list('Project', this.project_test_log_dir)
         }
-        row += print_node_list('Base', this.base_test_log_dir)
+        row += print_node_list('Common', this.base_test_log_dir)
 
         if (row == 0)
             println "No data"

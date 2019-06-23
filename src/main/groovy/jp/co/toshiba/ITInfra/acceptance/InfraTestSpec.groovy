@@ -21,8 +21,7 @@ class InfraTestSpec {
     String platform
     String domain
     String title
-    String dry_run_staging_dir
-    String evidence_log_dir
+    String project_test_log_dir
     String current_test_log_dir
     String local_dir
     int timeout
@@ -40,22 +39,15 @@ class InfraTestSpec {
         this.platform             = test_platform.name
         this.domain               = test_platform.test_target.domain
         this.title                = domain + '(' + server_name + ')'
-        this.evidence_log_dir     = test_platform.evidence_log_dir
-        // this.current_test_log_dir = test_platform.current_test_log_dir
-        this.current_test_log_dir = this.evidence_log_dir
-        // this.local_dir            = "${evidence_log_dir}/${platform}"
-        this.local_dir            = "${evidence_log_dir}/${platform}"
+        this.current_test_log_dir = test_platform.current_test_log_dir
+        this.local_dir            = "${current_test_log_dir}/${platform}"
         this.dry_run              = test_platform.dry_run
         this.verify_test          = test_platform.verify_test
-        this.dry_run_staging_dir  = test_platform.dry_run_staging_dir
+        this.project_test_log_dir = test_platform.project_test_log_dir
         this.timeout              = test_platform.timeout ?: 0
         this.debug                = test_platform.debug
         this.mode                 = RunMode.prepare
         this.server_info          = test_platform?.test_target?.asMap()
-println "${server_name},${platform}:DRY_RUN_STAGING_DIR:${dry_run_staging_dir}"
-println "${server_name},${platform}:LOCAL_DIR:${local_dir}"
-println "${server_name},${platform}:EVIDENCE_LOG_DIR:${evidence_log_dir}"
-
     }
 
     def prepare = { Closure closure ->
@@ -81,11 +73,11 @@ println "${server_name},${platform}:EVIDENCE_LOG_DIR:${evidence_log_dir}"
 
     def get_log_path_v1(String test_id, Boolean shared = false) {
         def log_path = null
-        def staging_dir = new File(dry_run_staging_dir)
+        def staging_dir = new File(project_test_log_dir)
         if (!staging_dir.exists())
             return
         staging_dir.eachDir { old_domain ->
-            def old_log_path = dry_run_staging_dir + '/' + old_domain.name
+            def old_log_path = project_test_log_dir + '/' + old_domain.name
             if (shared == false) {
                 old_log_path += "/${server_name}/${platform}"
             }
@@ -99,7 +91,7 @@ println "${server_name},${platform}:EVIDENCE_LOG_DIR:${evidence_log_dir}"
     }
 
     def get_log_path(String test_id, Boolean shared = false) {
-        def log_path = dry_run_staging_dir
+        def log_path = project_test_log_dir
         if (shared == false) {
             log_path += "/${server_name}/${platform}"
         }
@@ -122,7 +114,7 @@ println "${server_name},${platform}:EVIDENCE_LOG_DIR:${evidence_log_dir}"
         String  encode = settings['encode'] ?: null
         def log_path = get_log_path(test_id, shared)
         def target_path = get_target_path(test_id, shared)
-        // def log_path = dry_run_staging_dir
+        // def log_path = project_test_log_dir
         // if (shared == false) {
         //     log_path += "/${server_name}/${platform}"
         // }

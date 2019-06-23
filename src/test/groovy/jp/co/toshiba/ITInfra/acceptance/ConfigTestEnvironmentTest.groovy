@@ -70,11 +70,11 @@ class ConfigTestEnvironmentTest extends Specification {
         test_env.read_config(config_file)
         // test_env.accept(test_platform)
         test_env.accept(test_platform)
-        println "ENV:${test_platform.evidence_log_dir}"
+        println "ENV:${test_platform.current_test_log_dir}"
         test_env.print_config()
 
         then:
-        test_platform.evidence_log_dir == './build/log/ostrich'
+        test_platform.current_test_log_dir == './build/log/ostrich'
         // test_platform.dry_run == false
     }
 
@@ -83,11 +83,11 @@ class ConfigTestEnvironmentTest extends Specification {
         test_env.read_config(config_file)
         test_env.config.dry_run = true
         test_env.accept(test_platform)
-        println "ENV1:${test_platform.evidence_log_dir}"
+        println "ENV1:${test_platform.current_test_log_dir}"
         println "ENV2:${test_platform.dry_run}"
 
         then:
-        test_platform.evidence_log_dir == './build/log/ostrich'
+        test_platform.current_test_log_dir == './build/log/ostrich'
         // test_platform.dry_run == true
     }
 
@@ -102,7 +102,7 @@ class ConfigTestEnvironmentTest extends Specification {
 
         then:
         test_platform.os_account.user == 'administrator'
-        test_platform.evidence_log_dir == './build/log/ostrich'
+        test_platform.current_test_log_dir == './build/log/ostrich'
     }
 
 }

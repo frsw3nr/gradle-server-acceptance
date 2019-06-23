@@ -1,18 +1,10 @@
 package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 
-import javax.xml.bind.*
-import static groovy.json.JsonOutput.*
+import ch.ethz.ssh2.Connection
 import groovy.util.logging.Slf4j
-import groovy.transform.InheritConstructors
 
 // For ssh session
 // import org.hidetake.groovy.ssh.Ssh
-import ch.ethz.ssh2.Connection
-import ch.ethz.ssh2.Session
-import ch.ethz.ssh2.ChannelCondition
-
-import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
-import jp.co.toshiba.ITInfra.acceptance.*
 
 @Slf4j
 class SshSessionCommand {

@@ -47,4 +47,3 @@ shm on /var/lib/docker/containers/151913f5d1f243a407454816b043ce8e43775d82eff506
 proc on /run/docker/netns/632df88f1b0a type proc (rw,nosuid,nodev,noexec,relatime)
 proc on /run/docker/netns/b9a81ce93fb8 type proc (rw,nosuid,nodev,noexec,relatime)
 tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=594536k,mode=700,uid=1000,gid=1000)
-tmpfs on /run/user/1001 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=594536k,mode=700,uid=1001,gid=1001)

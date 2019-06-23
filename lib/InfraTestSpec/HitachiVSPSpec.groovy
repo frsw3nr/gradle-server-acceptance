@@ -79,7 +79,7 @@ class HitachiVSPSpec extends WindowsSpecBase {
         // execPowerShell(script_path, cmd)
         def report_tar = 'hitachi_vsp_raidinf_report.tgz'
         def report_dir = (dry_run) ?
-            "${dry_run_staging_dir}/${server_name}/${platform}" :
+            "${project_test_log_dir}/${server_name}/${platform}" :
             local_dir
         extract_config_report_tgz("${report_dir}/${report_tar}", local_dir)
         test_items.each {

@@ -18,7 +18,7 @@ enum RunnerCommand {
 @ToString(includePackage = false)
 class TestRunner {
 
-    static final String main_version = '0.2.2'
+    static final String main_version = '0.2.4'
     RunnerCommand command = RunnerCommand.SCHEDULER
     String getconfig_home
     String project_home
@@ -250,7 +250,6 @@ class TestRunner {
             def evidence_manager = new EvidenceManager()
             test_env.get_cmdb_config()
             test_env.accept(evidence_manager)
-            println "EVIDENCE_MANAGER:${evidence_manager}"
             try {
                 if (test_runner.export_type =~ /db/) {
                     test_env.accept(CMDBModel.instance)

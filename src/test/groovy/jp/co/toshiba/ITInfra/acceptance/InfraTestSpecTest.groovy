@@ -40,7 +40,7 @@ class InfraTestSpecTest extends Specification {
             test_target  : test_target,
             test_metrics : test_metrics,
             dry_run      : true,
-            dry_run_staging_dir : 'src/test/resources/log',
+            project_test_log_dir : 'src/test/resources/log',
         )
     }
 
@@ -66,7 +66,7 @@ class InfraTestSpecTest extends Specification {
 
     def "古い検査ログ読込み"() {
         setup:
-        test_platform.dry_run_staging_dir = 'src/test/resources/log2'
+        test_platform.project_test_log_dir = 'src/test/resources/log2'
         def spec = new InfraTestSpec(test_platform)
 
         when:
@@ -87,7 +87,7 @@ class InfraTestSpecTest extends Specification {
             name         : 'Linux',
             test_target  : test_target,
             dry_run      : true,
-            dry_run_staging_dir : 'src/test/resources/log2',
+            project_test_log_dir : 'src/test/resources/log2',
         )
         def spec = new InfraTestSpec(test_platform)
 

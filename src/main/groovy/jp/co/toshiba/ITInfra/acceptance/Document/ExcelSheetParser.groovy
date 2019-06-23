@@ -1,14 +1,12 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
-
 import groovy.util.logging.Slf4j
+import org.apache.poi.ss.usermodel.*
 
 // import org.apache.poi.ss.usermodel.*
 // import org.apache.poi.xssf.usermodel.*
 // import org.apache.poi.hssf.usermodel.HSSFWorkbook
 // import org.apache.poi.ss.usermodel.IndexedColors
-
-import org.apache.poi.ss.usermodel.*
 
 @Slf4j
 abstract class ExcelSheetParser {

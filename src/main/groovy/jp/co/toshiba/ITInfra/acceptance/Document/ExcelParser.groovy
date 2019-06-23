@@ -1,15 +1,14 @@
 package jp.co.toshiba.ITInfra.acceptance.Document
 
-
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.Model.*
+import org.apache.poi.ss.usermodel.Sheet
 
 // import org.apache.poi.ss.usermodel.*
 // import org.apache.poi.xssf.usermodel.*
 // import org.apache.poi.hssf.usermodel.HSSFWorkbook
 // import org.apache.poi.ss.usermodel.IndexedColors
 
-import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 

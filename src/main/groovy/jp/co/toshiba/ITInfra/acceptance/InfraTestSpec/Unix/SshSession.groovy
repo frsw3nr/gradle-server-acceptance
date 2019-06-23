@@ -2,12 +2,10 @@ package jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.Unix
 
 import ch.ethz.ssh2.Connection
 import ch.ethz.ssh2.Session
-import ch.ethz.ssh2.ChannelCondition
-import ch.ethz.ssh2.channel.ChannelClosedException
 import groovy.util.logging.Slf4j
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
-import static net.sf.expectit.matcher.Matchers.contains
+
 import static net.sf.expectit.matcher.Matchers.regexp
 
 // For ssh session

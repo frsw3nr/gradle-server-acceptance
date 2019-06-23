@@ -1,100 +1,100 @@
-Jun  9 03:20:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:20:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:20:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:21:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:21:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:21:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:21:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:21:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:21:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:22:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:22:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:22:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:22:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:22:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:22:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:23:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:23:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:23:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:23:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:23:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:23:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:24:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:24:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:24:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:24:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:24:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:24:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:25:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:25:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:25:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:25:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:25:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:25:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:26:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:26:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:26:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:26:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:26:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:26:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:27:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:27:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:27:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:27:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:27:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:27:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:28:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:28:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:28:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:28:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:28:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:28:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:29:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:29:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:29:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:29:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:29:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:29:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:30:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:30:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:30:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:30:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:30:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:30:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:31:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:31:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:31:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:31:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:31:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:31:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:32:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:32:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:32:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:32:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:32:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:32:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:33:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:33:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:33:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:33:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:33:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:33:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:34:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:34:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:34:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:34:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:34:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:34:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:35:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:35:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:35:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:35:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:35:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:35:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:36:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:36:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:36:00 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:36:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
-Jun  9 03:36:30 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
-Jun  9 03:36:30 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
-Jun  9 03:37:00 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:11:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:11:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:11:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:11:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:11:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:11:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:12:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:12:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:12:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:12:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:12:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:12:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:13:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:13:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:13:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:13:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:13:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:13:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:14:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:14:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:14:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:14:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:14:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:14:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:15:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:15:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:15:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:15:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:15:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:15:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:16:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:16:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:16:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:16:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:16:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:16:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:17:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:17:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:17:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:17:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:17:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:17:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:18:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:18:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:18:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:18:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:18:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:18:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:19:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:19:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:19:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:19:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:19:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:19:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:20:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:20:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:20:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:20:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:20:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:20:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:21:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:21:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:21:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:21:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:21:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:21:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:22:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:22:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:22:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:22:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:22:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:22:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:23:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:23:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:23:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:23:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:23:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:23:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:24:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:24:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:24:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:24:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:24:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:24:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:25:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:25:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:25:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:25:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:25:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:25:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:26:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:26:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:26:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:26:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:26:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:26:57 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:27:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.
+Jun 23 03:27:27 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv6 routing table.
+Jun 23 03:27:27 centos7 vmsvc[5041]: [ warning] [guestinfo] Failed to get nic info.
+Jun 23 03:27:57 centos7 vmsvc[5041]: [ warning] [guestinfo] RecordRoutingInfo: Unable to collect IPv4 routing table.

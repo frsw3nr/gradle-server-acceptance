@@ -189,7 +189,7 @@ class ConfigTestEnvironment {
     }
 
     String get_project_test_log_dir() {
-        return this.config?.dry_run_staging_dir ?: './src/test/resources/log'
+        return this.config?.project_test_log_dir ?: './src/test/resources/log'
     }
 
     String get_current_test_log_dir() {
@@ -201,11 +201,11 @@ class ConfigTestEnvironment {
         return this.config?.base_test_log_dir ?: "${getconfig_home}/src/test/resources/log"
     }
 
-    def get_dry_run_staging_dir(String platform) {
-        return this.config?.test?.dry_run_staging_dir ?: './src/test/resources/log'
-    }
+    // def get_project_test_log_dir(String platform) {
+    //     return this.config?.test?.project_test_log_dir ?: './src/test/resources/log'
+    // }
 
-    def get_evidence_log_dir(String platform, String target) {
+    def get_current_platform_test_log_dir(String platform, String target) {
         def current_test_log_dir = this.get_current_test_log_dir()
         return "${current_test_log_dir}/${target}"
     }

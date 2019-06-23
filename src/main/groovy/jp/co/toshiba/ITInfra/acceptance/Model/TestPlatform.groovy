@@ -4,8 +4,6 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 
-import java.util.regex.Matcher
-
 @Slf4j
 @ToString(includePackage = false, excludes="test_target")
 class TestPlatform extends SpecModel {
@@ -21,9 +19,9 @@ class TestPlatform extends SpecModel {
     boolean dry_run
     int timeout
     boolean debug
-    String dry_run_staging_dir
+    String project_test_log_dir
     String evidence_log_share_dir
-    GString evidence_log_dir
+    GString current_test_log_dir
 
     def accept(visitor){
         visitor.visit_test_platform(this)
@@ -45,9 +43,9 @@ class TestPlatform extends SpecModel {
         this.dry_run                = env.get_dry_run(platform)
         this.timeout                = env.get_timeout(platform)
         this.debug                  = env.get_debug(platform)
-        this.dry_run_staging_dir    = env.get_dry_run_staging_dir(platform)
+        this.project_test_log_dir   = env.get_project_test_log_dir()
         this.evidence_log_share_dir = env.get_evidence_log_share_dir()
-        this.evidence_log_dir       = env.get_evidence_log_dir(platform, target_name)
+        this.current_test_log_dir   = env.get_current_platform_test_log_dir(platform, target_name)
 
         def msg = "$target_name(DryRun=${this.dry_run})"
         log.debug "Set test $platform:$msg"
