@@ -216,9 +216,15 @@ class ExcelParser {
             def test_target = new TestTarget(line)
             test_target_set.add(test_target)
             if (test_target.compare_server) {
-                compare_targets << [name: test_target.compare_server,
-                                    domain: line['domain']
-                                   ]
+                if (test_target.name == test_target.compare_server) {
+                    log.warn "Found own comaprision '${test_target.name}'."
+                    println test_target
+                    test_target.compare_server = null
+                } else {
+                    compare_targets << [name: test_target.compare_server,
+                                        domain: line['domain']
+                                       ]
+                }
             }
             return
         }

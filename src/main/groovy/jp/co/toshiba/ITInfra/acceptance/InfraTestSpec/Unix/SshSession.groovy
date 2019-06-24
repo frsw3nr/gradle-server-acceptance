@@ -68,7 +68,7 @@ class SshSession {
         Expect expect
         try {
             // ssh.connect()
-            ssh.connect(null, 1000*this.timeout, 1000*this.timeout);
+            ssh.connect(null, 10000*this.timeout, 10000*this.timeout);
             def result = ssh.authenticateWithPassword(user, password)
             if (!result) {
                 throw new IOException("Connect failed")
