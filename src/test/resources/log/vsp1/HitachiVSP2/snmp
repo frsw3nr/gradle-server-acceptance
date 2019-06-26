@@ -1,0 +1,30 @@
+{
+    "requestAuthenticationSetting": {
+        "snmpv1v2cSettings": [
+            {
+                "requestsPermitted": [
+                    
+                ],
+                "community": "public"
+            }
+        ]
+    },
+    "snmpVersion": "v2c",
+    "isSNMPAgentEnabled": true,
+    "systemGroupInformation": {
+        "contact": "",
+        "location": "",
+        "storageSystemName": "vsp1"
+    },
+    "sendingTrapSetting": {
+        "snmpv1v2cSettings": [
+            {
+                "sendTrapTo": [
+                    "10.216.6.161"
+                ],
+                "community": "public"
+            }
+        ]
+    },
+    "snmpEngineID": "0x80000074043561303564383061"
+}

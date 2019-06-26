@@ -1,0 +1,62 @@
+{
+    "data": [
+        {
+            "driveByteFormatCapacity": "12.99 T",
+            "mpBladeId": 0,
+            "driveType": "NFHAF-Q13RSS",
+            "raidLevel": "RAID1",
+            "emulationType": "OPEN-V-CVS",
+            "ssid": "0004",
+            "clprId": 0,
+            "composingPoolId": 0,
+            "driveBlockCapacity": 27917285758,
+            "blockCapacity": 5495132160,
+            "numOfParityGroups": 1,
+            "ldevId": 0,
+            "parityGroupIds": [
+                "1-1"
+            ],
+            "isAluaEnabled": false,
+            "attributes": [
+                "CVS",
+                "POOL"
+            ],
+            "resourceGroupId": 0,
+            "byteFormatCapacity": "2.55 T",
+            "raidType": "2D+2D",
+            "status": "NML"
+        },
+        {
+            "driveByteFormatCapacity": "12.99 T",
+            "mpBladeId": 0,
+            "driveType": "NFHAF-Q13RSS",
+            "raidLevel": "RAID1",
+            "emulationType": "OPEN-V-CVS",
+            "ssid": "0004",
+            "clprId": 0,
+            "composingPoolId": 0,
+            "driveBlockCapacity": 27917285758,
+            "blockCapacity": 5495132160,
+            "numOfParityGroups": 1,
+            "ldevId": 1,
+            "parityGroupIds": [
+                "1-1"
+            ],
+            "isAluaEnabled": false,
+            "attributes": [
+                "CVS",
+                "POOL"
+            ],
+            "resourceGroupId": 0,
+            "byteFormatCapacity": "2.55 T",
+            "raidType": "2D+2D",
+            "status": "NML"
+        },
+        {
+            "ldevId": 999,
+            "resourceGroupId": 0,
+            "emulationType": "NOT DEFINED",
+            "ssid": "0007"
+        }
+    ]
+}

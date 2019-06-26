@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "userGroupNames": [
+                "Administrator User Group",
+                "Support Personnel Group"
+            ],
+            "userObjectId": "maintenance2",
+            "isAccountStatus": true,
+            "isBuiltIn": true,
+            "userId": "maintenance2",
+            "authentication": "local"
+        },
+        {
+            "userGroupNames": [
+                "Storage Monitor"
+            ],
+            "userObjectId": "monitor",
+            "isAccountStatus": true,
+            "isBuiltIn": false,
+            "userId": "monitor",
+            "authentication": "local"
+        }
+    ]
+}

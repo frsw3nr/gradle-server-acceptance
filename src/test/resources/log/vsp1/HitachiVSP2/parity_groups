@@ -1,0 +1,32 @@
+{
+    "data": [
+        {
+            "clprId": 0,
+            "parityGroupId": "1-1",
+            "numOfLdevs": 11,
+            "usedCapacityRate": 99,
+            "isAcceleratedCompressionEnabled": false,
+            "physicalCapacity": 26214,
+            "availableVolumeCapacity": 1,
+            "driveType": "NFHAF-Q13RSS",
+            "driveTypeName": "SSD(FMC)",
+            "totalCapacity": 26214,
+            "raidLevel": "RAID1",
+            "raidType": "2D+2D"
+        },
+        {
+            "clprId": 0,
+            "parityGroupId": "1-2",
+            "numOfLdevs": 11,
+            "usedCapacityRate": 99,
+            "isAcceleratedCompressionEnabled": false,
+            "physicalCapacity": 26214,
+            "availableVolumeCapacity": 1,
+            "driveType": "NFHAF-Q13RSS",
+            "driveTypeName": "SSD(FMC)",
+            "totalCapacity": 26214,
+            "raidLevel": "RAID1",
+            "raidType": "2D+2D"
+        }
+    ]
+}
