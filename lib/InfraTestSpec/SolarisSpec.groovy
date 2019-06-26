@@ -47,8 +47,8 @@ class SolarisSpec extends InfraTestSpec {
         //     return setup_exec_telnet(test_items)
         // }
 
-        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSessionCommand(this)
-//        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
+//        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSessionCommand(this)
+        def con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
         def result
         // println "${this.ip}, ${this.os_user}, ${this.os_password}, ${this.use_telnet}"
         if (!dry_run) {
@@ -67,6 +67,7 @@ class SolarisSpec extends InfraTestSpec {
                 } catch (Exception e) {
                     it.verify(false)
                     log.error "[SSH Test] Test method '${method.name}()' faild, skip.\n" + e
+                    // con.init_session(this.ip, this.os_user, this.os_password)
                 }
             }
         }
@@ -357,6 +358,7 @@ class SolarisSpec extends InfraTestSpec {
 
    def ipadm(session, test_item) {
         def lines = exec('ipadm') {
+//            session.run_command('ipadm', 'ipadm')
             session.run_command('ipadm', 'ipadm')
         }
         def total_count = 0
@@ -374,6 +376,7 @@ class SolarisSpec extends InfraTestSpec {
                 }
             }
         }
+        // println lines
         def res = [:]
         def ip_count = 0
         ipadms.each { device, ipadm ->
@@ -576,6 +579,34 @@ class SolarisSpec extends InfraTestSpec {
         def headers = ['#', 'name', 'state', 'read', 'write', 'cksum']
         test_item.devices(csvs, headers)
         test_item.results(state)
+    }
+
+    // NAME    SIZE  ALLOC   FREE  CAP  DEDUP  HEALTH  ALTROOT
+    // dppool  556G  64.0G   492G  11%  1.00x  ONLINE  -
+    // rpool   556G  66.9G   489G  12%  1.00x  ONLINE  -
+    // swpool  556G   530G  26.0G  95%  1.00x  ONLINE  -
+    def zpool_list(session, test_item) {
+        def lines = exec('zpool_list') {
+            session.run_command('/usr/sbin/zpool list', 'zpool_list')
+        }
+        def csvs = []
+        def filesystems = [:]
+        def state = 'unkown'
+        def config_phase = false
+        def row = 0
+        lines.eachLine {
+            row ++
+            def csv = it.split(/\s+/)
+            if (csv.size() == 8 && csv[0] != 'NAME') {
+                // csv[0] = csvs.size() + 1
+                filesystems[csv[0]] = csv[4]
+                csvs << csv
+                // println csvs
+            }
+        }
+        def headers = ['name', 'size', 'alloc', 'free', 'cap', 'dedup', 'health', 'altroot']
+        test_item.devices(csvs, headers)
+        test_item.results("${filesystems}")
     }
 
     def patches(session, test_item) {

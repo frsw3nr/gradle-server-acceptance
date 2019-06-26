@@ -116,10 +116,9 @@ class HitachVSP2Spec extends LinuxSpecBase {
                 .delete("${http_type}://${ip}/ConfigurationManager/v1/objects/storages/${this.storage_id}/sessions/${this.session_id}")
                 .header("Content-Type", "application/json")
                 .header("accept", "application/json")
+                .header("Authorization", "Session ${this.token}")
                 .useCaches(false)
                 .ensureSuccess()
-                .asJsonObject()
-                .getBody();
     }
 
     def setup_exec(TestItem[] test_items) {
