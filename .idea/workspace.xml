@@ -1220,6 +1220,8 @@
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/user" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/vga" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/vga" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/virturization" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/virturization" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/vmware_scsi_timeout" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/vmware_scsi_timeout" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/vmwaretool_timesync" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/Linux/vmwaretool_timesync" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/vCenter/VMNetwork" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/vCenter/VMNetwork" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/vCenter/datastore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/vCenter/datastore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/log/cent7/vCenter/get_vCenter_spec.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/log/cent7/vCenter/get_vCenter_spec.ps1" afterDir="false" />
@@ -2143,12 +2145,12 @@
     </projectState>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Model/TestPlatform.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="61" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
+            <state relative-caret-position="119">
+              <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
               <folding>
                 <element signature="e#48#80#0" expanded="true" />
               </folding>
@@ -2184,7 +2186,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -2258,6 +2259,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2314,7 +2316,7 @@
     <frame x="3" y="70" width="1215" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24935065" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25367966" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -2437,16 +2439,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Model/TestPlatform.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="61" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
-          <folding>
-            <element signature="e#48#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/groovy/jp/co/toshiba/ITInfra/acceptance/ConfigTestEnvironmentTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -2458,6 +2450,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Document/TagGenerator2.groovy" />
+    <entry file="file://$PROJECT_DIR$/src/main/groovy/jp/co/toshiba/ITInfra/acceptance/Model/TestPlatform.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+          <folding>
+            <element signature="e#48#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>

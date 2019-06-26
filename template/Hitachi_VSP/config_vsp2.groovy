@@ -4,8 +4,8 @@ evidence.source = './template/Hitachi_VSP/HitachiVSP2チェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-//evidence.target='./build/HitachiVSP2チェックシート_<date>.xlsx'
-evidence.target='./build/vsp2_check_sheet.xlsx'
+evidence.target='./build/HitachiVSP2チェックシート_<date>.xlsx'
+//evidence.target='./build/vsp2_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 
