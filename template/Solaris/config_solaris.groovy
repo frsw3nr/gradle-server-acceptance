@@ -24,7 +24,7 @@ test.dry_run_staging_dir = './src/test/resources/log/'
 // コマンド採取のタイムアウト
 // Windows,vCenterの場合、全コマンドをまとめたバッチスクリプトのタイムアウト値
 
-test.Solaris.timeout = 300
+test.Solaris.timeout = 60
 
 // コマンド採取のデバッグモード
 
