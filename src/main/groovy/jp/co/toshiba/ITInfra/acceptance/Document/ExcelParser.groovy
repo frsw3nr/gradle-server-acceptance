@@ -218,7 +218,6 @@ class ExcelParser {
             if (test_target.compare_server) {
                 if (test_target.name == test_target.compare_server) {
                     log.warn "Found own comaprision '${test_target.name}'."
-                    println test_target
                     test_target.compare_server = null
                 } else {
                     compare_targets << [name: test_target.compare_server,

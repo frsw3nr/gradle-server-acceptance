@@ -57,6 +57,34 @@ class TagGeneratorManualTest extends Specification {
         // comparitions[ResultStatus.UNMATCH] > 0
     }
 
+    def 比較集計() {
+        when:
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        test_result_reader.read_entire_result(test_scenario)
+        def tag_generator = new TagGeneratorManual()
+        test_scenario.accept(tag_generator)
+        def data_comparator = new DataComparator()
+        test_scenario.accept(data_comparator)
+
+        then:
+        def comparitions = [:].withDefault{0}
+        def targets = test_scenario.test_targets.get_all()
+        targets.each { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                println "TAG:$domain, $target_name, ${test_target.tag}"
+                test_target.test_platforms.each { platform_name, test_platform ->
+                    test_platform.test_results.each { metric_name, test_result ->
+                        comparitions[test_result.comparision] ++
+                    }
+                }
+            }
+        }
+        1 == 1
+        println "comparitions: ${comparitions}"
+        // comparitions[ResultStatus.MATCH] > 0
+        // comparitions[ResultStatus.UNMATCH] > 0
+    }
+
     def 比較結果のExcel更新() {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
