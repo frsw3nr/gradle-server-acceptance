@@ -33,6 +33,7 @@ TODO:
     * count_compare_result(test_result) 済み [x]
     * sumup_compare_result(test_scenario) [ ]
         * TestSchenario クラス get_test_platform(target, platform) 追加 [ ]
+          gradle --daemon test --tests "ReportMakerTest.プラットフォーム検索"
         * 結果列を追加 [ ]
 * ExcelSheetMaker クラス [ ]
     * タグターゲット列のセル更新 [ ]

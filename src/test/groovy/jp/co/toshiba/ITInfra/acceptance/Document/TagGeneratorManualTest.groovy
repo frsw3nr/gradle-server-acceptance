@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "TagGeneratorManualTest.結果の比較"
+// gradle --daemon test --tests "TagGeneratorManualTest.比較集計"
 
 class TagGeneratorManualTest extends Specification {
     TestScenario test_scenario
