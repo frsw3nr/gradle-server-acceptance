@@ -5,7 +5,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "ReportMakerTest.実行結果変換"
+// gradle --daemon test --tests "ReportMakerTest.プラットフォーム検索"
 
 class ReportMakerTest extends Specification {
 
@@ -41,6 +41,15 @@ class ReportMakerTest extends Specification {
         json(report_maker.redmine_ticket)
         println json.toPrettyString()
 
+        1 == 1
+    }
+
+    def "プラットフォーム検索"() {
+        when:
+        def test_platform = test_scenario.get_test_platform('ostrich', 'Linux')
+
+        then:
+        println test_platform
         1 == 1
     }
 

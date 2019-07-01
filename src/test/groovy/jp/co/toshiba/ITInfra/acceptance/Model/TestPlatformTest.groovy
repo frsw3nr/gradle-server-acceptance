@@ -5,7 +5,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "TestPlatformTest.チェックシート読み込み"
+// gradle --daemon test --tests "TestPlatformTest.テストプラットフォーム検索"
 
 class TestPlatformTest extends Specification {
     TestScenario test_scenario
@@ -34,6 +34,18 @@ class TestPlatformTest extends Specification {
         test_scenario.accept(excel_parser)
 
         then:
+        1 == 1
+    }
+
+    def "テストプラットフォーム検索"() {
+        when:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        test_scenario = new TestScenario(name: 'OS情報採取')
+        test_scenario.accept(excel_parser)
+        then:
+        def test_platform = test_scenario.get_test_platform('ostrich', 'Linux')
+        println test_platform
         1 == 1
     }
 

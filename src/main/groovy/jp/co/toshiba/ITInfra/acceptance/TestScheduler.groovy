@@ -73,7 +73,9 @@ class TestScheduler {
 
     def finish() {
         def test_config = ConfigTestEnvironment.instance
-        def tag_generator = (this.auto_tag) ? new TagGenerator() : new TagGeneratorManual()
+        // TODO : TagGeneratorManual2 にタグ列集計を追加してマージする
+        // def tag_generator = (this.auto_tag) ? new TagGenerator() : new TagGeneratorManual()
+        def tag_generator = (this.auto_tag) ? new TagGenerator() : new TagGeneratorManual2()
         test_config.accept(tag_generator)
         this.test_scenario.accept(tag_generator)
         def data_comparator = new DataComparator()

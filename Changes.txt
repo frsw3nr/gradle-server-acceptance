@@ -23,6 +23,20 @@ TODO:
 * 相違をセルの配色で分類する
 * 検査項目で比較有効化フラグを追加
 
+残件変更調査
+--------------
+
+* TagGeneratorManual2 クラス [ ]
+    * make_target_tag()メソッド内、タグターゲット列を追加 [x]
+    * 全て変更後にTagGeneratorManual にマージ [ ]
+* DataComparator クラス [ ]
+    * count_compare_result(test_result) 済み [x]
+    * sumup_compare_result(test_scenario) [ ]
+        * TestSchenario クラス get_test_platform(target, platform) 追加 [ ]
+        * 結果列を追加 [ ]
+* ExcelSheetMaker クラス [ ]
+    * タグターゲット列のセル更新 [ ]
+
 変更調査
 --------
 

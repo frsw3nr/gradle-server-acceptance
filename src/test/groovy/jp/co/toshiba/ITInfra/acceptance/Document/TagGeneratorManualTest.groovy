@@ -35,7 +35,7 @@ class TagGeneratorManualTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator = new TagGeneratorManual()
+        def tag_generator = new TagGeneratorManual2()
         test_scenario.accept(tag_generator)
 
         then:
@@ -61,7 +61,7 @@ class TagGeneratorManualTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator = new TagGeneratorManual()
+        def tag_generator = new TagGeneratorManual2()
         test_scenario.accept(tag_generator)
         def data_comparator = new DataComparator()
         test_scenario.accept(data_comparator)
@@ -89,7 +89,7 @@ class TagGeneratorManualTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator = new TagGeneratorManual()
+        def tag_generator = new TagGeneratorManual2()
         test_scenario.accept(tag_generator)
         println test_scenario.test_targets.get_keys()
         def evidence_maker = new EvidenceMaker()

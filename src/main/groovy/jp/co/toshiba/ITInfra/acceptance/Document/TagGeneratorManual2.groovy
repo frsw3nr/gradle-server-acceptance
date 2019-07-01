@@ -6,27 +6,27 @@ import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTargetSet
 
+// @Slf4j
+// @ToString(includePackage = false)
+// class DisplayPriority {
+//     String tag
+//     int priority_group
+//     int priority_row
+
+//     DisplayPriority(String tag, int priority_group, int priority_row) {
+//         this.tag            = tag
+//         this.priority_group = priority_group
+//         this.priority_row   = priority_row
+//     }
+
+//     int priority() {
+//         return this.priority_group * 1000 + this.priority_row
+//     }
+// }
+
 @Slf4j
 @ToString(includePackage = false)
-class DisplayPriority {
-    String tag
-    int priority_group
-    int priority_row
-
-    DisplayPriority(String tag, int priority_group, int priority_row) {
-        this.tag            = tag
-        this.priority_group = priority_group
-        this.priority_row   = priority_row
-    }
-
-    int priority() {
-        return this.priority_group * 1000 + this.priority_row
-    }
-}
-
-@Slf4j
-@ToString(includePackage = false)
-class TagGeneratorManual {
+class TagGeneratorManual2 {
 
     Map domain_display_orders = [:].withDefault {
         new LinkedHashMap<String,DisplayPriority>()
@@ -72,22 +72,19 @@ class TagGeneratorManual {
             sorted_targets.each {target_name, display_priority ->
                 if (display_priority.priority_group != display_priority_last?.priority_group) {
                     if (display_priority_last) {
-                        print "ADD_TAG:${display_priority_last}"
                         def tag = display_priority_last.tag
                         def test_target = test_targets.get(tag, domain)
                         def test_tag_target = test_target.clone()
                         test_tag_target.name = "TAG:${tag}"
-                        // TODO: コメントを外してグループ集計を実装する
-                        // new_test_targets.add(test_tag_target)
+                        log.info "Create Tag : ${test_tag_target.name}"
+                        new_test_targets.add(test_tag_target)
                     }
                     display_priority_last = display_priority
                 }
-                println "SORT:${target_name}, ${display_priority}"
                 def test_target = test_targets.get(target_name, domain)
                 test_target.tag = display_priority.tag
                 new_test_targets.add(test_target)
             }
-            // def test_target_tag = new TestTarget(name:"TAG:$display_priority.tag")
         }
         test_scenario.test_targets = new_test_targets
     }
