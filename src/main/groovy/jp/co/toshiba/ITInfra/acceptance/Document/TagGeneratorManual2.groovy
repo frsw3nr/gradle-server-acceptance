@@ -5,6 +5,9 @@ import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTargetSet
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 
 // @Slf4j
 // @ToString(includePackage = false)
@@ -61,6 +64,19 @@ class TagGeneratorManual2 {
         }
     }
 
+    def create_test_tag_target(String tag_name, TestTarget test_target) {
+        def test_tag_target = new TestTarget(name : "TAG:${tag_name}", 
+                                             domain: test_target.domain,
+                                             tag: tag_name,
+                                             target_status: RunStatus.TAGGING)
+        def test_platforms = new LinkedHashMap<String, TestPlatform>()
+        test_target.test_platforms.each { platform, test_platform ->
+            test_platforms[platform] = new TestPlatform(name: test_platform.name)
+        }
+        test_tag_target.test_platforms = test_platforms
+        return test_tag_target
+    }
+
     def make_target_tag(TestScenario test_scenario) {
         TestTargetSet new_test_targets = new TestTargetSet(name: 'cluster')
         def test_targets = test_scenario.test_targets
@@ -74,8 +90,7 @@ class TagGeneratorManual2 {
                     if (display_priority_last) {
                         def tag = display_priority_last.tag
                         def test_target = test_targets.get(tag, domain)
-                        def test_tag_target = test_target.clone()
-                        test_tag_target.name = "TAG:${tag}"
+                        def test_tag_target = this.create_test_tag_target(tag, test_target)
                         log.info "Create Tag : ${test_tag_target.name}"
                         new_test_targets.add(test_tag_target)
                     }

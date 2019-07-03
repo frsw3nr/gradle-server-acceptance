@@ -8,7 +8,7 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 
 enum RunStatus {
-  INIT, READY, RUN, FINISH, ERROR, COMPARED
+  INIT, READY, RUN, FINISH, ERROR, COMPARED, TAGGING
 }
 
 @Slf4j

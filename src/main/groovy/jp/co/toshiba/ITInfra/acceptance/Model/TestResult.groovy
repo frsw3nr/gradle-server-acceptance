@@ -7,6 +7,10 @@ enum ResultStatus {
   OK, NG, WARNING, MATCH, UNMATCH, UNKOWN
 }
 
+enum ColumnType {
+  RESULT, TAGGING, UNKOWN
+}
+
 @Slf4j
 @ToString(includePackage = false)
 class TestResult extends SpecModel {
@@ -18,6 +22,7 @@ class TestResult extends SpecModel {
     ResultStatus verify
     ResultStatus comparision
     TestResultLine devices
+    ColumnType column_type = ColumnType.RESULT
 
     public Map asMap() {
         def map = [name : name, value : value, error_msg : error_msg,

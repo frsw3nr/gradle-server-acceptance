@@ -6,107 +6,111 @@ import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
+import jp.co.toshiba.ITInfra.acceptance.Model.ColumnType
 import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
+import jp.co.toshiba.ITInfra.acceptance.Model.TestMetricSet
 
 @Slf4j
 @ToString(includePackage = false)
-// ターゲット名,プラットフォーム,メトリックをキーに集計
-class CompareSummary {
-    String target_name
-    String platform_name
-    String metric_name
+class CompareCounter {
 
-    LinkedHashMap<ResultStatus,Integer> counts = new LinkedHashMap<ResultStatus,Integer>()
+    // Count comparison results with target, platform, metric as key
+    def metric_counters = [:].withDefault { [:].withDefault { [:].withDefault {
+        new LinkedHashMap<ResultStatus,Integer>()
+    }}}
 
-    def count_up(ResultStatus result_status) {
-        def counter = counts.get(result_status) ?: 0
-        counts[result_status] = counter + 1
+    def count_up(String server, String platform, String metric,
+                 ResultStatus result_status) {
+        Map metric_counter = this.metric_counters?.get(server)?.get(platform)?.get(metric)
+        int result_counter = metric_counter?.get(result_status) ?: 0
+        this.metric_counters[server][platform][metric][result_status] = result_counter + 1
+    }
+
+    Boolean is_empty() {
+        return (this.metric_counters.size() == 0)
+    }
+
+    Map get_all() {
+        return this.metric_counters
+    }
+
+    // Map get_target_counter(String target) {
+    //     return metric_counters?.get(target)
+    // }
+
+    Map get_platform_counter(String target, String platform) {
+        return metric_counters?.get(target)?.get(platform)
+    }
+
+    TestResult create_tag_test_result(String name, Map comparisions) {
+        def total_count = 0
+        comparisions.each { ResultStatus comparision, count ->
+            total_count += count
+        }
+        if (total_count == 0) {
+            return new TestResult(name : name, value : '', verify : ResultStatus.UNKOWN)
+        }
+        double match_rate = 100.0 * (comparisions[ResultStatus.MATCH] ?: 0) / total_count
+        String value = String.format("%1\$.0f %%", match_rate);
+        ResultStatus verify = ResultStatus.NG
+        if (match_rate == 100.0) {
+            verify = ResultStatus.OK
+        } else if (match_rate > 0) {
+            verify = ResultStatus.WARNING
+        } else {
+            verify = ResultStatus.NG
+        }
+        return new TestResult(name : name, value : value, status: verify, 
+                              verify : ResultStatus.OK, column_type: ColumnType.TAGGING)
+    }
+
+    Map create_tag_test_results(String target, String platform) {
+        LinkedHashMap<String,TestResult> test_results = new LinkedHashMap<String,TestResult>()
+        Map metric_counters = this.metric_counters?.get(target)?.get(platform)
+        metric_counters.each { metric, metric_counter ->
+            // println "CREATE DETAIL: $metric, $metric_counter"
+            TestResult test_result = this.create_tag_test_result(metric, metric_counter)
+            test_results[metric] = test_result
+        }
+        return test_results
     }
 }
 
 @Slf4j
 @ToString(includePackage = false)
 class DataComparator {
-    // ターゲット名,プラットフォーム,メトリックをキーに集計
-    // def tag_compare_counts = [:].withDefault{[:].withDefault{0}}
-    // def tag_compare_counts = [:].withDefault{[:].withDefault{
-    //     new LinkedHashMap<String,CompareSummary>()
-    //     }}
-    
-    CompareSummary tag_compare_counts
+    // ターゲット,プラットフォーム,メトリックをキーにした比較結果カウンター
+    CompareCounter compare_counter = new CompareCounter()
 
-    def count_compare_result(String platform, test_result) {
-        test_result.with {
-            println "COUNT:${compare_server},${platform},${name},$comparision}"
-            // def counter = this.tag_compare_counts[compare_server, name][comparision] ++
-            // this.tag_compare_counts[compare_server][platform][name].count_up(comparision)
+    def count_compare_result(String target, String platform, String metric, ResultStatus comparision) {
+        this.compare_counter.count_up(target, platform, metric, comparision)
+    }
+
+    def sumup_compare_counter(TestScenario test_scenario) {
+        // 結果カウンターを集計する、集計結果をタグ用のtest_resultに格納する
+        // テストシナリオからタグ名（ターゲット名）、プラットフォーム名をキーに、
+        // テストプラットフォームを検索する。
+        // テストプラットフォームのtest_resultに集計結果をセットする
+        
+        Map target_counters = this.compare_counter.get_all()
+        target_counters.each { target, platform_counters ->
+            platform_counters.each { platform, metric_counters ->
+                Map test_results = this.compare_counter.create_tag_test_results(target, platform)
+                def tag_name = "TAG:$target"
+                TestPlatform test_platform = test_scenario.get_test_platform(tag_name, platform)
+                if (test_platform) {
+                    test_platform.test_results = test_results
+                }
+            }
         }
     }
 
-    TestResult create_test_result(String name, double match_rate) {
-        String value = String.format("%1\$.1f %%", 100 * match_rate);
-        ResultStatus verify = (match_rate == 1.0) ? ResultStatus.OK : ResultStatus.NG
-        return new TestResult(name:name, value:value, verify:verify)
-    }
-
-    // def create_test_results(String name, String  ) {
-        
-    // }
-
-    def sumup_compare_count(TestScenario test_scenario) {
-        // def target_domains = test_scenario.test_targets.get(target_name)
-        // def tag_test_results = [:].withDefault {
-        //     new LinkedHashMap<String,TestResult>()
-        // }
-        // TODO:
-        // tag_compare_counts の結果を集計して、
-        // ターゲット、プラットフォームをキーにした、 test_results を作成する
-
-        // this.tag_compare_counts.each { tag_metric_key, comparisions ->
-        //     def tag_name    = tag_metric_key[0]
-        //     def metric_name = tag_metric_key[1]
-        //     def total_count = 0
-        //     comparisions.each { ResultStatus comparision, count ->
-        //         total_count += count
-        //     }
-        //     double match_rate = comparisions[ResultStatus.MATCH] ?: 0 / total_count
-        //     // println "$tag_name, $metric_name, $match_rate"
-        //     def test_result = create_test_result(metric_name, match_rate)
-        //     tag_test_results[tag_name][metric_name] = test_result
-        // }
-
-        // TODO:
-        // target,platform,metric 毎に結果を集計するように変更
-        // test_scenario から　test_platform を検索するように変更
-
-
-        // def test_platform = test_scenario.get_test_platform()
-        // def domain_metrics = test_scenario.test_metrics.get_all()
-        // tag_test_results.each { tag_name, test_results ->
-        //     def target_name = "TAG:$tag_name"
-        //     def target_domains = test_scenario.test_targets.get(target_name)
-        //     target_domains.each { domain_name, test_target ->
-        //         def platform_metrics = domain_metrics[domain_name].get_all()
-        //         platform_metrics.each { platform_name, platform_metric ->
-        //             // TODO : TestResultReader クラスread()メソッドを適用
-        //             println "Sumup : ${tag_name}, ${platform_name}, ${platform_metric}"
-        //             // test_target.test_platforms[platform_name].test_results = tast 
-        //             // def test_platform = this.read_test_platform_result(target_name,
-        //             //                                                    platform_name)
-        //             // if (test_platform) {
-        //             //     test_platform.test_target = test_target
-        //             //     test_target.test_platforms[platform_name] = test_platform
-        //             // }
-        //         }
-        //     }
-
-        // }
-    }
-
-    def compare_server(ConfigObject platform_metrics, TestTarget test_target, TestTarget compare_target) {
+    def compare_server(TestTarget test_target, TestTarget compare_target) {
+        def checked = [:]
+        def category_ids = [:]
         test_target.test_platforms.each { platform_name, test_platform ->
-            def test_metrics = platform_metrics[platform_name]
             def compare_platform = compare_target?.test_platforms[platform_name]
             if (!compare_platform?.test_results)
                 return
@@ -119,17 +123,25 @@ class DataComparator {
                 } else {
                     test_result.comparision = ResultStatus.UNMATCH
                 }
-                count_compare_result(platform_name, test_result)
+                checked[platform_name, metric_name] = true
+                count_compare_result(test_result.compare_server, platform_name,
+                                     metric_name, test_result.comparision)
+            }
+        }
+        compare_target.test_platforms.each { platform_name, test_platform ->
+            test_platform?.test_results.each { metric_name, test_result ->
+                if (!(checked[platform_name, metric_name])){
+                    count_compare_result(compare_target.name, platform_name, 
+                                         metric_name, ResultStatus.UNMATCH)
+                }
             }
         }
     }
 
     def visit_test_scenario(TestScenario test_scenario) {
         def targets = test_scenario.test_targets.get_all()
-        def domain_metrics = test_scenario.test_metrics.get_all()
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->
-                def platform_metrics = domain_metrics[domain].get_all()
                 def compare_server = test_target.compare_server
                 if (!compare_server)
                     return
@@ -139,9 +151,9 @@ class DataComparator {
                     def msg = "Compare server not found : ${compare_server}"
                     throw new IllegalArgumentException(msg)
                 }
-                this.compare_server(platform_metrics, test_target, compare_target)
+                this.compare_server(test_target, compare_target)
             }
         }
-        this.sumup_compare_count(test_scenario)
+        this.sumup_compare_counter(test_scenario)
     }
 }

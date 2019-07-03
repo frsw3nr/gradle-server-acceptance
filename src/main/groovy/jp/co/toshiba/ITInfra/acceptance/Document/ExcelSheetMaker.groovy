@@ -5,8 +5,10 @@ import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
 import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
+import jp.co.toshiba.ITInfra.acceptance.Model.ColumnType
 import org.apache.commons.lang.math.NumberUtils
 import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.util.CellRangeAddress
 import org.apache.poi.xssf.usermodel.XSSFColor
 
 public enum ResultCellStyle {
@@ -18,6 +20,9 @@ public enum ResultCellStyle {
     WARNING,
     ERROR,
     NOTEST,
+    TAGGING_OK,
+    TAGGING_NG,
+    TAGGING_WARNING
 }
 
 @Slf4j
@@ -25,6 +30,7 @@ public enum ResultCellStyle {
 class ExcelSheetMaker {
     final device_cell_width   = 5760
     final evidence_cell_width = 11520
+    final tag_cell_width      = 3849
     final report_cell_height  = 1190
 
     ExcelParser excel_parser
@@ -123,25 +129,38 @@ class ExcelSheetMaker {
             //     cell_result.setCellValue(value)
             // }
             // cell.setCellValue(test_result.value)
-            setCellValueWithNumericalTest(cell, test_result.value)
-            if (test_result.status == null) {
-                set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
-            } else if (test_result.status == ResultStatus.NG) {
-                set_test_result_cell_style(cell, ResultCellStyle.ERROR)
-                cell.setCellValue(test_result.error_msg)
-            } else if (test_result.comparision == ResultStatus.MATCH) {
-                set_test_result_cell_style(cell, ResultCellStyle.SAME)
-                def compare_server = test_result?.compare_server ?: 'target'
-                cell.setCellValue("Same as '${compare_server}'")
-            } else if (test_result.verify == ResultStatus.OK) {
-                set_test_result_cell_style(cell, ResultCellStyle.OK)
-            } else if (test_result.verify == ResultStatus.NG) {
-                set_test_result_cell_style(cell, ResultCellStyle.NG)
-            } else if (test_result.status == ResultStatus.WARNING) {
-                set_test_result_cell_style(cell, ResultCellStyle.WARNING)
-                cell.setCellValue(test_result.error_msg)
+            if (test_result.column_type == ColumnType.TAGGING) {
+                cell.setCellValue(test_result.value)
+                if (test_result.status == ResultStatus.OK) {
+                    set_test_result_cell_style(cell, ResultCellStyle.TAGGING_OK)
+                } else if (test_result.status == ResultStatus.NG) {
+                    set_test_result_cell_style(cell, ResultCellStyle.TAGGING_NG)
+                } else if (test_result.status == ResultStatus.WARNING) {
+                    set_test_result_cell_style(cell, ResultCellStyle.TAGGING_WARNING)
+                } else {
+                    set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
+                }
             } else {
-                set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
+                setCellValueWithNumericalTest(cell, test_result.value)
+                if (test_result.status == null) {
+                    set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
+                } else if (test_result.status == ResultStatus.NG) {
+                    set_test_result_cell_style(cell, ResultCellStyle.ERROR)
+                    cell.setCellValue(test_result.error_msg)
+                } else if (test_result.comparision == ResultStatus.MATCH) {
+                    set_test_result_cell_style(cell, ResultCellStyle.SAME)
+                    def compare_server = test_result?.compare_server ?: 'target'
+                    cell.setCellValue("Same as '${compare_server}'")
+                } else if (test_result.verify == ResultStatus.OK) {
+                    set_test_result_cell_style(cell, ResultCellStyle.OK)
+                } else if (test_result.verify == ResultStatus.NG) {
+                    set_test_result_cell_style(cell, ResultCellStyle.NG)
+                } else if (test_result.status == ResultStatus.WARNING) {
+                    set_test_result_cell_style(cell, ResultCellStyle.WARNING)
+                    cell.setCellValue(test_result.error_msg)
+                } else {
+                    set_test_result_cell_style(cell, ResultCellStyle.NORMAL)
+                }
             }
         } else {
             set_test_result_cell_style(cell, ResultCellStyle.NOTEST)
@@ -361,11 +380,16 @@ class ExcelSheetMaker {
         write_sheet_header(sheet, result_position, targets)
         write_sheet_summary_tag_group(sheet, sheet_summary, sheet_design)
         colnum = result_position[1]
-        def target_colnum = colnum + targets.size()
-        while (colnum < target_colnum) {
-            sheet.setColumnWidth(colnum, this.evidence_cell_width)
-            colnum ++
+        for (target_index in 0..(targets.size() - 1)) {
+            int target_index_pos = target_index + result_position[1]
+            if (targets[target_index] =~ /^TAG:/) {
+                sheet.setColumnWidth(target_index_pos, this.tag_cell_width)
+            } else {
+                sheet.setColumnWidth(target_index_pos, this.evidence_cell_width)
+            }
+            colnum++
         }
+        return colnum - 1
     }
 
     def write_sheet_summary_values_line(Row row, List platform_metric,
@@ -431,7 +455,7 @@ class ExcelSheetMaker {
         def sheet = workbook.createSheet(sheet_name)
         sheet.groupColumn(3, 5)
         // println "TAGS:${sheet_summary.tags}"
-        write_sheet_summary_header(sheet, sheet_summary, sheet_design)
+        def last_colnum = write_sheet_summary_header(sheet, sheet_summary, sheet_design)
 
         def rownum = sheet_design.sheet_parser.result_pos[0] + 1
         def last_rownum = 0
@@ -468,6 +492,9 @@ class ExcelSheetMaker {
             write_sheet_summary_values_line(row, platform_metric, sheet_summary, sheet_design)
             rownum ++
             last_rownum = rownum
+            def header_pos = sheet_design.sheet_parser.header_pos
+            sheet.setAutoFilter(new CellRangeAddress(header_pos[0], last_rownum, 
+                                                     header_pos[1], last_colnum))
         }
 
         write_sheet_summary_group(sheet, categorys, sheet_design)
@@ -606,7 +633,13 @@ class ExcelSheetMaker {
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
         DataFormat format = wb.createDataFormat();
-        style.setDataFormat(format.getFormat("#,##0.0"));
+        if (result_cell_type == ResultCellStyle.TAGGING_OK ||
+            result_cell_type == ResultCellStyle.TAGGING_NG ||
+            result_cell_type == ResultCellStyle.TAGGING_WARNING) {
+            style.setDataFormat(format.getFormat("0 %"));
+        } else {
+            style.setDataFormat(format.getFormat("#,##0.0"));
+        }
 
         // Set Text font and Foreground color
         switch (result_cell_type) {
@@ -629,6 +662,9 @@ class ExcelSheetMaker {
 
                 style.setFont(font);
                 break
+
+            case ResultCellStyle.TAGGING_OK :
+                style.setAlignment(HorizontalAlignment.RIGHT)
 
             case ResultCellStyle.OK :
                 // style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
@@ -653,6 +689,9 @@ class ExcelSheetMaker {
                 style.setFont(font);
                 break
 
+            case ResultCellStyle.TAGGING_WARNING :
+                style.setAlignment(HorizontalAlignment.RIGHT)
+
             case ResultCellStyle.WARNING :
                 // style.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
                 style.setFillForegroundColor(COLOR_LEMON_CHIFFON)
@@ -663,6 +702,9 @@ class ExcelSheetMaker {
                 font.setColor(black);
                 style.setFont(font);
                 break
+
+            case ResultCellStyle.TAGGING_NG :
+                style.setAlignment(HorizontalAlignment.RIGHT)
 
             case ResultCellStyle.NG :
                 // style.setFillForegroundColor(IndexedColors.ROSE.getIndex());

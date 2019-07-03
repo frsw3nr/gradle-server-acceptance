@@ -32,11 +32,8 @@ class TestScenario extends SpecModel {
         def test_target = this.test_targets.get(target_name)
         TestPlatform test_platform = null
         test_target.each { domain, domain_target ->
-            println "TEST1_DOMAIN: ${domain}, ${domain_target}"
-            println "TEST1_PLATFORM: ${domain_target.test_platforms}"
             test_platform = domain_target?.test_platforms?."$platform"
             if (test_platform) {
-                println "HIT!"
                 return test_platform
             }
         }

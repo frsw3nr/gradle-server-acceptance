@@ -73,6 +73,7 @@ class EvidenceMaker {
             sheet.cols[target] = sheet.cols.size() + 1
         }
         sheet.results[platform][metric][target] = test_result
+        // println "ADD_SUMMARY_RESULT: ${target},${metric},${test_result.column_type}"
         this.summary_sheets[domain] = sheet
     }
 
@@ -116,7 +117,8 @@ class EvidenceMaker {
                 def verify_summaries = [:].withDefault{0}
                 def failed_metrics = []
                 if (test_target.target_status == RunStatus.INIT ||
-                    test_target.target_status == RunStatus.READY)
+                    test_target.target_status == RunStatus.READY ||
+                    test_target.target_status == RunStatus.TAGGING)
                     return
                 def metric_sets = domain_metrics[domain].get_all()
                 metric_sets.each { platform, metric_set ->
@@ -174,6 +176,7 @@ class EvidenceMaker {
         // comparision_sequences.each { comparision_sequence ->
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
+                // println "ADD_SUMMARY:$target,${test_target.target_status}"
                 if (test_target.target_status == RunStatus.INIT ||
                     test_target.target_status == RunStatus.READY)
                     return
@@ -191,6 +194,7 @@ class EvidenceMaker {
                     metric_set.get_all().each { metric, test_metric ->
                         def test_result = test_results[metric]
                         if (test_result) {
+                            // println "ADD_SUMMARY_RESULT:$target,$test_metric"
                             add_summary_result(domain, target, test_metric,
                                                test_result)
                             if (test_metric.device_enabled) {
