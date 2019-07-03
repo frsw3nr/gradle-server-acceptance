@@ -89,11 +89,6 @@ class DataComparator {
     }
 
     def sumup_compare_counter(TestScenario test_scenario) {
-        // 結果カウンターを集計する、集計結果をタグ用のtest_resultに格納する
-        // テストシナリオからタグ名（ターゲット名）、プラットフォーム名をキーに、
-        // テストプラットフォームを検索する。
-        // テストプラットフォームのtest_resultに集計結果をセットする
-        
         Map target_counters = this.compare_counter.get_all()
         target_counters.each { target, platform_counters ->
             platform_counters.each { platform, metric_counters ->

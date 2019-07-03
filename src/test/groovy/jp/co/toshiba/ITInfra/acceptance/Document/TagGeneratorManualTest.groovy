@@ -36,7 +36,7 @@ class TagGeneratorManualTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator = new TagGeneratorManual2()
+        def tag_generator = new TagGeneratorManual()
         test_scenario.accept(tag_generator)
 
         then:
@@ -78,7 +78,7 @@ class TagGeneratorManualTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator = new TagGeneratorManual2()
+        def tag_generator = new TagGeneratorManual()
         test_scenario.accept(tag_generator)
         def data_comparator = new DataComparator()
         test_scenario.accept(data_comparator)
@@ -98,7 +98,7 @@ class TagGeneratorManualTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def tag_generator = new TagGeneratorManual2()
+        def tag_generator = new TagGeneratorManual()
         test_scenario.accept(tag_generator)
         def cent7g = test_scenario?.test_targets?.get('cent7g', 'Linux')
         cent7g.target_status = RunStatus.FINISH
