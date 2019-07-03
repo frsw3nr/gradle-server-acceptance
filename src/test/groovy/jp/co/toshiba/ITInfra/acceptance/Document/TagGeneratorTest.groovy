@@ -1,6 +1,6 @@
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Document.*
-import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.*
 import spock.lang.Specification
 
 // gradle --daemon test --tests "TagGeneratorTest.結果の比較"
@@ -60,7 +60,16 @@ class TagGeneratorTest extends Specification {
         when:
         def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
         test_result_reader.read_entire_result(test_scenario)
-        def data_comparator = new TagGenerator()
+        // def cent7g = test_scenario?.test_targets?.get('cent7g', 'Linux')
+        // cent7g.target_status = RunStatus.FINISH
+        def fin = RunStatus.FINISH
+        test_scenario?.test_targets?.get('cent7g',  'Linux').target_status = fin
+        test_scenario?.test_targets?.get('cent7',   'Linux').target_status = fin
+        test_scenario?.test_targets?.get('ostrich', 'Linux').target_status = fin
+        // println "CENT7G :${cent7g}"
+        def tag_generator = new TagGenerator(cluster_size: 1)
+        test_scenario.accept(tag_generator)
+        def data_comparator = new DataComparator()
         test_scenario.accept(data_comparator)
         def evidence_maker = new EvidenceMaker()
         test_scenario.accept(evidence_maker)

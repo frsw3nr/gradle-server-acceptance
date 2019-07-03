@@ -84,6 +84,19 @@ class TestTarget extends SpecModel {
         }
         return map
     }
+
+    def clone_test_target_tag(String tag_name) {
+        def test_tag_target = new TestTarget(name : "TAG:${tag_name}", 
+                                             domain: this.domain,
+                                             tag: tag_name,
+                                             target_status: RunStatus.TAGGING)
+        def test_platforms = new LinkedHashMap<String, TestPlatform>()
+        this.test_platforms.each { platform, test_platform ->
+            test_platforms[platform] = new TestPlatform(name: test_platform.name)
+        }
+        test_tag_target.test_platforms = test_platforms
+        return test_tag_target
+    }
 }
 
 @Slf4j
@@ -101,5 +114,6 @@ class TestTargetSet extends SpecCompositeModel {
             this.children[name][domain] = it
         }
     }
+
 
 }

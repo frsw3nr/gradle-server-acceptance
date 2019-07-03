@@ -158,6 +158,8 @@ class TagGenerator {
             test_target.tag = compare_server
             dest.add(test_target)
         }
+        def test_target_tag = compare_target.clone_test_target_tag(compare_server)
+        dest.add(test_target_tag)
     }
 
     def add_single_results(String domain, List target_names, TestTargetSet source, TestTargetSet dest) {

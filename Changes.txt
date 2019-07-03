@@ -15,7 +15,7 @@ TODO:
     * 相違をセルの配色で分類する [x]
     * 検査項目で、比較有効化フラグを追加 [ ]
     * TagGeneratorManual2 を TagGeneratorManual に変更 [x]
-    * TagGenerator 結合(自動タグモード) [ ]
+    * TagGenerator 結合(自動タグモード) [x]
     * 全体の結合試験(比較対象指定なし) [ ]
 
 比較結果のグループ集計
