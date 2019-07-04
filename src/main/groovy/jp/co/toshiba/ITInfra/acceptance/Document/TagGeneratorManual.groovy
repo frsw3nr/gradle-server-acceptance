@@ -71,20 +71,29 @@ class TagGeneratorManual {
                 a.value.priority() <=> b.value.priority() 
             }
             DisplayPriority display_priority_last
+            TestTarget test_target
             sorted_targets.each {target_name, display_priority ->
                 if (display_priority.priority_group != display_priority_last?.priority_group) {
                     if (display_priority_last) {
                         def tag = display_priority_last.tag
-                        def test_target = test_targets.get(tag, domain)
-                        def test_target_tag = test_target.clone_test_target_tag(tag)
+                        def compared = test_targets.get(tag, domain)
+                        def test_target_tag = compared.clone_test_target_tag(tag)
                         log.info "Create Tag : ${test_target_tag.name}"
                         new_test_targets.add(test_target_tag)
                     }
                     display_priority_last = display_priority
                 }
-                def test_target = test_targets.get(target_name, domain)
+                test_target = test_targets.get(target_name, domain)
                 test_target.tag = display_priority.tag
                 new_test_targets.add(test_target)
+            }
+            // Add a tag if the last line is set to compare
+            if (test_target.compare_server) {
+                def tag = test_target.compare_server
+                def compared = test_targets.get(tag, domain)
+                def test_target_tag = compared.clone_test_target_tag(tag)
+                log.info "Create Tag : ${test_target_tag.name}"
+                new_test_targets.add(test_target_tag)
             }
         }
         test_scenario.test_targets = new_test_targets

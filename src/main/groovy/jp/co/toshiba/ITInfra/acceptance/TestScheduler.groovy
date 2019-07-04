@@ -51,8 +51,10 @@ class TestScheduler {
     def init() {
         this.excel_parser = new ExcelParser(this.excel_file, this.sheet_prefixes)
         this.excel_parser.scan_sheet()
+
         this.test_scenario = new TestScenario(name: 'root')
         this.test_scenario.accept(this.excel_parser)
+
         try {
             def inventory_db = InventoryDB.instance
             ConfigTestEnvironment.instance.accept(inventory_db)
@@ -152,11 +154,9 @@ class TestScheduler {
         def platform_tester = new PlatformTester(test_platform : test_platform)
         platform_tester.init()
         platform_tester.run()
-
         def counts = test_platform.count_test_result_status()
         long elapse = System.currentTimeMillis() - start
         log.info "Finish test ${test_label}, ${counts}, Elapse : ${elapse} ms"
-
         def test_results = test_platform.test_results
     }
 }

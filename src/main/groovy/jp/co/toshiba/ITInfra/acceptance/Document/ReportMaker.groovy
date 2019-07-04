@@ -198,7 +198,11 @@ public class ReportMaker {
 
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
-                // println "VISIT ReportMaker:$domain, $target"
+                // println "VISIT ReportMaker:$domain, $target, ${test_target.target_status}"
+                if (test_target.target_status == RunStatus.INIT ||
+                    test_target.target_status == RunStatus.READY ||
+                    test_target.target_status == RunStatus.TAGGING)
+                    return
                 // if (test_target.target_status == RunStatus.INIT ||
                 //     test_target.target_status == RunStatus.READY)
                 //     return

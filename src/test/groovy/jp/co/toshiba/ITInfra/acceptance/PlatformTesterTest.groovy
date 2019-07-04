@@ -1,8 +1,13 @@
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.PlatformTester
+import jp.co.toshiba.ITInfra.acceptance.TestRunner
+import jp.co.toshiba.ITInfra.acceptance.TestScheduler
 import spock.lang.Specification
 
 // gradle --daemon test --tests "PlatformTesterTest.Linuxテストタスク"
@@ -14,6 +19,15 @@ class PlatformTesterTest extends Specification {
     TestPlatform test_platform
 
     def setup() {
+        String[] args = [
+            '--dry-run',
+            '-c', './src/test/resources/config.groovy',
+        ]
+        def test_runner = new TestRunner()
+        test_runner.parse(args)
+        def test_env = ConfigTestEnvironment.instance
+        test_env.read_from_test_runner(test_runner)
+
         def test_target = new TestTarget(
             name              : 'ostrich',
             ip                : '192.168.10.1',

@@ -141,6 +141,7 @@ class ExcelParser {
     }
 
     def visit_test_scenario(test_scenario) {
+        long start = System.currentTimeMillis()
         log.debug "Parse spec sheet"
         test_scenario.with {
             test_targets = new TestTargetSet(name: 'root')
@@ -163,6 +164,9 @@ class ExcelParser {
             }
         }
         make_template_links(test_scenario)
+        long elapse = System.currentTimeMillis() - start
+        log.info "Finish making test scenario, Elapse : ${elapse} ms"
+
     }
 
     def visit_test_metric_set(test_metric_set) {
@@ -374,33 +378,4 @@ class ExcelParser {
         log.debug "Read test report : ${test_error_report_set.count()} col"
     }
 
-    // def visit_test_rule_set(test_rule_set) {
-    //     def lines = this.sheet_sources.check_rule.get() as Queue
-    //     def line_num = 0
-    //     def platforms = [:]
-    //     def platform_line = lines.poll()
-    //     platform_line.each { key, value ->
-    //         if (value)
-    //             platforms[key] = value
-    //     }
-    //     lines.find { line ->
-    //         if (!line['name'])
-    //             return true
-    //         def params = new ConfigObject()
-    //         line.each { key, value ->
-    //             if (!value)
-    //                 return
-    //             def platform = platforms[key]
-    //             if (platform) {
-    //                 params.config[platform][key] = value
-    //             } else {
-    //                 params[key] = value
-    //             }
-    //         }
-    //         def test_rule = new TestRule(params)
-    //         test_rule_set.add(test_rule)
-    //         return
-    //     }
-    //     log.debug "Read rule : ${test_rule_set.get_all().size()} row"
-    // }
 }

@@ -1,5 +1,8 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+// import java.nio.file.Files
+// import java.nio.file.Path
+// import java.nio.file.Paths
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
@@ -357,8 +360,38 @@ class InfraTestSpec {
         log.debug("Initialize infra test spec ${title}")
 
         def target_log_dir = new File(local_dir)
-        target_log_dir.deleteDir()
-        target_log_dir.mkdirs()
+        if (target_log_dir.exists()) {
+            def result = target_log_dir.deleteDir()
+        }
+        int retry = 5
+        Boolean success = false
+        while (retry > 0 && (!success)) {
+            try {
+                success = target_log_dir.mkdirs()
+            } catch (Exception e) {
+                log.warn "Create dir error : " + e
+                Thread.sleep(1000)
+                retry --
+            }
+        }
+
+        // Path local_path = Paths.get(local_dir);
+        // if (Files.exists(local_path)) {
+        //     def target_log_dir = new File(local_dir)
+        //     def result = target_log_dir.deleteDir()
+        // }
+        // int retry = 5
+        // Boolean success = false
+        // while (retry > 0 && (!success)) {
+        //     try {
+        //         Files.createDirectorys(local_path);
+        //         success = true
+        //     } catch (Exception e) {
+        //         log.warn "Create dir error : " + e
+        //         Thread.sleep(1000)
+        //         retry --
+        //     }
+        // }
     }
 
     def finish() {

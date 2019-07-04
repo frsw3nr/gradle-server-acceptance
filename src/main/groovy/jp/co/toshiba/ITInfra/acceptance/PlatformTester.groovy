@@ -21,14 +21,26 @@ class PlatformTester {
     def server_info = [:]
 
     def init_test_script() {
-        def loader = new GroovyClassLoader()
-        loader.addClasspath(user_lib)
-        loader.clearCache()
+        def test_config = ConfigTestEnvironment.instance
 
         def user_script = "${user_lib}/${user_package}/${test_platform.name}Spec.groovy"
         log.debug "Load ${user_script}"
-        def code = new File(user_script).getText('UTF-8')
-        def clazz = loader.parseClass(code)
+        def clazz = test_config.test_specs[user_script]
+        if (!(clazz)) {
+            log.info "Load script '${user_script}'"
+            long start = System.currentTimeMillis()
+            def loader = new GroovyClassLoader()
+            loader.addClasspath(user_lib)
+            loader.clearCache()
+            def code = new File(user_script).getText('UTF-8')
+            clazz = loader.parseClass(code)
+            test_config.test_specs[user_script] = clazz
+            long elapse = System.currentTimeMillis() - start
+            log.info "Finish Load script, Elapse : ${elapse} ms"
+        }
+
+        // def code = new File(user_script).getText('UTF-8')
+        // def clazz = loader.parseClass(code)
         test_spec = clazz.newInstance(this.test_platform)
     }
 

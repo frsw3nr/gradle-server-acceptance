@@ -29,10 +29,10 @@ public enum ResultCellStyle {
 @ToString(includePackage = false)
 class ExcelSheetMaker {
     final device_cell_width   = 5760
-    final evidence_cell_width = 11520
+    final evidence_cell_width = 5760
     final tag_cell_width      = 3849
     final report_cell_height  = 1190
-
+    final summary_sheet_group_column_prefixes = [3, 5]
     ExcelParser excel_parser
     EvidenceMaker evidence_maker
     ReportMaker report_maker
@@ -453,8 +453,8 @@ class ExcelSheetMaker {
 
         def sheet_name = get_sheet_summary_name(sheet_summary, sheet_design)
         def sheet = workbook.createSheet(sheet_name)
-        sheet.groupColumn(3, 5)
-        // println "TAGS:${sheet_summary.tags}"
+        sheet.groupColumn(summary_sheet_group_column_prefixes[0], 
+                          summary_sheet_group_column_prefixes[1])
         def last_colnum = write_sheet_summary_header(sheet, sheet_summary, sheet_design)
 
         def rownum = sheet_design.sheet_parser.result_pos[0] + 1

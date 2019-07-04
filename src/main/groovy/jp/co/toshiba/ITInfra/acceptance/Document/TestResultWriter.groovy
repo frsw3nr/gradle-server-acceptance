@@ -6,6 +6,7 @@ import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 
 @Slf4j
 @ToString(includePackage = false)
@@ -78,6 +79,11 @@ class TestResultWriter {
 
         targets.each { target, domain_targets ->
             domain_targets.each { domain, test_target ->
+                if (test_target.target_status == RunStatus.INIT ||
+                    test_target.target_status == RunStatus.READY ||
+                    test_target.target_status == RunStatus.TAGGING)
+                    return
+
                 this.write_test_target(target, test_target)
                 test_target.test_platforms.each { platform, test_platform ->
                     this.write_test_platform(target, platform, test_platform)
@@ -91,6 +97,11 @@ class TestResultWriter {
 
         targets.each { target, domain_targets ->
             domain_targets.each { domain, test_target ->
+                if (test_target.target_status == RunStatus.INIT ||
+                    test_target.target_status == RunStatus.READY ||
+                    test_target.target_status == RunStatus.TAGGING)
+                    return
+
                 test_target.test_platforms.each { platform, test_platform ->
                     this.write_test_platform(target, platform, test_platform)
                 }

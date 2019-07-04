@@ -12,6 +12,7 @@ class ConfigTestEnvironment {
     String config_file
     ConfigObject config
     ConfigObject cmdb_config
+    def test_specs = [:]
 
     def read_config(String config_file = 'config/config.groovy') {
         this.config_file = config_file
