@@ -380,14 +380,16 @@ class ExcelSheetMaker {
         write_sheet_header(sheet, result_position, targets)
         write_sheet_summary_tag_group(sheet, sheet_summary, sheet_design)
         colnum = result_position[1]
-        for (target_index in 0..(targets.size() - 1)) {
-            int target_index_pos = target_index + result_position[1]
-            if (targets[target_index] =~ /^TAG:/) {
-                sheet.setColumnWidth(target_index_pos, this.tag_cell_width)
-            } else {
-                sheet.setColumnWidth(target_index_pos, this.evidence_cell_width)
+        if (targets.size() > 0) {
+            for (target_index in 0..(targets.size() - 1)) {
+                int target_index_pos = target_index + result_position[1]
+                if (targets[target_index] =~ /^TAG:/) {
+                    sheet.setColumnWidth(target_index_pos, this.tag_cell_width)
+                } else {
+                    sheet.setColumnWidth(target_index_pos, this.evidence_cell_width)
+                }
+                colnum++
             }
-            colnum++
         }
         return colnum - 1
     }
