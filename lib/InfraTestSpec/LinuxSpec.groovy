@@ -269,7 +269,7 @@ class LinuxSpec extends LinuxSpecBase {
         def headers = ['device', 'ip', 'mtu', 'state', 'mac', 'subnet']
         res['net_ip'] = net_ip.toString()
         res['net_subnet'] = subnets.toString()
-        res['network'] = net_ip.keySet().toString()
+        res['network'] = "${subnets.size()} IPs, IPv6:${ipv6}"
         test_item.results(res)
         test_item.devices(csv, headers)
         test_item.verify_text_search_list('net_ip', net_ip)
@@ -363,21 +363,26 @@ class LinuxSpec extends LinuxSpecBase {
             session.get from: "${work_dir}/block_device", into: local_dir
             new File("${local_dir}/block_device").text
         }
-        def block_device = [:].withDefault{[:]}
+        int device_count = 0
+        def res = [:]
         lines.eachLine {
             (it =~  /^\/sys\/block\/(.+?)\/(.+):(.+)$/).each { m0,m1,m2,m3->
                 if (m1 =~ /(ram|loop)/) {
                     return
                 }
                 if (m2 == 'device/timeout') {
-                    block_device[m1]['timeout'] = m3
+                    add_new_metric("block_device.${m1}.timeout", 
+                                   "[${m1}] タイムアウト", m3, res)
+                    device_count ++
                 }
                 if (m2 == 'device/queue_depth') {
-                    block_device[m1]['queue_depth'] = m3
+                    add_new_metric("block_device.${m1}.queue_depth", 
+                                   "[${m1}] キューサイズ", m3, res)
                 }
             }
         }
-        test_item.results(block_device.toString())
+        res['block_device'] = "${device_count} devices"
+        test_item.results(res)
     }
 
     def mdadb(session, test_item) {
@@ -392,6 +397,10 @@ class LinuxSpec extends LinuxSpecBase {
     //     this.test_platform.add_test_metric(id, description)
     //     results[id] = value
     // }
+
+    def convert_mount_short_name(String path) {
+        return (path.length() > 22) ? "${path.substring(0, 22)}..." : path
+    }
 
     def filesystem(session, test_item) {
         def fstabs = exec('fstab') {
@@ -448,7 +457,7 @@ class LinuxSpec extends LinuxSpecBase {
                     // res[id] = capacity
 
                     // filesystems['filesystem.' + mount] = columns[2]
-                    infos[mount] = capacity
+                    infos[convert_mount_short_name(mount)] = capacity
                 }
                 arr.addAll(columns)
                 csv << arr
@@ -457,7 +466,7 @@ class LinuxSpec extends LinuxSpecBase {
                 m0, device, capacity, m3, m4, m5, mount->
                 def columns = [device, '', '', capacity, '', '', mount]
                 // filesystems['filesystem.' + mount] = capacity
-                infos[mount] = capacity
+                infos[convert_mount_short_name(mount)] = capacity
                 // columns << fstypes[mount] ?: ''
                 add_new_metric("filesystem.capacity.${mount}", "[${mount}] 容量", capacity, res)
                 add_new_metric("filesystem.device.${mount}", "[${mount}] デバイス", device, res)
@@ -473,6 +482,7 @@ class LinuxSpec extends LinuxSpecBase {
         // filesystems['fstype']     = fstypes.toString()
         // println filesystems
         // test_item.results(filesystems)
+        println "${infos}"
         res['filesystem'] = "${infos}"
         test_item.results(res)
         test_item.verify_text_search_map('filesystem', infos)
@@ -1069,13 +1079,16 @@ class LinuxSpec extends LinuxSpecBase {
             run_ssh_command(session, command, 'ntp')
         }
         def ntpservers = []
+        def res = [:]
         lines.eachLine {
-            ( it =~ /^server\s+(\w.+)$/).each {m0,m1->
-                ntpservers.add(m1)
+            ( it =~ /^server\s+(\w.+)$/).each {m0,ntp_server->
+                add_new_metric("ntp.${ntp_server}", 
+                               ntp_server, 'Enable', res)
+                ntpservers.add(ntp_server)
             }
         }
-        def result = (ntpservers.size()==0)?"Not found in 'ntp.conf'" : "${ntpservers}"
-        test_item.results(result)
+        res['ntp'] = (ntpservers.size() == 0) ? 'off' : 'on'
+        test_item.results(res)
     }
 
     def ntp_slew(session, test_item) {
