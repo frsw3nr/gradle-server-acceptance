@@ -495,21 +495,27 @@ class LinuxSpec extends LinuxSpecBase {
 
         // /dev/mapper/vg_ostrich-lv_root on / type ext4 (rw)
         def csv    = []
-        def lvms   = [:]
+        // def lvms   = [:]
         def config = 'NotConfigured'
+        def res = [:]
         lines.eachLine {
             (it =~  /^\/dev\/mapper\/(.+?)-(.+?) on (.+?) /).each {
                 m0, vg_name, lv_name, mount ->
                 def columns = [vg_name, lv_name, mount]
-                lvms[lv_name] = mount
+                // lvms[lv_name] = mount
+                def lv_name_short = convert_mount_short_name(lv_name)
                 csv << columns
                 config = 'Configured'
+                add_new_metric("lvm.${mount}", 
+                               "LVM [${mount}]", "${vg_name}:${lv_name_short}", res)
             }
         }
         def headers = ['vg_name', 'lv_name', 'mountpoint']
         test_item.devices(csv, headers)
-        def results = ['lvm': config, 'devices': lvms]
-        test_item.results(results.toString())
+        // def results = ['lvm': config, 'devices': lvms]
+        res['lvm'] = config
+        // test_item.results(results.toString())
+        test_item.results(res)
     }
 
     def filesystem_df_ip(session, test_item) {
