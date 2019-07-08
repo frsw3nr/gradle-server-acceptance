@@ -762,7 +762,6 @@ class WindowsSpec extends WindowsSpecBase {
         def csv = []
         def packagename
         def vendor
-        def package_count = 0
 
         def command = '''\
             |Get-WmiObject Win32_Product | `
@@ -792,7 +791,6 @@ class WindowsSpec extends WindowsSpecBase {
                     def version = "'${m1}'"
                     versions[packagename] = version
                     // package_info['packages.' + packagename] = version
-                    // package_count ++
                     // add_new_metric("packages.${packagename}", "${packagename}", version, package_info)
                     csv << [packagename, vendor, version]
                 }
@@ -822,7 +820,7 @@ class WindowsSpec extends WindowsSpecBase {
             // println package_info
             def headers = ['name', 'vendor', 'version']
             test_item.devices(csv, headers)
-            package_info['packages'] = "${package_count} packages"
+            package_info['packages'] = "${csv.size()} packages"
             test_item.results(package_info)
         }
     }
@@ -936,7 +934,7 @@ class WindowsSpec extends WindowsSpecBase {
             def task_name
             def task_path
             def missed_runs
-            def schedule_count = 0
+            def res = [:]
             lines.eachLine {
                 (it =~ /LastTaskResult\s+:\s(.+)$/).each {m0, m1->
                     last_result = m1
@@ -949,15 +947,14 @@ class WindowsSpec extends WindowsSpecBase {
                 }
                 (it =~ /TaskPath\s+:\s(.+)$/).each {m0, m1->
                     task_path = m1
-                    schedule_info['task_scheduler.' + task_name] = last_result
-                    schedule_count ++
+                    add_new_metric("task_scheduler.${task_name}", task_name, 'Ready', res)
                     csv << [task_name, last_result, missed_runs, task_path]
                 }
             }
             def headers = ['task_name', 'last_result', 'missed_runs', 'task_path']
             test_item.devices(csv, headers)
-            schedule_info['task_scheduler'] = (schedule_count == 0) ? 'Not found' : "${schedule_count} tasks"
-            test_item.results(schedule_info)
+            res['task_scheduler'] = "${csv.size()} tasks"
+            test_item.results(res)
         }
     }
 
@@ -967,20 +964,19 @@ class WindowsSpec extends WindowsSpecBase {
                 new File("${local_dir}/etc_hosts")
             }
 
-            def hostsinfo    = [:].withDefault{0}
             def csv = []
-            def hosts_number = 0
+            def res = [:]
             lines.eachLine {
                 (it =~ /^\s*([\d|\.]+?)\s+(.+)$/).each {m0, ip,hostname->
                     csv << [ip, hostname]
-                    hostsinfo['hostsinfo.' + hostname] = ip
-                    hosts_number ++
+                    add_new_metric("etc_hosts.${ip}", 
+                               ip, hostname, res)
                 }
             }
             def headers = ['ip', 'host_name']
             test_item.devices(csv, headers)
-            hostsinfo["etc_hosts"] = "${hosts_number} hosts"
-            test_item.results(hostsinfo)
+            res["etc_hosts"] = "${csv.size()} hosts"
+            test_item.results(res)
         }
     }
 
@@ -1041,16 +1037,18 @@ class WindowsSpec extends WindowsSpecBase {
             }
             def row = 0
             def csv = []
-            def patch_number = 0
+            def res = [:]
             lines.eachLine {
                 (it =~ /\s(KB\d+)\s/).each {m0, knowledge_base ->
                     csv << [knowledge_base]
-                    patch_number ++
+                    add_new_metric("patch_lists.${knowledge_base}", 
+                                   knowledge_base, 'Enable', res)
                 }
             }
             def headers = ['knowledge_base']
             test_item.devices(csv, headers)
-            test_item.results("${patch_number.toString()} patches")
+            res['patch_lists'] = "${csv.size()} patches"
+            test_item.results(res)
         }
     }
 

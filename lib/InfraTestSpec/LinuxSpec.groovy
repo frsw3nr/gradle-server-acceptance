@@ -448,11 +448,14 @@ class LinuxSpec extends LinuxSpecBase {
                 if (columns.size() == 6) {
                     def mount    = columns[5]
                     def capacity = columns[2]
-
-                    add_new_metric("filesystem.capacity.${mount}", "[${mount}] 容量", capacity, res)
-                    add_new_metric("filesystem.device.${mount}", "[${mount}] デバイス", device_node, res)
-                    add_new_metric("filesystem.type.${mount}", "[${mount}] タイプ", columns[4], res)
-                    add_new_metric("filesystem.fstype.${mount}", "[${mount}] ファイルシステム", fstypes2[mount] ?: '', res)
+                    add_new_metric("filesystem.capacity.${mount}", "[${mount}] 容量", 
+                                   capacity, res)
+                    add_new_metric("filesystem.device.${mount}", "[${mount}] デバイス", 
+                                   convert_mount_short_name(device_node), res)
+                    add_new_metric("filesystem.type.${mount}", "[${mount}] タイプ", 
+                                   columns[4], res)
+                    add_new_metric("filesystem.fstype.${mount}", "[${mount}] ファイルシステム", 
+                                   fstypes2[mount] ?: '', res)
                     // this.test_platform.add_test_metric(id, "ディスク容量.${mount}")
                     // res[id] = capacity
 
@@ -482,7 +485,7 @@ class LinuxSpec extends LinuxSpecBase {
         // filesystems['fstype']     = fstypes.toString()
         // println filesystems
         // test_item.results(filesystems)
-        println "${infos}"
+        // println "${infos}"
         res['filesystem'] = "${infos}"
         test_item.results(res)
         test_item.verify_text_search_map('filesystem', infos)

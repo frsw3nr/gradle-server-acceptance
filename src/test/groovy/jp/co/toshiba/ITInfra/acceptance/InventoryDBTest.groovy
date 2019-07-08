@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 // import java.sql.SQLException
 
-// gradle --daemon test --tests "InventoryDBTest.ノード定義のエクスポート"
+// gradle --daemon test --tests "InventoryDBTest.ノード定義ファイルの有無"
 
 class InventoryDBTest extends Specification {
 
@@ -71,6 +71,17 @@ class InventoryDBTest extends Specification {
         then:
         1 == 1
     }
+
+    def "ノード定義ファイルの有無"() {
+        when:
+        def test1 = inventory_db.check_node_file_exist('ostrich', 'Linux')
+        def test2 = inventory_db.check_node_file_exist('hoge', 'Linux')
+
+        then:
+        test1 == true
+        test2 == false
+    }
+
     // def 設定読み込み() {
     //     when:
     //     def config = inventory_db.db_config
