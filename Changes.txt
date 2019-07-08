@@ -6,10 +6,16 @@ TODO:
     * Spring framework 使用ライブラリの整理 [ ]
         * モデル,Component [ ]
         * コマンドオプション [ ]
+    * CodeNarc 調査 [ ]
+    * JSONパーサー調査 [ ]
     * コードレビュー、動作確認 [ ]
     * ラップアップ v2.6 全体最適化検討 [ ]
 * Cleansing ジョブ調査 [ ]
     * Redmine 疎通エラー原因調査 [ ]
+        * ドキュメント確認 [ ]
+        gradle-server-acceptance/docs/jp/setup_guide 
+        * 動作確認 [ ]
+        python getconfig/job/get_redmine_projects.py
     * Linux 環境で試行 [ ]
         * セットアップドキュメント調査/環境構築 [ ]
     * フォーマット確認 [ ]
