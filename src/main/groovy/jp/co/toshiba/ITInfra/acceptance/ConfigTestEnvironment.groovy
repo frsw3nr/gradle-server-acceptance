@@ -206,7 +206,7 @@ class ConfigTestEnvironment {
     //     return this.config?.test?.project_test_log_dir ?: './src/test/resources/log'
     // }
 
-    def get_current_platform_test_log_dir(String platform, String target) {
+    String get_current_platform_test_log_dir(String platform, String target) {
         def current_test_log_dir = this.get_current_test_log_dir()
         return "${current_test_log_dir}/${target}"
     }
@@ -273,7 +273,7 @@ class ConfigTestEnvironment {
         return this.config?.dry_run ?: config_platform?.dry_run ?: false
     }
 
-    def get_timeout(String platform) {
+    int get_timeout(String platform) {
         def config_platform = this.config?.test?."${platform}"
         return this.config?.timeout ?: config_platform?.timeout ?: 0
     }

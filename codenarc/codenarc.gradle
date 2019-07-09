@@ -1,0 +1,22 @@
+apply plugin: 'codenarc'
+
+codenarc {
+    toolVersion = '1.0'
+    // configFile rootProject.file('codenarc/codenarc.groovy')
+    ignoreFailures = true
+}
+
+codenarcMain {
+    configFile = rootProject.file('codenarc/codenarc-main.groovy')
+    maxPriority1Violations = 10000
+    maxPriority2Violations = 10000
+    maxPriority3Violations = 10000
+}
+
+codenarcTest {
+    configFile = rootProject.file('codenarc/codenarc-test.groovy')
+    maxPriority1Violations = 0
+    maxPriority2Violations = 0
+    maxPriority3Violations = 0
+}
+

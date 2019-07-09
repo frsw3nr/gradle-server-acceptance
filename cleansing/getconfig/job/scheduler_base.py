@@ -201,7 +201,8 @@ class SchedulerBase(metaclass=ABCMeta):
         self.clear_work_directory()
         self.extract_inventory_data(args.inventory_names)
         self.transfer()
-        self.classify(keyword=args.grep)
+        self.classify()
+        # self.classify(keyword=args.grep)
         Stat().show()
         if args.skip_regist:
             return

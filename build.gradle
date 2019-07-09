@@ -1,15 +1,16 @@
 apply plugin: 'groovy'
 apply plugin: "application"
 
-apply plugin: 'codenarc'
+apply from: 'codenarc/codenarc.gradle'
+// apply plugin: 'codenarc'
 
-configurations.codenarc {
-    resolutionStrategy.eachDependency { DependencyResolveDetails d ->
-        if (d.requested.group == 'org.codehaus.groovy') {
-            d.useVersion '2.1.8'
-        }
-    }
-}
+// configurations.codenarc {
+//     resolutionStrategy.eachDependency { DependencyResolveDetails d ->
+//         if (d.requested.group == 'org.codehaus.groovy') {
+//             d.useVersion '2.1.8'
+//         }
+//     }
+// }
 
 mainClassName = 'jp.co.toshiba.ITInfra.acceptance.TestRunner'
 def language  = 'jp' // 'en'

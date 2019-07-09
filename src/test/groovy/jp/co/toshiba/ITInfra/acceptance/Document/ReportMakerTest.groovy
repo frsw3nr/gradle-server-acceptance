@@ -5,7 +5,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "ReportMakerTest.プラットフォーム検索"
+// gradle --daemon test --tests "ReportMakerTest.実行結果変換"
 
 class ReportMakerTest extends Specification {
 
