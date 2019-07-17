@@ -17,7 +17,8 @@ ruleset {
     ruleset('rulesets/junit.xml')
     ruleset('rulesets/logging.xml')
     ruleset('rulesets/naming.xml') {
-        // TODO: スネークケースの正規表現でチェックをする様、パラメータ名チェックを有効にする
+        // TODO: スネークケースの正規表現でパラメータ名
+        // をチェックをする様にする
         exclude '*Name'
         // ClassName {
         //     regex = '^[A-Z][\$a-zA-Z0-9]*$'
