@@ -5,6 +5,7 @@ import groovy.transform.CompileDynamic
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 
+@CompileStatic
 @Slf4j
 @ToString(includePackage = false)
 abstract class SpecModel2 {
