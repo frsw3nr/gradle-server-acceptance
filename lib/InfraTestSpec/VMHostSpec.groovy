@@ -16,7 +16,9 @@ class VMHostSpec extends vCenterSpecBase {
     def init() {
         super.init()
         def os_account  = test_platform.os_account
-        this.vcenter_ip = os_account['vCenter']
+        def standalone  = os_account?.standalone ?: false
+        def ip          = test_platform?.test_target?.ip
+        this.vcenter_ip = (standalone) ? ip : os_account['vCenter']
         this.vm = test_platform?.test_target?.remote_alias ?: ''
         if (this.vm == '') {
             this.vm = test_platform?.test_target?.name

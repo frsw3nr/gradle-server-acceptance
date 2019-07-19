@@ -39,7 +39,8 @@ test.VMHost.dry_run   = false
 
 // ESXiÚ‘±î•ñ
 
-account.VMHost.Test.vCenter  = '192.168.10.100'
-account.VMHost.Test.user     = 'test_user'
-account.VMHost.Test.password = 'P@ssword'
+account.VMHost.Test.vCenter    = '192.168.10.100'
+account.VMHost.Test.standalone = false
+account.VMHost.Test.user       = 'test_user'
+account.VMHost.Test.password   = 'P@ssword'
 
