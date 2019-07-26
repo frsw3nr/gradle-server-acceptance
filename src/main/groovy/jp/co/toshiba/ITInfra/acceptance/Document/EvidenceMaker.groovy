@@ -172,8 +172,7 @@ class EvidenceMaker {
         this.aggrigate_test_result(test_scenario)
         def domain_metrics = test_scenario.test_metrics.get_all()
         def domain_targets = test_scenario.get_domain_targets()
-        // def comparision_sequences = [true, false]
-        // comparision_sequences.each { comparision_sequence ->
+
         domain_targets.each { domain, domain_target ->
             domain_target.each { target, test_target ->
                 // println "ADD_SUMMARY:$target,${test_target.target_status}"
@@ -207,58 +206,8 @@ class EvidenceMaker {
                     test_target.target_status = run_status
             }
         }
-        // }
         long elapse = System.currentTimeMillis() - start
         log.debug "Finish evidence maker, Elapse : ${elapse} ms"
     }
 
-    // def visit_test_scenario(test_scenario) {
-    //     long start = System.currentTimeMillis()
-
-    //     this.extract_added_test_metric(test_scenario)
-    //     this.aggrigate_test_result(test_scenario)
-    //     def domain_metrics = test_scenario.test_metrics.get_all()
-    //     def domain_targets = test_scenario.get_domain_targets()
-    //     def comparision_sequences = [true, false]
-    //     comparision_sequences.each { comparision_sequence ->
-    //         domain_targets.each { domain, domain_target ->
-    //             domain_target.each { target, test_target ->
-    //                 if (test_target.target_status == RunStatus.INIT ||
-    //                     test_target.target_status == RunStatus.READY)
-    //                     return
-    //                 def comparision = test_target.comparision
-    //                 add_summary_tag(domain, target, test_target.tag)
-    //                 def metric_sets = domain_metrics[domain].get_all()
-    //                 def run_status = RunStatus.FINISH
-    //                 metric_sets.each { platform, metric_set ->
-    //                     def test_platform = test_target.test_platforms[platform]
-    //                     def test_results = test_platform?.test_results
-    //                     if (test_platform?.platform_status == RunStatus.ERROR)
-    //                         run_status = RunStatus.ERROR
-    //                     if (!test_results)
-    //                         return
-    //                     metric_set.get_all().each { metric, test_metric ->
-    //                         def test_result = test_results[metric]
-    //                         if (test_result) {
-    //                             if (comparision == comparision_sequence) {
-    //                                 // add_summary_result(domain, target, platform, metric,
-    //                                 //                    test_result)
-    //                                 add_summary_result(domain, target, test_metric,
-    //                                                    test_result)
-    //                                 // println "METRIC: $domain, $target, $platform, $metric"
-    //                                 if (test_metric.device_enabled) {
-    //                                     add_device_result(target, platform, metric, test_result)
-    //                                 }
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //                 if (test_target.target_status == RunStatus.RUN)
-    //                     test_target.target_status = run_status
-    //             }
-    //         }
-    //     }
-    //     long elapse = System.currentTimeMillis() - start
-    //     log.debug "Finish evidence maker, Elapse : ${elapse} ms"
-    // }
 }

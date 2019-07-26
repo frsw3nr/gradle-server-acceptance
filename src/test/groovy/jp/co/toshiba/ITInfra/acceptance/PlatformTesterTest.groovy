@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
-import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
+// import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.PlatformTester
 import jp.co.toshiba.ITInfra.acceptance.TestRunner
@@ -37,9 +37,9 @@ class PlatformTesterTest extends Specification {
             remote_alias      : 'ostrich',
         )
 
-        def test_rule = new TestRule(name : 'AP',
-                                 compare_rule : 'Actual',
-                                 compare_source : 'centos7')
+        // def test_rule = new TestRule(name : 'AP',
+        //                          compare_rule : 'Actual',
+        //                          compare_source : 'centos7')
 
         def test_metrics = [
             'uname': new TestMetric(name : 'uname', enabled : true),
@@ -50,7 +50,7 @@ class PlatformTesterTest extends Specification {
             name         : 'Linux',
             test_target  : test_target,
             test_metrics : test_metrics,
-            test_rule    : test_rule,
+            // test_rule    : test_rule,
             dry_run      : true,
         )
     }

@@ -1,6 +1,6 @@
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
-import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
+// import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import spock.lang.Specification
 
@@ -11,7 +11,7 @@ class ConfigTestEnvironmentTest extends Specification {
     String config_file
     TestTarget test_target
     TestPlatform test_platform
-    TestRule test_rule
+    // TestRule test_rule
     ConfigTestEnvironment test_env
 
     def setup() {
@@ -29,14 +29,14 @@ class ConfigTestEnvironmentTest extends Specification {
             verify_id      : 'AP',
         )
 
-        test_rule = new TestRule(name : 'AP',
-                                 compare_rule : 'Actual',
-                                 compare_source : 'centos7')
+        // test_rule = new TestRule(name : 'AP',
+        //                          compare_rule : 'Actual',
+        //                          compare_source : 'centos7')
 
         test_platform = new TestPlatform(
             name        : 'Linux',
             test_target : test_target,
-            test_rule   : test_rule,
+            // test_rule   : test_rule,
         )
     }
 

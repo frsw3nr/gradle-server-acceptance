@@ -9,7 +9,7 @@ class TestScenario extends SpecModel {
     String name
     TestTargetSet test_targets
     TestMetricSet test_metrics
-    TestRuleSet test_rules
+    // TestRuleSet test_rules
     TestTemplateSet test_templates
     TestReportSet test_reports
     int exit_code = 0
