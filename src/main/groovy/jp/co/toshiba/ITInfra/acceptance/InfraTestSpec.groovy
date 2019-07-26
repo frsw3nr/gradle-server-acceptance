@@ -362,6 +362,7 @@ class InfraTestSpec {
         def target_log_dir = new File(local_dir)
         if (target_log_dir.exists()) {
             def result = target_log_dir.deleteDir()
+            Thread.sleep(1000)
         }
         int retry = 5
         Boolean success = false
@@ -371,6 +372,7 @@ class InfraTestSpec {
             } catch (Exception e) {
                 log.warn "Create dir error : " + e
                 Thread.sleep(1000)
+            } finally {
                 retry --
             }
         }
