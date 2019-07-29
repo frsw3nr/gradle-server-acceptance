@@ -21,10 +21,14 @@ class TestLog {
         this.current_test_log_dir = env.get_current_test_log_dir()
     }
 
+    // TestLog() 
+
     TestLog(String server_name, String platform) {
         this.server_name = server_name
         this.platform = platform
     }
+
+    // def get_log_path_v1(String server_name, String platform, String test_id, Boolean shared = false) 
 
     def get_log_path_v1(String test_log_dir, String test_id, Boolean shared = false) {
         def log_path = null
@@ -44,6 +48,8 @@ class TestLog {
         return log_path
     }
 
+    // def get_log_path(String server_name, String platform, String test_id, Boolean shared = false) 
+
     def get_log_path(String test_log_dir, String test_id, Boolean shared = false) {
         def log_path = test_log_dir
         if (!shared) {
@@ -55,6 +61,8 @@ class TestLog {
         }
     }
 
+    // 廃止
+
     def get_source_log_path(String test_id, Boolean shared = false) {
         return this.get_log_path(this.project_test_log_dir, test_id, shared) ?:
                this.get_log_path(this.base_test_log_dir, test_id, shared) ?:
@@ -63,6 +71,8 @@ class TestLog {
                this.get_log_path_v1(this.base_test_log_dir, test_id, shared) ?:
                this.get_log_path_v1(this.current_test_log_dir, test_id, shared)
     }
+
+    // def get_local_dir(String server_name, String platform)
 
     def get_local_dir() {
         return "${this.current_test_log_dir}/${this.server_name}/${this.platform}"
@@ -76,4 +86,7 @@ class TestLog {
         target_path += '/' + test_id
         return target_path
     }
+
+    // copy_project_log_path(server, platform)
+    // copy_project_log_path(server, platform)
 }

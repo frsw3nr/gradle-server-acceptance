@@ -44,7 +44,7 @@ abstract class ExcelSheetParser {
         }
         switch (cell.getCellType()) {
         case Cell.CELL_TYPE_STRING:
-            return cell.getStringCellValue();
+            return cell.getStringCellValue().replaceAll(/[\s　]+\z/,"");
         case Cell.CELL_TYPE_NUMERIC:
             return Double.toString(cell.getNumericCellValue());
         case Cell.CELL_TYPE_BOOLEAN:
