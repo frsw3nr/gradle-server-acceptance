@@ -658,6 +658,9 @@ class WindowsSpec extends WindowsSpecBase {
                     columns.add( service_info[row][header] ?: '')
                 }
                 def service_id = service_info[row]['Name']
+                (service_id=~/^(.+)_([a-z0-9]+?)$/).each { m0, m1, m2 ->
+                    service_id = "${m1}_XXXXXX"
+                }
                 def status = service_info[row]['Status']
                 infos[service_id] = status
                 statuses[service_id] = status
