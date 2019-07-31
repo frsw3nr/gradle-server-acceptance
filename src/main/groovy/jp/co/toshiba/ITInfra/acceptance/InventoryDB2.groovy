@@ -17,7 +17,7 @@ import java.nio.file.Files
 @Slf4j
 @Singleton
 @ToString(includePackage = false)
-class InventoryDB {
+class InventoryDB2 {
 
     String base_test_log_dir
     String project_test_log_dir
