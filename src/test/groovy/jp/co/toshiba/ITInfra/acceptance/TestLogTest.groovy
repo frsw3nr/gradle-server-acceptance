@@ -1,4 +1,5 @@
 import jp.co.toshiba.ITInfra.acceptance.TestLog
+import jp.co.toshiba.ITInfra.acceptance.LogStage
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import spock.lang.Specification
 
@@ -15,11 +16,17 @@ class TestLogTest extends Specification {
 
     def 設定読み込み() {
         when:
-        def test_log = new TestLog('ostrich', 'Linux')
+        // def test_log = TestLog.instance
+        def test_log = new TestLog()
         test_env.accept(test_log)
+        println TestLog.logDirs
+
+        // def test_log2 = new TestLog('cent7', 'Linux')
 
         then:
-        test_log.base_test_log_dir == './src/test/resources/log'
+        println test_log
+        // println test_log2
+        test_log.logDirs[LogStage.BASE] == './src/test/resources/log'
     }
 
     def 検査ログ検索() {

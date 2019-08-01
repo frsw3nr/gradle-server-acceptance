@@ -5,7 +5,16 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 
 @CompileStatic
+@ToString(includePackage = false)
+public enum LogStage {
+    BASE,
+    PROJECT,
+    CURRENT
+}
+
+@CompileStatic
 @Slf4j
+// @Singleton
 @ToString(includePackage = false)
 class TestLog {
 
@@ -14,19 +23,29 @@ class TestLog {
     String base_test_log_dir
     String project_test_log_dir
     String current_test_log_dir
+    static LinkedHashMap<LogStage,String> logDirs  = [:]
+    static LinkedHashMap<LogStage,String> nodeDirs = [:]
 
     def set_environment(ConfigTestEnvironment env) {
-        this.base_test_log_dir    = env.get_base_test_log_dir()
-        this.project_test_log_dir = env.get_project_test_log_dir()
-        this.current_test_log_dir = env.get_current_test_log_dir()
+        // this.base_test_log_dir    = env.get_base_test_log_dir()
+        // this.project_test_log_dir = env.get_project_test_log_dir()
+        // this.current_test_log_dir = env.get_current_test_log_dir()
+
+        this.logDirs[LogStage.BASE]    = env.get_base_test_log_dir()
+        this.logDirs[LogStage.PROJECT] = env.get_project_test_log_dir()
+        this.logDirs[LogStage.CURRENT] = env.get_current_test_log_dir()
+
+        this.nodeDirs[LogStage.BASE]    = env.get_base_node_dir()
+        this.nodeDirs[LogStage.PROJECT] = env.get_project_node_dir()
+        this.nodeDirs[LogStage.CURRENT] = env.get_current_node_dir()
     }
 
     // TestLog() 
 
-    TestLog(String server_name, String platform) {
-        this.server_name = server_name
-        this.platform = platform
-    }
+    // TestLog(String server_name, String platform) {
+    //     this.server_name = server_name
+    //     this.platform = platform
+    // }
 
     // def get_log_path_v1(String server_name, String platform, String test_id, Boolean shared = false) 
 

@@ -128,7 +128,7 @@ class ConfigTestEnvironment {
         return this.cmdb_config?.port_list?.in_operation_status_id ?: 10;
     }
 
-    def get_getconfig_home() {
+    String get_getconfig_home() {
         return this.config?.getconfig_home ?: System.getProperty("getconfig_home") ?: '.'
     }
 
@@ -172,16 +172,16 @@ class ConfigTestEnvironment {
         return this.config?.db_config ?: "${getconfig_home}/config/cmdb.groovy"
     }
 
-    def get_base_node_dir() {
-        def getconfig_home = this.get_getconfig_home()
-        return this.config?.base_node_dir ?: "${getconfig_home}/node"
+    String get_base_node_dir() {
+        String getconfig_home = this.get_getconfig_home()
+        return this.config?.base_node_dir ?: getconfig_home + "/node"
     }
 
-    def get_project_node_dir() {
+    String get_project_node_dir() {
         return this.config?.evidence?.project_node_dir ?: './node/'
     }
 
-    def get_current_node_dir() {
+    String get_current_node_dir() {
         return this.config?.evidence?.current_node_dir ?: './build/json/'
     }
 
@@ -197,9 +197,9 @@ class ConfigTestEnvironment {
         return this.config?.evidence?.staging_dir ?: './build/log/'
     }
 
-    GString get_base_test_log_dir() {
+    String get_base_test_log_dir() {
         def getconfig_home = this.get_getconfig_home()
-        return this.config?.base_test_log_dir ?: "${getconfig_home}/src/test/resources/log"
+        return this.config?.base_test_log_dir ?: getconfig_home + "/src/test/resources/log"
     }
 
     // def get_project_test_log_dir(String platform) {
