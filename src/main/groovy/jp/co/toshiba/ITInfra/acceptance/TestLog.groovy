@@ -26,7 +26,7 @@ class TestLog {
     static LinkedHashMap<LogStage,String> logDirs  = [:]
     static LinkedHashMap<LogStage,String> nodeDirs = [:]
 
-    def set_environment(ConfigTestEnvironment env) {
+    static def set_environment(ConfigTestEnvironment env) {
         // this.base_test_log_dir    = env.get_base_test_log_dir()
         // this.project_test_log_dir = env.get_project_test_log_dir()
         // this.current_test_log_dir = env.get_current_test_log_dir()
