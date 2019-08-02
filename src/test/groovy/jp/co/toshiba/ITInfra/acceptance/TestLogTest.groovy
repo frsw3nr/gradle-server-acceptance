@@ -1,5 +1,8 @@
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.TestLog
 import jp.co.toshiba.ITInfra.acceptance.LogStage
+import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import spock.lang.Specification
 
@@ -12,59 +15,113 @@ class TestLogTest extends Specification {
     def setup() {
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')
+        test_env.accept(TestLog)
     }
 
     def 設定読み込み() {
         when:
-        // def test_log = TestLog.instance
-        // def test_log = new TestLog()
-        // test_env.accept(test_log)
         test_env.accept(TestLog)
-        println TestLog.logDirs
-
-        // def test_log2 = new TestLog('cent7', 'Linux')
 
         then:
-        // println test_log
-        // // println test_log2
-        // test_log.logDirs[LogStage.BASE] == './src/test/resources/log'
-        1 == 1
+        TestLog.logDirs[LogStage.BASE] == './src/test/resources/log'
+    }
+
+    def テストログセッター() {
+        when:
+        TestLog.setLogDirs(
+            (LogStage.BASE)    : '/tmp/base',
+            (LogStage.PROJECT) : '/tmp/project',
+            (LogStage.CURRENT) : '/tmp/current'
+        )
+
+        then:
+        TestLog.logDirs[LogStage.PROJECT] == '/tmp/project'
+    }
+
+    def ベースとプロジェクトディレクトリの一致チェック() {
+        when:
+        test_env.accept(TestLog)
+
+        then:
+        TestLog.directoryMatch(LogStage.BASE, LogStage.PROJECT) == true
+        TestLog.directoryMatch(LogStage.BASE, LogStage.CURRENT) == false
     }
 
     def 検査ログ検索() {
-        when:
-        def test_log = new TestLog('ostrich', 'Linux')
-        test_env.accept(test_log)
-        def log_path = test_log.get_source_log_path('uname')
+        setup:
+        test_env.accept(TestLog)
 
-        then:
-        log_path == './src/test/resources/log/ostrich/Linux/uname'
+        expect:
+        TestLog.getLogPath(target, platform, metric) == expectedValue
+
+        where:
+        expectedValue                                  || target    | platform | metric 
+        './src/test/resources/log/ostrich/Linux'       || 'ostrich' | 'Linux'  | null   
+        './src/test/resources/log/ostrich/Linux/uname' || 'ostrich' | 'Linux'  | 'uname'
+        './src/test/resources/log/ostrich/Zabbix/Host' || 'ostrich' | 'Zabbix' | 'Host' 
+        null                                           || 'Hoge'    | 'Zabbix' | 'Host' 
     }
 
-    def ローカルディレクトリ() {
+    def ターゲットを指定しない検査ログ検索() {
         when:
-        def test_log = new TestLog('ostrich', 'Zabbix')
-        test_env.accept(test_log)
-        def local_dir = test_log.get_local_dir()
+        String logPath = TestLog.getLogPath(null, 'Linux')
 
         then:
-        local_dir == './build/log/ostrich/Zabbix'
+        thrown(AssertionError)
+        logPath == null
     }
 
-    def ログ保存先() {
+
+    def 古いV1の検査ログ検索() {
+        setup:
+        TestLog.setLogDirs(
+            (LogStage.PROJECT) : './src/test/resources/log2',
+        )
+
+        expect:
+        TestLog.getLogPathV1(target, platform, metric) == expectedValue
+
+        where:
+        expectedValue                                         || target    | platform | metric
+        './src/test/resources/log2/Linux/ostrich/Linux/uname' || 'ostrich' | 'Linux'  | 'uname'
+        './src/test/resources/log2/Linux/ostrich/Linux'       || 'ostrich' | 'Linux'  | null
+        null                                                  || 'ostrich' | 'Linux'  | 'Hoge'
+    }
+
+    def カレント検査ログ検索() {
+        setup:
+        test_env.accept(TestLog)
+
+        expect:
+        TestLog.getTargetPath(target, platform, metric, shared) == expectedValue
+
+        where:
+        expectedValue                     || target    | platform | metric  | shared
+        './build/log/ostrich/Linux'       || 'ostrich' | 'Linux'  | null    | null
+        './build/log/ostrich/Linux/uname' || 'ostrich' | 'Linux'  | 'uname' | null
+        './build/log/Host'                || 'ostrich' | 'Zabbix' | 'Host'  | true
+    }
+
+    def プロジェクトからカレントへログコピー() {
+        setup:
+        test_env.accept(TestLog)
+
         when:
-        def test_log = new TestLog('ostrich', 'Linux')
-        test_env.accept(test_log)
-        def log_path1 = test_log.get_target_log_path('uname')
-        def log_path2 = test_log.get_target_log_path('groups', true)
-        def local_dir = test_log.get_local_dir()
-        new File(local_dir).mkdirs()
-        new File(log_path2).write('TEST')
-        def log_path3 = test_log.get_source_log_path('groups', true)
+        TestLog.copyLogs('ostrich', 'Linux', LogStage.PROJECT, LogStage.CURRENT)
 
         then:
-        log_path1 == './build/log/ostrich/Linux/uname'
-        log_path2 == './build/log/groups'
-        log_path3 == './build/log/groups'
+        new File('./build/log/ostrich/Linux').exists()
+    }
+
+    def プロジェクトからカレントへノード定義コピー() {
+        setup:
+        test_env.accept(TestLog)
+
+        when:
+        TestLog.copyNodes('ostrich', 'Linux', LogStage.PROJECT, LogStage.CURRENT)
+
+        then:
+        new File('./build/json/ostrich/Linux.json').exists()
+        new File('./build/json/ostrich__Linux.json').exists()
     }
 }

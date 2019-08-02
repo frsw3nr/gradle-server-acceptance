@@ -73,10 +73,12 @@ class InventoryDB {
         return is_exist
     }
 
-    int print_node_list(String mode, String test_log_dir) {
+    // int print_node_list(String mode, String test_log_dir) {
+    int print_node_list(String mode, LogStage stage) {
         def node_updates = [:]
         def node_testeds = [:]
         def node_platforms = [:].withDefault{[]}
+        String test_log_dir = TestLog.logDirs[stage]
         def test_log_dir_file = new File(test_log_dir)
         try {
             new File(test_log_dir).eachDir { node_dir ->
@@ -122,14 +124,19 @@ class InventoryDB {
         this.filter_platform = filter_platform
         def row = 0
         println String.format(NODE_LIST_FORMAT, NODE_LIST_HEADERS)
-        if (this.project_test_log_dir != null &&
-            this.project_node_dir != null &&
-            !(this.check_project_base_directory_match())
-            ) {
-            row += print_node_list('Project', this.project_test_log_dir)
+        if (TestLog.defined(LogStage.PROJECT) && 
+            TestLog.directoryMatch(LogStage.BASE, LogStage.PROJECT)) {
+            // row += print_node_list('Project', this.project_test_log_dir)
+            row += print_node_list('Project', LogStage.PROJECT)
         }
-        row += print_node_list('Common', this.base_test_log_dir)
-
+        // if (this.project_test_log_dir != null &&
+        //     this.project_node_dir != null &&
+        //     !(this.check_project_base_directory_match())
+        //     ) {
+        //     row += print_node_list('Project', this.project_test_log_dir)
+        // }
+        // row += print_node_list('Common', this.base_test_log_dir)
+        row += print_node_list('Common', LogStage.BASE)
         if (row == 0)
             println "No data"
         else 

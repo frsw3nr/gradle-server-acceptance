@@ -1,4 +1,6 @@
 import jp.co.toshiba.ITInfra.acceptance.InventoryDB
+import jp.co.toshiba.ITInfra.acceptance.TestLog
+import jp.co.toshiba.ITInfra.acceptance.LogStage
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
@@ -26,6 +28,11 @@ class InventoryDBTest extends Specification {
         test_env.accept(inventory_db)
         reset_project_home(inventory_db, '/tmp/dummy_project')
         create_dummy_project_dir('/tmp/dummy_project')
+
+        test_env.accept(TestLog)
+        TestLog.setLogDirs(
+            (LogStage.PROJECT) : '/tmp/dummy_project'
+        )
         // inventory_db.initialize()
         println "CMDB_MODEL:$inventory_db"
     }

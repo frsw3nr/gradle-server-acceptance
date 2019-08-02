@@ -38,9 +38,9 @@ class InfraTestSpec {
 
     def InfraTestSpec(TestPlatform test_platform) {
         this.test_platform        = test_platform
-        this.server_name          = test_platform.test_target.name
+        this.server_name          = test_platform?.test_target?.name
         this.platform             = test_platform.name
-        this.domain               = test_platform.test_target.domain
+        this.domain               = test_platform?.test_target?.domain
         this.title                = domain + '(' + server_name + ')'
         this.current_test_log_dir = test_platform.current_test_log_dir
         this.local_dir            = "${current_test_log_dir}/${platform}"
