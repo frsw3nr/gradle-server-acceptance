@@ -47,6 +47,15 @@ class TestLogTest extends Specification {
         TestLog.directoryMatch(LogStage.BASE, LogStage.CURRENT) == false
     }
 
+    def テストログゲッター() {
+        when:
+        test_env.accept(TestLog)
+
+        then:
+        TestLog.getLogDir(LogStage.BASE) == './src/test/resources/log'
+        TestLog.getNodeDir(LogStage.BASE) == './node'
+    }
+
     def 検査ログ検索() {
         setup:
         test_env.accept(TestLog)
@@ -100,6 +109,15 @@ class TestLogTest extends Specification {
         './build/log/ostrich/Linux'       || 'ostrich' | 'Linux'  | null    | null
         './build/log/ostrich/Linux/uname' || 'ostrich' | 'Linux'  | 'uname' | null
         './build/log/Host'                || 'ostrich' | 'Zabbix' | 'Host'  | true
+    }
+
+    def ノード定義検索() {
+        when:
+        test_env.accept(TestLog)
+
+        then:
+        TestLog.getNodePath('ostrich', 'Linux') == './build/json//ostrich/Linux.json'
+        TestLog.getNodePath('ostrich', 'Hoge') == null
     }
 
     def プロジェクトからカレントへログコピー() {

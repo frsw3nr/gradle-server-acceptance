@@ -38,18 +38,18 @@ class InventoryDB {
         this.project_name         = env.get_project_name()
     }
 
-    def check_project_base_directory_match() {
-        def is_match = false
-        try {
-            def project_node_path = Paths.get(this.project_node_dir).toRealPath()
-            def base_node_path    = Paths.get(this.base_node_dir).toRealPath()
-            if (project_node_path == base_node_path)
-                is_match = true
-        } catch (Exception e) {
-            is_match = false
-        }
-        return is_match
-    }
+    // def check_project_base_directory_match() {
+    //     def is_match = false
+    //     try {
+    //         def project_node_path = Paths.get(this.project_node_dir).toRealPath()
+    //         def base_node_path    = Paths.get(this.base_node_dir).toRealPath()
+    //         if (project_node_path == base_node_path)
+    //             is_match = true
+    //     } catch (Exception e) {
+    //         is_match = false
+    //     }
+    //     return is_match
+    // }
 
     Boolean filter_text_match(String target, String keyword = null) {
         if (keyword == null)
@@ -62,24 +62,24 @@ class InventoryDB {
             return false
     }
 
-    Boolean check_node_file_exist(String target, String platform) {
-        Boolean is_exist = false
-        [base_node_dir, project_node_dir].each { node_dir ->
-            String node_path = "${node_dir}/${target}/${platform}.json"
-            if (Files.exists(Paths.get(node_path))) {
-                is_exist = true
-            }
-        }
-        return is_exist
-    }
+    // Boolean check_node_file_exist(String target, String platform) {
+    //     Boolean is_exist = false
+    //     [base_node_dir, project_node_dir].each { node_dir ->
+    //         String node_path = "${node_dir}/${target}/${platform}.json"
+    //         if (Files.exists(Paths.get(node_path))) {
+    //             is_exist = true
+    //         }
+    //     }
+    //     return is_exist
+    // }
 
     // int print_node_list(String mode, String test_log_dir) {
     int print_node_list(String mode, LogStage stage) {
         def node_updates = [:]
         def node_testeds = [:]
         def node_platforms = [:].withDefault{[]}
-        String test_log_dir = TestLog.logDirs[stage]
-        def test_log_dir_file = new File(test_log_dir)
+        String test_log_dir = TestLog.getLogDir(stage)
+        // def test_log_dir_file = new File(test_log_dir)
         try {
             new File(test_log_dir).eachDir { node_dir ->
                 def node_name = node_dir.name
@@ -93,8 +93,8 @@ class InventoryDB {
                     def platform = platform_dir.name
                     if (!(filter_text_match(platform, this.filter_platform)))
                         return
-                    def node_exsist = check_node_file_exist(node_name, platform)
-                    node_testeds[node_name] = node_exsist
+                    def nodePath = TestLog.getNodePath(node_name, platform)
+                    node_testeds[node_name] = (nodePath) ? true : false
                     node_platforms[node_name] << platform
                     def last_modified = new Date(platform_dir.lastModified()).format('yyyy/MM/dd HH:mm:ss')
                     node_updates[node_name] = last_modified

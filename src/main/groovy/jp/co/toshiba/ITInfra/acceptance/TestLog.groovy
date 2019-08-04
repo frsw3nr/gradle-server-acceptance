@@ -51,8 +51,28 @@ class TestLog {
         this.nodeDirs << map
     }
 
+    static String getLogDir(LogStage logStage) {
+        return this.logDirs[logStage]
+    }
+
+    static String getNodeDir(LogStage logStage) {
+        return this.nodeDirs[logStage]
+    }
+
     static Boolean defined(LogStage stage) {
         return (this.logDirs.containsKey(stage) && this.nodeDirs.containsKey(stage))
+    }
+
+    static String getNodePath(String target, String platform) {
+        String nodePath
+        this.nodeDirs.each { stage, node_dir ->
+            String checkPath = "${node_dir}/${target}/${platform}.json"
+            if (Files.exists(Paths.get(checkPath))) {
+                nodePath = checkPath
+                return
+            }
+        }
+        return nodePath
     }
 
     static String getLogPathCommon(String target, String platform, 
@@ -92,7 +112,7 @@ class TestLog {
             if (nodePathFrom == nodePathTo)
                 is_match = true
         } catch (Exception e) {
-            is_match = false
+ /*  */            is_match = false
         }
         return is_match
     }
@@ -147,6 +167,20 @@ class TestLog {
         def targetNodeFile2 = new File("${nodeDirTo}/${target}/${platform}.json")
         if (sourceNodeFile2.exists()) {
             FileUtils.copyFile(sourceNodeFile2, targetNodeFile2)
+        }
+    }
+
+    static def copyTargetNodes(String target,
+                         LogStage stageFrom = LogStage.PROJECT,
+                         LogStage stageTo = LogStage.CURRENT
+                         ) throws IOException {
+        String nodeDirFrom = this.nodeDirs[stageFrom]
+        String nodeDirTo   = this.nodeDirs[stageTo]
+        def sourceDir = new File("${nodeDirFrom}/${target}")
+        def targetDir = new File("${nodeDirTo}/${target}")
+        if (source_dir.exists()) {
+            target_dir.mkdirs()
+            FileUtils.copyDirectory(source_dir, target_dir)
         }
     }
 
