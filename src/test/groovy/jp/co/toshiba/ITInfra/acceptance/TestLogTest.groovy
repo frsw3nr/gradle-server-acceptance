@@ -12,6 +12,7 @@ class TestLogTest extends Specification {
 
     def test_env
 
+    
     def setup() {
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')

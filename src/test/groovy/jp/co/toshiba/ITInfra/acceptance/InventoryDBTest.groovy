@@ -45,8 +45,8 @@ class InventoryDBTest extends Specification {
     }
 
     def reset_project_home(InventoryDB inventory_db, String project_home) {
-        inventory_db.project_node_dir = "${project_home}/node"
-        inventory_db.project_test_log_dir = "${project_home}/src/test/resources/log"
+        // inventory_db.project_node_dir = "${project_home}/node"
+        // inventory_db.project_test_log_dir = "${project_home}/src/test/resources/log"
     }
 
     def "ノード定義のエクスポート"() {
@@ -72,6 +72,10 @@ class InventoryDBTest extends Specification {
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
+        TestLog.setNodeDirs(
+            (LogStage.PROJECT) : '/tmp/dummy_project'
+        )
+
         when:
         inventory_db.copy_compare_target_inventory_data(test_scenario)
 
@@ -81,12 +85,12 @@ class InventoryDBTest extends Specification {
 
     def "ノード定義ファイルの有無"() {
         when:
-        def test1 = inventory_db.check_node_file_exist('ostrich', 'Linux')
-        def test2 = inventory_db.check_node_file_exist('hoge', 'Linux')
+        def test1 = TestLog.getNodePath('ostrich', 'Linux')
+        def test2 = TestLog.getNodePath('hoge', 'Linux')
 
         then:
-        test1 == true
-        test2 == false
+        test1 != null
+        test2 == null
     }
 
     // def 設定読み込み() {

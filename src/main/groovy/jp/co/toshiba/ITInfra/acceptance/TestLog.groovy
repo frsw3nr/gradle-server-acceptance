@@ -112,7 +112,7 @@ class TestLog {
             if (nodePathFrom == nodePathTo)
                 is_match = true
         } catch (Exception e) {
- /*  */            is_match = false
+            is_match = false
         }
         return is_match
     }
@@ -178,9 +178,9 @@ class TestLog {
         String nodeDirTo   = this.nodeDirs[stageTo]
         def sourceDir = new File("${nodeDirFrom}/${target}")
         def targetDir = new File("${nodeDirTo}/${target}")
-        if (source_dir.exists()) {
-            target_dir.mkdirs()
-            FileUtils.copyDirectory(source_dir, target_dir)
+        if (sourceDir.exists()) {
+            targetDir.mkdirs()
+            FileUtils.copyDirectory(sourceDir, targetDir)
         }
     }
 

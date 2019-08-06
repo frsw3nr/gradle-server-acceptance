@@ -19,11 +19,11 @@ import java.nio.file.Files
 @ToString(includePackage = false)
 class InventoryDB {
 
-    String base_test_log_dir
-    String project_test_log_dir
-    String base_node_dir
-    String project_node_dir
-    String project_name
+    // String base_test_log_dir
+    // String project_test_log_dir
+    // String base_node_dir
+    // String project_node_dir
+    // String project_name
     String filter_node
     String filter_platform
     static final String NODE_LIST_FORMAT = "%-18s %-18s %-30s %-20s %s"
@@ -31,11 +31,11 @@ class InventoryDB {
     Boolean match_project_base_directory = false
 
     def set_environment(ConfigTestEnvironment env) {
-        this.base_test_log_dir    = env.get_base_test_log_dir()
-        this.project_test_log_dir = env.get_project_test_log_dir()
-        this.base_node_dir        = env.get_base_node_dir()
-        this.project_node_dir     = env.get_project_node_dir()
-        this.project_name         = env.get_project_name()
+        // this.base_test_log_dir    = env.get_base_test_log_dir()
+        // this.project_test_log_dir = env.get_project_test_log_dir()
+        // this.base_node_dir        = env.get_base_node_dir()
+        // this.project_node_dir     = env.get_project_node_dir()
+        // this.project_name         = env.get_project_name()
     }
 
     // def check_project_base_directory_match() {
@@ -170,23 +170,25 @@ class InventoryDB {
     }
 
     def copy_compare_target_inventory_data(TestScenario test_scenario) {
-        if (this.match_project_base_directory)
+        if (TestLog.directoryMatch(LogStage.BASE, LogStage.PROJECT))
             return
         def domain_metrics = test_scenario.test_metrics.get_all()
         def targets = test_scenario.test_targets.get_all()
-        targets.each { target_name, domain_targets ->
+        targets.each { target, domain_targets ->
             Boolean first_loop = true
             domain_targets.each { domain, test_target ->
                 if (test_target.target_status == RunStatus.INIT &&
                     test_target.comparision == true) {
                     if (first_loop) {
-                        copy_base_node_dir(target_name)
+                        TestLog.copyTargetNodes(target, LogStage.BASE, LogStage.PROJECT)
                         first_loop = false
                     }
                     def platform_metrics = domain_metrics[domain].get_all()
-                    platform_metrics.each { platform_name, platform_metric ->
-                        copy_base_node_json_file(target_name, platform_name)
-                        copy_base_test_log_dir(target_name, platform_name)
+                    platform_metrics.each { platform, platform_metric ->
+                        TestLog.copyNodes(target, platform, LogStage.BASE, LogStage.PROJECT)
+                        // copy_base_node_json_file(target, platform)
+                        TestLog.copyLogs(target, platform, LogStage.BASE, LogStage.PROJECT)
+                        // copy_base_test_log_dir(target, platform)
                     }
                 }
             }
