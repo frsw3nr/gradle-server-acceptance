@@ -22,18 +22,17 @@ public enum LogStage {
 @ToString(includePackage = false)
 class TestLog {
 
-    // String server_name
-    // String platform
-    // String base_test_log_dir
-    // String project_test_log_dir
-    // String current_test_log_dir
     static LinkedHashMap<LogStage,String> logDirs  = [:]
     static LinkedHashMap<LogStage,String> nodeDirs = [:]
 
     static def rtrimLogDirs() {
-        [LogStage.BASE, LogStage.PROJECT, LogStage.CURRENT].each { logStage ->
-            logDirs[logStage] = logDirs[logStage].replaceAll(/[\/|\\]*$/, '') 
-            nodeDirs[logStage] = nodeDirs[logStage].replaceAll(/[\/|\\]*$/, '') 
+        logDirs.each { logStage, logDir ->
+            logDirs[logStage] = logDir.replaceAll(/[\/|\\]*$/, '') 
+        }
+    }
+    static def rtrimNodeDirs() {
+        nodeDirs.each { logStage, nodeDir ->
+            nodeDirs[logStage] = nodeDir.replaceAll(/[\/|\\]*$/, '') 
         }
     }
 
@@ -43,12 +42,13 @@ class TestLog {
             (LogStage.PROJECT) : env.get_project_test_log_dir(),
             (LogStage.CURRENT) : env.get_current_test_log_dir()
         ]
+        this.rtrimLogDirs()
         this.nodeDirs << [
             (LogStage.BASE)    : env.get_base_node_dir(),
             (LogStage.PROJECT) : env.get_project_node_dir(),
             (LogStage.CURRENT) : env.get_current_node_dir()
         ]
-        this.rtrimLogDirs()
+        this.rtrimNodeDirs()
     }
 
     static def setLogDirs(Map<LogStage,String> map) {
@@ -58,7 +58,7 @@ class TestLog {
 
     static def setNodeDirs(Map<LogStage,String> map) {
         this.nodeDirs << map
-        this.rtrimLogDirs()
+        this.rtrimNodeDirs()
     }
 
     static String getLogDir(LogStage logStage) {
@@ -73,35 +73,37 @@ class TestLog {
         return (this.logDirs.containsKey(stage) && this.nodeDirs.containsKey(stage))
     }
 
-    static String getNodePath(String target, String platform) {
-        String nodePath
-        this.nodeDirs.each { stage, node_dir ->
-            String checkPath = "${node_dir}/${target}/${platform}.json"
-            if (Files.exists(Paths.get(checkPath))) {
-                nodePath = checkPath
-                return
-            }
+    static Boolean directoryMatch(LogStage stageFrom, LogStage stageTo) {
+        Boolean is_match = false
+        try {
+            is_match = (Paths.get(this.nodeDirs[stageFrom]).toRealPath() == 
+                        Paths.get(this.nodeDirs[stageTo]).toRealPath())
+        } catch (Exception e) {
+            is_match = false
         }
-        return nodePath
+        return is_match
     }
 
-    static String getLogPathCommon(String target, String platform, 
+    static String getLogPathCommon(String target, String platform = null, 
                                    String metric = null, Boolean shared = false,
-                                   LogStage logStage) {
+                                   LogStage logStage, Boolean checkExists = false) {
         assert target : "Target should not be null"
-        assert platform : "Platform should not be null"
         String logPath = this.logDirs[logStage]
         if (!shared) {
-            logPath += "/${target}/${platform}"
+            logPath += (platform) ? "/${target}/${platform}" : "/${target}"
         }
         if (metric) {
             logPath += "/${metric}"
         }
-        return logPath
+        if (checkExists) {
+            return (Files.exists(Paths.get(logPath))) ? logPath : null
+        } else {
+            return logPath
+        }
     }
 
     static String getTargetLogDir(String target) {
-        return this.logDirs[LogStage.CURRENT] + '/' + target
+        return getLogPathCommon(target, null, null, null, LogStage.CURRENT)
     } 
 
     static String getTargetPath(String target, String platform, 
@@ -110,25 +112,8 @@ class TestLog {
     } 
 
     static String getLogPath(String target, String platform, String metric = null) {
-        String logPath = getLogPathCommon(target, platform, metric, false, LogStage.PROJECT)
-        if (Files.exists(Paths.get(logPath))) {
-            return logPath
-        } else {
-            return this.getLogPathV1(target, platform, metric)
-        }
-    }
-
-    static Boolean directoryMatch(LogStage stageFrom, LogStage stageTo) {
-        Boolean is_match = false
-        try {
-            String nodePathFrom = Paths.get(this.nodeDirs[stageFrom]).toRealPath()
-            String nodePathTo = Paths.get(this.nodeDirs[stageTo]).toRealPath()
-            if (nodePathFrom == nodePathTo)
-                is_match = true
-        } catch (Exception e) {
-            is_match = false
-        }
-        return is_match
+        String logPath = getLogPathCommon(target, platform, metric, false, LogStage.PROJECT, true)
+        return logPath ?: this.getLogPathV1(target, platform, metric)
     }
 
     static String getLogPathV1(String target, String platform, String metric = null) {
@@ -151,14 +136,29 @@ class TestLog {
     static def copyLogs(String target, String platform,
                           LogStage stageFrom = LogStage.PROJECT,
                           LogStage stageTo = LogStage.CURRENT) throws IOException {
-        String sourcePath = getLogPathCommon(target, platform, null, stageFrom)
-        def sourceDir = new File(sourcePath)
-        String targetPath = getLogPathCommon(target, platform, null, stageTo)
-        def targetDir = new File(targetPath)
+        def sourceDir = new File(getLogPathCommon(target, platform, null, stageFrom))
+        def targetDir = new File(getLogPathCommon(target, platform, null, stageTo))
         if (sourceDir.exists()) {
             targetDir.mkdirs()
             FileUtils.copyDirectory(sourceDir, targetDir)
         }
+    }
+
+    static String getNodePath(String target, String platform) {
+        String nodePath = this.nodeDirs[LogStage.PROJECT]
+        nodePath += "/${target}/${platform}.json"
+        if (Files.exists(Paths.get(nodePath))) {
+            return nodePath
+        }
+        // String nodePath
+        // this.nodeDirs.each { stage, node_dir ->
+        //     String checkPath = "${node_dir}/${target}/${platform}.json"
+        //     if (Files.exists(Paths.get(checkPath))) {
+        //         nodePath = checkPath
+        //         return
+        //     }
+        // }
+        // return nodePath
     }
 
     static def copyNodes(String target, String platform, 
@@ -197,85 +197,4 @@ class TestLog {
             FileUtils.copyDirectory(sourceDir, targetDir)
         }
     }
-
-    // def copyNodeJson(String target, String platform,
-    //                  LogStage stageFrom = LogStage.PROJECT,
-    //                  LogStage stageTo = LogStage.CURRENT
-    //                  ) throws IOException {
-    //     def json_file = "${target}__${platform}.json"
-    //     def source_json = new File("${this.base_node_dir}/${json_file}")
-    //     def target_json = new File("${this.project_node_dir}/${json_file}")
-    //     if (source_json.exists())
-    //         target_json << source_json.text
-    // }
-
-
-    // TestLog() 
-
-    // TestLog(String server_name, String platform) {
-    //     this.server_name = server_name
-    //     this.platform = platform
-    // }
-
-    // def get_log_path_v1(String server_name, String platform, String test_id, Boolean shared = false) 
-
-    // def get_log_path_v1(String test_log_dir, String test_id, Boolean shared = false) {
-    //     def log_path = null
-    //     def staging_dir = new File(test_log_dir)
-    //     if (!staging_dir.exists())
-    //         return
-    //     staging_dir.eachDir { old_domain ->
-    //         def old_log_path = test_log_dir + '/' + old_domain.name
-    //         if (!shared) {
-    //             old_log_path += "/${server_name}/${platform}"
-    //         }
-    //         old_log_path += '/' + test_id
-    //         if (new File(old_log_path).exists()) {
-    //             log_path = old_log_path
-    //         }
-    //     }
-    //     return log_path
-    // }
-
-    // // def get_log_path(String server_name, String platform, String test_id, Boolean shared = false) 
-
-    // def get_log_path(String test_log_dir, String test_id, Boolean shared = false) {
-    //     def log_path = test_log_dir
-    //     if (!shared) {
-    //         log_path += "/${this.server_name}/${this.platform}"
-    //     }
-    //     log_path += '/' + test_id
-    //     if (new File(log_path).exists()) {
-    //         return log_path
-    //     }
-    // }
-
-    // // 廃止
-
-    // def get_source_log_path(String test_id, Boolean shared = false) {
-    //     return this.get_log_path(this.project_test_log_dir, test_id, shared) ?:
-    //            this.get_log_path(this.base_test_log_dir, test_id, shared) ?:
-    //            this.get_log_path(this.current_test_log_dir, test_id, shared) ?:
-    //            this.get_log_path_v1(this.project_test_log_dir, test_id, shared) ?: 
-    //            this.get_log_path_v1(this.base_test_log_dir, test_id, shared) ?:
-    //            this.get_log_path_v1(this.current_test_log_dir, test_id, shared)
-    // }
-
-    // // def get_local_dir(String server_name, String platform)
-
-    // def get_local_dir() {
-    //     return "${this.current_test_log_dir}/${this.server_name}/${this.platform}"
-    // }
-
-    // def get_target_log_path(String test_id, Boolean shared = false) {
-    //     def target_path = this.current_test_log_dir
-    //     if (shared == false) {
-    //         target_path += "/${this.server_name}/${this.platform}"
-    //     }
-    //     target_path += '/' + test_id
-    //     return target_path
-    // }
-
-    // copy_project_log_path(server, platform)
-    // copy_project_log_path(server, platform)
 }

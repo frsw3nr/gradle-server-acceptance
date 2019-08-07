@@ -12,7 +12,7 @@ class TestLogTest extends Specification {
 
     def test_env
 
-    
+
     def setup() {
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')
@@ -37,6 +37,7 @@ class TestLogTest extends Specification {
 
         then:
         TestLog.logDirs[LogStage.PROJECT] == '/tmp/project'
+        TestLog.defined(LogStage.PROJECT) == true
     }
 
     def ベースとプロジェクトディレクトリの一致チェック() {
@@ -107,6 +108,7 @@ class TestLogTest extends Specification {
 
         where:
         expectedValue                     || target    | platform | metric  | shared
+        './build/log/ostrich'             || 'ostrich' | null     | null    | null
         './build/log/ostrich/Linux'       || 'ostrich' | 'Linux'  | null    | null
         './build/log/ostrich/Linux/uname' || 'ostrich' | 'Linux'  | 'uname' | null
         './build/log/Host'                || 'ostrich' | 'Zabbix' | 'Host'  | true

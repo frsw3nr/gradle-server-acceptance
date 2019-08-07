@@ -6,18 +6,19 @@ TODO:
     * root [x]
     * Document [x]
     * Model [x]
-* TestLog クラス追加 [ ]
+* TestLog クラス追加 [x]
     * 単体テスト作成、アダプターパターン実装 [x]
         * ログパスパラメータ(Base,Project,Current)読込み [x]
         * ログパスパラメータ(Base,Project,Current)セット [x]
-    * 各クラス結合 [ ]
+    * 各クラス結合 [X]
         * TestPlatform [x]
         * InventoryDB [x]
         * TestRunner [x]
         * TestSchedule [x]
-        * EvidenceManager [ ]
+        * EvidenceManager [X]
           gradle --daemon test --tests "EvidenceManagerTest.実行結果の登録"
           DB登録処理でtest_resultsの結果が0件になる問題調査
+        TestRunnerTestエラー調査
 * モデルクラスの Composite モデルにストリーム処理追加 [ ]
     * Documentクラスアクセスパターン調査 [ ]
     * TestScenario, TestTarget, TestPlatfom の順アクセステストコード作成 [ ]

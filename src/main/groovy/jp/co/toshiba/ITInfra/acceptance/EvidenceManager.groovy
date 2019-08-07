@@ -30,13 +30,6 @@ class EvidenceManager {
         this.current_test_log_dir = TestLog.getLogDir(LogStage.CURRENT)
         this.project_test_log_dir = TestLog.getLogDir(LogStage.PROJECT)
         this.base_test_log_dir    = TestLog.getLogDir(LogStage.BASE)
-
-        println this.current_node_dir
-        println this.project_node_dir
-        println this.base_node_dir
-        println this.current_test_log_dir
-        println this.project_test_log_dir
-        println this.base_test_log_dir
     }
 
     def export_cmdb() throws IOException, SQLException {
