@@ -117,7 +117,7 @@ class TestLogTest extends Specification {
         test_env.accept(TestLog)
 
         then:
-        TestLog.getNodePath('ostrich', 'Linux') == './build/json//ostrich/Linux.json'
+        TestLog.getNodePath('ostrich', 'Linux') == './node/ostrich/Linux.json'
         TestLog.getNodePath('ostrich', 'Hoge') == null
     }
 

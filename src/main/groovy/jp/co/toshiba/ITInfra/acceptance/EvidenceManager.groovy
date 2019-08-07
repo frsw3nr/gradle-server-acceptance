@@ -18,12 +18,25 @@ class EvidenceManager {
     String base_test_log_dir
 
     def set_environment(ConfigTestEnvironment env) {
-        this.current_node_dir     = env.get_current_node_dir()
-        this.project_node_dir     = env.get_project_node_dir()
-        this.base_node_dir        = env.get_base_node_dir()
-        this.current_test_log_dir = env.get_current_test_log_dir()
-        this.project_test_log_dir = env.get_project_test_log_dir()
-        this.base_test_log_dir    = env.get_base_test_log_dir()
+        // this.current_node_dir     = env.get_current_node_dir()
+        // this.project_node_dir     = env.get_project_node_dir()
+        // this.base_node_dir        = env.get_base_node_dir()
+        // this.current_test_log_dir = env.get_current_test_log_dir()
+        // this.project_test_log_dir = env.get_project_test_log_dir()
+        // this.base_test_log_dir    = env.get_base_test_log_dir()
+        this.current_node_dir     = TestLog.getNodeDir(LogStage.CURRENT)
+        this.project_node_dir     = TestLog.getNodeDir(LogStage.PROJECT)
+        this.base_node_dir        = TestLog.getNodeDir(LogStage.BASE)
+        this.current_test_log_dir = TestLog.getLogDir(LogStage.CURRENT)
+        this.project_test_log_dir = TestLog.getLogDir(LogStage.PROJECT)
+        this.base_test_log_dir    = TestLog.getLogDir(LogStage.BASE)
+
+        println this.current_node_dir
+        println this.project_node_dir
+        println this.base_node_dir
+        println this.current_test_log_dir
+        println this.project_test_log_dir
+        println this.base_test_log_dir
     }
 
     def export_cmdb() throws IOException, SQLException {

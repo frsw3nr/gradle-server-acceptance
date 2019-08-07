@@ -5,22 +5,8 @@ import groovy.transform.CompileDynamic
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
-
-// @CompileStatic
-// abstract class SpecVisitor {
-//     def set_environment(SpecModel model) {}
-//     def visit_test_platform(SpecModel model) {}
-//     def visit_test_platform_set(SpecModel model) {}
-//     def visit_test_report_set(SpecModel model) {}
-//     def visit_test_rule(SpecModel model) {}
-//     def visit_test_rule_set(SpecModel model) {}
-//     def visit_test_scenario(SpecModel model) {}
-//     def visit_test_target_set(SpecModel model) {}
-//     def visit_test_template(SpecModel model) {}
-//     def visit_test_template_set(SpecModel model) {}
-//     def visit_test_error_report_set(SpecModel model) {}
-//     def visit_test_metric_set(SpecModel model) {}
-// }
+import jp.co.toshiba.ITInfra.acceptance.TestLog
+import jp.co.toshiba.ITInfra.acceptance.LogStage
 
 @CompileStatic
 @Slf4j
@@ -64,10 +50,11 @@ class TestPlatform extends SpecModel {
         this.dry_run                = env.get_dry_run(platform)
         this.timeout                = env.get_timeout(platform)
         this.debug                  = env.get_debug(platform)
-        this.project_test_log_dir   = env.get_project_test_log_dir()
-        this.evidence_log_share_dir = env.get_evidence_log_share_dir()
-        this.current_test_log_dir   = env.get_current_platform_test_log_dir(platform, target_name)
 
+        this.project_test_log_dir   = TestLog.getLogDir(LogStage.PROJECT)
+        this.evidence_log_share_dir = TestLog.getLogDir(LogStage.CURRENT)
+        this.current_test_log_dir   = TestLog.getTargetLogDir(target_name)
+        
         def msg = "$target_name(DryRun=${this.dry_run})"
         log.debug "Set test $platform:$msg"
     }

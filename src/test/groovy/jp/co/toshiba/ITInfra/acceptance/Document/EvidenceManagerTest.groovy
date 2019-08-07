@@ -60,8 +60,6 @@ class EvidenceManagerTest extends Specification {
         def result = cmdb_model.cmdb.rows("select * from test_results where node_id = 1")
         def metric = cmdb_model.cmdb.rows("select * from metrics")
         def json = new groovy.json.JsonBuilder()
-        json(metric)
-        println json.toPrettyString()
         node[0]['node_name'].size() > 0
         node[1]['node_name'].size() > 0
         result.size() > 0

@@ -1,4 +1,5 @@
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
+import jp.co.toshiba.ITInfra.acceptance.TestLog
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 // import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
@@ -70,6 +71,7 @@ class ConfigTestEnvironmentTest extends Specification {
         test_env.read_config(config_file)
         // test_env.accept(test_platform)
         test_env.accept(test_platform)
+        test_env.accept(TestLog)
         println "ENV:${test_platform.current_test_log_dir}"
         test_env.print_config()
 

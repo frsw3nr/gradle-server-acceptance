@@ -35,10 +35,17 @@ class TestScheduler {
     def set_environment(ConfigTestEnvironment env) {
         this.excel_file       = env.get_excel_file()
         this.output_evidence  = env.get_output_evidence()
-        this.base_node_dir    = env.get_base_node_dir()
-        this.project_node_dir = env.get_project_node_dir()
-        this.current_node_dir = env.get_current_node_dir()
-        this.node_dir         = env.get_node_dir()
+
+        // this.base_node_dir    = env.get_base_node_dir()
+        // this.project_node_dir = env.get_project_node_dir()
+        // this.current_node_dir = env.get_current_node_dir()
+        // this.node_dir         = env.get_node_dir()
+
+        this.base_node_dir    = TestLog.getNodeDir(LogStage.BASE)
+        this.project_node_dir = TestLog.getNodeDir(LogStage.PROJECT)
+        this.current_node_dir = TestLog.getNodeDir(LogStage.CURRENT)
+        this.node_dir         = TestLog.getNodeDir(LogStage.PROJECT)
+
         this.filter_server    = env.get_filter_server()
         this.filter_metric    = env.get_filter_metric()
         this.parallel_degree  = env.get_parallel_degree()

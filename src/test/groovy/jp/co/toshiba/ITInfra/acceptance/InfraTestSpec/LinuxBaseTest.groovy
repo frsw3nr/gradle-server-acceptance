@@ -5,6 +5,8 @@ import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTemplate
 import jp.co.toshiba.ITInfra.acceptance.PlatformTester
+import jp.co.toshiba.ITInfra.acceptance.TestLog
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import spock.lang.Specification
 
 // gradle --daemon test --tests "LinuxBaseTest.Linux値検証 Kernel"
@@ -35,6 +37,8 @@ class LinuxBaseTest extends Specification {
             test_target  : test_target,
             dry_run      : true,
         )
+        def test_env = ConfigTestEnvironment.instance
+        test_env.accept(TestLog)
     }
 
     def "Linux テスト仕様のロード"() {

@@ -143,31 +143,31 @@ class InventoryDB {
             println "${row} rows"
     }
 
-    def copy_base_node_dir(String target) throws IOException {
-        def source_dir = new File("${this.base_node_dir}/${target}")
-        def target_dir = new File("${this.project_node_dir}/${target}")
-        if (source_dir.exists()) {
-            target_dir.mkdirs()
-            FileUtils.copyDirectory(source_dir, target_dir)
-        }
-    }
+    // def copy_base_node_dir(String target) throws IOException {
+    //     def source_dir = new File("${this.base_node_dir}/${target}")
+    //     def target_dir = new File("${this.project_node_dir}/${target}")
+    //     if (source_dir.exists()) {
+    //         target_dir.mkdirs()
+    //         FileUtils.copyDirectory(source_dir, target_dir)
+    //     }
+    // }
 
-    def copy_base_node_json_file(String target, String platform) throws IOException {
-        def json_file = "${target}__${platform}.json"
-        def source_json = new File("${this.base_node_dir}/${json_file}")
-        def target_json = new File("${this.project_node_dir}/${json_file}")
-        if (source_json.exists())
-            target_json << source_json.text
-    }
+    // def copy_base_node_json_file(String target, String platform) throws IOException {
+    //     def json_file = "${target}__${platform}.json"
+    //     def source_json = new File("${this.base_node_dir}/${json_file}")
+    //     def target_json = new File("${this.project_node_dir}/${json_file}")
+    //     if (source_json.exists())
+    //         target_json << source_json.text
+    // }
 
-    def copy_base_test_log_dir(String target, String platform) throws IOException {
-        def source_dir = new File("${this.base_test_log_dir}/${target}/${platform}")
-        def target_dir = new File("${this.project_test_log_dir}/${target}/${platform}")
-        if (source_dir.exists()) {
-            target_dir.mkdirs()
-            FileUtils.copyDirectory(source_dir, target_dir)
-        }
-    }
+    // def copy_base_test_log_dir(String target, String platform) throws IOException {
+    //     def source_dir = new File("${this.base_test_log_dir}/${target}/${platform}")
+    //     def target_dir = new File("${this.project_test_log_dir}/${target}/${platform}")
+    //     if (source_dir.exists()) {
+    //         target_dir.mkdirs()
+    //         FileUtils.copyDirectory(source_dir, target_dir)
+    //     }
+    // }
 
     def copy_compare_target_inventory_data(TestScenario test_scenario) {
         if (TestLog.directoryMatch(LogStage.BASE, LogStage.PROJECT))

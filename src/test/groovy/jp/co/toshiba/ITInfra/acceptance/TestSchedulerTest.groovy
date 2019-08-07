@@ -8,7 +8,7 @@ import jp.co.toshiba.ITInfra.acceptance.TestRunner
 import jp.co.toshiba.ITInfra.acceptance.TestScheduler
 import spock.lang.Specification
 
-// gradle --daemon test --tests "TestSchedulerTest.シナリオ結合 2"
+// gradle --daemon test --tests "TestSchedulerTest.初期化"
 
 class TestSchedulerTest extends Specification {
 
@@ -16,6 +16,7 @@ class TestSchedulerTest extends Specification {
     TestScenario test_scenario
     PlatformTester platform_tester
     ExcelParser excel_parser
+    ConfigTestEnvironment test_env
 
     def setup() {
         String[] args = [
@@ -24,7 +25,7 @@ class TestSchedulerTest extends Specification {
         ]
         test_runner = new TestRunner()
         test_runner.parse(args)
-        def test_env = ConfigTestEnvironment.instance
+        test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
 
         excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
@@ -40,6 +41,7 @@ class TestSchedulerTest extends Specification {
         def excel_file = 'src/test/resources/check_sheet.xlsx'
         def output_evidence = 'build/check_sheet.xlsx'
         def test_scheduler = new TestScheduler(excel_file : excel_file)
+        test_scheduler.set_environment(test_env)
         test_scheduler.init()
 
         then:

@@ -22,13 +22,20 @@ public enum LogStage {
 @ToString(includePackage = false)
 class TestLog {
 
-    String server_name
-    String platform
-    String base_test_log_dir
-    String project_test_log_dir
-    String current_test_log_dir
+    // String server_name
+    // String platform
+    // String base_test_log_dir
+    // String project_test_log_dir
+    // String current_test_log_dir
     static LinkedHashMap<LogStage,String> logDirs  = [:]
     static LinkedHashMap<LogStage,String> nodeDirs = [:]
+
+    static def rtrimLogDirs() {
+        [LogStage.BASE, LogStage.PROJECT, LogStage.CURRENT].each { logStage ->
+            logDirs[logStage] = logDirs[logStage].replaceAll(/[\/|\\]*$/, '') 
+            nodeDirs[logStage] = nodeDirs[logStage].replaceAll(/[\/|\\]*$/, '') 
+        }
+    }
 
     static def set_environment(ConfigTestEnvironment env) {
         this.logDirs << [
@@ -41,14 +48,17 @@ class TestLog {
             (LogStage.PROJECT) : env.get_project_node_dir(),
             (LogStage.CURRENT) : env.get_current_node_dir()
         ]
+        this.rtrimLogDirs()
     }
 
     static def setLogDirs(Map<LogStage,String> map) {
         this.logDirs << map
+        this.rtrimLogDirs()
     }
 
     static def setNodeDirs(Map<LogStage,String> map) {
         this.nodeDirs << map
+        this.rtrimLogDirs()
     }
 
     static String getLogDir(LogStage logStage) {
@@ -89,6 +99,10 @@ class TestLog {
         }
         return logPath
     }
+
+    static String getTargetLogDir(String target) {
+        return this.logDirs[LogStage.CURRENT] + '/' + target
+    } 
 
     static String getTargetPath(String target, String platform, 
                                 String metric = null, Boolean shared = false) {

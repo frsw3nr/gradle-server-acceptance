@@ -6,7 +6,6 @@ import org.apache.commons.lang.math.NumberUtils
 
 // import jp.co.toshiba.ITInfra.acceptance.*
 // import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
-// import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
 // gradle shadowJar
 // java -jar build/libs/gradle-server-acceptance-0.1.0-all.jar -a
 
