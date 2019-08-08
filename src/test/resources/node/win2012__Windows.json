@@ -1,11 +1,27 @@
 {
     "name": "win2012",
-    "ip": "192.168.0.24",
-    "template_id": "Windows",
+    "ip": "192.168.0.16",
+    "template_id": "Windows_sample",
     "compare_server": null,
-    "target_status": "RUN",
+    "target_status": "FINISH",
     "platforms": [
         "vCenter",
         "Windows"
-    ]
+    ],
+    "port_list": {
+        "192.168.0.24": {
+            "ip": "192.168.0.24",
+            "description": "e1iexpress",
+            "mac": null,
+            "vendor": null,
+            "switch_name": null,
+            "netmask": null,
+            "subnet": null,
+            "port_no": null,
+            "device_type": null,
+            "lookup": true,
+            "managed": null,
+            "port_type": null
+        }
+    }
 }

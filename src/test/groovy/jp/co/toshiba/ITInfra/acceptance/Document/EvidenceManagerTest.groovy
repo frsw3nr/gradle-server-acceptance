@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "EvidenceManagerTest.実行結果の登録"
+// gradle --daemon test --tests "EvidenceManagerTest.初期化"
 
 class EvidenceManagerTest extends Specification {
     TestScenario test_scenario
@@ -57,7 +57,7 @@ class EvidenceManagerTest extends Specification {
         then:
         def cmdb_model = CMDBModel.instance
         def node = cmdb_model.cmdb.rows("select * from nodes")
-        def result = cmdb_model.cmdb.rows("select * from test_results where node_id = 1")
+        def result = cmdb_model.cmdb.rows("select * from test_results")
         def metric = cmdb_model.cmdb.rows("select * from metrics")
         def json = new groovy.json.JsonBuilder()
         node[0]['node_name'].size() > 0
@@ -75,7 +75,7 @@ class EvidenceManagerTest extends Specification {
         then:
         def cmdb_model = CMDBModel.instance
         def node = cmdb_model.cmdb.rows("select * from nodes")
-        def result = cmdb_model.cmdb.rows("select * from test_results where node_id = 1")
+        def result = cmdb_model.cmdb.rows("select * from test_results")
         def metric = cmdb_model.cmdb.rows("select * from metrics")
         def json = new groovy.json.JsonBuilder()
         json(metric)

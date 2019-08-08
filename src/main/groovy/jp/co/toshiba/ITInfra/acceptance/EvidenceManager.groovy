@@ -1,65 +1,43 @@
 package jp.co.toshiba.ITInfra.acceptance
 
+import groovy.transform.CompileStatic
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
 
 import java.sql.SQLException
 
+@CompileStatic
 @Slf4j
 @ToString(includePackage = false)
 class EvidenceManager {
 
-    String current_node_dir
-    String project_node_dir
-    String base_node_dir
-    String current_test_log_dir
-    String project_test_log_dir
-    String base_test_log_dir
-
     def set_environment(ConfigTestEnvironment env) {
-        // this.current_node_dir     = env.get_current_node_dir()
-        // this.project_node_dir     = env.get_project_node_dir()
-        // this.base_node_dir        = env.get_base_node_dir()
-        // this.current_test_log_dir = env.get_current_test_log_dir()
-        // this.project_test_log_dir = env.get_project_test_log_dir()
-        // this.base_test_log_dir    = env.get_base_test_log_dir()
-        this.current_node_dir     = TestLog.getNodeDir(LogStage.CURRENT)
-        this.project_node_dir     = TestLog.getNodeDir(LogStage.PROJECT)
-        this.base_node_dir        = TestLog.getNodeDir(LogStage.BASE)
-        this.current_test_log_dir = TestLog.getLogDir(LogStage.CURRENT)
-        this.project_test_log_dir = TestLog.getLogDir(LogStage.PROJECT)
-        this.base_test_log_dir    = TestLog.getLogDir(LogStage.BASE)
     }
 
     def export_cmdb() throws IOException, SQLException {
         CMDBModel.instance.initialize()
-        CMDBModel.instance.export(new File(this.current_node_dir).getAbsolutePath())
+        CMDBModel.instance.export(new File(NodeFile.getLogDir(LogStage.CURRENT)).getAbsolutePath())
     }
 
     def export_cmdb_all() throws IOException, SQLException {
         CMDBModel.instance.initialize()
-        CMDBModel.instance.export(new File(this.project_node_dir).getAbsolutePath())
-    }
-
-    def copy_directory(String source_dir, String target_dir) throws IOException {
-        assert(source_dir)
-        assert(target_dir)
-        def target_path = new File(target_dir).getAbsolutePath()
-        FileUtils.copyDirectory(new File(source_dir), new File(target_path))
+        CMDBModel.instance.export(new File(NodeFile.getLogDir(LogStage.PROJECT)).getAbsolutePath())
     }
 
     def archive_json() {
-        copy_directory(this.current_node_dir, this.project_node_dir)
-        if (this.project_node_dir != this.base_node_dir)
-            copy_directory(this.current_node_dir, this.base_node_dir)
+        NodeFile.copyAll(LogStage.CURRENT, LogStage.PROJECT)
+        if (!NodeFile.matchDir(LogStage.PROJECT, LogStage.BASE)) {
+            NodeFile.copyAll(LogStage.CURRENT, LogStage.BASE)
+        }
     }
 
     def update_evidence_log() {
-        log.info "Copy test evidence to '${this.project_test_log_dir}'"
-        copy_directory(this.current_test_log_dir, this.project_test_log_dir)
-        if (this.project_test_log_dir != this.base_test_log_dir)
-            copy_directory(this.current_test_log_dir, this.base_test_log_dir)
+        log.info "Copy test evidence to '${LogFile.getLogDir(LogStage.PROJECT)}'"
+        LogFile.copyAll(LogStage.CURRENT, LogStage.PROJECT)
+        if (!LogFile.matchDir(LogStage.PROJECT, LogStage.BASE)) {
+            LogFile.copyAll(LogStage.CURRENT, LogStage.BASE)
+        }
     }
 
     def update(String export_type) {

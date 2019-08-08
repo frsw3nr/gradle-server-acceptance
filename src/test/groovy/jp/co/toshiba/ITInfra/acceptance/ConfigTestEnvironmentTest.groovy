@@ -1,5 +1,8 @@
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
-import jp.co.toshiba.ITInfra.acceptance.TestLog
+// import jp.co.toshiba.ITInfra.acceptance.TestLog
+import jp.co.toshiba.ITInfra.acceptance.LogFile
+import jp.co.toshiba.ITInfra.acceptance.NodeFile
+import jp.co.toshiba.ITInfra.acceptance.LogStage
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 // import jp.co.toshiba.ITInfra.acceptance.Model.TestRule
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
@@ -41,6 +44,16 @@ class ConfigTestEnvironmentTest extends Specification {
         )
     }
 
+    def "ログディレクトリセット"() {
+        when:
+        test_env.read_config(config_file)
+        test_env.set_account(test_platform)
+
+        then:
+        LogFile.defined(LogStage.PROJECT) == true
+        NodeFile.defined(LogStage.CURRENT) == true
+    }
+
     def "Linuxアカウントセット"() {
         when:
         test_env.read_config(config_file)
@@ -71,7 +84,7 @@ class ConfigTestEnvironmentTest extends Specification {
         test_env.read_config(config_file)
         // test_env.accept(test_platform)
         test_env.accept(test_platform)
-        test_env.accept(TestLog)
+        test_env.accept(LogFile)
         println "ENV:${test_platform.current_test_log_dir}"
         test_env.print_config()
 

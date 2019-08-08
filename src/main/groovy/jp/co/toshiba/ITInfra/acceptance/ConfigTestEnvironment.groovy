@@ -17,7 +17,8 @@ class ConfigTestEnvironment {
     def read_config(String config_file = 'config/config.groovy') {
         this.config_file = config_file
         this.config = Config.instance.read(config_file)
-        TestLog.set_environment(this)
+        setLogDirectory()
+        LogFile
     }
 
     def read_from_test_runner(TestRunner test_runner) {
@@ -38,7 +39,13 @@ class ConfigTestEnvironment {
                 return
             this.config."$name" = value
         }
-        TestLog.set_environment(this)
+        setLogDirectory()
+    }
+
+    def setLogDirectory() {
+        LogFile.set_environment(this)
+        NodeFile.set_environment(this)
+        // TestLog.set_environment(this)
     }
 
     def get_inventory_db_config(String cmdb_config_path = null) {

@@ -34,6 +34,9 @@ $log_path = Join-Path $log_dir "vm"
 Get-VM $vm | `
  select NumCpu, PowerState, MemoryGB, VMHost, @{N="Cluster";E={Get-Cluster -VM $_}} | `
  Format-List | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "vm_conf"
+Get-VMResourceConfiguration -VM $vm | `
+FL | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vmext"
 (Get-VM $vm | select ExtensionData).ExtensionData.config | `
  Select Name,CpuHotAddEnabled,MemoryReservationLockedToMax,MemoryHotAddEnabled | `
@@ -44,11 +47,8 @@ $log_path = Join-Path $log_dir "vm_storage"
  Get-Harddisk -VM $vm | `
  select Parent, Filename,CapacityGB, StorageFormat, DiskType | `
  Format-List | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "VMNetwork"
+$log_path = Join-Path $log_dir "vmnet"
 Get-NetworkAdapter -VM win2012 | FL | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "vm_conf"
-Get-VMResourceConfiguration -VM $vm | `
-FL | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "vmwaretool"
 Get-VM $vm | `
  Get-AdvancedSetting vmware.tools.internalversion,vmware.tools.requiredversion | `

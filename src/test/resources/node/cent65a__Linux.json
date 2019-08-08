@@ -1,17 +1,17 @@
 {
-    "name": "ostrich",
-    "ip": "192.168.10.1",
-    "template_id": null,
-    "compare_server": null,
+    "name": "cent65a",
+    "ip": "192.168.19.11",
+    "template_id": "RH6",
+    "compare_server": "cent61a",
     "target_status": "FINISH",
     "platforms": [
         "vCenter",
         "Linux"
     ],
     "port_list": {
-        "192.168.10.1": {
-            "ip": "192.168.10.1",
-            "description": "eth0",
+        "192.168.19.11": {
+            "ip": "192.168.19.11",
+            "description": "bond0",
             "mac": null,
             "vendor": null,
             "switch_name": null,
@@ -23,23 +23,9 @@
             "managed": null,
             "port_type": null
         },
-        "192.168.10.4": {
-            "ip": "192.168.10.4",
-            "description": "eth0:1",
-            "mac": null,
-            "vendor": null,
-            "switch_name": null,
-            "netmask": null,
-            "subnet": null,
-            "port_no": null,
-            "device_type": null,
-            "lookup": true,
-            "managed": null,
-            "port_type": null
-        },
-        "172.17.42.1": {
-            "ip": "172.17.42.1",
-            "description": "docker0",
+        "192.168.19.12": {
+            "ip": "192.168.19.12",
+            "description": "bond0:1",
             "mac": null,
             "vendor": null,
             "switch_name": null,

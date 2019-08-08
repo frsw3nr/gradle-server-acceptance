@@ -1,6 +1,8 @@
+import org.apache.commons.io.FileUtils
 import jp.co.toshiba.ITInfra.acceptance.InventoryDB
-import jp.co.toshiba.ITInfra.acceptance.TestLog
 import jp.co.toshiba.ITInfra.acceptance.LogStage
+import jp.co.toshiba.ITInfra.acceptance.LogFile
+import jp.co.toshiba.ITInfra.acceptance.NodeFile
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
@@ -22,47 +24,29 @@ class InventoryDBTest extends Specification {
     def setup() {
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')
-        // test_env.get_inventory_db_config('src/test/resources/config/cmdb.groovy')
-
         inventory_db = InventoryDB.instance
         test_env.accept(inventory_db)
-        reset_project_home(inventory_db, '/tmp/dummy_project')
+        test_env.accept(LogFile)
+        test_env.accept(NodeFile)
         create_dummy_project_dir('/tmp/dummy_project')
-
-        test_env.accept(TestLog)
-        TestLog.setLogDirs(
-            (LogStage.PROJECT) : '/tmp/dummy_project'
-        )
-        // inventory_db.initialize()
-        println "CMDB_MODEL:$inventory_db"
+        FileUtils.copyDirectory(new File('src/test/resources/node/'), new File('./node'))
     }
 
     def create_dummy_project_dir(String project_home) {
-        ['node', 'src/test/resources/log'].each { base_dir ->
-            def target_dir = new File("${project_home}/${base_dir}")
-            target_dir.mkdirs()
-        }
-    }
+        String logDir = "${project_home}/src/test/resources/log"
+        new File(logDir).mkdirs()
+        LogFile.setLogDirs((LogStage.PROJECT) : logDir)
 
-    def reset_project_home(InventoryDB inventory_db, String project_home) {
-        // inventory_db.project_node_dir = "${project_home}/node"
-        // inventory_db.project_test_log_dir = "${project_home}/src/test/resources/log"
+        String nodeDir = "${project_home}/node"
+        new File(nodeDir).mkdirs()
+        NodeFile.setLogDirs((LogStage.PROJECT) : nodeDir)
     }
 
     def "ノード定義のエクスポート"() {
         when:
         inventory_db.export()
-        // def node = inventory_db.rows("select * from nodes")
-        // def result = inventory_db.cmdb.rows("select * from test_results where node_id = 1")
-        // def metric = inventory_db.cmdb.rows("select * from metrics")
 
         then:
-        // def json = new groovy.json.JsonBuilder()
-        // json(node)
-        // println json.toPrettyString()
-        // node[0]['node_name'].size() > 0
-        // node[1]['node_name'].size() > 0
-        // result.size() > 0
         1 == 1
     }
 
@@ -72,26 +56,25 @@ class InventoryDBTest extends Specification {
         excel_parser.scan_sheet()
         def test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
-        TestLog.setNodeDirs(
-            (LogStage.PROJECT) : '/tmp/dummy_project'
-        )
 
         when:
         inventory_db.copy_compare_target_inventory_data(test_scenario)
 
         then:
-        1 == 1
+        new File('/tmp/dummy_project/src/test/resources/log/cent65a/Linux/cpu').exists()
+        new File('/tmp/dummy_project/node/cent65a/Linux.json').exists()
+        new File('/tmp/dummy_project/node/cent65a__Linux.json').exists()
     }
 
-    def "ノード定義ファイルの有無"() {
-        when:
-        def test1 = TestLog.getNodePath('ostrich', 'Linux')
-        def test2 = TestLog.getNodePath('hoge', 'Linux')
+    // def "ノード定義ファイルの有無"() {
+    //     when:
+        // def test1 = TestLog.getNodePath('ostrich', 'Linux')
+        // def test2 = TestLog.getNodePath('hoge', 'Linux')
 
-        then:
-        test1 != null
-        test2 == null
-    }
+    //     then:
+    //     test1 != null
+    //     test2 == null
+    // }
 
     // def 設定読み込み() {
     //     when:

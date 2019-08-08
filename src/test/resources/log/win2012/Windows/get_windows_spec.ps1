@@ -53,22 +53,6 @@ $log_path = Join-Path $log_dir "monitor"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WmiObject Win32_DesktopMonitor | FL `
 } | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "patch_lists"
-Invoke-Command -Session $session -ScriptBlock { `
-    wmic qfe `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "task_scheduler"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-ScheduledTask | `
- ? {$_.State -eq "Ready"} | `
- Get-ScheduledTaskInfo | `
- ? {$_.NextRunTime -ne $null}| `
- Format-List `
-} | Out-File $log_path -Encoding UTF8
-$log_path = Join-Path $log_dir "etc_hosts"
-Invoke-Command -Session $session -ScriptBlock { `
-    Get-Content "$($env:windir)\system32\Drivers\etc\hosts" `
-} | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "ie_version"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-ItemProperty "HKLM:SOFTWARE\Microsoft\Internet Explorer" `
@@ -173,6 +157,14 @@ foreach($userObj in $userObjList)
 }
 $result | Format-List `
 } | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "etc_hosts"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-Content "$($env:windir)\system32\Drivers\etc\hosts" `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "patch_lists"
+Invoke-Command -Session $session -ScriptBlock { `
+    wmic qfe `
+} | Out-File $log_path -Encoding UTF8
 $log_path = Join-Path $log_dir "service"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-Service | FL `
@@ -191,6 +183,14 @@ Get-ChildItem -Path( `
 $log_path = Join-Path $log_dir "feature"
 Invoke-Command -Session $session -ScriptBlock { `
     Get-WindowsFeature | ?{$_.InstallState -eq [Microsoft.Windows.ServerManager.Commands.InstallState]::Installed} | FL `
+} | Out-File $log_path -Encoding UTF8
+$log_path = Join-Path $log_dir "task_scheduler"
+Invoke-Command -Session $session -ScriptBlock { `
+    Get-ScheduledTask | `
+ ? {$_.State -eq "Ready"} | `
+ Get-ScheduledTaskInfo | `
+ ? {$_.NextRunTime -ne $null}| `
+ Format-List `
 } | Out-File $log_path -Encoding UTF8
 
 Remove-PSSession $session

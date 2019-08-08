@@ -41,10 +41,10 @@ class TestScheduler {
         // this.current_node_dir = env.get_current_node_dir()
         // this.node_dir         = env.get_node_dir()
 
-        this.base_node_dir    = TestLog.getNodeDir(LogStage.BASE)
-        this.project_node_dir = TestLog.getNodeDir(LogStage.PROJECT)
-        this.current_node_dir = TestLog.getNodeDir(LogStage.CURRENT)
-        this.node_dir         = TestLog.getNodeDir(LogStage.PROJECT)
+        this.base_node_dir    = NodeFile.getLogDir(LogStage.BASE)
+        this.project_node_dir = NodeFile.getLogDir(LogStage.PROJECT)
+        this.current_node_dir = NodeFile.getLogDir(LogStage.CURRENT)
+        this.node_dir         = NodeFile.getLogDir(LogStage.PROJECT)
 
         this.filter_server    = env.get_filter_server()
         this.filter_metric    = env.get_filter_metric()

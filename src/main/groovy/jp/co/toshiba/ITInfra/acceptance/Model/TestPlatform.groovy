@@ -5,7 +5,9 @@ import groovy.transform.CompileDynamic
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
-import jp.co.toshiba.ITInfra.acceptance.TestLog
+// import jp.co.toshiba.ITInfra.acceptance.TestLog
+import jp.co.toshiba.ITInfra.acceptance.LogFile
+import jp.co.toshiba.ITInfra.acceptance.NodeFile
 import jp.co.toshiba.ITInfra.acceptance.LogStage
 
 @CompileStatic
@@ -51,9 +53,10 @@ class TestPlatform extends SpecModel {
         this.timeout                = env.get_timeout(platform)
         this.debug                  = env.get_debug(platform)
 
-        this.project_test_log_dir   = TestLog.getLogDir(LogStage.PROJECT)
-        this.evidence_log_share_dir = TestLog.getLogDir(LogStage.CURRENT)
-        this.current_test_log_dir   = TestLog.getTargetLogDir(target_name)
+        this.project_test_log_dir   = LogFile.getLogDir(LogStage.PROJECT)
+        this.evidence_log_share_dir = LogFile.getLogDir(LogStage.CURRENT)
+        this.current_test_log_dir   = env.get_current_platform_test_log_dir(platform, target_name)
+        // TestLog.getTargetLogDir(target_name)
         
         def msg = "$target_name(DryRun=${this.dry_run})"
         log.debug "Set test $platform:$msg"

@@ -8,13 +8,13 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import org.apache.commons.io.FileUtils
 
-@CompileStatic
-@ToString(includePackage = false)
-public enum LogStage {
-    BASE,
-    PROJECT,
-    CURRENT
-}
+// @CompileStatic
+// @ToString(includePackage = false)
+// public enum LogStage {
+//     BASE,
+//     PROJECT,
+//     CURRENT
+// }
 
 @CompileStatic
 @Slf4j
