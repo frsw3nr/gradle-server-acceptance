@@ -87,6 +87,47 @@ class TestPlatform extends SpecModel {
             }
         }
     }
+
+    static def find(TestScenario test_scenario, Map opts = null) {
+        // LinkedHashMap<String, TestPlatform> test_platforms = new LinkedHashMap<>()
+        def targets = test_scenario.test_targets.get_all()
+        println targets
+        // targets.findAll { target_name, target -> 
+        //     println target_name
+        // }
+        // targets.each { target_name, domain_targets ->
+        //     println target_name
+        // }
+        // def targets = test_scenario.test_targets.get_all()
+        // targets.each { target, domain_targets ->
+        //     domain_targets.each { domain, test_target ->
+        //         println "TestPlatform: ${target},${domain}"
+        //         // test_target.test_platforms.each { platform, test_platform ->
+        //         //     println "TestPlatform: ${target},${domain},${platform}"
+        //         // }
+        //     }
+        // }
+        // return test_platforms
+    }
+
+    // static Map<String, TestPlatform> find(TestScenario test_scenario, Map opts = null) {
+    //     LinkedHashMap<String, TestPlatform> test_platforms = new LinkedHashMap<>()
+    //     def targets = test_scenario.test_targets.get_all()
+    //     println targets
+    //     targets.each { target_name, domain_targets ->
+    //         println target_name
+    //     }
+    //     // def targets = test_scenario.test_targets.get_all()
+    //     // targets.each { target, domain_targets ->
+    //     //     domain_targets.each { domain, test_target ->
+    //     //         println "TestPlatform: ${target},${domain}"
+    //     //         // test_target.test_platforms.each { platform, test_platform ->
+    //     //         //     println "TestPlatform: ${target},${domain},${platform}"
+    //     //         // }
+    //     //     }
+    //     // }
+    //     return test_platforms
+    // }
 }
 
 @Slf4j

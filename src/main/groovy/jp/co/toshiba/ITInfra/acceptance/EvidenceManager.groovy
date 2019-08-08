@@ -17,12 +17,14 @@ class EvidenceManager {
 
     def export_cmdb() throws IOException, SQLException {
         CMDBModel.instance.initialize()
-        CMDBModel.instance.export(new File(NodeFile.getLogDir(LogStage.CURRENT)).getAbsolutePath())
+        String export_dir = NodeFile.getLogDir(LogStage.CURRENT)
+        CMDBModel.instance.export(new File(export_dir).getAbsolutePath())
     }
 
     def export_cmdb_all() throws IOException, SQLException {
         CMDBModel.instance.initialize()
-        CMDBModel.instance.export(new File(NodeFile.getLogDir(LogStage.PROJECT)).getAbsolutePath())
+        String export_dir = NodeFile.getLogDir(LogStage.PROJECT)
+        CMDBModel.instance.export(new File(export_dir).getAbsolutePath())
     }
 
     def archive_json() {

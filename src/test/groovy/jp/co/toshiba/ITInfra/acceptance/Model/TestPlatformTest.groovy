@@ -5,7 +5,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import spock.lang.Specification
 
-// gradle --daemon test --tests "TestPlatformTest.テストプラットフォーム検索"
+// gradle --daemon test --tests "TestPlatformTest.リスト検索"
 
 class TestPlatformTest extends Specification {
     TestScenario test_scenario
@@ -34,6 +34,20 @@ class TestPlatformTest extends Specification {
         test_scenario.accept(excel_parser)
 
         then:
+        1 == 1
+    }
+
+    def "リスト検索"() {
+        when:
+        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
+        excel_parser.scan_sheet()
+        test_scenario = new TestScenario(name: 'root')
+        test_scenario.accept(excel_parser)
+
+        then:
+        def opts = [:]
+        Map test_platforms = TestPlatform.find(test_scenario)
+        println test_platforms
         1 == 1
     }
 

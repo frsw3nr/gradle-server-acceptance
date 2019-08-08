@@ -19,10 +19,15 @@ TODO:
           gradle --daemon test --tests "EvidenceManagerTest.実行結果の登録"
           DB登録処理でtest_resultsの結果が0件になる問題調査
         TestRunnerTestエラー調査
+    * InfraTestSpec 検査スクリプトログ管理見直し [ ]
+        * shared オプション追加 [ ]
+        * ログパラメータをLogFileクラスに変更 [ ]
+        * TestPlatform クラスログパラメータ精査 [ ]
 * モデルクラスの Composite モデルにストリーム処理追加 [ ]
     * Documentクラスアクセスパターン調査 [ ]
     * TestScenario, TestTarget, TestPlatfom の順アクセステストコード作成 [ ]
-        * TestPlatform.gets(filter_parameters) [ ]
+        * TestPlatform.find(filter_parameters) [ ]
+          gradle --daemon test --tests "TestPlatformTest.リスト検索"
     * TestSchenario クラスにストリーム処理追加 [ ]
     * Document クラス結合 [ ]
 * モデルクラスアクセサ追加 [ ]
