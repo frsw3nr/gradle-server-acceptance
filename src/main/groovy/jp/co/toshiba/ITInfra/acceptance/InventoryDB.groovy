@@ -5,6 +5,7 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import org.apache.commons.io.FileUtils
 
 import java.nio.file.Paths
@@ -97,24 +98,38 @@ class InventoryDB {
         if (LogFile.matchDir(LogStage.BASE, LogStage.PROJECT))
             return
         def domain_metrics = test_scenario.test_metrics.get_all()
-        def targets = test_scenario.test_targets.get_all()
-        targets.each { target, domain_targets ->
-            Boolean first_loop = true
-            domain_targets.each { domain, test_target ->
-                if (test_target.target_status == RunStatus.INIT &&
-                    test_target.comparision == true) {
-                    if (first_loop) {
-                        NodeFile.copyTargetJsons(target, LogStage.BASE, LogStage.PROJECT)
-                        first_loop = false
-                    }
-                    def platform_metrics = domain_metrics[domain].get_all()
-                    platform_metrics.each { platform, platform_metric ->
-                        NodeFile.copyPlatform(target, platform, LogStage.BASE, LogStage.PROJECT)
-                        LogFile.copyPlatform(target, platform, LogStage.BASE, LogStage.PROJECT)
-                    }
+        def test_targets = TestTarget.find(test_scenario, null, [RunStatus.INIT])
+        test_targets.each { test_target ->
+            if (test_target.comparision == true) {
+                def target = test_target.name
+                def domain = test_target.domain
+                NodeFile.copyTargetJsons(target, LogStage.BASE, LogStage.PROJECT)
+                def platform_metrics = domain_metrics[domain].get_all()
+                platform_metrics.each { platform, platform_metric ->
+                    NodeFile.copyPlatform(target, platform, LogStage.BASE, LogStage.PROJECT)
+                    LogFile.copyPlatform(target, platform, LogStage.BASE, LogStage.PROJECT)
                 }
             }
         }
+
+        // def targets = test_scenario.test_targets.get_all()
+        // targets.each { target, domain_targets ->
+        //     Boolean first_loop = true
+        //     domain_targets.each { domain, test_target ->
+        //         if (test_target.target_status == RunStatus.INIT &&
+        //             test_target.comparision == true) {
+        //             if (first_loop) {
+        //                 NodeFile.copyTargetJsons(target, LogStage.BASE, LogStage.PROJECT)
+        //                 first_loop = false
+        //             }
+        //             def platform_metrics = domain_metrics[domain].get_all()
+        //             platform_metrics.each { platform, platform_metric ->
+        //                 NodeFile.copyPlatform(target, platform, LogStage.BASE, LogStage.PROJECT)
+        //                 LogFile.copyPlatform(target, platform, LogStage.BASE, LogStage.PROJECT)
+        //             }
+        //         }
+        //     }
+        // }
 
     }
 

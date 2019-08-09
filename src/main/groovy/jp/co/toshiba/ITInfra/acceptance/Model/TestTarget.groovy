@@ -96,6 +96,36 @@ class TestTarget extends SpecModel {
         test_tag_target.test_platforms = test_platforms
         return test_tag_target
     }
+
+    static List<TestTarget> findBase(TestScenario test_scenario, String keyword = null, 
+                                     List<RunStatus> filter_status = null, Boolean exclude = false) {
+        List<TestTarget> test_targets = new ArrayList<>()
+        def targets = (keyword) ? test_scenario.test_targets.search_all(keyword) :  
+                                  test_scenario.test_targets.get_all()
+        targets.each { target, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                if (filter_status) {
+                    Boolean is_exists = (filter_status.contains(test_target.target_status))
+                    if ((exclude && is_exists) || (!(exclude) && !(is_exists))) {
+                        return
+                    }
+                } 
+                test_targets << test_target 
+            }
+        }
+        return test_targets
+    }
+
+    static List<TestTarget> findNotStatus(TestScenario test_scenario, String keyword = null, 
+                                          List<RunStatus> filter_status = null) {
+        return findBase(test_scenario, keyword, filter_status, true)
+    }
+
+    static List<TestTarget> find(TestScenario test_scenario, String keyword = null, 
+                                 List<RunStatus> filter_status = null) {
+        return findBase(test_scenario, keyword, filter_status, false)
+    }
+
 }
 
 @Slf4j

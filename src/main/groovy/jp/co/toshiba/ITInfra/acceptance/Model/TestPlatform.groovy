@@ -35,6 +35,18 @@ class TestPlatform extends SpecModel {
         visitor.visit_test_platform(this)
     }
 
+    String getDomain() {
+        return this.test_target?.domain
+    }
+
+    String getTarget() {
+        return this.test_target?.name
+    }
+
+    String getPlatform() {
+        return this.test_target?.name
+    }
+
     def count_test_result_status() {
         Map<String,Integer> counts = [:].withDefault{0}
         test_results.each { String name, TestResult test_result ->
@@ -88,46 +100,28 @@ class TestPlatform extends SpecModel {
         }
     }
 
-    static def find(TestScenario test_scenario, Map opts = null) {
-        // LinkedHashMap<String, TestPlatform> test_platforms = new LinkedHashMap<>()
-        def targets = test_scenario.test_targets.get_all()
-        println targets
-        // targets.findAll { target_name, target -> 
-        //     println target_name
-        // }
-        // targets.each { target_name, domain_targets ->
-        //     println target_name
-        // }
-        // def targets = test_scenario.test_targets.get_all()
-        // targets.each { target, domain_targets ->
-        //     domain_targets.each { domain, test_target ->
-        //         println "TestPlatform: ${target},${domain}"
-        //         // test_target.test_platforms.each { platform, test_platform ->
-        //         //     println "TestPlatform: ${target},${domain},${platform}"
-        //         // }
-        //     }
-        // }
-        // return test_platforms
+    @CompileDynamic
+    private static List<TestPlatform> findBase(TestScenario test_scenario, String keyword = null, 
+                                       List<RunStatus> filter_status = null, Boolean exclude = false) {
+        List<TestPlatform> test_platforms = new ArrayList<>()
+        List<TestTarget> test_targets = TestTarget.findBase(test_scenario, keyword, filter_status, exclude)
+        test_targets.each { test_target ->
+            test_target.test_platforms.each { platform, TestPlatform test_platform ->
+                test_platforms << test_platform
+            }
+        }
+        return test_platforms
     }
 
-    // static Map<String, TestPlatform> find(TestScenario test_scenario, Map opts = null) {
-    //     LinkedHashMap<String, TestPlatform> test_platforms = new LinkedHashMap<>()
-    //     def targets = test_scenario.test_targets.get_all()
-    //     println targets
-    //     targets.each { target_name, domain_targets ->
-    //         println target_name
-    //     }
-    //     // def targets = test_scenario.test_targets.get_all()
-    //     // targets.each { target, domain_targets ->
-    //     //     domain_targets.each { domain, test_target ->
-    //     //         println "TestPlatform: ${target},${domain}"
-    //     //         // test_target.test_platforms.each { platform, test_platform ->
-    //     //         //     println "TestPlatform: ${target},${domain},${platform}"
-    //     //         // }
-    //     //     }
-    //     // }
-    //     return test_platforms
-    // }
+    static List<TestPlatform> findNotStatus(TestScenario test_scenario, String keyword = null, 
+                                            List<RunStatus> filter_status = null) {
+        return findBase(test_scenario, keyword, filter_status, true)
+    }
+
+    static List<TestPlatform> find(TestScenario test_scenario, String keyword = null, 
+                                   List<RunStatus> filter_status = null) {
+        return findBase(test_scenario, keyword, filter_status, false)
+    }
 }
 
 @Slf4j
