@@ -97,15 +97,15 @@ class TestTarget extends SpecModel {
         return test_tag_target
     }
 
-    static List<TestTarget> findBase(TestScenario test_scenario, String keyword = null, 
-                                     List<RunStatus> filter_status = null, Boolean exclude = false) {
+    static List<TestTarget> search(TestScenario test_scenario, SpecModelQuery q = null) {
         List<TestTarget> test_targets = new ArrayList<>()
-        def targets = (keyword) ? test_scenario.test_targets.search_all(keyword) :  
-                                  test_scenario.test_targets.get_all()
+        def targets = (q?.target) ? test_scenario.test_targets.search_all(q?.target) :  
+                                    test_scenario.test_targets.get_all()
         targets.each { target, domain_targets ->
             domain_targets.each { domain, test_target ->
-                if (filter_status) {
-                    Boolean is_exists = (filter_status.contains(test_target.target_status))
+                if (q?.run_statuses) {
+                    Boolean is_exists = (q?.run_statuses.contains(test_target.target_status))
+                    Boolean exclude = q?.exclude_status ?: false
                     if ((exclude && is_exists) || (!(exclude) && !(is_exists))) {
                         return
                     }
@@ -115,17 +115,6 @@ class TestTarget extends SpecModel {
         }
         return test_targets
     }
-
-    static List<TestTarget> findNotStatus(TestScenario test_scenario, String keyword = null, 
-                                          List<RunStatus> filter_status = null) {
-        return findBase(test_scenario, keyword, filter_status, true)
-    }
-
-    static List<TestTarget> find(TestScenario test_scenario, String keyword = null, 
-                                 List<RunStatus> filter_status = null) {
-        return findBase(test_scenario, keyword, filter_status, false)
-    }
-
 }
 
 @Slf4j

@@ -194,33 +194,54 @@ public class ReportMaker {
         // this.convert_test_item()
         log.info "Read results : ${this.project_node_dir}"
         def test_reports = test_scenario.test_reports.get_all()
-        def domain_targets = test_scenario.get_domain_targets()
 
-        domain_targets.each { domain, domain_target ->
-            domain_target.each { target, test_target ->
-                // println "VISIT ReportMaker:$domain, $target, ${test_target.target_status}"
-                if (test_target.target_status == RunStatus.TAGGING)
-                    return
-
-                // if (test_target.target_status == RunStatus.INIT ||
-                //     test_target.target_status == RunStatus.READY)
-                //     return
-                // println "PORT_LIST: ${test_target.port_list}"
-                if (test_target.port_list) {
-                    add_redmine_port_list(target, test_target.port_list)
-                }
-                test_reports.each {report_name, test_report ->
-                    def test_result = get_test_result(test_report, test_target)
-                    // println "TEST_RESULT:$report_name, $test_result.value"
-                    add_summary_result(target, report_name, test_result)
-                    // def redmine_ticket = test_report.redmine_ticket_field
-                    // println "REDMINE_TICKET:$redmine_ticket"
-                    if (test_report.redmine_ticket_field) {
-                        add_redmine_result(target, test_report, test_result)
-                    }
+        def query = new SpecModelQueryBuilder()
+                        .run_statuses([RunStatus.TAGGING])
+                        .exclude_status(true)
+                        .build()
+        List<TestTarget> test_targets = TestTarget.search(test_scenario, query)
+        test_targets.each { test_target ->
+            def domain = test_target.domain
+            def target = test_target.name
+            if (test_target.port_list) {
+                add_redmine_port_list(target, test_target.port_list)
+            }
+            test_reports.each {report_name, test_report ->
+                def test_result = get_test_result(test_report, test_target)
+                // println "TEST_RESULT:$report_name, $test_result.value"
+                add_summary_result(target, report_name, test_result)
+                // def redmine_ticket = test_report.redmine_ticket_field
+                // println "REDMINE_TICKET:$redmine_ticket"
+                if (test_report.redmine_ticket_field) {
+                    add_redmine_result(target, test_report, test_result)
                 }
             }
         }
+        // domain_targets.each { domain, domain_target ->
+        //     domain_target.each { target, test_target ->
+        //         // println "VISIT ReportMaker:$domain, $target, ${test_target.target_status}"
+        //         if (test_target.target_status == RunStatus.TAGGING)
+        //             return
+
+        //         // if (test_target.target_status == RunStatus.INIT ||
+        //         //     test_target.target_status == RunStatus.READY)
+        //         //     return
+        //         // println "PORT_LIST: ${test_target.port_list}"
+        //         if (test_target.port_list) {
+        //             add_redmine_port_list(target, test_target.port_list)
+        //         }
+        //         test_reports.each {report_name, test_report ->
+        //             def test_result = get_test_result(test_report, test_target)
+        //             // println "TEST_RESULT:$report_name, $test_result.value"
+        //             add_summary_result(target, report_name, test_result)
+        //             // def redmine_ticket = test_report.redmine_ticket_field
+        //             // println "REDMINE_TICKET:$redmine_ticket"
+        //             if (test_report.redmine_ticket_field) {
+        //                 add_redmine_result(target, test_report, test_result)
+        //             }
+        //         }
+        //     }
+        // }
         // println "REDMINE_TICKET: ${this.redmine_ticket}"
         this.extract_error_test(test_scenario)
         long elapse = System.currentTimeMillis() - start

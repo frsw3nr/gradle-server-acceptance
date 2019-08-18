@@ -2,6 +2,8 @@ import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import spock.lang.Specification
@@ -25,8 +27,10 @@ class EvidenceMakerTest extends Specification {
 
         def test_result_reader = new TestResultReader(node_dir: result_dir)
         test_result_reader. read_entire_result(test_scenario)
-        println "TEST_SCENARIO:$test_scenario"
-        // evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
+
+        // target_status が FINISHか、COMPARED にならないとエビデンスを作成しない
+        // ため、全検査対象をFINISHにリセット
+        TestTarget.search(test_scenario).each { it.target_status = RunStatus.FINISH }
         evidence_maker = new EvidenceMaker()
     }
 
@@ -35,14 +39,10 @@ class EvidenceMakerTest extends Specification {
         test_scenario.accept(evidence_maker)
 
         then:
-        1 == 1
         def summary_sheet = evidence_maker.summary_sheets['Linux']
-        // println "SUMMARY_SHEET: ${summary_sheet}"
-        // target_status が FINISHか、COMPARED にならないとエビデンスを作成しないため、
-        // null 結果が正しい
-        // summary_sheet.rows.size() > 0
-        // summary_sheet.cols.size() > 0
-        // summary_sheet.results['vCenter']['NumCpu']['ostrich'] != null
+        summary_sheet.rows.size() > 0
+        def cols = summary_sheet.cols.keySet().collect { "${it}" }
+        cols == ["ostrich", "cent7", "cent7g"]
     }
 
     def "Excel 出力"() {

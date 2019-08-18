@@ -44,7 +44,7 @@ class TestPlatform extends SpecModel {
     }
 
     String getPlatform() {
-        return this.test_target?.name
+        return this.name
     }
 
     def count_test_result_status() {
@@ -118,9 +118,24 @@ class TestPlatform extends SpecModel {
         return findBase(test_scenario, keyword, filter_status, true)
     }
 
-    static List<TestPlatform> find(TestScenario test_scenario, String keyword = null, 
-                                   List<RunStatus> filter_status = null) {
-        return findBase(test_scenario, keyword, filter_status, false)
+    // static List<TestPlatform> find(TestScenario test_scenario, String keyword = null, 
+    //                                List<RunStatus> filter_status = null) {
+    //     return findBase(test_scenario, keyword, filter_status, false)
+    // }
+
+    @CompileDynamic
+    static List<TestPlatform> search(TestScenario test_scenario, SpecModelQuery q = null) {
+        List<TestPlatform> test_platforms = new ArrayList<>()
+        List<TestTarget> test_targets = TestTarget.search(test_scenario, q)
+        test_targets.each { test_target ->
+            test_target.test_platforms.each { platform, TestPlatform test_platform ->
+                if (q?.platform && platform.indexOf(q?.platform) == -1) {
+                    return
+                }
+                test_platforms << test_platform
+            }
+        }
+        return test_platforms
     }
 }
 

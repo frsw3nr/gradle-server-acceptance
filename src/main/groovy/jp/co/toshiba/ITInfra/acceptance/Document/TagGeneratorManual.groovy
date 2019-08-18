@@ -100,7 +100,10 @@ class TagGeneratorManual {
     }
 
     def visit_test_scenario(TestScenario test_scenario) {
+        println "TEST1"
         this.make_domain_display_order(test_scenario)
+        println "TEST2"
         this.make_target_tag(test_scenario)
+        println "TEST3"
     }
 }

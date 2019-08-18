@@ -2,6 +2,7 @@ package jp.co.toshiba.ITInfra.acceptance.Document
 
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.SpecModelQueryBuilder
 import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
@@ -134,6 +135,20 @@ class DataComparator {
     }
 
     def visit_test_scenario(TestScenario test_scenario) {
+        // List<TestTarget> test_targets = TestTarget.search(test_scenario)
+        // test_targets.each { test_target ->
+        //     def compare_server = test_target.compare_server
+        //     if (!compare_server)
+        //         return
+        //     def compare_target = test_scenario.test_targets.get(compare_server,
+        //                                                         test_target.domain)
+        //     if (!compare_target) {
+        //         def msg = "Compare server not found : ${compare_server}"
+        //         throw new IllegalArgumentException(msg)
+        //     }
+        //     this.compare_server(test_target, compare_target)
+        // }
+
         def targets = test_scenario.test_targets.get_all()
         targets.each { target_name, domain_targets ->
             domain_targets.each { domain, test_target ->

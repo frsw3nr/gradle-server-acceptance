@@ -46,7 +46,7 @@ class TestPlatformTest extends Specification {
 
         then:
         def opts = [:]
-        Map test_platforms = TestPlatform.find(test_scenario)
+        def test_platforms = TestPlatform.search(test_scenario)
         println test_platforms
         1 == 1
     }

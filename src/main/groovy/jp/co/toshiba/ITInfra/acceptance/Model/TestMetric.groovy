@@ -30,6 +30,12 @@ class TestMetric extends SpecModel {
             platform,
         ]
     }
+
+//    static List<TestMetric> search(TestScenario test_scenario, String domain = null) {
+   static def search(TestScenario test_scenario, String domain) {
+        def domain_metrics = test_scenario.test_metrics.get_all()
+        return domain_metrics[domain].get_all()
+   }
 }
 
 @Slf4j

@@ -37,11 +37,16 @@ class ReportMakerTest extends Specification {
         test_scenario.accept(report_maker)
 
         then:
-        def json = new groovy.json.JsonBuilder()
-        json(report_maker.redmine_ticket)
-        println json.toPrettyString()
-
-        1 == 1
+        // def json = new groovy.json.JsonBuilder()
+        // json(report_maker.redmine_ticket)
+        // println json.toPrettyString()
+        // ToDo : static ゲッターメソッドに変更
+        // RedmineTicket.getTicketDict(report_maker)
+        report_maker.redmine_ticket.ticket_dict.size() > 0
+        report_maker.redmine_ticket.port_list_dict.size() > 0
+        report_maker.report_sheet.rows.size() > 0
+        report_maker.report_sheet.cols.size() > 0
+        report_maker.report_sheet.results.size() > 0
     }
 
     def "プラットフォーム検索"() {

@@ -98,8 +98,11 @@ class InventoryDB {
         if (LogFile.matchDir(LogStage.BASE, LogStage.PROJECT))
             return
         def domain_metrics = test_scenario.test_metrics.get_all()
-        def test_targets = TestTarget.find(test_scenario, null, [RunStatus.INIT])
+        List<TestTarget> test_targets = TestTarget.search(test_scenario)
+        // def test_targets = TestTarget.find(test_scenario, null, [RunStatus.INIT])
         test_targets.each { test_target ->
+            if (test_target.target_status != RunStatus.INIT)
+                return
             if (test_target.comparision == true) {
                 def target = test_target.name
                 def domain = test_target.domain

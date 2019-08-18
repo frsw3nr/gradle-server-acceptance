@@ -1,11 +1,9 @@
 package jp.co.toshiba.ITInfra.acceptance
 
-
 import groovy.util.logging.Slf4j
 import groovyx.gpars.GParsPool
 import jp.co.toshiba.ITInfra.acceptance.Document.*
 import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
-import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jsr166y.ForkJoinPool
@@ -106,48 +104,52 @@ class TestScheduler {
 
     def make_test_platform_tasks(test_scenario) {
         def domain_metrics = test_scenario.test_metrics.get_all()
-        def test_targets = TestTarget.findNotStatus(test_scenario, this.filter_server, [RunStatus.INIT])
-        test_scenario.test_targets.search_all(this.filter_server)
-        test_targets.each { test_target ->
-            def domain = test_target.domain
-            def target_name = test_target.name
-            def platform_metrics = domain_metrics[domain].get_all()
-            platform_metrics.each { platform, platform_metric ->
-                def metrics = platform_metric.search_all(this.filter_metric, this.snapshot_level)
-                if (metrics.size() == 0)
-                    return
-                def test_platform = new TestPlatform(name         : platform,
-                                                     test_target  : test_target,
-                                                     test_metrics : metrics)
-                test_target.test_platforms[platform] = test_platform
-                test_target.target_status = RunStatus.RUN
-                this.test_platform_tasks[platform][target_name] = test_platform
-            }
-        }
-
-        // def targets = test_scenario.test_targets.search_all(this.filter_server)
-        // // def rules = test_scenario.test_rules.get_all()
-
-        // targets.find { target_name, domain_targets ->
-        //     domain_targets.each { domain, test_target ->
-        //         if (test_target.target_status == RunStatus.INIT)
+        // def query = new SpecModelQueryBuilder().target(this.filter_server)
+        //                                        .run_statuses([RunStatus.INIT])
+        //                                        .exclude_status(true)
+        //                                        .build()
+        // def test_targets = TestTarget.search(test_scenario, query)
+        // // test_scenario.test_targets.search_all(this.filter_server)
+        // test_targets.each { test_target ->
+        //     def domain = test_target.domain
+        //     def target_name = test_target.name
+        //     def platform_metrics = domain_metrics[domain].get_all()
+        //     platform_metrics.each { platform, platform_metric ->
+        //         def metrics = platform_metric.search_all(this.filter_metric, this.snapshot_level)
+        //         if (metrics.size() == 0)
         //             return
-        //         def platform_metrics = domain_metrics[domain].get_all()
-        //         platform_metrics.each { platform, platform_metric ->
-        //             def metrics = platform_metric.search_all(this.filter_metric, this.snapshot_level)
-        //             if (metrics.size() == 0)
-        //                 return
-        //             // def test_rule = rules[test_target.verify_id]
-        //             def test_platform = new TestPlatform(name         : platform,
-        //                                                  test_target  : test_target,
-        //                                                  test_metrics : metrics)
-        //             test_target.test_platforms[platform] = test_platform
-        //             test_target.target_status = RunStatus.RUN
-        //             this.test_platform_tasks[platform][target_name] = test_platform
-        //         }
+        //         def test_platform = new TestPlatform(name         : platform,
+        //                                              test_target  : test_target,
+        //                                              test_metrics : metrics)
+        //         test_target.test_platforms[platform] = test_platform
+        //         test_target.target_status = RunStatus.RUN
+        //         this.test_platform_tasks[platform][target_name] = test_platform
         //     }
-        //     return
         // }
+
+        def targets = test_scenario.test_targets.search_all(this.filter_server)
+        // def rules = test_scenario.test_rules.get_all()
+
+        targets.find { target_name, domain_targets ->
+            domain_targets.each { domain, test_target ->
+                if (test_target.target_status == RunStatus.INIT)
+                    return
+                def platform_metrics = domain_metrics[domain].get_all()
+                platform_metrics.each { platform, platform_metric ->
+                    def metrics = platform_metric.search_all(this.filter_metric, this.snapshot_level)
+                    if (metrics.size() == 0)
+                        return
+                    // def test_rule = rules[test_target.verify_id]
+                    def test_platform = new TestPlatform(name         : platform,
+                                                         test_target  : test_target,
+                                                         test_metrics : metrics)
+                    test_target.test_platforms[platform] = test_platform
+                    test_target.target_status = RunStatus.RUN
+                    this.test_platform_tasks[platform][target_name] = test_platform
+                }
+            }
+            return
+        }
         return this.test_platform_tasks
     }
 
