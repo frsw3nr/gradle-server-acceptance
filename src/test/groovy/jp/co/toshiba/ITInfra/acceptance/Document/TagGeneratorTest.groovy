@@ -33,32 +33,26 @@ class TagGeneratorTest extends Specification {
 
     def 結果の比較() {
         when:
-        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/node')
         test_result_reader.read_entire_result(test_scenario)
-        def data_comparator = new TagGenerator()
-        test_scenario.accept(data_comparator)
+        def tag_generator = new TagGenerator()
+        tag_generator.cluster_size = 2
+        test_scenario.accept(tag_generator)
 
         then:
-        def comparitions = [:].withDefault{0}
-        def targets = test_scenario.test_targets.get_all()
-        targets.each { target_name, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                test_target.test_platforms.each { platform_name, test_platform ->
-                    test_platform.test_results.each { metric_name, test_result ->
-                        comparitions[test_result.comparision] ++
-                    }
-                }
+        tag_generator.domain_clusters['Linux'].index_rows.size() > 0
+        def count = 0
+        test_scenario.test_targets.get_keys().each {
+            (it =~ /TAG:/).each {
+                count ++
             }
         }
-        1 == 1
-        println "comparitions: ${comparitions}"
-        // comparitions[ResultStatus.MATCH] > 0
-        // comparitions[ResultStatus.UNMATCH] > 0
+        count > 0
     }
 
     def 比較結果のExcel更新() {
         when:
-        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/node')
         test_result_reader.read_entire_result(test_scenario)
         // def cent7g = test_scenario?.test_targets?.get('cent7g', 'Linux')
         // cent7g.target_status = RunStatus.FINISH
@@ -68,6 +62,7 @@ class TagGeneratorTest extends Specification {
         test_scenario?.test_targets?.get('ostrich', 'Linux').target_status = fin
         // println "CENT7G :${cent7g}"
         def tag_generator = new TagGenerator(cluster_size: 1)
+        tag_generator.cluster_size = 2
         test_scenario.accept(tag_generator)
         def data_comparator = new DataComparator()
         test_scenario.accept(data_comparator)

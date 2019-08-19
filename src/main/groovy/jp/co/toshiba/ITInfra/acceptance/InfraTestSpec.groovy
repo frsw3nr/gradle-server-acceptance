@@ -43,7 +43,8 @@ class InfraTestSpec {
         this.domain               = test_platform?.test_target?.domain
         this.title                = domain + '(' + server_name + ')'
         this.current_test_log_dir = test_platform.current_test_log_dir
-        this.local_dir            = "${current_test_log_dir}/${platform}"
+        // this.local_dir            = "${current_test_log_dir}/${platform}"
+        this.local_dir            = test_platform.local_dir
         this.dry_run              = test_platform.dry_run
         this.verify_test          = test_platform.verify_test
         this.project_test_log_dir = test_platform.project_test_log_dir

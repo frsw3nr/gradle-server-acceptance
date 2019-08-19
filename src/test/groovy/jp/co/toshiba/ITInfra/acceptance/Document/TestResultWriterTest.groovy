@@ -51,6 +51,9 @@ class TestResultWriterTest extends Specification {
 
         then:
         1 == 1
+        new File("./build/evidence/ostrich").exists()
+        new File("./build/evidence/ostrich/Linux.json").exists()
+        new File("./build/evidence/ostrich/vCenter.json").exists()
     }
 
     def "比較対象の DryRun 実行とJSON結果保存"() {

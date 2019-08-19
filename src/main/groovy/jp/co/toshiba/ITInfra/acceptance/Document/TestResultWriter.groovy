@@ -3,6 +3,7 @@ package jp.co.toshiba.ITInfra.acceptance.Document
 import groovy.json.JsonOutput
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
+import jp.co.toshiba.ITInfra.acceptance.Model.SpecModelQueryBuilder
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestResult
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
@@ -75,38 +76,63 @@ class TestResultWriter {
     }
 
     def write_entire_scenario(test_scenario) {
-        def targets = test_scenario.test_targets.get_all()
-
-        targets.each { target, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                if (test_target.target_status == RunStatus.INIT ||
-                    test_target.target_status == RunStatus.READY ||
-                    test_target.target_status == RunStatus.TAGGING)
-                    return
-
-                this.write_test_target(target, test_target)
-                test_target.test_platforms.each { platform, test_platform ->
-                    this.write_test_platform(target, platform, test_platform)
-                }
+        def query = new SpecModelQueryBuilder()
+                        .run_statuses([RunStatus.INIT, RunStatus.READY, RunStatus.TAGGING])
+                        .exclude_status(true)
+                        .build()
+        List<TestTarget> test_targets = TestTarget.search(test_scenario, query)
+        test_targets.each { test_target ->
+            def target = test_target.name
+            this.write_test_target(target, test_target)
+            test_target.test_platforms.each { platform, test_platform ->
+                this.write_test_platform(target, platform, test_platform)
             }
         }
+
+        // def targets = test_scenario.test_targets.get_all()
+
+        // targets.each { target, domain_targets ->
+        //     domain_targets.each { domain, test_target ->
+        //         if (test_target.target_status == RunStatus.INIT ||
+        //             test_target.target_status == RunStatus.READY ||
+        //             test_target.target_status == RunStatus.TAGGING)
+        //             return
+
+        //         this.write_test_target(target, test_target)
+        //         test_target.test_platforms.each { platform, test_platform ->
+        //             this.write_test_platform(target, platform, test_platform)
+        //         }
+        //     }
+        // }
     }
 
     def write(test_scenario) {
-        def targets = test_scenario.test_targets.get_all()
-
-        targets.each { target, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                if (test_target.target_status == RunStatus.INIT ||
-                    test_target.target_status == RunStatus.READY ||
-                    test_target.target_status == RunStatus.TAGGING)
-                    return
-
-                test_target.test_platforms.each { platform, test_platform ->
-                    this.write_test_platform(target, platform, test_platform)
-                }
+        def query = new SpecModelQueryBuilder()
+                        .run_statuses([RunStatus.INIT, RunStatus.READY, RunStatus.TAGGING])
+                        .exclude_status(true)
+                        .build()
+        List<TestTarget> test_targets = TestTarget.search(test_scenario, query)
+        test_targets.each { test_target ->
+            def target = test_target.name
+            test_target.test_platforms.each { platform, test_platform ->
+                this.write_test_platform(target, platform, test_platform)
             }
         }
+
+        // def targets = test_scenario.test_targets.get_all()
+
+        // targets.each { target, domain_targets ->
+        //     domain_targets.each { domain, test_target ->
+        //         if (test_target.target_status == RunStatus.INIT ||
+        //             test_target.target_status == RunStatus.READY ||
+        //             test_target.target_status == RunStatus.TAGGING)
+        //             return
+
+        //         test_target.test_platforms.each { platform, test_platform ->
+        //             this.write_test_platform(target, platform, test_platform)
+        //         }
+        //     }
+        // }
     }
 
 

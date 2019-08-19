@@ -1,9 +1,12 @@
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Document.*
+import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
+import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.TestScheduler
 import spock.lang.Specification
 
-// gradle --daemon test --tests "DataComparatorTest.比較結果のExcel更新"
+// gradle --daemon test --tests "DataComparatorTest.結果の比較"
 
 class DataComparatorTest extends Specification {
     TestScenario test_scenario
@@ -15,6 +18,8 @@ class DataComparatorTest extends Specification {
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'root')
         test_scenario.accept(excel_parser)
+        def test_scheduler = new TestScheduler()
+        test_scheduler.make_test_platform_tasks(test_scenario)
 
         test_env = ConfigTestEnvironment.instance
         test_env.read_config('src/test/resources/config.groovy')
@@ -33,7 +38,9 @@ class DataComparatorTest extends Specification {
 
     def 結果の比較() {
         when:
-        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        // src/test/resources/log/cent65a
+        // src/test/resources/node/cent65a
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/node')
         test_result_reader.read_entire_result(test_scenario)
         def data_comparator = new DataComparator()
         test_scenario.accept(data_comparator)
@@ -45,20 +52,22 @@ class DataComparatorTest extends Specification {
             domain_targets.each { domain, test_target ->
                 test_target.test_platforms.each { platform_name, test_platform ->
                     test_platform.test_results.each { metric_name, test_result ->
-                        comparitions[test_result.comparision] ++
+                        ResultStatus comparision = test_result.comparision
+                        // comparitions[test_result.comparision] ++
+                        comparitions[comparision] ++
                     }
                 }
             }
         }
         1 == 1
         println "comparitions: ${comparitions}"
-        // comparitions[ResultStatus.MATCH] > 0
-        // comparitions[ResultStatus.UNMATCH] > 0
+        comparitions[ResultStatus.MATCH] > 0
+        comparitions[ResultStatus.UNMATCH] > 0
     }
 
     def 比較結果のExcel更新() {
         when:
-        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/node')
         test_result_reader.read_entire_result(test_scenario)
         def data_comparator = new DataComparator()
         test_scenario.accept(data_comparator)

@@ -8,13 +8,13 @@ import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import spock.lang.Specification
 
-// gradle --daemon test --tests "EvidenceMakerTest.セル配色"
+// gradle --daemon test --tests "EvidenceMakerTest.実行結果変換"
 
 class EvidenceMakerTest extends Specification {
 
     def config_file = 'src/test/resources/config.groovy'
     def excel_file = 'src/test/resources/check_sheet.xlsx'
-    def result_dir = 'src/test/resources/json'
+    def result_dir = 'src/test/resources/node'
     def excel_parser
     def test_scenario
     def evidence_maker
@@ -27,11 +27,10 @@ class EvidenceMakerTest extends Specification {
 
         def test_result_reader = new TestResultReader(node_dir: result_dir)
         test_result_reader. read_entire_result(test_scenario)
-
-        // target_status が FINISHか、COMPARED にならないとエビデンスを作成しない
-        // ため、全検査対象をFINISHにリセット
-        TestTarget.search(test_scenario).each { it.target_status = RunStatus.FINISH }
+        println "TEST_SCENARIO:$test_scenario"
+        // evidence_maker = new EvidenceMaker(excel_parser: excel_parser)
         evidence_maker = new EvidenceMaker()
+        TestTarget.search(test_scenario).each { it.target_status = RunStatus.FINISH }
     }
 
     def "実行結果変換"() {
@@ -39,10 +38,14 @@ class EvidenceMakerTest extends Specification {
         test_scenario.accept(evidence_maker)
 
         then:
+        1 == 1
         def summary_sheet = evidence_maker.summary_sheets['Linux']
+        println "SUMMARY_SHEET ROWS: ${summary_sheet.rows.size()}"
         summary_sheet.rows.size() > 0
-        def cols = summary_sheet.cols.keySet().collect { "${it}" }
-        cols == ["ostrich", "cent7", "cent7g"]
+        def col_keys = summary_sheet.cols.keySet().collect { "$it" }
+        col_keys == ['ostrich', 'cent7', 'cent7g', 'cent65a'] 
+        def result = summary_sheet.results['vCenter']['vm.name']['ostrich']
+        result.value == 'ostrich'
     }
 
     def "Excel 出力"() {

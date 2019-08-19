@@ -1,14 +1,24 @@
 import com.gh.mygreen.xlsmapper.*
 import com.gh.mygreen.xlsmapper.annotation.*
+import jp.co.toshiba.ITInfra.acceptance.TestScheduler
 import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import spock.lang.Specification
 
 // gradle --daemon test --tests "TestPlatformTest.リスト検索"
 
 class TestPlatformTest extends Specification {
+    TestScheduler test_scheduler = new TestScheduler()
     TestScenario test_scenario
+    ConfigTestEnvironment test_env
+
+    def setup() {
+        test_env = ConfigTestEnvironment.instance
+        test_env.read_config('src/test/resources/config.groovy')
+    }
 
     def "初期化"() {
         setup:
@@ -26,29 +36,19 @@ class TestPlatformTest extends Specification {
         [d3.name, d3.enabled] == ['Windows', null]
     }
 
-    def "チェックシート読み込み"() {
+    def "設定ファイル読み込み"() {
         when:
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-        excel_parser.scan_sheet()
-        test_scenario = new TestScenario(name: 'OS情報採取')
-        test_scenario.accept(excel_parser)
+        TestTarget test_target = new TestTarget(name: 'ostrich', domain: 'Linux')
+        TestPlatform test_platform = new TestPlatform(name: 'Linux', 
+                                                      test_target: test_target,
+                                                      enabled: false)
+        test_env.accept(test_platform)
 
         then:
-        1 == 1
-    }
-
-    def "リスト検索"() {
-        when:
-        def excel_parser = new ExcelParser('src/test/resources/check_sheet.xlsx')
-        excel_parser.scan_sheet()
-        test_scenario = new TestScenario(name: 'root')
-        test_scenario.accept(excel_parser)
-
-        then:
-        def opts = [:]
-        def test_platforms = TestPlatform.search(test_scenario)
-        println test_platforms
-        1 == 1
+        test_platform.project_test_log_dir   == './src/test/resources/log'
+        test_platform.evidence_log_share_dir == './build/log'
+        test_platform.current_test_log_dir   == './build/log/ostrich'
+        test_platform.local_dir              == './build/log/ostrich/Linux'
     }
 
     def "テストプラットフォーム検索"() {
@@ -57,10 +57,13 @@ class TestPlatformTest extends Specification {
         excel_parser.scan_sheet()
         test_scenario = new TestScenario(name: 'OS情報採取')
         test_scenario.accept(excel_parser)
-        then:
+        test_scheduler.make_test_platform_tasks(test_scenario)
         def test_platform = test_scenario.get_test_platform('ostrich', 'Linux')
-        println test_platform
-        1 == 1
+
+        then:
+        test_platform.getDomain()   == 'Linux'
+        test_platform.getTarget()   == 'ostrich'
+        test_platform.getPlatform() == 'Linux'
     }
 
     def "検査対象コピー"() {

@@ -34,28 +34,14 @@ class TagGeneratorManualTest extends Specification {
 
     def 結果の比較() {
         when:
-        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/node')
         test_result_reader.read_entire_result(test_scenario)
         def tag_generator = new TagGeneratorManual()
         test_scenario.accept(tag_generator)
 
         then:
-        def comparitions = [:].withDefault{0}
-        def targets = test_scenario.test_targets.get_all()
-        targets.each { target_name, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                println "TAG:$domain, $target_name, ${test_target.tag}"
-                test_target.test_platforms.each { platform_name, test_platform ->
-                    test_platform.test_results.each { metric_name, test_result ->
-                        comparitions[test_result.comparision] ++
-                    }
-                }
-            }
-        }
-        1 == 1
-        println "comparitions: ${comparitions}"
-        // comparitions[ResultStatus.MATCH] > 0
-        // comparitions[ResultStatus.UNMATCH] > 0
+        def targets = test_scenario.test_targets.get_keys().collect {"$it"}
+        targets == ['cent7', 'cent7g', 'TAG:cent7', 'ostrich', 'win2012']
     }
 
     def カウンタ集計() {
@@ -70,13 +56,16 @@ class TagGeneratorManualTest extends Specification {
         compare_counter.count_up('cent6', 'Linux', 'uname', ResultStatus.MATCH)
 
         then:
-        println compare_counter
-        1 == 1
+        def counter = compare_counter.get_all()
+        counter['cent7']['Linux']['uname'][ResultStatus.MATCH]   == 3
+        counter['cent7']['Linux']['uname'][ResultStatus.UNMATCH] == 1
+        counter['cent7']['Linux']['kernel'][ResultStatus.MATCH]  == 1
+        counter['cent6']['Linux']['uname'][ResultStatus.MATCH]   == 1
     }
 
     def 比較集計() {
         when:
-        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/json')
+        def test_result_reader = new TestResultReader(node_dir: 'src/test/resources/node')
         test_result_reader.read_entire_result(test_scenario)
         def tag_generator = new TagGeneratorManual()
         test_scenario.accept(tag_generator)
@@ -86,12 +75,19 @@ class TagGeneratorManualTest extends Specification {
         then:
         def compare_counter = data_comparator.compare_counter
         compare_counter.is_empty() == false
-        def platform_counter = compare_counter.get_platform_counter('cent7', 'Linux')
-        // def json = JsonOutput.toJson(platform_counter)
-        // println JsonOutput.prettyPrint(json)
+        def counters = [:].withDefault{0}
+        
+        compare_counter.get_platform_counter('cent7', 'Linux').each { metric, results ->
+            results.each { status, count ->
+                counters[status] += count
+            }
+        }
+        counters[ResultStatus.MATCH] > 0
+        counters[ResultStatus.UNMATCH] > 0
+
         def test_platform = test_scenario.get_test_platform('TAG:cent7', 'Linux')
         println test_platform.test_results
-        1 == 1
+        test_platform.test_results.size() > 0
     }
 
     def 比較結果のExcel更新() {

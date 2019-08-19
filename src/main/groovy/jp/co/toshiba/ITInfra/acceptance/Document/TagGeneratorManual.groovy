@@ -38,28 +38,32 @@ class TagGeneratorManual {
     }
 
     def make_domain_display_order(TestScenario test_scenario) {
-        def targets = test_scenario.test_targets.get_all()
+        // def targets = test_scenario.test_targets.get_all()
         def tags = [:].withDefault{0}
         def row = 0
-        targets.each { target_name, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                if (test_target.comparision)
-                    return
-                def tag = test_target.compare_server
-                if (tag) {
-                    if (tags[tag] == 0) {
-                        def priority = new DisplayPriority(tag, tags.size(), 0)
-                        this.domain_display_orders[domain][tag] = priority
-                    }
-                    tags[tag] ++
-                    def priority = new DisplayPriority(tag, tags.size(), tags[tag])
-                    this.domain_display_orders[domain][target_name] = priority
-                } else {
-                    def priority = new DisplayPriority(null, 99, row)
-                    this.domain_display_orders[domain][target_name] = priority
+        // targets.each { target_name, domain_targets ->
+        //     domain_targets.each { domain, test_target ->
+        List<TestTarget> test_targets = TestTarget.search(test_scenario)
+        test_targets.each { test_target ->
+            def domain = test_target.domain
+            def target_name = test_target.name
+
+            if (test_target.comparision)
+                return
+            def tag = test_target.compare_server
+            if (tag) {
+                if (tags[tag] == 0) {
+                    def priority = new DisplayPriority(tag, tags.size(), 0)
+                    this.domain_display_orders[domain][tag] = priority
                 }
-                row ++
+                tags[tag] ++
+                def priority = new DisplayPriority(tag, tags.size(), tags[tag])
+                this.domain_display_orders[domain][target_name] = priority
+            } else {
+                def priority = new DisplayPriority(null, 99, row)
+                this.domain_display_orders[domain][target_name] = priority
             }
+            row ++
         }
     }
 
@@ -100,10 +104,7 @@ class TagGeneratorManual {
     }
 
     def visit_test_scenario(TestScenario test_scenario) {
-        println "TEST1"
         this.make_domain_display_order(test_scenario)
-        println "TEST2"
         this.make_target_tag(test_scenario)
-        println "TEST3"
     }
 }

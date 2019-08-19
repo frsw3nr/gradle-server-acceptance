@@ -208,12 +208,16 @@ class TagGenerator {
     }
 
     def visit_test_scenario(TestScenario test_scenario) {
-        def targets = test_scenario.test_targets.get_all()
-        targets.each { target_name, domain_targets ->
-            domain_targets.each { domain, test_target ->
-                this.make_surrogate_keys(test_target)
-            }
+        List<TestTarget> test_targets = TestTarget.search(test_scenario)
+        test_targets.each {test_target ->
+            this.make_surrogate_keys(test_target)
         }
+        // def targets = test_scenario.test_targets.get_all()
+        // targets.each { target_name, domain_targets ->
+        //     domain_targets.each { domain, test_target ->
+        //         this.make_surrogate_keys(test_target)
+        //     }
+        // }
         log.info("Set Cluster size : ${this.cluster_size}")
         this.domain_clusters.each { domain, domain_cluster ->
             try {

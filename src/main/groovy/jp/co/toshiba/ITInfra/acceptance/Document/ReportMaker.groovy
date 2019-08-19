@@ -208,10 +208,7 @@ public class ReportMaker {
             }
             test_reports.each {report_name, test_report ->
                 def test_result = get_test_result(test_report, test_target)
-                // println "TEST_RESULT:$report_name, $test_result.value"
                 add_summary_result(target, report_name, test_result)
-                // def redmine_ticket = test_report.redmine_ticket_field
-                // println "REDMINE_TICKET:$redmine_ticket"
                 if (test_report.redmine_ticket_field) {
                     add_redmine_result(target, test_report, test_result)
                 }

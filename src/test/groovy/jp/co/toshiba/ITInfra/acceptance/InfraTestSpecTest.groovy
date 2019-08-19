@@ -1,11 +1,12 @@
 import jp.co.toshiba.ITInfra.acceptance.Document.ExcelParser
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec
+import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import spock.lang.Specification
 
-// gradle --daemon test --tests "InfraTestSpecTest.初期化"
+// gradle --daemon test --tests "InfraTestSpecTest.検査ログ読込み"
 
 class InfraTestSpecTest extends Specification {
 
@@ -13,6 +14,7 @@ class InfraTestSpecTest extends Specification {
     TestPlatform test_platform
     TestTarget test_target
     TestScenario test_scenario
+    ConfigTestEnvironment test_env
 
     def setup() {
         test_target = new TestTarget(
@@ -42,6 +44,10 @@ class InfraTestSpecTest extends Specification {
             dry_run      : true,
             project_test_log_dir : 'src/test/resources/log',
         )
+
+        test_env = ConfigTestEnvironment.instance
+        test_env.read_config('src/test/resources/config.groovy')
+        test_env.accept(test_platform)
     }
 
     def "初期化"() {
@@ -49,7 +55,9 @@ class InfraTestSpecTest extends Specification {
         def test_spec = new InfraTestSpec(test_platform)
 
         then:
-        test_spec != null
+        test_spec.project_test_log_dir == './src/test/resources/log'
+        test_spec.current_test_log_dir == './build/log/ostrich'
+        test_spec.local_dir            == './build/log/ostrich/Linux'
     }
 
     def "検査ログ読込み"() {

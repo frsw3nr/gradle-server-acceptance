@@ -7,6 +7,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.ResultStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.RunStatus
 import jp.co.toshiba.ITInfra.acceptance.Model.TestScenario
 import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
+import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
 
 @Slf4j
 @ToString(includePackage = false)
@@ -146,24 +147,43 @@ class EvidenceMaker {
     def extract_added_test_metric(TestScenario test_scenario) {
         def domain_metrics = test_scenario.test_metrics
         // println "EXTRACT_ADDED_TEST_METRIC:${domain_metrics.count()}"
-        def domain_targets = test_scenario.get_domain_targets()
-        domain_targets.each { domain, test_targets ->
-            test_targets.each { target, test_target ->
-                if (test_target.target_status == RunStatus.INIT ||
-                    test_target.target_status == RunStatus.READY)
-                    return
-                test_target.test_platforms.each { platform, test_platform ->
-                    def metric_set = domain_metrics[domain][platform]
-                    if (metric_set.count() > 0) {
-                        test_platform?.added_test_metrics.each { metric, test_metric ->
-                            metric_set.add(test_metric)
-                            add_added_test_metric(domain, platform, metric, test_metric)
-                        }
+        def query = new SpecModelQueryBuilder()
+                        .run_statuses([RunStatus.INIT, RunStatus.READY])
+                        .exclude_status(true)
+                        .build()
+        List<TestTarget> test_targets = TestTarget.search(test_scenario, query)
+        test_targets.each { test_target ->
+            def domain = test_target.domain
+            def target = test_target.name
+            test_target.test_platforms.each { platform, test_platform ->
+                def metric_set = domain_metrics[domain][platform]
+                if (metric_set.count() > 0) {
+                    test_platform?.added_test_metrics.each { metric, test_metric ->
+                        metric_set.add(test_metric)
+                        add_added_test_metric(domain, platform, metric, test_metric)
                     }
-                    // println "METRIC_SET: ${metric_set.get_all()}"
                 }
             }
         }
+
+        // def domain_targets = test_scenario.get_domain_targets()
+        // domain_targets.each { domain, test_targets ->
+        //     test_targets.each { target, test_target ->
+        //         if (test_target.target_status == RunStatus.INIT ||
+        //             test_target.target_status == RunStatus.READY)
+        //             return
+        //         test_target.test_platforms.each { platform, test_platform ->
+        //             def metric_set = domain_metrics[domain][platform]
+        //             if (metric_set.count() > 0) {
+        //                 test_platform?.added_test_metrics.each { metric, test_metric ->
+        //                     metric_set.add(test_metric)
+        //                     add_added_test_metric(domain, platform, metric, test_metric)
+        //                 }
+        //             }
+        //             // println "METRIC_SET: ${metric_set.get_all()}"
+        //         }
+        //     }
+        // }
     }
 
     def visit_test_scenario(test_scenario) {
