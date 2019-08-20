@@ -1,5 +1,6 @@
 import jp.co.toshiba.ITInfra.acceptance.ConfigTestEnvironment
 import jp.co.toshiba.ITInfra.acceptance.Model.TestPlatform
+import jp.co.toshiba.ITInfra.acceptance.Model.TestTarget
 import jp.co.toshiba.ITInfra.acceptance.TestRunner
 import jp.co.toshiba.ITInfra.acceptance.TestScheduler
 import jp.co.toshiba.ITInfra.acceptance.TicketRegistor
@@ -27,7 +28,8 @@ class TestRunnerTest extends Specification {
         test_runner.parse(args)
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
-        def test_platform = new TestPlatform(name : 'Linux')
+        TestTarget test_target = new TestTarget(name: 'ostrich', domain: 'Linux')
+        def test_platform = new TestPlatform(name : 'Linux', test_target: test_target)
         test_env.accept(test_platform)
 
         then:
@@ -67,7 +69,9 @@ class TestRunnerTest extends Specification {
         test_runner.parse(args)
         def test_env = ConfigTestEnvironment.instance
         test_env.read_from_test_runner(test_runner)
-        def test_platform = new TestPlatform(name : 'Linux')
+
+        TestTarget test_target = new TestTarget(name: 'ostrich', domain: 'Linux')
+        def test_platform = new TestPlatform(name : 'Linux', test_target: test_target)
         test_env.accept(test_platform)
 
         then:

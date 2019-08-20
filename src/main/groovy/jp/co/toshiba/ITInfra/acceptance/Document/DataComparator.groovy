@@ -37,10 +37,6 @@ class CompareCounter {
         return this.metric_counters
     }
 
-    // Map get_target_counter(String target) {
-    //     return metric_counters?.get(target)
-    // }
-
     Map get_platform_counter(String target, String platform) {
         return metric_counters?.get(target)?.get(platform)
     }

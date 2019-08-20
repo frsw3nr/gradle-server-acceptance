@@ -50,7 +50,6 @@ class TestResultWriterTest extends Specification {
         test_result_writer.write_entire_scenario(test_scenario)
 
         then:
-        1 == 1
         new File("./build/evidence/ostrich").exists()
         new File("./build/evidence/ostrich/Linux.json").exists()
         new File("./build/evidence/ostrich/vCenter.json").exists()
