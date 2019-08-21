@@ -3,7 +3,7 @@ import jp.co.toshiba.ITInfra.acceptance.Model.TestMetric
 import jp.co.toshiba.ITInfra.acceptance.TestItem
 import spock.lang.Specification
 
-// gradle --daemon test --tests "TestResultRegisterTest.サマリ登録"
+// gradle --daemon test --tests "TestResultRegisterTest.比較対象除外"
 
 class TestResultRegisterTest extends Specification {
 
@@ -35,6 +35,36 @@ class TestResultRegisterTest extends Specification {
 
         then:
         test_item.test_results['uname'].error_msg == 'ERROR_MESSAGE'
+    }
+
+    def "比較対象除外"() {
+        when:
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        test_item.exclude_compare()
+
+        then:
+        test_item.test_results['uname'].exclude_compare == true
+        test_item.test_results['cpu'].exclude_compare == false
+    }
+
+    def "メトリック指定比較対象除外"() {
+        when:
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        test_item.exclude_compare('cpu')
+
+        then:
+        test_item.test_results['uname'].exclude_compare == false
+        test_item.test_results['cpu'].exclude_compare == true
+    }
+
+    def "複数メトリック指定比較対象除外"() {
+        when:
+        test_item.results(['uname' : 'ostrich', 'cpu' : '3'])
+        test_item.exclude_compare(['uname', 'cpu'])
+
+        then:
+        test_item.test_results['uname'].exclude_compare == true
+        test_item.test_results['cpu'].exclude_compare == true
     }
 
     def "複数検査結果登録"() {

@@ -34,6 +34,7 @@ class WindowsSpec extends WindowsSpecBase {
             }
             test_item.results(systeminfo)
             test_item.make_summary_text('Model':'Model', 'PrimaryOwnerName' : 'Owner')
+            test_item.exclude_compare('Name')
         }
     }
 
@@ -74,6 +75,13 @@ class WindowsSpec extends WindowsSpecBase {
     }
 
     def os(TestItem test_item) {
+        // def setting_os = test_item.target_info('ip2')
+        // println "OS:${setting_os},${this.ip}"
+
+        // test_item.lookuped_port_list(this.ip, 'IP')
+        // test_item.results([os_caption:setting_os])
+
+
         def command = '''\
             |Get-WmiObject Win32_OperatingSystem | `
             |    Format-List Caption,CSDVersion,ProductType,OSArchitecture
@@ -101,6 +109,8 @@ class WindowsSpec extends WindowsSpecBase {
                     osinfo['os_architecture'] = m1
                 }
             }
+            // def os_name = test_item.target_info('ip2')
+            // println "OS:${os_name}"
             osinfo['os'] = "${osinfo['os_caption']} ${osinfo['os_architecture']}"
             test_item.results(osinfo)
             test_item.verify_text_search('os_caption', osinfo['os_caption'])
@@ -281,6 +291,7 @@ class WindowsSpec extends WindowsSpecBase {
 
             def ip_addresses = []
             def res = [:]
+            def exclude_compares = []
             (0..device_number).each { row ->
                 def columns = []
                 headers.each { header ->
@@ -300,6 +311,7 @@ class WindowsSpec extends WindowsSpecBase {
                     test_item.lookuped_port_list(ip_address, device)
                     add_new_metric("network.dev.${row}",     "[${row}] デバイス", device, res)
                     add_new_metric("network.ip.${row}",      "[${row}] IP", ip_address, res)
+                    exclude_compares << "network.ip.${row}"
                     add_new_metric("network.subnet.${row}",  "[${row}] サブネット", subnet, res)
                     add_new_metric("network.gateway.${row}", "[${row}] ゲートウェイ", gateway, res)
                 }
@@ -317,6 +329,7 @@ class WindowsSpec extends WindowsSpecBase {
             res['network'] = "${ip_addresses}"
             test_item.results(res)
             test_item.verify_text_search_list('network', ip_addresses)
+            test_item.exclude_compare(exclude_compares)
             // test_item.verify_text_search_map('network', ip_configs)
         }
     }
@@ -463,6 +476,9 @@ class WindowsSpec extends WindowsSpecBase {
                 csv << columns
                 def name         = bind_info[row]['Name']
                 def if_desc      = bind_info[row]['ifDesc']
+                (if_desc =~/(.+) #\d+/).each { m0, m1 ->
+                    if_desc = m1
+                }
                 def component_id = bind_info[row]['ComponentID']
                 def display_name = bind_info[row]['DisplayName']
                 def enabled      = bind_info[row]['Enabled']
@@ -473,7 +489,8 @@ class WindowsSpec extends WindowsSpecBase {
                     bind_components[name][component_id] = 'True'
                 }
             }
-            infos['net_bind'] = "${bind_components}"
+            // println bind_components.keySet().sort()
+            infos['net_bind'] = "${bind_components.keySet().sort()}"
             test_item.devices(csv, headers)
             test_item.results(infos)
         }
@@ -661,6 +678,7 @@ class WindowsSpec extends WindowsSpecBase {
                 (service_id=~/^(.+)_([a-z0-9]+?)$/).each { m0, m1, m2 ->
                     service_id = "${m1}_XXXXXX"
                 }
+                // println service_id
                 def status = service_info[row]['Status']
                 infos[service_id] = status
                 statuses[service_id] = status

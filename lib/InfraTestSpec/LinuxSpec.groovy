@@ -33,6 +33,7 @@ class LinuxSpec extends LinuxSpecBase {
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
+        test_item.exclude_compare()
     }
 
     def hostname_fqdn(session, test_item) {
@@ -53,6 +54,7 @@ class LinuxSpec extends LinuxSpecBase {
                 info = it
         }
         test_item.results(info)
+        test_item.exclude_compare()
     }
 
     def uname(session, test_item) {
@@ -77,6 +79,7 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(infos)
         test_item.verify_text_search('kernel', infos['kernel'])
         test_item.verify_text_search('arch', infos['arch'])
+        test_item.exclude_compare(['uname', 'kernel'])
     }
 
     def lsb(session, test_item) {
@@ -162,6 +165,7 @@ class LinuxSpec extends LinuxSpecBase {
         }
         lines = lines.replaceAll(/(\r|\n)/, "")
         test_item.results(lines)
+        test_item.exclude_compare()
     }
 
     def meminfo(session, test_item) {
@@ -204,6 +208,7 @@ class LinuxSpec extends LinuxSpecBase {
         def subnets = [:]
         def res     = [:]
         def ipv6    = 'Disable'
+        def exclude_compares = []
         lines.eachLine {
             // 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
             (it =~  /^(\d+): (.+): <(.+)> (.+)$/).each { m0,m1,m2,m3,m4->
@@ -237,6 +242,7 @@ class LinuxSpec extends LinuxSpecBase {
                     if (ip_address && ip_address != '127.0.0.1') {
                         test_item.lookuped_port_list(ip_address, device)
                         add_new_metric("network.ip.${device}",     "[${device}] IP", ip_address, res)
+                        exclude_compares << "network.ip.${device}"
                         add_new_metric("network.subnet.${device}", "[${device}] サブネット", 
                                        netmask, res)
                         subnets[device] = netmask
@@ -250,6 +256,7 @@ class LinuxSpec extends LinuxSpecBase {
             // link/ether 00:0c:29:c2:69:4b brd ff:ff:ff:ff:ff:ff promiscuity 0
             (it =~ /link\/ether\s+(.*?)\s/).each {m0, m1->
                 add_new_metric("network.mac.${device}", "[${device}] MAC", m1, res)
+                exclude_compares << "network.mac.${device}"
             }
             (it =~ /inet6/).each { m0 ->
                 ipv6 = 'Enabled'
@@ -273,6 +280,7 @@ class LinuxSpec extends LinuxSpecBase {
         test_item.results(res)
         test_item.devices(csv, headers)
         test_item.verify_text_search_list('net_ip', net_ip)
+        test_item.exclude_compare(exclude_compares)
     }
 
     // def convert_array(element) {

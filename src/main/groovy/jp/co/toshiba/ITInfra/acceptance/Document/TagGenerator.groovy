@@ -196,6 +196,12 @@ class TagGenerator {
         DomainCluster domain_cluster = this.domain_clusters[domain] ?: new DomainCluster()
         test_target.test_platforms.each { platform_name, test_platform ->
             test_platform?.test_results.each { metric_name, test_result ->
+                // if (test_result.exclude_compare == true) {
+                //     println "IGNORE   _KEY: $target_name,$platform_name,$metric_name"
+                //     return
+                // } else {
+                //     println "SURROGATE_KEY: $target_name,$platform_name,$metric_name"
+                // }
                 def platform_metric = "${platform_name}|${metric_name}"
                 domain_cluster.set_index_row(platform_metric)
 

@@ -51,6 +51,18 @@ class TestItem {
         test_register.status(status_oks)
     }
 
+    def exclude_compare() {
+        test_register.exclude_compare()
+    }
+
+    def exclude_compare(String metric_name) {
+        test_register.exclude_compare(metric_name)
+    }
+
+    def exclude_compare(List<String> metric_names) {
+        test_register.exclude_compare(metric_names)
+    }
+
     def port_list(String ip, 
                   String description = null,
                   String mac         = null,

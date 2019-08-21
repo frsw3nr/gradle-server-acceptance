@@ -18,7 +18,7 @@ TODO:
         * InfraTestSpec [x]
         * TestRunner [x]
         * TestScheduler [x]
-* モデルクラスの Composite モデルにストリーム処理追加 [ ]
+* モデルクラスの Composite モデルにストリーム処理追加 [x]
     * Documentクラスアクセスパターン調査 [x]
     * TestScenario, TestTarget, TestPlatfom の順アクセステストコード作成 [x]
         * TestPlatform.gets(filter_parameters) [x]
@@ -35,19 +35,19 @@ TODO:
         * TagGeneratorManual [x] 
         * TestResultReader [x] 
         * TestResultWriter [x]     
-* モデルクラスアクセサ追加 [ ]
-    * アクセスパターン調査 [ ]
-    * テストコード作成 [ ]
-    * 各モデルのアクセサ追加 [ ]
-    * Document、 Root クラス結合 [ ]
+* モデルクラスアクセサ追加 [x]
+    * アクセスパターン調査 x]
+    * テストコード作成 [x]
+    * 各モデルのアクセサ追加 [x]
+    * Document、 Root クラス結合 [x]
 * TestMetric 追加検査項目処理移動 [ ]
     * TestMetric に addedTestMetrics 追加 [ ]
     * Documentクラスアクセスパターン調査 [ ]
     * テストコード作成 [ ]
     * Document クラス結合 [ ]
-* クラスター分析で、サロゲートキーからダミー変数への変換方法の見直し [ ]
-    * 検査項目にダミー変数化無効フラグ追加 [ ]
-    * 多値変数の変換 [ ]
+* クラスター分析で、サロゲートキーからダミー変数への変換方法の見直し [x]
+    * 検査項目にダミー変数化無効フラグ追加 [x]
+    * 多値変数の変換 [x]
 
 New features:
 * Windows シナリオで「_XXXXX（XXXXXはランダム）」で終わるサービス名のサービス
@@ -55,7 +55,7 @@ New features:
 
 Bug fixes:
 * シート「検査対象」の入力で対象サーバ、IPの入力で空白がある場合に検査ログディレクトリ
-  作成でロックする問題対処 [ ]
+  作成でロックする問題対処 [x]
 
 Changes for 0.2.6 (2019-7-22)
 ------------------------------------------------------------------------------

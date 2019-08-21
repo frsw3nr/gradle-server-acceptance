@@ -18,6 +18,7 @@ class TestResult extends SpecModel {
     def value
     String error_msg
     String compare_server
+    Boolean exclude_compare = false 
     ResultStatus status
     ResultStatus verify
     ResultStatus comparision

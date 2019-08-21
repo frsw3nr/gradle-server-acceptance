@@ -54,6 +54,28 @@ class TestResultRegister {
         }
     } 
 
+    def exclude_compare() {
+        def base_result = test_item.test_results?."${test_item.test_id}"
+        if (!base_result) {
+            base_result = new TestResult(name: test_item.test_id)
+        }
+        base_result.exclude_compare = true
+    } 
+
+    def exclude_compare(String metric_name) {
+        def test_result = test_item.test_results?."${metric_name}" ?:
+                          new TestResult(name: metric_name)
+        test_result.exclude_compare = true
+    } 
+
+    def exclude_compare(List<String> metric_names) {
+        metric_names.each { String metric_name ->
+            def test_result = test_item.test_results?."${metric_name}" ?:
+                            new TestResult(name: metric_name)
+            test_result.exclude_compare = true
+        }
+    } 
+
     TestResult make_verify(String metric_name, Boolean verify_ok, String error_msg = null) {
         this.set_base_verify(verify_ok)
         def test_result = test_item.test_results?."${metric_name}" ?:
