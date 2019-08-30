@@ -6,6 +6,9 @@ HP iLOサーバ構成収集ツール
 
 HP IA サーバのシステム構成情報を収集します。
 
+* v2.8 以降のバージョンでは、 REST API による収集シナリオに変更しました。
+* 下記、[Scripting Tools for Windows PowerShell] は不要となります。
+
 HPE社
 [Scripting Tools for Windows PowerShell](https://www.hpe.com/us/en/product-catalog/detail/pip.5440657.html)
 を用いて、PowerShell経由で iLOの構成情報を収集します。

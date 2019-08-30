@@ -1,9 +1,20 @@
 package InfraTestSpec
 
-import static groovy.json.JsonOutput.*
+import java.net.*
+import javax.net.ssl.*
+import java.security.*
+import java.security.cert.*
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
+import org.apache.commons.lang.math.NumberUtils
+import org.apache.commons.io.FileUtils.*
+import static groovy.json.JsonOutput.*
 import org.hidetake.groovy.ssh.Ssh
+import org.json.JSONObject
+import org.json.JSONException
+import groovy.json.*
+import com.goebl.david.Webb
+import com.goebl.david.WebbException
 import jp.co.toshiba.ITInfra.acceptance.InfraTestSpec.*
 import jp.co.toshiba.ITInfra.acceptance.*
 
@@ -14,8 +25,38 @@ class iLOSpecBase extends InfraTestSpec {
     String ip
     String os_user
     String os_password
-    String script_path
+    // String script_path
+    String url
     int    timeout
+    Webb webb          = null
+    def  http_type     = 'https'
+
+    class TrustingHostnameVerifier implements HostnameVerifier {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    }
+
+    def allow_all_https_protocol(webb) {
+        def trustAllCerts = [
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null
+                }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) 
+                    throws CertificateException {
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) 
+                    throws CertificateException {
+                }
+            }
+        ] as TrustManager[] 
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+
+        webb.setSSLSocketFactory(sslContext.getSocketFactory());
+        webb.setHostnameVerifier(new TrustingHostnameVerifier());
+    }
 
     def init() {
         super.init()
@@ -24,7 +65,7 @@ class iLOSpecBase extends InfraTestSpec {
         this.ip          = test_platform.test_target.ip ?: 'unkown'
         this.os_user     = os_account['user']
         this.os_password = os_account['password']
-        this.script_path = local_dir + '/get_hpilo_spec.ps1'
+        // this.script_path = local_dir + '/get_hpilo_spec.ps1'
         this.timeout     = test_platform.timeout
 
         // this.ip          = test_server.ip
@@ -36,616 +77,319 @@ class iLOSpecBase extends InfraTestSpec {
     }
 
     def setup_exec(TestItem[] test_items) {
-        super.setup_exec()
+        // super.setup_exec()
 
-        def cmd = """\
-            |powershell -NonInteractive ${script_path}
-            |-log_dir '${local_dir}'
-            |-ip '${ip}' -server '${server_name}'
-            |-user '${os_user}' -password '${os_password}'
-        """.stripMargin()
+        // def cmd = """\
+        //     |powershell -NonInteractive ${script_path}
+        //     |-log_dir '${local_dir}'
+        //     |-ip '${ip}' -server '${server_name}'
+        //     |-user '${os_user}' -password '${os_password}'
+        // """.stripMargin()
 
-        runPowerShellTest('lib/template', 'iLO', cmd, test_items)
+        // runPowerShellTest('lib/template', 'iLO', cmd, test_items)
+        def credentials = os_user + ":" + os_password
+        String encoded = credentials.bytes.encodeBase64().toString()
+
+        String auth = "Basic " + encoded
+        webb = Webb.create();
+        allow_all_https_protocol(webb);
+        webb.setDefaultHeader(Webb.HDR_AUTHORIZATION, auth);
+
+        test_items.each {
+            def method = this.metaClass.getMetaMethod(it.test_id, TestItem)
+            if (method) {
+                log.debug "Invoke command '${method.name}()'"
+                try {
+                    long start = System.currentTimeMillis();
+                    method.invoke(this, it)
+                    long elapsed = System.currentTimeMillis() - start
+                    log.debug "Finish test method '${method.name}()' in ${this.server_name}, Elapsed : ${elapsed} ms"
+                    // it.succeed = 1
+                } catch (Exception e) {
+                    it.verify(false)
+                    log.error "[primergy Test] Test method '${method.name}()' faild, skip.\n" + e
+                }
+            }
+        }
     }
 
     def trim(String value) {
         return value.replaceAll(/\A[\s　]+/,"").replaceAll(/[\s　]+\z/,"")
     }
 
-    def FindHPiLO(TestItem test_item) {
-        def command = '''
-            |Find-HPiLO "\$ip" -Full `
-            | | FL'''.stripMargin()
+    def rest_get(String test_name, String url) {
+        JSONObject result = webb
+                            .get(url)
+                            .header("Content-Type", "application/json")
+                            .useCaches(false)
+                            .ensureSuccess()
+                            .asJsonObject()
+                            .getBody();
 
-        run_script(command) {
-            def lines = exec('FindHPiLO') {
-                new File("${local_dir}/FindHPiLO")
-            }
-
-            def row = 0
-            def results = [:]
-            def infos = [:].withDefault{[:]}
-            lines.eachLine {
-                if (it.size() == 0) {
-                    row ++
-                }
-                (it =~/^(.+?)\s+:\s+(.+?)$/).each { m0, m1, m2 ->
-                    results[m1] = m2
-                    infos[row][m1] = m2
-                }
-            }
-            def headers = []
-            def csv = []
-            def summarys = []
-            infos.each { index, info ->
-                def item_names  = []
-                def item_values = []
-                info.each { key, value ->
-                    item_names  << key
-                    item_values << value
-                    (key =~/(HSI_SBSN|HSI_SPN)/).each { m0, m1 ->
-                        summarys << value
-                    }
-                }
-                csv << item_values
-                if (headers.size() == 0) {
-                    headers = item_names
-                }
-            }
-            test_item.results(results)
-            test_item.make_summary_text('HSI_SPN':'Model', 'HSI_SBSN':'S/N')
-            test_item.devices(csv, headers)
-        }
+        def content = JsonOutput.prettyPrint(result.toString())
+        new File("${local_dir}/${test_name}").text = content
+        return content
     }
 
-    def FwVersion(TestItem test_item) {
-        def command = '''
-            |\$xml = @"
-            |<RIBCL VERSION="2.0">
-            |   <LOGIN USER_LOGIN="adminname" PASSWORD="password">
-            |      <RIB_INFO MODE="read">
-            |         <GET_FW_VERSION/>
-            |      </RIB_INFO>
-            |   </LOGIN>
-            |</RIBCL>
-            |"@
-            |Invoke-HPiLORIBCLCommand -Server "\$ip" -Credential \$cred `
-            |    -RIBCLCommand \$xml `
-            |    -DisableCertificateAuthentication -OutputType "ribcl"
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('FwVersion') {
-                new File("${local_dir}/FwVersion").getText()
-            }
-            def fw_info = [:].withDefault{0}
-            def xmls = []
-            xmls = lines.split(/<\?xml version="1\.0"\?>/)
-            xmls.each { xml ->
-                if (xml.size() > 0) {
-                    def records = new XmlSlurper().parseText(xml)
-                    def nodes = records.GET_FW_VERSION.findAll {it.@'FIRMWARE_VERSION' != null}
-                    nodes.each { node ->
-                        fw_info['FwVersion']           = node.@'MANAGEMENT_PROCESSOR'
-                        fw_info['FirmwareVersion']     = node.@'FIRMWARE_VERSION'
-                        fw_info['FirmwareDate']        = node.@'FIRMWARE_DATE'
-                        fw_info['ManagementProcessor'] = node.@'MANAGEMENT_PROCESSOR'
-                        fw_info['LicenseType']         = node.@'LICENSE_TYPE'
-                    }
-                }
-            }
-            test_item.results(fw_info)
-            test_item.make_summary_text('FwVersion':'Ver', 'LicenseType':'Lic')
+    def overview(TestItem test_item) {
+        def lines = exec('overview') {
+            return this.rest_get('overview', "https://${ip}/json/overview")
         }
-    }
-
-    def BootMode(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOCurrentBootMode -Server "\$ip" -Credential \$cred -DisableCertificateAuthentication `
-            | | FL
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('BootMode') {
-                new File("${local_dir}/BootMode")
+        def jsonSlurper = new JsonSlurper()
+        def overviews = jsonSlurper.parseText(lines)
+        def res = [:]
+        def metrics = [
+            'product_name'   : '機種',
+            'product_id'     : '型番',
+            'serial_num'     : 'S/N',
+            'license'        : 'ライセンスタイプ',
+            'ilo_fw_version' : 'FWバージョン',
+            'isUEFI'         : 'UEFI有効化',
+            'system_rom'     : 'システムロムバージョン',
+            'ip_address'     : '管理IP',
+            'system_health'  : 'システム状態',
+        ]
+        def aliases = [
+            'product_name'   : 'HSI_SPN',
+            'product_id'     : 'HSI_PRODUCTID',
+            'serial_num'     : 'HSI_SBSN',
+            'ip_address'     : 'ip_mng',
+        ]
+        metrics.each { item, description ->
+            def value = overviews?."$item" ?: 'N/A'
+            add_new_metric("overview.${item}", description, value, res)
+            if (aliases.containsKey(item)) {
+                res[aliases[item]] = value
             }
-            def boot_mode = 'Unkown'
-            lines.eachLine {
-                (it =~ /BOOT_MODE\s+:\s(.+)/).each {m0, m1->
-                    boot_mode = m1
-                }
-            }
-            test_item.results(boot_mode)
         }
-    }
-
-    def FwInfo(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOFirmwareInfo -Server "\$ip" -Credential \$cred -DisableCertificateAuthentication `
-            | | Select -ExpandProperty "FirmwareInfo" `
-            | | Select "FIRMWARE_NAME", "FIRMWARE_VERSION" `
-            | | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('FwInfo') {
-                new File("${local_dir}/FwInfo")
-            }
-
-            def row = 0
-            def infos = [:].withDefault{[:]}
-            lines.eachLine {
-                if (it.size() == 0) {
-                    row ++
-                }
-                (it =~/^(.+?)\s+:\s+(.+?)$/).each { m0, m1, m2 ->
-                    infos[row][m1] = m2
-                }
-            }
-            def headers = []
-            def csv = []
-            infos.each { index, info ->
-                def item_names  = []
-                def item_values = []
-                info.each { key, value ->
-                    item_names  << key
-                    item_values << value
-                }
-                csv << item_values
-                if (headers.size() == 0) {
-                    headers = item_names
-                }
-            }
-            test_item.devices(csv, headers)
-            test_item.results((csv.size() > 0) ? 'Fw Info found' : 'No data')
-        }
+        res['overview'] = overviews?.self_test ?: 'N/A'
+        println metrics.ip_address
+        test_item.admin_port_list(metrics.ip_address, "iLO-network")
+        test_item.results(res)
     }
 
     def License(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOLicense -Server "\$ip" -Credential \$cred -DisableCert `
-            | | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('License') {
-                new File("${local_dir}/License")
-            }
-
-            def row = 0
-            def infos = [:].withDefault{[:]}
-            def license = 'Not Found'
-            lines.eachLine {
-                if (it.size() == 0) {
-                    row ++
-                }
-                (it =~/^(.+?)\s+:\s+(.+?)$/).each { m0, m1, m2 ->
-                    infos[row][m1] = m2
-                }
-            }
-            def headers = []
-            def csv = []
-            infos.each { index, info ->
-                def item_names  = []
-                def item_values = []
-                info.each { key, value ->
-                    item_names  << key
-                    item_values << value
-                }
-                csv << item_values
-                if (headers.size() == 0) {
-                    headers = item_names
-                }
-                if (infos[index]['LICENSE_KEY'])
-                    license = infos[index]['LICENSE_KEY']
-            }
-            test_item.devices(csv, headers)
-            test_item.results(license)
+        def lines = exec('License') {
+            def uri = 'redfish/v1/Managers/1/LicenseService/1/'
+            return this.rest_get('License', "https://${ip}/${uri}")
         }
+        def jsonSlurper = new JsonSlurper()
+        def lic = jsonSlurper.parseText(lines)
+        def res = lic?.ConfirmationRequest?.EON?.LicenseKey ?: 'N/A'
+        test_item.results(res)
     }
 
-    def Processor(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOProcessor -Server "\$ip" -Credential \$cred -DisableCert `
-            | | Select -ExpandProperty "PROCESSOR" `
-            | | Select "LABEL","NAME","SPEED","STATUS","EXECUTION_TECHNOLOGY" | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('Processor') {
-                new File("${local_dir}/Processor")
-            }
-
-            def row = 0
-            def infos = [:].withDefault{[:]}
-            def specs = [:].withDefault{0}
-            lines.eachLine {
-                if (it.size() == 0) {
-                    row ++
-                }
-                (it =~/^(.+?)\s+:\s+(.+?)$/).each { m0, m1, m2 ->
-                    infos[row][m1] = m2
-                }
-            }
-            def headers = []
-            def csv = []
-            infos.each { index, info ->
-                def item_names  = []
-                def item_values = []
-                def labels = []
-                info.each { key, value ->
-                    item_names  << key
-                    item_values << value
-                    if (key == 'NAME' || key == 'EXECUTION_TECHNOLOGY')
-                        labels << value
-                }
-                specs[labels] += 1
-                csv << item_values
-                if (headers.size() == 0) {
-                    headers = item_names
-                }
-            }
-            // println prettyPrint(toJson(specs))
-            test_item.devices(csv, headers)
-            test_item.results("${specs}")
+    def proc_info(TestItem test_item) {
+        def lines = exec('proc_info') {
+            return this.rest_get('proc_info', "https://${ip}/json/proc_info")
         }
+        def jsonSlurper = new JsonSlurper()
+        def proc_infos = jsonSlurper.parseText(lines)
+        def res = [:].withDefault{0}
+
+        def headers = ['proc_socket', 'proc_name', 'proc_num_cores', 'proc_num_threads', 'proc_status', 'proc_num_l1cache', 'proc_num_l2cache', 'proc_num_l3cache']
+        def titles = ['proc_name', 'proc_num_cores', 'proc_num_threads']
+        def csv = []
+
+        proc_infos?.processors.each { processor ->
+            def row = []
+            def cpu_titles = []
+            headers.each { header ->
+                def value = processor?."$header" ?: 'N/A'
+                row << value
+                if (header in titles) {
+                    cpu_titles << value
+                } 
+            }
+            def cpu_title = cpu_titles.join(' / ')
+            res[cpu_title] ++
+            csv << row
+        }
+        test_item.devices(csv, headers)
+        test_item.results(res.toString())
     }
 
-    def Memory(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOMemoryInfo -Server "\$ip" -Credential \$cred -DisableCert `
-            | | Select -ExpandProperty "MEMORY_COMPONENTS" `
-            | | Select "MEMORY_LOCATION","MEMORY_SIZE","MEMORY_SPEED" | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('Memory') {
-                new File("${local_dir}/Memory")
-            }
-
-            def row = 0
-            def infos = [:].withDefault{[:]}
-            def specs = [:].withDefault{0}
-            lines.eachLine {
-                if (it.size() == 0) {
-                    row ++
-                }
-                (it =~/^(.+?)\s+:\s+(.+?)$/).each { m0, m1, m2 ->
-                    infos[row][m1] = m2
-                }
-            }
-            def headers = []
-            def csv = []
-            infos.each { index, info ->
-                def item_names  = []
-                def item_values = []
-                info.each { key, value ->
-                    item_names  << key
-                    item_values << value
-                    if (key == 'MEMORY_SIZE')
-                        specs[value] += 1
-                }
-                csv << item_values
-                if (headers.size() == 0) {
-                    headers = item_names
-                }
-            }
-            test_item.devices(csv, headers)
-            test_item.results(specs.sort().toString())
+    def mem_info(TestItem test_item) {
+        def lines = exec('mem_info') {
+            return this.rest_get('mem_info', "https://${ip}/json/mem_info")
         }
+        def jsonSlurper = new JsonSlurper()
+        def mem_infos = jsonSlurper.parseText(lines)
+        def res = [:]
+        def metrics = [
+            'mem_total_mem_size' : 'メモリ容量',
+            'mem_op_speed'       : 'メモリスピード',
+            'mem_condition'      : 'メモリ状態',
+        ]
+        def memory_size_gb = 0
+        metrics.each { item, description ->
+            def value = mem_infos?."$item" ?: 'N/A'
+            add_new_metric("mem_info.${item}", description, value, res)
+            if (item == 'mem_total_mem_size') {
+                memory_size_gb = value / 1024
+            }
+        }
+        res['mem_info'] = memory_size_gb
+        test_item.results(res)
     }
 
-    def Nic(TestItem test_item) {
-        def command = '''
-            |\$xml = @"
-            |<RIBCL VERSION="2.0">
-            |   <LOGIN USER_LOGIN="adminname" PASSWORD="password">
-            |      <SERVER_INFO MODE="read">
-            |         <GET_EMBEDDED_HEALTH />
-            |      </SERVER_INFO>
-            |   </LOGIN>
-            |</RIBCL>
-            |"@
-            |Invoke-HPiLORIBCLCommand -Server "\$ip" -Credential \$cred `
-            |    -RIBCLCommand \$xml `
-            |    -DisableCertificateAuthentication -OutputType "ribcl"
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('Nic') {
-                new File("${local_dir}/Nic").getText()
-            }
-            def device_number = 0
-            def nic_infos = [:].withDefault{[:]}
-            def csv = []
-
-            def nic_ips = []
-            def mng_ips = []
-            def xmls = []
-            xmls = lines.split(/<\?xml version="1\.0"\?>/)
-            xmls.each { xml ->
-                if (xml.size() > 0) {
-                    def records = new XmlSlurper().parseText(xml)
-                    records['GET_EMBEDDED_HEALTH_DATA']['NIC_INFORMATION'].children().each { nic ->
-                        nic_infos[device_number]['type'] = nic.name()
-                        nic.children().each {
-                            nic_infos[device_number][it.name()] = it.@'VALUE'
-                            // println "NIC: ${nic.name()} : ${it.name()} : ${it.@'VALUE'}"
-                        }
-                        device_number ++
-                    }
-                }
-            }
-            def row = 0
-            def res = [:]
-            nic_infos.each { id, nic_info ->
-                def ip_address = nic_info?.'IP_ADDRESS'?.toString()
-                def type       = nic_info?.'type'?.toString()
-                def port       = nic_info?.'NETWORK_PORT'?.toString()
-                def desc       = nic_info?.'PORT_DESCRIPTION'?.toString()
-                def location   = nic_info?.'LOCATION'?.toString()
-                def mac        = nic_info?.'MAC_ADDRESS'?.toString()
-                def status     = nic_info?.'STATUS'?.toString()
-                csv << [type, port, desc, location, mac, ip_address, status] as String[]
-                if (ip_address ==~ /^\d.+/ && location == 'Embedded') {
-                    nic_ips << ip_address
-                    row ++
-                    add_new_metric("Nic.type.${row}",   "[${row}] タイプ",  type, res)
-                    add_new_metric("Nic.ip.${row}",     "[${row}] IP",  ip_address, res)
-                    add_new_metric("Nic.mac.${row}",    "[${row}] MAC", mac, res)
-                    add_new_metric("Nic.status.${row}", "[${row}] ステータス",  status, res)
-                    if (type == 'iLO') {
-                        test_item.admin_port_list(ip_address, port)
-                        mng_ips << ip_address
-                    }
-                }
-            }
-            def headers = ['type', 'port', 'desc', 'location', 'mac', 'ip', 'status']
-            test_item.devices(csv, headers)
-            res['Nic']    = nic_ips.toString()
-            res['ip_mng'] = mng_ips.toString()
-            test_item.results(res)
-            test_item.verify_text_search('ip_mng', "${mng_ips}")
+    def network(TestItem test_item) {
+        def lines = exec('network') {
+            def uri = 'redfish/v1/Managers/1/EthernetInterfaces/1'
+            return this.rest_get('network', "https://${ip}/${uri}")
         }
+
+        def jsonSlurper = new JsonSlurper()
+        def networks = jsonSlurper.parseText(lines)
+        def res = [:]
+        def summary = [:]
+
+        networks?.IPv4Addresses.with { ipv4 ->
+            add_new_metric("network.ipv4.address", "IPv4アドレス", ipv4?.'Address', res)
+            add_new_metric("network.ipv4.gateway", "IPv4ゲートウェイ", ipv4?.'Gateway', res)
+            add_new_metric("network.ipv4.subnet",  "IPv4サブネット", ipv4?.'SubnetMask', res)
+            add_new_metric("network.ipv4.origin",  "IPv4 Origin", ipv4?.'AddressOrigin', res)
+            summary['GW']     = ipv4?.'Gateway'
+            summary['Subnet'] = ipv4?.'SubnetMask'
+            summary['Origin'] = ipv4?.'AddressOrigin'
+        }
+        networks?.IPv6Addresses.with { ipv6 ->
+            add_new_metric("network.ipv6.address", "IPv6アドレス", ipv6?.'Address', res)
+        }
+        add_new_metric("network.autoneg", "自動ネゴシエーション", networks?.'AutoNeg', res)
+        add_new_metric("network.mac", "MACアドレス", networks?.'MACAddress', res)
+        res['network'] = summary.toString()
+        test_item.results(res)
     }
 
     def Storage(TestItem test_item) {
-        def command = '''
-            |\$xml = @"
-            |<RIBCL VERSION="2.0">
-            |   <LOGIN USER_LOGIN="adminname" PASSWORD="password">
-            |      <SERVER_INFO MODE="read">
-            |         <GET_EMBEDDED_HEALTH />
-            |      </SERVER_INFO>
-            |   </LOGIN>
-            |</RIBCL>
-            |"@
-            |Invoke-HPiLORIBCLCommand -Server "\$ip" -Credential \$cred `
-            |    -RIBCLCommand \$xml `
-            |    -DisableCertificateAuthentication -OutputType "ribcl"
-            |'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('Storage') {
-                new File("${local_dir}/Storage").getText()
-            }
-            def storage_number = 0
-            def device_number  = 0
-            def label
-            def capacity
-            def raid_level = 'Unkown'
-            def storage_infos = [:].withDefault{[:]}
-            def summarys = [:].withDefault{0}
-            def csv = []
-            def xmls = []
-            def res = [:]
-            xmls = lines.split(/<\?xml version="1\.0"\?>/)
-            xmls.each { xml ->
-                if (xml.size() > 0) {
-                    // println xml
-                    def records = new XmlSlurper().parseText(xml)
-                    records['GET_EMBEDDED_HEALTH_DATA']['STORAGE']['CONTROLLER']['LOGICAL_DRIVE'].children().each { logical_drive ->
-                        // println "STORAGE : ${logical_drive.name()} : ${logical_drive.@'VALUE'}"
-                        storage_infos[device_number]['L_' + logical_drive.name()] = logical_drive.@'VALUE'
-                        if (logical_drive.name() == 'FAULT_TOLERANCE') {
-                            // raid_level = "${device_number} ${logical_drive.@'VALUE'}"
-                            raid_level = logical_drive.@'VALUE'
-                            storage_number ++
-                        }
-                        logical_drive.children().each {
-                            // println "STORAGE : ${logical_drive.name()} : ${it.name()} : ${it.@'VALUE'}"
-                            storage_infos[device_number]['P_' + it.name()] = it.@'VALUE'
-                            if (it.name() == 'MEDIA_TYPE') {
-                                device_number++
-                            }
-                            if (it.name() == 'CAPACITY') {
-                                def key = "${storage_number},${raid_level},${it.@'VALUE'}"
-                                summarys[key] += 1
-                            }
-                        }
-                    }
-                    def memory_infos = [:]
-                    records['GET_EMBEDDED_HEALTH_DATA']['MEMORY']['MEMORY_DETAILS_SUMMARY'].children().each { 
-                        memory_details ->
-                        def memory_socket = memory_details.name()
-                        memory_details.children().each { memory_detail ->
-                            def name = memory_detail.name()
-                            def value = memory_detail.@'VALUE'
-                            // println "$memory_socket, NAME:$name, VAL:$value"
-                            // memory_infos[memory_socket][memory_detail.name()] = memory_detail.@'VALUE'
-                            if (name == 'TOTAL_MEMORY_SIZE') {
-                                memory_infos[memory_socket] = value
-                            }
-                        }
-                    }
-                    records['GET_EMBEDDED_HEALTH_DATA']['MEMORY']['MEMORY_COMPONENTS'].children().each { 
-                        memory_components ->
-                        def mem_row = 0
-                        def values = [:]
-                        memory_components.children().each { memory_component ->
-                            memory_component.each {
-                                values[mem_row] = it.@'VALUE'
-                                mem_row += 1
-                            }
-                        }
-                        if (values[1] != 'Not Installed') {
-                            memory_infos[values[0]] = values[1]
-                        }
-                    }
-                    if (memory_infos)
-                        res['Memory'] = memory_infos.toString()
-                }
-            }
-            def row = 1
-            def ldisk  = ''
-            def status = ''
-            def capa   = ''
-            def raid   = ''
-            storage_infos.each { id, storage_info ->
-                ldisk  = storage_info?.'L_LABEL'?.toString() ?: ldisk 
-                status = storage_info?.'L_STATUS'?.toString() ?: status
-                capa   = storage_info?.'L_CAPACITY'?.toString() ?: capa 
-                raid   = storage_info?.'L_FAULT_TOLERANCE'?.toString() ?: raid
-                def model  = storage_info?.'P_MODEL'?.toString() 
-                def size   = storage_info?.'P_CAPACITY'?.toString()
-                def fw     = storage_info?.'P_FW_VERSION'?.toString() 
-                def type   = storage_info?.'P_MEDIA_TYPE'?.toString()
-
-                csv << ["'${ldisk}'", status, capa, raid, model, size, fw, type]
-                add_new_metric("Storage.type.${row}",   "[${row}] タイプ", type, res)
-                add_new_metric("Storage.raid.${row}",   "[${row}] RAID", raid, res)
-                add_new_metric("Storage.ldisk.${row}",  "[${row}] LUN", "'${ldisk}'", res)
-                add_new_metric("Storage.size.${row}",   "[${row}] サイズ", size, res)
-                add_new_metric("Storage.fw.${row}",     "[${row}] FW", fw, res)
-                add_new_metric("Storage.status.${row}", "[${row}] ステータス", status, res)
-
-                row ++
-            }
-            def headers = ['ldisk', 'status', 'capa', 'raid', 'model', 'size', 'fw', 'media_type']
-            test_item.devices(csv, headers)
-            res['Storage'] = summarys.toString()
-
-            test_item.results(res)
+        def lines_drives = exec('health_drives') {
+            return this.rest_get('health_drives', "https://${ip}/json/health_drives")
         }
+        def jsonSlurper = new JsonSlurper()
+        def drives = jsonSlurper.parseText(lines_drives)
+
+        def res = [:]
+        def summary = []
+        def csv = []
+        drives?.'log_drive_arrays'.each { drive_array ->
+            def total_memory = drive_array?.'accel_tot_mem' ?: 'N/A'
+            def model = drive_array?.'model' ?: 'N/A'
+            def serial_no = drive_array?.'serial_no' ?: 'N/A'
+            def status = drive_array?.'status' ?: 'N/A'
+            def lu = 0
+            drive_array?.'logical_drives'.each { logical_drive ->
+                lu ++
+                def raid = logical_drive?.'flt_tol' ?: 'N/A'
+                def lu_name = logical_drive?.'name' ?: 'N/A'
+                def lu_size = logical_drive?.'capacity' ?: 'N/A'
+                def drive_number = logical_drive?.'physical_drives'?.size()
+                csv << [lu_name, model, serial_no, raid, drive_number, status, lu_size]
+                add_new_metric("Storage.model.${lu}", "ストレージ[$lu]", model, res)
+                add_new_metric("Storage.raid.${lu}", "ストレージ[$lu] RAID", raid, res)
+                add_new_metric("Storage.drive_number.${lu}", "ストレージ[$lu] ディスク本数", drive_number, res)
+                add_new_metric("Storage.capacity.${lu}", "ストレージ[$lu] 容量", lu_size, res)
+                add_new_metric("Storage.status.${lu}", "ストレージ[$lu] 状態", status, res)
+                summary << raid
+                summary << lu_size
+            }
+        }
+        def headers = ['lu', 'model', 'serial', 'raid', 'drive_number', 'status', 'capacity']
+        test_item.devices(csv, headers)
+        res['Storage'] = summary.toString()
+        test_item.results(res)
     }
 
-    def SNMP(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOSNMPIMSetting -Server "\$ip" -Credential \$cred -DisableCert `
-            | | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('SNMP') {
-                new File("${local_dir}/SNMP")
-            }
-
-            def csv = []
-            def trap_info = [:].withDefault{[]}
-            def snmp_info = [:]
-
-            snmp_info['SNMP']       = 'OK'
-            lines.eachLine {
-                if (it.size() > 0) {
-                    // SNMP_ADDRESS_1                       : 192.168.125.120
-                    // SNMP_ADDRESS_1_ROCOMMUNITY           : public1
-                    // SNMP_ADDRESS_1_TRAPCOMMUNITY         : trapcomm1
-                    // SNMP_ADDRESS_1_TRAPCOMMUNITY_VERSION : v1
-                    (it=~/^SNMP_ADDRESS_(\d+)(.+?)\s+:\s(.*?)$/).each { m0, row, m1, m2 ->
-                        List metrics = m1.split(/_/)
-                        def metric = 'etc'
-                        if (metrics.size() == 1) {
-                            metric = 'ip'
-                        } else if (metrics.size() >= 2) {
-                            metric = metrics.pop().toLowerCase()
-                        }
-                        def value = trim(m2)
-                        trap_info[metric] << value
-                        add_new_metric("SNMP.${metric}.${row}", "[${row}] ${metric}", value, snmp_info)
-                    }
-                    // STATUS_TYPE                          : OK
-                    // STATUS_MESSAGE                       : OK
-                    (it=~/^STATUS_(.+?)\s+:\s(.+?)$/).each { m0, m1, m2 ->
-                        add_new_metric("SNMP.status.${m1}", "ステータス ${m1}", m2, snmp_info)
-                        if (m2 != 'OK')
-                            snmp_info['SNMP'] = m2
-                    }
-                    (it=~/^(.+?PORT)\s+:\s(.+?)$/).each { m0, m1, m2 ->
-                        add_new_metric("SNMP.${m1}", m1, "'${m2}'", snmp_info)
-                    }
-                    csv << [it]
-                }
-            }
-            def headers = ['snmp_info']
-            test_item.devices(csv, headers)
-            test_item.results(snmp_info)
-            test_item.verify_text_search_list('snmp_address', trap_info['ip'])
-            test_item.verify_text_search_list('snmp_community', trap_info['trapcommunity'])
-            test_item.verify_text_search_list('snmp_version', trap_info['version'])
+    def drive(TestItem test_item) {
+        def lines_phy_drives = exec('health_phy_drives') {
+            return this.rest_get('health_phy_drives', "https://${ip}/json/health_phy_drives")
         }
+        def jsonSlurper = new JsonSlurper()
+        def phy_drives = jsonSlurper.parseText(lines_phy_drives)
+
+        def summary = [:].withDefault{0}
+        def res = [:]
+        def csv = []
+        phy_drives?.'phy_drive_arrays'.each { drive_array ->
+            def id = 0
+            drive_array?.'physical_drives'.each { physical_drive ->
+                id ++
+                def type = physical_drive?.'drive_mediatype' ?: 'N/A'
+                def bay  = physical_drive?.'name' ?: 'N/A'
+                def model = physical_drive?.'model' ?: 'N/A'
+                def serial = physical_drive?.'serial_no' ?: 'N/A'
+                def status = physical_drive?.'status' ?: 'N/A'
+                def capacity = physical_drive?.'capacity' ?: 'N/A'
+                csv << [id, type, bay, model, serial, status, capacity]
+                def label = "${type}:${capacity}"
+                summary[label] ++
+                add_new_metric("drive.${id}", "ディスク[$id]", label, res)
+            }
+        }
+        def headers = ['id', 'type', 'bay', 'model', 'serial', 'status', 'capacity']
+        test_item.devices(csv, headers)
+        res['drive'] = summary.toString()
+        test_item.results(res)
     }
 
-    def HostPowerSaver(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOHostPowerSaver -Server "\$ip" -Credential \$cred -DisableCert `
-            | | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('HostPowerSaver') {
-                new File("${local_dir}/HostPowerSaver")
-            }
-            def res = 'unkown'
-            lines.eachLine {
-                (it =~/^HOST_POWER_SAVER\s+:\s+(.+?)$/).each { m0, m1 ->
-                    res = m1
-                }
-
-            }
-            test_item.results(res)
+    def snmp(TestItem test_item) {
+        def lines = exec('snmp') {
+            def url_suffix = "redfish/v1/Managers/1/snmpservice/snmpalertdestinations/1"
+            return this.rest_get('snmp', "https://${ip}/${url_suffix}")
         }
+        def jsonSlurper = new JsonSlurper()
+        def snmps = jsonSlurper.parseText(lines)
+        def res = [:]
+        def summary = []
+        def metrics = [
+            'AlertDestination'  : 'TRAP 送信先',
+            'TrapCommunity'     : 'コミュニティ',
+            'SNMPAlertProtocol' : 'バージョン',
+        ]
+        metrics.each { item, description ->
+            def value = snmps?."$item" ?: 'N/A'
+            add_new_metric("snmp.${item}", description, value, res)
+            if (value != 'N/A') {
+                summary << value
+            }
+        }
+        res['snmp'] = (summary.size() == 0) ? 'NotConfigured' : summary.toString()
+        test_item.results(res)
     }
 
-    def PowerReading(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOPowerReading -Server "\$ip" -Credential \$cred -DisableCert `
-            | | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('PowerReading') {
-                new File("${local_dir}/PowerReading")
-            }
-            def res = [:]
-            def status = 'unkown'
-            lines.eachLine {
-                (it =~/^(.+?)_POWER_READING\s+:\s+(.+?)$/).each { m0, m1, m2 ->
-                    add_new_metric("PowerReading.${m1}", "消費電力 [${m1}]",  m2, res)
-                }
-                (it =~/^STATUS_MESSAGE\s+:\s+(.+?)$/).each { m0, m1 ->
-                    status = m1
-                }
-            }
-            res['PowerReading'] = status
-            test_item.results(res)
+    def power_regulator(TestItem test_item) {
+        def lines = exec('power_regulator') {
+            return this.rest_get('power_regulator', "https://${ip}/json/power_regulator")
         }
+        def jsonSlurper = new JsonSlurper()
+        def power_regulators = jsonSlurper.parseText(lines)
+        def value = power_regulators?.'prmode' ?: 'N/A'
+        test_item.results(value)
     }
 
-    def PowerSupply(TestItem test_item) {
-        def command = '''
-            |Get-HPiLOPowerSupply -Server "\$ip" -Credential \$cred -DisableCert `
-            | | Select -ExpandProperty "POWER_SUPPLY_SUMMARY" `
-            | | Select "HIGH_EFFICIENCY_MODE","POWER_SYSTEM_REDUNDANCY","PRESENT_POWER_READING" `
-            | | FL'''.stripMargin()
-
-        run_script(command) {
-            def lines = exec('PowerSupply') {
-                new File("${local_dir}/PowerSupply")
-            }
-            def res = [:]
-            lines.eachLine {
-                (it =~/^HIGH_EFFICIENCY_MODE\s+:\s+(.+?)$/).each { m0, m1 ->
-                    res['mode'] = m1
-                }
-                (it =~/^POWER_SYSTEM_REDUNDANCY\s+:\s+(.+?)$/).each { m0, m1 ->
-                    res['redundancy'] = m1
-                }
-            }
-            def result = (res)?"${res}":'unkown' 
-            test_item.results(result)
+    def power_summary(TestItem test_item) {
+        def lines = exec('power_summary') {
+            return this.rest_get('power_summary', "https://${ip}/json/power_summary")
         }
+        def jsonSlurper = new JsonSlurper()
+        def power_summarys = jsonSlurper.parseText(lines)
+        def summary = []
+        def res = [:]
+        def metrics = [
+            'volts'                 : '電圧',
+            'max_measured_wattage'  : '最大ワット',
+            'power_cap_mode'        : '電源容量モード',
+        ]
+        metrics.each { item, description ->
+            def value = power_summarys?."$item" ?: 'N/A'
+            add_new_metric("power_summary.${item}", description, value, res)
+            if (value != 'N/A') {
+                summary << value
+            }
+        }
+        // res['mem_info'] = memory_size_gb
+        res['power_summary'] = (summary.size() == 0) ? 'NotConfigured' : summary.toString()
+        test_item.results(res)
     }
+
 }
