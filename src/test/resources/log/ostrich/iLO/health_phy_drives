@@ -1,0 +1,185 @@
+{
+    "next_page": null,
+    "ams_ready": "AMS_READY",
+    "data_state": "DATA_AMS",
+    "in_post": 0,
+    "phy_drive_arrays": [
+        {
+            "storage_type": "SMART_ARRAY_CONTROLLER_TYPE",
+            "accel_tot_mem": "4194304 KB",
+            "encr_self_stat": "OP_STATUS_OK",
+            "enclosures": [
+                {
+                    "name": "Drive Enclosure Port 1I Box 1",
+                    "ports": "4",
+                    "status": "OP_STATUS_OK"
+                },
+                {
+                    "name": "Drive Enclosure Port 2I Box 1",
+                    "ports": "4",
+                    "status": "OP_STATUS_OK"
+                },
+                {
+                    "name": "Drive Enclosure Port 3I Box 2",
+                    "ports": "2",
+                    "status": "OP_STATUS_OK"
+                }
+            ],
+            "has_accel": 1,
+            "physical_drives": [
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 0,
+                    "name": "Physical Drive in Port 1I Box 1 Bay 1",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWJNK",
+                    "location": "Port 1I Box 1 Bay 1",
+                    "serial_no": "1XXXXXXXXXXXXX",
+                    "fw_version": "HPD1",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 1,
+                    "name": "Physical Drive in Port 1I Box 1 Bay 2",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWFVA",
+                    "location": "Port 1I Box 1 Bay 2",
+                    "serial_no": "2XXXXXXXXXXXXX",
+                    "fw_version": "HPD3",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 2,
+                    "name": "Physical Drive in Port 1I Box 1 Bay 3",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWFVA",
+                    "location": "Port 1I Box 1 Bay 3",
+                    "serial_no": "2XXXXXXXXXXXXX",
+                    "fw_version": "HPD3",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 3,
+                    "name": "Physical Drive in Port 1I Box 1 Bay 4",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWJNK",
+                    "location": "Port 1I Box 1 Bay 4",
+                    "serial_no": "1XXXXXXXXXXXXX",
+                    "fw_version": "HPD1",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 4,
+                    "name": "Physical Drive in Port 2I Box 1 Bay 5",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWJNK",
+                    "location": "Port 2I Box 1 Bay 5",
+                    "serial_no": "1XXXXXXXXXXXXX",
+                    "fw_version": "HPD1",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 5,
+                    "name": "Physical Drive in Port 2I Box 1 Bay 6",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWFVA",
+                    "location": "Port 2I Box 1 Bay 6",
+                    "serial_no": "2XXXXXXXXXXXXX",
+                    "fw_version": "HPD3",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 6,
+                    "name": "Physical Drive in Port 2I Box 1 Bay 7",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWFVA",
+                    "location": "Port 2I Box 1 Bay 7",
+                    "serial_no": "2XXXXXXXXXXXXX",
+                    "fw_version": "HPD3",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 7,
+                    "name": "Physical Drive in Port 2I Box 1 Bay 8",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWFVA",
+                    "location": "Port 2I Box 1 Bay 8",
+                    "serial_no": "2XXXXXXXXXXXXX",
+                    "fw_version": "HPD3",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_ARRAY",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 8,
+                    "name": "Physical Drive in Port 3I Box 2 Bay 1",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWJNK",
+                    "location": "Port 3I Box 2 Bay 1",
+                    "serial_no": "1XXXXXXXXXXXXX",
+                    "fw_version": "HPD1",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                },
+                {
+                    "drive_type": "PHY_SPR",
+                    "drive_mediatype": "HDD",
+                    "phys_idx": 9,
+                    "name": "Physical Drive in Port 3I Box 2 Bay 2",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "model": "EG001200JWFVA",
+                    "location": "Port 3I Box 2 Bay 2",
+                    "serial_no": "2XXXXXXXXXXXXX",
+                    "fw_version": "HPD3",
+                    "phys_status": "PHYS_OK",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "1200 GB"
+                }
+            ],
+            "accel_cond": "OP_STATUS_OK",
+            "accel_serial": "               ",
+            "hw_status": "OP_STATUS_OK",
+            "name": "Controller on System Board",
+            "encr_stat": "ENCR_NOT_ENABLED",
+            "model": "HPE Smart Array P816i-a SR Gen10",
+            "encr_csp_stat": "OP_STATUS_OK",
+            "serial_no": "PXXXXXXXXXXXXX ",
+            "fw_version": "1.98",
+            "has_encrypt": 1,
+            "status": "OP_STATUS_OK"
+        }
+    ],
+    "hostpwr_state": "ON"
+}

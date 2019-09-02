@@ -1,0 +1,196 @@
+{
+    "Description": "Configuration of this Manager Network Interface",
+    "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+    "IPv4StaticAddresses": [
+        {
+            "Address": "192.168.5.76",
+            "Gateway": "192.168.4.1",
+            "SubnetMask": "255.255.254.0"
+        }
+    ],
+    "PermanentMACAddress": "XXXXXXXXXXXXXXXXXXXXXX",
+    "Name": "Manager Dedicated Network Interface",
+    "@odata.id": "/redfish/v1/Managers/1/EthernetInterfaces/1",
+    "SpeedMbps": 1000,
+    "InterfaceEnabled": true,
+    "NameServers": [
+        
+    ],
+    "HostName": "TESTESXI11",
+    "IPv6Addresses": [
+        {
+            "Address": "XXXXXXXXXXXXXXXXXXXXXXXXX",
+            "AddressOrigin": "SLAAC",
+            "PrefixLength": 64,
+            "AddressState": "Preferred"
+        }
+    ],
+    "StaticNameServers": [
+        "0.0.0.0",
+        "0.0.0.0",
+        "0.0.0.0",
+        "::",
+        "::",
+        "::"
+    ],
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "IPv6StaticDefaultGateways": [
+        {
+            "Address": "::"
+        }
+    ],
+    "IPv6DefaultGateway": "::",
+    "FullDuplex": true,
+    "IPv6StaticAddresses": [
+        {
+            "Address": "::",
+            "PrefixLength": null
+        },
+        {
+            "Address": "::",
+            "PrefixLength": null
+        },
+        {
+            "Address": "::",
+            "PrefixLength": null
+        },
+        {
+            "Address": "::",
+            "PrefixLength": null
+        }
+    ],
+    "StatelessAddressAutoConfig": {
+        "IPv6AutoConfigEnabled": true
+    },
+    "@odata.etag": "W/\"6DFF37A9\"",
+    "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+    "DHCPv6": {
+        "OperatingMode": "Stateful",
+        "UseDomainName": true,
+        "UseNTPServers": false,
+        "UseRapidCommit": false,
+        "UseDNSServers": true
+    },
+    "DHCPv4": {
+        "UseGateway": false,
+        "UseDomainName": false,
+        "UseNTPServers": false,
+        "DHCPEnabled": false,
+        "UseDNSServers": false,
+        "UseStaticRoutes": false
+    },
+    "AutoNeg": true,
+    "MACAddress": "XXXXXXXXXXXXXXXXXXXXXX",
+    "FQDN": "TESTESXI11.",
+    "IPv4Addresses": [
+        {
+            "Address": "192.168.5.76",
+            "Gateway": "192.168.4.1",
+            "AddressOrigin": "Static",
+            "SubnetMask": "255.255.254.0"
+        }
+    ],
+    "Oem": {
+        "Hpe": {
+            "NICEnabled": true,
+            "DomainName": "",
+            "IPv6": {
+                "DDNSRegistration": true,
+                "StaticRoutes": [
+                    {
+                        "Status": "Unknown",
+                        "Destination": "::",
+                        "Gateway": "::",
+                        "PrefixLength": null
+                    },
+                    {
+                        "Status": "Unknown",
+                        "Destination": "::",
+                        "Gateway": "::",
+                        "PrefixLength": null
+                    },
+                    {
+                        "Status": "Unknown",
+                        "Destination": "::",
+                        "Gateway": "::",
+                        "PrefixLength": null
+                    }
+                ],
+                "SLAACEnabled": true,
+                "DNSServers": [
+                    "::",
+                    "::",
+                    "::"
+                ],
+                "StaticDefaultGateway": "::"
+            },
+            "@odata.type": "#HpeiLOEthernetNetworkInterface.v2_2_1.HpeiLOEthernetNetworkInterface",
+            "IPv4": {
+                "WINSRegistration": false,
+                "WINSServers": [
+                    "0.0.0.0",
+                    "0.0.0.0"
+                ],
+                "DDNSRegistration": true,
+                "StaticRoutes": [
+                    {
+                        "Destination": "0.0.0.0",
+                        "Gateway": "0.0.0.0",
+                        "SubnetMask": "0.0.0.0"
+                    },
+                    {
+                        "Destination": "0.0.0.0",
+                        "Gateway": "0.0.0.0",
+                        "SubnetMask": "0.0.0.0"
+                    },
+                    {
+                        "Destination": "0.0.0.0",
+                        "Gateway": "0.0.0.0",
+                        "SubnetMask": "0.0.0.0"
+                    }
+                ],
+                "DNSServers": [
+                    "0.0.0.0",
+                    "0.0.0.0",
+                    "0.0.0.0"
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#HpeiLOEthernetNetworkInterface.HpeiLOEthernetNetworkInterface",
+            "DHCPv6": {
+                "UseDomainName": true,
+                "UseNTPServers": false,
+                "UseRapidCommit": false,
+                "StatelessModeEnabled": true,
+                "UseDNSServers": true,
+                "StatefulModeEnabled": true
+            },
+            "DHCPv4": {
+                "UseGateway": false,
+                "UseDomainName": false,
+                "UseNTPServers": false,
+                "UseWINSServers": false,
+                "ClientIdType": "Default",
+                "Enabled": false,
+                "UseDNSServers": false,
+                "UseStaticRoutes": false
+            },
+            "InterfaceType": "Dedicated",
+            "NICSupportsIPv6": true,
+            "PingGatewayOnStartup": true,
+            "ConfigurationSettings": "Current",
+            "HostName": "TESTESXI11"
+        }
+    },
+    "Id": "1",
+    "IPv6AddressPolicyTable": [
+        {
+            "Label": null,
+            "Prefix": "::ffff:0:0/96",
+            "Precedence": 35
+        }
+    ],
+    "MaxIPv6StaticAddresses": 4
+}

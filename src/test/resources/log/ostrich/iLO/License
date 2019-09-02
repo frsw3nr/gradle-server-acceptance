@@ -1,13 +1,60 @@
-﻿
-
-IP                   : 192.168.1.148
-HOSTNAME             : 
-STATUS_TYPE          : OK
-STATUS_MESSAGE       : OK
-LICENSE_CLASS        : 
-LICENSE_INSTALL_DATE : [NOT SET]
-LICENSE_KEY          : 
-LICENSE_TYPE         : iLO Standard
-
-
-
+{
+    "Description": "iLO License View",
+    "LicenseErr": "",
+    "@odata.type": "#HpeiLOLicense.v2_1_1.HpeiLOLicense",
+    "@odata.etag": "W/\"253109D0\"",
+    "License": "iLO Advanced",
+    "@odata.context": "/redfish/v1/$metadata#HpeiLOLicense.HpeiLOLicense",
+    "LicenseClass": "FQL",
+    "LicenseType": "Perpetual",
+    "Name": "iLO License",
+    "LicenseTier": "ADV",
+    "LicenseInstallDate": "20 Jun 2019",
+    "@odata.id": "/redfish/v1/Managers/1/LicenseService/1/",
+    "LicenseFeatures": {
+        "EmailAlert": true,
+        "Jitter": true,
+        "Scrncap": true,
+        "PowerReg": true,
+        "DirectoryAuth": true,
+        "FWScan": true,
+        "RemoteSyslog": true,
+        "Recovery": true,
+        "VMScript": true,
+        "SecureErase": true,
+        "SmartCard": true,
+        "SuiteB": true,
+        "RC": true,
+        "DowngradePolicy": true,
+        "VSPLogging": true,
+        "Federation": true,
+        "VM": true,
+        "KD": true,
+        "KeyMgr": true,
+        "MURC": true,
+        "TextCons": true
+    },
+    "Id": "1",
+    "Confirmation": {
+        "Status": false,
+        "Message": "",
+        "Service": "reserved for liconf URI",
+        "Code": ""
+    },
+    "ConfirmationRequest": {
+        "Signer": "iLO 5",
+        "EON": {
+            "State": "unconfirmed",
+            "License": "iLO Advanced",
+            "Quantity": 1,
+            "LicenseKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        },
+        "System": {
+            "SerialNumber": "CNXXXXXXXXX",
+            "ChipId": "XXXXXXXXXXXXXXXX",
+            "Product": "ProLiant DL360 Gen10"
+        }
+    },
+    "LicenseExpire": "",
+    "LicenseKey": "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+}

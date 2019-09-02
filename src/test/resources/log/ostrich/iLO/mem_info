@@ -1,0 +1,593 @@
+{
+    "mem_type_active": "MEM_ADVANCED_ECC",
+    "mem_type_available": [
+        {
+            "available_type": "MEM_ADVANCED_ECC"
+        },
+        {
+            "available_type": "MEM_RANK_SPARE"
+        },
+        {
+            "available_type": "MEM_MIRROR_INTRA"
+        },
+        {
+            "available_type": "MEM_A3DC"
+        }
+    ],
+    "mem_data_stale": 0,
+    "memory": [
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 1",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 2",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 3",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 4",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 5",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 6",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 7",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 2666,
+            "mem_dev_loc": "PROC 1 DIMM 8",
+            "mem_size": 32768
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 9",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 2666,
+            "mem_dev_loc": "PROC 1 DIMM 10",
+            "mem_size": 32768
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 1 DIMM 11",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 2666,
+            "mem_dev_loc": "PROC 1 DIMM 12",
+            "mem_size": 16384
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 1",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 2",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 3",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 4",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 5",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 6",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 7",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 2666,
+            "mem_dev_loc": "PROC 2 DIMM 8",
+            "mem_size": 32768
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 9",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 2666,
+            "mem_dev_loc": "PROC 2 DIMM 10",
+            "mem_size": 32768
+        },
+        {
+            "mem_speed": 0,
+            "mem_dev_loc": "PROC 2 DIMM 11",
+            "mem_size": 0
+        },
+        {
+            "mem_speed": 2666,
+            "mem_dev_loc": "PROC 2 DIMM 12",
+            "mem_size": 16384
+        }
+    ],
+    "mem_modules": [
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 1,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 0,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 2,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 1,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 3,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 2,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 4,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 3,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 5,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 4,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 6,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 5,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 7,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 6,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 2666,
+            "mem_mod_ranks": 2,
+            "mem_mod_min_volt": 1200,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_RDIMM",
+            "mem_mod_type": "MEM_DIMM_DDR4",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 8,
+            "mem_mod_part_num": "840758-091",
+            "mem_mod_size": 32768,
+            "mem_mod_idx": 7,
+            "mem_mod_smartmem": "MEM_SMART",
+            "mem_mod_condition": "MEM_OK",
+            "mem_mod_status": "MEM_GOOD_IN_USE"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 9,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 8,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 2666,
+            "mem_mod_ranks": 2,
+            "mem_mod_min_volt": 1200,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_RDIMM",
+            "mem_mod_type": "MEM_DIMM_DDR4",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 10,
+            "mem_mod_part_num": "840758-091",
+            "mem_mod_size": 32768,
+            "mem_mod_idx": 9,
+            "mem_mod_smartmem": "MEM_SMART",
+            "mem_mod_condition": "MEM_OK",
+            "mem_mod_status": "MEM_GOOD_IN_USE"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 11,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 10,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 2666,
+            "mem_mod_ranks": 2,
+            "mem_mod_min_volt": 1200,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_RDIMM",
+            "mem_mod_type": "MEM_DIMM_DDR4",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 1,
+            "mem_mod_num": 12,
+            "mem_mod_part_num": "840756-091",
+            "mem_mod_size": 16384,
+            "mem_mod_idx": 11,
+            "mem_mod_smartmem": "MEM_SMART",
+            "mem_mod_condition": "MEM_OK",
+            "mem_mod_status": "MEM_GOOD_IN_USE"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 1,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 12,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 2,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 13,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 3,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 14,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 4,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 15,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 5,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 16,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 6,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 17,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 7,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 18,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 2666,
+            "mem_mod_ranks": 2,
+            "mem_mod_min_volt": 1200,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_RDIMM",
+            "mem_mod_type": "MEM_DIMM_DDR4",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 8,
+            "mem_mod_part_num": "840758-091",
+            "mem_mod_size": 32768,
+            "mem_mod_idx": 19,
+            "mem_mod_smartmem": "MEM_SMART",
+            "mem_mod_condition": "MEM_OK",
+            "mem_mod_status": "MEM_GOOD_IN_USE"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 9,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 20,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 2666,
+            "mem_mod_ranks": 2,
+            "mem_mod_min_volt": 1200,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_RDIMM",
+            "mem_mod_type": "MEM_DIMM_DDR4",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 10,
+            "mem_mod_part_num": "840758-091",
+            "mem_mod_size": 32768,
+            "mem_mod_idx": 21,
+            "mem_mod_smartmem": "MEM_SMART",
+            "mem_mod_condition": "MEM_OK",
+            "mem_mod_status": "MEM_GOOD_IN_USE"
+        },
+        {
+            "mem_mod_frequency": 0,
+            "mem_mod_ranks": 0,
+            "mem_mod_min_volt": 0,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_OTHER",
+            "mem_mod_type": "MEM_DIMM",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 11,
+            "mem_mod_part_num": "NOT AVAILABLE",
+            "mem_mod_size": 0,
+            "mem_mod_idx": 22,
+            "mem_mod_smartmem": "MEM_NO",
+            "mem_mod_condition": "MEM_OTHER",
+            "mem_mod_status": "MEM_NOT_PRESENT"
+        },
+        {
+            "mem_mod_frequency": 2666,
+            "mem_mod_ranks": 2,
+            "mem_mod_min_volt": 1200,
+            "mem_riser_num": 0,
+            "mem_mod_tech": "MEM_RDIMM",
+            "mem_mod_type": "MEM_DIMM_DDR4",
+            "mem_brd_num": 0,
+            "mem_cpu_num": 2,
+            "mem_mod_num": 12,
+            "mem_mod_part_num": "840756-091",
+            "mem_mod_size": 16384,
+            "mem_mod_idx": 23,
+            "mem_mod_smartmem": "MEM_SMART",
+            "mem_mod_condition": "MEM_OK",
+            "mem_mod_status": "MEM_GOOD_IN_USE"
+        }
+    ],
+    "mem_os_mem_size": 0,
+    "mem_type_configured": "MEM_ADVANCED_ECC",
+    "mem_boards": [
+        {
+            "brd_num_of_sockets": 12,
+            "brd_locked": "MEM_OTHER",
+            "brd_online_status": "MEM_OTHER",
+            "brd_idx": 0,
+            "brd_os_mem_size": 0,
+            "brd_riser_num": 0,
+            "brd_oper_freq": 2400,
+            "brd_total_mem_size": 81920,
+            "brd_error_status": "MEM_OTHER",
+            "brd_condition": "OP_STATUS_OTHER",
+            "brd_cpu_num": 1,
+            "brd_hot_plug": "MEM_OTHER",
+            "brd_oper_volt": 1200,
+            "brd_slot_num": 0
+        },
+        {
+            "brd_num_of_sockets": 12,
+            "brd_locked": "MEM_OTHER",
+            "brd_online_status": "MEM_OTHER",
+            "brd_idx": 1,
+            "brd_os_mem_size": 0,
+            "brd_riser_num": 0,
+            "brd_oper_freq": 2400,
+            "brd_total_mem_size": 81920,
+            "brd_error_status": "MEM_OTHER",
+            "brd_condition": "OP_STATUS_OTHER",
+            "brd_cpu_num": 2,
+            "brd_hot_plug": "MEM_OTHER",
+            "brd_oper_volt": 1200,
+            "brd_slot_num": 1
+        }
+    ],
+    "mem_total_mem_size": 163840,
+    "mem_op_speed": 2400,
+    "hostpwr_state": "ON",
+    "mem_condition": "OP_STATUS_OK",
+    "mem_riv_state": "MEM_OTHER",
+    "mem_hot_plug": "MEM_OTHER",
+    "mem_status": "MEM_ADVANCED_ECC"
+}
