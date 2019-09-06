@@ -94,7 +94,7 @@ public class TicketRegistor {
                 json_count ++
             }
         }
-        println "JSON_COUNT:${json_count}"
+        // println "JSON_COUNT:${json_count}"
         return (json_count > 0)
     }
 

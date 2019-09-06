@@ -1,0 +1,66 @@
+{
+    "next_page": null,
+    "ams_ready": "AMS_READY",
+    "data_state": "DATA_AMS",
+    "in_post": 0,
+    "hostpwr_state": "ON",
+    "log_drive_arrays": [
+        {
+            "storage_type": "SMART_ARRAY_CONTROLLER_TYPE",
+            "accel_tot_mem": "4194304 KB",
+            "encr_self_stat": "OP_STATUS_OK",
+            "enclosures": [
+                {
+                    "name": "Drive Enclosure Port 1I Box 1",
+                    "ports": "4",
+                    "status": "OP_STATUS_OK"
+                },
+                {
+                    "name": "Drive Enclosure Port 2I Box 1",
+                    "ports": "4",
+                    "status": "OP_STATUS_OK"
+                },
+                {
+                    "name": "Drive Enclosure Port 3I Box 2",
+                    "ports": "2",
+                    "status": "OP_STATUS_OK"
+                }
+            ],
+            "has_accel": 1,
+            "accel_cond": "OP_STATUS_OK",
+            "accel_serial": "               ",
+            "hw_status": "OP_STATUS_OK",
+            "logical_drives": [
+                {
+                    "physical_drives": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8
+                    ],
+                    "log_status": "LOG_OK",
+                    "lu_cache_flag": "LOG_CACHE_FLAG_NONMEMBER",
+                    "flt_tol": "RAID 5",
+                    "name": "Logical Drive 01",
+                    "encr_stat": "ENCR_NOT_ENCR",
+                    "status": "OP_STATUS_OK",
+                    "capacity": "8942 GiB",
+                    "lu_cache_LUN": "HIDDEN"
+                }
+            ],
+            "name": "Controller on System Board",
+            "encr_stat": "ENCR_NOT_ENABLED",
+            "model": "HPE Smart Array P816i-a SR Gen10",
+            "encr_csp_stat": "OP_STATUS_OK",
+            "serial_no": "PWDRB0DRHBL06Y ",
+            "fw_version": "1.98",
+            "has_encrypt": 1,
+            "status": "OP_STATUS_OK"
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "date": "Fri Aug 30 11:26:27 2019",
+    "server_name": "TESTESXI11",
+    "option_ROM_measuring": "Disabled",
+    "ilo_fw_bootleg": "",
+    "nic": 0,
+    "uuid": "XXXXXXXXXXXXXXXXXX-XXXX-XXXXXXXXXXXX",
+    "uid_led": "UID_OFF",
+    "self_test": "OP_STATUS_OK",
+    "https_port": 443,
+    "isUEFI": 1,
+    "system_rom": "U32 v2.04 (04/18/2019)",
+    "product_id": "P06454-291",
+    "backup_rom_date": "04/18/2019",
+    "removable_hw": [
+        {
+            "sd_card": "NOT_PRESENT",
+            "tpm_status": "NOT_PRESENT",
+            "module_type": "UNSPECIFIED"
+        }
+    ],
+    "has_reset_priv": 1,
+    "virtual_serial_num": null,
+    "power": "ON",
+    "ers_state": "ERS_INACTIVE",
+    "system_rom_date": "04/18/2019",
+    "virtual_uuid": null,
+    "ilo_fw_version": "1.40 Feb 05 2019",
+    "ilo_name": "TESTESXI11.",
+    "ip_address": "192.168.5.76",
+    "product_name": "ProLiant DL360 Gen10",
+    "serial_num": "CN791107GB",
+    "ipv6_link_local": "FE80::8230:E0FF:FE3E:A360",
+    "license": "iLO Advanced",
+    "system_health": "OP_STATUS_OK",
+    "chassis_sn": ""
+}

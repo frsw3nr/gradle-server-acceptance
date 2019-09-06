@@ -1,0 +1,31 @@
+{
+    "hostpwr_state": "ON",
+    "processors": [
+        {
+            "proc_num_cores_enabled": 12,
+            "proc_num_l3cache": 16896,
+            "proc_num_cores": 12,
+            "proc_speed": 2300,
+            "proc_num_threads": 24,
+            "proc_socket": "Proc 1",
+            "proc_mem_technology": "64-bit Capable",
+            "proc_status": "OP_STATUS_OK",
+            "proc_num_l1cache": 768,
+            "proc_name": "Intel(R) Xeon(R) Gold 5118 CPU @ 2.30GHz",
+            "proc_num_l2cache": 12288
+        },
+        {
+            "proc_num_cores_enabled": 12,
+            "proc_num_l3cache": 16896,
+            "proc_num_cores": 12,
+            "proc_speed": 2300,
+            "proc_num_threads": 24,
+            "proc_socket": "Proc 2",
+            "proc_mem_technology": "64-bit Capable",
+            "proc_status": "OP_STATUS_OK",
+            "proc_num_l1cache": 768,
+            "proc_name": "Intel(R) Xeon(R) Gold 5118 CPU @ 2.30GHz",
+            "proc_num_l2cache": 12288
+        }
+    ]
+}
