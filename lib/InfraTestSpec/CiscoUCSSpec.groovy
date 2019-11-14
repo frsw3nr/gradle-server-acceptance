@@ -3,7 +3,8 @@ package InfraTestSpec
 import groovy.util.logging.Slf4j
 import groovy.transform.InheritConstructors
 // import org.hidetake.groovy.ssh.Ssh
-import ch.ethz.ssh2.Connection
+import com.jcraft.jsch.*
+// import ch.ethz.ssh2.Connection
 import net.sf.expectit.Expect
 import net.sf.expectit.ExpectBuilder
 import static net.sf.expectit.matcher.Matchers.contains
@@ -47,7 +48,8 @@ class CiscoUCS extends InfraTestSpec {
 
         def session
         def result
-        con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
+        // con = (this.use_telnet) ? new TelnetSession(this) : new SshSession(this)
+        con = (this.use_telnet) ? new TelnetSession(this) : new SshSession2(this)
         if (!dry_run) {
             session = login_session(con)
         }
@@ -69,7 +71,7 @@ class CiscoUCS extends InfraTestSpec {
         }
         if (!dry_run) {
             log.info "Close ssh session"
-            session.close()
+            // session.close()
             con.close()
         }
     }
@@ -313,6 +315,7 @@ class CiscoUCS extends InfraTestSpec {
         }
         def csv = []
         def infos = [:].withDefault{0}
+        // println lines
         def yaml_text = this.extract_yaml(lines)
         Yaml yaml_manager = new Yaml()
 
@@ -326,7 +329,12 @@ class CiscoUCS extends InfraTestSpec {
             }
             def values = []
             headers.each {
-                values << info[it] ?: 'Unkown'
+                // Set serial as a string for parsing Infinit Number error.
+                if (it == 'SerialNumber') {
+                    values << "${info[it]}" ?: 'Unkown'
+                } else {
+                    values << info[it] ?: 'Unkown'
+            }
             }
             csv << values
             // println info
