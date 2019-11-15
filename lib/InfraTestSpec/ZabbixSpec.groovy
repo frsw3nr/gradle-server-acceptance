@@ -516,7 +516,7 @@ class ZabbixSpec extends InfraTestSpec {
                     value = zabbix_labels["trigger.${item_name}"][value]
 
                 } else if (item_name == 'description') {
-                    description = value
+                    description = value.replaceAll(/${target_server}/,"ホスト")
                 }
                 columns.add(value)
             }
