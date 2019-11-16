@@ -459,6 +459,10 @@ class ZabbixSpec extends InfraTestSpec {
                 output: "extend",
                 // selectHosts: "extend",
                 // selectHosts: "extend",
+                selectFunctions : "extend", 
+                expandData : "true", 
+                expandDescription : "true", 
+                expandExpression : "true", 
             ]
             if (target_server) {
                 params['hostids'] = [
@@ -487,7 +491,6 @@ class ZabbixSpec extends InfraTestSpec {
             new File("${local_dir}/trigger").text = content
             return content
         }
-
         def jsons = new JsonSlurper().parseText(lines)
 
         def headers = ['priority', 'description', 'expression', 'flags', 'state', 'status']
@@ -513,7 +516,7 @@ class ZabbixSpec extends InfraTestSpec {
                     value = zabbix_labels["trigger.${item_name}"][value]
 
                 } else if (item_name == 'description') {
-                    description = value
+                    description = value.replaceAll(/${target_server}/,"ホスト")
                 }
                 columns.add(value)
             }
