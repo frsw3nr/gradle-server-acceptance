@@ -170,6 +170,9 @@ class CiscoUCS extends InfraTestSpec {
         def yaml = []
         lines.eachLine {
             it = it.replaceAll(/::/, "'::'")
+            // Convert S/N to String for disable parse as number.
+            // e.g. SerialNumber: 18341E3024F6 => SerialNumber: "18341E3024F6"
+            it = it.replaceAll(/SerialNumber: (.+)$/){ "SerialNumber: '${it[1]}'" }
             (it =~ /^---/).each {
                 is_body = true
             }
@@ -328,16 +331,12 @@ class CiscoUCS extends InfraTestSpec {
                 headers = info.keySet() as ArrayList
             }
             def values = []
+            // Set serial as a string for parsing Infinit Number error.
+            info['SerialNumber'] = "'${info['SerialNumber']}'"
             headers.each {
-                // Set serial as a string for parsing Infinit Number error.
-                if (it == 'SerialNumber') {
-                    values << "${info[it]}" ?: 'Unkown'
-                } else {
-                    values << info[it] ?: 'Unkown'
-            }
+                values << info[it] ?: 'Unkown'
             }
             csv << values
-            // println info
             if (info.containsKey('Description')) {
                 infos[info['Description']] += 1
                 add_new_metric("hdd.cont.${row}",   "HDD[${row}] コントローラ", info['Controller'], res)
