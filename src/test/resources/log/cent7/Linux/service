@@ -92,6 +92,7 @@
   systemd-binfmt.service                                loaded    active   exited  Set Up Additional Binary Formats
   systemd-firstboot.service                             loaded    inactive dead    First Boot Wizard
   systemd-fsck-root.service                             loaded    inactive dead    File System Check on Root Device
+  systemd-fsck@dev-disk-by\x2duuid-d6a43f41\x2def4d\x2d4192\x2db34a\x2d22377968d039.service                             loaded    inactive dead    File System Check on Root Device
   systemd-hwdb-update.service                           loaded    inactive dead    Rebuild Hardware Database
   systemd-initctl.service                               loaded    inactive dead    /dev/initctl Compatibility Daemon
   systemd-journal-catalog-update.service                loaded    inactive dead    Rebuild Journal Catalog

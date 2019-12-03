@@ -812,15 +812,17 @@ class LinuxSpec extends LinuxSpecBase {
 
         lines.eachLine {
             // For RHEL7
-            // println it
             // abrt-ccpp.service     loaded    active   exited  Install ABRT coredump hook
               // NetworkManager.service   loaded    inactive dead    Network Manager
             ( it =~ /\s+(.+?)\.service\s+loaded\s+(\w+)\s+(\w+)\s/).each {m0,m1,m2,m3->
                 def service_name = m1
+                (service_name =~/^(.+?)@(.+?)$/).each { n0, n1, n2 ->
+                    service_name = n1 + '@' + 'LABEL'
+                }
                 def status = m2 + '.' + m3
                 statuses[service_name] = status
                 // infos[service_name] = status
-                def columns = [m1, status]
+                def columns = [service_name, status]
                 csv << columns
                 service_count ++
             }
