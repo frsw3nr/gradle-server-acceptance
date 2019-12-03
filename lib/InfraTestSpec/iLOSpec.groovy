@@ -176,6 +176,8 @@ class iLOSpecBase extends InfraTestSpec {
         def jsonSlurper = new JsonSlurper()
         def lic = jsonSlurper.parseText(lines)
         def res = lic?.ConfirmationRequest?.EON?.LicenseKey ?: 'N/A'
+        test_item.devices([[res]], ['license'])
+
         test_item.results(res)
     }
 
