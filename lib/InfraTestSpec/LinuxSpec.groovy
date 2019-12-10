@@ -129,7 +129,11 @@ class LinuxSpec extends LinuxSpecBase {
                 cpuinfo["model_name"] = m1
             }
             (it =~ /cpu MHz\s+:\s(.+)/).each {m0,m1->
-                cpuinfo["mhz"] = m1
+				def mhz = NumberUtils.toDouble(m1)
+                if (!cpuinfo.containsKey("mhz") || cpuinfo["mhz"] < mhz) {
+                    cpuinfo["mhz"] = mhz
+                }
+                // cpuinfo["mhz"] = mhz
             }
             (it =~ /cache size\s+:\s(.+)/).each {m0,m1->
                 cpuinfo["cache_size"] = m1
