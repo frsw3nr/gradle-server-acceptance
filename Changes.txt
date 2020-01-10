@@ -1,3 +1,6 @@
+Solaris テンプレート
+/usr/sbin/ndd -get /dev/tcp tcp_rexmit_interval_max tcp_ip_abort_interval tcp_keepalive_interval
+
 Changes for 0.2.11 (2019-12-31)
 ------------------------------------------------------------------------------
 * Windows エージェントプロトタイプ

@@ -21,7 +21,7 @@ https://qiita.com/minamijoyo/items/cfd22e9e6d3581c5d81f
 
 リファレンス調査
 
-    https://github.com/moul/golang-boilerplate.git
+    git clone https://github.com/moul/golang-boilerplate.git
 
 Glide
 
@@ -86,6 +86,8 @@ https://qiita.com/nayuneko/items/2ec20ba69804e8bf7ca3
 
     mkdir json
     dep ensure
+
+JSONパースで定義が異なっている場合は、0,nilを返す
 
 twitter の箇所から難しくなる、動的にネストしたJSONの解析
 

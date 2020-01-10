@@ -421,6 +421,26 @@ class SolarisSpec extends InfraTestSpec {
         test_item.verify_text_search_list('net_route', net_route)
     }
 
+    def ndd(session, test_item) {
+        def lines = exec('ndd') {
+            session.run_command('/usr/sbin/ndd -get /dev/tcp tcp_rexmit_interval_max tcp_ip_abort_interval tcp_keepalive_interval', 'ndd')
+        }
+        def res = [:]
+        def params = lines.split(/(\r|\n|\s)+/)
+        def results = (params.size() == 3) ? params : [0, 0, 0]
+        add_new_metric("ndd.tcp_rexmit_interval_max", 
+                       "TCPパラメータ tcp_rexmit_interval_max", 
+                       results[0], res)
+        add_new_metric("ndd.tcp_ip_abort_interval", 
+                       "TCPパラメータ tcp_ip_abort_interval", 
+                       results[1], res)
+        add_new_metric("ndd.tcp_keepalive_interval", 
+                       "TCPパラメータ tcp_keepalive_interval", 
+                       results[2], res)
+
+        test_item.results(res)
+    }
+
     def trim(str){
         str.replaceAll(/\A[\s]+/,"").replaceAll(/[\s]+\z/,"")
     }
