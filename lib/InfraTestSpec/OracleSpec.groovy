@@ -242,6 +242,35 @@ class OracleSpec extends InfraTestSpec {
         rapup_test(test_item, info, csv, header)
     }
 
+    def dbregistry(test_item) {
+        def lines = exec('dbregistry') {
+            def query = '''\
+            |SELECT comp_name
+            |     , version
+            |     , status
+            |  FROM dba_registry
+            | ORDER BY comp_name
+            '''
+            def rows = db.rows(query.stripMargin())
+            def header = ['Name', 'Version', 'Status']
+            def text = test_item.sql_rows_to_csv(rows, header)
+            new File("${local_dir}/dbregistry").text = text
+            return text
+        }
+        def info = [:]
+        List header, csv
+        (header, csv) = test_item.parse_csv(lines)
+        def registry_versions = [:]
+        csv.each { arr ->
+            String comp_name, version, status
+            (comp_name, version, status) = arr
+            info["dbregistry.${comp_name}"] = status
+            registry_versions[version] = true
+        }
+        info['dbregistry.version'] = registry_versions.keySet().join(',')
+        rapup_test(test_item, info, csv, header)
+    }
+
     def dbcomps(test_item) {
         def lines = exec('dbcomps') {
             def query = '''\
@@ -261,14 +290,18 @@ class OracleSpec extends InfraTestSpec {
         List header, csv
         (header, csv) = test_item.parse_csv(lines)
         def registry_versions = [:]
+        def res = [:]
         csv.each { arr ->
             String comp_name, version, status
             (comp_name, version, status) = arr
             info["dbcomps.${comp_name}"] = status
+            def id = "${comp_name}.${version}"
+            add_new_metric("dbcomps.${id}", "機能:${id}", status, res)
             registry_versions[version] = true
         }
         info['dbcomps.version'] = registry_versions.keySet().join(',')
         rapup_test(test_item, info, csv, header)
+        test_item.results(res)
     }
 
     def dbfeatusage(test_item) {
