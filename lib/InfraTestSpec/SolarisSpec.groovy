@@ -1048,4 +1048,40 @@ class SolarisSpec extends InfraTestSpec {
         test_item.results(res)
     }
 
+    def tnsnames(session, test_item) {
+        def lines = exec('tnsnames') {
+            if (server_info.containsKey('tnsnames')) {
+                def tns_source = server_info.'tnsnames'
+                println "TNS_SOURCE:$tns_source"
+                session.run_command("cat ${tns_source}", 'tnsnames')
+            }
+
+        }
+        // SOL80 =
+        //   (DESCRIPTION =
+        //     (ENABLE=BROKEN)
+        //     (ADDRESS_LIST =
+        def tns = [:]
+        def tnsname = ''
+        lines.eachLine {
+            (it =~  /^(\w.+?)\s*=\s*$/).each { m0, m1 ->
+                tnsname = m1
+                tns[tnsname] = []
+            }
+            (it =~  /(\(ENABLE=BROKEN\))/).each { m0, m1 ->
+                tns[tnsname] << m1
+            }
+        }
+
+        def csv = []
+        def info = [:]
+        tns.each { key, values ->
+            add_new_metric("tnsnames.${key}", "TNS [${key}]", values, info)
+            csv << [key, "${values}"]
+        }
+        def headers = ['tns', 'config']
+        info['tnsnames'] = "${tns.keySet()}"
+        test_item.results(info)
+        test_item.devices(csv, headers)
+    }
 }
