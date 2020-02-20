@@ -1075,12 +1075,19 @@ class SolarisSpec extends InfraTestSpec {
 
         def csv = []
         def info = [:]
+        def summary = [:].withDefault{[]}
         tns.each { key, values ->
+            if (values.isEmpty()) {
+                summary["None"] << key
+            } else {
+                summary["${values}"] << key
+            }
             add_new_metric("tnsnames.${key}", "TNS [${key}]", values, info)
             csv << [key, "${values}"]
         }
+
         def headers = ['tns', 'config']
-        info['tnsnames'] = "${tns.keySet()}"
+        info['tnsnames'] = "${summary}"
         test_item.results(info)
         test_item.devices(csv, headers)
     }

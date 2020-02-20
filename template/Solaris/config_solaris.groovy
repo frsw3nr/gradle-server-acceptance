@@ -4,8 +4,8 @@ evidence.source = './template/Solaris/Solarisチェックシート.xlsx'
 
 // 検査結果ファイル出力先
 
-// evidence.target='./build/Solarisチェックシート_<date>.xlsx'
-evidence.target='./build/solaris_check_sheet.xlsx'
+evidence.target='./build/Solarisチェックシート_<date>.xlsx'
+// evidence.target='./build/solaris_check_sheet.xlsx'
 
 // 検査結果ログディレクトリ
 evidence.staging_dir='./build/log'
@@ -36,8 +36,8 @@ test.Solaris.dry_run   = false
 
 // Solaris 接続情報
 
-account.Solaris.Test.user      = 'guest'
-account.Solaris.Test.password  = 'guest000'
+account.Solaris.Test.user      = 'admin'
+account.Solaris.Test.password  = 'Y5root'
 account.Solaris.Test.work_dir  = '/tmp/gradle_test'
 
 account.Solaris.Test_telnet.use_telnet = false
