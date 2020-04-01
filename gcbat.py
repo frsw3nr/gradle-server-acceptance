@@ -57,7 +57,7 @@ class GetconfigExecuter():
         self.dry_run = args.dry
         self.redmine = args.redmine
         if not self.redmine:
-            self.redmine = os.environ.get('REDMINE_URL')
+            self.redmine = os.environ.get('REDMINE_PROJECT')
         self.home = self.get_home(self.base_config)
         if not self.home:
             _logger.critical('config path not found')
