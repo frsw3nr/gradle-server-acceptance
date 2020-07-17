@@ -17,7 +17,7 @@ enum RunnerCommand {
 @ToString(includePackage = false)
 class TestRunner {
 
-    static final String main_version = '0.2.12'
+    static final String main_version = '0.2.15'
     RunnerCommand command = RunnerCommand.SCHEDULER
     String getconfig_home
     String project_home
